@@ -3,6 +3,7 @@ package com.escodro.alkaa.ui.task
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import android.databinding.ObservableField
+import android.text.TextUtils
 import com.escodro.alkaa.data.local.model.Task
 import io.reactivex.disposables.CompositeDisposable
 
@@ -32,6 +33,12 @@ class TaskViewModel(private val navigator: TaskNavigator) : ViewModel() {
      * Add a new task.
      */
     fun addTask() {
+        val description = newTask.get()
+        if(TextUtils.isEmpty(description)){
+            navigator.onEmptyField()
+            return
+        }
+
         val task = Task(description = newTask.get())
         compositeDisposable.clear()
         compositeDisposable.addAll(contract.addTask(task)

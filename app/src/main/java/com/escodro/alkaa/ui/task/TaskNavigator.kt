@@ -15,4 +15,9 @@ interface TaskNavigator {
      * @param list new list of [Task]
      */
     fun updateList(list: MutableList<Task>)
+
+    /**
+     * Called when a task without description tries to be added.
+     */
+    fun onEmptyField()
 }

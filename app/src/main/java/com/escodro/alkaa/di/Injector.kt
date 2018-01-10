@@ -4,6 +4,7 @@ import com.escodro.alkaa.AlkaaApp
 import com.escodro.alkaa.di.component.ApplicationComponent
 import com.escodro.alkaa.di.component.DaggerApplicationComponent
 import com.escodro.alkaa.di.module.AndroidModule
+import com.escodro.alkaa.di.module.DatabaseModule
 
 /**
  * Class responsible to initialize the [ApplicationComponent], setting all the applicable
@@ -14,6 +15,7 @@ import com.escodro.alkaa.di.module.AndroidModule
 class Injector {
 
     companion object {
+
         @JvmStatic lateinit var applicationComponent: ApplicationComponent
 
         /**
@@ -24,6 +26,7 @@ class Injector {
         fun initializeApplicationComponent(application: AlkaaApp) {
             applicationComponent = DaggerApplicationComponent.builder()
                     .androidModule(AndroidModule(application))
+                    .databaseModule(DatabaseModule())
                     .build()
         }
     }

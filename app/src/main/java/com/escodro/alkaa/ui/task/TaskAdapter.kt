@@ -30,13 +30,14 @@ class TaskAdapter @Inject constructor(var context: Context) :
 
     private val taskList: MutableList<Task> = ArrayList()
 
-    lateinit var listener: OnItemCheckedChangeListener
+    lateinit var listener: TaskItemListener
 
     override fun onBindViewHolder(holder: BindingHolder<ItemTaskBinding>?, position: Int) {
         val binding = holder?.binding
         val task = taskList[position]
         binding?.task = task
-        binding?.checkbox?.setOnClickListener({ view -> notifyListener(view, task) })
+        binding?.root?.setOnLongClickListener { _ -> notifyLongPressListener(task) }
+        binding?.checkbox?.setOnClickListener({ view -> notifyCheckListener(view, task) })
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): BindingHolder<ItemTaskBinding> {
@@ -63,7 +64,29 @@ class TaskAdapter @Inject constructor(var context: Context) :
         notifyDataSetChanged()
     }
 
-    private fun notifyListener(view: View, task: Task) {
+    /**
+     * Adds a new [Task] in the list.
+     *
+     * @param task task to be added
+     */
+    fun addTask(task: Task) {
+        taskList.add(task)
+        notifyItemChanged(itemCount)
+    }
+
+    /**
+     * Removes new [Task] from the list.
+     *
+     * @param task task to be removed
+     */
+    fun removeTask(task: Task) {
+        val position = taskList.indexOf(task)
+        taskList.remove(task)
+        notifyItemRemoved(position)
+        notifyItemRangeChanged(position, taskList.size)
+    }
+
+    private fun notifyCheckListener(view: View, task: Task) {
         if ((view as CheckBox).isChecked) {
             listener.onItemCheckedChanged(task, true)
         } else {
@@ -71,17 +94,29 @@ class TaskAdapter @Inject constructor(var context: Context) :
         }
     }
 
+    private fun notifyLongPressListener(task: Task): Boolean {
+        listener.onLongPressItem(task)
+        return true
+    }
+
     /**
-     * Callback to notify when the checked status from the [CheckBox] changes.
+     * Listener responsible to callback interactions with [Task] item.
      */
-    interface OnItemCheckedChangeListener {
+    interface TaskItemListener {
 
         /**
-         * Callback to notify when the checked status from the [CheckBox] changes.
+         * Callback notified when the checked status from the [CheckBox] changes.
          *
          * @param task the task that changed its status
          * @param value the checkbox new value
          */
         fun onItemCheckedChanged(task: Task, value: Boolean)
+
+        /**
+         * Callback notified when a item is long pressed.
+         *
+         * @param task task selected
+         */
+        fun onLongPressItem(task: Task)
     }
 }

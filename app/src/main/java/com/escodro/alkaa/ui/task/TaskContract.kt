@@ -50,10 +50,23 @@ class TaskContract {
      *
      * @param task task to be added
      *
-     * @return observable to be subscribe
+     * @return observable to be subscribed
      */
     fun updateTask(task: Task): Observable<Unit> {
         return Observable.fromCallable { taskDao.updateTask(task) }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+    }
+
+    /**
+     * Deletes a task.
+     *
+     * @param task task to be deleted
+     *
+     * @return observable to be subscribe
+     */
+    fun deleteTask(task: Task): Observable<Unit> {
+        return Observable.fromCallable { taskDao.deleteTask(task) }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
     }

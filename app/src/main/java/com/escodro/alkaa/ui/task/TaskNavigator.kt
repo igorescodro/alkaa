@@ -20,4 +20,18 @@ interface TaskNavigator {
      * Called when a task without description tries to be added.
      */
     fun onEmptyField()
+
+    /**
+     * Called when a new task is added.
+     *
+     * @param task task added
+     */
+    fun onNewTaskAdded(task: Task)
+
+    /**
+     * Called when a task is removed.
+     *
+     * @param task task removed
+     */
+    fun onTaskRemoved(task: Task)
 }

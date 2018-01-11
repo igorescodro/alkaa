@@ -34,7 +34,7 @@ class TaskViewModel(private val navigator: TaskNavigator) : ViewModel() {
      */
     fun addTask() {
         val description = newTask.get()
-        if(TextUtils.isEmpty(description)){
+        if (TextUtils.isEmpty(description)) {
             navigator.onEmptyField()
             return
         }
@@ -42,12 +42,14 @@ class TaskViewModel(private val navigator: TaskNavigator) : ViewModel() {
         val task = Task(description = newTask.get())
         compositeDisposable.clear()
         compositeDisposable.addAll(contract.addTask(task)
-                ?.doOnComplete({ cleanAndLoadTasks() })
+                ?.doOnComplete({ onNewTaskAdded(task) })
                 ?.subscribe())
     }
 
     /**
      * Updates the task status.
+     *
+     * @param task task to be updated
      */
     fun updateTaskStatus(task: Task, isCompleted: Boolean) {
         compositeDisposable.clear()
@@ -57,18 +59,35 @@ class TaskViewModel(private val navigator: TaskNavigator) : ViewModel() {
     }
 
     /**
+     * Deletes the given task.
+     *
+     * @param task task to be removed
+     */
+    fun deleteTask(task: Task) {
+        compositeDisposable.clear()
+        compositeDisposable.add(contract.deleteTask(task)
+                .doOnComplete({ onTaskRemoved(task) })
+                .subscribe())
+
+    }
+
+    /**
      * Life-cycle method to be called [android.support.v7.app.AppCompatActivity.onDestroy].
      */
     fun onDestroy() =
             compositeDisposable.clear()
 
-    private fun cleanAndLoadTasks() {
+    private fun onNewTaskAdded(task: Task) {
         newTask.set("")
-        loadTasks()
+        navigator.onNewTaskAdded(task)
+    }
+
+    private fun onTaskRemoved(task: Task) {
+        navigator.onTaskRemoved(task)
     }
 
     /**
-     * A creator to build the [TaskViewModel] passing the [TaskNavigator] as paramenter.
+     * A creator to build the [TaskViewModel] passing the [TaskNavigator] as parameter.
      */
     class Factory(private val navigator: TaskNavigator) :
             ViewModelProvider.NewInstanceFactory() {

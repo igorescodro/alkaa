@@ -20,6 +20,5 @@ class AlkaaApp : Application() {
      */
     private fun initializeComponent() {
         Injector.initializeApplicationComponent(this)
-        Injector.applicationComponent.inject(this)
     }
 }

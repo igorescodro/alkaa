@@ -17,8 +17,6 @@ import javax.inject.Singleton
 @Component(modules = [AndroidModule::class, DatabaseModule::class])
 interface ApplicationComponent {
 
-    fun inject(mainActivity: AlkaaApp)
-
     fun inject(taskActivity: TaskActivity)
 
     fun inject(taskContract: TaskContract)

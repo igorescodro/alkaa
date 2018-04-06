@@ -39,11 +39,6 @@ class TaskActivity : AppCompatActivity(), TaskNavigator, TaskItemListener {
         viewModel.loadTasks()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        viewModel.onDestroy()
-    }
-
     private fun initViewModel() {
         val factory = TaskViewModel.Factory(this)
         viewModel = ViewModelProviders.of(this, factory).get(TaskViewModel::class.java)

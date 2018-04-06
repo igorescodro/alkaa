@@ -1,6 +1,5 @@
 package com.escodro.alkaa.di.component
 
-import com.escodro.alkaa.AlkaaApp
 import com.escodro.alkaa.di.module.AndroidModule
 import com.escodro.alkaa.di.module.DatabaseModule
 import com.escodro.alkaa.ui.task.TaskActivity

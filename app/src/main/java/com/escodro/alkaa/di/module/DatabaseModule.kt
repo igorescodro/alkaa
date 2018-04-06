@@ -2,6 +2,7 @@ package com.escodro.alkaa.di.module
 
 import android.arch.persistence.room.Room
 import android.content.Context
+import com.escodro.alkaa.data.local.TaskDao
 import com.escodro.alkaa.data.local.TaskDatabase
 import dagger.Module
 import dagger.Provides
@@ -19,6 +20,6 @@ class DatabaseModule {
             Room.databaseBuilder(context, TaskDatabase::class.java, "todo-db").build()
 
     @Provides
-    fun provideTaskDao(database: TaskDatabase) =
+    fun provideTaskDao(database: TaskDatabase): TaskDao =
             database.taskDao()
 }

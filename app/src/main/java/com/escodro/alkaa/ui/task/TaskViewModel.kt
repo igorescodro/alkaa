@@ -5,7 +5,6 @@ import android.arch.lifecycle.ViewModelProvider
 import android.databinding.ObservableField
 import android.text.TextUtils
 import com.escodro.alkaa.data.local.model.Task
-import io.reactivex.disposables.CompositeDisposable
 
 /**
  * [ViewModel] responsible to provide information to [com.escodro.alkaa.databinding
@@ -17,16 +16,13 @@ class TaskViewModel(private val navigator: TaskNavigator) : ViewModel() {
 
     private val contract: TaskContract = TaskContract()
 
-    private val compositeDisposable = CompositeDisposable()
-
     val newTask: ObservableField<String> = ObservableField()
 
     /**
      * Loads all tasks.
      */
     fun loadTasks() {
-        compositeDisposable.clear()
-        compositeDisposable.add(contract.loadTasks().subscribe({ navigator.updateList(it) }))
+        contract.loadTasks().subscribe({ navigator.updateList(it) })
     }
 
     /**
@@ -40,10 +36,9 @@ class TaskViewModel(private val navigator: TaskNavigator) : ViewModel() {
         }
 
         val task = Task(description = newTask.get())
-        compositeDisposable.clear()
-        compositeDisposable.addAll(contract.addTask(task)
+        contract.addTask(task)
                 ?.doOnComplete({ onNewTaskAdded(task) })
-                ?.subscribe())
+                ?.subscribe()
     }
 
     /**
@@ -52,9 +47,8 @@ class TaskViewModel(private val navigator: TaskNavigator) : ViewModel() {
      * @param task task to be updated
      */
     fun updateTaskStatus(task: Task, isCompleted: Boolean) {
-        compositeDisposable.clear()
         task.completed = isCompleted
-        compositeDisposable.add(contract.updateTask(task).subscribe())
+        contract.updateTask(task).subscribe()
 
     }
 
@@ -64,18 +58,11 @@ class TaskViewModel(private val navigator: TaskNavigator) : ViewModel() {
      * @param task task to be removed
      */
     fun deleteTask(task: Task) {
-        compositeDisposable.clear()
-        compositeDisposable.add(contract.deleteTask(task)
+        contract.deleteTask(task)
                 .doOnComplete({ onTaskRemoved(task) })
-                .subscribe())
+                .subscribe()
 
     }
-
-    /**
-     * Life-cycle method to be called [android.support.v7.app.AppCompatActivity.onDestroy].
-     */
-    fun onDestroy() =
-            compositeDisposable.clear()
 
     private fun onNewTaskAdded(task: Task) {
         newTask.set("")

@@ -12,9 +12,7 @@ import javax.inject.Singleton
  * @author Igor Escodro on 1/10/18.
  */
 @Module
-class AndroidModule(
-        private val application: Application
-) {
+class AndroidModule(private val application: Application) {
 
     @Provides
     @Singleton

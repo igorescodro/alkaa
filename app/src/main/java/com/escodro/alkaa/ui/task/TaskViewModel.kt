@@ -1,7 +1,6 @@
 package com.escodro.alkaa.ui.task
 
 import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProvider
 import android.databinding.ObservableField
 import android.text.TextUtils
 import com.escodro.alkaa.data.local.model.Task
@@ -12,8 +11,9 @@ import com.escodro.alkaa.data.local.model.Task
  *
  * Created by Igor Escodro on 1/2/18.
  */
-class TaskViewModel(private val navigator: TaskNavigator, private val contract: TaskContract) :
-        ViewModel() {
+class TaskViewModel(private val contract: TaskContract) : ViewModel() {
+
+    var navigator: TaskNavigator? = null
 
     val newTask: ObservableField<String> = ObservableField()
 
@@ -21,7 +21,7 @@ class TaskViewModel(private val navigator: TaskNavigator, private val contract: 
      * Loads all tasks.
      */
     fun loadTasks() {
-        contract.loadTasks().subscribe({ navigator.updateList(it) })
+        contract.loadTasks().subscribe({ navigator?.updateList(it) })
     }
 
     /**
@@ -30,7 +30,7 @@ class TaskViewModel(private val navigator: TaskNavigator, private val contract: 
     fun addTask() {
         val description = newTask.get()
         if (TextUtils.isEmpty(description)) {
-            navigator.onEmptyField()
+            navigator?.onEmptyField()
             return
         }
 
@@ -65,22 +65,10 @@ class TaskViewModel(private val navigator: TaskNavigator, private val contract: 
 
     private fun onNewTaskAdded(task: Task) {
         newTask.set("")
-        navigator.onNewTaskAdded(task)
+        navigator?.onNewTaskAdded(task)
     }
 
     private fun onTaskRemoved(task: Task) {
-        navigator.onTaskRemoved(task)
-    }
-
-    /**
-     * A creator to build the [TaskViewModel] passing the [TaskNavigator] as parameter.
-     */
-    class Factory(private val navigator: TaskNavigator, private val contract: TaskContract) :
-            ViewModelProvider.NewInstanceFactory() {
-
-        @Suppress("UNCHECKED_CAST")
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return TaskViewModel(navigator, contract) as T
-        }
+        navigator?.onTaskRemoved(task)
     }
 }

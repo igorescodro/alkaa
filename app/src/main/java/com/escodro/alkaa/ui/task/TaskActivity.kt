@@ -1,6 +1,5 @@
 package com.escodro.alkaa.ui.task
 
-import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
@@ -12,6 +11,7 @@ import com.escodro.alkaa.R
 import com.escodro.alkaa.data.local.model.Task
 import com.escodro.alkaa.databinding.ActivityTaskBinding
 import com.escodro.alkaa.ui.task.TaskAdapter.TaskItemListener
+import org.koin.android.architecture.ext.viewModel
 import org.koin.android.ext.android.inject
 
 /**
@@ -23,9 +23,7 @@ class TaskActivity : AppCompatActivity(), TaskNavigator, TaskItemListener {
 
     private val adapter: TaskAdapter by inject()
 
-    private val contract: TaskContract by inject()
-
-    private lateinit var viewModel: TaskViewModel
+    private val viewModel: TaskViewModel by viewModel()
 
     private lateinit var binding: ActivityTaskBinding
 
@@ -33,15 +31,10 @@ class TaskActivity : AppCompatActivity(), TaskNavigator, TaskItemListener {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_task)
 
-        initViewModel()
         bindComponents(binding)
         adapter.listener = this
+        viewModel.navigator = this
         viewModel.loadTasks()
-    }
-
-    private fun initViewModel() {
-        val factory = TaskViewModel.Factory(this, contract)
-        viewModel = ViewModelProviders.of(this, factory).get(TaskViewModel::class.java)
     }
 
     private fun bindComponents(binding: ActivityTaskBinding) {

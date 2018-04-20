@@ -11,9 +11,8 @@ import android.widget.TextView
 import com.escodro.alkaa.R
 import com.escodro.alkaa.data.local.model.Task
 import com.escodro.alkaa.databinding.ActivityTaskBinding
-import com.escodro.alkaa.di.Injector
 import com.escodro.alkaa.ui.task.TaskAdapter.TaskItemListener
-import javax.inject.Inject
+import org.koin.android.ext.android.inject
 
 /**
  * [AppCompatActivity] responsible to show the [Task] list.
@@ -22,7 +21,9 @@ import javax.inject.Inject
  */
 class TaskActivity : AppCompatActivity(), TaskNavigator, TaskItemListener {
 
-    @Inject lateinit var adapter: TaskAdapter
+    private val adapter: TaskAdapter by inject()
+
+    private val contract: TaskContract by inject()
 
     private lateinit var viewModel: TaskViewModel
 
@@ -30,7 +31,6 @@ class TaskActivity : AppCompatActivity(), TaskNavigator, TaskItemListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Injector.applicationComponent.inject(this)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_task)
 
         initViewModel()
@@ -40,7 +40,7 @@ class TaskActivity : AppCompatActivity(), TaskNavigator, TaskItemListener {
     }
 
     private fun initViewModel() {
-        val factory = TaskViewModel.Factory(this)
+        val factory = TaskViewModel.Factory(this, contract)
         viewModel = ViewModelProviders.of(this, factory).get(TaskViewModel::class.java)
     }
 

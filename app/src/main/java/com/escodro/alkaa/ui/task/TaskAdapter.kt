@@ -11,21 +11,13 @@ import com.escodro.alkaa.R
 import com.escodro.alkaa.common.viewholder.BindingHolder
 import com.escodro.alkaa.data.local.model.Task
 import com.escodro.alkaa.databinding.ItemTaskBinding
-import javax.inject.Inject
-import javax.inject.Singleton
 
 /**
  * [RecyclerView.Adapter] to bind the [Task] in the [RecyclerView].
  *
  * @author Igor Escodro on 1/3/18.
  */
-
-/*
-IMPORTANT: Using the AAC, the Adapter MUST be @Singleton, otherwise it will lose its reference on
-screen rotation.
-*/
-@Singleton
-class TaskAdapter @Inject constructor(var context: Context) :
+class TaskAdapter constructor(var context: Context) :
         RecyclerView.Adapter<BindingHolder<ItemTaskBinding>>() {
 
     private val taskList: MutableList<Task> = ArrayList()

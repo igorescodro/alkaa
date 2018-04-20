@@ -1,26 +1,20 @@
 package com.escodro.alkaa.ui.task
 
-import com.escodro.alkaa.data.local.TaskDao
 import com.escodro.alkaa.data.local.model.Task
-import com.escodro.alkaa.di.Injector
+import com.escodro.alkaa.di.DaoRepository
 import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import javax.inject.Inject
 
 /**
  * Class containing the contract methods related to [TaskViewModel].
  *
  * @author Igor Escodro on 1/4/18.
  */
-class TaskContract {
+class TaskContract(daoRepository: DaoRepository) {
 
-    @Inject lateinit var taskDao: TaskDao
-
-    init {
-        Injector.applicationComponent.inject(this)
-    }
+    private val taskDao = daoRepository.getTaskDao()
 
     /**
      * Loads all tasks

@@ -46,9 +46,8 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
-    //Dagger 2
-    implementation 'com.google.dagger:dagger:2.11'
-    kapt 'com.google.dagger:dagger-compiler:2.11'
+    //Koin
+    implementation 'org.koin:koin-android:0.9.2'
 
     //Rx
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'

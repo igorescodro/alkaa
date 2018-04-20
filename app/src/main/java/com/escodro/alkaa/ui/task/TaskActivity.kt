@@ -33,7 +33,6 @@ class TaskActivity : AppCompatActivity(), TaskNavigator, TaskItemListener {
 
         bindComponents(binding)
         adapter.listener = this
-        viewModel.navigator = this
         viewModel.loadTasks()
     }
 

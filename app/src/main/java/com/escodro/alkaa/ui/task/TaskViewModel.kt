@@ -11,9 +11,8 @@ import com.escodro.alkaa.data.local.model.Task
  *
  * Created by Igor Escodro on 1/2/18.
  */
-class TaskViewModel(private val contract: TaskContract) : ViewModel() {
-
-    var navigator: TaskNavigator? = null
+class TaskViewModel(private val contract: TaskContract, private val navigator: TaskNavigator) :
+        ViewModel() {
 
     val newTask: ObservableField<String> = ObservableField()
 
@@ -21,7 +20,7 @@ class TaskViewModel(private val contract: TaskContract) : ViewModel() {
      * Loads all tasks.
      */
     fun loadTasks() {
-        contract.loadTasks().subscribe({ navigator?.updateList(it) })
+        contract.loadTasks().subscribe({ navigator.updateList(it) })
     }
 
     /**
@@ -30,7 +29,7 @@ class TaskViewModel(private val contract: TaskContract) : ViewModel() {
     fun addTask() {
         val description = newTask.get()
         if (TextUtils.isEmpty(description)) {
-            navigator?.onEmptyField()
+            navigator.onEmptyField()
             return
         }
 
@@ -65,10 +64,10 @@ class TaskViewModel(private val contract: TaskContract) : ViewModel() {
 
     private fun onNewTaskAdded(task: Task) {
         newTask.set("")
-        navigator?.onNewTaskAdded(task)
+        navigator.onNewTaskAdded(task)
     }
 
     private fun onTaskRemoved(task: Task) {
-        navigator?.onTaskRemoved(task)
+        navigator.onTaskRemoved(task)
     }
 }

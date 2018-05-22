@@ -30,6 +30,7 @@ class TaskActivity : AppCompatActivity(), TaskNavigator, TaskItemListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_task)
+        binding.setLifecycleOwner(this)
 
         bindComponents(binding)
         adapter.listener = this

@@ -51,7 +51,6 @@ class TaskViewModel(private val contract: TaskContract, private val navigator: T
     fun updateTaskStatus(task: Task, isCompleted: Boolean) {
         task.completed = isCompleted
         contract.updateTask(task).subscribe()
-
     }
 
     /**
@@ -63,7 +62,6 @@ class TaskViewModel(private val contract: TaskContract, private val navigator: T
         contract.deleteTask(task)
                 .doOnComplete({ onTaskRemoved(task) })
                 .subscribe()
-
     }
 
     override fun onCleared() {

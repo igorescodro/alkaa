@@ -17,7 +17,7 @@ import com.escodro.alkaa.databinding.ItemTaskBinding
  *
  * @author Igor Escodro on 1/3/18.
  */
-class TaskAdapter constructor(var context: Context) :
+class TaskAdapter constructor(private var context: Context) :
         RecyclerView.Adapter<BindingHolder<ItemTaskBinding>>() {
 
     private val taskList: MutableList<Task> = ArrayList()

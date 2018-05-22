@@ -12,8 +12,9 @@ import android.arch.persistence.room.PrimaryKey
  */
 @Entity
 data class Task(
-        @ColumnInfo(name = "completed_flag") var completed: Boolean = false,
-        @ColumnInfo(name = "task_description") var description: String?) {
+    @ColumnInfo(name = "completed_flag") var completed: Boolean = false,
+    @ColumnInfo(name = "task_description") var description: String?
+) {
 
     @ColumnInfo(name = "id")
     @PrimaryKey(autoGenerate = true)

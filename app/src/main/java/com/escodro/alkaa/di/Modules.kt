@@ -1,6 +1,10 @@
 package com.escodro.alkaa.di
 
-import com.escodro.alkaa.ui.task.*
+import com.escodro.alkaa.ui.task.TaskActivity
+import com.escodro.alkaa.ui.task.TaskAdapter
+import com.escodro.alkaa.ui.task.TaskContract
+import com.escodro.alkaa.ui.task.TaskNavigator
+import com.escodro.alkaa.ui.task.TaskViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module.applicationContext
 

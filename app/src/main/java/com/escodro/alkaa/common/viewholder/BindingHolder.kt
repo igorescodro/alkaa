@@ -9,4 +9,3 @@ import android.support.v7.widget.RecyclerView
  * @author Igor Escodro on 1/3/18.
  */
 class BindingHolder<out T : ViewDataBinding>(val binding: T) : RecyclerView.ViewHolder(binding.root)
-

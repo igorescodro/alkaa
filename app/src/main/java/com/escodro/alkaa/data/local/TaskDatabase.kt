@@ -9,7 +9,7 @@ import com.escodro.alkaa.data.local.model.Task
  *
  * @author Igor Escodro on 1/2/18.
  */
-@Database(entities = arrayOf(Task::class), version = 1, exportSchema = false)
+@Database(entities = [(Task::class)], version = 1, exportSchema = false)
 abstract class TaskDatabase : RoomDatabase() {
 
     abstract fun taskDao(): TaskDao

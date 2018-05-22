@@ -22,9 +22,9 @@ class TaskContract(daoRepository: DaoRepository) {
      * @return a mutable list of all tasks
      */
     fun loadTasks(): Flowable<MutableList<Task>> =
-            taskDao.getAllTasks()
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
+        taskDao.getAllTasks()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
 
     /**
      * Adds a task.
@@ -35,8 +35,8 @@ class TaskContract(daoRepository: DaoRepository) {
      */
     fun addTask(task: Task): Observable<Unit>? {
         return Observable.fromCallable { taskDao.insertTask(task) }
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
     }
 
     /**
@@ -48,8 +48,8 @@ class TaskContract(daoRepository: DaoRepository) {
      */
     fun updateTask(task: Task): Observable<Unit> {
         return Observable.fromCallable { taskDao.updateTask(task) }
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
     }
 
     /**
@@ -61,8 +61,7 @@ class TaskContract(daoRepository: DaoRepository) {
      */
     fun deleteTask(task: Task): Observable<Unit> {
         return Observable.fromCallable { taskDao.deleteTask(task) }
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
     }
 }
-

@@ -3,7 +3,7 @@ package com.escodro.alkaa.ui.task
 import com.escodro.alkaa.data.local.model.Task
 
 /**
- * Navigator responsible to [TaskActivity] operations.
+ * Navigator responsible to [TaskFragment] operations.
  *
  * @author Igor Escodro on 1/4/18.
  */

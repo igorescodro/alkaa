@@ -18,26 +18,30 @@ import com.escodro.alkaa.databinding.ItemTaskBinding
  * @author Igor Escodro on 1/3/18.
  */
 class TaskAdapter constructor(private var context: Context) :
-        RecyclerView.Adapter<BindingHolder<ItemTaskBinding>>() {
+    RecyclerView.Adapter<BindingHolder<ItemTaskBinding>>() {
 
     private val taskList: MutableList<Task> = ArrayList()
 
     lateinit var listener: TaskItemListener
 
-    override fun onBindViewHolder(holder: BindingHolder<ItemTaskBinding>?, position: Int) {
-        val binding = holder?.binding
+    override fun onBindViewHolder(holder: BindingHolder<ItemTaskBinding>, position: Int) {
+        val binding = holder.binding
         val task = taskList[position]
-        binding?.task = task
-        binding?.root?.setOnLongClickListener { _ -> notifyLongPressListener(task) }
-        binding?.checkbox?.setOnClickListener({ view -> notifyCheckListener(view, task) })
+        binding.task = task
+        binding.root.setOnLongClickListener { _ -> notifyLongPressListener(task) }
+        binding.checkbox.setOnClickListener({ view -> notifyCheckListener(view, task) })
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): BindingHolder<ItemTaskBinding> {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): BindingHolder<ItemTaskBinding> {
         val binding = DataBindingUtil.inflate<ItemTaskBinding>(
-                LayoutInflater.from(context),
-                R.layout.item_task,
-                parent,
-                false)
+            LayoutInflater.from(context),
+            R.layout.item_task,
+            parent,
+            false
+        )
 
         return BindingHolder(binding)
     }

@@ -5,7 +5,7 @@ import android.support.v7.preference.PreferenceFragmentCompat
 import com.escodro.alkaa.R
 
 /**
- * [PreferenceFragmentCompat] containing the application preferences
+ * [PreferenceFragmentCompat] containing the application preferences.
  *
  * @author Igor Escodro on 27/5/18.
  */

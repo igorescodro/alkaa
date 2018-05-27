@@ -1,0 +1,5 @@
+failFast: true
+
+complexity:
+  TooManyFunctions:
+    thresholdInClasses: 15

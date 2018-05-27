@@ -12,8 +12,13 @@ import com.escodro.alkaa.data.local.TaskDatabase
  */
 class DatabaseRepository(private val context: Context) {
 
+    /**
+     * Gets the [Task] database.
+     *
+     * @return the [Task] database
+     */
     fun getDatabase(): TaskDatabase =
-            Room.databaseBuilder(context, TaskDatabase::class.java, "todo-db").build()
+        Room.databaseBuilder(context, TaskDatabase::class.java, "todo-db").build()
 }
 
 /**
@@ -23,6 +28,11 @@ class DatabaseRepository(private val context: Context) {
  */
 class DaoRepository(private val database: DatabaseRepository) {
 
+    /**
+     * Gets the [TaskDao].
+     *
+     * @return the [TaskDao]
+     */
     fun getTaskDao(): TaskDao =
-            database.getDatabase().taskDao()
+        database.getDatabase().taskDao()
 }

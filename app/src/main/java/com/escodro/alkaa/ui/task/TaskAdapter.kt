@@ -22,14 +22,14 @@ class TaskAdapter constructor(private var context: Context) :
 
     private val taskList: MutableList<Task> = ArrayList()
 
-    lateinit var listener: TaskItemListener
+    var listener: TaskItemListener? = null
 
     override fun onBindViewHolder(holder: BindingHolder<ItemTaskBinding>, position: Int) {
         val binding = holder.binding
         val task = taskList[position]
         binding.task = task
         binding.root.setOnLongClickListener { _ -> notifyLongPressListener(task) }
-        binding.checkbox.setOnClickListener({ view -> notifyCheckListener(view, task) })
+        binding.checkbox.setOnClickListener { view -> notifyCheckListener(view, task) }
     }
 
     override fun onCreateViewHolder(
@@ -83,15 +83,12 @@ class TaskAdapter constructor(private var context: Context) :
     }
 
     private fun notifyCheckListener(view: View, task: Task) {
-        if ((view as CheckBox).isChecked) {
-            listener.onItemCheckedChanged(task, true)
-        } else {
-            listener.onItemCheckedChanged(task, false)
-        }
+        val checkBox: CheckBox? = view as? CheckBox
+        checkBox?.isChecked?.let { listener?.onItemCheckedChanged(task, it) }
     }
 
     private fun notifyLongPressListener(task: Task): Boolean {
-        listener.onLongPressItem(task)
+        listener?.onLongPressItem(task)
         return true
     }
 

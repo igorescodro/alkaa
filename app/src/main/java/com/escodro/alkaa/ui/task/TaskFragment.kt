@@ -29,7 +29,7 @@ class TaskFragment : Fragment(), TaskNavigator, TaskAdapter.TaskItemListener {
 
     private val viewModel: TaskViewModel by viewModel()
 
-    private lateinit var binding: FragmentTaskBinding
+    private var binding: FragmentTaskBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,7 +40,7 @@ class TaskFragment : Fragment(), TaskNavigator, TaskAdapter.TaskItemListener {
         binding = DataBindingUtil
             .inflate(inflater, R.layout.fragment_task, container, false)
         setHasOptionsMenu(true)
-        return binding.root
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -57,38 +57,38 @@ class TaskFragment : Fragment(), TaskNavigator, TaskAdapter.TaskItemListener {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
-            R.id.action_preference -> NavHostFragment.findNavController(this).navigate(R.id.preference_action)
+            R.id.action_preference ->
+                NavHostFragment.findNavController(this).navigate(R.id.preference_action)
         }
         return true
     }
 
     private fun bindComponents() {
-        binding.setLifecycleOwner(this)
-        binding.recyclerView.adapter = adapter
-        binding.recyclerView.layoutManager = getLayoutManager()
-        binding.editText.setOnEditorActionListener(getEditorActionListener())
-        binding.viewModel = viewModel
+        binding?.setLifecycleOwner(this)
+        binding?.recyclerView?.adapter = adapter
+        binding?.recyclerView?.layoutManager = getLayoutManager()
+        binding?.editText?.setOnEditorActionListener(getEditorActionListener())
+        binding?.viewModel = viewModel
     }
 
     private fun getLayoutManager() =
         LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
-    private fun getEditorActionListener(): TextView.OnEditorActionListener {
-        return TextView.OnEditorActionListener { _, action, _ ->
+    private fun getEditorActionListener(): TextView.OnEditorActionListener =
+        TextView.OnEditorActionListener { _, action, _ ->
             var result = false
             if (action == EditorInfo.IME_ACTION_DONE) {
                 viewModel.addTask()
                 result = true
             }
-            return@OnEditorActionListener result
+            result
         }
-    }
 
     override fun updateList(list: MutableList<Task>) =
         adapter.updateTaskList(list)
 
     override fun onEmptyField() {
-        binding.editText.error = "Empty field"
+        binding?.editText?.error = "Empty field"
     }
 
     override fun onNewTaskAdded(task: Task) {

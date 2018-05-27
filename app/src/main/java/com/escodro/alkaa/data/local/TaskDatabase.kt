@@ -12,5 +12,10 @@ import com.escodro.alkaa.data.local.model.Task
 @Database(entities = [(Task::class)], version = 1, exportSchema = false)
 abstract class TaskDatabase : RoomDatabase() {
 
+    /**
+     * Gets the [TaskDao].
+     *
+     * @return the [TaskDao]
+     */
     abstract fun taskDao(): TaskDao
 }

@@ -13,6 +13,7 @@ import org.koin.dsl.module.applicationContext
  *
  * @author Igor Escodro on 4/19/18.
  */
+@Suppress("UnsafeCast")
 val DatabaseModule = applicationContext {
 
     bean { DatabaseRepository(get()) }

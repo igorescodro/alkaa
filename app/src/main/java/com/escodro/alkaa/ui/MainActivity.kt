@@ -16,7 +16,7 @@ import com.escodro.alkaa.R
  */
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var navController: NavController
+    private var navController: NavController? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initComponents() {
         val host: NavHostFragment = supportFragmentManager
-            .findFragmentById(R.id.navigation_host) as NavHostFragment? ?: return
+            .findFragmentById(R.id.navigation_host) as? NavHostFragment? ?: return
 
         navController = host.navController
         setupActionBar()
@@ -36,15 +36,16 @@ class MainActivity : AppCompatActivity() {
     private fun setupActionBar() {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
-        NavigationUI.setupActionBarWithNavController(this, navController)
+        navController?.let { NavigationUI.setupActionBarWithNavController(this, it) }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return NavigationUI.onNavDestinationSelected(item, navController) ||
-            super.onOptionsItemSelected(item)
+        val shouldHandle = navController?.let { NavigationUI.onNavDestinationSelected(item, it) }
+            ?: false
+
+        return shouldHandle || super.onOptionsItemSelected(item)
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp()
-    }
+    override fun onSupportNavigateUp() =
+        navController?.navigateUp() ?: false
 }

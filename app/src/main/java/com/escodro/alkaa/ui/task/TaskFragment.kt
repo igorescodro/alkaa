@@ -6,10 +6,14 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
+import androidx.navigation.fragment.NavHostFragment
 import com.escodro.alkaa.R
 import com.escodro.alkaa.data.local.model.Task
 import com.escodro.alkaa.databinding.FragmentTaskBinding
@@ -35,19 +39,31 @@ class TaskFragment : Fragment(), TaskNavigator, TaskAdapter.TaskItemListener {
 
         binding = DataBindingUtil
             .inflate(inflater, R.layout.fragment_task, container, false)
+        setHasOptionsMenu(true)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.setLifecycleOwner(this)
         bindComponents()
 
         adapter.listener = this
         viewModel.loadTasks()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        inflater?.inflate(R.menu.task_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            R.id.action_preference -> NavHostFragment.findNavController(this).navigate(R.id.preference_action)
+        }
+        return true
+    }
+
     private fun bindComponents() {
+        binding.setLifecycleOwner(this)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = getLayoutManager()
         binding.editText.setOnEditorActionListener(getEditorActionListener())
@@ -97,17 +113,5 @@ class TaskFragment : Fragment(), TaskNavigator, TaskAdapter.TaskItemListener {
             }
         })
         builder?.show()
-    }
-
-    companion object {
-
-        /**
-         * Create a new instance of [TaskFragment].
-         *
-         * @return new instance of [TaskFragment]
-         */
-        fun newInstance(): TaskFragment {
-            return TaskFragment()
-        }
     }
 }

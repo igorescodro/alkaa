@@ -38,6 +38,7 @@ dependencies {
     implementation "com.android.support:appcompat-v7:$support_version"
     implementation "com.android.support:design:$support_version"
     implementation "com.android.support:recyclerview-v7:$support_version"
+    implementation "com.android.support:preference-v7:$support_version"
     implementation "com.android.support.constraint:constraint-layout:1.1.0"
 
     //Data Binding + Kotlin
@@ -60,4 +61,6 @@ dependencies {
     implementation "android.arch.persistence.room:runtime:$arch_version"
     kapt "android.arch.persistence.room:compiler:$arch_version"
     implementation "android.arch.persistence.room:rxjava2:$arch_version"
+    implementation "android.arch.navigation:navigation-fragment:$navigation_version"
+    implementation "android.arch.navigation:navigation-ui:$navigation_version"
 }

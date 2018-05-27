@@ -3,6 +3,8 @@
 Alkaa (_to begin_, _to start_ in Finnish) is a simple to-do list project to study the latest components, architecure, tools, and APIs released in Android Platform.
 
 Currently, this project covers the following topics:
+
+#### Android
 - [Kotlin](https://kotlinlang.org)
 - [Android Architecture Components](https://developer.android.com/topic/libraries/architecture/)
   - [LiveData](https://developer.android.com/topic/libraries/architecture/livedata)
@@ -12,13 +14,19 @@ Currently, this project covers the following topics:
   - [Navigation](https://developer.android.com/topic/libraries/architecture/navigation/)
 - [Data Binding](https://developer.android.com/topic/libraries/data-binding/)
 - [ConstraintLayout](https://developer.android.com/training/constraint-layout/)
+
+#### Third-Party
 - [Koin](https://insert-koin.io)
 - [RxJava 2 e RxAndroid 2](https://github.com/ReactiveX/RxAndroid)
 
-Tools covered but removed:
+#### Quality check
+- [klint](https://github.com/shyiko/ktlint)
+- [detekt](https://github.com/arturbosch/detekt)
+
+#### Tools covered but removed:
 - [Dagger 2](https://google.github.io/dagger/) (replaced by Koin)
 ---
-###### Feel free to fork it and update as you prefer - Enjoy your studies!
+### Feel free to fork it and update as you prefer - Enjoy your studies!
 
 ## License
 ``` 

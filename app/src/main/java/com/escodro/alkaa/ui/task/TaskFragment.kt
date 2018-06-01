@@ -24,7 +24,7 @@ import org.koin.android.ext.android.inject
 /**
  * [Fragment] responsible to show and handle all [Task]s.
  */
-class TaskFragment : Fragment(), TaskNavigator, TaskAdapter.TaskItemListener {
+class TaskFragment : Fragment(), TaskDelegate, TaskAdapter.TaskItemListener {
 
     private val adapter: TaskAdapter by inject()
 
@@ -90,7 +90,7 @@ class TaskFragment : Fragment(), TaskNavigator, TaskAdapter.TaskItemListener {
         adapter.updateTaskList(list)
 
     override fun onEmptyField() {
-        binding?.editText?.error = "Empty field"
+        binding?.editText?.error = getString(R.string.task_error_empty)
     }
 
     override fun onNewTaskAdded(task: Task) {
@@ -111,12 +111,11 @@ class TaskFragment : Fragment(), TaskNavigator, TaskAdapter.TaskItemListener {
     }
 
     override fun onItemLongPressed(task: Task) {
-        val options = arrayOf("Delete")
-
         val builder = context?.let { AlertDialog.Builder(it) }
         builder?.setTitle(task.description)
-        builder?.setItems(options, { _, i ->
-            when (i) {
+        builder?.setItems(R.array.task_dialog_options, { _,
+            item ->
+            when (item) {
                 0 -> viewModel.deleteTask(task)
             }
         })

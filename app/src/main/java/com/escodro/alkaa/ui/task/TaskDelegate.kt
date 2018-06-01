@@ -3,11 +3,11 @@ package com.escodro.alkaa.ui.task
 import com.escodro.alkaa.data.local.model.Task
 
 /**
- * Navigator responsible to [TaskFragment] operations.
+ * Delegate interface responsible to [TaskFragment] UI operations.
  *
  * @author Igor Escodro on 1/4/18.
  */
-interface TaskNavigator {
+interface TaskDelegate {
 
     /**
      * Updates the [TaskAdapter] with the new list of [Task].

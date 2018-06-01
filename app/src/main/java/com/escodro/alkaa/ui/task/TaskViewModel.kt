@@ -17,7 +17,7 @@ class TaskViewModel(private val contract: TaskContract) :
 
     val newTask = MutableLiveData<String>()
 
-    var navigator: TaskNavigator? = null
+    var navigator: TaskDelegate? = null
 
     private val compositeDisposable = CompositeDisposable()
 
@@ -72,7 +72,7 @@ class TaskViewModel(private val contract: TaskContract) :
     }
 
     private fun onNewTaskAdded(task: Task) {
-        newTask.value = ""
+        newTask.value = null
         navigator?.onNewTaskAdded(task)
     }
 

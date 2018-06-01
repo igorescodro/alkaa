@@ -4,4 +4,11 @@
 
     <!-- Task screen -->
     <string name="task_menu_preferences">Preferences</string>
+    <string name="task_error_empty">Empty field</string>
+
+    <string-array
+        name="task_dialog_options">
+        <item>Delete</item>
+    </string-array>
+
 </resources>

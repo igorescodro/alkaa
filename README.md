@@ -14,6 +14,7 @@ Currently, this project covers the following topics:
   - [Navigation](https://developer.android.com/topic/libraries/architecture/navigation/)
 - [Data Binding](https://developer.android.com/topic/libraries/data-binding/)
 - [ConstraintLayout](https://developer.android.com/training/constraint-layout/)
+- [Android KTX](https://developer.android.com/kotlin/ktx)
 
 #### Third-Party
 - [Koin](https://insert-koin.io)
@@ -25,8 +26,10 @@ Currently, this project covers the following topics:
 
 #### Tools covered but removed:
 - [Dagger 2](https://google.github.io/dagger/) (replaced by Koin)
+
 ---
 ### Feel free to fork it and update as you prefer - Enjoy your studies!
+---
 
 ## License
 ``` 

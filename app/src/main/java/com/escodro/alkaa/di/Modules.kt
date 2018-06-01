@@ -3,8 +3,6 @@ package com.escodro.alkaa.di
 import com.escodro.alkaa.ui.detail.DetailViewModel
 import com.escodro.alkaa.ui.task.TaskAdapter
 import com.escodro.alkaa.ui.task.TaskContract
-import com.escodro.alkaa.ui.task.TaskFragment
-import com.escodro.alkaa.ui.task.TaskNavigator
 import com.escodro.alkaa.ui.task.TaskViewModel
 import org.koin.android.architecture.ext.viewModel
 import org.koin.android.ext.koin.androidApplication
@@ -23,8 +21,7 @@ val DatabaseModule = applicationContext {
     bean { DaoRepository(get()) }
 
     // Task
-    bean { TaskFragment() as TaskNavigator }
-    viewModel { TaskViewModel(get(), get()) }
+    viewModel { TaskViewModel(get()) }
     bean { TaskAdapter(androidApplication()) }
     bean { TaskContract(get()) }
 

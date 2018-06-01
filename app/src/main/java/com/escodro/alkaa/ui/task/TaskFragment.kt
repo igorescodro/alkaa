@@ -46,9 +46,10 @@ class TaskFragment : Fragment(), TaskNavigator, TaskAdapter.TaskItemListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        bindComponents()
 
+        bindComponents()
         adapter.listener = this
+        viewModel.navigator = this
         viewModel.loadTasks()
     }
 

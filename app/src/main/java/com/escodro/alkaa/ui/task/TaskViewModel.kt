@@ -12,10 +12,12 @@ import io.reactivex.disposables.CompositeDisposable
  *
  * Created by Igor Escodro on 1/2/18.
  */
-class TaskViewModel(private val contract: TaskContract, private val navigator: TaskNavigator) :
+class TaskViewModel(private val contract: TaskContract) :
     ViewModel() {
 
     val newTask = MutableLiveData<String>()
+
+    var navigator: TaskNavigator? = null
 
     private val compositeDisposable = CompositeDisposable()
 
@@ -24,7 +26,7 @@ class TaskViewModel(private val contract: TaskContract, private val navigator: T
      */
     fun loadTasks() {
         compositeDisposable.add(
-            contract.loadTasks().subscribe { navigator.updateList(it) })
+            contract.loadTasks().subscribe { navigator?.updateList(it) })
     }
 
     /**
@@ -33,7 +35,7 @@ class TaskViewModel(private val contract: TaskContract, private val navigator: T
     fun addTask() {
         val description = newTask.value
         if (TextUtils.isEmpty(description)) {
-            navigator.onEmptyField()
+            navigator?.onEmptyField()
             return
         }
 
@@ -71,10 +73,10 @@ class TaskViewModel(private val contract: TaskContract, private val navigator: T
 
     private fun onNewTaskAdded(task: Task) {
         newTask.value = ""
-        navigator.onNewTaskAdded(task)
+        navigator?.onNewTaskAdded(task)
     }
 
     private fun onTaskRemoved(task: Task) {
-        navigator.onTaskRemoved(task)
+        navigator?.onTaskRemoved(task)
     }
 }

@@ -1,4 +1,7 @@
 <resources>
+
     <string name="app_name">Alkaa</string>
-    <string name="action_settings">Settings</string>
+
+    <!-- Task screen -->
+    <string name="task_menu_preferences">Preferences</string>
 </resources>

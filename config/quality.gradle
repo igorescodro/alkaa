@@ -1,2 +1,3 @@
+apply from: "../config/quality/lint.gradle"
 apply from: "../config/quality/ktlint.gradle"
 apply from: "../config/quality/detekt.gradle"

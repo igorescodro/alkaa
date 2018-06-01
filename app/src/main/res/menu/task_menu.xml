@@ -3,5 +3,5 @@
 
     <item
         android:id="@+id/action_preference"
-        android:title="Preferences"/>
+        android:title="@string/task_menu_preferences"/>
 </menu>

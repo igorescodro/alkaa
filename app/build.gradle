@@ -18,6 +18,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -27,6 +28,10 @@ android {
 
     dataBinding {
         enabled = true
+    }
+
+    androidExtensions {
+        experimental = true
     }
 }
 
@@ -40,6 +45,7 @@ dependencies {
     implementation "com.android.support:recyclerview-v7:$support_version"
     implementation "com.android.support:preference-v7:$support_version"
     implementation "com.android.support.constraint:constraint-layout:1.1.0"
+    implementation 'androidx.core:core-ktx:0.3'
 
     //Data Binding + Kotlin
     kapt 'com.android.databinding:compiler:3.1.2'

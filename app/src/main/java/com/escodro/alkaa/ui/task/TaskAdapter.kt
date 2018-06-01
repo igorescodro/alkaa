@@ -29,6 +29,7 @@ class TaskAdapter constructor(private var context: Context) :
         val task = taskList[position]
         binding.task = task
         binding.root.setOnLongClickListener { _ -> notifyLongPressListener(task) }
+        binding.root.setOnClickListener { _ -> notifyItemClickListener(task) }
         binding.checkbox.setOnClickListener { view -> notifyCheckListener(view, task) }
     }
 
@@ -82,13 +83,17 @@ class TaskAdapter constructor(private var context: Context) :
         notifyItemRangeChanged(position, taskList.size)
     }
 
+    private fun notifyItemClickListener(task: Task) {
+        listener?.onItemClicked(task)
+    }
+
     private fun notifyCheckListener(view: View, task: Task) {
         val checkBox: CheckBox? = view as? CheckBox
         checkBox?.isChecked?.let { listener?.onItemCheckedChanged(task, it) }
     }
 
     private fun notifyLongPressListener(task: Task): Boolean {
-        listener?.onLongPressItem(task)
+        listener?.onItemLongPressed(task)
         return true
     }
 
@@ -96,6 +101,13 @@ class TaskAdapter constructor(private var context: Context) :
      * Listener responsible to callback interactions with [Task] item.
      */
     interface TaskItemListener {
+
+        /**
+         * Callback notified when the item is clicked .
+         *
+         * @param task the task that changed its status
+         */
+        fun onItemClicked(task: Task)
 
         /**
          * Callback notified when the checked status from the [CheckBox] changes.
@@ -110,6 +122,6 @@ class TaskAdapter constructor(private var context: Context) :
          *
          * @param task task selected
          */
-        fun onLongPressItem(task: Task)
+        fun onItemLongPressed(task: Task)
     }
 }

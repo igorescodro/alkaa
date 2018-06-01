@@ -1,10 +1,12 @@
 package com.escodro.alkaa.di
 
+import com.escodro.alkaa.ui.detail.DetailViewModel
 import com.escodro.alkaa.ui.task.TaskAdapter
 import com.escodro.alkaa.ui.task.TaskContract
 import com.escodro.alkaa.ui.task.TaskFragment
 import com.escodro.alkaa.ui.task.TaskNavigator
 import com.escodro.alkaa.ui.task.TaskViewModel
+import org.koin.android.architecture.ext.viewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module.applicationContext
 
@@ -16,13 +18,18 @@ import org.koin.dsl.module.applicationContext
 @Suppress("UnsafeCast")
 val DatabaseModule = applicationContext {
 
+    // Database
     bean { DatabaseRepository(get()) }
     bean { DaoRepository(get()) }
 
+    // Task
     bean { TaskFragment() as TaskNavigator }
-    bean { TaskViewModel(get(), get()) }
+    viewModel { TaskViewModel(get(), get()) }
     bean { TaskAdapter(androidApplication()) }
     bean { TaskContract(get()) }
+
+    // Detail
+    viewModel { DetailViewModel() }
 }
 
 /**

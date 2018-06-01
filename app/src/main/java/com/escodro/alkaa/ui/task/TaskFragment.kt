@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
+import androidx.core.os.bundleOf
 import androidx.navigation.fragment.NavHostFragment
 import com.escodro.alkaa.R
 import com.escodro.alkaa.data.local.model.Task
@@ -58,7 +59,7 @@ class TaskFragment : Fragment(), TaskNavigator, TaskAdapter.TaskItemListener {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.action_preference ->
-                NavHostFragment.findNavController(this).navigate(R.id.preference_action)
+                NavHostFragment.findNavController(this).navigate(R.id.action_preference)
         }
         return true
     }
@@ -99,10 +100,16 @@ class TaskFragment : Fragment(), TaskNavigator, TaskAdapter.TaskItemListener {
         adapter.removeTask(task)
     }
 
-    override fun onItemCheckedChanged(task: Task, value: Boolean) =
-        viewModel.updateTaskStatus(task, value)
+    override fun onItemClicked(task: Task) {
+        val bundle = bundleOf(EXTRA_TASK to task)
+        NavHostFragment.findNavController(this).navigate(R.id.action_detail, bundle)
+    }
 
-    override fun onLongPressItem(task: Task) {
+    override fun onItemCheckedChanged(task: Task, value: Boolean) {
+        viewModel.updateTaskStatus(task, value)
+    }
+
+    override fun onItemLongPressed(task: Task) {
         val options = arrayOf("Delete")
 
         val builder = context?.let { AlertDialog.Builder(it) }
@@ -113,5 +120,10 @@ class TaskFragment : Fragment(), TaskNavigator, TaskAdapter.TaskItemListener {
             }
         })
         builder?.show()
+    }
+
+    companion object {
+
+        const val EXTRA_TASK = "task"
     }
 }

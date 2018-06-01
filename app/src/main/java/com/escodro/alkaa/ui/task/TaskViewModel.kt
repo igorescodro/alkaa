@@ -17,7 +17,7 @@ class TaskViewModel(private val contract: TaskContract, private val navigator: T
 
     val newTask = MutableLiveData<String>()
 
-    private var compositeDisposable = CompositeDisposable()
+    private val compositeDisposable = CompositeDisposable()
 
     /**
      * Loads all tasks.

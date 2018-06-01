@@ -11,12 +11,20 @@
         tools:layout="@layout/fragment_task">
 
         <action
-            android:id="@+id/preference_action"
+            android:id="@+id/action_preference"
             app:destination="@id/preferenceFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+
+        <action
+            android:id="@+id/action_detail"
+            app:destination="@id/detailFragment"
+            app:enterAnim="@anim/slide_enter_anim"
+            app:exitAnim="@anim/slide_exit_anim"
+            app:popEnterAnim="@anim/slide_pop_enter_anim"
+            app:popExitAnim="@anim/slide_pop_exit_name"/>
 
     </fragment>
 
@@ -24,5 +32,13 @@
         android:id="@+id/preferenceFragment"
         android:name="com.escodro.alkaa.ui.preference.PreferenceFragment"
         android:label="Preferences"/>
+
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.escodro.alkaa.ui.detail.DetailFragment">
+
+        <argument
+            android:name="task"/>
+    </fragment>
 
 </navigation>

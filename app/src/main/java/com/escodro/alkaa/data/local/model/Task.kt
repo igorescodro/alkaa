@@ -31,7 +31,7 @@ import kotlinx.android.parcel.Parcelize
 data class Task(
     @ColumnInfo(name = "completed_flag") var completed: Boolean = false,
     @ColumnInfo(name = "task_description") var description: String?,
-    @ColumnInfo(name = "category_id") var categoryId: Long?
+    @ColumnInfo(name = "category_id") var categoryId: Long? = null
 ) : Parcelable {
 
     @IgnoredOnParcel

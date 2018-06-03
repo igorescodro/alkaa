@@ -1,5 +1,8 @@
 package com.escodro.alkaa.di
 
+import com.escodro.alkaa.ui.category.list.CategoryListAdapter
+import com.escodro.alkaa.ui.category.list.CategoryListContract
+import com.escodro.alkaa.ui.category.list.CategoryListViewModel
 import com.escodro.alkaa.ui.detail.DetailViewModel
 import com.escodro.alkaa.ui.task.TaskAdapter
 import com.escodro.alkaa.ui.task.TaskContract
@@ -21,12 +24,17 @@ val DatabaseModule = applicationContext {
     bean { DaoRepository(get()) }
 
     // Task
+    bean { TaskContract(get()) }
     viewModel { TaskViewModel(get()) }
     bean { TaskAdapter(androidApplication()) }
-    bean { TaskContract(get()) }
 
     // Detail
     viewModel { DetailViewModel() }
+
+    // Category
+    bean { CategoryListContract(get()) }
+    viewModel { CategoryListViewModel(get()) }
+    bean { CategoryListAdapter(androidApplication()) }
 }
 
 /**

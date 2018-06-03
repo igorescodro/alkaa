@@ -24,15 +24,6 @@ class TaskAdapter constructor(private var context: Context) :
 
     var listener: TaskItemListener? = null
 
-    override fun onBindViewHolder(holder: BindingHolder<ItemTaskBinding>, position: Int) {
-        val binding = holder.binding
-        val task = taskList[position]
-        binding.task = task
-        binding.root.setOnLongClickListener { _ -> notifyLongPressListener(task) }
-        binding.root.setOnClickListener { _ -> notifyItemClickListener(task) }
-        binding.checkbox.setOnClickListener { view -> notifyCheckListener(view, task) }
-    }
-
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -47,13 +38,21 @@ class TaskAdapter constructor(private var context: Context) :
         return BindingHolder(binding)
     }
 
+    override fun onBindViewHolder(holder: BindingHolder<ItemTaskBinding>, position: Int) {
+        val binding = holder.binding
+        val task = taskList[position]
+        binding.task = task
+        binding.root.setOnLongClickListener { _ -> notifyLongPressListener(task) }
+        binding.root.setOnClickListener { _ -> notifyItemClickListener(task) }
+        binding.checkbox.setOnClickListener { view -> notifyCheckListener(view, task) }
+    }
+
     override fun getItemCount(): Int = taskList.size
 
     /**
      * Updates the [RecyclerView] with the given [MutableList].
      *
      * @param list list of tasks
-     *
      */
     fun updateTaskList(list: MutableList<Task>) {
         taskList.clear()

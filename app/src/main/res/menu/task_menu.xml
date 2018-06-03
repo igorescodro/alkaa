@@ -4,4 +4,8 @@
     <item
         android:id="@+id/action_preference"
         android:title="@string/task_menu_preferences"/>
+
+    <item
+        android:id="@+id/action_category"
+        android:title="@string/task_menu_category"/>
 </menu>

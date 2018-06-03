@@ -15,9 +15,9 @@ import io.reactivex.disposables.CompositeDisposable
 class TaskViewModel(private val contract: TaskContract) :
     ViewModel() {
 
-    val newTask = MutableLiveData<String>()
+    var delegate: TaskDelegate? = null
 
-    var navigator: TaskDelegate? = null
+    val newTask = MutableLiveData<String>()
 
     private val compositeDisposable = CompositeDisposable()
 
@@ -26,7 +26,7 @@ class TaskViewModel(private val contract: TaskContract) :
      */
     fun loadTasks() {
         compositeDisposable.add(
-            contract.loadTasks().subscribe { navigator?.updateList(it) })
+            contract.loadTasks().subscribe { delegate?.updateList(it) })
     }
 
     /**
@@ -35,7 +35,7 @@ class TaskViewModel(private val contract: TaskContract) :
     fun addTask() {
         val description = newTask.value
         if (TextUtils.isEmpty(description)) {
-            navigator?.onEmptyField()
+            delegate?.onEmptyField()
             return
         }
 
@@ -73,10 +73,10 @@ class TaskViewModel(private val contract: TaskContract) :
 
     private fun onNewTaskAdded(task: Task) {
         newTask.value = null
-        navigator?.onNewTaskAdded(task)
+        delegate?.onNewTaskAdded(task)
     }
 
     private fun onTaskRemoved(task: Task) {
-        navigator?.onTaskRemoved(task)
+        delegate?.onTaskRemoved(task)
     }
 }

@@ -49,7 +49,7 @@ class TaskFragment : Fragment(), TaskDelegate, TaskAdapter.TaskItemListener {
 
         bindComponents()
         adapter.listener = this
-        viewModel.navigator = this
+        viewModel.delegate = this
         viewModel.loadTasks()
     }
 
@@ -58,9 +58,11 @@ class TaskFragment : Fragment(), TaskDelegate, TaskAdapter.TaskItemListener {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        val navFragment = NavHostFragment.findNavController(this)
+
         when (item?.itemId) {
-            R.id.action_preference ->
-                NavHostFragment.findNavController(this).navigate(R.id.action_preference)
+            R.id.action_preference -> navFragment.navigate(R.id.action_preference)
+            R.id.action_category -> navFragment.navigate(R.id.action_category)
         }
         return true
     }

@@ -1,4 +1,4 @@
-package com.escodro.alkaa.data.local
+package com.escodro.alkaa.data.local.dao
 
 import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Delete

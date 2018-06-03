@@ -1,5 +1,6 @@
 package com.escodro.alkaa.data.local.model
 
+import android.annotation.SuppressLint
 import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
@@ -13,6 +14,7 @@ import kotlinx.android.parcel.Parcelize
  *
  * @author Igor Escodro on 1/2/18.
  */
+@SuppressLint("ParcelCreator")
 @Parcelize
 @Entity
 data class Category(

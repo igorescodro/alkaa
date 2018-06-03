@@ -2,8 +2,9 @@ package com.escodro.alkaa.di
 
 import android.arch.persistence.room.Room
 import android.content.Context
-import com.escodro.alkaa.data.local.TaskDao
 import com.escodro.alkaa.data.local.TaskDatabase
+import com.escodro.alkaa.data.local.dao.CategoryDao
+import com.escodro.alkaa.data.local.dao.TaskDao
 
 /**
  * Repository with the [Room] database.
@@ -13,9 +14,9 @@ import com.escodro.alkaa.data.local.TaskDatabase
 class DatabaseRepository(private val context: Context) {
 
     /**
-     * Gets the [Task] database.
+     * Gets the application database.
      *
-     * @return the [Task] database
+     * @return the application database
      */
     fun getDatabase(): TaskDatabase =
         Room.databaseBuilder(context, TaskDatabase::class.java, "todo-db").build()
@@ -35,4 +36,12 @@ class DaoRepository(private val database: DatabaseRepository) {
      */
     fun getTaskDao(): TaskDao =
         database.getDatabase().taskDao()
+
+    /**
+     * Gets the [CategoryDao].
+     *
+     * @return the [CategoryDao]
+     */
+    fun getCategoryDao(): CategoryDao =
+        database.getDatabase().categoryDao()
 }

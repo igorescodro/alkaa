@@ -2,6 +2,8 @@ package com.escodro.alkaa.data.local
 
 import android.arch.persistence.room.Database
 import android.arch.persistence.room.RoomDatabase
+import com.escodro.alkaa.data.local.dao.CategoryDao
+import com.escodro.alkaa.data.local.dao.TaskDao
 import com.escodro.alkaa.data.local.model.Category
 import com.escodro.alkaa.data.local.model.Task
 
@@ -19,4 +21,11 @@ abstract class TaskDatabase : RoomDatabase() {
      * @return the [TaskDao]
      */
     abstract fun taskDao(): TaskDao
+
+    /**
+     * Gets the [CategoryDao].
+     *
+     * @return the [CategoryDao]
+     */
+    abstract fun categoryDao(): CategoryDao
 }

@@ -7,6 +7,8 @@ import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import com.escodro.alkaa.R
 import com.escodro.alkaa.data.local.model.Category
 import com.escodro.alkaa.databinding.FragmentCategoryBinding
@@ -23,6 +25,8 @@ class CategoryListFragment : Fragment(), CategoryListDelegate {
     private val viewModel: CategoryListViewModel by viewModel()
 
     private var binding: FragmentCategoryBinding? = null
+
+    private var navigator: NavController? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,12 +46,14 @@ class CategoryListFragment : Fragment(), CategoryListDelegate {
         bindComponents()
         viewModel.delegate = this
         viewModel.loadCategories()
+        navigator = NavHostFragment.findNavController(this)
     }
 
     private fun bindComponents() {
         binding?.setLifecycleOwner(this)
         binding?.categoryRecycler?.adapter = adapter
         binding?.categoryRecycler?.layoutManager = getLayoutManager()
+        binding?.addCategory?.setOnClickListener { navigator?.navigate(R.id.action_new_category) }
     }
 
     private fun getLayoutManager() =

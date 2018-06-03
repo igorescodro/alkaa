@@ -7,13 +7,11 @@ import com.escodro.alkaa.data.local.model.Task
 import io.reactivex.disposables.CompositeDisposable
 
 /**
- * [ViewModel] responsible to provide information to [com.escodro.alkaa.databinding
- * .ActivityTaskBinding].
+ * [ViewModel] responsible to provide information to [TaskFragment].
  *
  * Created by Igor Escodro on 1/2/18.
  */
-class TaskViewModel(private val contract: TaskContract) :
-    ViewModel() {
+class TaskViewModel(private val contract: TaskContract) : ViewModel() {
 
     var delegate: TaskDelegate? = null
 
@@ -39,7 +37,7 @@ class TaskViewModel(private val contract: TaskContract) :
             return
         }
 
-        val task = Task(description = newTask.value)
+        val task = Task(description = description)
         contract.addTask(task)
             ?.doOnComplete { onNewTaskAdded(task) }
             ?.subscribe()

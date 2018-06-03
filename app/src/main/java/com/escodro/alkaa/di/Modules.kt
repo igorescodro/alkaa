@@ -1,5 +1,7 @@
 package com.escodro.alkaa.di
 
+import com.escodro.alkaa.ui.category.create.NewCategoryContract
+import com.escodro.alkaa.ui.category.create.NewCategoryViewModel
 import com.escodro.alkaa.ui.category.list.CategoryListAdapter
 import com.escodro.alkaa.ui.category.list.CategoryListContract
 import com.escodro.alkaa.ui.category.list.CategoryListViewModel
@@ -35,6 +37,10 @@ val DatabaseModule = applicationContext {
     bean { CategoryListContract(get()) }
     viewModel { CategoryListViewModel(get()) }
     bean { CategoryListAdapter(androidApplication()) }
+
+    //New Category
+    bean { NewCategoryContract(get()) }
+    viewModel { NewCategoryViewModel(get()) }
 }
 
 /**

@@ -14,6 +14,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import androidx.core.os.bundleOf
+import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.escodro.alkaa.R
 import com.escodro.alkaa.data.local.model.Task
@@ -31,6 +32,8 @@ class TaskFragment : Fragment(), TaskDelegate, TaskAdapter.TaskItemListener {
     private val viewModel: TaskViewModel by viewModel()
 
     private var binding: FragmentTaskBinding? = null
+
+    private var navigator: NavController? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,6 +54,7 @@ class TaskFragment : Fragment(), TaskDelegate, TaskAdapter.TaskItemListener {
         adapter.listener = this
         viewModel.delegate = this
         viewModel.loadTasks()
+        navigator = NavHostFragment.findNavController(this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
@@ -58,11 +62,9 @@ class TaskFragment : Fragment(), TaskDelegate, TaskAdapter.TaskItemListener {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        val navFragment = NavHostFragment.findNavController(this)
-
         when (item?.itemId) {
-            R.id.action_preference -> navFragment.navigate(R.id.action_preference)
-            R.id.action_category -> navFragment.navigate(R.id.action_category)
+            R.id.action_preference -> navigator?.navigate(R.id.action_preference)
+            R.id.action_category -> navigator?.navigate(R.id.action_category)
         }
         return true
     }
@@ -105,7 +107,7 @@ class TaskFragment : Fragment(), TaskDelegate, TaskAdapter.TaskItemListener {
 
     override fun onItemClicked(task: Task) {
         val bundle = bundleOf(EXTRA_TASK to task)
-        NavHostFragment.findNavController(this).navigate(R.id.action_detail, bundle)
+        navigator?.navigate(R.id.action_detail, bundle)
     }
 
     override fun onItemCheckedChanged(task: Task, value: Boolean) {

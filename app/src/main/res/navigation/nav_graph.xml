@@ -49,6 +49,18 @@
         android:id="@+id/categoryFragment"
         android:name="com.escodro.alkaa.ui.category.list.CategoryListFragment"
         android:label="Categories"
-        tools:layout="@layout/fragment_category"/>
+        tools:layout="@layout/fragment_category">
+
+        <action
+            android:id="@+id/action_new_category"
+            app:destination="@id/newCategoryFragment"
+            />
+    </fragment>
+
+    <fragment
+        android:id="@+id/newCategoryFragment"
+        android:name="com.escodro.alkaa.ui.category.create.NewCategoryFragment"
+        android:label="Add Category"
+        tools:layout="@layout/fragment_new_category"/>
 
 </navigation>

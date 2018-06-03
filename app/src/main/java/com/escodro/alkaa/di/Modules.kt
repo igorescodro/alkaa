@@ -38,7 +38,7 @@ val DatabaseModule = applicationContext {
     viewModel { CategoryListViewModel(get()) }
     bean { CategoryListAdapter(androidApplication()) }
 
-    //New Category
+    // New Category
     bean { NewCategoryContract(get()) }
     viewModel { NewCategoryViewModel(get()) }
 }

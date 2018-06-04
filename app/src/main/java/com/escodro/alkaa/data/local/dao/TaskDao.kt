@@ -56,4 +56,10 @@ interface TaskDao {
      */
     @Delete
     fun deleteTask(task: Task)
+
+    /**
+     * Cleans the entire table.
+     */
+    @Query("DELETE FROM task")
+    fun cleanTable()
 }

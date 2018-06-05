@@ -20,20 +20,32 @@ class TaskFragmentTest : AcceptanceTest<MainActivity>(MainActivity::class.java) 
     }
 
     @Test
+    fun areAllViewsIsCompletelyDisplayed() {
+        checkThat.viewIsCompletelyDisplayed(R.id.edit_text)
+        checkThat.viewIsCompletelyDisplayed(R.id.recycler_view)
+    }
+
+    @Test
+    fun isDescriptionSingleLine() {
+        addTask(
+            "Lorem ipsum dolor sit amet, te elit possit suavitate duo. Nec sale sonet" +
+                    " scriptorem ei, option prompta ut sed. At everti discere oportere sea."
+        )
+        checkThat.textHasFixedLines(R.id.task_description, 1)
+    }
+
+    @Test
     fun addNewTask() {
-        events.clickOnView(R.id.edit_text)
-        events.textOnView(R.id.edit_text, TASK_NAME)
-        events.pressImeActionButton(R.id.edit_text)
-        events.waitFor(R.id.recycler_view, 1000)
-        checkThat.recyclerViewContainsItem(R.id.recycler_view, TASK_NAME)
+        addTask("buy milk")
     }
 
     @Test
     fun deleteTask() {
-        addNewTask()
+        val taskName = "eat vegetables"
+        addTask(taskName)
         events.longPressOnRecyclerItem(R.id.recycler_view)
         events.clickDialogOption(R.array.task_dialog_options, 0)
-        checkThat.recyclerViewNotContainsItem(R.id.recycler_view, TASK_NAME)
+        checkThat.recyclerViewNotContainsItem(R.id.recycler_view, taskName)
     }
 
     @Test
@@ -45,12 +57,16 @@ class TaskFragmentTest : AcceptanceTest<MainActivity>(MainActivity::class.java) 
 
     @Test
     fun checkTaskAsCompleted() {
-        addNewTask()
+        addTask("write article")
         events.clickOnView(R.id.checkbox)
+        checkThat.checkBoxIsChecked(R.id.checkbox)
     }
 
-    companion object {
-
-        private const val TASK_NAME = "buy milk"
+    private fun addTask(taskName: String) {
+        events.clickOnView(R.id.edit_text)
+        events.textOnView(R.id.edit_text, taskName)
+        events.pressImeActionButton(R.id.edit_text)
+        events.waitFor(R.id.recycler_view, 1000)
+        checkThat.recyclerViewContainsItem(R.id.recycler_view, taskName)
     }
 }

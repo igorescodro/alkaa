@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
             name="task"
-            type="com.escodro.alkaa.data.local.model.Task"/>
+            type="com.escodro.alkaa.data.local.model.Task" />
 
     </data>
 
@@ -23,16 +23,17 @@
             android:layout_marginStart="8dp"
             android:checked="@{task.completed}"
             android:gravity="center"
-            android:textSize="20sp"/>
+            android:textSize="20sp" />
 
         <TextView
+            android:id="@+id/task_description"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:gravity="center_vertical"
             android:singleLine="true"
             android:text="@{task.description}"
             android:textSize="18sp"
-            android:gravity="center_vertical"
-            tools:text="Item 1"/>
+            tools:text="Item 1" />
 
     </LinearLayout>
 

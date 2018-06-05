@@ -1,4 +1,4 @@
-package com.escodro.alkaa.ui.detail
+package com.escodro.alkaa.ui.task.detail
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
@@ -10,7 +10,7 @@ import com.escodro.alkaa.data.local.model.Task
  *
  * Created by Igor Escodro on 31/5/18.
  */
-class DetailViewModel : ViewModel() {
+class TaskDetailViewModel : ViewModel() {
 
     val task = MutableLiveData<Task>()
 }

@@ -1,4 +1,4 @@
-package com.escodro.alkaa.ui.task
+package com.escodro.alkaa.ui.task.list
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
@@ -7,13 +7,13 @@ import com.escodro.alkaa.data.local.model.Task
 import io.reactivex.disposables.CompositeDisposable
 
 /**
- * [ViewModel] responsible to provide information to [TaskFragment].
+ * [ViewModel] responsible to provide information to [TaskListFragment].
  *
  * Created by Igor Escodro on 1/2/18.
  */
-class TaskViewModel(private val contract: TaskContract) : ViewModel() {
+class TaskViewModel(private val contract: TaskListContract) : ViewModel() {
 
-    var delegate: TaskDelegate? = null
+    var delegate: TaskListDelegate? = null
 
     val newTask = MutableLiveData<String>()
 

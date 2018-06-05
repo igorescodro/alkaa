@@ -16,7 +16,7 @@
         android:orientation="horizontal">
 
         <CheckBox
-            android:id="@+id/checkbox"
+            android:id="@+id/checkbox_itemtask_completed"
             android:layout_width="32dp"
             android:layout_height="match_parent"
             android:layout_marginEnd="8dp"
@@ -26,7 +26,7 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/task_description"
+            android:id="@+id/textview_itemtask_description"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_vertical"

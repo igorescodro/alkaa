@@ -15,7 +15,7 @@
         android:layout_height="match_parent">
 
         <EditText
-            android:id="@+id/new_category"
+            android:id="@+id/edittext_categorynew_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textCapSentences"
@@ -23,7 +23,7 @@
             android:textSize="32sp"/>
 
         <Button
-            android:id="@+id/add_category"
+            android:id="@+id/button_categorynew_add"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:background="@color/colorPrimary"

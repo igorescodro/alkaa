@@ -2,11 +2,11 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
-            app:startDestination="@id/taskFragment">
+            app:startDestination="@id/taskListFragment">
 
     <fragment
-        android:id="@+id/taskFragment"
-        android:name="com.escodro.alkaa.ui.task.TaskFragment"
+        android:id="@+id/taskListFragment"
+        android:name="com.escodro.alkaa.ui.task.list.TaskListFragment"
         android:label="Tasks"
         tools:layout="@layout/fragment_task">
 
@@ -20,7 +20,7 @@
 
         <action
             android:id="@+id/action_detail"
-            app:destination="@id/detailFragment"
+            app:destination="@id/taskDetailFragment"
             app:enterAnim="@anim/slide_enter_anim"
             app:exitAnim="@anim/slide_exit_anim"
             app:popEnterAnim="@anim/slide_pop_enter_anim"
@@ -38,8 +38,8 @@
         android:label="Preferences"/>
 
     <fragment
-        android:id="@+id/detailFragment"
-        android:name="com.escodro.alkaa.ui.detail.DetailFragment">
+        android:id="@+id/taskDetailFragment"
+        android:name="com.escodro.alkaa.ui.task.detail.TaskDetailFragment">
 
         <argument
             android:name="task"/>

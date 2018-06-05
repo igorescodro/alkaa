@@ -1,4 +1,4 @@
-package com.escodro.alkaa.ui.task
+package com.escodro.alkaa.ui.task.list
 
 import android.databinding.DataBindingUtil
 import android.os.Bundle
@@ -18,20 +18,20 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.escodro.alkaa.R
 import com.escodro.alkaa.data.local.model.Task
-import com.escodro.alkaa.databinding.FragmentTaskBinding
+import com.escodro.alkaa.databinding.FragmentTaskListBinding
 import org.koin.android.architecture.ext.viewModel
 import org.koin.android.ext.android.inject
 
 /**
  * [Fragment] responsible to show and handle all [Task]s.
  */
-class TaskFragment : Fragment(), TaskDelegate, TaskAdapter.TaskItemListener {
+class TaskListFragment : Fragment(), TaskListDelegate, TaskListAdapter.TaskItemListener {
 
-    private val adapter: TaskAdapter by inject()
+    private val adapter: TaskListAdapter by inject()
 
     private val viewModel: TaskViewModel by viewModel()
 
-    private var binding: FragmentTaskBinding? = null
+    private var binding: FragmentTaskListBinding? = null
 
     private var navigator: NavController? = null
 
@@ -42,7 +42,7 @@ class TaskFragment : Fragment(), TaskDelegate, TaskAdapter.TaskItemListener {
     ): View? {
 
         binding = DataBindingUtil
-            .inflate(inflater, R.layout.fragment_task, container, false)
+            .inflate(inflater, R.layout.fragment_task_list, container, false)
         setHasOptionsMenu(true)
         return binding?.root
     }
@@ -71,9 +71,9 @@ class TaskFragment : Fragment(), TaskDelegate, TaskAdapter.TaskItemListener {
 
     private fun bindComponents() {
         binding?.setLifecycleOwner(this)
-        binding?.recyclerView?.adapter = adapter
-        binding?.recyclerView?.layoutManager = getLayoutManager()
-        binding?.editText?.setOnEditorActionListener(getEditorActionListener())
+        binding?.recyclerviewTasklistList?.adapter = adapter
+        binding?.recyclerviewTasklistList?.layoutManager = getLayoutManager()
+        binding?.edittextTasklistDescription?.setOnEditorActionListener(getEditorActionListener())
         binding?.viewModel = viewModel
     }
 
@@ -94,7 +94,7 @@ class TaskFragment : Fragment(), TaskDelegate, TaskAdapter.TaskItemListener {
         adapter.updateTaskList(list)
 
     override fun onEmptyField() {
-        binding?.editText?.error = getString(R.string.task_error_empty)
+        binding?.edittextTasklistDescription?.error = getString(R.string.task_error_empty)
     }
 
     override fun onNewTaskAdded(task: Task) {

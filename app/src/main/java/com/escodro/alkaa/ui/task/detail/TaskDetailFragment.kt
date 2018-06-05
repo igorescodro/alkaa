@@ -1,4 +1,4 @@
-package com.escodro.alkaa.ui.detail
+package com.escodro.alkaa.ui.task.detail
 
 import android.databinding.DataBindingUtil
 import android.os.Bundle
@@ -9,8 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.escodro.alkaa.R
 import com.escodro.alkaa.data.local.model.Task
-import com.escodro.alkaa.databinding.FragmentDetailBinding
-import com.escodro.alkaa.ui.task.TaskFragment
+import com.escodro.alkaa.databinding.FragmentTaskDetailBinding
+import com.escodro.alkaa.ui.task.list.TaskListFragment
 import org.koin.android.architecture.ext.viewModel
 
 /**
@@ -18,11 +18,11 @@ import org.koin.android.architecture.ext.viewModel
  *
  * Created by Igor Escodro on 31/5/18.
  */
-class DetailFragment : Fragment() {
+class TaskDetailFragment : Fragment() {
 
-    private val viewModel: DetailViewModel by viewModel()
+    private val viewModel: TaskDetailViewModel by viewModel()
 
-    private var binding: FragmentDetailBinding? = null
+    private var binding: FragmentTaskDetailBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,7 +32,7 @@ class DetailFragment : Fragment() {
 
         binding =
             DataBindingUtil.inflate(
-                inflater, R.layout.fragment_detail,
+                inflater, R.layout.fragment_task_detail,
                 container, false
             )
         return binding?.root
@@ -49,7 +49,7 @@ class DetailFragment : Fragment() {
         binding?.viewModel = viewModel
 
         // TODO Update to safe args when Google supports Parcelable
-        val task = arguments?.getParcelable<Task>(TaskFragment.EXTRA_TASK)
+        val task = arguments?.getParcelable<Task>(TaskListFragment.EXTRA_TASK)
         viewModel.task.value = task
         (activity as? AppCompatActivity)?.supportActionBar?.title = task?.description
     }

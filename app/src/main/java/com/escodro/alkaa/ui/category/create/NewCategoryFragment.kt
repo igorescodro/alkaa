@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.NavHostFragment
 import com.escodro.alkaa.R
-import com.escodro.alkaa.databinding.FragmentNewCategoryBinding
+import com.escodro.alkaa.databinding.FragmentCategoryNewBinding
 import org.koin.android.architecture.ext.viewModel
 
 /**
@@ -16,7 +16,7 @@ import org.koin.android.architecture.ext.viewModel
  */
 class NewCategoryFragment : Fragment(), NewCategoryDelegate {
 
-    private var binding: FragmentNewCategoryBinding? = null
+    private var binding: FragmentCategoryNewBinding? = null
 
     private val viewModel: NewCategoryViewModel by viewModel()
 
@@ -28,7 +28,7 @@ class NewCategoryFragment : Fragment(), NewCategoryDelegate {
 
         binding =
             DataBindingUtil.inflate(
-                inflater, R.layout.fragment_new_category,
+                inflater, R.layout.fragment_category_new,
                 container, false
             )
         return binding?.root
@@ -43,12 +43,12 @@ class NewCategoryFragment : Fragment(), NewCategoryDelegate {
 
     private fun bindComponents() {
         binding?.setLifecycleOwner(this)
-        binding?.addCategory?.setOnClickListener { viewModel.addCategory() }
+        binding?.buttonCategorynewAdd?.setOnClickListener { viewModel.addCategory() }
         binding?.viewModel = viewModel
     }
 
     override fun onEmptyField() {
-        binding?.newCategory?.error = getString(R.string.task_error_empty)
+        binding?.edittextCategorynewDescription?.error = getString(R.string.task_error_empty)
     }
 
     override fun onNewCategoryAdded() {

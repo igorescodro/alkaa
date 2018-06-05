@@ -11,7 +11,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.escodro.alkaa.R
 import com.escodro.alkaa.data.local.model.Category
-import com.escodro.alkaa.databinding.FragmentCategoryBinding
+import com.escodro.alkaa.databinding.FragmentCategoryListBinding
 import org.koin.android.architecture.ext.viewModel
 import org.koin.android.ext.android.inject
 
@@ -24,7 +24,7 @@ class CategoryListFragment : Fragment(), CategoryListDelegate {
 
     private val viewModel: CategoryListViewModel by viewModel()
 
-    private var binding: FragmentCategoryBinding? = null
+    private var binding: FragmentCategoryListBinding? = null
 
     private var navigator: NavController? = null
 
@@ -35,7 +35,7 @@ class CategoryListFragment : Fragment(), CategoryListDelegate {
     ): View? {
 
         binding = DataBindingUtil
-            .inflate(inflater, R.layout.fragment_category, container, false)
+            .inflate(inflater, R.layout.fragment_category_list, container, false)
 
         return binding?.root
     }
@@ -51,9 +51,10 @@ class CategoryListFragment : Fragment(), CategoryListDelegate {
 
     private fun bindComponents() {
         binding?.setLifecycleOwner(this)
-        binding?.categoryRecycler?.adapter = adapter
-        binding?.categoryRecycler?.layoutManager = getLayoutManager()
-        binding?.addCategory?.setOnClickListener { navigator?.navigate(R.id.action_new_category) }
+        binding?.recyclerviewCategorylistList?.adapter = adapter
+        binding?.recyclerviewCategorylistList?.layoutManager = getLayoutManager()
+        binding?.buttonCategorylistAdd
+            ?.setOnClickListener { navigator?.navigate(R.id.action_new_category) }
     }
 
     private fun getLayoutManager() =

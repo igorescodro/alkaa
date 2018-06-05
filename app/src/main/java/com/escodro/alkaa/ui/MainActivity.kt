@@ -27,14 +27,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun initComponents() {
         val host: NavHostFragment = supportFragmentManager
-            .findFragmentById(R.id.navigation_host) as? NavHostFragment? ?: return
+            .findFragmentById(R.id.fragment_main_navigation) as? NavHostFragment? ?: return
 
         navController = host.navController
         setupActionBar()
     }
 
     private fun setupActionBar() {
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        val toolbar = findViewById<Toolbar>(R.id.toolbar_main_toolbar)
         setSupportActionBar(toolbar)
         navController?.let { NavigationUI.setupActionBarWithNavController(this, it) }
     }

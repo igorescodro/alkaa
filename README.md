@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/igorescodro/alkaa.svg?branch=master)](https://travis-ci.org/igorescodro/alkaa)
+
 # Alkaa
 
 Alkaa (_to begin_, _to start_ in Finnish) is a simple to-do list project to study the latest components, architecure, tools, and APIs released in Android Platform.
@@ -23,6 +25,7 @@ Currently, this project covers the following topics:
 #### Quality check
 - [klint](https://github.com/shyiko/ktlint)
 - [detekt](https://github.com/arturbosch/detekt)
+- [lint](https://developer.android.com/studio/write/lint)
 
 #### Tools covered but removed:
 - [Dagger 2](https://google.github.io/dagger/) (replaced by Koin)

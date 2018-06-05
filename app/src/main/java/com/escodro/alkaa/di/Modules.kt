@@ -19,11 +19,14 @@ import org.koin.dsl.module.applicationContext
  * @author Igor Escodro on 4/19/18.
  */
 @Suppress("UnsafeCast")
-val DatabaseModule = applicationContext {
+val databaseModule = applicationContext {
 
     // Database
     bean { DatabaseRepository(get()) }
     bean { DaoRepository(get()) }
+}
+
+val applicationModule = applicationContext {
 
     // Task
     bean { TaskListContract(get()) }
@@ -46,4 +49,4 @@ val DatabaseModule = applicationContext {
 /**
  * List of all modules.
  */
-val alkaaModules = listOf(DatabaseModule)
+val alkaaModules = listOf(databaseModule, applicationModule)

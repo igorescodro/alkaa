@@ -10,6 +10,7 @@ import android.support.test.espresso.matcher.ViewMatchers.hasErrorText
 import android.support.test.espresso.matcher.ViewMatchers.isChecked
 import android.support.test.espresso.matcher.ViewMatchers.isCompletelyDisplayed
 import android.support.test.espresso.matcher.ViewMatchers.withId
+import android.support.test.espresso.matcher.ViewMatchers.withParent
 import android.support.test.espresso.matcher.ViewMatchers.withText
 import android.view.View
 import android.widget.TextView
@@ -28,6 +29,10 @@ class Matchers {
 
     fun viewIsCompletelyDisplayed(@IdRes viewId: Int) {
         onView(withId(viewId)).check(matches(isCompletelyDisplayed()))
+    }
+
+    fun toolbarContainsTitle(@IdRes toolbarId: Int, @StringRes resId: Int) {
+        onView(withText(resId)).check(matches(withParent(withId(toolbarId))))
     }
 
     fun viewContainsError(@IdRes viewId: Int, @StringRes stringResource: Int) {
@@ -53,7 +58,7 @@ class Matchers {
         onView(withId(viewId)).check(matches(isChecked()))
     }
 
-    fun isTextInLines(lines: Int): Matcher<in View>? =
+    private fun isTextInLines(lines: Int): Matcher<in View>? =
         object : TypeSafeMatcher<View>() {
             override fun matchesSafely(item: View?): Boolean {
                 return (item as? TextView)?.lineCount == lines

@@ -48,7 +48,7 @@
     <fragment
         android:id="@+id/categoryFragment"
         android:name="com.escodro.alkaa.ui.category.list.CategoryListFragment"
-        android:label="Categories"
+        android:label="@string/category_list_label"
         tools:layout="@layout/fragment_category">
 
         <action

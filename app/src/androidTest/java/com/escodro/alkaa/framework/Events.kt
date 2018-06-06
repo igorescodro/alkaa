@@ -33,6 +33,10 @@ class Events {
         onView(withId(viewId)).perform(click())
     }
 
+    fun clickOnViewWithText(@StringRes resId: Int) {
+        onView(withText(resId)).perform(click())
+    }
+
     fun longPressOnRecyclerItem(@IdRes recyclerView: Int) {
         onView(withId(recyclerView))
             .perform(

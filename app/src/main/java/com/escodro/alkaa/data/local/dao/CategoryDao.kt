@@ -30,4 +30,10 @@ interface CategoryDao {
      */
     @Insert(onConflict = REPLACE)
     fun insertCategory(category: Category)
+
+    /**
+     * Cleans the entire table.
+     */
+    @Query("DELETE FROM category")
+    fun cleanTable()
 }

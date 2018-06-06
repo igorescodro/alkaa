@@ -7,6 +7,9 @@
     <string name="task_menu_category">Categories</string>
     <string name="task_error_empty">Empty field</string>
 
+    <!-- Category screen -->
+    <string name="category_list_label">Categories</string>
+
     <!-- New Category screen -->
     <string name="new_category_add">Add category</string>
 

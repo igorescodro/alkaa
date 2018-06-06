@@ -1,21 +1,17 @@
 package com.escodro.alkaa.ui
 
 import com.escodro.alkaa.R
-import com.escodro.alkaa.di.DaoRepository
 import com.escodro.alkaa.framework.AcceptanceTest
 import org.junit.After
 import org.junit.Test
-import org.koin.standalone.inject
 
 /**
- * Test class to validate [com.escodro.alkaa.ui.task.TaskListFragment].
+ * Test class to validate Task screen and flow.
  */
 class TaskListFragmentTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
 
-    private val daoRepository: DaoRepository by inject()
-
     @After
-    fun before() {
+    fun cleanTable() {
         daoRepository.getTaskDao().cleanTable()
     }
 

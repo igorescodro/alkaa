@@ -52,6 +52,7 @@ class NewCategoryFragment : Fragment(), NewCategoryDelegate {
     }
 
     override fun onNewCategoryAdded() {
+        binding?.edittextCategorynewDescription?.text = null
         NavHostFragment.findNavController(this).navigateUp()
     }
 }

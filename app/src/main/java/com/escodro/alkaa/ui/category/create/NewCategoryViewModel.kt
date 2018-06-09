@@ -14,7 +14,7 @@ class NewCategoryViewModel(private val contract: NewCategoryContract) : ViewMode
 
     var delegate: NewCategoryDelegate? = null
 
-    var newCategory = MutableLiveData<String>()
+    val newCategory = MutableLiveData<String>()
 
     /**
      * Add a new category.
@@ -26,7 +26,9 @@ class NewCategoryViewModel(private val contract: NewCategoryContract) : ViewMode
             return
         }
 
-        val category = Category(name = name, color = "#FFFFFF")
+        val color = delegate?.getCategoryColor()
+
+        val category = Category(name = name, color = color)
         contract.addCategory(category)
             ?.doOnComplete { delegate?.onNewCategoryAdded() }
             ?.subscribe()

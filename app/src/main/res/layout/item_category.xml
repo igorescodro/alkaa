@@ -22,7 +22,7 @@
             android:layout_height="64dp"
             android:layout_gravity="center"
             android:src="@drawable/shape_category_circle"
-            app:shapeColor="#0caf6e" />
+            app:shapeColor="@{category.color}" />
 
         <TextView
             android:id="@+id/textview_itemcategory_description"

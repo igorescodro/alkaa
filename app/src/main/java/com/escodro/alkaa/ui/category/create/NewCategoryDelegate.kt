@@ -16,4 +16,9 @@ interface NewCategoryDelegate {
      * Called when a new category is added.
      */
     fun onNewCategoryAdded()
+
+    /**
+     * Gets the category color.
+     */
+    fun getCategoryColor(): String?
 }

@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RadioButton
 import androidx.navigation.fragment.NavHostFragment
 import com.escodro.alkaa.R
 import com.escodro.alkaa.databinding.FragmentCategoryNewBinding
@@ -54,5 +55,13 @@ class NewCategoryFragment : Fragment(), NewCategoryDelegate {
     override fun onNewCategoryAdded() {
         binding?.edittextCategorynewDescription?.text = null
         NavHostFragment.findNavController(this).navigateUp()
+    }
+
+    override fun getCategoryColor(): String? {
+        val radioGroup = binding?.radiogroupCategorynewLabel
+        val checkedId = radioGroup?.checkedRadioButtonId
+        val checked = checkedId?.let { radioGroup.findViewById<RadioButton>(it) }
+
+        return checked?.tag as? String?
     }
 }

@@ -23,6 +23,7 @@
             android:textSize="32sp"/>
 
         <RadioGroup
+            android:id="@+id/radiogroup_categorynew_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -37,6 +38,7 @@
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:layout_weight="1"
+                android:tag="@color/blue"
                 android:button="@drawable/selector_radio_category"
                 android:buttonTint="@color/blue"/>
 
@@ -45,6 +47,7 @@
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:layout_weight="1"
+                android:tag="@color/green"
                 android:button="@drawable/selector_radio_category"
                 android:buttonTint="@color/green"/>
 
@@ -53,6 +56,7 @@
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:layout_weight="1"
+                android:tag="@color/purple"
                 android:button="@drawable/selector_radio_category"
                 android:buttonTint="@color/purple"/>
 
@@ -61,6 +65,7 @@
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:layout_weight="1"
+                android:tag="@color/pink"
                 android:button="@drawable/selector_radio_category"
                 android:buttonTint="@color/pink"/>
 
@@ -69,6 +74,7 @@
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:layout_weight="1"
+                android:tag="@color/red"
                 android:button="@drawable/selector_radio_category"
                 android:buttonTint="@color/red"/>
 
@@ -77,6 +83,7 @@
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:layout_weight="1"
+                android:tag="@color/orange"
                 android:button="@drawable/selector_radio_category"
                 android:buttonTint="@color/orange"/>
 
@@ -85,6 +92,7 @@
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:layout_weight="1"
+                android:tag="@color/yellow"
                 android:button="@drawable/selector_radio_category"
                 android:buttonTint="@color/yellow"/>
 

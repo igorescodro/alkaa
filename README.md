@@ -27,6 +27,12 @@ Currently, this project covers the following topics:
 - [detekt](https://github.com/arturbosch/detekt)
 - [lint](https://developer.android.com/studio/write/lint)
 
+#### Tests
+- [Espresso](https://developer.android.com/training/testing/espresso/)
+
+#### Continuous Integration
+- [Travis CI](https://travis-ci.org)
+
 #### Tools covered but removed:
 - [Dagger 2](https://google.github.io/dagger/) (replaced by Koin)
 

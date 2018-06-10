@@ -62,7 +62,7 @@ class TaskListFragmentTest : AcceptanceTest<MainActivity>(MainActivity::class.ja
         events.clickOnView(R.id.edittext_tasklist_description)
         events.textOnView(R.id.edittext_tasklist_description, taskName)
         events.pressImeActionButton(R.id.edittext_tasklist_description)
-        events.waitFor(R.id.recyclerview_tasklist_list, 1000)
+        events.waitFor(R.id.recyclerview_tasklist_list, 2000)
         checkThat.recyclerViewContainsItem(R.id.recyclerview_tasklist_list, taskName)
     }
 }

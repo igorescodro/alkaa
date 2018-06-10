@@ -28,6 +28,15 @@ class TaskDetailViewModel(private val contract: TaskDetailContract) : ViewModel(
         )
     }
 
+    /**
+     * Updates the given task.
+     *
+     * @param task the task to be updated
+     */
+    fun updateTask(task: Task) {
+        contract.updateTask(task).subscribe()
+    }
+
     override fun onCleared() {
         compositeDisposable.clear()
         super.onCleared()

@@ -8,12 +8,15 @@ import android.widget.HorizontalScrollView
 import android.widget.RadioGroup
 import com.escodro.alkaa.R
 import com.escodro.alkaa.data.local.model.Category
+import kotlinx.android.synthetic.main.view_scrollable_radio_group.view.*
 
 /**
  * Custom view to show all the categories in [LabelRadioButton] format inside a
  * [HorizontalScrollView].
  */
 class ScrollableRadioGroup : HorizontalScrollView {
+
+    private var radioGroup: RadioGroup
 
     constructor(context: Context?) : super(context)
 
@@ -25,6 +28,7 @@ class ScrollableRadioGroup : HorizontalScrollView {
     init {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as? LayoutInflater
         inflater?.inflate(R.layout.view_scrollable_radio_group, this)
+        radioGroup = srg_radiogroup_list
     }
 
     /**
@@ -34,7 +38,6 @@ class ScrollableRadioGroup : HorizontalScrollView {
      */
     fun addAll(list: MutableList<Category>) {
         val rb = arrayOfNulls<LabelRadioButton>(list.size)
-        val radioGroup = findViewById<RadioGroup>(R.id.srg_radiogroup_list)
 
         list.forEachIndexed { index, category ->
             rb[index] = LabelRadioButton(context)
@@ -43,7 +46,7 @@ class ScrollableRadioGroup : HorizontalScrollView {
             radioButton?.apply {
                 text = category.name
                 setLabelColor(category.color)
-                tag = category.color
+                tag = category.id
 
                 val params = LayoutParams(LayoutParams.WRAP_CONTENT, dpInPixel(RADIO_HEIGHT))
                 setMargin(params, list, index)
@@ -54,6 +57,15 @@ class ScrollableRadioGroup : HorizontalScrollView {
                 radioGroup.addView(radioButton, params)
             }
         }
+    }
+
+    /**
+     * Sets the [android.widget.RadioGroup.OnCheckedChangeListener] in the view.
+     *
+     * @param listener the listener to receive the events
+     */
+    fun setOnCheckedChangeListener(listener: RadioGroup.OnCheckedChangeListener) {
+        radioGroup.setOnCheckedChangeListener(listener)
     }
 
     /**

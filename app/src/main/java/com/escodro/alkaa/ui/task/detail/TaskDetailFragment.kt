@@ -7,7 +7,9 @@ import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RadioGroup
 import com.escodro.alkaa.R
+import com.escodro.alkaa.common.view.LabelRadioButton
 import com.escodro.alkaa.data.local.model.Category
 import com.escodro.alkaa.data.local.model.Task
 import com.escodro.alkaa.databinding.FragmentTaskDetailBinding
@@ -24,6 +26,8 @@ class TaskDetailFragment : Fragment(), TaskDetailDelegate {
     private val viewModel: TaskDetailViewModel by viewModel()
 
     private var binding: FragmentTaskDetailBinding? = null
+
+    private var task: Task? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,6 +47,7 @@ class TaskDetailFragment : Fragment(), TaskDetailDelegate {
         super.onViewCreated(view, savedInstanceState)
 
         initComponents()
+        initListeners()
         viewModel.delegate = this
         viewModel.loadCategories()
     }
@@ -52,12 +57,27 @@ class TaskDetailFragment : Fragment(), TaskDetailDelegate {
         binding?.viewModel = viewModel
 
         // TODO Update to safe args when Google supports Parcelable
-        val task = arguments?.getParcelable<Task>(TaskListFragment.EXTRA_TASK)
+        task = arguments?.getParcelable(TaskListFragment.EXTRA_TASK)
         viewModel.task.value = task
         (activity as? AppCompatActivity)?.supportActionBar?.title = task?.description
     }
 
+    private fun initListeners() {
+        binding?.srgTaskdetailList?.setOnCheckedChangeListener(
+            RadioGroup.OnCheckedChangeListener { radioGroup, position ->
+                updateTaskWithCategory(radioGroup, position)
+            }
+        )
+    }
+
     override fun updateCategoryList(list: MutableList<Category>) {
         binding?.srgTaskdetailList?.addAll(list)
+    }
+
+    private fun updateTaskWithCategory(radioGroup: RadioGroup?, position: Int) {
+        val checked = radioGroup?.findViewById<LabelRadioButton>(position)
+        val categoryId = checked?.tag as? Long ?: 0
+        task?.categoryId = categoryId
+        task?.let { viewModel.updateTask(it) }
     }
 }

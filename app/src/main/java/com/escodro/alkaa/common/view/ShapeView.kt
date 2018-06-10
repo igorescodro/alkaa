@@ -8,7 +8,7 @@ import android.support.v7.widget.AppCompatImageView
 import android.util.AttributeSet
 
 /**
- * Custom view to load and change the color od a given shape.
+ * Custom view to load and change the color of a given shape.
  */
 class ShapeView : AppCompatImageView {
 

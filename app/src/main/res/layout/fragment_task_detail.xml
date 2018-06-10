@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -13,62 +14,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!--<HorizontalScrollView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginBottom="16dp"-->
-        <!--android:layout_marginTop="16dp"-->
-        <!--android:scrollbars="none"-->
-        <!--app:layout_constraintEnd_toEndOf="parent"-->
-        <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--app:layout_constraintTop_toTopOf="parent">-->
-
-        <!--<RadioGroup-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:orientation="horizontal">-->
-
-        <!--<com.escodro.alkaa.common.view.LabelRadioButton-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="32dp"-->
-        <!--android:layout_marginStart="16dp"-->
-        <!--android:drawablePadding="8dp"-->
-        <!--android:paddingEnd="24dp"-->
-        <!--android:paddingStart="24dp"-->
-        <!--android:text="Personal"-->
-        <!--app:labelColor="@{viewModel.color1}"/>-->
-
-        <!--<com.escodro.alkaa.common.view.LabelRadioButton-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="32dp"-->
-        <!--android:drawablePadding="8dp"-->
-        <!--android:paddingEnd="24dp"-->
-        <!--android:paddingStart="24dp"-->
-        <!--android:text="Work"-->
-        <!--app:labelColor="@{viewModel.color2}"/>-->
-
-        <!--<com.escodro.alkaa.common.view.LabelRadioButton-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="32dp"-->
-        <!--android:drawablePadding="8dp"-->
-        <!--android:paddingEnd="24dp"-->
-        <!--android:paddingStart="24dp"-->
-        <!--android:text="Shopping"-->
-        <!--app:labelColor="@{viewModel.color3}"/>-->
-
-        <!--<com.escodro.alkaa.common.view.LabelRadioButton-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="32dp"-->
-        <!--android:layout_marginEnd="16dp"-->
-        <!--android:drawablePadding="8dp"-->
-        <!--android:paddingEnd="24dp"-->
-        <!--android:paddingStart="24dp"-->
-        <!--android:text="Family"-->
-        <!--app:labelColor="@{viewModel.color4}"/>-->
-
-        <!--</RadioGroup>-->
-
-        <!--</HorizontalScrollView>-->
+        <com.escodro.alkaa.common.view.ScrollableRadioGroup
+            android:id="@+id/srg_taskdetail_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
     </android.support.constraint.ConstraintLayout>
 

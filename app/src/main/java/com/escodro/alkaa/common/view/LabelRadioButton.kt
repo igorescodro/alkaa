@@ -9,6 +9,7 @@ import android.support.annotation.DrawableRes
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.AppCompatRadioButton
 import android.util.AttributeSet
+import android.util.TypedValue
 import com.escodro.alkaa.R
 
 /**
@@ -32,15 +33,26 @@ class LabelRadioButton : AppCompatRadioButton {
 
     private fun updateView(isChecked: Boolean) {
         if (isChecked) {
-            background = setShapeColor(hexCode, R.drawable.shape_category_label)
-            setTextColor(ContextCompat.getColor(context, android.R.color.primary_text_dark))
-            setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
+            updateViewToChecked()
         } else {
-            background = null
-            val label = setShapeColor(hexCode, R.drawable.ic_category_label)
-            setTextColor(ContextCompat.getColor(context, android.R.color.primary_text_light))
-            setCompoundDrawablesWithIntrinsicBounds(label, null, null, null)
+            updateViewToUnchecked()
         }
+    }
+
+    private fun updateViewToUnchecked() {
+        elevation = 0F
+        background = null
+        val label = setShapeColor(hexCode, R.drawable.ic_category_label)
+        setTextColor(ContextCompat.getColor(context, android.R.color.primary_text_light))
+        setCompoundDrawablesWithIntrinsicBounds(label, null, null, null)
+        compoundDrawablePadding = dpInPixel(DRAWABLE_PADDING).toInt()
+    }
+
+    private fun updateViewToChecked() {
+        elevation = dpInPixel(VIEW_ELEVATION)
+        background = setShapeColor(hexCode, R.drawable.shape_category_label)
+        setTextColor(ContextCompat.getColor(context, android.R.color.primary_text_dark))
+        setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
     }
 
     /**
@@ -61,8 +73,19 @@ class LabelRadioButton : AppCompatRadioButton {
         return drawable
     }
 
+    private fun dpInPixel(dp: Int): Float =
+        TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            dp.toFloat(),
+            resources.displayMetrics
+        )
+
     companion object {
 
         private const val DEFAULT_COLOR = "#FFFFFF"
+
+        private const val VIEW_ELEVATION = 4
+
+        private const val DRAWABLE_PADDING = 8
     }
 }

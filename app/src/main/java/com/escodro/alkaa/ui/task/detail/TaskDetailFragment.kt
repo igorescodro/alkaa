@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.escodro.alkaa.R
+import com.escodro.alkaa.data.local.model.Category
 import com.escodro.alkaa.data.local.model.Task
 import com.escodro.alkaa.databinding.FragmentTaskDetailBinding
 import com.escodro.alkaa.ui.task.list.TaskListFragment
@@ -18,7 +19,7 @@ import org.koin.android.architecture.ext.viewModel
  *
  * Created by Igor Escodro on 31/5/18.
  */
-class TaskDetailFragment : Fragment() {
+class TaskDetailFragment : Fragment(), TaskDetailDelegate {
 
     private val viewModel: TaskDetailViewModel by viewModel()
 
@@ -42,6 +43,8 @@ class TaskDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initComponents()
+        viewModel.delegate = this
+        viewModel.loadCategories()
     }
 
     private fun initComponents() {
@@ -52,5 +55,9 @@ class TaskDetailFragment : Fragment() {
         val task = arguments?.getParcelable<Task>(TaskListFragment.EXTRA_TASK)
         viewModel.task.value = task
         (activity as? AppCompatActivity)?.supportActionBar?.title = task?.description
+    }
+
+    override fun updateCategoryList(list: MutableList<Category>) {
+        binding?.srgTaskdetailList?.addAll(list)
     }
 }

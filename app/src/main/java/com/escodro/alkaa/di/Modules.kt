@@ -5,6 +5,7 @@ import com.escodro.alkaa.ui.category.create.NewCategoryViewModel
 import com.escodro.alkaa.ui.category.list.CategoryListAdapter
 import com.escodro.alkaa.ui.category.list.CategoryListContract
 import com.escodro.alkaa.ui.category.list.CategoryListViewModel
+import com.escodro.alkaa.ui.task.detail.TaskDetailContract
 import com.escodro.alkaa.ui.task.detail.TaskDetailViewModel
 import com.escodro.alkaa.ui.task.list.TaskListAdapter
 import com.escodro.alkaa.ui.task.list.TaskListContract
@@ -34,7 +35,8 @@ val applicationModule = applicationContext {
     bean { TaskListAdapter(androidApplication()) }
 
     // Detail
-    viewModel { TaskDetailViewModel() }
+    bean { TaskDetailContract(get()) }
+    viewModel { TaskDetailViewModel(get()) }
 
     // Category
     bean { CategoryListContract(get()) }

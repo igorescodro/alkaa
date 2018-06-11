@@ -66,18 +66,25 @@ class TaskDetailFragment : Fragment(), TaskDetailDelegate {
         binding?.srgTaskdetailList?.setOnCheckedChangeListener(
             RadioGroup.OnCheckedChangeListener { radioGroup, position ->
                 updateTaskWithCategory(radioGroup, position)
-            }
-        )
+            })
     }
 
     override fun updateCategoryList(list: MutableList<Category>) {
         binding?.srgTaskdetailList?.addAll(list)
+
+        val checked = list.withIndex().firstOrNull {
+            it.value.id == task?.categoryId
+        }
+        checked?.let { binding?.srgTaskdetailList?.setChecked(it.index) }
     }
 
     private fun updateTaskWithCategory(radioGroup: RadioGroup?, position: Int) {
         val checked = radioGroup?.findViewById<LabelRadioButton>(position)
         val categoryId = checked?.tag as? Long ?: 0
-        task?.categoryId = categoryId
-        task?.let { viewModel.updateTask(it) }
+
+        if (task?.categoryId != categoryId) {
+            task?.categoryId = categoryId
+            task?.let { viewModel.updateTask(it) }
+        }
     }
 }

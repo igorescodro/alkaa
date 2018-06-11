@@ -95,6 +95,15 @@ class ScrollableRadioGroup : HorizontalScrollView {
             resources.displayMetrics
         ).toInt()
 
+    /**
+     * Set the [LabelRadioButton] in the given position as `checked`.
+     *
+     * @param index the [LabelRadioButton] index
+     */
+    fun setChecked(index: Int) {
+        (radioGroup.getChildAt(index) as? LabelRadioButton)?.isChecked = true
+    }
+
     companion object {
 
         private const val RADIO_HEIGHT = 32

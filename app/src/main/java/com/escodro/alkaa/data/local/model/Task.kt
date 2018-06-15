@@ -11,31 +11,28 @@ import kotlinx.android.parcel.IgnoredOnParcel
 import kotlinx.android.parcel.Parcelize
 
 /**
- *
  * [Entity] to represent a task.
- *
- * @author Igor Escodro on 1/2/18.
  */
 @SuppressLint("ParcelCreator")
 @Parcelize
 @Entity(
     foreignKeys = [(ForeignKey(
         entity = Category::class,
-        parentColumns = ["id"],
-        childColumns = ["category_id"],
+        parentColumns = ["category_id"],
+        childColumns = ["task_category_id"],
         onDelete = ForeignKey.CASCADE
     ))],
-    indices = [(Index(value = ["category_id"]))]
+    indices = [(Index(value = ["task_category_id"]))]
 
 )
 data class Task(
-    @ColumnInfo(name = "completed_flag") var completed: Boolean = false,
+    @ColumnInfo(name = "task_is_completed") var completed: Boolean = false,
     @ColumnInfo(name = "task_description") var description: String?,
-    @ColumnInfo(name = "category_id") var categoryId: Long? = null
+    @ColumnInfo(name = "task_category_id") var categoryId: Long? = null
 ) : Parcelable {
 
     @IgnoredOnParcel
-    @ColumnInfo(name = "id")
+    @ColumnInfo(name = "task_id")
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0
 }

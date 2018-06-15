@@ -7,12 +7,11 @@ import android.arch.persistence.room.OnConflictStrategy.REPLACE
 import android.arch.persistence.room.Query
 import android.arch.persistence.room.Update
 import com.escodro.alkaa.data.local.model.Task
+import com.escodro.alkaa.data.local.model.TaskWithCategory
 import io.reactivex.Flowable
 
 /**
  * DAO class to handle all [Task]-related database operations.
- *
- * @author Igor Escodro on 1/2/18.
  */
 @Dao
 interface TaskDao {
@@ -30,7 +29,7 @@ interface TaskDao {
      *
      * @param id task id
      */
-    @Query("SELECT * FROM task WHERE id = :id")
+    @Query("SELECT * FROM task WHERE task_id = :id")
     fun findTaskById(id: Long): Task
 
     /**
@@ -62,4 +61,12 @@ interface TaskDao {
      */
     @Query("DELETE FROM task")
     fun cleanTable()
+
+    /**
+     * Get all inserted tasks with category.
+     *
+     * @return all inserted tasks with category.
+     */
+    @Query("SELECT * FROM task LEFT JOIN category ON task_category_id = category_id")
+    fun getAllTasksWithCategory(): Flowable<MutableList<TaskWithCategory>>
 }

@@ -17,13 +17,13 @@ import androidx.core.os.bundleOf
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.escodro.alkaa.R
-import com.escodro.alkaa.data.local.model.Task
+import com.escodro.alkaa.data.local.model.TaskWithCategory
 import com.escodro.alkaa.databinding.FragmentTaskListBinding
 import org.koin.android.architecture.ext.viewModel
 import org.koin.android.ext.android.inject
 
 /**
- * [Fragment] responsible to show and handle all [Task]s.
+ * [Fragment] responsible to show and handle all [TaskWithCategory]s.
  */
 class TaskListFragment : Fragment(), TaskListDelegate, TaskListAdapter.TaskItemListener {
 
@@ -90,37 +90,37 @@ class TaskListFragment : Fragment(), TaskListDelegate, TaskListAdapter.TaskItemL
             result
         }
 
-    override fun updateList(list: MutableList<Task>) =
+    override fun updateList(list: MutableList<TaskWithCategory>) =
         adapter.updateTaskList(list)
 
     override fun onEmptyField() {
         binding?.edittextTasklistDescription?.error = getString(R.string.task_error_empty)
     }
 
-    override fun onNewTaskAdded(task: Task) {
-        adapter.addTask(task)
+    override fun onNewTaskAdded(taskWithCategory: TaskWithCategory) {
+        adapter.addTask(taskWithCategory)
     }
 
-    override fun onTaskRemoved(task: Task) {
-        adapter.removeTask(task)
+    override fun onTaskRemoved(taskWithCategory: TaskWithCategory) {
+        adapter.removeTask(taskWithCategory)
     }
 
-    override fun onItemClicked(task: Task) {
-        val bundle = bundleOf(EXTRA_TASK to task)
+    override fun onItemClicked(taskWithCategory: TaskWithCategory) {
+        val bundle = bundleOf(EXTRA_TASK to taskWithCategory.task)
         navigator?.navigate(R.id.action_detail, bundle)
     }
 
-    override fun onItemCheckedChanged(task: Task, value: Boolean) {
-        viewModel.updateTaskStatus(task, value)
+    override fun onItemCheckedChanged(taskWithCategory: TaskWithCategory, value: Boolean) {
+        viewModel.updateTaskStatus(taskWithCategory.task, value)
     }
 
-    override fun onItemLongPressed(task: Task) {
+    override fun onItemLongPressed(taskWithCategory: TaskWithCategory) {
         val builder = context?.let { AlertDialog.Builder(it) }
-        builder?.setTitle(task.description)
+        builder?.setTitle(taskWithCategory.task.description)
         builder?.setItems(R.array.task_dialog_options, { _,
             item ->
             when (item) {
-                0 -> viewModel.deleteTask(task)
+                0 -> viewModel.deleteTask(taskWithCategory)
             }
         })
         builder?.show()

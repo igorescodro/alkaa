@@ -41,6 +41,7 @@ class TaskListFragmentTest : AcceptanceTest<MainActivity>(MainActivity::class.ja
         addTask(taskName)
         events.longPressOnRecyclerItem(R.id.recyclerview_tasklist_list)
         events.clickDialogOption(R.array.task_dialog_options, 0)
+        events.waitFor(R.id.recyclerview_tasklist_list, 1000)
         checkThat.recyclerViewNotContainsItem(R.id.recyclerview_tasklist_list, taskName)
     }
 

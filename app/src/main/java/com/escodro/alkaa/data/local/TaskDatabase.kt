@@ -9,8 +9,6 @@ import com.escodro.alkaa.data.local.model.Task
 
 /**
  * [Task] Database class.
- *
- * @author Igor Escodro on 1/2/18.
  */
 @Database(entities = [Task::class, Category::class], version = 1, exportSchema = false)
 abstract class TaskDatabase : RoomDatabase() {

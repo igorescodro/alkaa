@@ -4,12 +4,11 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.text.TextUtils
 import com.escodro.alkaa.data.local.model.Task
+import com.escodro.alkaa.data.local.model.TaskWithCategory
 import io.reactivex.disposables.CompositeDisposable
 
 /**
  * [ViewModel] responsible to provide information to [TaskListFragment].
- *
- * Created by Igor Escodro on 1/2/18.
  */
 class TaskViewModel(private val contract: TaskListContract) : ViewModel() {
 
@@ -23,6 +22,7 @@ class TaskViewModel(private val contract: TaskListContract) : ViewModel() {
      * Loads all tasks.
      */
     fun loadTasks() {
+        compositeDisposable.clear()
         compositeDisposable.add(
             contract.loadTasks().subscribe { delegate?.updateList(it) })
     }
@@ -38,8 +38,9 @@ class TaskViewModel(private val contract: TaskListContract) : ViewModel() {
         }
 
         val task = Task(description = description)
+        val taskWithCategory = TaskWithCategory(task)
         contract.addTask(task)
-            ?.doOnComplete { onNewTaskAdded(task) }
+            ?.doOnComplete { onNewTaskAdded(taskWithCategory) }
             ?.subscribe()
     }
 
@@ -56,11 +57,11 @@ class TaskViewModel(private val contract: TaskListContract) : ViewModel() {
     /**
      * Deletes the given task.
      *
-     * @param task task to be removed
+     * @param taskWithCategory task to be removed
      */
-    fun deleteTask(task: Task) {
-        contract.deleteTask(task)
-            .doOnComplete { onTaskRemoved(task) }
+    fun deleteTask(taskWithCategory: TaskWithCategory) {
+        contract.deleteTask(taskWithCategory.task)
+            .doOnComplete { onTaskRemoved(taskWithCategory) }
             .subscribe()
     }
 
@@ -69,12 +70,12 @@ class TaskViewModel(private val contract: TaskListContract) : ViewModel() {
         super.onCleared()
     }
 
-    private fun onNewTaskAdded(task: Task) {
+    private fun onNewTaskAdded(taskWithCategory: TaskWithCategory) {
         newTask.value = null
-        delegate?.onNewTaskAdded(task)
+        delegate?.onNewTaskAdded(taskWithCategory)
     }
 
-    private fun onTaskRemoved(task: Task) {
-        delegate?.onTaskRemoved(task)
+    private fun onTaskRemoved(taskWithCategory: TaskWithCategory) {
+        delegate?.onTaskRemoved(taskWithCategory)
     }
 }

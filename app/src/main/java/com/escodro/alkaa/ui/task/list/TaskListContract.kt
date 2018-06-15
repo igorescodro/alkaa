@@ -1,6 +1,7 @@
 package com.escodro.alkaa.ui.task.list
 
 import com.escodro.alkaa.data.local.model.Task
+import com.escodro.alkaa.data.local.model.TaskWithCategory
 import com.escodro.alkaa.di.DaoRepository
 import io.reactivex.Flowable
 import io.reactivex.Observable
@@ -9,8 +10,6 @@ import io.reactivex.schedulers.Schedulers
 
 /**
  * Class containing the contract methods related to [TaskViewModel].
- *
- * @author Igor Escodro on 1/4/18.
  */
 class TaskListContract(daoRepository: DaoRepository) {
 
@@ -21,8 +20,8 @@ class TaskListContract(daoRepository: DaoRepository) {
      *
      * @return a mutable list of all tasks
      */
-    fun loadTasks(): Flowable<MutableList<Task>> =
-        taskDao.getAllTasks()
+    fun loadTasks(): Flowable<MutableList<TaskWithCategory>> =
+        taskDao.getAllTasksWithCategory()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 

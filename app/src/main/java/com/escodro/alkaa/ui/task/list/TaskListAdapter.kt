@@ -9,18 +9,16 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import com.escodro.alkaa.R
 import com.escodro.alkaa.common.viewholder.BindingHolder
-import com.escodro.alkaa.data.local.model.Task
+import com.escodro.alkaa.data.local.model.TaskWithCategory
 import com.escodro.alkaa.databinding.ItemTaskBinding
 
 /**
- * [RecyclerView.Adapter] to bind the [Task] in the [RecyclerView].
- *
- * @author Igor Escodro on 1/3/18.
+ * [RecyclerView.Adapter] to bind the [TaskWithCategory] in the [RecyclerView].
  */
 class TaskListAdapter constructor(private var context: Context) :
     RecyclerView.Adapter<BindingHolder<ItemTaskBinding>>() {
 
-    private val taskList: MutableList<Task> = ArrayList()
+    private val taskList: MutableList<TaskWithCategory> = ArrayList()
 
     var listener: TaskItemListener? = null
 
@@ -40,12 +38,12 @@ class TaskListAdapter constructor(private var context: Context) :
 
     override fun onBindViewHolder(holder: BindingHolder<ItemTaskBinding>, position: Int) {
         val binding = holder.binding
-        val task = taskList[position]
-        binding.task = task
-        binding.root.setOnLongClickListener { _ -> notifyLongPressListener(task) }
-        binding.root.setOnClickListener { _ -> notifyItemClickListener(task) }
+        val taskWithCategory = taskList[position]
+        binding.task = taskWithCategory.task
+        binding.root.setOnLongClickListener { _ -> notifyLongPressListener(taskWithCategory) }
+        binding.root.setOnClickListener { _ -> notifyItemClickListener(taskWithCategory) }
         binding.checkboxItemtaskCompleted
-            .setOnClickListener { view -> notifyCheckListener(view, task) }
+            .setOnClickListener { view -> notifyCheckListener(view, taskWithCategory) }
     }
 
     override fun getItemCount(): Int = taskList.size
@@ -55,73 +53,73 @@ class TaskListAdapter constructor(private var context: Context) :
      *
      * @param list list of tasks
      */
-    fun updateTaskList(list: MutableList<Task>) {
+    fun updateTaskList(list: MutableList<TaskWithCategory>) {
         taskList.clear()
         taskList.addAll(list)
         notifyDataSetChanged()
     }
 
     /**
-     * Adds a new [Task] in the list.
+     * Adds a new [TaskWithCategory] in the list.
      *
-     * @param task task to be added
+     * @param taskWithCategory task to be added
      */
-    fun addTask(task: Task) {
-        taskList.add(task)
+    fun addTask(taskWithCategory: TaskWithCategory) {
+        taskList.add(taskWithCategory)
         notifyItemChanged(itemCount)
     }
 
     /**
-     * Removes new [Task] from the list.
+     * Removes new [TaskWithCategory] from the list.
      *
-     * @param task task to be removed
+     * @param taskWithCategory task to be removed
      */
-    fun removeTask(task: Task) {
-        val position = taskList.indexOf(task)
-        taskList.remove(task)
+    fun removeTask(taskWithCategory: TaskWithCategory) {
+        val position = taskList.indexOf(taskWithCategory)
+        taskList.remove(taskWithCategory)
         notifyItemRemoved(position)
         notifyItemRangeChanged(position, taskList.size)
     }
 
-    private fun notifyItemClickListener(task: Task) {
-        listener?.onItemClicked(task)
+    private fun notifyItemClickListener(taskWithCategory: TaskWithCategory) {
+        listener?.onItemClicked(taskWithCategory)
     }
 
-    private fun notifyCheckListener(view: View, task: Task) {
+    private fun notifyCheckListener(view: View, taskWithCategory: TaskWithCategory) {
         val checkBox: CheckBox? = view as? CheckBox
-        checkBox?.isChecked?.let { listener?.onItemCheckedChanged(task, it) }
+        checkBox?.isChecked?.let { listener?.onItemCheckedChanged(taskWithCategory, it) }
     }
 
-    private fun notifyLongPressListener(task: Task): Boolean {
-        listener?.onItemLongPressed(task)
+    private fun notifyLongPressListener(taskWithCategory: TaskWithCategory): Boolean {
+        listener?.onItemLongPressed(taskWithCategory)
         return true
     }
 
     /**
-     * Listener responsible to callback interactions with [Task] item.
+     * Listener responsible to callback interactions with [TaskWithCategory] item.
      */
     interface TaskItemListener {
 
         /**
          * Callback notified when the item is clicked .
          *
-         * @param task the task that changed its status
+         * @param taskWithCategory the task that changed its status
          */
-        fun onItemClicked(task: Task)
+        fun onItemClicked(taskWithCategory: TaskWithCategory)
 
         /**
          * Callback notified when the checked status from the [CheckBox] changes.
          *
-         * @param task the task that changed its status
+         * @param taskWithCategory the task that changed its status
          * @param value the checkbox new value
          */
-        fun onItemCheckedChanged(task: Task, value: Boolean)
+        fun onItemCheckedChanged(taskWithCategory: TaskWithCategory, value: Boolean)
 
         /**
          * Callback notified when a item is long pressed.
          *
-         * @param task task selected
+         * @param taskWithCategory task selected
          */
-        fun onItemLongPressed(task: Task)
+        fun onItemLongPressed(taskWithCategory: TaskWithCategory)
     }
 }

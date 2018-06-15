@@ -8,8 +8,6 @@ import com.escodro.alkaa.data.local.dao.TaskDao
 
 /**
  * Repository with the [Room] database.
- *
- * @author Igor Escodro on 4/19/18.
  */
 class DatabaseRepository(private val context: Context) {
 

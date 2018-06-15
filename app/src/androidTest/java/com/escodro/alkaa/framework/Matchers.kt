@@ -35,6 +35,10 @@ class Matchers {
         onView(withText(resId)).check(matches(withParent(withId(toolbarId))))
     }
 
+    fun toolbarContainsTitle(@IdRes toolbarId: Int, text: String) {
+        onView(withText(text)).check(matches(withParent(withId(toolbarId))))
+    }
+
     fun viewContainsError(@IdRes viewId: Int, @StringRes stringResource: Int) {
         val errorMessage = context.getString(stringResource)
         onView(withId(viewId)).check(matches(hasErrorText(errorMessage)))

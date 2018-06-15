@@ -37,12 +37,18 @@ class Events {
         onView(withText(resId)).perform(click())
     }
 
+    fun clickOnRecyclerItem(@IdRes recyclerView: Int) {
+        onView(withId(recyclerView)).perform(
+            RecyclerViewActions
+                .actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click())
+        )
+    }
+
     fun longPressOnRecyclerItem(@IdRes recyclerView: Int) {
-        onView(withId(recyclerView))
-            .perform(
-                RecyclerViewActions
-                    .actionOnItemAtPosition<RecyclerView.ViewHolder>(0, longClick())
-            )
+        onView(withId(recyclerView)).perform(
+            RecyclerViewActions
+                .actionOnItemAtPosition<RecyclerView.ViewHolder>(0, longClick())
+        )
     }
 
     fun clickDialogOption(@StringRes stringResource: Int, index: Int) {

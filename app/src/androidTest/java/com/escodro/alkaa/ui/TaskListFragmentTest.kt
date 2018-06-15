@@ -25,7 +25,7 @@ class TaskListFragmentTest : AcceptanceTest<MainActivity>(MainActivity::class.ja
     fun isDescriptionSingleLine() {
         addTask(
             "Lorem ipsum dolor sit amet, te elit possit suavitate duo. Nec sale sonet" +
-                    " scriptorem ei, option prompta ut sed. At everti discere oportere sea."
+                " scriptorem ei, option prompta ut sed. At everti discere oportere sea."
         )
         checkThat.textHasFixedLines(R.id.textview_itemtask_description, 1)
     }
@@ -57,6 +57,14 @@ class TaskListFragmentTest : AcceptanceTest<MainActivity>(MainActivity::class.ja
         addTask("write article")
         events.clickOnView(R.id.checkbox_itemtask_completed)
         checkThat.checkBoxIsChecked(R.id.checkbox_itemtask_completed)
+    }
+
+    @Test
+    fun addAndOpenTask() {
+        val taskName = "bake a chocolate cake"
+        addTask(taskName)
+        events.clickOnRecyclerItem(R.id.recyclerview_tasklist_list)
+        checkThat.toolbarContainsTitle(R.id.toolbar_main_toolbar, taskName)
     }
 
     private fun addTask(taskName: String) {

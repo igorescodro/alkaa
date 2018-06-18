@@ -45,7 +45,8 @@ dependencies {
     implementation "com.android.support:design:$support_version"
     implementation "com.android.support:recyclerview-v7:$support_version"
     implementation "com.android.support:preference-v7:$support_version"
-    implementation "com.android.support.constraint:constraint-layout:1.1.1"
+    implementation "com.android.support:cardview-v7:$support_version"
+    implementation "com.android.support.constraint:constraint-layout:1.1.2"
     implementation 'androidx.core:core-ktx:0.3'
 
     //Test

@@ -40,6 +40,7 @@ class TaskListAdapter constructor(private var context: Context) :
         val binding = holder.binding
         val taskWithCategory = taskList[position]
         binding.task = taskWithCategory.task
+        binding.category = taskWithCategory.category
         binding.root.setOnLongClickListener { _ -> notifyLongPressListener(taskWithCategory) }
         binding.root.setOnClickListener { _ -> notifyItemClickListener(taskWithCategory) }
         binding.checkboxItemtaskCompleted

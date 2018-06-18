@@ -15,6 +15,7 @@ import android.support.test.espresso.contrib.RecyclerViewActions
 import android.support.test.espresso.matcher.RootMatchers.isDialog
 import android.support.test.espresso.matcher.ViewMatchers.isDisplayed
 import android.support.test.espresso.matcher.ViewMatchers.isRoot
+import android.support.test.espresso.matcher.ViewMatchers.withContentDescription
 import android.support.test.espresso.matcher.ViewMatchers.withId
 import android.support.test.espresso.matcher.ViewMatchers.withText
 import android.support.v7.widget.RecyclerView
@@ -60,12 +61,20 @@ class Events {
             .perform(click())
     }
 
+    fun clickOnRadioButton(@IdRes radioButtonGroupId: Int, index: Int) {
+        onView(Matchers.getChildAt(withId(radioButtonGroupId), index)).perform(click())
+    }
+
     fun textOnView(@IdRes viewId: Int, text: String) {
         onView(withId(viewId)).perform(typeText(text))
     }
 
     fun pressImeActionButton(@IdRes viewId: Int) {
         onView(withId(viewId)).perform(pressImeActionButton())
+    }
+
+    fun navigateUp() {
+        onView(withContentDescription("Navigate up")).perform(click())
     }
 
     fun waitFor(@IdRes viewId: Int, delay: Long) {

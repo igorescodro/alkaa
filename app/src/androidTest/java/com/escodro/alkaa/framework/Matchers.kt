@@ -13,6 +13,7 @@ import android.support.test.espresso.matcher.ViewMatchers.withId
 import android.support.test.espresso.matcher.ViewMatchers.withParent
 import android.support.test.espresso.matcher.ViewMatchers.withText
 import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
 import org.hamcrest.Description
 import org.hamcrest.Matcher
@@ -62,14 +63,37 @@ class Matchers {
         onView(withId(viewId)).check(matches(isChecked()))
     }
 
-    private fun isTextInLines(lines: Int): Matcher<in View>? =
-        object : TypeSafeMatcher<View>() {
-            override fun matchesSafely(item: View?): Boolean {
-                return (item as? TextView)?.lineCount == lines
+    fun radioButtonIsChecked(@IdRes radioButtonGroupId: Int, index: Int) {
+        onView(Matchers.getChildAt(withId(radioButtonGroupId), index)).check(matches(isChecked()))
+    }
+
+    companion object {
+
+        private fun isTextInLines(lines: Int): Matcher<in View>? =
+            object : TypeSafeMatcher<View>() {
+                override fun matchesSafely(item: View?): Boolean {
+                    return (item as? TextView)?.lineCount == lines
+                }
+
+                override fun describeTo(description: Description?) {
+                    description?.appendText("check number of lines")
+                }
             }
 
-            override fun describeTo(description: Description?) {
-                description?.appendText("check number of lines")
+        fun getChildAt(parentMatcher: Matcher<View>, index: Int) =
+            object : TypeSafeMatcher<View>() {
+                override fun matchesSafely(view: View?): Boolean {
+                    if (view?.parent !is ViewGroup) {
+                        return parentMatcher.matches(view?.parent)
+                    }
+
+                    val viewGroup = view.parent as ViewGroup
+                    return parentMatcher.matches(view.parent) && viewGroup.getChildAt(index) == view
+                }
+
+                override fun describeTo(description: Description?) {
+                    description?.appendText("click at child $index from ViewGroup")
+                }
             }
-        }
+    }
 }

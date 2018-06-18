@@ -1,8 +1,10 @@
 package com.escodro.alkaa.ui
 
 import com.escodro.alkaa.R
+import com.escodro.alkaa.data.local.model.Category
 import com.escodro.alkaa.framework.AcceptanceTest
 import org.junit.After
+import org.junit.Before
 import org.junit.Test
 
 /**
@@ -10,9 +12,17 @@ import org.junit.Test
  */
 class TaskListFragmentTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
 
+    @Before
+    fun addCategories() {
+        daoRepository.getCategoryDao().insertCategory(Category("Work", "#cc5a71"))
+        daoRepository.getCategoryDao().insertCategory(Category("Personal", "#58a4b0"))
+        daoRepository.getCategoryDao().insertCategory(Category("Family", "#519872"))
+    }
+
     @After
     fun cleanTable() {
         daoRepository.getTaskDao().cleanTable()
+        daoRepository.getCategoryDao().cleanTable()
     }
 
     @Test
@@ -61,7 +71,19 @@ class TaskListFragmentTest : AcceptanceTest<MainActivity>(MainActivity::class.ja
 
     @Test
     fun addAndOpenTask() {
-        val taskName = "bake a chocolate cake"
+        addAndOpenTask("select a new category")
+    }
+
+    @Test
+    fun checkIfTaskCategoryIsSaved() {
+        addAndOpenTask()
+        events.clickOnRadioButton(R.id.srg_radiogroup_list, 1)
+        events.navigateUp()
+        events.clickOnRecyclerItem(R.id.recyclerview_tasklist_list)
+        checkThat.radioButtonIsChecked(R.id.srg_radiogroup_list, 1)
+    }
+
+    private fun addAndOpenTask(taskName: String) {
         addTask(taskName)
         events.clickOnRecyclerItem(R.id.recyclerview_tasklist_list)
         checkThat.toolbarContainsTitle(R.id.toolbar_main_toolbar, taskName)

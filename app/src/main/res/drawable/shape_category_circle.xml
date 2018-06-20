@@ -1,26 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <shape android:shape="oval">
+            <size
+                android:width="200dp"
+                android:height="200dp" />
+
+            <gradient
+                android:centerColor="#18ffffff"
+                android:endColor="#40ffffff"
+                android:gradientRadius="400"
+                android:startColor="@android:color/white"
+                android:type="radial" />
+
+        </shape>
+    </item>
+
     <item
-        android:bottom="64dp"
-        android:left="64dp"
-        android:right="64dp"
-        android:state_pressed="true"
-        android:top="64dp">
-        <rotate android:fromDegrees="45">
-            <shape>
-                <size
-                    android:width="200dp"
-                    android:height="200dp" />
+        android:bottom="24dp"
+        android:left="24dp"
+        android:right="24dp"
+        android:top="24dp">
+        <shape android:shape="oval">
+            <size
+                android:width="200dp"
+                android:height="200dp" />
 
-                <solid android:color="@android:color/white" />
+            <solid android:color="@android:color/white" />
 
-                <stroke
-                    android:width="5dp"
-                    android:color="#d2d2d2" />
+            <stroke
+                android:width="5dp"
+                android:color="#d2d2d2" />
 
-                <corners android:radius="7dp" />
-
-            </shape>
-        </rotate>
+        </shape>
     </item>
 </layer-list>

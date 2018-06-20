@@ -11,30 +11,44 @@
 
     </data>
 
-    <LinearLayout
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="128dp"
-        android:orientation="vertical"
-        tools:ignore="UseCompoundDrawables">
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground">
 
-        <com.escodro.alkaa.common.view.ShapeView
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_gravity="center"
-            android:src="@drawable/shape_category_circle"
-            app:shapeColor="@{category.color}" />
-
-        <TextView
-            android:id="@+id/textview_itemcategory_description"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="128dp"
             android:layout_margin="8dp"
-            android:gravity="center"
-            android:singleLine="true"
-            android:text="@{category.name}"
-            android:textSize="18sp"
-            tools:text="Item 1" />
+            android:orientation="vertical"
+            tools:ignore="UseCompoundDrawables">
 
-    </LinearLayout>
+            <com.escodro.alkaa.common.view.ShapeView
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="12dp"
+                android:src="@drawable/shape_category_circle"
+                app:shapeColor="@{category.color}" />
+
+            <TextView
+                android:id="@+id/textview_itemcategory_description"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="8dp"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="@{category.name}"
+                android:textSize="18sp"
+                tools:text="Item 1" />
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
 
 </layout>

@@ -8,10 +8,10 @@
         android:id="@+id/taskListFragment"
         android:name="com.escodro.alkaa.ui.task.list.TaskListFragment"
         android:label="Tasks"
-        tools:layout="@layout/fragment_task">
+        tools:layout="@layout/fragment_task_list">
 
         <action
-            android:id="@+id/action_preference"
+            android:id="@string/key_action_open_preference"
             app:destination="@id/preferenceFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
@@ -27,7 +27,7 @@
             app:popExitAnim="@anim/slide_pop_exit_name"/>
 
         <action
-            android:id="@+id/action_category"
+            android:id="@string/key_action_open_category"
             app:destination="@id/categoryFragment"/>
 
     </fragment>
@@ -49,7 +49,7 @@
         android:id="@+id/categoryFragment"
         android:name="com.escodro.alkaa.ui.category.list.CategoryListFragment"
         android:label="@string/category_list_label"
-        tools:layout="@layout/fragment_category">
+        tools:layout="@layout/fragment_category_list">
 
         <action
             android:id="@+id/action_new_category"
@@ -61,6 +61,6 @@
         android:id="@+id/newCategoryFragment"
         android:name="com.escodro.alkaa.ui.category.create.NewCategoryFragment"
         android:label="Add Category"
-        tools:layout="@layout/fragment_new_category"/>
+        tools:layout="@layout/fragment_category_new"/>
 
 </navigation>

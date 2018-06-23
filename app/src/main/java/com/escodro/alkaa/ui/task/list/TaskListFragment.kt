@@ -8,7 +8,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
@@ -59,14 +58,6 @@ class TaskListFragment : Fragment(), TaskListDelegate, TaskListAdapter.TaskItemL
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         inflater?.inflate(R.menu.task_menu, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId) {
-            R.id.action_preference -> navigator?.navigate(R.id.action_preference)
-            R.id.action_category -> navigator?.navigate(R.id.action_category)
-        }
-        return true
     }
 
     private fun bindComponents() {

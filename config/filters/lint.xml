@@ -6,4 +6,5 @@
     <issue id="ContentDescription" severity="ignore"/>
     <issue id="InvalidPackage" severity="ignore"/>
     <issue id="LabelFor" severity="ignore"/>
+    <issue id="Autofill" severity="ignore"/>
 </lint>

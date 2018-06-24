@@ -28,7 +28,7 @@ class TaskListFragment : Fragment(), TaskListDelegate, TaskListAdapter.TaskItemL
 
     private val adapter: TaskListAdapter by inject()
 
-    private val viewModel: TaskViewModel by viewModel()
+    private val viewModel: TaskListViewModel by viewModel()
 
     private var binding: FragmentTaskListBinding? = null
 
@@ -52,7 +52,7 @@ class TaskListFragment : Fragment(), TaskListDelegate, TaskListAdapter.TaskItemL
         bindComponents()
         adapter.listener = this
         viewModel.delegate = this
-        viewModel.loadTasks()
+        loadTasks()
         navigator = NavHostFragment.findNavController(this)
     }
 
@@ -66,6 +66,11 @@ class TaskListFragment : Fragment(), TaskListDelegate, TaskListAdapter.TaskItemL
         binding?.recyclerviewTasklistList?.layoutManager = getLayoutManager()
         binding?.edittextTasklistDescription?.setOnEditorActionListener(getEditorActionListener())
         binding?.viewModel = viewModel
+    }
+
+    private fun loadTasks() {
+        val itemId = arguments?.getInt(TaskListFragment.EXTRA_CATEGORY_ID) ?: 0
+        viewModel.loadTasks(itemId)
     }
 
     private fun getLayoutManager() =
@@ -120,5 +125,7 @@ class TaskListFragment : Fragment(), TaskListDelegate, TaskListAdapter.TaskItemL
     companion object {
 
         const val EXTRA_TASK = "task"
+
+        const val EXTRA_CATEGORY_ID = "category_id"
     }
 }

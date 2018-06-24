@@ -10,7 +10,7 @@ import io.reactivex.disposables.CompositeDisposable
 /**
  * [ViewModel] responsible to provide information to [TaskListFragment].
  */
-class TaskViewModel(private val contract: TaskListContract) : ViewModel() {
+class TaskListViewModel(private val contract: TaskListContract) : ViewModel() {
 
     var delegate: TaskListDelegate? = null
 
@@ -20,11 +20,14 @@ class TaskViewModel(private val contract: TaskListContract) : ViewModel() {
 
     /**
      * Loads all tasks.
+     *
+     * @param categoryId the category id to show only tasks related to this category, if `0` is
+     * passed, all the categories will be shown.
      */
-    fun loadTasks() {
+    fun loadTasks(categoryId: Int) {
         compositeDisposable.clear()
         compositeDisposable.add(
-            contract.loadTasks().subscribe { delegate?.updateList(it) })
+            contract.loadTasks(categoryId).subscribe { delegate?.updateList(it) })
     }
 
     /**

@@ -38,7 +38,7 @@
         android:layout_gravity="start">
 
         <android.support.design.widget.NavigationView
-            android:id="@+id/layout_main_drawercontent"
+            android:id="@+id/navigationview_main_drawer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"/>

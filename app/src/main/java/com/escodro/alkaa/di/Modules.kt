@@ -5,11 +5,13 @@ import com.escodro.alkaa.ui.category.create.NewCategoryViewModel
 import com.escodro.alkaa.ui.category.list.CategoryListAdapter
 import com.escodro.alkaa.ui.category.list.CategoryListContract
 import com.escodro.alkaa.ui.category.list.CategoryListViewModel
+import com.escodro.alkaa.ui.main.MainContract
+import com.escodro.alkaa.ui.main.MainViewModel
 import com.escodro.alkaa.ui.task.detail.TaskDetailContract
 import com.escodro.alkaa.ui.task.detail.TaskDetailViewModel
 import com.escodro.alkaa.ui.task.list.TaskListAdapter
 import com.escodro.alkaa.ui.task.list.TaskListContract
-import com.escodro.alkaa.ui.task.list.TaskViewModel
+import com.escodro.alkaa.ui.task.list.TaskListViewModel
 import org.koin.android.architecture.ext.viewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module.applicationContext
@@ -29,9 +31,13 @@ val databaseModule = applicationContext {
 
 val applicationModule = applicationContext {
 
+    // Main
+    bean { MainContract(get()) }
+    viewModel { MainViewModel(get()) }
+
     // Task
     bean { TaskListContract(get()) }
-    viewModel { TaskViewModel(get()) }
+    viewModel { TaskListViewModel(get()) }
     bean { TaskListAdapter(androidApplication()) }
 
     // Detail

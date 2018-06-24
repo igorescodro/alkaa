@@ -69,4 +69,17 @@ interface TaskDao {
      */
     @Query("SELECT * FROM task LEFT JOIN category ON task_category_id = category_id")
     fun getAllTasksWithCategory(): Flowable<MutableList<TaskWithCategory>>
+
+    /**
+     * Get all inserted tasks related with the given category.
+     *
+     * @param categoryId the category id
+     *
+     * @return all inserted tasks with category.
+     */
+    @Query(
+        "SELECT * FROM task LEFT JOIN category ON task_category_id = category_id " +
+            "WHERE task_category_id = :categoryId"
+    )
+    fun getAllTasksWithCategoryId(categoryId: Int): Flowable<MutableList<TaskWithCategory>>
 }

@@ -2,6 +2,9 @@
 
     <string name="app_name">Alkaa</string>
 
+    <!-- Main drawer -->
+    <string name="drawer_menu_all_tasks">All Tasks</string>
+
     <!-- Task screen -->
     <string name="task_menu_preferences">Preferences</string>
     <string name="task_menu_category">Categories</string>

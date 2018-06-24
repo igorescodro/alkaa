@@ -9,7 +9,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 /**
- * Class containing the contract methods related to [TaskViewModel].
+ * Class containing the contract methods related to [TaskListViewModel].
  */
 class TaskListContract(daoRepository: DaoRepository) {
 
@@ -18,12 +18,23 @@ class TaskListContract(daoRepository: DaoRepository) {
     /**
      * Loads all tasks.
      *
+     * @param categoryId the category id to show only tasks related to this category, if `0` is
+     * passed, all the categories will be shown.
+     *
      * @return a mutable list of all tasks
      */
-    fun loadTasks(): Flowable<MutableList<TaskWithCategory>> =
-        taskDao.getAllTasksWithCategory()
+    fun loadTasks(categoryId: Int): Flowable<MutableList<TaskWithCategory>> {
+        val observable =
+            if (categoryId == NO_CATEGORY) {
+                taskDao.getAllTasksWithCategory()
+            } else {
+                taskDao.getAllTasksWithCategoryId(categoryId)
+            }
+
+        return observable
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+    }
 
     /**
      * Adds a task.
@@ -60,4 +71,9 @@ class TaskListContract(daoRepository: DaoRepository) {
         Observable.fromCallable { taskDao.deleteTask(task) }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+
+    companion object {
+
+        private const val NO_CATEGORY = 0
+    }
 }

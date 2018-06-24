@@ -22,8 +22,6 @@ class DatabaseRepository(private val context: Context) {
 
 /**
  * Repository with the database [android.arch.persistence.room.Dao]s.
- *
- * @author Igor Escodro on 4/19/18.
  */
 class DaoRepository(private val database: DatabaseRepository) {
 

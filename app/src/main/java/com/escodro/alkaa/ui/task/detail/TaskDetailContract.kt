@@ -10,8 +10,6 @@ import io.reactivex.schedulers.Schedulers
 
 /**
  * Class containing the contract methods related to [TaskDetailViewModel].
- *
- * @author Igor Escodro on 1/4/18.
  */
 class TaskDetailContract(daoRepository: DaoRepository) {
 

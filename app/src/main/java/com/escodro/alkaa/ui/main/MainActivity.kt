@@ -22,8 +22,6 @@ import org.koin.android.architecture.ext.viewModel
 
 /**
  * Main application [AppCompatActivity].
- *
- * @author Igor Escodro on 1/2/18.
  */
 class MainActivity : AppCompatActivity(), MainDelegate {
 

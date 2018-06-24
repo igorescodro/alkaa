@@ -8,8 +8,6 @@ import io.reactivex.schedulers.Schedulers
 
 /**
  * Class containing the contract methods related to [CategoryListViewModel].
- *
- * @author Igor Escodro on 3/5/18.
  */
 class CategoryListContract(daoRepository: DaoRepository) {
 

@@ -12,8 +12,6 @@ import com.escodro.alkaa.databinding.ItemCategoryBinding
 
 /**
  * [RecyclerView.Adapter] to bind the [Category] in the [RecyclerView].
- *
- * @author Igor Escodro on 3/6/18.
  */
 class CategoryListAdapter constructor(private var context: Context) :
     RecyclerView.Adapter<BindingHolder<ItemCategoryBinding>>() {

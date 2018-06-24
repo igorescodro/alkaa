@@ -9,8 +9,6 @@ import io.reactivex.Flowable
 
 /**
  * DAO class to handle all [Category]-related database operations.
- *
- * @author Igor Escodro on 3/6/18.
  */
 @Dao
 interface CategoryDao {

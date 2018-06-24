@@ -6,8 +6,6 @@ import com.escodro.alkaa.R
 
 /**
  * [PreferenceFragmentCompat] containing the application preferences.
- *
- * @author Igor Escodro on 27/5/18.
  */
 class PreferenceFragment : PreferenceFragmentCompat() {
 

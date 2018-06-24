@@ -121,6 +121,12 @@ class MainActivity : AppCompatActivity(), MainDelegate {
                     layout_main_drawercontainer.width * (1 - slideOffset)
                 layout_main_content.translationX = layout_main_drawercontainer.width * slideOffset
             }
+
+            override fun onDrawerOpened(drawerView: View) {
+                super.onDrawerOpened(drawerView)
+
+                viewModel.loadCategories()
+            }
         }
         layout_main_parent.addDrawerListener(toggle)
     }

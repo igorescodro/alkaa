@@ -10,8 +10,8 @@
             type="com.escodro.alkaa.data.local.model.Task"/>
 
         <variable
-            name="category"
-            type="com.escodro.alkaa.data.local.model.Category"/>
+            name="color"
+            type="String"/>
 
     </data>
 
@@ -34,7 +34,7 @@
                 android:id="@+id/view_itemtask_color"
                 android:layout_width="6dp"
                 android:layout_height="match_parent"
-                app:background="@{category.color}"/>
+                app:background="@{color}"/>
 
             <CheckBox
                 android:id="@+id/checkbox_itemtask_completed"

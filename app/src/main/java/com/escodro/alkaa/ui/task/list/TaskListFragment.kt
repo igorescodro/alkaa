@@ -18,6 +18,7 @@ import androidx.navigation.fragment.NavHostFragment
 import com.escodro.alkaa.R
 import com.escodro.alkaa.data.local.model.TaskWithCategory
 import com.escodro.alkaa.databinding.FragmentTaskListBinding
+import com.escodro.alkaa.di.SystemService
 import org.koin.android.architecture.ext.viewModel
 import org.koin.android.ext.android.inject
 
@@ -29,6 +30,8 @@ class TaskListFragment : Fragment(), TaskListDelegate, TaskListAdapter.TaskItemL
     private val adapter: TaskListAdapter by inject()
 
     private val viewModel: TaskListViewModel by viewModel()
+
+    private val systemService: SystemService by inject()
 
     private var binding: FragmentTaskListBinding? = null
 
@@ -70,7 +73,11 @@ class TaskListFragment : Fragment(), TaskListDelegate, TaskListAdapter.TaskItemL
 
     private fun loadTasks() {
         val itemId = arguments?.getInt(TaskListFragment.EXTRA_CATEGORY_ID) ?: 0
+        val taskName = arguments?.getString(
+            TaskListFragment.EXTRA_CATEGORY_NAME, getString(R.string.drawer_menu_all_tasks)
+        )
         viewModel.loadTasks(itemId)
+        binding?.textviewTasklistCategory?.text = taskName
     }
 
     private fun getLayoutManager() =
@@ -81,6 +88,7 @@ class TaskListFragment : Fragment(), TaskListDelegate, TaskListAdapter.TaskItemL
             var result = false
             if (action == EditorInfo.IME_ACTION_DONE) {
                 viewModel.addTask()
+                systemService.getInputMethodManager()?.hideSoftInputFromWindow(view?.windowToken, 0)
                 result = true
             }
             result
@@ -127,5 +135,7 @@ class TaskListFragment : Fragment(), TaskListDelegate, TaskListAdapter.TaskItemL
         const val EXTRA_TASK = "task"
 
         const val EXTRA_CATEGORY_ID = "category_id"
+
+        const val EXTRA_CATEGORY_NAME = "category_name"
     }
 }

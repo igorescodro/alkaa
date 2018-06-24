@@ -15,6 +15,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/textview_tasklist_category"
+            style="@style/CategoryTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:ellipsize="end"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="All Tasks"/>
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerview_tasklist_list"
             android:layout_width="0dp"
@@ -23,11 +35,11 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/edittext_tasklist_description"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edittext_tasklist_description"
-            tools:listitem="@layout/item_task" />
+            app:layout_constraintTop_toBottomOf="@+id/textview_tasklist_category"
+            tools:listitem="@layout/item_task"/>
 
         <EditText
             android:id="@+id/edittext_tasklist_description"
@@ -35,16 +47,16 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
             android:gravity="center"
             android:imeOptions="actionDone"
             android:inputType="text"
             android:maxLines="1"
             android:text="@={viewModel.newTask}"
             android:textSize="32sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/recyclerview_tasklist_list"/>
 
     </android.support.constraint.ConstraintLayout>
 

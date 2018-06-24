@@ -17,9 +17,15 @@ import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module.applicationContext
 
 /**
+ * Android-related module.
+ */
+val androidModule = applicationContext {
+
+    bean { SystemService(androidApplication()) }
+}
+
+/**
  * Database module.
- *
- * @author Igor Escodro on 4/19/18.
  */
 @Suppress("UnsafeCast")
 val databaseModule = applicationContext {
@@ -29,6 +35,9 @@ val databaseModule = applicationContext {
     bean { DaoRepository(get()) }
 }
 
+/**
+ * Application module.
+ */
 val applicationModule = applicationContext {
 
     // Main
@@ -57,4 +66,4 @@ val applicationModule = applicationContext {
 /**
  * List of all modules.
  */
-val alkaaModules = listOf(databaseModule, applicationModule)
+val alkaaModules = listOf(androidModule, databaseModule, applicationModule)

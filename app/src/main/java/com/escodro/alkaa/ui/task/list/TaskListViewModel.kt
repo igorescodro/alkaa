@@ -16,6 +16,8 @@ class TaskListViewModel(private val contract: TaskListContract) : ViewModel() {
 
     val newTask = MutableLiveData<String>()
 
+    private var categoryId: Long? = null
+
     private val compositeDisposable = CompositeDisposable()
 
     /**
@@ -24,7 +26,9 @@ class TaskListViewModel(private val contract: TaskListContract) : ViewModel() {
      * @param categoryId the category id to show only tasks related to this category, if `0` is
      * passed, all the categories will be shown.
      */
-    fun loadTasks(categoryId: Int) {
+    fun loadTasks(categoryId: Long) {
+        this.categoryId = categoryId
+
         compositeDisposable.clear()
         compositeDisposable.add(
             contract.loadTasks(categoryId).subscribe { delegate?.updateList(it) })
@@ -40,7 +44,8 @@ class TaskListViewModel(private val contract: TaskListContract) : ViewModel() {
             return
         }
 
-        val task = Task(description = description)
+        val categoryIdValue = if (categoryId != 0L) categoryId else null
+        val task = Task(description = description, categoryId = categoryIdValue)
         val taskWithCategory = TaskWithCategory(task)
         contract.addTask(task)
             ?.doOnComplete { onNewTaskAdded(taskWithCategory) }

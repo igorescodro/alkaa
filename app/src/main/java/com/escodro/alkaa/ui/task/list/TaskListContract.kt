@@ -23,7 +23,7 @@ class TaskListContract(daoRepository: DaoRepository) {
      *
      * @return a mutable list of all tasks
      */
-    fun loadTasks(categoryId: Int): Flowable<MutableList<TaskWithCategory>> {
+    fun loadTasks(categoryId: Long): Flowable<MutableList<TaskWithCategory>> {
         val observable =
             if (categoryId == NO_CATEGORY) {
                 taskDao.getAllTasksWithCategory()
@@ -74,6 +74,6 @@ class TaskListContract(daoRepository: DaoRepository) {
 
     companion object {
 
-        private const val NO_CATEGORY = 0
+        private const val NO_CATEGORY = 0L
     }
 }

@@ -81,5 +81,5 @@ interface TaskDao {
         "SELECT * FROM task LEFT JOIN category ON task_category_id = category_id " +
             "WHERE task_category_id = :categoryId"
     )
-    fun getAllTasksWithCategoryId(categoryId: Int): Flowable<MutableList<TaskWithCategory>>
+    fun getAllTasksWithCategoryId(categoryId: Long): Flowable<MutableList<TaskWithCategory>>
 }

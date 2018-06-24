@@ -72,7 +72,7 @@ class TaskListFragment : Fragment(), TaskListDelegate, TaskListAdapter.TaskItemL
     }
 
     private fun loadTasks() {
-        val itemId = arguments?.getInt(TaskListFragment.EXTRA_CATEGORY_ID) ?: 0
+        val itemId = arguments?.getLong(TaskListFragment.EXTRA_CATEGORY_ID) ?: 0
         val taskName = arguments?.getString(
             TaskListFragment.EXTRA_CATEGORY_NAME, getString(R.string.drawer_menu_all_tasks)
         )

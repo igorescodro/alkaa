@@ -89,7 +89,7 @@ class MainActivity : AppCompatActivity(), MainDelegate {
             NavOptions.Builder().setPopUpTo(it, true).setLaunchSingleTop(true).build()
         }
         val bundle = bundleOf(
-            TaskListFragment.EXTRA_CATEGORY_ID to item.itemId,
+            TaskListFragment.EXTRA_CATEGORY_ID to item.itemId.toLong(),
             TaskListFragment.EXTRA_CATEGORY_NAME to item.title
         )
         navController?.navigate(R.id.taskListFragment, bundle, navOptions)

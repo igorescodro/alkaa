@@ -29,6 +29,8 @@ class MainActivity : AppCompatActivity(), MainDelegate {
 
     private var navController: NavController? = null
 
+    private var drawerSelectedItem = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -82,6 +84,7 @@ class MainActivity : AppCompatActivity(), MainDelegate {
      * @return `true` indicating that the event was handled
      */
     private fun navigateToItem(item: MenuItem): Boolean {
+        drawerSelectedItem = item.itemId
         val hostDestinationId = navController?.graph?.startDestination
         val navOptions = hostDestinationId?.let {
             NavOptions.Builder().setPopUpTo(it, true).setLaunchSingleTop(true).build()
@@ -99,8 +102,9 @@ class MainActivity : AppCompatActivity(), MainDelegate {
     override fun updateList(list: MutableList<Category>) {
         val menu = navigationview_main_drawer.menu
         menu.clear()
-        menu.add(Menu.NONE, 0, Menu.NONE, R.string.drawer_menu_all_tasks)
-        list.forEach { menu.add(Menu.NONE, it.id.toInt(), Menu.NONE, it.name) }
+        menu.add(Menu.NONE, 0, Menu.NONE, R.string.drawer_menu_all_tasks).isCheckable = true
+        list.forEach { menu.add(Menu.NONE, it.id.toInt(), Menu.NONE, it.name).isCheckable = true }
+        navigationview_main_drawer.setCheckedItem(drawerSelectedItem)
     }
 
     /**

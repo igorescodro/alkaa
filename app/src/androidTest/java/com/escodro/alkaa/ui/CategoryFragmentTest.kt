@@ -49,6 +49,6 @@ class CategoryFragmentTest : AcceptanceTest<MainActivity>(MainActivity::class.ja
         events.clickOnView(R.id.button_categorylist_add)
         events.textOnView(R.id.edittext_categorynew_description, categoryName)
         events.clickOnView(R.id.button_categorynew_add)
-        checkThat.recyclerViewContainsItem(R.id.recyclerview_categorylist_list, categoryName)
+        checkThat.listContainsItem(R.id.recyclerview_categorylist_list, categoryName)
     }
 }

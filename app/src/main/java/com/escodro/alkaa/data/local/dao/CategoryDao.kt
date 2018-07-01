@@ -34,4 +34,12 @@ interface CategoryDao {
      */
     @Query("DELETE FROM category")
     fun cleanTable()
+
+    /**
+     * Gets a specific category by name.
+     *
+     * @param name category name
+     */
+    @Query("SELECT * FROM category WHERE category_name = :name")
+    fun findTaskByName(name: String): Category
 }

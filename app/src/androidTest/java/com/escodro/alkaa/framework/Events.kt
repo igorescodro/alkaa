@@ -11,6 +11,7 @@ import android.support.test.espresso.action.ViewActions.longClick
 import android.support.test.espresso.action.ViewActions.pressImeActionButton
 import android.support.test.espresso.action.ViewActions.typeText
 import android.support.test.espresso.assertion.ViewAssertions.matches
+import android.support.test.espresso.contrib.DrawerActions
 import android.support.test.espresso.contrib.RecyclerViewActions
 import android.support.test.espresso.matcher.RootMatchers.isDialog
 import android.support.test.espresso.matcher.ViewMatchers.isDisplayed
@@ -79,6 +80,10 @@ class Events {
 
     fun waitFor(@IdRes viewId: Int, delay: Long) {
         onView(isRoot()).perform(waitId(viewId, delay))
+    }
+
+    fun openDrawer(@IdRes drawerId: Int) {
+        onView(withId(drawerId)).perform(DrawerActions.open())
     }
 
     private fun waitId(@IdRes viewId: Int, delay: Long): ViewAction =

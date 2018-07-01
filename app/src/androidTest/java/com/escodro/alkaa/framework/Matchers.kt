@@ -5,6 +5,7 @@ import android.support.annotation.StringRes
 import android.support.test.InstrumentationRegistry
 import android.support.test.espresso.Espresso.onView
 import android.support.test.espresso.assertion.ViewAssertions.matches
+import android.support.test.espresso.contrib.DrawerMatchers
 import android.support.test.espresso.matcher.ViewMatchers.hasDescendant
 import android.support.test.espresso.matcher.ViewMatchers.hasErrorText
 import android.support.test.espresso.matcher.ViewMatchers.isChecked
@@ -45,11 +46,11 @@ class Matchers {
         onView(withId(viewId)).check(matches(hasErrorText(errorMessage)))
     }
 
-    fun recyclerViewContainsItem(@IdRes viewId: Int, itemName: String) {
+    fun listContainsItem(@IdRes viewId: Int, itemName: String) {
         onView(withId(viewId)).check(matches(hasDescendant(withText(itemName))))
     }
 
-    fun recyclerViewNotContainsItem(@IdRes viewId: Int, itemName: String) {
+    fun listNotContainsItem(@IdRes viewId: Int, itemName: String) {
         onView(withId(viewId)).check(matches(not(hasDescendant(withText(itemName)))))
     }
 
@@ -65,6 +66,10 @@ class Matchers {
 
     fun radioButtonIsChecked(@IdRes radioButtonGroupId: Int, index: Int) {
         onView(Matchers.getChildAt(withId(radioButtonGroupId), index)).check(matches(isChecked()))
+    }
+
+    fun drawerIsOpen(@IdRes drawerId: Int) {
+        onView(withId(drawerId)).check(matches(DrawerMatchers.isOpen()))
     }
 
     companion object {

@@ -53,7 +53,7 @@ class TaskListFragmentTest : AcceptanceTest<MainActivity>(MainActivity::class.ja
         events.longPressOnRecyclerItem(R.id.recyclerview_tasklist_list)
         events.clickDialogOption(R.array.task_dialog_options, 0)
         events.waitFor(R.id.recyclerview_tasklist_list, 1000)
-        checkThat.recyclerViewNotContainsItem(R.id.recyclerview_tasklist_list, taskName)
+        checkThat.listNotContainsItem(R.id.recyclerview_tasklist_list, taskName)
     }
 
     @Test
@@ -95,6 +95,6 @@ class TaskListFragmentTest : AcceptanceTest<MainActivity>(MainActivity::class.ja
         events.textOnView(R.id.edittext_tasklist_description, taskName)
         events.pressImeActionButton(R.id.edittext_tasklist_description)
         events.waitFor(R.id.recyclerview_tasklist_list, 2000)
-        checkThat.recyclerViewContainsItem(R.id.recyclerview_tasklist_list, taskName)
+        checkThat.listContainsItem(R.id.recyclerview_tasklist_list, taskName)
     }
 }

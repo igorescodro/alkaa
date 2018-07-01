@@ -33,7 +33,7 @@ class Matchers {
         onView(withId(viewId)).check(matches(isCompletelyDisplayed()))
     }
 
-    fun viewHasText(@IdRes viewId: Int, text: String){
+    fun viewHasText(@IdRes viewId: Int, text: String) {
         onView(withId(viewId)).check(matches(withText(text)))
     }
 

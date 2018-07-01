@@ -14,18 +14,22 @@ import org.junit.Test
  */
 class MainDrawerTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
 
+    private var categoryPersonalId = 0L
+    private var categoryWorkId = 0L
+    private var categoryFamilyId = 0L
+
     @Before
     fun populateApplication() {
         val categoryDao = daoRepository.getCategoryDao()
         val taskDao = daoRepository.getTaskDao()
 
-        categoryDao.insertCategory(Category("Work", "#cc5a71"))
-        categoryDao.insertCategory(Category("Personal", "#58a4b0"))
-        categoryDao.insertCategory(Category("Family", "#519872"))
+        categoryDao.insertCategory(Category(PERSONAL_CATEGORY, "#cc5a71"))
+        categoryDao.insertCategory(Category(WORK_CATEGORY, "#58a4b0"))
+        categoryDao.insertCategory(Category(FAMILY_CATEGORY, "#519872"))
 
-        val categoryWorkId = categoryDao.findTaskByName("Work").id
-        val categoryPersonalId = categoryDao.findTaskByName("Personal").id
-        val categoryFamilyId = categoryDao.findTaskByName("Family").id
+        categoryPersonalId = categoryDao.findTaskByName(PERSONAL_CATEGORY).id
+        categoryWorkId = categoryDao.findTaskByName(WORK_CATEGORY).id
+        categoryFamilyId = categoryDao.findTaskByName(FAMILY_CATEGORY).id
 
         taskDao.insertTask(Task(false, "Buy milk", categoryPersonalId))
         taskDao.insertTask(Task(true, "Buy onion", categoryPersonalId))
@@ -49,13 +53,43 @@ class MainDrawerTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
     fun areAllCategoriesAvailable() {
         openDrawer()
         checkThat.listContainsItem(R.id.navigationview_main_drawer, "All Tasks")
-        checkThat.listContainsItem(R.id.navigationview_main_drawer, "Work")
-        checkThat.listContainsItem(R.id.navigationview_main_drawer, "Personal")
-        checkThat.listContainsItem(R.id.navigationview_main_drawer, "Family")
+        checkThat.listContainsItem(R.id.navigationview_main_drawer, PERSONAL_CATEGORY)
+        checkThat.listContainsItem(R.id.navigationview_main_drawer, WORK_CATEGORY)
+        checkThat.listContainsItem(R.id.navigationview_main_drawer, FAMILY_CATEGORY)
+    }
+
+    @Test
+    fun checkDrawerMainFlow() {
+        openDrawer()
+        events.clickOnNavigationViewItem(R.id.navigationview_main_drawer, categoryFamilyId.toInt())
+        events.waitFor(R.id.layout_main_parent, 600)
+        checkThat.drawerIsClosed(R.id.layout_main_parent)
+        checkThat.viewHasText(R.id.textview_tasklist_category, FAMILY_CATEGORY)
+    }
+
+    @Test
+    fun checkDrawerFlowFromTaskDetails() {
+        checkDrawerMainFlow()
+        events.clickOnRecyclerItem(R.id.recyclerview_tasklist_list)
+        openDrawer()
+        events.clickOnNavigationViewItem(
+            R.id.navigationview_main_drawer,
+            categoryPersonalId.toInt()
+        )
+        events.waitFor(R.id.layout_main_parent, 600)
+        checkThat.drawerIsClosed(R.id.layout_main_parent)
+        checkThat.viewHasText(R.id.textview_tasklist_category, PERSONAL_CATEGORY)
     }
 
     private fun openDrawer() {
         events.openDrawer(R.id.layout_main_parent)
         checkThat.drawerIsOpen(R.id.layout_main_parent)
+    }
+
+    companion object {
+
+        private const val PERSONAL_CATEGORY = "Personal"
+        private const val WORK_CATEGORY = "Work"
+        private const val FAMILY_CATEGORY = "Family"
     }
 }

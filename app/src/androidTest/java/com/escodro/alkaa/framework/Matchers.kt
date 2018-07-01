@@ -33,6 +33,10 @@ class Matchers {
         onView(withId(viewId)).check(matches(isCompletelyDisplayed()))
     }
 
+    fun viewHasText(@IdRes viewId: Int, text: String){
+        onView(withId(viewId)).check(matches(withText(text)))
+    }
+
     fun toolbarContainsTitle(@IdRes toolbarId: Int, @StringRes resId: Int) {
         onView(withText(resId)).check(matches(withParent(withId(toolbarId))))
     }
@@ -70,6 +74,10 @@ class Matchers {
 
     fun drawerIsOpen(@IdRes drawerId: Int) {
         onView(withId(drawerId)).check(matches(DrawerMatchers.isOpen()))
+    }
+
+    fun drawerIsClosed(@IdRes drawerId: Int) {
+        onView(withId(drawerId)).check(matches(DrawerMatchers.isClosed()))
     }
 
     companion object {

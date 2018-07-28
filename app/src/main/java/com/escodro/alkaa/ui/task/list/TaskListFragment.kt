@@ -121,12 +121,12 @@ class TaskListFragment : Fragment(), TaskListDelegate, TaskListAdapter.TaskItemL
     override fun onItemLongPressed(taskWithCategory: TaskWithCategory) {
         val builder = context?.let { AlertDialog.Builder(it) }
         builder?.setTitle(taskWithCategory.task.description)
-        builder?.setItems(R.array.task_dialog_options, { _,
+        builder?.setItems(R.array.task_dialog_options) { _,
             item ->
             when (item) {
                 0 -> viewModel.deleteTask(taskWithCategory)
             }
-        })
+        }
         builder?.show()
     }
 

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
             name="category"
-            type="com.escodro.alkaa.data.local.model.Category" />
+            type="com.escodro.alkaa.data.local.model.Category"/>
 
     </data>
 
@@ -21,7 +21,7 @@
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground">
 
-        <LinearLayout
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="128dp"
             android:layout_margin="8dp"
@@ -29,25 +29,42 @@
             tools:ignore="UseCompoundDrawables">
 
             <com.escodro.alkaa.common.view.ShapeView
+                android:id="@+id/shapeview_itemcategory_color"
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="12dp"
                 android:src="@drawable/shape_category_circle"
-                app:shapeColor="@{category.color}" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeColor="@{category.color}"/>
 
             <TextView
                 android:id="@+id/textview_itemcategory_description"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:gravity="center"
                 android:singleLine="true"
                 android:text="@{category.name}"
                 android:textSize="18sp"
-                tools:text="Item 1" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/shapeview_itemcategory_color"
+                tools:text="Item 1"/>
 
-        </LinearLayout>
+            <ImageButton
+                android:id="@+id/imageview_itemcategory_options"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_dots_vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+        </android.support.constraint.ConstraintLayout>
 
     </android.support.v7.widget.CardView>
 

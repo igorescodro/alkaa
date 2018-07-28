@@ -107,7 +107,7 @@ class TaskListAdapter constructor(private var context: Context) :
     interface TaskItemListener {
 
         /**
-         * Callback notified when the item is clicked .
+         * Callback notified when the item is clicked.
          *
          * @param taskWithCategory the task that changed its status
          */

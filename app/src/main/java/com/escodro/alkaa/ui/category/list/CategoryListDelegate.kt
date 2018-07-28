@@ -13,4 +13,11 @@ interface CategoryListDelegate {
      * @param list new list of [Category]
      */
     fun updateList(list: MutableList<Category>)
+
+    /**
+     * Called when a category is removed.
+     *
+     * @param category category removed
+     */
+    fun onTaskRemoved(category: Category)
 }

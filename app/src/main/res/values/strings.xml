@@ -12,6 +12,7 @@
 
     <!-- Category screen -->
     <string name="category_list_label">Categories</string>
+    <string name="category_list_menu_remove">Remove</string>
 
     <!-- New Category screen -->
     <string name="new_category_add">Add category</string>

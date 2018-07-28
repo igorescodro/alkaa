@@ -1,6 +1,7 @@
 package com.escodro.alkaa.ui.category.list
 
 import android.arch.lifecycle.ViewModel
+import com.escodro.alkaa.data.local.model.Category
 import io.reactivex.disposables.CompositeDisposable
 
 /**
@@ -23,5 +24,20 @@ class CategoryListViewModel(private val contract: CategoryListContract) :
         compositeDisposable.add(
             contract.loadCategories().subscribe { delegate?.updateList(it) }
         )
+    }
+
+    /**
+     * Deletes the given category.
+     *
+     * @param category category to be removed
+     */
+    fun deleteCategory(category: Category) {
+        contract.deleteTask(category)
+            .doOnComplete { onCategoryRemoved(category) }
+            .subscribe()
+    }
+
+    private fun onCategoryRemoved(category: Category) {
+        delegate?.onTaskRemoved(category)
     }
 }

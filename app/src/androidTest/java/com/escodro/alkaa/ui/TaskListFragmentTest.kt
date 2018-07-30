@@ -77,7 +77,7 @@ class TaskListFragmentTest : AcceptanceTest<MainActivity>(MainActivity::class.ja
 
     @Test
     fun checkIfTaskCategoryIsSaved() {
-        addAndOpenTask()
+        addAndOpenTask("call my by your name")
         events.clickOnRadioButton(R.id.srg_radiogroup_list, 1)
         events.navigateUp()
         events.clickOnRecyclerItem(R.id.recyclerview_tasklist_list)

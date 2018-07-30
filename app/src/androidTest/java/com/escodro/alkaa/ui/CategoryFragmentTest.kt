@@ -35,7 +35,7 @@ class CategoryFragmentTest : AcceptanceTest<MainActivity>(MainActivity::class.ja
     fun isDescriptionSingleLine() {
         addCategory(
             "Lorem ipsum dolor sit amet, te elit possit suavitate duo. Nec sale sonet" +
-                    " scriptorem ei, option prompta ut sed. At everti discere oportere sea."
+                " scriptorem ei, option prompta ut sed. At everti discere oportere sea."
         )
         checkThat.textHasFixedLines(R.id.textview_itemcategory_description, 1)
     }
@@ -43,6 +43,15 @@ class CategoryFragmentTest : AcceptanceTest<MainActivity>(MainActivity::class.ja
     @Test
     fun addCategory() {
         addCategory("Work")
+    }
+
+    @Test
+    fun deleteCategory() {
+        val categoryName = "NSFW"
+        addCategory(categoryName)
+        events.clickOnView(R.id.imageview_itemcategory_options)
+        events.clickOnViewWithText(R.string.category_list_menu_remove)
+        checkThat.listNotContainsItem(R.id.recyclerview_categorylist_list, categoryName)
     }
 
     private fun addCategory(categoryName: String) {

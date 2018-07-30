@@ -3,9 +3,9 @@
 buildscript {
     project.ext {
         kotlin_version = '1.2.50'
-        support_version = '27.1.1'
+        support_version = '28.0.0-beta01'
         arch_version = '1.1.1'
-        navigation_version = '1.0.0-alpha02'
+        navigation_version = '1.0.0-alpha04'
         koin_version = '0.9.3'
         ktlint_version = '0.23.1'
         detekt_version = '1.0.0.RC7-2'

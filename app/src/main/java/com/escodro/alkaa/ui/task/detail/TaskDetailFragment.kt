@@ -13,7 +13,6 @@ import com.escodro.alkaa.common.view.LabelRadioButton
 import com.escodro.alkaa.data.local.model.Category
 import com.escodro.alkaa.data.local.model.Task
 import com.escodro.alkaa.databinding.FragmentTaskDetailBinding
-import com.escodro.alkaa.ui.task.list.TaskListFragment
 import org.koin.android.architecture.ext.viewModel
 
 /**
@@ -37,8 +36,7 @@ class TaskDetailFragment : Fragment(), TaskDetailDelegate {
 
         binding =
             DataBindingUtil.inflate(
-                inflater, R.layout.fragment_task_detail,
-                container, false
+                inflater, R.layout.fragment_task_detail, container, false
             )
         return binding?.root
     }
@@ -56,8 +54,7 @@ class TaskDetailFragment : Fragment(), TaskDetailDelegate {
         binding?.setLifecycleOwner(this)
         binding?.viewModel = viewModel
 
-        // TODO Update to safe args when Google supports Parcelable
-        task = arguments?.getParcelable(TaskListFragment.EXTRA_TASK)
+        task = TaskDetailFragmentArgs.fromBundle(arguments).task
         viewModel.task.value = task
         (activity as? AppCompatActivity)?.supportActionBar?.title = task?.description
     }

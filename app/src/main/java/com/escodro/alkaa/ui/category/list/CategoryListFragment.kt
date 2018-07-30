@@ -81,7 +81,7 @@ class CategoryListFragment : Fragment(), CategoryListDelegate,
     private fun onMenuItemClicked(category: Category) =
         PopupMenu.OnMenuItemClickListener {
             when (it.itemId) {
-                R.string.key_action_remove_category -> viewModel.deleteCategory(category)
+                R.id.key_action_remove_category -> viewModel.deleteCategory(category)
             }
             true
         }

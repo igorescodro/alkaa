@@ -12,7 +12,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
-import androidx.core.os.bundleOf
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.escodro.alkaa.R
@@ -110,8 +109,8 @@ class TaskListFragment : Fragment(), TaskListDelegate, TaskListAdapter.TaskItemL
     }
 
     override fun onItemClicked(taskWithCategory: TaskWithCategory) {
-        val bundle = bundleOf(EXTRA_TASK to taskWithCategory.task)
-        navigator?.navigate(R.id.action_detail, bundle)
+        val action = TaskListFragmentDirections.actionDetail(taskWithCategory.task)
+        navigator?.navigate(action)
     }
 
     override fun onItemCheckedChanged(taskWithCategory: TaskWithCategory, value: Boolean) {
@@ -131,8 +130,6 @@ class TaskListFragment : Fragment(), TaskListDelegate, TaskListAdapter.TaskItemL
     }
 
     companion object {
-
-        const val EXTRA_TASK = "task"
 
         const val EXTRA_CATEGORY_ID = "category_id"
 

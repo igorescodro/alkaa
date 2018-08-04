@@ -1,12 +1,11 @@
 package com.escodro.alkaa.ui.task.list
 
+import com.escodro.alkaa.common.extension.applySchedulers
 import com.escodro.alkaa.data.local.model.Task
 import com.escodro.alkaa.data.local.model.TaskWithCategory
 import com.escodro.alkaa.di.DaoRepository
 import io.reactivex.Flowable
 import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 
 /**
  * Class containing the contract methods related to [TaskListViewModel].
@@ -31,9 +30,7 @@ class TaskListContract(daoRepository: DaoRepository) {
                 taskDao.getAllTasksWithCategoryId(categoryId)
             }
 
-        return observable
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+        return observable.applySchedulers()
     }
 
     /**
@@ -44,9 +41,7 @@ class TaskListContract(daoRepository: DaoRepository) {
      * @return observable to be subscribe
      */
     fun addTask(task: Task): Observable<Unit>? =
-        Observable.fromCallable { taskDao.insertTask(task) }
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+        Observable.fromCallable { taskDao.insertTask(task) }.applySchedulers()
 
     /**
      * Updates a task.
@@ -56,9 +51,7 @@ class TaskListContract(daoRepository: DaoRepository) {
      * @return observable to be subscribed
      */
     fun updateTask(task: Task): Observable<Unit> =
-        Observable.fromCallable { taskDao.updateTask(task) }
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+        Observable.fromCallable { taskDao.updateTask(task) }.applySchedulers()
 
     /**
      * Deletes a task.
@@ -68,9 +61,7 @@ class TaskListContract(daoRepository: DaoRepository) {
      * @return observable to be subscribe
      */
     fun deleteTask(task: Task): Observable<Unit> =
-        Observable.fromCallable { taskDao.deleteTask(task) }
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+        Observable.fromCallable { taskDao.deleteTask(task) }.applySchedulers()
 
     companion object {
 

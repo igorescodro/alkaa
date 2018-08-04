@@ -1,11 +1,10 @@
 package com.escodro.alkaa.ui.category.list
 
+import com.escodro.alkaa.common.extension.applySchedulers
 import com.escodro.alkaa.data.local.model.Category
 import com.escodro.alkaa.di.DaoRepository
 import io.reactivex.Flowable
 import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 
 /**
  * Class containing the contract methods related to [CategoryListViewModel].
@@ -20,9 +19,7 @@ class CategoryListContract(daoRepository: DaoRepository) {
      * @return a mutable list of all categories
      */
     fun loadCategories(): Flowable<MutableList<Category>> =
-        categoryDao.getAllCategories()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+        categoryDao.getAllCategories().applySchedulers()
 
     /**
      * Deletes a category.
@@ -32,7 +29,5 @@ class CategoryListContract(daoRepository: DaoRepository) {
      * @return observable to be subscribe
      */
     fun deleteTask(category: Category): Observable<Unit> =
-        Observable.fromCallable { categoryDao.deleteCategory(category) }
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+        Observable.fromCallable { categoryDao.deleteCategory(category) }.applySchedulers()
 }

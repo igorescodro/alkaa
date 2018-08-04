@@ -43,7 +43,7 @@ class LabelRadioButton : AppCompatRadioButton {
         elevation = 0F
         background = null
         val label = setShapeColor(hexCode, R.drawable.ic_category_label)
-        setTextColor(ContextCompat.getColor(context, android.R.color.primary_text_light))
+        setTextColor(ContextCompat.getColor(context, android.R.color.black))
         setCompoundDrawablesWithIntrinsicBounds(label, null, null, null)
         compoundDrawablePadding = dpInPixel(DRAWABLE_PADDING).toInt()
     }
@@ -51,7 +51,7 @@ class LabelRadioButton : AppCompatRadioButton {
     private fun updateViewToChecked() {
         elevation = dpInPixel(VIEW_ELEVATION)
         background = setShapeColor(hexCode, R.drawable.shape_category_label)
-        setTextColor(ContextCompat.getColor(context, android.R.color.primary_text_dark))
+        setTextColor(ContextCompat.getColor(context, android.R.color.black))
         setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
     }
 

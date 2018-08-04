@@ -4,6 +4,11 @@ complexity:
   TooManyFunctions:
     thresholdInClasses: 15
 
+comments:
+  CommentOverPrivateFunction:
+    active: false
+
+
 test-pattern:
   active: true
 
@@ -26,10 +31,3 @@ test-pattern:
     - 'SpreadOperator'
     - 'TooManyFunctions'
     - 'UnsafeCast'
-
-
-comments:
-  active: true
-
-  CommentOverPrivateFunction:
-    active: false

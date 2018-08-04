@@ -62,8 +62,8 @@ class MainDrawerTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
     fun checkDrawerMainFlow() {
         openDrawer()
         events.clickOnNavigationViewItem(R.id.navigationview_main_drawer, categoryFamilyId.toInt())
-        events.waitFor(R.id.layout_main_parent, 600)
-        checkThat.drawerIsClosed(R.id.layout_main_parent)
+        events.waitFor(R.id.drawer_layout_main_parent, 600)
+        checkThat.drawerIsClosed(R.id.drawer_layout_main_parent)
         checkThat.viewHasText(R.id.textview_tasklist_category, FAMILY_CATEGORY)
     }
 
@@ -76,14 +76,14 @@ class MainDrawerTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
             R.id.navigationview_main_drawer,
             categoryPersonalId.toInt()
         )
-        events.waitFor(R.id.layout_main_parent, 600)
-        checkThat.drawerIsClosed(R.id.layout_main_parent)
+        events.waitFor(R.id.drawer_layout_main_parent, 600)
+        checkThat.drawerIsClosed(R.id.drawer_layout_main_parent)
         checkThat.viewHasText(R.id.textview_tasklist_category, PERSONAL_CATEGORY)
     }
 
     private fun openDrawer() {
-        events.openDrawer(R.id.layout_main_parent)
-        checkThat.drawerIsOpen(R.id.layout_main_parent)
+        events.openDrawer(R.id.drawer_layout_main_parent)
+        checkThat.drawerIsOpen(R.id.drawer_layout_main_parent)
     }
 
     companion object {

@@ -2,19 +2,19 @@ package com.escodro.alkaa.ui.main
 
 import android.graphics.Color
 import android.os.Bundle
-import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.navigation.NavController
-import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.escodro.alkaa.R
+import com.escodro.alkaa.common.extension.close
+import com.escodro.alkaa.common.extension.isOpen
+import com.escodro.alkaa.common.extension.navigateSingleTop
 import com.escodro.alkaa.data.local.model.Category
 import com.escodro.alkaa.ui.task.list.TaskListFragment
 import kotlinx.android.synthetic.main.activity_main.*
@@ -27,9 +27,10 @@ class MainActivity : AppCompatActivity(), MainDelegate {
 
     private val viewModel: MainViewModel by viewModel()
 
-    private var navController: NavController? = null
-
     private var drawerSelectedItem = 0
+
+    @Suppress("LateinitUsage")
+    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,37 +42,33 @@ class MainActivity : AppCompatActivity(), MainDelegate {
     }
 
     private fun initComponents() {
-        val host: NavHostFragment = supportFragmentManager
+        val host = supportFragmentManager
             .findFragmentById(R.id.fragment_main_navigation) as? NavHostFragment? ?: return
 
         navController = host.navController
         setupActionBar()
         updateDrawer()
 
-        navigationview_main_drawer.setNavigationItemSelectedListener { item -> navigateToItem(item) }
+        navigationview_main_drawer
+            .setNavigationItemSelectedListener { item -> navigateToItem(item) }
     }
 
     private fun setupActionBar() {
-        val toolbar = findViewById<Toolbar>(R.id.toolbar_main_toolbar)
-        setSupportActionBar(toolbar)
-        navController?.let {
-            NavigationUI.setupActionBarWithNavController(this, it, layout_main_parent)
-        }
+        setSupportActionBar(toolbar_main_toolbar)
+        NavigationUI.setupActionBarWithNavController(this, navController, drawer_layout_main_parent)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val shouldHandle =
-            navController?.let { NavigationUI.onNavDestinationSelected(item, it) } ?: false
-
+        val shouldHandle = NavigationUI.onNavDestinationSelected(item, navController)
         return shouldHandle || super.onOptionsItemSelected(item)
     }
 
     override fun onSupportNavigateUp() =
-        navController?.let { NavigationUI.navigateUp(layout_main_parent, it) } ?: false
+        NavigationUI.navigateUp(drawer_layout_main_parent, navController)
 
     override fun onBackPressed() {
-        if (layout_main_parent.isDrawerOpen(GravityCompat.START)) {
-            layout_main_parent.closeDrawer(GravityCompat.START)
+        if (drawer_layout_main_parent.isOpen()) {
+            drawer_layout_main_parent.close()
         } else {
             super.onBackPressed()
         }
@@ -85,16 +82,12 @@ class MainActivity : AppCompatActivity(), MainDelegate {
      */
     private fun navigateToItem(item: MenuItem): Boolean {
         drawerSelectedItem = item.itemId
-        val hostDestinationId = navController?.graph?.startDestination
-        val navOptions = hostDestinationId?.let {
-            NavOptions.Builder().setPopUpTo(it, true).setLaunchSingleTop(true).build()
-        }
         val bundle = bundleOf(
             TaskListFragment.EXTRA_CATEGORY_ID to item.itemId.toLong(),
             TaskListFragment.EXTRA_CATEGORY_NAME to item.title
         )
-        navController?.navigate(R.id.taskListFragment, bundle, navOptions)
-        layout_main_parent.closeDrawer(GravityCompat.START)
+        navController.navigateSingleTop(R.id.taskListFragment, bundle)
+        drawer_layout_main_parent.close()
 
         return true
     }
@@ -112,16 +105,13 @@ class MainActivity : AppCompatActivity(), MainDelegate {
      * stands still and the main content slides out.
      */
     private fun updateDrawer() {
-        layout_main_parent.setScrimColor(Color.TRANSPARENT)
-        layout_main_parent.drawerElevation = 0F
-
-        val toggle = object : ActionBarDrawerToggle(this, layout_main_parent, null, 0, 0) {
+        val toggle = object : ActionBarDrawerToggle(this, drawer_layout_main_parent, 0, 0) {
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
                 super.onDrawerSlide(drawerView, slideOffset)
 
-                navigationview_main_drawer.translationX =
-                    layout_main_drawercontainer.width * (1 - slideOffset)
-                layout_main_content.translationX = layout_main_drawercontainer.width * slideOffset
+                val drawerWidth = layout_main_drawercontainer.width
+                navigationview_main_drawer.translationX = drawerWidth * (1 - slideOffset)
+                layout_main_content.translationX = drawerWidth * slideOffset
             }
 
             override fun onDrawerOpened(drawerView: View) {
@@ -130,6 +120,11 @@ class MainActivity : AppCompatActivity(), MainDelegate {
                 viewModel.loadCategories()
             }
         }
-        layout_main_parent.addDrawerListener(toggle)
+        drawer_layout_main_parent.apply {
+            setScrimColor(Color.TRANSPARENT)
+            drawerElevation = 0F
+            addDrawerListener(toggle)
+            toggle.syncState()
+        }
     }
 }

@@ -21,9 +21,8 @@ class CategoryListViewModel(private val contract: CategoryListContract) :
      * Loads all categories.
      */
     fun loadCategories() {
-        compositeDisposable.add(
-            contract.loadCategories().subscribe { delegate?.updateList(it) }
-        )
+        val disposable = contract.loadCategories().subscribe { delegate?.updateList(it) }
+        compositeDisposable.add(disposable)
     }
 
     /**
@@ -32,12 +31,20 @@ class CategoryListViewModel(private val contract: CategoryListContract) :
      * @param category category to be removed
      */
     fun deleteCategory(category: Category) {
-        contract.deleteTask(category)
+        val disposable = contract.deleteTask(category)
             .doOnComplete { onCategoryRemoved(category) }
             .subscribe()
+        compositeDisposable.add(disposable)
     }
 
     private fun onCategoryRemoved(category: Category) {
         delegate?.onTaskRemoved(category)
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+
+        compositeDisposable.clear()
+        delegate = null
     }
 }

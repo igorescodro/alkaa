@@ -29,9 +29,8 @@ class TaskListViewModel(private val contract: TaskListContract) : ViewModel() {
     fun loadTasks(categoryId: Long) {
         this.categoryId = categoryId
 
-        compositeDisposable.clear()
-        compositeDisposable.add(
-            contract.loadTasks(categoryId).subscribe { delegate?.updateList(it) })
+        val disposable = contract.loadTasks(categoryId).subscribe { delegate?.updateList(it) }
+        compositeDisposable.add(disposable)
     }
 
     /**
@@ -47,9 +46,10 @@ class TaskListViewModel(private val contract: TaskListContract) : ViewModel() {
         val categoryIdValue = if (categoryId != 0L) categoryId else null
         val task = Task(description = description, categoryId = categoryIdValue)
         val taskWithCategory = TaskWithCategory(task)
-        contract.addTask(task)
-            ?.doOnComplete { onNewTaskAdded(taskWithCategory) }
-            ?.subscribe()
+        val disposable = contract.addTask(task)
+            .doOnComplete { onNewTaskAdded(taskWithCategory) }
+            .subscribe()
+        compositeDisposable.add(disposable)
     }
 
     /**
@@ -59,7 +59,9 @@ class TaskListViewModel(private val contract: TaskListContract) : ViewModel() {
      */
     fun updateTaskStatus(task: Task, isCompleted: Boolean) {
         task.completed = isCompleted
-        contract.updateTask(task).subscribe()
+
+        val disposable = contract.updateTask(task).subscribe()
+        compositeDisposable.add(disposable)
     }
 
     /**
@@ -68,14 +70,17 @@ class TaskListViewModel(private val contract: TaskListContract) : ViewModel() {
      * @param taskWithCategory task to be removed
      */
     fun deleteTask(taskWithCategory: TaskWithCategory) {
-        contract.deleteTask(taskWithCategory.task)
+        val disposable = contract.deleteTask(taskWithCategory.task)
             .doOnComplete { onTaskRemoved(taskWithCategory) }
             .subscribe()
+        compositeDisposable.add(disposable)
     }
 
     override fun onCleared() {
-        compositeDisposable.clear()
         super.onCleared()
+
+        compositeDisposable.clear()
+        delegate = null
     }
 
     private fun onNewTaskAdded(taskWithCategory: TaskWithCategory) {

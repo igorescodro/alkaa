@@ -40,7 +40,7 @@ class TaskListContract(daoRepository: DaoRepository) {
      *
      * @return observable to be subscribe
      */
-    fun addTask(task: Task): Observable<Unit>? =
+    fun addTask(task: Task): Observable<Unit> =
         Observable.fromCallable { taskDao.insertTask(task) }.applySchedulers()
 
     /**

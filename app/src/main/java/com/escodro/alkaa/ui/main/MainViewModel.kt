@@ -16,10 +16,14 @@ class MainViewModel(private val contract: MainContract) : ViewModel() {
      * Loads all categories.
      */
     fun loadCategories() {
-        compositeDisposable.clear()
+        val disposable = contract.loadCategories().subscribe { delegate?.updateList(it) }
+        compositeDisposable.add(disposable)
+    }
 
-        compositeDisposable.add(
-            contract.loadCategories().subscribe { delegate?.updateList(it) }
-        )
+    override fun onCleared() {
+        super.onCleared()
+
+        compositeDisposable.clear()
+        delegate = null
     }
 }

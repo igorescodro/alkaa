@@ -19,6 +19,6 @@ class NewCategoryContract(daoRepository: DaoRepository) {
      *
      * @return observable to be subscribe
      */
-    fun addCategory(category: Category): Observable<Unit>? =
+    fun addCategory(category: Category): Observable<Unit> =
         Observable.fromCallable { categoryDao.insertCategory(category) }.applySchedulers()
 }

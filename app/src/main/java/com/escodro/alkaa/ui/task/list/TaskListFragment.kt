@@ -58,6 +58,12 @@ class TaskListFragment : Fragment(), TaskListDelegate, TaskListAdapter.TaskItemL
         navigator = NavHostFragment.findNavController(this)
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        adapter.listener = null
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         inflater?.inflate(R.menu.task_menu, menu)
     }

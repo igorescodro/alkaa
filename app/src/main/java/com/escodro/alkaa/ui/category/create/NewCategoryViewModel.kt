@@ -4,6 +4,7 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.text.TextUtils
 import com.escodro.alkaa.data.local.model.Category
+import io.reactivex.disposables.CompositeDisposable
 
 /**
  * [ViewModel] responsible to provide information to [NewCategoryFragment].
@@ -16,6 +17,8 @@ class NewCategoryViewModel(private val contract: NewCategoryContract) : ViewMode
 
     val newCategory = MutableLiveData<String>()
 
+    private val compositeDisposable = CompositeDisposable()
+
     /**
      * Add a new category.
      */
@@ -27,10 +30,18 @@ class NewCategoryViewModel(private val contract: NewCategoryContract) : ViewMode
         }
 
         val color = delegate?.getCategoryColor()
-
         val category = Category(name = name, color = color)
-        contract.addCategory(category)
-            ?.doOnComplete { delegate?.onNewCategoryAdded() }
-            ?.subscribe()
+        val disposable = contract.addCategory(category)
+            .doOnComplete { delegate?.onNewCategoryAdded() }
+            .subscribe()
+
+        compositeDisposable.add(disposable)
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+
+        compositeDisposable.clear()
+        delegate = null
     }
 }

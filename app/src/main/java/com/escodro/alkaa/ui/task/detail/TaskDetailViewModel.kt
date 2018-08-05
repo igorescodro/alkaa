@@ -23,9 +23,8 @@ class TaskDetailViewModel(private val contract: TaskDetailContract) : ViewModel(
      * Load all categories.
      */
     fun loadCategories() {
-        compositeDisposable.add(
-            contract.loadAllCategories().subscribe { delegate?.updateCategoryList(it) }
-        )
+        val disposable = contract.loadAllCategories().subscribe { delegate?.updateCategoryList(it) }
+        compositeDisposable.add(disposable)
     }
 
     /**
@@ -34,11 +33,14 @@ class TaskDetailViewModel(private val contract: TaskDetailContract) : ViewModel(
      * @param task the task to be updated
      */
     fun updateTask(task: Task) {
-        contract.updateTask(task).subscribe()
+        val disposable = contract.updateTask(task).subscribe()
+        compositeDisposable.add(disposable)
     }
 
     override fun onCleared() {
-        compositeDisposable.clear()
         super.onCleared()
+
+        delegate = null
+        compositeDisposable.clear()
     }
 }

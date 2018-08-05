@@ -51,6 +51,12 @@ class CategoryListFragment : Fragment(), CategoryListDelegate,
         navigator = NavHostFragment.findNavController(this)
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        adapter.listener = null
+    }
+
     private fun bindComponents() {
         binding?.setLifecycleOwner(this)
         binding?.recyclerviewCategorylistList?.adapter = adapter

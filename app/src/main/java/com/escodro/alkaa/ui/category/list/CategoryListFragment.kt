@@ -19,8 +19,8 @@ import org.koin.android.ext.android.inject
 /**
  * [Fragment] responsible to show all [Category].
  */
-class CategoryListFragment : Fragment(), CategoryListDelegate,
-    CategoryListAdapter.CategoryListListener {
+class CategoryListFragment : Fragment(), CategoryListAdapter.CategoryListListener {
+
     private val adapter: CategoryListAdapter by inject()
 
     private val viewModel: CategoryListViewModel by viewModel()
@@ -46,8 +46,7 @@ class CategoryListFragment : Fragment(), CategoryListDelegate,
 
         bindComponents()
         adapter.listener = this
-        viewModel.delegate = this
-        viewModel.loadCategories()
+        viewModel.loadCategories(onListLoaded = { updateList(it) })
         navigator = NavHostFragment.findNavController(this)
     }
 
@@ -68,7 +67,7 @@ class CategoryListFragment : Fragment(), CategoryListDelegate,
     private fun getLayoutManager() =
         GridLayoutManager(context, NUMBER_OF_COLUMNS)
 
-    override fun updateList(list: MutableList<Category>) {
+    private fun updateList(list: List<Category>) {
         adapter.updateCategoryList(list)
     }
 
@@ -80,14 +79,15 @@ class CategoryListFragment : Fragment(), CategoryListDelegate,
         popupMenu?.show()
     }
 
-    override fun onTaskRemoved(category: Category) {
+    private fun onTaskRemoved(category: Category) {
         adapter.removeCategory(category)
     }
 
     private fun onMenuItemClicked(category: Category) =
-        PopupMenu.OnMenuItemClickListener {
-            when (it.itemId) {
-                R.id.key_action_remove_category -> viewModel.deleteCategory(category)
+        PopupMenu.OnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.key_action_remove_category -> viewModel.deleteCategory(category,
+                    onCategoryRemoved = { onTaskRemoved(it) })
             }
             true
         }

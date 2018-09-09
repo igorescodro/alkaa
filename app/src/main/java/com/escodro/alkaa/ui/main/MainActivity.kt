@@ -23,7 +23,7 @@ import org.koin.android.architecture.ext.viewModel
 /**
  * Main application [AppCompatActivity].
  */
-class MainActivity : AppCompatActivity(), MainDelegate {
+class MainActivity : AppCompatActivity() {
 
     private val viewModel: MainViewModel by viewModel()
 
@@ -37,8 +37,7 @@ class MainActivity : AppCompatActivity(), MainDelegate {
 
         setContentView(R.layout.activity_main)
         initComponents()
-        viewModel.delegate = this
-        viewModel.loadCategories()
+        viewModel.loadCategories(onListLoaded = { updateList(it) })
     }
 
     private fun initComponents() {
@@ -92,7 +91,7 @@ class MainActivity : AppCompatActivity(), MainDelegate {
         return true
     }
 
-    override fun updateList(list: MutableList<Category>) {
+    private fun updateList(list: List<Category>) {
         val menu = navigationview_main_drawer.menu
         menu.clear()
         menu.add(Menu.NONE, 0, Menu.NONE, R.string.drawer_menu_all_tasks).isCheckable = true
@@ -117,7 +116,7 @@ class MainActivity : AppCompatActivity(), MainDelegate {
             override fun onDrawerOpened(drawerView: View) {
                 super.onDrawerOpened(drawerView)
 
-                viewModel.loadCategories()
+                viewModel.loadCategories(onListLoaded = { updateList(it) })
             }
         }
         drawer_layout_main_parent.apply {

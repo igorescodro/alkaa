@@ -54,7 +54,7 @@ class TaskListAdapter constructor(private var context: Context) :
      *
      * @param list list of tasks
      */
-    fun updateTaskList(list: MutableList<TaskWithCategory>) {
+    fun updateTaskList(list: List<TaskWithCategory>) {
         taskList.clear()
         taskList.addAll(list)
         notifyDataSetChanged()

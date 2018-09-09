@@ -12,8 +12,6 @@ import io.reactivex.disposables.CompositeDisposable
  */
 class TaskListViewModel(private val contract: TaskListContract) : ViewModel() {
 
-    var delegate: TaskListDelegate? = null
-
     val newTask = MutableLiveData<String>()
 
     private var categoryId: Long? = null
@@ -26,20 +24,20 @@ class TaskListViewModel(private val contract: TaskListContract) : ViewModel() {
      * @param categoryId the category id to show only tasks related to this category, if `0` is
      * passed, all the categories will be shown.
      */
-    fun loadTasks(categoryId: Long) {
+    fun loadTasks(categoryId: Long, onTasksLoaded: (list: List<TaskWithCategory>) -> Unit) {
         this.categoryId = categoryId
 
-        val disposable = contract.loadTasks(categoryId).subscribe { delegate?.updateList(it) }
+        val disposable = contract.loadTasks(categoryId).subscribe { onTasksLoaded(it) }
         compositeDisposable.add(disposable)
     }
 
     /**
      * Add a new task.
      */
-    fun addTask() {
+    fun addTask(onEmptyField: () -> Unit, onNewTaskAdded: (task: TaskWithCategory) -> Unit) {
         val description = newTask.value
         if (TextUtils.isEmpty(description)) {
-            delegate?.onEmptyField()
+            onEmptyField()
             return
         }
 
@@ -47,7 +45,10 @@ class TaskListViewModel(private val contract: TaskListContract) : ViewModel() {
         val task = Task(description = description, categoryId = categoryIdValue)
         val taskWithCategory = TaskWithCategory(task)
         val disposable = contract.addTask(task)
-            .doOnComplete { onNewTaskAdded(taskWithCategory) }
+            .doOnComplete {
+                newTask.value = null
+                onNewTaskAdded(taskWithCategory)
+            }
             .subscribe()
         compositeDisposable.add(disposable)
     }
@@ -69,7 +70,10 @@ class TaskListViewModel(private val contract: TaskListContract) : ViewModel() {
      *
      * @param taskWithCategory task to be removed
      */
-    fun deleteTask(taskWithCategory: TaskWithCategory) {
+    fun deleteTask(
+        taskWithCategory: TaskWithCategory,
+        onTaskRemoved: (task: TaskWithCategory) -> Unit
+    ) {
         val disposable = contract.deleteTask(taskWithCategory.task)
             .doOnComplete { onTaskRemoved(taskWithCategory) }
             .subscribe()
@@ -80,15 +84,5 @@ class TaskListViewModel(private val contract: TaskListContract) : ViewModel() {
         super.onCleared()
 
         compositeDisposable.clear()
-        delegate = null
-    }
-
-    private fun onNewTaskAdded(taskWithCategory: TaskWithCategory) {
-        newTask.value = null
-        delegate?.onNewTaskAdded(taskWithCategory)
-    }
-
-    private fun onTaskRemoved(taskWithCategory: TaskWithCategory) {
-        delegate?.onTaskRemoved(taskWithCategory)
     }
 }

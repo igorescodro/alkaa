@@ -10,18 +10,15 @@ import io.reactivex.disposables.CompositeDisposable
  *
  * Created by Igor Escodro on 5/3/18.
  */
-class CategoryListViewModel(private val contract: CategoryListContract) :
-    ViewModel() {
-
-    var delegate: CategoryListDelegate? = null
+class CategoryListViewModel(private val contract: CategoryListContract) : ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()
 
     /**
      * Loads all categories.
      */
-    fun loadCategories() {
-        val disposable = contract.loadCategories().subscribe { delegate?.updateList(it) }
+    fun loadCategories(onListLoaded: (list: List<Category>) -> Unit) {
+        val disposable = contract.loadCategories().subscribe { onListLoaded(it) }
         compositeDisposable.add(disposable)
     }
 
@@ -30,21 +27,16 @@ class CategoryListViewModel(private val contract: CategoryListContract) :
      *
      * @param category category to be removed
      */
-    fun deleteCategory(category: Category) {
+    fun deleteCategory(category: Category, onCategoryRemoved: (category: Category) -> Unit) {
         val disposable = contract.deleteTask(category)
             .doOnComplete { onCategoryRemoved(category) }
             .subscribe()
         compositeDisposable.add(disposable)
     }
 
-    private fun onCategoryRemoved(category: Category) {
-        delegate?.onTaskRemoved(category)
-    }
-
     override fun onCleared() {
         super.onCleared()
 
         compositeDisposable.clear()
-        delegate = null
     }
 }

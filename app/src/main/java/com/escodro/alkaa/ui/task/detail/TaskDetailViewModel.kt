@@ -2,6 +2,7 @@ package com.escodro.alkaa.ui.task.detail
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import com.escodro.alkaa.data.local.model.Category
 import com.escodro.alkaa.data.local.model.Task
 import io.reactivex.disposables.CompositeDisposable
 
@@ -13,8 +14,6 @@ import io.reactivex.disposables.CompositeDisposable
  */
 class TaskDetailViewModel(private val contract: TaskDetailContract) : ViewModel() {
 
-    var delegate: TaskDetailDelegate? = null
-
     val task = MutableLiveData<Task>()
 
     private val compositeDisposable = CompositeDisposable()
@@ -22,8 +21,8 @@ class TaskDetailViewModel(private val contract: TaskDetailContract) : ViewModel(
     /**
      * Load all categories.
      */
-    fun loadCategories() {
-        val disposable = contract.loadAllCategories().subscribe { delegate?.updateCategoryList(it) }
+    fun loadCategories(onCategoryListLoaded: (list: List<Category>) -> Unit) {
+        val disposable = contract.loadAllCategories().subscribe { onCategoryListLoaded(it) }
         compositeDisposable.add(disposable)
     }
 
@@ -40,7 +39,6 @@ class TaskDetailViewModel(private val contract: TaskDetailContract) : ViewModel(
     override fun onCleared() {
         super.onCleared()
 
-        delegate = null
         compositeDisposable.clear()
     }
 }

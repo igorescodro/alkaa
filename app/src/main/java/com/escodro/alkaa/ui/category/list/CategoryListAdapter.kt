@@ -48,7 +48,7 @@ class CategoryListAdapter constructor(private var context: Context) :
      *
      * @param list list of tasks
      */
-    fun updateCategoryList(list: MutableList<Category>) {
+    fun updateCategoryList(list: List<Category>) {
         categoryList.clear()
         categoryList.addAll(list)
         notifyDataSetChanged()

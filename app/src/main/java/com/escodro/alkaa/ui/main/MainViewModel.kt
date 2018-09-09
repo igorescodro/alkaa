@@ -1,6 +1,7 @@
 package com.escodro.alkaa.ui.main
 
 import android.arch.lifecycle.ViewModel
+import com.escodro.alkaa.data.local.model.Category
 import io.reactivex.disposables.CompositeDisposable
 
 /**
@@ -8,15 +9,13 @@ import io.reactivex.disposables.CompositeDisposable
  */
 class MainViewModel(private val contract: MainContract) : ViewModel() {
 
-    var delegate: MainDelegate? = null
-
     private val compositeDisposable = CompositeDisposable()
 
     /**
      * Loads all categories.
      */
-    fun loadCategories() {
-        val disposable = contract.loadCategories().subscribe { delegate?.updateList(it) }
+    fun loadCategories(onListLoaded: (list: List<Category>) -> Unit) {
+        val disposable = contract.loadCategories().subscribe { onListLoaded(it) }
         compositeDisposable.add(disposable)
     }
 
@@ -24,6 +23,5 @@ class MainViewModel(private val contract: MainContract) : ViewModel() {
         super.onCleared()
 
         compositeDisposable.clear()
-        delegate = null
     }
 }

@@ -24,7 +24,7 @@ import org.koin.android.ext.android.inject
 /**
  * [Fragment] responsible to show and handle all [TaskWithCategory]s.
  */
-class TaskListFragment : Fragment(), TaskListDelegate, TaskListAdapter.TaskItemListener {
+class TaskListFragment : Fragment(), TaskListAdapter.TaskItemListener {
 
     private val adapter: TaskListAdapter by inject()
 
@@ -53,7 +53,6 @@ class TaskListFragment : Fragment(), TaskListDelegate, TaskListAdapter.TaskItemL
 
         bindComponents()
         adapter.listener = this
-        viewModel.delegate = this
         loadTasks()
         navigator = NavHostFragment.findNavController(this)
     }
@@ -81,7 +80,7 @@ class TaskListFragment : Fragment(), TaskListDelegate, TaskListAdapter.TaskItemL
         val taskName = arguments?.getString(
             TaskListFragment.EXTRA_CATEGORY_NAME, getString(R.string.drawer_menu_all_tasks)
         )
-        viewModel.loadTasks(itemId)
+        viewModel.loadTasks(itemId, onTasksLoaded = { onTaskLoaded(it) })
         binding?.textviewTasklistCategory?.text = taskName
     }
 
@@ -92,25 +91,28 @@ class TaskListFragment : Fragment(), TaskListDelegate, TaskListAdapter.TaskItemL
         TextView.OnEditorActionListener { _, action, _ ->
             var result = false
             if (action == EditorInfo.IME_ACTION_DONE) {
-                viewModel.addTask()
+                viewModel.addTask(
+                    onEmptyField = { onEmptyField() },
+                    onNewTaskAdded = { onNewTaskAdded(it) }
+                )
                 systemService.getInputMethodManager()?.hideSoftInputFromWindow(view?.windowToken, 0)
                 result = true
             }
             result
         }
 
-    override fun updateList(list: MutableList<TaskWithCategory>) =
+    private fun onTaskLoaded(list: List<TaskWithCategory>) =
         adapter.updateTaskList(list)
 
-    override fun onEmptyField() {
+    private fun onEmptyField() {
         binding?.edittextTasklistDescription?.error = getString(R.string.task_error_empty)
     }
 
-    override fun onNewTaskAdded(taskWithCategory: TaskWithCategory) {
+    private fun onNewTaskAdded(taskWithCategory: TaskWithCategory) {
         adapter.addTask(taskWithCategory)
     }
 
-    override fun onTaskRemoved(taskWithCategory: TaskWithCategory) {
+    private fun onTaskRemoved(taskWithCategory: TaskWithCategory) {
         adapter.removeTask(taskWithCategory)
     }
 
@@ -129,7 +131,7 @@ class TaskListFragment : Fragment(), TaskListDelegate, TaskListAdapter.TaskItemL
         builder?.setItems(R.array.task_dialog_options) { _,
             item ->
             when (item) {
-                0 -> viewModel.deleteTask(taskWithCategory)
+                0 -> viewModel.deleteTask(taskWithCategory, onTaskRemoved = { onTaskRemoved(it) })
             }
         }
         builder?.show()

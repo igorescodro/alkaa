@@ -15,7 +15,7 @@ import org.koin.android.architecture.ext.viewModel
 /**
  * [Fragment] responsible to create a new [com.escodro.alkaa.data.local.model.Category].
  */
-class NewCategoryFragment : Fragment(), NewCategoryDelegate {
+class NewCategoryFragment : Fragment() {
 
     private var binding: FragmentCategoryNewBinding? = null
 
@@ -39,25 +39,29 @@ class NewCategoryFragment : Fragment(), NewCategoryDelegate {
         super.onViewCreated(view, savedInstanceState)
 
         bindComponents()
-        viewModel.delegate = this
     }
 
     private fun bindComponents() {
         binding?.setLifecycleOwner(this)
-        binding?.buttonCategorynewAdd?.setOnClickListener { viewModel.addCategory() }
+        binding?.buttonCategorynewAdd?.setOnClickListener {
+            viewModel.addCategory(
+                onEmptyField = { onEmptyField() },
+                onCategoryAdded = { onNewCategoryAdded() },
+                getCategoryColor = { getCategoryColor() })
+        }
         binding?.viewModel = viewModel
     }
 
-    override fun onEmptyField() {
+    private fun onEmptyField() {
         binding?.edittextCategorynewDescription?.error = getString(R.string.task_error_empty)
     }
 
-    override fun onNewCategoryAdded() {
+    private fun onNewCategoryAdded() {
         binding?.edittextCategorynewDescription?.text = null
         NavHostFragment.findNavController(this).navigateUp()
     }
 
-    override fun getCategoryColor(): String? {
+    private fun getCategoryColor(): String? {
         val radioGroup = binding?.radiogroupCategorynewLabel
         val checkedId = radioGroup?.checkedRadioButtonId
         val checked = checkedId?.let { radioGroup.findViewById<RadioButton>(it) }

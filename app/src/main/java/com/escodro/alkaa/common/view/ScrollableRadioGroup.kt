@@ -36,7 +36,7 @@ class ScrollableRadioGroup : HorizontalScrollView {
      *
      * @param list of all categories
      */
-    fun addAll(list: MutableList<Category>) {
+    fun addAll(list: List<Category>) {
         val rb = arrayOfNulls<LabelRadioButton>(list.size)
 
         list.forEachIndexed { index, category ->
@@ -77,7 +77,7 @@ class ScrollableRadioGroup : HorizontalScrollView {
      * @param list of all categories
      * @param position item position
      */
-    private fun setMargin(params: LayoutParams, list: MutableList<Category>, position: Int) {
+    private fun setMargin(params: LayoutParams, list: List<Category>, position: Int) {
         val marginX = dpInPixel(RADIO_MARGIN_X)
         val marginY = dpInPixel(RADIO_MARGIN_Y)
 

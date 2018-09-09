@@ -20,7 +20,7 @@ import org.koin.android.architecture.ext.viewModel
  *
  * Created by Igor Escodro on 31/5/18.
  */
-class TaskDetailFragment : Fragment(), TaskDetailDelegate {
+class TaskDetailFragment : Fragment() {
 
     private val viewModel: TaskDetailViewModel by viewModel()
 
@@ -46,8 +46,7 @@ class TaskDetailFragment : Fragment(), TaskDetailDelegate {
 
         initComponents()
         initListeners()
-        viewModel.delegate = this
-        viewModel.loadCategories()
+        viewModel.loadCategories(onCategoryListLoaded = { updateCategoryList(it) })
     }
 
     private fun initComponents() {
@@ -66,7 +65,7 @@ class TaskDetailFragment : Fragment(), TaskDetailDelegate {
             })
     }
 
-    override fun updateCategoryList(list: MutableList<Category>) {
+    private fun updateCategoryList(list: List<Category>) {
         binding?.srgTaskdetailList?.addAll(list)
 
         val checked = list.withIndex().firstOrNull {

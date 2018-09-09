@@ -13,8 +13,6 @@ import io.reactivex.disposables.CompositeDisposable
  */
 class NewCategoryViewModel(private val contract: NewCategoryContract) : ViewModel() {
 
-    var delegate: NewCategoryDelegate? = null
-
     val newCategory = MutableLiveData<String>()
 
     private val compositeDisposable = CompositeDisposable()
@@ -22,17 +20,21 @@ class NewCategoryViewModel(private val contract: NewCategoryContract) : ViewMode
     /**
      * Add a new category.
      */
-    fun addCategory() {
+    fun addCategory(
+        onEmptyField: () -> Unit,
+        getCategoryColor: () -> String?,
+        onCategoryAdded: () -> Unit
+    ) {
         val name = newCategory.value
         if (TextUtils.isEmpty(name)) {
-            delegate?.onEmptyField()
+            onEmptyField()
             return
         }
 
-        val color = delegate?.getCategoryColor()
+        val color = getCategoryColor()
         val category = Category(name = name, color = color)
         val disposable = contract.addCategory(category)
-            .doOnComplete { delegate?.onNewCategoryAdded() }
+            .doOnComplete { onCategoryAdded() }
             .subscribe()
 
         compositeDisposable.add(disposable)
@@ -42,6 +44,5 @@ class NewCategoryViewModel(private val contract: NewCategoryContract) : ViewMode
         super.onCleared()
 
         compositeDisposable.clear()
-        delegate = null
     }
 }

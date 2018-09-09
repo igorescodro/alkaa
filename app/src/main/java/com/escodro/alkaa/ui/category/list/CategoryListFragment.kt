@@ -14,7 +14,6 @@ import com.escodro.alkaa.R
 import com.escodro.alkaa.data.local.model.Category
 import com.escodro.alkaa.databinding.FragmentCategoryListBinding
 import org.koin.android.architecture.ext.viewModel
-import org.koin.android.ext.android.inject
 import timber.log.Timber
 
 /**
@@ -22,7 +21,7 @@ import timber.log.Timber
  */
 class CategoryListFragment : Fragment(), CategoryListAdapter.CategoryListListener {
 
-    private val adapter: CategoryListAdapter by inject()
+    private val adapter = CategoryListAdapter()
 
     private val viewModel: CategoryListViewModel by viewModel()
 
@@ -76,7 +75,7 @@ class CategoryListFragment : Fragment(), CategoryListAdapter.CategoryListListene
     private fun updateList(list: List<Category>) {
         Timber.d("updateList() - Size = ${list.size}")
 
-        adapter.updateCategoryList(list)
+        adapter.updateList(list)
     }
 
     override fun onOptionMenuClicked(view: View, category: Category) {
@@ -92,7 +91,7 @@ class CategoryListFragment : Fragment(), CategoryListAdapter.CategoryListListene
     private fun onTaskRemoved(category: Category) {
         Timber.d("onTaskRemoved() - clicked = ${category.name}")
 
-        adapter.removeCategory(category)
+        adapter.removeItem(category)
     }
 
     private fun onMenuItemClicked(category: Category) =

@@ -27,7 +27,7 @@ import timber.log.Timber
  */
 class TaskListFragment : Fragment(), TaskListAdapter.TaskItemListener {
 
-    private val adapter: TaskListAdapter by inject()
+    private val adapter = TaskListAdapter()
 
     private val viewModel: TaskListViewModel by viewModel()
 
@@ -112,7 +112,7 @@ class TaskListFragment : Fragment(), TaskListAdapter.TaskItemListener {
     private fun onTaskLoaded(list: List<TaskWithCategory>) {
         Timber.d("onTaskLoaded() - Size = ${list.size}")
 
-        adapter.updateTaskList(list)
+        adapter.updateList(list)
     }
 
     private fun onEmptyField() {
@@ -124,13 +124,13 @@ class TaskListFragment : Fragment(), TaskListAdapter.TaskItemListener {
     private fun onNewTaskAdded(taskWithCategory: TaskWithCategory) {
         Timber.d("onNewTaskAdded() - Task = ${taskWithCategory.task.description}")
 
-        adapter.addTask(taskWithCategory)
+        adapter.addItem(taskWithCategory)
     }
 
     private fun onTaskRemoved(taskWithCategory: TaskWithCategory) {
         Timber.d("onTaskRemoved() - Task = ${taskWithCategory.task.description}")
 
-        adapter.removeTask(taskWithCategory)
+        adapter.removeItem(taskWithCategory)
     }
 
     override fun onItemClicked(taskWithCategory: TaskWithCategory) {

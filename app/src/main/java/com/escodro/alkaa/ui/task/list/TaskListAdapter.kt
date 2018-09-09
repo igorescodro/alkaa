@@ -1,85 +1,30 @@
 package com.escodro.alkaa.ui.task.list
 
-import android.content.Context
-import android.databinding.DataBindingUtil
 import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.CheckBox
 import com.escodro.alkaa.R
-import com.escodro.alkaa.common.databinding.BindingHolder
+import com.escodro.alkaa.common.databinding.BindingRecyclerAdapter
 import com.escodro.alkaa.data.local.model.TaskWithCategory
 import com.escodro.alkaa.databinding.ItemTaskBinding
 
 /**
  * [RecyclerView.Adapter] to bind the [TaskWithCategory] in the [RecyclerView].
  */
-class TaskListAdapter constructor(private var context: Context) :
-    RecyclerView.Adapter<BindingHolder<ItemTaskBinding>>() {
-
-    private val taskList: MutableList<TaskWithCategory> = ArrayList()
+class TaskListAdapter : BindingRecyclerAdapter<TaskWithCategory, ItemTaskBinding>() {
 
     var listener: TaskItemListener? = null
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): BindingHolder<ItemTaskBinding> {
-        val binding = DataBindingUtil.inflate<ItemTaskBinding>(
-            LayoutInflater.from(context),
-            R.layout.item_task,
-            parent,
-            false
-        )
+    override val layoutResource: Int
+        get() = R.layout.item_task
 
-        return BindingHolder(binding)
-    }
-
-    override fun onBindViewHolder(holder: BindingHolder<ItemTaskBinding>, position: Int) {
-        val binding = holder.binding
-        val taskWithCategory = taskList[position]
-        binding.task = taskWithCategory.task
-        binding.color = taskWithCategory.category?.color ?: DEFAULT_LABEL_COLOR
-        binding.root.setOnLongClickListener { _ -> notifyLongPressListener(taskWithCategory) }
-        binding.root.setOnClickListener { _ -> notifyItemClickListener(taskWithCategory) }
+    override fun bindData(binding: ItemTaskBinding, data: TaskWithCategory) {
+        binding.task = data.task
+        binding.color = data.category?.color ?: DEFAULT_LABEL_COLOR
+        binding.root.setOnLongClickListener { _ -> notifyLongPressListener(data) }
+        binding.root.setOnClickListener { _ -> notifyItemClickListener(data) }
         binding.checkboxItemtaskCompleted
-            .setOnClickListener { view -> notifyCheckListener(view, taskWithCategory) }
-    }
-
-    override fun getItemCount(): Int = taskList.size
-
-    /**
-     * Updates the [RecyclerView] with the given [MutableList].
-     *
-     * @param list list of tasks
-     */
-    fun updateTaskList(list: List<TaskWithCategory>) {
-        taskList.clear()
-        taskList.addAll(list)
-        notifyDataSetChanged()
-    }
-
-    /**
-     * Adds a new [TaskWithCategory] in the list.
-     *
-     * @param taskWithCategory task to be added
-     */
-    fun addTask(taskWithCategory: TaskWithCategory) {
-        taskList.add(taskWithCategory)
-        notifyItemChanged(itemCount)
-    }
-
-    /**
-     * Removes new [TaskWithCategory] from the list.
-     *
-     * @param taskWithCategory task to be removed
-     */
-    fun removeTask(taskWithCategory: TaskWithCategory) {
-        val position = taskList.indexOf(taskWithCategory)
-        taskList.remove(taskWithCategory)
-        notifyItemRemoved(position)
-        notifyItemRangeChanged(position, taskList.size)
+            .setOnClickListener { view -> notifyCheckListener(view, data) }
     }
 
     private fun notifyItemClickListener(taskWithCategory: TaskWithCategory) {

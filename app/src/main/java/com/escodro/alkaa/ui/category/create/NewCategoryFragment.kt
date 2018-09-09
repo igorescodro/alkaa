@@ -11,6 +11,7 @@ import androidx.navigation.fragment.NavHostFragment
 import com.escodro.alkaa.R
 import com.escodro.alkaa.databinding.FragmentCategoryNewBinding
 import org.koin.android.architecture.ext.viewModel
+import timber.log.Timber
 
 /**
  * [Fragment] responsible to create a new [com.escodro.alkaa.data.local.model.Category].
@@ -26,22 +27,17 @@ class NewCategoryFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Timber.d("onCreateView()")
 
         binding =
-            DataBindingUtil.inflate(
-                inflater, R.layout.fragment_category_new,
-                container, false
-            )
+            DataBindingUtil.inflate(inflater, R.layout.fragment_category_new, container, false)
         return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Timber.d("onViewCreated()")
 
-        bindComponents()
-    }
-
-    private fun bindComponents() {
         binding?.setLifecycleOwner(this)
         binding?.buttonCategorynewAdd?.setOnClickListener {
             viewModel.addCategory(
@@ -53,15 +49,21 @@ class NewCategoryFragment : Fragment() {
     }
 
     private fun onEmptyField() {
+        Timber.d("onEmptyField()")
+
         binding?.edittextCategorynewDescription?.error = getString(R.string.task_error_empty)
     }
 
     private fun onNewCategoryAdded() {
+        Timber.d("onNewCategoryAdded()")
+
         binding?.edittextCategorynewDescription?.text = null
         NavHostFragment.findNavController(this).navigateUp()
     }
 
     private fun getCategoryColor(): String? {
+        Timber.d("getCategoryColor()")
+
         val radioGroup = binding?.radiogroupCategorynewLabel
         val checkedId = radioGroup?.checkedRadioButtonId
         val checked = checkedId?.let { radioGroup.findViewById<RadioButton>(it) }

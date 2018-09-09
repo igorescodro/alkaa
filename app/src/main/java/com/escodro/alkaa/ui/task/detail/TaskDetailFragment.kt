@@ -14,6 +14,7 @@ import com.escodro.alkaa.data.local.model.Category
 import com.escodro.alkaa.data.local.model.Task
 import com.escodro.alkaa.databinding.FragmentTaskDetailBinding
 import org.koin.android.architecture.ext.viewModel
+import timber.log.Timber
 
 /**
  * [Fragment] responsible to show the [Task] details.
@@ -33,6 +34,7 @@ class TaskDetailFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Timber.d("onCreateView()")
 
         binding =
             DataBindingUtil.inflate(
@@ -43,6 +45,7 @@ class TaskDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Timber.d("onViewCreated()")
 
         initComponents()
         initListeners()
@@ -50,6 +53,8 @@ class TaskDetailFragment : Fragment() {
     }
 
     private fun initComponents() {
+        Timber.d("initComponents()")
+
         binding?.setLifecycleOwner(this)
         binding?.viewModel = viewModel
 
@@ -59,6 +64,8 @@ class TaskDetailFragment : Fragment() {
     }
 
     private fun initListeners() {
+        Timber.d("initListeners()")
+
         binding?.srgTaskdetailList?.setOnCheckedChangeListener(
             RadioGroup.OnCheckedChangeListener { radioGroup, position ->
                 updateTaskWithCategory(radioGroup, position)
@@ -66,6 +73,8 @@ class TaskDetailFragment : Fragment() {
     }
 
     private fun updateCategoryList(list: List<Category>) {
+        Timber.d("updateCategoryList() - Size = ${list.size}")
+
         binding?.srgTaskdetailList?.addAll(list)
 
         val checked = list.withIndex().firstOrNull {
@@ -75,6 +84,8 @@ class TaskDetailFragment : Fragment() {
     }
 
     private fun updateTaskWithCategory(radioGroup: RadioGroup?, position: Int) {
+        Timber.d("updateTaskWithCategory() - Position = $position")
+
         val checked = radioGroup?.findViewById<LabelRadioButton>(position)
         val categoryId = checked?.tag as? Long ?: 0
 

@@ -19,6 +19,7 @@ import com.escodro.alkaa.data.local.model.Category
 import com.escodro.alkaa.ui.task.list.TaskListFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.architecture.ext.viewModel
+import timber.log.Timber
 
 /**
  * Main application [AppCompatActivity].
@@ -34,6 +35,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Timber.d("onCreate()")
 
         setContentView(R.layout.activity_main)
         initComponents()
@@ -41,6 +43,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initComponents() {
+        Timber.d("initComponents()")
+
         val host = supportFragmentManager
             .findFragmentById(R.id.fragment_main_navigation) as? NavHostFragment? ?: return
 
@@ -53,11 +57,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupActionBar() {
+        Timber.d("setupActionBar()")
+
         setSupportActionBar(toolbar_main_toolbar)
         NavigationUI.setupActionBarWithNavController(this, navController, drawer_layout_main_parent)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        Timber.d("onOptionsItemSelected() - item  = ${item.title}")
+
         val shouldHandle = NavigationUI.onNavDestinationSelected(item, navController)
         return shouldHandle || super.onOptionsItemSelected(item)
     }
@@ -80,6 +88,8 @@ class MainActivity : AppCompatActivity() {
      * @return `true` indicating that the event was handled
      */
     private fun navigateToItem(item: MenuItem): Boolean {
+        Timber.d("navigateToItem() - item  = ${item.title}")
+
         drawerSelectedItem = item.itemId
         val bundle = bundleOf(
             TaskListFragment.EXTRA_CATEGORY_ID to item.itemId.toLong(),
@@ -92,6 +102,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateList(list: List<Category>) {
+        Timber.d("updateList() - Size = ${list.size}")
+
         val menu = navigationview_main_drawer.menu
         menu.clear()
         menu.add(Menu.NONE, 0, Menu.NONE, R.string.drawer_menu_all_tasks).isCheckable = true
@@ -104,6 +116,8 @@ class MainActivity : AppCompatActivity() {
      * stands still and the main content slides out.
      */
     private fun updateDrawer() {
+        Timber.d("updateDrawer()")
+
         val toggle = object : ActionBarDrawerToggle(this, drawer_layout_main_parent, 0, 0) {
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
                 super.onDrawerSlide(drawerView, slideOffset)

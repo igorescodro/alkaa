@@ -20,6 +20,7 @@ import com.escodro.alkaa.databinding.FragmentTaskListBinding
 import com.escodro.alkaa.di.SystemService
 import org.koin.android.architecture.ext.viewModel
 import org.koin.android.ext.android.inject
+import timber.log.Timber
 
 /**
  * [Fragment] responsible to show and handle all [TaskWithCategory]s.
@@ -41,6 +42,7 @@ class TaskListFragment : Fragment(), TaskListAdapter.TaskItemListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Timber.d("onCreateView()")
 
         binding = DataBindingUtil
             .inflate(inflater, R.layout.fragment_task_list, container, false)
@@ -50,6 +52,7 @@ class TaskListFragment : Fragment(), TaskListAdapter.TaskItemListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Timber.d("onViewCreated()")
 
         bindComponents()
         adapter.listener = this
@@ -59,6 +62,7 @@ class TaskListFragment : Fragment(), TaskListAdapter.TaskItemListener {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        Timber.d("onDestroyView()")
 
         adapter.listener = null
     }
@@ -68,6 +72,8 @@ class TaskListFragment : Fragment(), TaskListAdapter.TaskItemListener {
     }
 
     private fun bindComponents() {
+        Timber.d("bindComponents()")
+
         binding?.setLifecycleOwner(this)
         binding?.recyclerviewTasklistList?.adapter = adapter
         binding?.recyclerviewTasklistList?.layoutManager = getLayoutManager()
@@ -76,6 +82,8 @@ class TaskListFragment : Fragment(), TaskListAdapter.TaskItemListener {
     }
 
     private fun loadTasks() {
+        Timber.d("loadTasks()")
+
         val itemId = arguments?.getLong(TaskListFragment.EXTRA_CATEGORY_ID) ?: 0
         val taskName = arguments?.getString(
             TaskListFragment.EXTRA_CATEGORY_NAME, getString(R.string.drawer_menu_all_tasks)
@@ -101,31 +109,46 @@ class TaskListFragment : Fragment(), TaskListAdapter.TaskItemListener {
             result
         }
 
-    private fun onTaskLoaded(list: List<TaskWithCategory>) =
+    private fun onTaskLoaded(list: List<TaskWithCategory>) {
+        Timber.d("onTaskLoaded() - Size = ${list.size}")
+
         adapter.updateTaskList(list)
+    }
 
     private fun onEmptyField() {
+        Timber.d("onEmptyField()")
+
         binding?.edittextTasklistDescription?.error = getString(R.string.task_error_empty)
     }
 
     private fun onNewTaskAdded(taskWithCategory: TaskWithCategory) {
+        Timber.d("onNewTaskAdded() - Task = ${taskWithCategory.task.description}")
+
         adapter.addTask(taskWithCategory)
     }
 
     private fun onTaskRemoved(taskWithCategory: TaskWithCategory) {
+        Timber.d("onTaskRemoved() - Task = ${taskWithCategory.task.description}")
+
         adapter.removeTask(taskWithCategory)
     }
 
     override fun onItemClicked(taskWithCategory: TaskWithCategory) {
+        Timber.d("onItemClicked() - Task = ${taskWithCategory.task.description}")
+
         val action = TaskListFragmentDirections.actionDetail(taskWithCategory.task)
         navigator?.navigate(action)
     }
 
     override fun onItemCheckedChanged(taskWithCategory: TaskWithCategory, value: Boolean) {
+        Timber.d("onItemCheckedChanged() - Task = ${taskWithCategory.task.description} - Value = $value")
+
         viewModel.updateTaskStatus(taskWithCategory.task, value)
     }
 
     override fun onItemLongPressed(taskWithCategory: TaskWithCategory) {
+        Timber.d("onItemLongPressed() - Task = ${taskWithCategory.task.description}")
+
         val builder = context?.let { AlertDialog.Builder(it) }
         builder?.setTitle(taskWithCategory.task.description)
         builder?.setItems(R.array.task_dialog_options) { _,

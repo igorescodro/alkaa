@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.escodro.alkaa.R
-import com.escodro.alkaa.common.viewholder.BindingHolder
+import com.escodro.alkaa.common.databinding.BindingHolder
 import com.escodro.alkaa.data.local.model.Category
 import com.escodro.alkaa.databinding.ItemCategoryBinding
 

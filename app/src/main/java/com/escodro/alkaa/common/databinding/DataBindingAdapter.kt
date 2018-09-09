@@ -1,4 +1,4 @@
-package com.escodro.alkaa.common.adapter
+package com.escodro.alkaa.common.databinding
 
 import android.databinding.BindingAdapter
 import android.graphics.Color

@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import com.escodro.alkaa.R
-import com.escodro.alkaa.common.viewholder.BindingHolder
+import com.escodro.alkaa.common.databinding.BindingHolder
 import com.escodro.alkaa.data.local.model.TaskWithCategory
 import com.escodro.alkaa.databinding.ItemTaskBinding
 

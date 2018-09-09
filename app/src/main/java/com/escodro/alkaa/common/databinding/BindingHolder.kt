@@ -1,4 +1,4 @@
-package com.escodro.alkaa.common.viewholder
+package com.escodro.alkaa.common.databinding
 
 import android.databinding.ViewDataBinding
 import android.support.v7.widget.RecyclerView

@@ -8,6 +8,8 @@ Currently, this project covers the following topics:
 
 #### Android
 - [Kotlin](https://kotlinlang.org)
+  - [High Order Functions](https://kotlinlang.org/docs/reference/lambdas.html)
+  - [Extensions](https://kotlinlang.org/docs/reference/extensions.html#extensions)
 - [Android Architecture Components](https://developer.android.com/topic/libraries/architecture/)
   - [LiveData](https://developer.android.com/topic/libraries/architecture/livedata)
   - [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel)

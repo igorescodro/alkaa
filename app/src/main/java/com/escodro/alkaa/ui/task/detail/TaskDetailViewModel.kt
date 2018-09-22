@@ -1,7 +1,7 @@
 package com.escodro.alkaa.ui.task.detail
 
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.escodro.alkaa.data.local.model.Category
 import com.escodro.alkaa.data.local.model.Task
 import io.reactivex.disposables.CompositeDisposable

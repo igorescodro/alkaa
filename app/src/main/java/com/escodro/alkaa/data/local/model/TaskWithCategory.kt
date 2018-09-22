@@ -1,7 +1,7 @@
 package com.escodro.alkaa.data.local.model
 
-import android.arch.persistence.room.Embedded
-import android.arch.persistence.room.Entity
+import androidx.room.Embedded
+import androidx.room.Entity
 
 /**
  * [Entity] to represent a wrapper of [Task] and [Category].

@@ -1,22 +1,22 @@
 package com.escodro.alkaa.ui.category.create
 
-import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import com.escodro.alkaa.R
 import com.escodro.alkaa.databinding.FragmentCategoryNewBinding
-import org.koin.android.architecture.ext.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
 /**
  * [Fragment] responsible to create a new [com.escodro.alkaa.data.local.model.Category].
  */
-class NewCategoryFragment : Fragment() {
+class NewCategoryFragment : androidx.fragment.app.Fragment() {
 
     private var binding: FragmentCategoryNewBinding? = null
 

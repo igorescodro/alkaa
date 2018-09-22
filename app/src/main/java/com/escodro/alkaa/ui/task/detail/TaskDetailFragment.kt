@@ -1,19 +1,19 @@
 package com.escodro.alkaa.ui.task.detail
 
-import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import com.escodro.alkaa.R
 import com.escodro.alkaa.common.view.LabelRadioButton
 import com.escodro.alkaa.data.local.model.Category
 import com.escodro.alkaa.data.local.model.Task
 import com.escodro.alkaa.databinding.FragmentTaskDetailBinding
-import org.koin.android.architecture.ext.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
 /**

@@ -10,52 +10,52 @@ import com.escodro.alkaa.ui.task.detail.TaskDetailContract
 import com.escodro.alkaa.ui.task.detail.TaskDetailViewModel
 import com.escodro.alkaa.ui.task.list.TaskListContract
 import com.escodro.alkaa.ui.task.list.TaskListViewModel
-import org.koin.android.architecture.ext.viewModel
 import org.koin.android.ext.koin.androidApplication
-import org.koin.dsl.module.applicationContext
+import org.koin.androidx.viewmodel.ext.koin.viewModel
+import org.koin.dsl.module.module
 
 /**
  * Android-related module.
  */
-val androidModule = applicationContext {
+val androidModule = module {
 
-    bean { SystemService(androidApplication()) }
+    single { SystemService(androidApplication()) }
 }
 
 /**
  * Database module.
  */
 @Suppress("UnsafeCast")
-val databaseModule = applicationContext {
+val databaseModule = module {
 
     // Database
-    bean { DatabaseRepository(get()) }
-    bean { DaoRepository(get()) }
+    single { DatabaseRepository(get()) }
+    single { DaoRepository(get()) }
 }
 
 /**
  * Application module.
  */
-val applicationModule = applicationContext {
+val applicationModule = module {
 
     // Main
-    bean { MainContract(get()) }
+    single { MainContract(get()) }
     viewModel { MainViewModel(get()) }
 
     // Task
-    bean { TaskListContract(get()) }
+    single { TaskListContract(get()) }
     viewModel { TaskListViewModel(get()) }
 
     // Detail
-    bean { TaskDetailContract(get()) }
+    single { TaskDetailContract(get()) }
     viewModel { TaskDetailViewModel(get()) }
 
     // Category
-    bean { CategoryListContract(get()) }
+    single { CategoryListContract(get()) }
     viewModel { CategoryListViewModel(get()) }
 
     // New Category
-    bean { NewCategoryContract(get()) }
+    single { NewCategoryContract(get()) }
     viewModel { NewCategoryViewModel(get()) }
 }
 

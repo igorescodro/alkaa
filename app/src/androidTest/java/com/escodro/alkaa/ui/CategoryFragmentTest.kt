@@ -1,6 +1,6 @@
 package com.escodro.alkaa.ui
 
-import android.support.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu
+import androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu
 import com.escodro.alkaa.R
 import com.escodro.alkaa.framework.AcceptanceTest
 import com.escodro.alkaa.ui.main.MainActivity

@@ -1,6 +1,6 @@
 package com.escodro.alkaa.ui.category.list
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.View
 import com.escodro.alkaa.R
 import com.escodro.alkaa.common.databinding.BindingRecyclerAdapter

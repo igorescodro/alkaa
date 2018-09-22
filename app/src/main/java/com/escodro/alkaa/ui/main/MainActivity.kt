@@ -2,11 +2,11 @@ package com.escodro.alkaa.ui.main
 
 import android.graphics.Color
 import android.os.Bundle
-import android.support.v7.app.ActionBarDrawerToggle
-import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -18,7 +18,7 @@ import com.escodro.alkaa.common.extension.navigateSingleTop
 import com.escodro.alkaa.data.local.model.Category
 import com.escodro.alkaa.ui.task.list.TaskListFragment
 import kotlinx.android.synthetic.main.activity_main.*
-import org.koin.android.architecture.ext.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
 /**

@@ -1,7 +1,7 @@
 package com.escodro.alkaa.ui.preference
 
 import android.os.Bundle
-import android.support.v7.preference.PreferenceFragmentCompat
+import androidx.preference.PreferenceFragmentCompat
 import com.escodro.alkaa.R
 import timber.log.Timber
 

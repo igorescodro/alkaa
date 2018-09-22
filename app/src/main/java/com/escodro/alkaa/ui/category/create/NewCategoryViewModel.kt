@@ -1,7 +1,7 @@
 package com.escodro.alkaa.ui.category.create
 
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import android.text.TextUtils
 import com.escodro.alkaa.data.local.model.Category
 import io.reactivex.disposables.CompositeDisposable

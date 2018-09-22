@@ -5,9 +5,9 @@ import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.graphics.drawable.Drawable
-import android.support.annotation.DrawableRes
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.AppCompatRadioButton
+import androidx.annotation.DrawableRes
+import androidx.core.content.ContextCompat
+import androidx.appcompat.widget.AppCompatRadioButton
 import android.util.AttributeSet
 import android.util.TypedValue
 import com.escodro.alkaa.R

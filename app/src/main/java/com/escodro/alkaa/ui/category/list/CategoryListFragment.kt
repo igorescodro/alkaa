@@ -1,19 +1,19 @@
 package com.escodro.alkaa.ui.category.list
 
-import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.PopupMenu
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.PopupMenu
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.recyclerview.widget.GridLayoutManager
 import com.escodro.alkaa.R
 import com.escodro.alkaa.data.local.model.Category
 import com.escodro.alkaa.databinding.FragmentCategoryListBinding
-import org.koin.android.architecture.ext.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
 /**

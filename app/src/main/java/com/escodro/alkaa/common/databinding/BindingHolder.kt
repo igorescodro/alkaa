@@ -1,7 +1,7 @@
 package com.escodro.alkaa.common.databinding
 
-import android.databinding.ViewDataBinding
-import android.support.v7.widget.RecyclerView
+import androidx.databinding.ViewDataBinding
+import androidx.recyclerview.widget.RecyclerView
 
 /**
  * Generic [RecyclerView.ViewHolder] to be used in [RecyclerView.Adapter] and Data Binding.

@@ -1,8 +1,8 @@
 package com.escodro.alkaa.database
 
-import android.arch.persistence.room.Room
-import android.support.test.InstrumentationRegistry
-import android.support.test.runner.AndroidJUnit4
+import androidx.room.Room
+import androidx.test.InstrumentationRegistry
+import androidx.test.runner.AndroidJUnit4
 import com.escodro.alkaa.data.local.TaskDatabase
 import com.escodro.alkaa.data.local.dao.CategoryDao
 import com.escodro.alkaa.data.local.dao.TaskDao

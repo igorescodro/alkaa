@@ -1,6 +1,6 @@
 package com.escodro.alkaa.common.databinding
 
-import android.databinding.BindingAdapter
+import androidx.databinding.BindingAdapter
 import android.graphics.Color
 import android.view.View
 

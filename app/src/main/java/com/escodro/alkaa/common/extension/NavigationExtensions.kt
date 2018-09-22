@@ -1,7 +1,7 @@
 package com.escodro.alkaa.common.extension
 
 import android.os.Bundle
-import android.support.annotation.IdRes
+import androidx.annotation.IdRes
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 

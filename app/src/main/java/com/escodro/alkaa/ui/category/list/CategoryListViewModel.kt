@@ -1,6 +1,6 @@
 package com.escodro.alkaa.ui.category.list
 
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.ViewModel
 import com.escodro.alkaa.data.local.model.Category
 import io.reactivex.disposables.CompositeDisposable
 

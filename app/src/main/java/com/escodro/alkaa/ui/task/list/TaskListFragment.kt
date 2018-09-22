@@ -1,10 +1,6 @@
 package com.escodro.alkaa.ui.task.list
 
-import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.app.AlertDialog
-import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -12,14 +8,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.escodro.alkaa.R
 import com.escodro.alkaa.data.local.model.TaskWithCategory
 import com.escodro.alkaa.databinding.FragmentTaskListBinding
 import com.escodro.alkaa.di.SystemService
-import org.koin.android.architecture.ext.viewModel
 import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
 /**
@@ -93,7 +94,7 @@ class TaskListFragment : Fragment(), TaskListAdapter.TaskItemListener {
     }
 
     private fun getLayoutManager() =
-        LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        LinearLayoutManager(context, RecyclerView.VERTICAL, false)
 
     private fun getEditorActionListener(): TextView.OnEditorActionListener =
         TextView.OnEditorActionListener { _, action, _ ->

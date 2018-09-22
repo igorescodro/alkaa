@@ -1,6 +1,6 @@
 package com.escodro.alkaa.di
 
-import android.arch.persistence.room.Room
+import androidx.room.Room
 import android.content.Context
 import com.escodro.alkaa.data.local.TaskDatabase
 import com.escodro.alkaa.data.local.dao.CategoryDao

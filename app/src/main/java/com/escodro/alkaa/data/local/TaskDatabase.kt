@@ -1,7 +1,7 @@
 package com.escodro.alkaa.data.local
 
-import android.arch.persistence.room.Database
-import android.arch.persistence.room.RoomDatabase
+import androidx.room.Database
+import androidx.room.RoomDatabase
 import com.escodro.alkaa.data.local.dao.CategoryDao
 import com.escodro.alkaa.data.local.dao.TaskDao
 import com.escodro.alkaa.data.local.model.Category

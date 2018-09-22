@@ -1,7 +1,7 @@
 package com.escodro.alkaa.common.extension
 
-import android.support.v4.view.GravityCompat
-import android.support.v4.widget.DrawerLayout
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 
 /**
  * Extension to check if the given drawer view is currently in an open state, abstracting the

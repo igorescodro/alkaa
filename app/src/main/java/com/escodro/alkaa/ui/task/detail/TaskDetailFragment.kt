@@ -49,7 +49,7 @@ class TaskDetailFragment : Fragment() {
 
         initComponents()
         initListeners()
-        viewModel.loadCategories(onCategoryListLoaded = { updateCategoryList(it) })
+        viewModel.loadCategories(onCategoryListLoaded = ::updateCategoryList)
     }
 
     private fun initComponents() {

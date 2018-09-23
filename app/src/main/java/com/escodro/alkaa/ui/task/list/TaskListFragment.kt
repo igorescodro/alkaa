@@ -16,27 +16,28 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.escodro.alkaa.R
+import com.escodro.alkaa.common.extension.hideKeyboard
 import com.escodro.alkaa.data.local.model.TaskWithCategory
 import com.escodro.alkaa.databinding.FragmentTaskListBinding
-import com.escodro.alkaa.di.SystemService
-import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
 /**
  * [Fragment] responsible to show and handle all [TaskWithCategory]s.
  */
-class TaskListFragment : Fragment(), TaskListAdapter.TaskItemListener {
-
-    private val adapter = TaskListAdapter()
+class TaskListFragment : Fragment() {
 
     private val viewModel: TaskListViewModel by viewModel()
-
-    private val systemService: SystemService by inject()
 
     private var binding: FragmentTaskListBinding? = null
 
     private var navigator: NavController? = null
+
+    private val adapter = TaskListAdapter(
+        onItemClicked = ::onItemClicked,
+        onItemLongPressed = ::onItemLongPressed,
+        onItemCheckedChanged = ::onItemCheckedChanged
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -56,16 +57,8 @@ class TaskListFragment : Fragment(), TaskListAdapter.TaskItemListener {
         Timber.d("onViewCreated()")
 
         bindComponents()
-        adapter.listener = this
         loadTasks()
         navigator = NavHostFragment.findNavController(this)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        Timber.d("onDestroyView()")
-
-        adapter.listener = null
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
@@ -101,10 +94,10 @@ class TaskListFragment : Fragment(), TaskListAdapter.TaskItemListener {
             var result = false
             if (action == EditorInfo.IME_ACTION_DONE) {
                 viewModel.addTask(
-                    onEmptyField = { onEmptyField() },
-                    onNewTaskAdded = { onNewTaskAdded(it) }
+                    onEmptyField = ::onEmptyField,
+                    onNewTaskAdded = ::onNewTaskAdded
                 )
-                systemService.getInputMethodManager()?.hideSoftInputFromWindow(view?.windowToken, 0)
+                hideKeyboard()
                 result = true
             }
             result
@@ -134,20 +127,20 @@ class TaskListFragment : Fragment(), TaskListAdapter.TaskItemListener {
         adapter.removeItem(taskWithCategory)
     }
 
-    override fun onItemClicked(taskWithCategory: TaskWithCategory) {
+    private fun onItemClicked(taskWithCategory: TaskWithCategory) {
         Timber.d("onItemClicked() - Task = ${taskWithCategory.task.description}")
 
         val action = TaskListFragmentDirections.actionDetail(taskWithCategory.task)
         navigator?.navigate(action)
     }
 
-    override fun onItemCheckedChanged(taskWithCategory: TaskWithCategory, value: Boolean) {
+    private fun onItemCheckedChanged(taskWithCategory: TaskWithCategory, value: Boolean) {
         Timber.d("onItemCheckedChanged() - Task = ${taskWithCategory.task.description} - Value = $value")
 
         viewModel.updateTaskStatus(taskWithCategory.task, value)
     }
 
-    override fun onItemLongPressed(taskWithCategory: TaskWithCategory) {
+    private fun onItemLongPressed(taskWithCategory: TaskWithCategory): Boolean {
         Timber.d("onItemLongPressed() - Task = ${taskWithCategory.task.description}")
 
         val builder = context?.let { AlertDialog.Builder(it) }
@@ -155,10 +148,12 @@ class TaskListFragment : Fragment(), TaskListAdapter.TaskItemListener {
         builder?.setItems(R.array.task_dialog_options) { _,
             item ->
             when (item) {
-                0 -> viewModel.deleteTask(taskWithCategory, onTaskRemoved = { onTaskRemoved(it) })
+                0 -> viewModel.deleteTask(taskWithCategory, onTaskRemoved = ::onTaskRemoved)
             }
         }
         builder?.show()
+
+        return true
     }
 
     companion object {

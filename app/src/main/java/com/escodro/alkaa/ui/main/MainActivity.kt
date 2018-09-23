@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
         initComponents()
-        viewModel.loadCategories(onListLoaded = { updateList(it) })
+        viewModel.loadCategories(onListLoaded = ::updateList)
     }
 
     private fun initComponents() {
@@ -130,7 +130,7 @@ class MainActivity : AppCompatActivity() {
             override fun onDrawerOpened(drawerView: View) {
                 super.onDrawerOpened(drawerView)
 
-                viewModel.loadCategories(onListLoaded = { updateList(it) })
+                viewModel.loadCategories(onListLoaded = ::updateList)
             }
         }
         drawer_layout_main_parent.apply {

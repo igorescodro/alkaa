@@ -41,9 +41,9 @@ class NewCategoryFragment : androidx.fragment.app.Fragment() {
         binding?.setLifecycleOwner(this)
         binding?.buttonCategorynewAdd?.setOnClickListener {
             viewModel.addCategory(
-                onEmptyField = { onEmptyField() },
-                onCategoryAdded = { onNewCategoryAdded() },
-                getCategoryColor = { getCategoryColor() })
+                onEmptyField = ::onEmptyField,
+                onCategoryAdded = ::onNewCategoryAdded,
+                getCategoryColor = ::getCategoryColor)
         }
         binding?.viewModel = viewModel
     }

@@ -10,28 +10,8 @@ import com.escodro.alkaa.ui.task.detail.TaskDetailContract
 import com.escodro.alkaa.ui.task.detail.TaskDetailViewModel
 import com.escodro.alkaa.ui.task.list.TaskListContract
 import com.escodro.alkaa.ui.task.list.TaskListViewModel
-import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
-
-/**
- * Android-related module.
- */
-val androidModule = module {
-
-    single { SystemService(androidApplication()) }
-}
-
-/**
- * Database module.
- */
-@Suppress("UnsafeCast")
-val databaseModule = module {
-
-    // Database
-    single { DatabaseRepository(get()) }
-    single { DaoRepository(get()) }
-}
 
 /**
  * Application module.
@@ -60,6 +40,16 @@ val applicationModule = module {
 }
 
 /**
+ * Database module.
+ */
+val databaseModule = module {
+
+    // Database
+    single { DatabaseRepository(get()) }
+    single { DaoRepository(get()) }
+}
+
+/**
  * List of all modules.
  */
-val alkaaModules = listOf(androidModule, databaseModule, applicationModule)
+val alkaaModules = listOf(applicationModule, databaseModule)

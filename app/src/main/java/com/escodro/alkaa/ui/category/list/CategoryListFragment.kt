@@ -48,7 +48,7 @@ class CategoryListFragment : Fragment(), CategoryListAdapter.CategoryListListene
 
         bindComponents()
         adapter.listener = this
-        viewModel.loadCategories(onListLoaded = { updateList(it) })
+        viewModel.loadCategories(onListLoaded = ::updateList)
         navigator = NavHostFragment.findNavController(this)
     }
 
@@ -97,8 +97,10 @@ class CategoryListFragment : Fragment(), CategoryListAdapter.CategoryListListene
     private fun onMenuItemClicked(category: Category) =
         PopupMenu.OnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.key_action_remove_category -> viewModel.deleteCategory(category,
-                    onCategoryRemoved = { onTaskRemoved(it) })
+                R.id.key_action_remove_category -> viewModel.deleteCategory(
+                    category,
+                    onCategoryRemoved = ::onTaskRemoved
+                )
             }
             true
         }

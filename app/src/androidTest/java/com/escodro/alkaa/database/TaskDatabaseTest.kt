@@ -13,6 +13,7 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.util.Calendar
 
 @RunWith(AndroidJUnit4::class)
 class TaskDatabaseTest {
@@ -42,7 +43,7 @@ class TaskDatabaseTest {
 
     @Test
     fun insertTaskAndReadInList() {
-        val task = Task(false, TASK_NAME)
+        val task = Task(description = TASK_NAME)
         taskDao.insertTask(task)
 
         val list = taskDao.getAllTasks().blockingFirst()
@@ -51,7 +52,7 @@ class TaskDatabaseTest {
 
     @Test
     fun insertAndUpdateTask() {
-        val task = Task(false, TASK_NAME)
+        val task = Task(description = TASK_NAME)
         taskDao.insertTask(task)
 
         val list = taskDao.getAllTasks().blockingFirst()
@@ -65,12 +66,32 @@ class TaskDatabaseTest {
 
     @Test
     fun insertAndAddCategoryInTask() {
-        val task = Task(false, TASK_NAME)
+        val task = Task(description = TASK_NAME)
         task.categoryId = categoryDao.getAllCategories().blockingFirst()[0].id
         taskDao.insertTask(task)
 
         val taskWithCategory = taskDao.getAllTasksWithCategory().blockingFirst()[0]
         assertTrue(taskWithCategory.task == task)
+    }
+
+    @Test
+    fun validateDateConverter() {
+        val taskName = "Take medicine"
+        val task = Task(description = taskName)
+
+        val calendar = Calendar.getInstance()
+        calendar.set(2018, 3, 15, 16, 1)
+        task.dueDate = calendar
+
+        taskDao.insertTask(task)
+
+        val selectedDate = taskDao.findTaskByDescription(taskName).dueDate
+
+        assertTrue(selectedDate?.get(Calendar.YEAR) == 2018)
+        assertTrue(selectedDate?.get(Calendar.MONTH) == 3)
+        assertTrue(selectedDate?.get(Calendar.DATE) == 15)
+        assertTrue(selectedDate?.get(Calendar.HOUR_OF_DAY) == 16)
+        assertTrue(selectedDate?.get(Calendar.MINUTE) == 1)
     }
 
     companion object {

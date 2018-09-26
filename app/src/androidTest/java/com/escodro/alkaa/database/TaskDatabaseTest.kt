@@ -85,7 +85,7 @@ class TaskDatabaseTest {
 
         taskDao.insertTask(task)
 
-        val selectedDate = taskDao.findTaskByDescription(taskName).dueDate
+        val selectedDate = taskDao.findTaskByDescription(taskName).blockingGet().dueDate
 
         assertTrue(selectedDate?.get(Calendar.YEAR) == 2018)
         assertTrue(selectedDate?.get(Calendar.MONTH) == 3)

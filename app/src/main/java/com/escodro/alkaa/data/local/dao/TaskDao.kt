@@ -9,6 +9,7 @@ import androidx.room.Update
 import com.escodro.alkaa.data.local.model.Task
 import com.escodro.alkaa.data.local.model.TaskWithCategory
 import io.reactivex.Flowable
+import io.reactivex.Single
 
 /**
  * DAO class to handle all [Task]-related database operations.
@@ -23,14 +24,6 @@ interface TaskDao {
      */
     @Query("SELECT * FROM task")
     fun getAllTasks(): Flowable<MutableList<Task>>
-
-    /**
-     * Gets a specific task by id.
-     *
-     * @param id task id
-     */
-    @Query("SELECT * FROM task WHERE task_id = :id")
-    fun findTaskById(id: Long): Task
 
     /**
      * Inserts a new task.
@@ -68,7 +61,7 @@ interface TaskDao {
      * @param description task description
      */
     @Query("SELECT * FROM task WHERE task_description = :description")
-    fun findTaskByDescription(description: String): Task
+    fun findTaskByDescription(description: String): Single<Task>
 
     /**
      * Get all inserted tasks with category.

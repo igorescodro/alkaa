@@ -27,9 +27,9 @@ class MainDrawerTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
         categoryDao.insertCategory(Category(WORK_CATEGORY, "#58a4b0"))
         categoryDao.insertCategory(Category(FAMILY_CATEGORY, "#519872"))
 
-        categoryPersonalId = categoryDao.findTaskByName(PERSONAL_CATEGORY).id
-        categoryWorkId = categoryDao.findTaskByName(WORK_CATEGORY).id
-        categoryFamilyId = categoryDao.findTaskByName(FAMILY_CATEGORY).id
+        categoryPersonalId = categoryDao.findTaskByName(PERSONAL_CATEGORY).blockingGet().id
+        categoryWorkId = categoryDao.findTaskByName(WORK_CATEGORY).blockingGet().id
+        categoryFamilyId = categoryDao.findTaskByName(FAMILY_CATEGORY).blockingGet().id
 
         taskDao.insertTask(Task(false, "Buy milk", categoryPersonalId))
         taskDao.insertTask(Task(true, "Buy onion", categoryPersonalId))

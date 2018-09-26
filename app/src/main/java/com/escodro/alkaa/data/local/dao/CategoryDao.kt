@@ -7,6 +7,7 @@ import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
 import com.escodro.alkaa.data.local.model.Category
 import io.reactivex.Flowable
+import io.reactivex.Single
 
 /**
  * DAO class to handle all [Category]-related database operations.
@@ -50,5 +51,5 @@ interface CategoryDao {
      * @param name category name
      */
     @Query("SELECT * FROM category WHERE category_name = :name")
-    fun findTaskByName(name: String): Category
+    fun findTaskByName(name: String): Single<Category>
 }

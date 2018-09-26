@@ -8,7 +8,7 @@ buildscript {
         navigation_version = '1.0.0-alpha06'
         koin_version = '1.0.0'
         ktlint_version = '0.26.0'
-        detekt_version = '1.0.0.RC8'
+        detekt_version = '1.0.0.RC9.2'
     }
     repositories {
         google()

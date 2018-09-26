@@ -1,12 +1,12 @@
 package com.escodro.alkaa.data.local.model
 
 import android.annotation.SuppressLint
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import android.os.Parcelable
 import kotlinx.android.parcel.IgnoredOnParcel
 import kotlinx.android.parcel.Parcelize
 
@@ -16,13 +16,13 @@ import kotlinx.android.parcel.Parcelize
 @SuppressLint("ParcelCreator")
 @Parcelize
 @Entity(
-    foreignKeys = [(ForeignKey(
+    foreignKeys = [ForeignKey(
         entity = Category::class,
         parentColumns = ["category_id"],
         childColumns = ["task_category_id"],
         onDelete = ForeignKey.CASCADE
-    ))],
-    indices = [(Index(value = ["task_category_id"]))]
+    )],
+    indices = [Index(value = ["task_category_id"])]
 
 )
 data class Task(

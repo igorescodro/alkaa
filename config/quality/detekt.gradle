@@ -12,8 +12,8 @@ task detekt(type: JavaExec) {
     def input = "$projectDir"
     def config = "../config/filters/detekt.yml"
     def filters = ".*/resources/.*,.*/build/.*"
-    def output = "$buildDir/reports"
-    def params = ['-i', input, '-c', config, '-f', filters, '-o', output]
+    def report = "html:$buildDir/reports/detekt.html"
+    def params = ['-i', input, '-c', config, '-f', filters, '-r', report]
     args(params)
 }
 

@@ -9,10 +9,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.escodro.alkaa.R
+import com.escodro.alkaa.common.extension.showDatePicker
 import com.escodro.alkaa.common.view.LabelRadioButton
 import com.escodro.alkaa.data.local.model.Category
 import com.escodro.alkaa.data.local.model.Task
 import com.escodro.alkaa.databinding.FragmentTaskDetailBinding
+import kotlinx.android.synthetic.main.fragment_task_detail.*
+import kotlinx.android.synthetic.main.view_scrollable_radio_group.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
@@ -66,10 +69,13 @@ class TaskDetailFragment : Fragment() {
     private fun initListeners() {
         Timber.d("initListeners()")
 
-        binding?.srgTaskdetailList?.setOnCheckedChangeListener(
-            RadioGroup.OnCheckedChangeListener { radioGroup, position ->
-                updateTaskWithCategory(radioGroup, position)
-            })
+        srg_radiogroup_list.setOnCheckedChangeListener { radioGroup, position ->
+            updateTaskWithCategory(radioGroup, position)
+        }
+
+        btn_taskdetail_date.setOnClickListener { _ ->
+            showDatePicker { Timber.d(it.toString()) }
+        }
     }
 
     private fun updateCategoryList(list: List<Category>) {

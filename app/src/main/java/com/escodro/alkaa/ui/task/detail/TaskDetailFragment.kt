@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.escodro.alkaa.R
-import com.escodro.alkaa.common.extension.showDatePicker
+import com.escodro.alkaa.common.extension.showDateTimePicker
 import com.escodro.alkaa.common.view.LabelRadioButton
 import com.escodro.alkaa.data.local.model.Category
 import com.escodro.alkaa.data.local.model.Task
@@ -22,8 +22,6 @@ import java.util.Calendar
 
 /**
  * [Fragment] responsible to show the [Task] details.
- *
- * Created by Igor Escodro on 31/5/18.
  */
 class TaskDetailFragment : Fragment() {
 
@@ -72,7 +70,7 @@ class TaskDetailFragment : Fragment() {
             updateTaskWithCategory(radioGroup, position)
         }
 
-        btn_taskdetail_date.setOnClickListener { _ -> showDatePicker(::updateTaskWithDueDate) }
+        btn_taskdetail_date.setOnClickListener { _ -> showDateTimePicker(::updateTaskWithDueDate) }
     }
 
     private fun updateCategoryList(list: List<Category>) {

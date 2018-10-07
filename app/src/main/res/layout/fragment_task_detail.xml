@@ -22,12 +22,23 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
+        <TextView
+            android:id="@+id/textview_taskdetail_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="24dp"
+            android:gravity="center"
+            android:text="@{viewModel.taskData.dueDate}"
+            app:layout_constraintBottom_toTopOf="@id/btn_taskdetail_date"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_taskdetail_date"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="48dp"
-            android:background="@color/colorAccent"
+            android:background="@color/blue"
             android:text="@string/app_name"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

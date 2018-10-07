@@ -18,6 +18,7 @@ import kotlinx.android.synthetic.main.fragment_task_detail.*
 import kotlinx.android.synthetic.main.view_scrollable_radio_group.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
+import java.util.Calendar
 
 /**
  * [Fragment] responsible to show the [Task] details.
@@ -40,9 +41,7 @@ class TaskDetailFragment : Fragment() {
         Timber.d("onCreateView()")
 
         binding =
-            DataBindingUtil.inflate(
-                inflater, R.layout.fragment_task_detail, container, false
-            )
+            DataBindingUtil.inflate(inflater, R.layout.fragment_task_detail, container, false)
         return binding?.root
     }
 
@@ -62,7 +61,7 @@ class TaskDetailFragment : Fragment() {
         binding?.viewModel = viewModel
 
         task = TaskDetailFragmentArgs.fromBundle(arguments).task
-        viewModel.task.value = task
+        viewModel.taskData.value = task
         (activity as? AppCompatActivity)?.supportActionBar?.title = task?.description
     }
 
@@ -73,9 +72,7 @@ class TaskDetailFragment : Fragment() {
             updateTaskWithCategory(radioGroup, position)
         }
 
-        btn_taskdetail_date.setOnClickListener { _ ->
-            showDatePicker { Timber.d(it.toString()) }
-        }
+        btn_taskdetail_date.setOnClickListener { _ -> showDatePicker(::updateTaskWithDueDate) }
     }
 
     private fun updateCategoryList(list: List<Category>) {
@@ -95,9 +92,20 @@ class TaskDetailFragment : Fragment() {
         val checked = radioGroup?.findViewById<LabelRadioButton>(position)
         val categoryId = checked?.tag as? Long ?: 0
 
-        if (task?.categoryId != categoryId) {
-            task?.categoryId = categoryId
-            task?.let { viewModel.updateTask(it) }
+        task?.let { task ->
+            if (task.categoryId != categoryId) {
+                task.categoryId = categoryId
+                viewModel.updateTask(task)
+            }
+        }
+    }
+
+    private fun updateTaskWithDueDate(calendar: Calendar) {
+        Timber.d("updateTaskWithDueDate() - Calendar = ${calendar.time}")
+
+        task?.let {
+            it.dueDate = calendar
+            viewModel.updateTask(it)
         }
     }
 }

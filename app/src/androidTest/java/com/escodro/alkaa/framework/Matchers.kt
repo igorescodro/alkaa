@@ -1,5 +1,8 @@
 package com.escodro.alkaa.framework
 
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
 import androidx.annotation.IdRes
 import androidx.annotation.StringRes
 import androidx.test.InstrumentationRegistry
@@ -13,11 +16,9 @@ import androidx.test.espresso.matcher.ViewMatchers.isCompletelyDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withParent
 import androidx.test.espresso.matcher.ViewMatchers.withText
-import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
 import org.hamcrest.Description
 import org.hamcrest.Matcher
+import org.hamcrest.Matchers.containsString
 import org.hamcrest.Matchers.not
 import org.hamcrest.TypeSafeMatcher
 
@@ -35,6 +36,10 @@ class Matchers {
 
     fun viewHasText(@IdRes viewId: Int, text: String) {
         onView(withId(viewId)).check(matches(withText(text)))
+    }
+
+    fun viewContainsText(@IdRes viewId: Int, text: String) {
+        onView(withId(viewId)).check(matches(withText(containsString(text))))
     }
 
     fun toolbarContainsTitle(@IdRes toolbarId: Int, @StringRes resId: Int) {
@@ -59,7 +64,6 @@ class Matchers {
     }
 
     fun textHasFixedLines(@IdRes viewId: Int, numberOfLines: Int) {
-
         onView(withId(viewId))
             .check(matches(isTextInLines(numberOfLines)))
     }

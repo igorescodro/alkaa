@@ -1,6 +1,7 @@
 package com.escodro.alkaa.framework
 
 import android.view.View
+import android.widget.DatePicker
 import androidx.annotation.IdRes
 import androidx.annotation.StringRes
 import androidx.recyclerview.widget.RecyclerView
@@ -15,14 +16,17 @@ import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.DrawerActions
 import androidx.test.espresso.contrib.NavigationViewActions
+import androidx.test.espresso.contrib.PickerActions
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.RootMatchers.isDialog
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isRoot
+import androidx.test.espresso.matcher.ViewMatchers.withClassName
 import androidx.test.espresso.matcher.ViewMatchers.withContentDescription
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import org.hamcrest.Matcher
+import java.util.Calendar
 
 /**
  * Handles all the test events.
@@ -89,6 +93,17 @@ class Events {
 
     fun clickOnNavigationViewItem(@IdRes viewId: Int, itemId: Int) {
         onView(withId(viewId)).perform(NavigationViewActions.navigateTo(itemId))
+    }
+
+    fun setDate(calendar: Calendar) {
+        onView(withClassName(org.hamcrest.Matchers.equalTo(DatePicker::class.java.name)))
+            .perform(
+                PickerActions.setDate(
+                    calendar.get(Calendar.YEAR),
+                    calendar.get(Calendar.MONTH),
+                    calendar.get(Calendar.DAY_OF_MONTH)
+                )
+            )
     }
 
     private fun waitId(@IdRes viewId: Int, delay: Long): ViewAction =

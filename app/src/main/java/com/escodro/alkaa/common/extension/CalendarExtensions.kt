@@ -11,7 +11,7 @@ import java.util.Locale
  */
 fun Calendar.format(): String {
     val dateFormat = DateFormat.getDateTimeInstance(
-        DateFormat.SHORT,
+        DateFormat.LONG,
         DateFormat.SHORT,
         Locale.getDefault()
     )

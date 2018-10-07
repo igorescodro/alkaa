@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.escodro.alkaa.data.local.model.Category
 import com.escodro.alkaa.data.local.model.Task
+import com.escodro.alkaa.ui.task.alarm.TaskAlarmManager
 import io.reactivex.disposables.CompositeDisposable
 
 /**
@@ -12,7 +13,10 @@ import io.reactivex.disposables.CompositeDisposable
  *
  * Created by Igor Escodro on 31/5/18.
  */
-class TaskDetailViewModel(private val contract: TaskDetailContract) : ViewModel() {
+class TaskDetailViewModel(
+    private val contract: TaskDetailContract,
+    private val alarmManager: TaskAlarmManager
+) : ViewModel() {
 
     val taskData = MutableLiveData<Task>()
 
@@ -35,6 +39,10 @@ class TaskDetailViewModel(private val contract: TaskDetailContract) : ViewModel(
         taskData.value = task
         val disposable = contract.updateTask(task).subscribe()
         compositeDisposable.add(disposable)
+
+        taskData.value?.dueDate?.let {
+            alarmManager.scheduleTask(task)
+        }
     }
 
     override fun onCleared() {

@@ -24,16 +24,17 @@ class TaskDetailFragmentTest : AcceptanceTest<MainActivity>(MainActivity::class.
     }
 
     @Test
-    fun updateDueDate() {
+    fun setDueDate() {
         val calendar = Calendar.getInstance()
-        calendar.set(2018, 10, 23)
+        calendar.set(2018, 9, 23, 6, 30, 0)
+        calendar.set(Calendar.MILLISECOND, 0)
 
         events.clickOnView(R.id.btn_taskdetail_date)
         events.setDate(calendar)
         events.clickOnView(android.R.id.button1)
-        checkThat.viewContainsText(R.id.textview_taskdetail_date, "2018")
-        checkThat.viewContainsText(R.id.textview_taskdetail_date, "October")
-        checkThat.viewContainsText(R.id.textview_taskdetail_date, "23")
+        events.setTime(calendar)
+        events.clickOnView(android.R.id.button1)
+        checkThat.viewHasDate(R.id.textview_taskdetail_date, calendar)
     }
 
     private fun addTaskAndOpenTask(taskName: String) {

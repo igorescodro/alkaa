@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.annotation.IdRes
 import androidx.annotation.StringRes
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.test.InstrumentationRegistry
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -18,9 +19,11 @@ import androidx.test.espresso.matcher.ViewMatchers.withParent
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import org.hamcrest.Description
 import org.hamcrest.Matcher
-import org.hamcrest.Matchers.containsString
 import org.hamcrest.Matchers.not
 import org.hamcrest.TypeSafeMatcher
+import java.text.DateFormat
+import java.util.Calendar
+import java.util.Locale
 
 /**
  * Handles all the test matchers.
@@ -38,8 +41,8 @@ class Matchers {
         onView(withId(viewId)).check(matches(withText(text)))
     }
 
-    fun viewContainsText(@IdRes viewId: Int, text: String) {
-        onView(withId(viewId)).check(matches(withText(containsString(text))))
+    fun viewHasDate(@IdRes viewId: Int, calendar: Calendar) {
+        onView(withId(viewId)).check(matches(compareDates(calendar)))
     }
 
     fun toolbarContainsTitle(@IdRes toolbarId: Int, @StringRes resId: Int) {
@@ -73,7 +76,7 @@ class Matchers {
     }
 
     fun radioButtonIsChecked(@IdRes radioButtonGroupId: Int, index: Int) {
-        onView(Matchers.getChildAt(withId(radioButtonGroupId), index)).check(matches(isChecked()))
+        onView(getChildAt(withId(radioButtonGroupId), index)).check(matches(isChecked()))
     }
 
     fun drawerIsOpen(@IdRes drawerId: Int) {
@@ -86,7 +89,7 @@ class Matchers {
 
     companion object {
 
-        private fun isTextInLines(lines: Int): Matcher<in View>? =
+        private fun isTextInLines(lines: Int) =
             object : TypeSafeMatcher<View>() {
                 override fun matchesSafely(item: View?): Boolean {
                     return (item as? TextView)?.lineCount == lines
@@ -110,6 +113,25 @@ class Matchers {
 
                 override fun describeTo(description: Description?) {
                     description?.appendText("click at child $index from ViewGroup")
+                }
+            }
+
+        fun compareDates(calendar: Calendar) =
+            object : TypeSafeMatcher<View>() {
+                override fun matchesSafely(view: View?): Boolean {
+                    val dateFormat = DateFormat.getDateTimeInstance(
+                        DateFormat.LONG,
+                        DateFormat.SHORT,
+                        Locale.getDefault()
+                    )
+
+                    val textView = view as AppCompatTextView
+                    val date = dateFormat.parse(textView.text?.toString())
+                    return calendar.time.compareTo(date) == 0
+                }
+
+                override fun describeTo(description: Description?) {
+                    description?.appendText("compare two dates from string format")
                 }
             }
     }

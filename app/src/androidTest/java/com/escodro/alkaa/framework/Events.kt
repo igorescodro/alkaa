@@ -2,6 +2,7 @@ package com.escodro.alkaa.framework
 
 import android.view.View
 import android.widget.DatePicker
+import android.widget.TimePicker
 import androidx.annotation.IdRes
 import androidx.annotation.StringRes
 import androidx.recyclerview.widget.RecyclerView
@@ -100,8 +101,18 @@ class Events {
             .perform(
                 PickerActions.setDate(
                     calendar.get(Calendar.YEAR),
-                    calendar.get(Calendar.MONTH),
+                    calendar.get(Calendar.MONTH) + 1,
                     calendar.get(Calendar.DAY_OF_MONTH)
+                )
+            )
+    }
+
+    fun setTime(calendar: Calendar) {
+        onView(withClassName(org.hamcrest.Matchers.equalTo(TimePicker::class.java.name)))
+            .perform(
+                PickerActions.setTime(
+                    calendar.get(Calendar.HOUR_OF_DAY),
+                    calendar.get(Calendar.MINUTE)
                 )
             )
     }

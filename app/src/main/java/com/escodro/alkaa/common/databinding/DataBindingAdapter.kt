@@ -13,7 +13,7 @@ import java.util.Calendar
  * @param view view to have the background updated
  * @param color color in String format (#XXXXXX)
  */
-@BindingAdapter("background")
+@BindingAdapter("android:background")
 fun setViewBackgroundColor(view: View, color: String?) {
     if (color == null) {
         return
@@ -36,4 +36,21 @@ fun setFormattedCalendar(view: TextView, calendar: Calendar?) {
     }
 
     view.text = calendar.format()
+}
+
+/**
+ * Sets the visibility based on [Boolean] value. If the value is `true`, it is set to [View
+ * .VISIBLE], otherwise is set to [View.INVISIBLE].
+ *
+ * @param view text view to be updated
+ * @param isVisible boolean to represent if the view should be visible
+ */
+@BindingAdapter("android:visibility")
+fun setVisibility(view: View, isVisible: Boolean?) {
+    if (isVisible == null) {
+        return
+    }
+
+    val visibility = if (isVisible) View.VISIBLE else View.INVISIBLE
+    view.visibility = visibility
 }

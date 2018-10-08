@@ -23,8 +23,9 @@ class TaskListAdapter(
     override fun bindData(binding: ItemTaskBinding, data: TaskWithCategory) {
         binding.task = data.task
         binding.color = data.category?.color ?: DEFAULT_LABEL_COLOR
-        binding.root.setOnClickListener { onItemClicked(data) }
-        binding.root.setOnLongClickListener { onItemLongPressed(data) }
+        binding.isAlarmVisible = data.task.dueDate != null
+        binding.cardviewItemtaskBackground.setOnClickListener { onItemClicked(data) }
+        binding.cardviewItemtaskBackground.setOnLongClickListener { onItemLongPressed(data) }
         binding.checkboxItemtaskCompleted.setOnClickListener { view ->
             val isChecked = (view as? CheckBox)?.isChecked ?: false
             onItemCheckedChanged(data, isChecked)

@@ -20,6 +20,7 @@ class TaskAlarmReceiver : BroadcastReceiver(), KoinComponent {
     private val channel: TaskNotificationChannel by inject()
 
     override fun onReceive(context: Context?, intent: Intent?) {
+        Timber.d("onReceive() - intent ${intent?.action}")
         val id = intent?.getLongExtra(TaskAlarmManager.EXTRA_TASK_ID, 0) ?: 0
 
         if (context == null || id == 0L) {

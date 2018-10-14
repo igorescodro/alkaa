@@ -71,6 +71,8 @@ class TaskDetailFragment : Fragment() {
         }
 
         btn_taskdetail_date.setOnClickListener { _ -> showDateTimePicker(::updateTaskWithDueDate) }
+
+        btn_taskdetail_remove_alarm.setOnClickListener { _ -> removeAlarm() }
     }
 
     private fun updateCategoryList(list: List<Category>) {
@@ -103,6 +105,15 @@ class TaskDetailFragment : Fragment() {
 
         task?.let {
             it.dueDate = calendar
+            viewModel.updateTask(it)
+        }
+    }
+
+    private fun removeAlarm() {
+        Timber.d("removeAlarm()")
+
+        task?.let {
+            it.dueDate = null
             viewModel.updateTask(it)
         }
     }

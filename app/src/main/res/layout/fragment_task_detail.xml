@@ -37,12 +37,22 @@
             android:id="@+id/btn_taskdetail_date"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="48dp"
+            android:layout_margin="56dp"
             android:background="@color/blue"
             android:text="@string/app_name"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_taskdetail_remove_alarm"
+            android:layout_width="32dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:background="@color/blue"
+            app:layout_constraintBottom_toBottomOf="@id/btn_taskdetail_date"
+            app:layout_constraintStart_toEndOf="@id/btn_taskdetail_date"
+            app:layout_constraintTop_toTopOf="@id/btn_taskdetail_date"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

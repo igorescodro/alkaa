@@ -11,7 +11,7 @@ import androidx.core.app.AlarmManagerCompat
  *
  * @param triggerAtMillis time in milliseconds that the alarm should go off, using the
  * appropriate clock (depending on the alarm type).
- * @param operation Action to perform when the alarm goes off
+ * @param operation action to perform when the alarm goes off
  * @param type type to define how the alarm will behave
  */
 fun Context.setAlarm(
@@ -19,10 +19,18 @@ fun Context.setAlarm(
     operation: PendingIntent,
     type: Int = AlarmManager.RTC_WAKEUP
 ) {
-    val manager = getSystemService(Context.ALARM_SERVICE) as? AlarmManager
-    manager?.let { it ->
-        AlarmManagerCompat.setAndAllowWhileIdle(it, type, triggerAtMillis, operation)
-    }
+    val manager = getAlarmManager()
+    manager?.let { AlarmManagerCompat.setAndAllowWhileIdle(it, type, triggerAtMillis, operation) }
+}
+
+/**
+ * Cancels a alarm set on [AlarmManager], based on the given [PendingIntent].
+ *
+ * @param operation action to be canceld
+ */
+fun Context.cancelAlarm(operation: PendingIntent) {
+    val manager = getAlarmManager()
+    manager?.let { manager.cancel(operation) }
 }
 
 /**
@@ -32,3 +40,11 @@ fun Context.setAlarm(
  */
 fun Context.getNotificationManager() =
     getSystemService(Context.NOTIFICATION_SERVICE) as? NotificationManager
+
+/**
+ * Gets the [AlarmManager] system service.
+ *
+ * @return the [AlarmManager] system service
+ */
+fun Context.getAlarmManager() =
+    getSystemService(Context.ALARM_SERVICE) as? AlarmManager

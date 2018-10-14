@@ -51,6 +51,12 @@ class DateTimePickerDialog(context: Context, private val onDateChanged: (Calenda
         TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
             calendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
             calendar.set(Calendar.MINUTE, minute)
+            calendar.set(Calendar.SECOND, DEFAULT_SECONDS)
             onDateChanged(calendar)
         }
+
+    companion object {
+
+        private const val DEFAULT_SECONDS = 0
+    }
 }

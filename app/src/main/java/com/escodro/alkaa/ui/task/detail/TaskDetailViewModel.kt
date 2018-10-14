@@ -10,8 +10,6 @@ import io.reactivex.disposables.CompositeDisposable
 /**
  * [ViewModel] responsible to provide information to [com.escodro.alkaa.databinding
  * .FragmentDetailBinding].
- *
- * Created by Igor Escodro on 31/5/18.
  */
 class TaskDetailViewModel(
     private val contract: TaskDetailContract,
@@ -40,8 +38,10 @@ class TaskDetailViewModel(
         val disposable = contract.updateTask(task).subscribe()
         compositeDisposable.add(disposable)
 
-        taskData.value?.dueDate?.let {
-            alarmManager.scheduleTask(task)
+        if (taskData.value?.dueDate != null) {
+            alarmManager.scheduleTaskAlarm(task)
+        } else {
+            alarmManager.cancelTaskAlarm(task.id)
         }
     }
 

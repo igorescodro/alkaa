@@ -11,7 +11,7 @@ import org.junit.Test
 /**
  * Test class to validate the Category screen and flow.
  */
-class CategoryFragmentTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
+class CategoryFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
 
     @Before
     fun navigateToCategoryScreen() {

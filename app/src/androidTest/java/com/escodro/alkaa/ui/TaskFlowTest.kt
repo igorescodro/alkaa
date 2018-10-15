@@ -7,11 +7,12 @@ import com.escodro.alkaa.ui.main.MainActivity
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
+import java.util.Calendar
 
 /**
  * Test class to validate Task screen and flow.
  */
-class TaskListFragmentTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
+class TaskFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
 
     @Before
     fun addCategories() {
@@ -84,10 +85,18 @@ class TaskListFragmentTest : AcceptanceTest<MainActivity>(MainActivity::class.ja
         checkThat.radioButtonIsChecked(R.id.srg_radiogroup_list, 1)
     }
 
-    private fun addAndOpenTask(taskName: String) {
-        addTask(taskName)
-        events.clickOnRecyclerItem(R.id.recyclerview_tasklist_list)
-        checkThat.toolbarContainsTitle(R.id.toolbar_main_toolbar, taskName)
+    @Test
+    fun checkIfDisplayDueDateIsCorrect() {
+        addAndOpenTask("register to vote")
+        scheduleTask(2018, 10, 11, 16, 32)
+    }
+
+    @Test
+    fun checkIfAlarmIndicatorIsShown() {
+        addAndOpenTask("buy a new calendar")
+        scheduleTask(2018, 12, 25, 23, 29)
+        events.navigateUp()
+        checkThat.viewIsCompletelyDisplayed(R.id.imageview_itemtask_alarm)
     }
 
     private fun addTask(taskName: String) {
@@ -96,5 +105,24 @@ class TaskListFragmentTest : AcceptanceTest<MainActivity>(MainActivity::class.ja
         events.pressImeActionButton(R.id.edittext_tasklist_description)
         events.waitFor(R.id.recyclerview_tasklist_list, 2000)
         checkThat.listContainsItem(R.id.recyclerview_tasklist_list, taskName)
+    }
+
+    private fun addAndOpenTask(taskName: String) {
+        addTask(taskName)
+        events.clickOnRecyclerItem(R.id.recyclerview_tasklist_list)
+        checkThat.toolbarContainsTitle(R.id.toolbar_main_toolbar, taskName)
+    }
+
+    private fun scheduleTask(year: Int, month: Int, day: Int, hour: Int, minute: Int) {
+        val calendar = Calendar.getInstance()
+        calendar.set(year, month, day, hour, minute, 0)
+        calendar.set(Calendar.MILLISECOND, 0)
+
+        events.clickOnView(R.id.btn_taskdetail_date)
+        events.setDate(calendar)
+        events.clickOnView(android.R.id.button1)
+        events.setTime(calendar)
+        events.clickOnView(android.R.id.button1)
+        checkThat.viewHasDate(R.id.textview_taskdetail_date, calendar)
     }
 }

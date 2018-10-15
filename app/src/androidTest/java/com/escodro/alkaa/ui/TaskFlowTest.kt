@@ -100,7 +100,7 @@ class TaskFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
     }
 
     @Test
-    fun checkIfAlarmIsRemoved(){
+    fun checkIfAlarmIsRemoved() {
         addAndOpenTask("cancel dinner")
         scheduleTask(2020, 2, 2, 22, 15)
         events.clickOnView(R.id.btn_taskdetail_remove_alarm)

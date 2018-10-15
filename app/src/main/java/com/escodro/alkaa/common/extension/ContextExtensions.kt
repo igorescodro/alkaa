@@ -1,9 +1,10 @@
 package com.escodro.alkaa.common.extension
 
 import android.app.AlarmManager
-import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
+import android.widget.Toast
+import androidx.annotation.StringRes
 import androidx.core.app.AlarmManagerCompat
 
 /**
@@ -26,7 +27,7 @@ fun Context.setAlarm(
 /**
  * Cancels a alarm set on [AlarmManager], based on the given [PendingIntent].
  *
- * @param operation action to be canceld
+ * @param operation action to be canceled
  */
 fun Context.cancelAlarm(operation: PendingIntent) {
     val manager = getAlarmManager()
@@ -34,17 +35,11 @@ fun Context.cancelAlarm(operation: PendingIntent) {
 }
 
 /**
- * Gets the [NotificationManager] system service.
+ * Shows a [Toast] with the given message.
  *
- * @return the [NotificationManager] system service
+ * @param messageId the message String resource id
+ * @param duration the Toast duration, if not provided will be set to [Toast.LENGTH_SHORT]
  */
-fun Context.getNotificationManager() =
-    getSystemService(Context.NOTIFICATION_SERVICE) as? NotificationManager
-
-/**
- * Gets the [AlarmManager] system service.
- *
- * @return the [AlarmManager] system service
- */
-fun Context.getAlarmManager() =
-    getSystemService(Context.ALARM_SERVICE) as? AlarmManager
+fun Context.showToast(@StringRes messageId: Int, duration: Int = Toast.LENGTH_SHORT) {
+    Toast.makeText(this, messageId, duration).show()
+}

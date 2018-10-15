@@ -94,9 +94,17 @@ class TaskFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
     @Test
     fun checkIfAlarmIndicatorIsShown() {
         addAndOpenTask("buy a new calendar")
-        scheduleTask(2018, 12, 25, 23, 29)
+        scheduleTask(2018, 12, 25, 23, 59)
         events.navigateUp()
         checkThat.viewIsCompletelyDisplayed(R.id.imageview_itemtask_alarm)
+    }
+
+    @Test
+    fun checkIfAlarmIsRemoved(){
+        addAndOpenTask("cancel dinner")
+        scheduleTask(2020, 2, 2, 22, 15)
+        events.clickOnView(R.id.btn_taskdetail_remove_alarm)
+        checkThat.viewHasText(R.id.textview_taskdetail_date, "")
     }
 
     private fun addTask(taskName: String) {

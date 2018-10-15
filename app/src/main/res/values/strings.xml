@@ -10,6 +10,9 @@
     <string name="task_menu_category">Categories</string>
     <string name="task_error_empty">Empty field</string>
 
+    <!-- Task details -->
+    <string name="task_details_alarm_removed">Alarm removed</string>
+
     <!-- Category screen -->
     <string name="category_list_label">Categories</string>
     <string name="category_list_menu_remove">Remove</string>

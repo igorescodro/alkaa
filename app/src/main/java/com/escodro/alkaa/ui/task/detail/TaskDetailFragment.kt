@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.escodro.alkaa.R
 import com.escodro.alkaa.common.extension.showDateTimePicker
+import com.escodro.alkaa.common.extension.showToast
 import com.escodro.alkaa.common.view.LabelRadioButton
 import com.escodro.alkaa.data.local.model.Category
 import com.escodro.alkaa.data.local.model.Task
@@ -80,7 +81,7 @@ class TaskDetailFragment : Fragment() {
 
         binding?.srgTaskdetailList?.addAll(list)
 
-        val checked = list.withIndex().firstOrNull {
+        val checked = list.asSequence().withIndex().firstOrNull {
             it.value.id == task?.categoryId
         }
         checked?.let { binding?.srgTaskdetailList?.setChecked(it.index) }
@@ -111,6 +112,7 @@ class TaskDetailFragment : Fragment() {
 
     private fun removeAlarm() {
         Timber.d("removeAlarm()")
+        context?.showToast(R.string.task_details_alarm_removed)
 
         task?.let {
             it.dueDate = null

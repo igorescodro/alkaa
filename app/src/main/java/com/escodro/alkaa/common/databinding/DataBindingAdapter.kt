@@ -31,11 +31,7 @@ fun setViewBackgroundColor(view: View, color: String?) {
  */
 @BindingAdapter("android:text")
 fun setFormattedCalendar(view: TextView, calendar: Calendar?) {
-    if (calendar == null) {
-        return
-    }
-
-    view.text = calendar.format()
+    view.text = calendar?.format()
 }
 
 /**

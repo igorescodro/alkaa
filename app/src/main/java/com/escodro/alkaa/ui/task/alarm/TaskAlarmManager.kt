@@ -19,9 +19,11 @@ class TaskAlarmManager(private val context: Context) {
      * @param task task to be scheduled
      */
     fun scheduleTaskAlarm(task: Task) {
-        val receiverIntent = Intent(context, TaskAlarmReceiver::class.java)
-        receiverIntent.putExtra(EXTRA_TASK_ID, task.id)
-        receiverIntent.putExtra(EXTRA_TASK_DESCRIPTION, task.description)
+        val receiverIntent = Intent(context, TaskAlarmReceiver::class.java).apply {
+            action = ALARM_ACTION
+            putExtra(EXTRA_TASK_ID, task.id)
+            putExtra(EXTRA_TASK_DESCRIPTION, task.description)
+        }
 
         val pendingIntent = PendingIntent.getBroadcast(
             context,
@@ -42,7 +44,9 @@ class TaskAlarmManager(private val context: Context) {
      * @param taskId task id to be canceled
      */
     fun cancelTaskAlarm(taskId: Long) {
-        val receiverIntent = Intent(context, TaskAlarmReceiver::class.java)
+        val receiverIntent = Intent(context, TaskAlarmReceiver::class.java).apply {
+            action = ALARM_ACTION
+        }
         val pendingIntent = PendingIntent.getBroadcast(
             context,
             taskId.toInt(),
@@ -59,5 +63,7 @@ class TaskAlarmManager(private val context: Context) {
         const val EXTRA_TASK_ID = "extra_task_id"
 
         const val EXTRA_TASK_DESCRIPTION = "extra_task_description"
+
+        const val ALARM_ACTION = "com.escodro.alkaa.SET_ALARM"
     }
 }

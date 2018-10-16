@@ -20,7 +20,7 @@ interface TaskDao {
     /**
      * Get all inserted tasks.
      *
-     * @return all inserted tasks.
+     * @return all inserted tasks
      */
     @Query("SELECT * FROM task")
     fun getAllTasks(): Flowable<MutableList<Task>>
@@ -66,7 +66,7 @@ interface TaskDao {
     /**
      * Get all inserted tasks with category.
      *
-     * @return all inserted tasks with category.
+     * @return all inserted tasks with category
      */
     @Query("SELECT * FROM task LEFT JOIN category ON task_category_id = category_id")
     fun getAllTasksWithCategory(): Flowable<MutableList<TaskWithCategory>>
@@ -76,11 +76,19 @@ interface TaskDao {
      *
      * @param categoryId the category id
      *
-     * @return all inserted tasks with category.
+     * @return all inserted tasks with category
      */
     @Query(
         "SELECT * FROM task LEFT JOIN category ON task_category_id = category_id " +
             "WHERE task_category_id = :categoryId"
     )
     fun getAllTasksWithCategoryId(categoryId: Long): Flowable<MutableList<TaskWithCategory>>
+
+    /**
+     * Get all inserted tasks with due date.
+     *
+     * @return all inserted tasks with due date
+     */
+    @Query("SELECT * FROM task where task_due_date is not null")
+    fun getAllTasksWithDueDate(): Single<List<Task>>
 }

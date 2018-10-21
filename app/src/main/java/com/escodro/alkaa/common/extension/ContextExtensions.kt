@@ -6,6 +6,8 @@ import android.content.Context
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.core.app.AlarmManagerCompat
+import timber.log.Timber
+import java.util.Calendar
 
 /**
  * Sets a alarm using [AlarmManagerCompat] to be triggered based on the given parameter.
@@ -20,6 +22,12 @@ fun Context.setAlarm(
     operation: PendingIntent,
     type: Int = AlarmManager.RTC_WAKEUP
 ) {
+    val currentTime = Calendar.getInstance().timeInMillis
+    if (triggerAtMillis <= currentTime) {
+        Timber.w("It is not possible to set alarm in the past")
+        return
+    }
+
     val manager = getAlarmManager()
     manager?.let { AlarmManagerCompat.setAndAllowWhileIdle(it, type, triggerAtMillis, operation) }
 }

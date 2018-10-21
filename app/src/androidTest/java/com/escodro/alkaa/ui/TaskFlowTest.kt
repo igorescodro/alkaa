@@ -118,7 +118,7 @@ class TaskFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
     private fun addAndOpenTask(taskName: String) {
         addTask(taskName)
         events.clickOnRecyclerItem(R.id.recyclerview_tasklist_list)
-        checkThat.toolbarContainsTitle(R.id.toolbar_main_toolbar, taskName)
+        checkThat.viewHasText(R.id.edittext_taskdetail_title, taskName)
     }
 
     private fun scheduleTask(year: Int, month: Int, day: Int, hour: Int, minute: Int) {

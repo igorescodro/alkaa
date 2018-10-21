@@ -91,7 +91,7 @@ class TaskDetailFragment : Fragment() {
         btn_taskdetail_date.setOnClickListener { _ -> showDateTimePicker(::updateTaskWithDueDate) }
         btn_taskdetail_remove_alarm.setOnClickListener { _ -> removeAlarm() }
 
-        val disposable = textview_taskdetail_title.textChangedObservable().subscribe { text ->
+        val disposable = edittext_taskdetail_title.textChangedObservable().subscribe { text ->
             Timber.d("Updating task with text = $text")
             task?.let { viewModel.updateTask(it) }
         }

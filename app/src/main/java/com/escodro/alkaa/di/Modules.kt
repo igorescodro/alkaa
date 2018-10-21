@@ -1,5 +1,7 @@
 package com.escodro.alkaa.di
 
+import com.escodro.alkaa.di.provider.DaoProvider
+import com.escodro.alkaa.di.provider.DatabaseProvider
 import com.escodro.alkaa.ui.TaskNotificationChannel
 import com.escodro.alkaa.ui.category.create.NewCategoryContract
 import com.escodro.alkaa.ui.category.create.NewCategoryViewModel
@@ -50,8 +52,8 @@ val applicationModule = module {
 val databaseModule = module {
 
     // Database
-    single { DatabaseRepository(get()) }
-    single { DaoRepository(get()) }
+    single { DatabaseProvider(get()) }
+    single { DaoProvider(get()) }
 }
 
 /**

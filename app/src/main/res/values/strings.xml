@@ -2,6 +2,11 @@
 
     <string name="app_name">Alkaa</string>
 
+    <!-- Task database -->
+    <string name="category_default_personal">Personal</string>
+    <string name="category_default_work">Work</string>
+    <string name="category_default_shopping">Shopping List</string>
+
     <!-- Main drawer -->
     <string name="drawer_menu_all_tasks">All Tasks</string>
 

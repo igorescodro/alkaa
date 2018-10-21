@@ -1,9 +1,11 @@
 package com.escodro.alkaa.common.extension
 
+import android.annotation.SuppressLint
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.widget.Toast
+import androidx.annotation.ColorRes
 import androidx.annotation.StringRes
 import androidx.core.app.AlarmManagerCompat
 import timber.log.Timber
@@ -51,3 +53,14 @@ fun Context.cancelAlarm(operation: PendingIntent) {
 fun Context.showToast(@StringRes messageId: Int, duration: Int = Toast.LENGTH_SHORT) {
     Toast.makeText(this, messageId, duration).show()
 }
+
+/**
+ * Gets string from color in format "#XXXXXX".
+ *
+ * @param colorRes the color resource id
+ *
+ * @return string from color in format "#XXXXXX"
+ */
+@SuppressLint("ResourceType")
+fun Context.getStringColor(@ColorRes colorRes: Int): String =
+    resources.getString(colorRes)

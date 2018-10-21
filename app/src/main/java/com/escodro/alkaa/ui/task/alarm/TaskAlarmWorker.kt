@@ -5,7 +5,7 @@ import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.escodro.alkaa.common.extension.applySchedulers
 import com.escodro.alkaa.data.local.model.Task
-import com.escodro.alkaa.di.DaoRepository
+import com.escodro.alkaa.di.provider.DaoProvider
 import io.reactivex.disposables.CompositeDisposable
 import org.koin.standalone.KoinComponent
 import org.koin.standalone.inject
@@ -19,7 +19,7 @@ import java.util.concurrent.LinkedBlockingQueue
 class TaskAlarmWorker(context: Context, params: WorkerParameters) :
     Worker(context, params), KoinComponent {
 
-    private val daoRepository: DaoRepository by inject()
+    private val mDaoProvider: DaoProvider by inject()
 
     private val taskAlarmManager: TaskAlarmManager by inject()
 
@@ -30,7 +30,7 @@ class TaskAlarmWorker(context: Context, params: WorkerParameters) :
 
         val result = LinkedBlockingQueue<Result>()
 
-        val disposable = daoRepository.getTaskDao()
+        val disposable = mDaoProvider.getTaskDao()
             .getAllTasksWithDueDate()
             .flattenAsObservable { it }
             .filter { isInFuture(it.dueDate) }

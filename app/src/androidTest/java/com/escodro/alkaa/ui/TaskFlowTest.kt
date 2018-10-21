@@ -16,15 +16,15 @@ class TaskFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
 
     @Before
     fun addCategories() {
-        daoRepository.getCategoryDao().insertCategory(Category("Work", "#cc5a71"))
-        daoRepository.getCategoryDao().insertCategory(Category("Personal", "#58a4b0"))
-        daoRepository.getCategoryDao().insertCategory(Category("Family", "#519872"))
+        mDaoProvider.getCategoryDao().insertCategory(Category("Books", "#cc5a71"))
+        mDaoProvider.getCategoryDao().insertCategory(Category("Music", "#58a4b0"))
+        mDaoProvider.getCategoryDao().insertCategory(Category("Shared", "#519872"))
     }
 
     @After
     fun cleanTable() {
-        daoRepository.getTaskDao().cleanTable()
-        daoRepository.getCategoryDao().cleanTable()
+        mDaoProvider.getTaskDao().cleanTable()
+        mDaoProvider.getCategoryDao().cleanTable()
     }
 
     @Test

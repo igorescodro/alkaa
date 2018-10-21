@@ -32,6 +32,14 @@ interface CategoryDao {
     fun insertCategory(category: Category)
 
     /**
+     * Inserts a new category list.
+     *
+     * @param category list of category to be added
+     */
+    @Insert(onConflict = REPLACE)
+    fun insertCategory(category: List<Category>)
+
+    /**
      * Deletes a category.
      *
      * @param category task to be deleted

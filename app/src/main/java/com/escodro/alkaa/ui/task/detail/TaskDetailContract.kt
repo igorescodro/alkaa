@@ -3,18 +3,18 @@ package com.escodro.alkaa.ui.task.detail
 import com.escodro.alkaa.common.extension.applySchedulers
 import com.escodro.alkaa.data.local.model.Category
 import com.escodro.alkaa.data.local.model.Task
-import com.escodro.alkaa.di.DaoRepository
+import com.escodro.alkaa.di.provider.DaoProvider
 import io.reactivex.Flowable
 import io.reactivex.Observable
 
 /**
  * Class containing the contract methods related to [TaskDetailViewModel].
  */
-class TaskDetailContract(daoRepository: DaoRepository) {
+class TaskDetailContract(daoProvider: DaoProvider) {
 
-    private val categoryDao = daoRepository.getCategoryDao()
+    private val categoryDao = daoProvider.getCategoryDao()
 
-    private val taskDao = daoRepository.getTaskDao()
+    private val taskDao = daoProvider.getTaskDao()
 
     /**
      * Loads all categories.

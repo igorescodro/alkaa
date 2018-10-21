@@ -2,16 +2,16 @@ package com.escodro.alkaa.ui.category.list
 
 import com.escodro.alkaa.common.extension.applySchedulers
 import com.escodro.alkaa.data.local.model.Category
-import com.escodro.alkaa.di.DaoRepository
+import com.escodro.alkaa.di.provider.DaoProvider
 import io.reactivex.Flowable
 import io.reactivex.Observable
 
 /**
  * Class containing the contract methods related to [CategoryListViewModel].
  */
-class CategoryListContract(daoRepository: DaoRepository) {
+class CategoryListContract(daoProvider: DaoProvider) {
 
-    private val categoryDao = daoRepository.getCategoryDao()
+    private val categoryDao = daoProvider.getCategoryDao()
 
     /**
      * Loads all categories.

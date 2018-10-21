@@ -20,8 +20,8 @@ class MainDrawerTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
 
     @Before
     fun populateApplication() {
-        val categoryDao = daoRepository.getCategoryDao()
-        val taskDao = daoRepository.getTaskDao()
+        val categoryDao = mDaoProvider.getCategoryDao()
+        val taskDao = mDaoProvider.getTaskDao()
 
         categoryDao.insertCategory(Category(PERSONAL_CATEGORY, "#cc5a71"))
         categoryDao.insertCategory(Category(WORK_CATEGORY, "#58a4b0"))
@@ -40,8 +40,8 @@ class MainDrawerTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
 
     @After
     fun cleanTable() {
-        daoRepository.getTaskDao().cleanTable()
-        daoRepository.getCategoryDao().cleanTable()
+        mDaoProvider.getTaskDao().cleanTable()
+        mDaoProvider.getCategoryDao().cleanTable()
     }
 
     @Test

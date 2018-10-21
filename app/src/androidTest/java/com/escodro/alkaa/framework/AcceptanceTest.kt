@@ -7,7 +7,7 @@ import androidx.test.espresso.intent.rule.IntentsTestRule
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
-import com.escodro.alkaa.di.DaoRepository
+import com.escodro.alkaa.di.provider.DaoProvider
 import org.junit.Rule
 import org.junit.runner.RunWith
 import org.koin.standalone.inject
@@ -30,5 +30,5 @@ abstract class AcceptanceTest<T : Activity>(clazz: Class<T>) : KoinTest {
 
     val events: Events = Events()
 
-    val daoRepository: DaoRepository by inject()
+    val mDaoProvider: DaoProvider by inject()
 }

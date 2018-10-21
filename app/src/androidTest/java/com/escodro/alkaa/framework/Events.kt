@@ -13,7 +13,7 @@ import androidx.test.espresso.ViewAction
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.longClick
 import androidx.test.espresso.action.ViewActions.pressImeActionButton
-import androidx.test.espresso.action.ViewActions.typeText
+import androidx.test.espresso.action.ViewActions.replaceText
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.DrawerActions
 import androidx.test.espresso.contrib.NavigationViewActions
@@ -73,7 +73,7 @@ class Events {
     }
 
     fun textOnView(@IdRes viewId: Int, text: String) {
-        onView(withId(viewId)).perform(typeText(text))
+        onView(withId(viewId)).perform(replaceText(text))
     }
 
     fun pressImeActionButton(@IdRes viewId: Int) {

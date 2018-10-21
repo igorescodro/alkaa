@@ -77,6 +77,20 @@ class TaskFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
     }
 
     @Test
+    fun renameTask() {
+        val taskUpdated = "fallin' in love with me"
+        addAndOpenTask("one kiss is all it takes")
+        events.clickOnView(R.id.edittext_taskdetail_title)
+        events.textOnView(R.id.edittext_taskdetail_title, taskUpdated)
+        events.waitFor(R.id.recyclerview_tasklist_list, 500)
+        events.navigateUp()
+        events.waitFor(R.id.recyclerview_tasklist_list, 2000)
+        checkThat.listContainsItem(R.id.recyclerview_tasklist_list, taskUpdated)
+        events.clickOnRecyclerItem(R.id.recyclerview_tasklist_list)
+        checkThat.viewHasText(R.id.edittext_taskdetail_title, taskUpdated)
+    }
+
+    @Test
     fun checkIfTaskCategoryIsSaved() {
         addAndOpenTask("call my by your name")
         events.clickOnRadioButton(R.id.srg_radiogroup_list, 1)

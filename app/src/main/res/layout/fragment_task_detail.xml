@@ -12,7 +12,24 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true">
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/textview_taskdetail_title"
+            style="@style/TaskTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="@android:color/transparent"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:maxLines="1"
+            android:text="@={viewModel.taskData.description}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <com.escodro.alkaa.common.view.ScrollableRadioGroup
             android:id="@+id/srg_taskdetail_list"
@@ -20,7 +37,7 @@
             android:layout_height="64dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@id/textview_taskdetail_title"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textview_taskdetail_date"

@@ -5,16 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.escodro.alkaa.R
+import com.escodro.alkaa.common.extension.hideKeyboard
 import com.escodro.alkaa.common.extension.showDateTimePicker
 import com.escodro.alkaa.common.extension.showToast
+import com.escodro.alkaa.common.extension.textChangedObservable
 import com.escodro.alkaa.common.view.LabelRadioButton
 import com.escodro.alkaa.data.local.model.Category
 import com.escodro.alkaa.data.local.model.Task
 import com.escodro.alkaa.databinding.FragmentTaskDetailBinding
+import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_task_detail.*
 import kotlinx.android.synthetic.main.view_scrollable_radio_group.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -27,6 +29,8 @@ import java.util.Calendar
 class TaskDetailFragment : Fragment() {
 
     private val viewModel: TaskDetailViewModel by viewModel()
+
+    private val compositeDisposable = CompositeDisposable()
 
     private var binding: FragmentTaskDetailBinding? = null
 
@@ -53,6 +57,20 @@ class TaskDetailFragment : Fragment() {
         viewModel.loadCategories(onCategoryListLoaded = ::updateCategoryList)
     }
 
+    override fun onStop() {
+        super.onStop()
+        Timber.d("onStop()")
+
+        hideKeyboard()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Timber.d("onDestroy()")
+
+        compositeDisposable.clear()
+    }
+
     private fun initComponents() {
         Timber.d("initComponents()")
 
@@ -61,7 +79,6 @@ class TaskDetailFragment : Fragment() {
 
         task = TaskDetailFragmentArgs.fromBundle(arguments).task
         viewModel.taskData.value = task
-        (activity as? AppCompatActivity)?.supportActionBar?.title = task?.description
     }
 
     private fun initListeners() {
@@ -72,8 +89,14 @@ class TaskDetailFragment : Fragment() {
         }
 
         btn_taskdetail_date.setOnClickListener { _ -> showDateTimePicker(::updateTaskWithDueDate) }
-
         btn_taskdetail_remove_alarm.setOnClickListener { _ -> removeAlarm() }
+
+        val disposable = textview_taskdetail_title.textChangedObservable().subscribe { text ->
+            Timber.d("Updating task with text = $text")
+            task?.let { viewModel.updateTask(it) }
+        }
+
+        compositeDisposable.add(disposable)
     }
 
     private fun updateCategoryList(list: List<Category>) {

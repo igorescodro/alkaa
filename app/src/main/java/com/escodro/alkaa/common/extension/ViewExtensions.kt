@@ -1,7 +1,13 @@
 package com.escodro.alkaa.common.extension
 
+import android.text.Editable
+import android.text.TextWatcher
+import android.widget.TextView
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import io.reactivex.Observable
+import io.reactivex.subjects.PublishSubject
+import java.util.concurrent.TimeUnit
 
 /**
  * Extension to check if the given drawer view is currently in an open state, abstracting the
@@ -23,3 +29,35 @@ fun DrawerLayout.isOpen(gravity: Int = GravityCompat.START) =
  */
 fun DrawerLayout.close(gravity: Int = GravityCompat.START) =
     closeDrawer(gravity)
+
+/**
+ * Extension to observe text change updates from a [TextView] with a debounce of
+ * [TEXT_UPDATE_DEBOUNCE] milliseconds.
+ *
+ * @return a thread safe [Observable] with the updated text
+ */
+fun TextView.textChangedObservable(): Observable<String> {
+    val textObservable = PublishSubject.create<String>()
+    val listener = object : TextWatcher {
+        override fun afterTextChanged(s: Editable?) {
+            // Do nothing.
+        }
+
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            // Do nothing.
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            textObservable.onNext(s.toString())
+        }
+    }
+
+    addTextChangedListener(listener)
+
+    return textObservable
+        .debounce(TEXT_UPDATE_DEBOUNCE, TimeUnit.MILLISECONDS)
+        .distinctUntilChanged()
+        .applySchedulers()
+}
+
+private const val TEXT_UPDATE_DEBOUNCE = 500L

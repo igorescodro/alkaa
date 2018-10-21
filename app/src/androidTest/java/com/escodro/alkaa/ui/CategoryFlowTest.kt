@@ -15,7 +15,7 @@ class CategoryFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) 
 
     @Before
     fun navigateToCategoryScreen() {
-        mDaoProvider.getCategoryDao().cleanTable()
+        daoProvider.getCategoryDao().cleanTable()
         openActionBarOverflowOrOptionsMenu(context)
         events.clickOnViewWithText(R.string.task_menu_category)
         checkThat.toolbarContainsTitle(R.id.toolbar_main_toolbar, R.string.category_list_label)
@@ -23,7 +23,7 @@ class CategoryFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) 
 
     @After
     fun cleanTable() {
-        mDaoProvider.getCategoryDao().cleanTable()
+        daoProvider.getCategoryDao().cleanTable()
     }
 
     @Test

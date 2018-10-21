@@ -2,11 +2,11 @@ package com.escodro.alkaa.framework
 
 import android.app.Activity
 import android.content.Context
-import androidx.test.InstrumentationRegistry
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.intent.rule.IntentsTestRule
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
-import androidx.test.runner.AndroidJUnit4
 import com.escodro.alkaa.di.provider.DaoProvider
 import org.junit.Rule
 import org.junit.runner.RunWith
@@ -24,11 +24,11 @@ abstract class AcceptanceTest<T : Activity>(clazz: Class<T>) : KoinTest {
     @JvmField
     val testRule: ActivityTestRule<T> = IntentsTestRule(clazz)
 
-    val context: Context = InstrumentationRegistry.getTargetContext()
+    val context: Context = ApplicationProvider.getApplicationContext()
 
     val checkThat: Matchers = Matchers()
 
     val events: Events = Events()
 
-    val mDaoProvider: DaoProvider by inject()
+    val daoProvider: DaoProvider by inject()
 }

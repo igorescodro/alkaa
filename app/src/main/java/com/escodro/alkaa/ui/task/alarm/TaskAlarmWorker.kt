@@ -19,7 +19,7 @@ import java.util.concurrent.LinkedBlockingQueue
 class TaskAlarmWorker(context: Context, params: WorkerParameters) :
     Worker(context, params), KoinComponent {
 
-    private val mDaoProvider: DaoProvider by inject()
+    private val daoProvider: DaoProvider by inject()
 
     private val taskAlarmManager: TaskAlarmManager by inject()
 
@@ -30,7 +30,7 @@ class TaskAlarmWorker(context: Context, params: WorkerParameters) :
 
         val result = LinkedBlockingQueue<Result>()
 
-        val disposable = mDaoProvider.getTaskDao()
+        val disposable = daoProvider.getTaskDao()
             .getAllTasksWithDueDate()
             .flattenAsObservable { it }
             .filter { isInFuture(it.dueDate) }

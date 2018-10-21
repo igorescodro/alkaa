@@ -1,12 +1,13 @@
 package com.escodro.alkaa.framework
 
+import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.annotation.IdRes
 import androidx.annotation.StringRes
 import androidx.appcompat.widget.AppCompatTextView
-import androidx.test.InstrumentationRegistry
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.DrawerMatchers
@@ -31,7 +32,7 @@ import java.util.Locale
 @Suppress("UndocumentedPublicFunction")
 class Matchers {
 
-    private val context = InstrumentationRegistry.getTargetContext()
+    private val context: Context = ApplicationProvider.getApplicationContext()
 
     fun viewIsCompletelyDisplayed(@IdRes viewId: Int) {
         onView(withId(viewId)).check(matches(isCompletelyDisplayed()))

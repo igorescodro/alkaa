@@ -1,12 +1,13 @@
 package com.escodro.alkaa.framework
 
+import android.content.Context
 import android.view.View
 import android.widget.DatePicker
 import android.widget.TimePicker
 import androidx.annotation.IdRes
 import androidx.annotation.StringRes
 import androidx.recyclerview.widget.RecyclerView
-import androidx.test.InstrumentationRegistry
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.UiController
 import androidx.test.espresso.ViewAction
@@ -35,7 +36,7 @@ import java.util.Calendar
 @Suppress("UndocumentedPublicFunction")
 class Events {
 
-    private val context = InstrumentationRegistry.getTargetContext()
+    private val context: Context = ApplicationProvider.getApplicationContext()
 
     fun clickOnView(@IdRes viewId: Int) {
         onView(withId(viewId)).perform(click())

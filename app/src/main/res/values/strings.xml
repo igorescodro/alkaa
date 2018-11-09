@@ -14,6 +14,7 @@
     <string name="task_menu_preferences">Preferences</string>
     <string name="task_menu_category">Categories</string>
     <string name="task_error_empty">Empty field</string>
+    <string name="task_add_new">Add new task</string>
 
     <!-- Task details -->
     <string name="task_details_alarm_removed">Alarm removed</string>

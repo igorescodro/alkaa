@@ -44,9 +44,9 @@ class TaskAlarmManager(private val context: Context) {
      * @param taskId task id to be canceled
      */
     fun cancelTaskAlarm(taskId: Long) {
-        val receiverIntent = Intent(context, TaskAlarmReceiver::class.java).apply {
-            action = ALARM_ACTION
-        }
+        val receiverIntent = Intent(context, TaskAlarmReceiver::class.java)
+        receiverIntent.action = ALARM_ACTION
+
         val pendingIntent = PendingIntent.getBroadcast(
             context,
             taskId.toInt(),

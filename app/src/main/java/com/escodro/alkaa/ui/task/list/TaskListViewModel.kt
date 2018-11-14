@@ -1,8 +1,8 @@
 package com.escodro.alkaa.ui.task.list
 
+import android.text.TextUtils
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import android.text.TextUtils
 import com.escodro.alkaa.data.local.model.Task
 import com.escodro.alkaa.data.local.model.TaskWithCategory
 import io.reactivex.disposables.CompositeDisposable
@@ -34,7 +34,7 @@ class TaskListViewModel(private val contract: TaskListContract) : ViewModel() {
     /**
      * Add a new task.
      */
-    fun addTask(onEmptyField: () -> Unit, onNewTaskAdded: (task: TaskWithCategory) -> Unit) {
+    fun addTask(onEmptyField: () -> Unit) {
         val description = newTask.value
         if (TextUtils.isEmpty(description)) {
             onEmptyField()
@@ -43,12 +43,8 @@ class TaskListViewModel(private val contract: TaskListContract) : ViewModel() {
 
         val categoryIdValue = if (categoryId != 0L) categoryId else null
         val task = Task(description = description, categoryId = categoryIdValue)
-        val taskWithCategory = TaskWithCategory(task)
         val disposable = contract.addTask(task)
-            .doOnComplete {
-                newTask.value = null
-                onNewTaskAdded(taskWithCategory)
-            }
+            .doOnComplete { newTask.value = null }
             .subscribe()
         compositeDisposable.add(disposable)
     }
@@ -70,12 +66,8 @@ class TaskListViewModel(private val contract: TaskListContract) : ViewModel() {
      *
      * @param taskWithCategory task to be removed
      */
-    fun deleteTask(
-        taskWithCategory: TaskWithCategory,
-        onTaskRemoved: (task: TaskWithCategory) -> Unit
-    ) {
+    fun deleteTask(taskWithCategory: TaskWithCategory) {
         val disposable = contract.deleteTask(taskWithCategory.task)
-            .doOnComplete { onTaskRemoved(taskWithCategory) }
             .subscribe()
         compositeDisposable.add(disposable)
     }

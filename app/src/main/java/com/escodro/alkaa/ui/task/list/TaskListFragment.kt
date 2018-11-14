@@ -93,10 +93,7 @@ class TaskListFragment : Fragment() {
         TextView.OnEditorActionListener { _, action, _ ->
             var result = false
             if (action == EditorInfo.IME_ACTION_DONE) {
-                viewModel.addTask(
-                    onEmptyField = ::onEmptyField,
-                    onNewTaskAdded = ::onNewTaskAdded
-                )
+                viewModel.addTask(onEmptyField = ::onEmptyField)
                 hideKeyboard()
                 result = true
             }
@@ -106,25 +103,13 @@ class TaskListFragment : Fragment() {
     private fun onTaskLoaded(list: List<TaskWithCategory>) {
         Timber.d("onTaskLoaded() - Size = ${list.size}")
 
-        adapter.updateList(list)
+        adapter.submitList(list)
     }
 
     private fun onEmptyField() {
         Timber.d("onEmptyField()")
 
         binding?.edittextTasklistDescription?.error = getString(R.string.task_error_empty)
-    }
-
-    private fun onNewTaskAdded(taskWithCategory: TaskWithCategory) {
-        Timber.d("onNewTaskAdded() - Task = ${taskWithCategory.task.description}")
-
-        adapter.addItem(taskWithCategory)
-    }
-
-    private fun onTaskRemoved(taskWithCategory: TaskWithCategory) {
-        Timber.d("onTaskRemoved() - Task = ${taskWithCategory.task.description}")
-
-        adapter.removeItem(taskWithCategory)
     }
 
     private fun onItemClicked(taskWithCategory: TaskWithCategory) {
@@ -148,7 +133,7 @@ class TaskListFragment : Fragment() {
         builder?.setItems(R.array.task_dialog_options) { _,
             item ->
             when (item) {
-                0 -> viewModel.deleteTask(taskWithCategory, onTaskRemoved = ::onTaskRemoved)
+                0 -> viewModel.deleteTask(taskWithCategory)
             }
         }
         builder?.show()

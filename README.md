@@ -16,6 +16,7 @@ Currently, this project covers the following topics:
   - [Room](https://developer.android.com/topic/libraries/architecture/room)
   - [Lifecycle](https://developer.android.com/topic/libraries/architecture/lifecycle)
   - [Navigation](https://developer.android.com/topic/libraries/architecture/navigation/)
+- [ListAdapter](https://developer.android.com/reference/android/support/v7/recyclerview/extensions/ListAdapter)  
 - [Data Binding](https://developer.android.com/topic/libraries/data-binding/)
 - [ConstraintLayout](https://developer.android.com/training/constraint-layout/)
 - [Android KTX](https://developer.android.com/kotlin/ktx)

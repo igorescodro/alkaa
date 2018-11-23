@@ -29,7 +29,7 @@ class TaskFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
 
     @Test
     fun areAllViewsIsCompletelyDisplayed() {
-        checkThat.viewIsCompletelyDisplayed(R.id.edittext_tasklist_description)
+        checkThat.viewIsCompletelyDisplayed(R.id.textview_tasklist_category)
         checkThat.viewIsCompletelyDisplayed(R.id.recyclerview_tasklist_list)
     }
 
@@ -39,7 +39,7 @@ class TaskFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
             "Lorem ipsum dolor sit amet, te elit possit suavitate duo. Nec sale sonet" +
                 " scriptorem ei, option prompta ut sed. At everti discere oportere sea."
         )
-        checkThat.textHasFixedLines(R.id.textview_itemtask_description, 1)
+        checkThat.textHasFixedLines(R.id.edittext_itemtask_description, 1)
     }
 
     @Test
@@ -55,13 +55,6 @@ class TaskFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
         events.clickDialogOption(R.array.task_dialog_options, 0)
         events.waitFor(R.id.recyclerview_tasklist_list, 1000)
         checkThat.listNotContainsItem(R.id.recyclerview_tasklist_list, taskName)
-    }
-
-    @Test
-    fun addEmptyTask() {
-        events.clickOnView(R.id.edittext_tasklist_description)
-        events.pressImeActionButton(R.id.edittext_tasklist_description)
-        checkThat.viewContainsError(R.id.edittext_tasklist_description, R.string.task_error_empty)
     }
 
     @Test
@@ -122,9 +115,9 @@ class TaskFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
     }
 
     private fun addTask(taskName: String) {
-        events.clickOnView(R.id.edittext_tasklist_description)
-        events.textOnView(R.id.edittext_tasklist_description, taskName)
-        events.pressImeActionButton(R.id.edittext_tasklist_description)
+        events.clickOnView(R.id.edittext_itemadd_description)
+        events.textOnView(R.id.edittext_itemadd_description, taskName)
+        events.pressImeActionButton(R.id.edittext_itemadd_description)
         events.waitFor(R.id.recyclerview_tasklist_list, 2000)
         checkThat.listContainsItem(R.id.recyclerview_tasklist_list, taskName)
     }

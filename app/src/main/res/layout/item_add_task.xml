@@ -7,7 +7,7 @@
         android:layout_height="86dp">
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardview_itemtask_background"
+            android:id="@+id/cardview_itemadd_background"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:clickable="true"
@@ -22,7 +22,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/checkbox_itemtask_completed"
+            android:id="@+id/checkbox_itemadd_completed"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginStart="16dp"
@@ -30,13 +30,13 @@
             android:elevation="4dp"
             android:gravity="center"
             android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="@id/cardview_itemtask_background"
-            app:layout_constraintStart_toStartOf="@id/cardview_itemtask_background"
-            app:layout_constraintTop_toTopOf="@id/cardview_itemtask_background"
+            app:layout_constraintBottom_toBottomOf="@id/cardview_itemadd_background"
+            app:layout_constraintStart_toStartOf="@id/cardview_itemadd_background"
+            app:layout_constraintTop_toTopOf="@id/cardview_itemadd_background"
             app:srcCompat="@drawable/ic_add" />
 
         <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/edittext_itemtask_description"
+            android:id="@+id/edittext_itemadd_description"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
@@ -50,10 +50,10 @@
             android:maxLines="1"
             android:singleLine="true"
             android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="@id/cardview_itemtask_background"
-            app:layout_constraintEnd_toEndOf="@id/cardview_itemtask_background"
-            app:layout_constraintStart_toEndOf="@id/checkbox_itemtask_completed"
-            app:layout_constraintTop_toTopOf="@id/cardview_itemtask_background" />
+            app:layout_constraintBottom_toBottomOf="@id/cardview_itemadd_background"
+            app:layout_constraintEnd_toEndOf="@id/cardview_itemadd_background"
+            app:layout_constraintStart_toEndOf="@id/checkbox_itemadd_completed"
+            app:layout_constraintTop_toTopOf="@id/cardview_itemadd_background" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

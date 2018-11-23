@@ -52,6 +52,7 @@ class CategoryFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) 
         addCategory(categoryName)
         events.clickOnView(R.id.imageview_itemcategory_options)
         events.clickOnViewWithText(R.string.category_list_menu_remove)
+        events.waitFor(R.id.recyclerview_categorylist_list, 1000)
         checkThat.listNotContainsItem(R.id.recyclerview_categorylist_list, categoryName)
     }
 

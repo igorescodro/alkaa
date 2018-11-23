@@ -73,6 +73,8 @@ fun EditText.onActionDone(onActionDone: (String) -> Unit) {
         val isActionClicked = action == EditorInfo.IME_ACTION_DONE
         if (isActionClicked) {
             onActionDone(textView.stringText())
+            textView.text = ""
+            textView.clearFocus()
         }
         isActionClicked
     }

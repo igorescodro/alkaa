@@ -15,9 +15,6 @@ class AddEntry(private val onInsertTask: (String) -> Unit) : ItemEntry(0, null) 
     override fun bindData(holder: BindingHolder<*>) {
         val binding = holder.binding as? ItemAddTaskBinding
 
-        binding?.apply {
-            edittextItemtaskDescription.text = null
-            edittextItemtaskDescription.onActionDone { onInsertTask(it) }
-        }
+        binding?.edittextItemaddDescription?.onActionDone { onInsertTask(it) }
     }
 }

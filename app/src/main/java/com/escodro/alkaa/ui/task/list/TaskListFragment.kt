@@ -6,7 +6,6 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
@@ -15,6 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.escodro.alkaa.R
 import com.escodro.alkaa.common.extension.hideKeyboard
+import com.escodro.alkaa.common.extension.itemDialog
+import com.escodro.alkaa.common.extension.items
 import com.escodro.alkaa.common.extension.withDelay
 import com.escodro.alkaa.data.local.model.TaskWithCategory
 import com.escodro.alkaa.databinding.FragmentTaskListBinding
@@ -114,15 +115,13 @@ class TaskListFragment : Fragment() {
     private fun onItemLongPressed(taskWithCategory: TaskWithCategory): Boolean {
         Timber.d("onItemLongPressed() - Task = ${taskWithCategory.task.description}")
 
-        val builder = context?.let { AlertDialog.Builder(it) }
-        builder?.setTitle(taskWithCategory.task.description)
-        builder?.setItems(R.array.task_dialog_options) { _,
-            item ->
-            when (item) {
-                0 -> viewModel.deleteTask(taskWithCategory)
+        itemDialog(taskWithCategory.task.description) {
+            items(R.array.task_dialog_options) { item ->
+                when (item) {
+                    0 -> viewModel.deleteTask(taskWithCategory)
+                }
             }
-        }
-        builder?.show()
+        }.show()
 
         return true
     }

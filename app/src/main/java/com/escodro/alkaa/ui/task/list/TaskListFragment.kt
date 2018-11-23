@@ -6,8 +6,6 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
-import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -17,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.escodro.alkaa.R
 import com.escodro.alkaa.common.extension.hideKeyboard
+import com.escodro.alkaa.common.extension.withDelay
 import com.escodro.alkaa.data.local.model.TaskWithCategory
 import com.escodro.alkaa.databinding.FragmentTaskListBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -36,7 +35,8 @@ class TaskListFragment : Fragment() {
     private val adapter = TaskListAdapter(
         onItemClicked = ::onItemClicked,
         onItemLongPressed = ::onItemLongPressed,
-        onItemCheckedChanged = ::onItemCheckedChanged
+        onItemCheckedChanged = ::onItemCheckedChanged,
+        onInsertTask = ::onInsertTask
     )
 
     override fun onCreateView(
@@ -71,8 +71,6 @@ class TaskListFragment : Fragment() {
         binding?.setLifecycleOwner(this)
         binding?.recyclerviewTasklistList?.adapter = adapter
         binding?.recyclerviewTasklistList?.layoutManager = getLayoutManager()
-        binding?.edittextTasklistDescription?.setOnEditorActionListener(getEditorActionListener())
-        binding?.viewModel = viewModel
     }
 
     private fun loadTasks() {
@@ -89,27 +87,15 @@ class TaskListFragment : Fragment() {
     private fun getLayoutManager() =
         LinearLayoutManager(context, RecyclerView.VERTICAL, false)
 
-    private fun getEditorActionListener(): TextView.OnEditorActionListener =
-        TextView.OnEditorActionListener { _, action, _ ->
-            var result = false
-            if (action == EditorInfo.IME_ACTION_DONE) {
-                viewModel.addTask(onEmptyField = ::onEmptyField)
-                hideKeyboard()
-                result = true
-            }
-            result
-        }
+    private fun onInsertTask(description: String) {
+        hideKeyboard()
+        withDelay(INSERT_DELAY) { viewModel.addTask(description) }
+    }
 
     private fun onTaskLoaded(list: List<TaskWithCategory>) {
         Timber.d("onTaskLoaded() - Size = ${list.size}")
 
-        adapter.submitList(list)
-    }
-
-    private fun onEmptyField() {
-        Timber.d("onEmptyField()")
-
-        binding?.edittextTasklistDescription?.error = getString(R.string.task_error_empty)
+        adapter.updateList(list)
     }
 
     private fun onItemClicked(taskWithCategory: TaskWithCategory) {
@@ -142,6 +128,8 @@ class TaskListFragment : Fragment() {
     }
 
     companion object {
+
+        private const val INSERT_DELAY = 200L
 
         const val EXTRA_CATEGORY_ID = "category_id"
 

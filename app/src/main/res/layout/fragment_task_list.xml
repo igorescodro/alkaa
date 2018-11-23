@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools">
-
-    <data>
-
-        <variable
-            name="viewModel"
-            type="com.escodro.alkaa.ui.task.list.TaskListViewModel"/>
-
-    </data>
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -25,57 +17,19 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="All Tasks"/>
+            tools:text="All Tasks" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerview_tasklist_list"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/cardview_itemtask_new"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textview_tasklist_category"
-            tools:listitem="@layout/item_task"/>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardview_itemtask_new"
-            android:layout_width="0dp"
-            android:layout_height="86dp"
-            android:layout_margin="8dp"
-            android:foreground="?android:attr/selectableItemBackground"
-            app:cardElevation="4dp"
-            app:cardUseCompatPadding="true"
-            app:contentPadding="2dp"
+            android:layout_marginEnd="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recyclerview_tasklist_list">
-
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/edittext_tasklist_description"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_margin="8dp"
-                android:background="@android:color/transparent"
-                android:drawableStart="@drawable/ic_add"
-                android:drawablePadding="16dp"
-                android:hint="@string/task_add_new"
-                android:imeOptions="actionDone"
-                android:inputType="text"
-                android:maxLines="1"
-                android:text="@={viewModel.newTask}"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/recyclerview_tasklist_list"/>
-
-        </androidx.cardview.widget.CardView>
+            app:layout_constraintTop_toBottomOf="@+id/textview_tasklist_category"
+            tools:listitem="@layout/item_task" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

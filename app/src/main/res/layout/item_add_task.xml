@@ -1,23 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools">
-
-    <data>
-
-        <variable
-            name="task"
-            type="com.escodro.alkaa.data.local.model.Task"/>
-
-        <variable
-            name="color"
-            type="String"/>
-
-        <variable
-            name="isAlarmVisible"
-            type="Boolean"/>
-
-    </data>
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -36,60 +19,41 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <View
-                android:id="@+id/view_itemtask_color"
-                android:layout_width="6dp"
-                android:layout_height="match_parent"
-                android:background="@{color}"
-                tools:background="#c21111"/>
-
-        </androidx.cardview.widget.CardView>
-
-        <CheckBox
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/checkbox_itemtask_completed"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:layout_marginEnd="8dp"
             android:layout_marginStart="16dp"
-            android:checked="@{task.completed}"
+            android:layout_marginEnd="8dp"
             android:elevation="4dp"
             android:gravity="center"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="@id/cardview_itemtask_background"
             app:layout_constraintStart_toStartOf="@id/cardview_itemtask_background"
-            app:layout_constraintTop_toTopOf="@id/cardview_itemtask_background"/>
+            app:layout_constraintTop_toTopOf="@id/cardview_itemtask_background"
+            app:srcCompat="@drawable/ic_add" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/edittext_itemtask_description"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@null"
             android:elevation="4dp"
             android:gravity="center_vertical"
+            android:hint="@string/task_add_new"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:maxLines="1"
             android:singleLine="true"
-            android:text="@{task.description}"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@id/cardview_itemtask_background"
-            app:layout_constraintEnd_toStartOf="@id/imageview_itemtask_alarm"
-            app:layout_constraintStart_toEndOf="@id/checkbox_itemtask_completed"
-            app:layout_constraintTop_toTopOf="@id/cardview_itemtask_background"
-            tools:text="Item 1"/>
-
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/imageview_itemtask_alarm"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginEnd="16dp"
-            android:elevation="4dp"
-            android:src="@drawable/ic_clock"
-            android:visibility="@{isAlarmVisible}"
-            app:layout_constraintBottom_toBottomOf="@id/cardview_itemtask_background"
             app:layout_constraintEnd_toEndOf="@id/cardview_itemtask_background"
-            app:layout_constraintTop_toTopOf="@id/cardview_itemtask_background"/>
+            app:layout_constraintStart_toEndOf="@id/checkbox_itemtask_completed"
+            app:layout_constraintTop_toTopOf="@id/cardview_itemtask_background" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

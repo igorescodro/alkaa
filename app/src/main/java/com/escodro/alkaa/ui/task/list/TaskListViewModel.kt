@@ -1,7 +1,6 @@
 package com.escodro.alkaa.ui.task.list
 
 import android.text.TextUtils
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.escodro.alkaa.data.local.model.Task
 import com.escodro.alkaa.data.local.model.TaskWithCategory
@@ -11,8 +10,6 @@ import io.reactivex.disposables.CompositeDisposable
  * [ViewModel] responsible to provide information to [TaskListFragment].
  */
 class TaskListViewModel(private val contract: TaskListContract) : ViewModel() {
-
-    val newTask = MutableLiveData<String>()
 
     private var categoryId: Long? = null
 
@@ -34,17 +31,12 @@ class TaskListViewModel(private val contract: TaskListContract) : ViewModel() {
     /**
      * Add a new task.
      */
-    fun addTask(onEmptyField: () -> Unit) {
-        val description = newTask.value
-        if (TextUtils.isEmpty(description)) {
-            onEmptyField()
-            return
-        }
+    fun addTask(description: String) {
+        if (TextUtils.isEmpty(description)) return
 
         val categoryIdValue = if (categoryId != 0L) categoryId else null
         val task = Task(description = description, categoryId = categoryIdValue)
         val disposable = contract.addTask(task)
-            .doOnComplete { newTask.value = null }
             .subscribe()
         compositeDisposable.add(disposable)
     }

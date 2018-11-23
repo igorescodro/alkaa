@@ -2,6 +2,8 @@ package com.escodro.alkaa.common.extension
 
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.inputmethod.EditorInfo
+import android.widget.EditText
 import android.widget.TextView
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -59,5 +61,23 @@ fun TextView.textChangedObservable(): Observable<String> {
         .distinctUntilChanged()
         .applySchedulers()
 }
+
+/**
+ * Extension to get the [EditText] string text when the user presses the
+ * [EditorInfo.IME_ACTION_DONE] in the keyboard.
+ *
+ * @param onActionDone HFO to be executed with the input text
+ */
+fun EditText.onActionDone(onActionDone: (String) -> Unit) {
+    setOnEditorActionListener { textView, action, _ ->
+        val isActionClicked = action == EditorInfo.IME_ACTION_DONE
+        if (isActionClicked) {
+            onActionDone(textView.stringText())
+        }
+        isActionClicked
+    }
+}
+
+private fun TextView.stringText() = text.toString()
 
 private const val TEXT_UPDATE_DEBOUNCE = 500L

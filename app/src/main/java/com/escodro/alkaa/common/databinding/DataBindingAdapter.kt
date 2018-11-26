@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.escodro.alkaa.common.extension.format
+import com.escodro.alkaa.common.extension.formatRelativeDate
 import java.util.Calendar
 
 /**
@@ -35,8 +36,19 @@ fun setFormattedCalendar(view: TextView, calendar: Calendar?) {
 }
 
 /**
+ * Format to a relative time and sets a in a [TextView].
+ *
+ * @param view text view to be updated
+ * @param calendar calendar to be formatted and set
+ */
+@BindingAdapter("relative_time")
+fun setRelativeTimeCalendar(view: TextView, calendar: Calendar?) {
+    view.text = view.context?.formatRelativeDate(calendar?.timeInMillis)
+}
+
+/**
  * Sets the visibility based on [Boolean] value. If the value is `true`, it is set to [View
- * .VISIBLE], otherwise is set to [View.INVISIBLE].
+ * .VISIBLE], otherwise is set to [View.GONE].
  *
  * @param view text view to be updated
  * @param isVisible boolean to represent if the view should be visible
@@ -47,6 +59,6 @@ fun setVisibility(view: View, isVisible: Boolean?) {
         return
     }
 
-    val visibility = if (isVisible) View.VISIBLE else View.INVISIBLE
+    val visibility = if (isVisible) View.VISIBLE else View.GONE
     view.visibility = visibility
 }

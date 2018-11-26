@@ -39,7 +39,7 @@ class TaskFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
             "Lorem ipsum dolor sit amet, te elit possit suavitate duo. Nec sale sonet" +
                 " scriptorem ei, option prompta ut sed. At everti discere oportere sea."
         )
-        checkThat.textHasFixedLines(R.id.edittext_itemtask_description, 1)
+        checkThat.textHasFixedLines(R.id.textview_itemtask_description, 1)
     }
 
     @Test
@@ -96,14 +96,6 @@ class TaskFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
     fun checkIfDisplayDueDateIsCorrect() {
         addAndOpenTask("register to vote")
         scheduleTask(2018, 10, 11, 16, 32)
-    }
-
-    @Test
-    fun checkIfAlarmIndicatorIsShown() {
-        addAndOpenTask("buy a new calendar")
-        scheduleTask(2018, 12, 25, 23, 59)
-        events.navigateUp()
-        checkThat.viewIsCompletelyDisplayed(R.id.imageview_itemtask_alarm)
     }
 
     @Test

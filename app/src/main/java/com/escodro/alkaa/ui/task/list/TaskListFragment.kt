@@ -66,6 +66,12 @@ class TaskListFragment : Fragment() {
         inflater?.inflate(R.menu.task_menu, menu)
     }
 
+    override fun onStop() {
+        super.onStop()
+
+        viewModel.onDetach()
+    }
+
     private fun bindComponents() {
         Timber.d("bindComponents()")
 

@@ -64,9 +64,10 @@ class TaskListViewModel(private val contract: TaskListContract) : ViewModel() {
         compositeDisposable.add(disposable)
     }
 
-    override fun onCleared() {
-        super.onCleared()
-
+    /**
+     * Clears the [ViewModel] when the [TaskListFragment] is not visible to user.
+     */
+    fun onDetach() {
         compositeDisposable.clear()
     }
 }

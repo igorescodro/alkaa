@@ -36,7 +36,7 @@ class TaskListAdapter(
     }
 
     override fun getItemViewType(position: Int) =
-        if (position == getAddPosition()) ItemEntry.TYPE_ADD else ItemEntry.TYPE_TASK
+        getItem(position).type
 
     /**
      * Submits a new list to be diffed, and displayed.
@@ -57,8 +57,6 @@ class TaskListAdapter(
 
     private fun getLayout(type: Int) =
         if (type == ItemEntry.TYPE_ADD) R.layout.item_add_task else R.layout.item_task
-
-    private fun getAddPosition() = itemCount - 1
 
     private fun toItemEntry(task: TaskWithCategory) =
         TaskEntry(

@@ -68,7 +68,8 @@ interface TaskDao {
      *
      * @return all inserted tasks with category
      */
-    @Query("SELECT * FROM task LEFT JOIN category ON task_category_id = category_id")
+    @Query("SELECT * FROM task LEFT JOIN category ON task_category_id = category_id " +
+        "ORDER BY task_is_completed")
     fun getAllTasksWithCategory(): Flowable<MutableList<TaskWithCategory>>
 
     /**
@@ -80,7 +81,7 @@ interface TaskDao {
      */
     @Query(
         "SELECT * FROM task LEFT JOIN category ON task_category_id = category_id " +
-            "WHERE task_category_id = :categoryId"
+            "WHERE task_category_id = :categoryId ORDER BY task_is_completed"
     )
     fun getAllTasksWithCategoryId(categoryId: Long): Flowable<MutableList<TaskWithCategory>>
 

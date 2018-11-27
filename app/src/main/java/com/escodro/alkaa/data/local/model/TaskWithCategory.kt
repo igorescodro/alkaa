@@ -7,8 +7,6 @@ import androidx.room.Entity
  * [Entity] to represent a wrapper of [Task] and [Category].
  */
 data class TaskWithCategory(
-
     @Embedded val task: Task,
-
     @Embedded val category: Category? = null
 )

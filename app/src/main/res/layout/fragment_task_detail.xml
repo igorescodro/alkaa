@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <variable
             name="viewModel"
-            type="com.escodro.alkaa.ui.task.detail.TaskDetailViewModel"/>
+            type="com.escodro.alkaa.ui.task.detail.TaskDetailViewModel" />
 
     </data>
 
@@ -29,7 +29,7 @@
             android:text="@={viewModel.taskData.title}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.escodro.alkaa.common.view.ScrollableRadioGroup
             android:id="@+id/srg_taskdetail_list"
@@ -37,7 +37,19 @@
             android:layout_height="64dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edittext_taskdetail_title"/>
+            app:layout_constraintTop_toBottomOf="@id/edittext_taskdetail_title" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edittext_taskdetail_description"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="8dp"
+            android:gravity="top"
+            android:text="@={viewModel.taskData.description}"
+            app:layout_constraintBottom_toTopOf="@+id/textview_taskdetail_date"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/srg_taskdetail_list" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textview_taskdetail_date"
@@ -48,7 +60,7 @@
             android:text="@{viewModel.taskData.dueDate}"
             app:layout_constraintBottom_toTopOf="@id/btn_taskdetail_date"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_taskdetail_date"
@@ -59,7 +71,7 @@
             android:text="@string/app_name"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_taskdetail_remove_alarm"
@@ -69,7 +81,7 @@
             android:background="@color/blue"
             app:layout_constraintBottom_toBottomOf="@id/btn_taskdetail_date"
             app:layout_constraintStart_toEndOf="@id/btn_taskdetail_date"
-            app:layout_constraintTop_toTopOf="@id/btn_taskdetail_date"/>
+            app:layout_constraintTop_toTopOf="@id/btn_taskdetail_date" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -91,12 +91,17 @@ class TaskDetailFragment : Fragment() {
         btn_taskdetail_date.setOnClickListener { _ -> showDateTimePicker(::updateTaskWithDueDate) }
         btn_taskdetail_remove_alarm.setOnClickListener { _ -> removeAlarm() }
 
-        val disposable = edittext_taskdetail_title.textChangedObservable().subscribe { text ->
-            Timber.d("Updating task with text = $text")
+        val titleDisposable = edittext_taskdetail_title.textChangedObservable().subscribe { text ->
+            Timber.d("Updating task with title = $text")
             task?.let { viewModel.updateTask(it) }
         }
 
-        compositeDisposable.add(disposable)
+        val descDisposable = edittext_taskdetail_description.textChangedObservable().subscribe { text ->
+            Timber.d("Updating task with description = $text")
+            task?.let { viewModel.updateTask(it) }
+        }
+
+        compositeDisposable.addAll(titleDisposable, descDisposable)
     }
 
     private fun updateCategoryList(list: List<Category>) {

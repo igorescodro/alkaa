@@ -44,7 +44,7 @@ class TaskAlarmReceiver : BroadcastReceiver(), KoinComponent {
             return
         }
 
-        val description = intent?.getStringExtra(TaskAlarmManager.EXTRA_TASK_DESCRIPTION)
+        val description = intent?.getStringExtra(TaskAlarmManager.EXTRA_TASK_TITLE)
 
         val builder = NotificationCompat.Builder(context, channel.getChannelId())
             .setSmallIcon(R.mipmap.ic_launcher)

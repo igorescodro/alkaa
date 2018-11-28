@@ -31,11 +31,11 @@ class MainDrawerTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
         categoryWorkId = categoryDao.findTaskByName(WORK_CATEGORY).blockingGet().id
         categoryFamilyId = categoryDao.findTaskByName(FAMILY_CATEGORY).blockingGet().id
 
-        taskDao.insertTask(Task(false, "Buy milk", categoryPersonalId))
-        taskDao.insertTask(Task(true, "Buy onion", categoryPersonalId))
-        taskDao.insertTask(Task(false, "Study presentation", categoryWorkId))
-        taskDao.insertTask(Task(false, "Visit grandpa", categoryFamilyId))
-        taskDao.insertTask(Task(false, "Call dad", categoryFamilyId))
+        taskDao.insertTask(Task(false, "Buy milk", categoryId = categoryPersonalId))
+        taskDao.insertTask(Task(true, "Buy onion", categoryId = categoryPersonalId))
+        taskDao.insertTask(Task(false, "Study presentation", categoryId = categoryWorkId))
+        taskDao.insertTask(Task(false, "Visit grandpa", categoryId = categoryFamilyId))
+        taskDao.insertTask(Task(false, "Call dad", categoryId = categoryFamilyId))
     }
 
     @After

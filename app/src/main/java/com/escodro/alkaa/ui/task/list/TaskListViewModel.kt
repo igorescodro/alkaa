@@ -35,7 +35,7 @@ class TaskListViewModel(private val contract: TaskListContract) : ViewModel() {
         if (TextUtils.isEmpty(description)) return
 
         val categoryIdValue = if (categoryId != 0L) categoryId else null
-        val task = Task(description = description, categoryId = categoryIdValue)
+        val task = Task(title = description, categoryId = categoryIdValue)
         val disposable = contract.addTask(task)
             .subscribe()
         compositeDisposable.add(disposable)

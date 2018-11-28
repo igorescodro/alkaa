@@ -22,7 +22,7 @@ class TaskAlarmManager(private val context: Context) {
         val receiverIntent = Intent(context, TaskAlarmReceiver::class.java).apply {
             action = ALARM_ACTION
             putExtra(EXTRA_TASK_ID, task.id)
-            putExtra(EXTRA_TASK_DESCRIPTION, task.description)
+            putExtra(EXTRA_TASK_TITLE, task.title)
         }
 
         val pendingIntent = PendingIntent.getBroadcast(
@@ -33,7 +33,7 @@ class TaskAlarmManager(private val context: Context) {
         )
 
         task.dueDate?.time?.time?.let {
-            Timber.d("Scheduling notification for '${task.description}' at '${task.dueDate?.time}'")
+            Timber.d("Scheduling notification for '${task.title}' at '${task.dueDate?.time}'")
             context.setAlarm(it, pendingIntent)
         }
     }
@@ -62,7 +62,7 @@ class TaskAlarmManager(private val context: Context) {
 
         const val EXTRA_TASK_ID = "extra_task_id"
 
-        const val EXTRA_TASK_DESCRIPTION = "extra_task_description"
+        const val EXTRA_TASK_TITLE = "extra_task_title"
 
         const val ALARM_ACTION = "com.escodro.alkaa.SET_ALARM"
     }

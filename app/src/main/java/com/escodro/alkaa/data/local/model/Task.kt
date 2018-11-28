@@ -28,7 +28,8 @@ import java.util.Calendar
 )
 data class Task(
     @ColumnInfo(name = "task_is_completed") var completed: Boolean = false,
-    @ColumnInfo(name = "task_description") var description: String,
+    @ColumnInfo(name = "task_title") var title: String,
+    @ColumnInfo(name = "task_description") var description: String? = null,
     @ColumnInfo(name = "task_category_id") var categoryId: Long? = null,
     @ColumnInfo(name = "task_due_date") var dueDate: Calendar? = null
 ) : Parcelable {

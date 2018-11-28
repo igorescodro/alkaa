@@ -70,7 +70,7 @@
             android:elevation="4dp"
             android:gravity="center_vertical"
             android:singleLine="true"
-            android:text="@{task.description}"
+            android:text="@{task.title}"
             android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/textview_itemtask_alarm"
             app:layout_constraintEnd_toEndOf="@id/cardview_itemtask_background"

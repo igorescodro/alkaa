@@ -43,7 +43,7 @@ class TaskDatabaseTest {
 
     @Test
     fun insertTaskAndReadInList() {
-        val task = Task(description = TASK_NAME)
+        val task = Task(title = TASK_NAME)
         taskDao.insertTask(task)
 
         val list = taskDao.getAllTasks().blockingFirst()
@@ -52,12 +52,12 @@ class TaskDatabaseTest {
 
     @Test
     fun insertAndUpdateTask() {
-        val task = Task(description = TASK_NAME)
+        val task = Task(title = TASK_NAME)
         taskDao.insertTask(task)
 
         val list = taskDao.getAllTasks().blockingFirst()
         val updatedTask = list[0]
-        updatedTask.description = "call Martha"
+        updatedTask.title = "call Martha"
         taskDao.updateTask(updatedTask)
 
         val updatedList = taskDao.getAllTasks().blockingFirst()
@@ -66,7 +66,7 @@ class TaskDatabaseTest {
 
     @Test
     fun insertAndAddCategoryInTask() {
-        val task = Task(description = TASK_NAME)
+        val task = Task(title = TASK_NAME)
         task.categoryId = categoryDao.getAllCategories().blockingFirst()[0].id
         taskDao.insertTask(task)
 
@@ -77,7 +77,7 @@ class TaskDatabaseTest {
     @Test
     fun validateDateConverter() {
         val taskName = "Take medicine"
-        val task = Task(description = taskName)
+        val task = Task(title = taskName)
 
         val calendar = Calendar.getInstance()
         calendar.set(2018, 3, 15, 16, 1)

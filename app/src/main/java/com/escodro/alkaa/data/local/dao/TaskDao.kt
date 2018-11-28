@@ -56,12 +56,12 @@ interface TaskDao {
     fun cleanTable()
 
     /**
-     * Gets a specific task by description.
+     * Gets a specific task by title.
      *
-     * @param description task description
+     * @param title task title
      */
-    @Query("SELECT * FROM task WHERE task_description = :description")
-    fun findTaskByDescription(description: String): Single<Task>
+    @Query("SELECT * FROM task WHERE task_title = :title")
+    fun findTaskByDescription(title: String): Single<Task>
 
     /**
      * Get all inserted tasks with category.

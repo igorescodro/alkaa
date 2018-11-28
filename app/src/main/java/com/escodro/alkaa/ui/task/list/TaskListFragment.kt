@@ -106,22 +106,22 @@ class TaskListFragment : Fragment() {
     }
 
     private fun onItemClicked(taskWithCategory: TaskWithCategory) {
-        Timber.d("onItemClicked() - Task = ${taskWithCategory.task.description}")
+        Timber.d("onItemClicked() - Task = ${taskWithCategory.task.title}")
 
         val action = TaskListFragmentDirections.actionDetail(taskWithCategory.task)
         navigator?.navigate(action)
     }
 
     private fun onItemCheckedChanged(taskWithCategory: TaskWithCategory, value: Boolean) {
-        Timber.d("onItemCheckedChanged() - Task = ${taskWithCategory.task.description} - Value = $value")
+        Timber.d("onItemCheckedChanged() - Task = ${taskWithCategory.task.title} - Value = $value")
 
         viewModel.updateTaskStatus(taskWithCategory.task, value)
     }
 
     private fun onItemLongPressed(taskWithCategory: TaskWithCategory): Boolean {
-        Timber.d("onItemLongPressed() - Task = ${taskWithCategory.task.description}")
+        Timber.d("onItemLongPressed() - Task = ${taskWithCategory.task.title}")
 
-        itemDialog(taskWithCategory.task.description) {
+        itemDialog(taskWithCategory.task.title) {
             items(R.array.task_dialog_options) { item ->
                 when (item) {
                     0 -> viewModel.deleteTask(taskWithCategory)

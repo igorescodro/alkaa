@@ -52,6 +52,15 @@ class TaskDatabaseTest {
     }
 
     @Test
+    fun insertTaskWithDescription() {
+        val task = Task(title = TASK_NAME, description = TASK_DESCRIPTION)
+        taskDao.insertTask(task)
+
+        val taskDescription = taskDao.findTaskByTitle(TASK_NAME).blockingGet().description
+        assertTrue(taskDescription == TASK_DESCRIPTION)
+    }
+
+    @Test
     fun insertAndUpdateTask() {
         val task = Task(title = TASK_NAME)
         taskDao.insertTask(task)
@@ -59,6 +68,7 @@ class TaskDatabaseTest {
         val list = taskDao.getAllTasks().blockingFirst()
         val updatedTask = list[0]
         updatedTask.title = "call Martha"
+        updatedTask.description = TASK_DESCRIPTION
         taskDao.updateTask(updatedTask)
 
         val updatedList = taskDao.getAllTasks().blockingFirst()
@@ -76,6 +86,27 @@ class TaskDatabaseTest {
     }
 
     @Test
+    fun clearTaskFields() {
+        val task = Task(title = TASK_NAME).apply {
+            categoryId = categoryDao.getAllCategories().blockingFirst()[0].id
+            description = TASK_DESCRIPTION
+            dueDate = Calendar.getInstance()
+        }
+        taskDao.insertTask(task)
+
+        val clearTask = taskDao.findTaskByTitle(TASK_NAME).blockingGet()
+        clearTask.apply {
+            categoryId = null
+            description = null
+            dueDate = null
+        }
+        taskDao.updateTask(clearTask)
+
+        val updatedList = taskDao.getAllTasks().blockingFirst()
+        assertTrue(updatedList.contains(clearTask))
+    }
+
+    @Test
     fun validateDateConverter() {
         val taskName = "Take medicine"
         val task = Task(title = taskName)
@@ -86,7 +117,7 @@ class TaskDatabaseTest {
 
         taskDao.insertTask(task)
 
-        val selectedDate = taskDao.findTaskByDescription(taskName).blockingGet().dueDate
+        val selectedDate = taskDao.findTaskByTitle(taskName).blockingGet().dueDate
 
         assertTrue(selectedDate?.get(Calendar.YEAR) == 2018)
         assertTrue(selectedDate?.get(Calendar.MONTH) == 3)
@@ -98,5 +129,7 @@ class TaskDatabaseTest {
     companion object {
 
         private const val TASK_NAME = "call John"
+
+        private const val TASK_DESCRIPTION = "He is busy until 8PM. +55 19 6489 5456"
     }
 }

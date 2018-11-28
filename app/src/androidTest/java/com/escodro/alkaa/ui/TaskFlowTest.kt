@@ -34,6 +34,17 @@ class TaskFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
     }
 
     @Test
+    fun areAllDetailViewsIsCompletelyDisplayed() {
+        addAndOpenTask("everybody dance now")
+        checkThat.viewIsCompletelyDisplayed(R.id.edittext_taskdetail_title)
+        checkThat.viewIsCompletelyDisplayed(R.id.srg_taskdetail_list)
+        checkThat.viewIsCompletelyDisplayed(R.id.edittext_taskdetail_description)
+        checkThat.viewIsCompletelyDisplayed(R.id.textview_taskdetail_date)
+        checkThat.viewIsCompletelyDisplayed(R.id.btn_taskdetail_date)
+        checkThat.viewIsCompletelyDisplayed(R.id.btn_taskdetail_remove_alarm)
+    }
+
+    @Test
     fun isDescriptionSingleLine() {
         addTask(
             "Lorem ipsum dolor sit amet, te elit possit suavitate duo. Nec sale sonet" +
@@ -104,6 +115,18 @@ class TaskFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
         scheduleTask(2020, 2, 2, 22, 15)
         events.clickOnView(R.id.btn_taskdetail_remove_alarm)
         checkThat.viewHasText(R.id.textview_taskdetail_date, "")
+    }
+
+    @Test
+    fun addDescription() {
+        val description = "- call me by you name\n- never let me go\n- love, simon"
+        addAndOpenTask("my book list")
+        events.textOnView(R.id.edittext_taskdetail_description, description)
+        events.waitFor(R.id.recyclerview_tasklist_list, 500)
+        events.navigateUp()
+        events.waitFor(R.id.recyclerview_tasklist_list, 2000)
+        events.clickOnRecyclerItem(R.id.recyclerview_tasklist_list)
+        checkThat.viewHasText(R.id.edittext_taskdetail_description, description)
     }
 
     private fun addTask(taskName: String) {

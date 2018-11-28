@@ -1,15 +1,16 @@
 package com.escodro.alkaa.database
 
+import android.content.Context
 import androidx.room.Room
-import androidx.test.InstrumentationRegistry
-import androidx.test.runner.AndroidJUnit4
+import androidx.test.core.app.ApplicationProvider
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.escodro.alkaa.data.local.TaskDatabase
 import com.escodro.alkaa.data.local.dao.CategoryDao
 import com.escodro.alkaa.data.local.dao.TaskDao
 import com.escodro.alkaa.data.local.model.Category
 import com.escodro.alkaa.data.local.model.Task
-import junit.framework.Assert.assertTrue
 import org.junit.After
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -26,7 +27,7 @@ class TaskDatabaseTest {
 
     @Before
     fun createDb() {
-        val context = InstrumentationRegistry.getTargetContext()
+        val context: Context = ApplicationProvider.getApplicationContext()
         database = Room.inMemoryDatabaseBuilder(context, TaskDatabase::class.java).build()
         taskDao = database.taskDao()
 

@@ -34,8 +34,6 @@ class TaskDetailFragment : Fragment() {
 
     private var binding: FragmentTaskDetailBinding? = null
 
-    private var task: Task? = null
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -77,8 +75,7 @@ class TaskDetailFragment : Fragment() {
         binding?.setLifecycleOwner(this)
         binding?.viewModel = viewModel
 
-        task = TaskDetailFragmentArgs.fromBundle(arguments).task
-        viewModel.taskData.value = task
+        viewModel.taskData.value = TaskDetailFragmentArgs.fromBundle(arguments).task
     }
 
     private fun initListeners() {
@@ -91,15 +88,11 @@ class TaskDetailFragment : Fragment() {
         btn_taskdetail_date.setOnClickListener { _ -> showDateTimePicker(::updateTaskWithDueDate) }
         btn_taskdetail_remove_alarm.setOnClickListener { _ -> removeAlarm() }
 
-        val titleDisposable = edittext_taskdetail_title.textChangedObservable().subscribe { text ->
-            Timber.d("Updating task with title = $text")
-            task?.let { viewModel.updateTask(it) }
-        }
+        val titleDisposable = edittext_taskdetail_title.textChangedObservable()
+            .subscribe { text -> viewModel.updateTitle(text) }
 
-        val descDisposable = edittext_taskdetail_description.textChangedObservable().subscribe { text ->
-            Timber.d("Updating task with description = $text")
-            task?.let { viewModel.updateTask(it) }
-        }
+        val descDisposable = edittext_taskdetail_description.textChangedObservable()
+            .subscribe { text -> viewModel.updateDescription(text) }
 
         compositeDisposable.addAll(titleDisposable, descDisposable)
     }
@@ -110,7 +103,7 @@ class TaskDetailFragment : Fragment() {
         binding?.srgTaskdetailList?.addAll(list)
 
         val checked = list.asSequence().withIndex().firstOrNull {
-            it.value.id == task?.categoryId
+            it.value.id == viewModel.taskData.value?.categoryId
         }
         checked?.let { binding?.srgTaskdetailList?.setChecked(it.index) }
     }
@@ -120,31 +113,19 @@ class TaskDetailFragment : Fragment() {
 
         val checked = radioGroup?.findViewById<LabelRadioButton>(position)
         val categoryId = checked?.tag as? Long ?: 0
-
-        task?.let { task ->
-            if (task.categoryId != categoryId) {
-                task.categoryId = categoryId
-                viewModel.updateTask(task)
-            }
-        }
+        viewModel.updateCategory(categoryId)
     }
 
     private fun updateTaskWithDueDate(calendar: Calendar) {
         Timber.d("updateTaskWithDueDate() - Calendar = ${calendar.time}")
 
-        task?.let {
-            it.dueDate = calendar
-            viewModel.updateTask(it)
-        }
+        viewModel.setAlarm(calendar)
     }
 
     private fun removeAlarm() {
         Timber.d("removeAlarm()")
-        context?.showToast(R.string.task_details_alarm_removed)
 
-        task?.let {
-            it.dueDate = null
-            viewModel.updateTask(it)
-        }
+        context?.showToast(R.string.task_details_alarm_removed)
+        viewModel.removeAlarm()
     }
 }

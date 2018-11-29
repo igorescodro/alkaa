@@ -26,7 +26,7 @@
             android:imeOptions="actionDone"
             android:inputType="text"
             android:maxLines="1"
-            android:text="@={viewModel.taskData.title}"
+            android:text="@{viewModel.taskData.title}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -45,7 +45,7 @@
             android:layout_height="0dp"
             android:layout_margin="8dp"
             android:gravity="top"
-            android:text="@={viewModel.taskData.description}"
+            android:text="@{viewModel.taskData.description}"
             app:layout_constraintBottom_toTopOf="@+id/textview_taskdetail_date"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

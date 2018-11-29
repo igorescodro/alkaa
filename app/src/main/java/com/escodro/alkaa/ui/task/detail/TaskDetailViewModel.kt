@@ -2,10 +2,13 @@ package com.escodro.alkaa.ui.task.detail
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.escodro.alkaa.common.extension.notify
 import com.escodro.alkaa.data.local.model.Category
 import com.escodro.alkaa.data.local.model.Task
 import com.escodro.alkaa.ui.task.alarm.TaskAlarmManager
 import io.reactivex.disposables.CompositeDisposable
+import timber.log.Timber
+import java.util.Calendar
 
 /**
  * [ViewModel] responsible to provide information to [com.escodro.alkaa.databinding
@@ -29,20 +32,89 @@ class TaskDetailViewModel(
     }
 
     /**
-     * Updates the given task.
+     * Updates the task title.
      *
-     * @param task the task to be updated
+     * @param title the task title
      */
-    fun updateTask(task: Task) {
-        taskData.value = task
+    fun updateTitle(title: String) {
+        Timber.d("updateTitle() - $title")
+
+        taskData.value?.let {
+            taskData.value?.title = title
+            val disposable = contract.updateTask(it).subscribe()
+            compositeDisposable.add(disposable)
+        }
+    }
+
+    /**
+     * Updates the task description.
+     *
+     * @param description the task description
+     */
+    fun updateDescription(description: String) {
+        Timber.d("updateDescription() - $description")
+
+        taskData.value?.let {
+            taskData.value?.description = description
+            val disposable = contract.updateTask(it).subscribe()
+            compositeDisposable.add(disposable)
+        }
+    }
+
+    /**
+     * Updates the task category.
+     *
+     * @param categoryId the task category id
+     */
+    fun updateCategory(categoryId: Long) {
+        Timber.d("updateCategory() - $categoryId")
+
+        taskData.value?.let {
+            if (it.categoryId == categoryId) {
+                return
+            }
+
+            taskData.value?.categoryId = categoryId
+            val disposable = contract.updateTask(it).subscribe()
+            compositeDisposable.add(disposable)
+        }
+    }
+
+    /**
+     * Sets an alarm to the task.
+     *
+     * @param alarm the date and time to ring the calendar
+     */
+    fun setAlarm(alarm: Calendar) {
+        Timber.d("setAlarm()")
+
+        taskData.value?.let {
+            it.dueDate = alarm
+            alarmManager.scheduleTaskAlarm(it)
+            updateTask(it)
+        }
+        taskData.notify()
+    }
+
+    /**
+     * Removes the task alarm.
+     */
+    fun removeAlarm() {
+        Timber.d("removeAlarm()")
+
+        taskData.value?.let {
+            it.dueDate = null
+            alarmManager.cancelTaskAlarm(it.id)
+            updateTask(it)
+        }
+        taskData.notify()
+    }
+
+    private fun updateTask(task: Task) {
+        Timber.d("updateTask() - $task")
+
         val disposable = contract.updateTask(task).subscribe()
         compositeDisposable.add(disposable)
-
-        if (taskData.value?.dueDate != null) {
-            alarmManager.scheduleTaskAlarm(task)
-        } else {
-            alarmManager.cancelTaskAlarm(task.id)
-        }
     }
 
     override fun onCleared() {

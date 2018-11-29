@@ -4,12 +4,16 @@ import android.text.TextUtils
 import androidx.lifecycle.ViewModel
 import com.escodro.alkaa.data.local.model.Task
 import com.escodro.alkaa.data.local.model.TaskWithCategory
+import com.escodro.alkaa.ui.task.alarm.TaskAlarmManager
 import io.reactivex.disposables.CompositeDisposable
 
 /**
  * [ViewModel] responsible to provide information to [TaskListFragment].
  */
-class TaskListViewModel(private val contract: TaskListContract) : ViewModel() {
+class TaskListViewModel(
+    private val contract: TaskListContract,
+    private val alarmManager: TaskAlarmManager
+) : ViewModel() {
 
     private var categoryId: Long? = null
 
@@ -59,9 +63,12 @@ class TaskListViewModel(private val contract: TaskListContract) : ViewModel() {
      * @param taskWithCategory task to be removed
      */
     fun deleteTask(taskWithCategory: TaskWithCategory) {
-        val disposable = contract.deleteTask(taskWithCategory.task)
+        val task = taskWithCategory.task
+        val disposable = contract.deleteTask(task)
             .subscribe()
         compositeDisposable.add(disposable)
+
+        alarmManager.cancelTaskAlarm(task.id)
     }
 
     /**

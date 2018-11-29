@@ -29,12 +29,10 @@ val applicationModule = module {
 
     // Task
     single { TaskListContract(get()) }
-    viewModel { TaskListViewModel(get()) }
-    single { TaskNotificationChannel(androidContext()) }
+    viewModel { TaskListViewModel(get(), get()) }
 
     // Detail
     single { TaskDetailContract(get()) }
-    single { TaskAlarmManager(androidContext()) }
     viewModel { TaskDetailViewModel(get(), get()) }
 
     // Category
@@ -44,6 +42,12 @@ val applicationModule = module {
     // New Category
     single { NewCategoryContract(get()) }
     viewModel { NewCategoryViewModel(get()) }
+
+    // Alarm
+    single { TaskAlarmManager(androidContext()) }
+
+    // Notification
+    single { TaskNotificationChannel(androidContext()) }
 }
 
 /**

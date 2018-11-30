@@ -2,6 +2,9 @@
 
     <string name="app_name">Alkaa</string>
 
+    <!--  -->
+    <string name="task_list_title">My Tasks</string>
+
     <!-- Task database -->
     <string name="category_default_personal">Personal</string>
     <string name="category_default_work">Work</string>
@@ -29,6 +32,12 @@
     <!-- Task notification channel -->
     <string name="channel_task_name">Task alarms</string>
     <string name="channel_task_description">Notifications to remind tasks</string>
+
+    <!-- Preference  screen-->
+    <string name="preference_title">Preferences</string>
+
+    <!-- Category  screen-->
+    <string name="category_detail_title">Add New Category</string>
 
     <string-array
         name="task_dialog_options">

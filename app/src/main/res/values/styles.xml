@@ -19,4 +19,14 @@
         <item name="android:fontFamily">sans-serif-light</item>
     </style>
 
+    <style name="ToolbarTitle">
+        <item name="android:textSize">18sp</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
+    <style name="ToolbarTheme">
+        <item name="android:textColorSecondary">@color/colorPrimary</item>
+        <item name="android:textColorPrimary">@color/colorPrimary</item>
+    </style>
+
 </resources>

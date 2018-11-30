@@ -60,7 +60,12 @@ class MainActivity : AppCompatActivity() {
         Timber.d("setupActionBar()")
 
         setSupportActionBar(toolbar_main_toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
         NavigationUI.setupActionBarWithNavController(this, navController, drawer_layout_main_parent)
+
+        navController.addOnNavigatedListener { _, destination ->
+            toolbar_title.text = destination.label
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

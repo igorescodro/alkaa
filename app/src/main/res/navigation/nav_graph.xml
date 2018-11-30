@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
-            app:startDestination="@id/taskListFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/taskListFragment">
 
     <fragment
         android:id="@+id/taskListFragment"
         android:name="com.escodro.alkaa.ui.task.list.TaskListFragment"
-        android:label="Tasks"
+        android:label="@string/task_list_title"
         tools:layout="@layout/fragment_task_list">
 
         <action
@@ -16,7 +16,7 @@
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
 
         <action
             android:id="@+id/action_detail"
@@ -24,26 +24,27 @@
             app:enterAnim="@anim/slide_enter_anim"
             app:exitAnim="@anim/slide_exit_anim"
             app:popEnterAnim="@anim/slide_pop_enter_anim"
-            app:popExitAnim="@anim/slide_pop_exit_name"/>
+            app:popExitAnim="@anim/slide_pop_exit_name" />
 
         <action
             android:id="@id/key_action_open_category"
-            app:destination="@id/categoryFragment"/>
+            app:destination="@id/categoryFragment" />
 
     </fragment>
 
     <fragment
         android:id="@+id/preferenceFragment"
         android:name="com.escodro.alkaa.ui.preference.PreferenceFragment"
-        android:label="Preferences"/>
+        android:label="@string/preference_title" />
 
     <fragment
         android:id="@+id/taskDetailFragment"
-        android:name="com.escodro.alkaa.ui.task.detail.TaskDetailFragment">
+        android:name="com.escodro.alkaa.ui.task.detail.TaskDetailFragment"
+        android:label="@string/task_list_title">
 
         <argument
             android:name="task"
-            app:argType="com.escodro.alkaa.data.local.model.Task"/>
+            app:argType="com.escodro.alkaa.data.local.model.Task" />
     </fragment>
 
     <fragment
@@ -54,14 +55,14 @@
 
         <action
             android:id="@+id/action_new_category"
-            app:destination="@id/newCategoryFragment"
-            />
+            app:destination="@id/newCategoryFragment" />
+
     </fragment>
 
     <fragment
         android:id="@+id/newCategoryFragment"
         android:name="com.escodro.alkaa.ui.category.create.NewCategoryFragment"
-        android:label="Add Category"
-        tools:layout="@layout/fragment_category_new"/>
+        android:label="@string/category_detail_title"
+        tools:layout="@layout/fragment_category_new" />
 
 </navigation>

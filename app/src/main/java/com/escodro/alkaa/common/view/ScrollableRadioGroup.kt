@@ -29,6 +29,7 @@ class ScrollableRadioGroup : HorizontalScrollView {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as? LayoutInflater
         inflater?.inflate(R.layout.view_scrollable_radio_group, this)
         radioGroup = srg_radiogroup_list
+        isHorizontalScrollBarEnabled = false
     }
 
     /**
@@ -57,15 +58,6 @@ class ScrollableRadioGroup : HorizontalScrollView {
                 radioGroup.addView(radioButton, params)
             }
         }
-    }
-
-    /**
-     * Sets the [android.widget.RadioGroup.OnCheckedChangeListener] in the view.
-     *
-     * @param listener the listener to receive the events
-     */
-    fun setOnCheckedChangeListener(listener: RadioGroup.OnCheckedChangeListener) {
-        radioGroup.setOnCheckedChangeListener(listener)
     }
 
     /**

@@ -31,13 +31,36 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <View
+            android:id="@+id/view_category_separator_top"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="8dp"
+            android:background="@color/gray_light"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edittext_taskdetail_title" />
+
         <com.escodro.alkaa.common.view.ScrollableRadioGroup
             android:id="@+id/srg_taskdetail_list"
             android:layout_width="match_parent"
             android:layout_height="64dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edittext_taskdetail_title" />
+            app:layout_constraintTop_toBottomOf="@id/view_category_separator_top" />
+
+        <View
+            android:id="@+id/view_category_separator_bottom"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_margin="8dp"
+            android:background="@color/gray_light"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/srg_taskdetail_list" />
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/edittext_taskdetail_description"
@@ -49,7 +72,7 @@
             app:layout_constraintBottom_toTopOf="@+id/textview_taskdetail_date"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/srg_taskdetail_list" />
+            app:layout_constraintTop_toBottomOf="@id/view_category_separator_bottom" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textview_taskdetail_date"

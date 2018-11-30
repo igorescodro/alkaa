@@ -6,6 +6,7 @@
 
     <!-- General -->
     <color name="gray">#808080</color>
+    <color name="gray_light">#bcbcbc</color>
 
     <!-- Category -->
     <color name="blue">#62A7E0</color>

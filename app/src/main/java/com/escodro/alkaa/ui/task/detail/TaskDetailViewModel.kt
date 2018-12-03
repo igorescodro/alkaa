@@ -1,5 +1,6 @@
 package com.escodro.alkaa.ui.task.detail
 
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.escodro.alkaa.common.extension.notify
@@ -21,7 +22,13 @@ class TaskDetailViewModel(
 
     val taskData = MutableLiveData<Task>()
 
+    val chipVisibility = MediatorLiveData<Boolean>()
+
     private val compositeDisposable = CompositeDisposable()
+
+    init {
+        chipVisibility.addSource(taskData) { chipVisibility.value = it.dueDate != null }
+    }
 
     /**
      * Load all categories.

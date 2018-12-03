@@ -86,13 +86,14 @@ class TaskDetailFragment : Fragment() {
         }
 
         btn_taskdetail_date.setOnClickListener { _ -> showDateTimePicker(::updateTaskWithDueDate) }
-        btn_taskdetail_remove_alarm.setOnClickListener { _ -> removeAlarm() }
 
         val titleDisposable = edittext_taskdetail_title.textChangedObservable()
             .subscribe { text -> viewModel.updateTitle(text) }
 
         val descDisposable = edittext_taskdetail_description.textChangedObservable()
             .subscribe { text -> viewModel.updateDescription(text) }
+
+        chip_taskdetail_date.setOnCloseIconClickListener { removeAlarm() }
 
         compositeDisposable.addAll(titleDisposable, descDisposable)
     }

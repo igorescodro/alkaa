@@ -52,8 +52,7 @@ class MainActivity : AppCompatActivity() {
         setupActionBar()
         updateDrawer()
 
-        navigationview_main_drawer
-            .setNavigationItemSelectedListener { item -> navigateToItem(item) }
+        navigationview_main_drawer.setNavigationItemSelectedListener { item -> navigate(item) }
     }
 
     private fun setupActionBar() {
@@ -86,26 +85,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    /**
-     * Navigates to [TaskListFragment] opening only the tasks related to the category selected.
-     * The back stack is cleared when the navigation is made.
-     *
-     * @return `true` indicating that the event was handled
-     */
-    private fun navigateToItem(item: MenuItem): Boolean {
-        Timber.d("navigateToItem() - item  = ${item.title}")
-
-        drawerSelectedItem = item.itemId
-        val bundle = bundleOf(
-            TaskListFragment.EXTRA_CATEGORY_ID to item.itemId.toLong(),
-            TaskListFragment.EXTRA_CATEGORY_NAME to item.title
-        )
-        navController.navigateSingleTop(R.id.taskListFragment, bundle)
-        drawer_layout_main_parent.close()
-
-        return true
-    }
-
     private fun updateList(list: List<Category>) {
         Timber.d("updateList() - Size = ${list.size}")
 
@@ -114,10 +93,38 @@ class MainActivity : AppCompatActivity() {
         menu.add(Menu.NONE, 0, Menu.NONE, R.string.drawer_menu_all_tasks).isCheckable = true
         list.forEach { menu.add(Menu.NONE, it.id.toInt(), Menu.NONE, it.name).isCheckable = true }
         navigationview_main_drawer.setCheckedItem(drawerSelectedItem)
+        menu.add(GROUP_SETTINGS, CATEGORY_ITEM, Menu.NONE, R.string.drawer_menu_manage_categories)
     }
 
     /**
-     * Updates the [android.support.v4.widget.DrawerLayout] to create a effect where the drawer
+     * Navigates to [TaskListFragment] opening only the tasks related to the category selected.
+     * The back stack is cleared when the navigation is made.
+     *
+     * @return `true` indicating that the event was handled
+     */
+    private fun navigate(item: MenuItem): Boolean {
+        Timber.d("navigate() - item  = ${item.title}")
+
+        drawerSelectedItem = item.itemId
+        when (drawerSelectedItem) {
+            CATEGORY_ITEM -> navController.navigate(R.id.key_action_open_category)
+            else -> navigateToCategory(item)
+        }
+
+        drawer_layout_main_parent.close()
+        return true
+    }
+
+    private fun navigateToCategory(item: MenuItem) {
+        val bundle = bundleOf(
+            TaskListFragment.EXTRA_CATEGORY_ID to item.itemId.toLong(),
+            TaskListFragment.EXTRA_CATEGORY_NAME to item.title
+        )
+        navController.navigateSingleTop(R.id.taskListFragment, bundle)
+    }
+
+    /**
+     * Updates the [androidx.drawerlayout.widget.DrawerLayout] to create a effect where the drawer
      * stands still and the main content slides out.
      */
     private fun updateDrawer() {
@@ -144,5 +151,12 @@ class MainActivity : AppCompatActivity() {
             addDrawerListener(toggle)
             toggle.syncState()
         }
+    }
+
+    companion object {
+
+        private const val CATEGORY_ITEM = -1
+
+        private const val GROUP_SETTINGS = 1
     }
 }

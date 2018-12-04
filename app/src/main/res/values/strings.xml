@@ -12,6 +12,7 @@
 
     <!-- Main drawer -->
     <string name="drawer_menu_all_tasks">All Tasks</string>
+    <string name="drawer_menu_manage_categories">Manage categories</string>
 
     <!-- Task screen -->
     <string name="task_menu_preferences">Preferences</string>
@@ -40,8 +41,7 @@
     <!-- Category  screen-->
     <string name="category_detail_title">Add New Category</string>
 
-    <string-array
-        name="task_dialog_options">
+    <string-array name="task_dialog_options">
         <item>Delete</item>
     </string-array>
 

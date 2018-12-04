@@ -3,9 +3,6 @@
 
     <item
         android:id="@id/key_action_open_preference"
-        android:title="@string/task_menu_preferences"/>
+        android:title="@string/task_menu_preferences" />
 
-    <item
-        android:id="@id/key_action_open_category"
-        android:title="@string/task_menu_category"/>
 </menu>

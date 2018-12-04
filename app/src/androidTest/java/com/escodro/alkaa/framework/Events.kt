@@ -21,12 +21,14 @@ import androidx.test.espresso.contrib.NavigationViewActions
 import androidx.test.espresso.contrib.PickerActions
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.RootMatchers.isDialog
+import androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import androidx.test.espresso.matcher.ViewMatchers.withClassName
 import androidx.test.espresso.matcher.ViewMatchers.withContentDescription
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
+import com.google.android.material.chip.Chip
 import org.hamcrest.Matcher
 import java.util.Calendar
 
@@ -51,6 +53,10 @@ class Events {
             RecyclerViewActions
                 .actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click())
         )
+    }
+
+    fun clickOnCloseChip(@StringRes viewId: Int) {
+        onView(withId(viewId)).perform(closeChip())
     }
 
     fun longPressOnRecyclerItem(@IdRes recyclerView: Int) {
@@ -131,6 +137,23 @@ class Events {
 
             override fun perform(uiController: UiController?, view: View?) {
                 uiController?.loopMainThreadForAtLeast(delay)
+            }
+        }
+
+    private fun closeChip(): ViewAction =
+        object : ViewAction {
+
+            override fun getDescription(): String {
+                return "close the chip"
+            }
+
+            override fun getConstraints(): Matcher<View> {
+                return isAssignableFrom(Chip::class.java)
+            }
+
+            override fun perform(uiController: UiController?, view: View?) {
+                val chip = view as Chip
+                chip.performCloseIconClick()
             }
         }
 }

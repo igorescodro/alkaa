@@ -36,12 +36,12 @@ class TaskFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
     @Test
     fun areAllDetailViewsIsCompletelyDisplayed() {
         addAndOpenTask("everybody dance now")
+        scheduleTask(1993, 3, 15, 16, 2)
         checkThat.viewIsCompletelyDisplayed(R.id.edittext_taskdetail_title)
         checkThat.viewIsCompletelyDisplayed(R.id.srg_taskdetail_list)
         checkThat.viewIsCompletelyDisplayed(R.id.edittext_taskdetail_description)
-        checkThat.viewIsCompletelyDisplayed(R.id.textview_taskdetail_date)
+        checkThat.viewIsCompletelyDisplayed(R.id.chip_taskdetail_date)
         checkThat.viewIsCompletelyDisplayed(R.id.btn_taskdetail_date)
-        checkThat.viewIsCompletelyDisplayed(R.id.btn_taskdetail_remove_alarm)
     }
 
     @Test
@@ -113,8 +113,8 @@ class TaskFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
     fun checkIfAlarmIsRemoved() {
         addAndOpenTask("cancel dinner")
         scheduleTask(2020, 2, 2, 22, 15)
-        events.clickOnView(R.id.btn_taskdetail_remove_alarm)
-        checkThat.viewHasText(R.id.textview_taskdetail_date, "")
+        events.clickOnCloseChip(R.id.chip_taskdetail_date)
+        checkThat.viewHasText(R.id.chip_taskdetail_date, "")
     }
 
     @Test
@@ -153,6 +153,6 @@ class TaskFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
         events.clickOnView(android.R.id.button1)
         events.setTime(calendar)
         events.clickOnView(android.R.id.button1)
-        checkThat.viewHasDate(R.id.textview_taskdetail_date, calendar)
+        checkThat.viewHasDate(R.id.chip_taskdetail_date, calendar)
     }
 }

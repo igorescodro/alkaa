@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.annotation.IdRes
 import androidx.annotation.StringRes
-import androidx.appcompat.widget.AppCompatTextView
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -18,6 +17,7 @@ import androidx.test.espresso.matcher.ViewMatchers.isCompletelyDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withParent
 import androidx.test.espresso.matcher.ViewMatchers.withText
+import com.google.android.material.chip.Chip
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.not
@@ -122,8 +122,8 @@ class Matchers {
                         Locale.getDefault()
                     )
 
-                    val textView = view as AppCompatTextView
-                    val date = dateFormat.parse(textView.text?.toString())
+                    val chipView = view as Chip
+                    val date = dateFormat.parse(chipView.text?.toString())
                     return calendar.time.compareTo(date) == 0
                 }
 

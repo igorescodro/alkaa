@@ -16,8 +16,8 @@ class CategoryFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) 
     @Before
     fun navigateToCategoryScreen() {
         daoProvider.getCategoryDao().cleanTable()
-        openActionBarOverflowOrOptionsMenu(context)
-        events.clickOnViewWithText(R.string.task_menu_category)
+        openDrawer()
+        events.clickOnViewWithText(R.string.drawer_menu_manage_categories)
         checkThat.toolbarContainsTitle(R.id.toolbar_main_toolbar, R.string.category_list_label)
     }
 
@@ -61,5 +61,10 @@ class CategoryFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) 
         events.textOnView(R.id.edittext_categorynew_description, categoryName)
         events.clickOnView(R.id.button_categorynew_add)
         checkThat.listContainsItem(R.id.recyclerview_categorylist_list, categoryName)
+    }
+
+    private fun openDrawer() {
+        events.openDrawer(R.id.drawer_layout_main_parent)
+        checkThat.drawerIsOpen(R.id.drawer_layout_main_parent)
     }
 }

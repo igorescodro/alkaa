@@ -5,14 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.PopupMenu
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.escodro.alkaa.R
 import com.escodro.alkaa.data.local.model.Category
-import com.escodro.alkaa.databinding.FragmentCategoryListBinding
+import kotlinx.android.synthetic.main.fragment_category_list.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
@@ -25,8 +24,6 @@ class CategoryListFragment : Fragment(), CategoryListAdapter.CategoryListListene
 
     private val viewModel: CategoryListViewModel by viewModel()
 
-    private var binding: FragmentCategoryListBinding? = null
-
     private var navigator: NavController? = null
 
     override fun onCreateView(
@@ -36,10 +33,7 @@ class CategoryListFragment : Fragment(), CategoryListAdapter.CategoryListListene
     ): View? {
         Timber.d("onCreateView()")
 
-        binding = DataBindingUtil
-            .inflate(inflater, R.layout.fragment_category_list, container, false)
-
-        return binding?.root
+        return inflater.inflate(R.layout.fragment_category_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -62,11 +56,9 @@ class CategoryListFragment : Fragment(), CategoryListAdapter.CategoryListListene
     private fun bindComponents() {
         Timber.d("bindComponents()")
 
-        binding?.setLifecycleOwner(this)
-        binding?.recyclerviewCategorylistList?.adapter = adapter
-        binding?.recyclerviewCategorylistList?.layoutManager = getLayoutManager()
-        binding?.buttonCategorylistAdd
-            ?.setOnClickListener { navigator?.navigate(R.id.action_new_category) }
+        recyclerview_categorylist_list?.adapter = adapter
+        recyclerview_categorylist_list?.layoutManager = getLayoutManager()
+        button_categorylist_add?.setOnClickListener { navigator?.navigate(R.id.action_new_category) }
     }
 
     private fun getLayoutManager() =

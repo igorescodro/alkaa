@@ -6,7 +6,6 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -18,7 +17,7 @@ import com.escodro.alkaa.common.extension.itemDialog
 import com.escodro.alkaa.common.extension.items
 import com.escodro.alkaa.common.extension.withDelay
 import com.escodro.alkaa.data.local.model.TaskWithCategory
-import com.escodro.alkaa.databinding.FragmentTaskListBinding
+import kotlinx.android.synthetic.main.fragment_task_list.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
@@ -28,8 +27,6 @@ import timber.log.Timber
 class TaskListFragment : Fragment() {
 
     private val viewModel: TaskListViewModel by viewModel()
-
-    private var binding: FragmentTaskListBinding? = null
 
     private var navigator: NavController? = null
 
@@ -47,10 +44,8 @@ class TaskListFragment : Fragment() {
     ): View? {
         Timber.d("onCreateView()")
 
-        binding = DataBindingUtil
-            .inflate(inflater, R.layout.fragment_task_list, container, false)
         setHasOptionsMenu(true)
-        return binding?.root
+        return inflater.inflate(R.layout.fragment_task_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -75,9 +70,8 @@ class TaskListFragment : Fragment() {
     private fun bindComponents() {
         Timber.d("bindComponents()")
 
-        binding?.setLifecycleOwner(this)
-        binding?.recyclerviewTasklistList?.adapter = adapter
-        binding?.recyclerviewTasklistList?.layoutManager = getLayoutManager()
+        recyclerview_tasklist_list?.adapter = adapter
+        recyclerview_tasklist_list?.layoutManager = getLayoutManager()
     }
 
     private fun loadTasks() {
@@ -88,7 +82,7 @@ class TaskListFragment : Fragment() {
             TaskListFragment.EXTRA_CATEGORY_NAME, getString(R.string.drawer_menu_all_tasks)
         )
         viewModel.loadTasks(itemId, onTasksLoaded = { onTaskLoaded(it) })
-        binding?.textviewTasklistCategory?.text = taskName
+        textview_tasklist_category?.text = taskName
     }
 
     private fun getLayoutManager() =

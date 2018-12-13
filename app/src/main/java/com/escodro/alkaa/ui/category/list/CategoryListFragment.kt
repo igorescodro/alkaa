@@ -21,9 +21,9 @@ import timber.log.Timber
 /**
  * [Fragment] responsible to show all [Category].
  */
-class CategoryListFragment : Fragment(), CategoryListAdapter.CategoryListListener {
+class CategoryListFragment : Fragment() {
 
-    private val adapter = CategoryListAdapter()
+    private val adapter = CategoryListAdapter(onOptionMenuClicked = ::onOptionMenuClicked)
 
     private val viewModel: CategoryListViewModel by viewModel()
 
@@ -44,16 +44,8 @@ class CategoryListFragment : Fragment(), CategoryListAdapter.CategoryListListene
         Timber.d("onViewCreated()")
 
         bindComponents()
-        adapter.listener = this
         viewModel.loadCategories(onListLoaded = ::updateList)
         navigator = NavHostFragment.findNavController(this)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        Timber.d("onDestroyView()")
-
-        adapter.listener = null
     }
 
     private fun bindComponents() {
@@ -73,7 +65,7 @@ class CategoryListFragment : Fragment(), CategoryListAdapter.CategoryListListene
         adapter.submitList(list)
     }
 
-    override fun onOptionMenuClicked(view: View, category: Category) {
+    private fun onOptionMenuClicked(view: View, category: Category) {
         Timber.d("onOptionMenuClicked() - clicked = ${category.name}")
 
         val popupMenu = context?.let { PopupMenu(it, view) }

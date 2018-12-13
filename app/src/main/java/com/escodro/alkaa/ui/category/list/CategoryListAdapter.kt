@@ -14,10 +14,8 @@ import com.escodro.alkaa.databinding.ItemCategoryBinding
 /**
  * [RecyclerView.Adapter] to bind the [Category] in the [RecyclerView].
  */
-class CategoryListAdapter : ListAdapter<Category, BindingHolder<ItemCategoryBinding>>
-    (CategoryDiffCallback()) {
-
-    var listener: CategoryListListener? = null
+class CategoryListAdapter(val onOptionMenuClicked: (view: View, category: Category) -> Unit) :
+    ListAdapter<Category, BindingHolder<ItemCategoryBinding>>(CategoryDiffCallback()) {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -33,25 +31,7 @@ class CategoryListAdapter : ListAdapter<Category, BindingHolder<ItemCategoryBind
         val item = getItem(position)
         holder.binding.category = item
         holder.binding.imageviewItemcategoryOptions.setOnClickListener { view ->
-            notifyMenuClicked(view, item)
+            onOptionMenuClicked(view, item)
         }
-    }
-
-    private fun notifyMenuClicked(view: View, category: Category) {
-        listener?.onOptionMenuClicked(view, category)
-    }
-
-    /**
-     * Listener responsible to callback interactions with [Category] item.
-     */
-    interface CategoryListListener {
-
-        /**
-         * Callback notified when one item of [android.widget.PopupMenu] is clicked.
-         *
-         * @param view the view clicked
-         * @param category the category clicked
-         */
-        fun onOptionMenuClicked(view: View, category: Category)
     }
 }

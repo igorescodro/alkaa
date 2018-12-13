@@ -46,6 +46,10 @@ class TaskDetailViewModel(
     fun updateTitle(title: String) {
         Timber.d("updateTitle() - $title")
 
+        if (title.isEmpty()) {
+            return
+        }
+
         taskData.value?.let {
             taskData.value?.title = title
             val disposable = contract.updateTask(it).subscribe()

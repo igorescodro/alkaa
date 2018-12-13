@@ -95,6 +95,18 @@ class TaskFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
     }
 
     @Test
+    fun updateTitleWithEmptyText() {
+        val task = "don't you worry child"
+        addAndOpenTask(task)
+        events.clickOnView(R.id.edittext_taskdetail_title)
+        events.textOnView(R.id.edittext_taskdetail_title, "")
+        events.waitFor(R.id.recyclerview_tasklist_list, 500)
+        events.navigateUp()
+        events.waitFor(R.id.recyclerview_tasklist_list, 2000)
+        checkThat.listContainsItem(R.id.recyclerview_tasklist_list, task)
+    }
+
+    @Test
     fun checkIfTaskCategoryIsSaved() {
         addAndOpenTask("call my by your name")
         events.clickOnRadioButton(R.id.srg_radiogroup_list, 1)

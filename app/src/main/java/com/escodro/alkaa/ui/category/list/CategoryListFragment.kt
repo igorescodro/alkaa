@@ -10,6 +10,9 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.escodro.alkaa.R
+import com.escodro.alkaa.common.extension.dialog
+import com.escodro.alkaa.common.extension.negativeButton
+import com.escodro.alkaa.common.extension.positiveButton
 import com.escodro.alkaa.data.local.model.Category
 import kotlinx.android.synthetic.main.fragment_category_list.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -89,13 +92,23 @@ class CategoryListFragment : Fragment(), CategoryListAdapter.CategoryListListene
     private fun onMenuItemClicked(category: Category) =
         PopupMenu.OnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.key_action_remove_category -> viewModel.deleteCategory(
-                    category,
-                    onCategoryRemoved = ::onTaskRemoved
-                )
+                R.id.key_action_remove_category -> confirmRemoval(category)
             }
             true
         }
+
+    private fun confirmRemoval(category: Category) {
+        val description = getString(R.string.category_list_dialog_remove_description, category.name)
+
+        dialog(R.string.category_list_dialog_remove_title, description) {
+            positiveButton(R.string.category_list_dialog_remove_positive) { removeCategory(category) }
+            negativeButton(R.string.category_list_dialog_remove_negative) { /* Do nothing */ }
+        }.show()
+    }
+
+    private fun removeCategory(category: Category) {
+        viewModel.deleteCategory(category, onCategoryRemoved = ::onTaskRemoved)
+    }
 
     companion object {
 

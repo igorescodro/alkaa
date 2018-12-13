@@ -2,7 +2,7 @@
 
     <string name="app_name">Alkaa</string>
 
-    <!--  -->
+    <!-- Main screen -->
     <string name="task_list_title">My Tasks</string>
 
     <!-- Task database -->
@@ -26,6 +26,10 @@
     <!-- Category screen -->
     <string name="category_list_label">Categories</string>
     <string name="category_list_menu_remove">Remove</string>
+    <string name="category_list_dialog_remove_title">Remove category?</string>
+    <string name="category_list_dialog_remove_description">Deleting \"%s\" will also delete all the tasks under this category.</string>
+    <string name="category_list_dialog_remove_positive">Remove</string>
+    <string name="category_list_dialog_remove_negative">Cancel</string>
 
     <!-- New Category screen -->
     <string name="new_category_add">Add category</string>

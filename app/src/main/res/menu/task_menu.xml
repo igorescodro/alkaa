@@ -5,7 +5,7 @@
     <item
         android:id="@id/key_action_open_preference"
         android:icon="@drawable/ic_settings"
-        app:showAsAction="always"
-        android:title="@string/task_menu_preferences" />
+        android:title="@string/task_menu_preferences"
+        app:showAsAction="always" />
 
 </menu>

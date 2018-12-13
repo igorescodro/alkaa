@@ -3,6 +3,6 @@
 
     <item
         android:id="@id/key_action_remove_category"
-        android:title="@string/category_list_menu_remove"/>
+        android:title="@string/category_list_menu_remove" />
 
 </menu>

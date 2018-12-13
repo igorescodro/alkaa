@@ -27,10 +27,8 @@ class CategoryListViewModel(private val contract: CategoryListContract) : ViewMo
      *
      * @param category category to be removed
      */
-    fun deleteCategory(category: Category, onCategoryRemoved: (category: Category) -> Unit) {
-        val disposable = contract.deleteTask(category)
-            .doOnComplete { onCategoryRemoved(category) }
-            .subscribe()
+    fun deleteCategory(category: Category) {
+        val disposable = contract.deleteTask(category).subscribe()
         compositeDisposable.add(disposable)
     }
 

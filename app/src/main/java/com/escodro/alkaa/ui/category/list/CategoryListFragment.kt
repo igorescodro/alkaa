@@ -70,7 +70,7 @@ class CategoryListFragment : Fragment(), CategoryListAdapter.CategoryListListene
     private fun updateList(list: List<Category>) {
         Timber.d("updateList() - Size = ${list.size}")
 
-        adapter.updateList(list)
+        adapter.submitList(list)
     }
 
     override fun onOptionMenuClicked(view: View, category: Category) {
@@ -81,12 +81,6 @@ class CategoryListFragment : Fragment(), CategoryListAdapter.CategoryListListene
         inflater?.inflate(R.menu.category_menu, popupMenu.menu)
         popupMenu?.setOnMenuItemClickListener(onMenuItemClicked(category))
         popupMenu?.show()
-    }
-
-    private fun onTaskRemoved(category: Category) {
-        Timber.d("onTaskRemoved() - clicked = ${category.name}")
-
-        adapter.removeItem(category)
     }
 
     private fun onMenuItemClicked(category: Category) =
@@ -107,7 +101,7 @@ class CategoryListFragment : Fragment(), CategoryListAdapter.CategoryListListene
     }
 
     private fun removeCategory(category: Category) {
-        viewModel.deleteCategory(category, onCategoryRemoved = ::onTaskRemoved)
+        viewModel.deleteCategory(category)
     }
 
     companion object {

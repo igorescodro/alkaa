@@ -8,6 +8,7 @@ import com.escodro.alkaa.ui.category.create.NewCategoryViewModel
 import com.escodro.alkaa.ui.category.list.CategoryListContract
 import com.escodro.alkaa.ui.category.list.CategoryListViewModel
 import com.escodro.alkaa.ui.main.MainContract
+import com.escodro.alkaa.ui.main.MainTaskViewModel
 import com.escodro.alkaa.ui.main.MainViewModel
 import com.escodro.alkaa.ui.task.alarm.TaskAlarmManager
 import com.escodro.alkaa.ui.task.detail.TaskDetailContract
@@ -26,6 +27,7 @@ val applicationModule = module {
     // Main
     single { MainContract(get()) }
     viewModel { MainViewModel(get()) }
+    viewModel { MainTaskViewModel() }
 
     // Task
     single { TaskListContract(get()) }

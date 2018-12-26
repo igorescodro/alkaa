@@ -2,9 +2,6 @@
 
     <string name="app_name">Alkaa</string>
 
-    <!-- Main screen -->
-    <string name="task_list_title">My Tasks</string>
-
     <!-- Task database -->
     <string name="category_default_personal">Personal</string>
     <string name="category_default_work">Work</string>

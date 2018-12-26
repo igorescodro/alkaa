@@ -17,7 +17,9 @@ import com.escodro.alkaa.common.extension.itemDialog
 import com.escodro.alkaa.common.extension.items
 import com.escodro.alkaa.common.extension.withDelay
 import com.escodro.alkaa.data.local.model.TaskWithCategory
+import com.escodro.alkaa.ui.main.MainTaskViewModel
 import kotlinx.android.synthetic.main.fragment_task_list.*
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
@@ -27,6 +29,8 @@ import timber.log.Timber
 class TaskListFragment : Fragment() {
 
     private val viewModel: TaskListViewModel by viewModel()
+
+    private val sharedViewModel: MainTaskViewModel by sharedViewModel()
 
     private var navigator: NavController? = null
 
@@ -77,12 +81,12 @@ class TaskListFragment : Fragment() {
     private fun loadTasks() {
         Timber.d("loadTasks()")
 
+        val defaultTitle = getString(R.string.drawer_menu_all_tasks)
         val itemId = arguments?.getLong(TaskListFragment.EXTRA_CATEGORY_ID) ?: 0
-        val taskName = arguments?.getString(
-            TaskListFragment.EXTRA_CATEGORY_NAME, getString(R.string.drawer_menu_all_tasks)
-        )
+        val taskName = arguments?.getString(TaskListFragment.EXTRA_CATEGORY_NAME) ?: defaultTitle
+
         viewModel.loadTasks(itemId, onTasksLoaded = { onTaskLoaded(it) })
-        textview_tasklist_category?.text = taskName
+        sharedViewModel.updateTitle(taskName)
     }
 
     private fun getLayoutManager() =

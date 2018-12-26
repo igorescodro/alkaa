@@ -8,6 +8,7 @@ import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
+import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
@@ -27,6 +28,8 @@ import timber.log.Timber
 class MainActivity : AppCompatActivity() {
 
     private val viewModel: MainViewModel by viewModel()
+
+    private val sharedViewModel: MainTaskViewModel by viewModel()
 
     private var drawerSelectedItem = 0
 
@@ -62,9 +65,8 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowTitleEnabled(false)
         NavigationUI.setupActionBarWithNavController(this, navController, drawer_layout_main_parent)
 
-        navController.addOnNavigatedListener { _, destination ->
-            toolbar_title.text = destination.label
-        }
+        navController.addOnNavigatedListener { _, dest -> toolbar_title.text = dest.label }
+        sharedViewModel.actionBarTitle.observe(this, Observer { toolbar_title.text = it })
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

@@ -5,11 +5,6 @@
         <item name="android:fontFamily">sans-serif-light</item>
     </style>
 
-    <style name="CategoryTitle">
-        <item name="android:textSize">48sp</item>
-        <item name="android:fontFamily">sans-serif-light</item>
-    </style>
-
     <style name="ToolbarTitle">
         <item name="android:textSize">18sp</item>
         <item name="android:fontFamily">sans-serif-light</item>

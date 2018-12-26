@@ -62,6 +62,14 @@ class CategoryListFragment : Fragment() {
     private fun updateList(list: List<Category>) {
         Timber.d("updateList() - Size = ${list.size}")
 
+        if (list.isEmpty()) {
+            recyclerview_categorylist_list?.visibility = View.INVISIBLE
+            textview_categorylist_empty?.visibility = View.VISIBLE
+        } else {
+            recyclerview_categorylist_list?.visibility = View.VISIBLE
+            textview_categorylist_empty?.visibility = View.INVISIBLE
+        }
+
         adapter.submitList(list)
     }
 

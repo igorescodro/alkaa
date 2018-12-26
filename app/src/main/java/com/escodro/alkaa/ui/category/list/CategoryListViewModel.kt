@@ -7,8 +7,6 @@ import io.reactivex.disposables.CompositeDisposable
 /**
  * [ViewModel] responsible to provide information to [com.escodro.alkaa.databinding
  * .FragmentCategoryBinding].
- *
- * Created by Igor Escodro on 5/3/18.
  */
 class CategoryListViewModel(private val contract: CategoryListContract) : ViewModel() {
 

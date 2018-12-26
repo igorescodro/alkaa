@@ -28,7 +28,7 @@ class CategoryFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) 
     @Test
     fun areAllViewsIsCompletelyDisplayed() {
         checkThat.viewIsCompletelyDisplayed(R.id.button_categorylist_add)
-        checkThat.viewIsCompletelyDisplayed(R.id.recyclerview_categorylist_list)
+        checkThat.viewIsCompletelyDisplayed(R.id.textview_categorylist_empty)
     }
 
     @Test
@@ -54,6 +54,7 @@ class CategoryFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) 
         events.clickOnViewWithText(R.string.category_list_dialog_remove_positive)
         events.waitFor(R.id.recyclerview_categorylist_list, 1000)
         checkThat.listNotContainsItem(R.id.recyclerview_categorylist_list, categoryName)
+        checkThat.viewIsCompletelyDisplayed(R.id.textview_categorylist_empty)
     }
 
     @Test

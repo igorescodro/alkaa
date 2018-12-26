@@ -17,7 +17,7 @@ class CategoryFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) 
         daoProvider.getCategoryDao().cleanTable()
         openDrawer()
         events.clickOnViewWithText(R.string.drawer_menu_manage_categories)
-        checkThat.toolbarContainsTitle(R.id.toolbar_main_toolbar, R.string.category_list_label)
+        checkThat.viewHasText(R.id.toolbar_main_toolbar, R.string.category_list_label)
     }
 
     @After

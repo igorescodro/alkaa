@@ -29,7 +29,6 @@ class TaskFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
 
     @Test
     fun areAllViewsIsCompletelyDisplayed() {
-        checkThat.viewIsCompletelyDisplayed(R.id.textview_tasklist_category)
         checkThat.viewIsCompletelyDisplayed(R.id.recyclerview_tasklist_list)
     }
 
@@ -153,6 +152,7 @@ class TaskFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
         addTask(taskName)
         events.clickOnRecyclerItem(R.id.recyclerview_tasklist_list)
         checkThat.viewHasText(R.id.edittext_taskdetail_title, taskName)
+        checkThat.viewHasText(R.id.toolbar_title, "")
     }
 
     private fun scheduleTask(year: Int, month: Int, day: Int, hour: Int, minute: Int) {

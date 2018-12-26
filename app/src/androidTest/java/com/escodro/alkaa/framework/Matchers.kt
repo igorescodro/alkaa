@@ -42,12 +42,12 @@ class Matchers {
         onView(withId(viewId)).check(matches(withText(text)))
     }
 
-    fun viewHasDate(@IdRes viewId: Int, calendar: Calendar) {
-        onView(withId(viewId)).check(matches(compareDates(calendar)))
+    fun viewHasText(@IdRes toolbarId: Int, @StringRes resId: Int) {
+        onView(withText(resId)).check(matches(withParent(withId(toolbarId))))
     }
 
-    fun toolbarContainsTitle(@IdRes toolbarId: Int, @StringRes resId: Int) {
-        onView(withText(resId)).check(matches(withParent(withId(toolbarId))))
+    fun viewHasDate(@IdRes viewId: Int, calendar: Calendar) {
+        onView(withId(viewId)).check(matches(compareDates(calendar)))
     }
 
     fun viewContainsError(@IdRes viewId: Int, @StringRes stringResource: Int) {

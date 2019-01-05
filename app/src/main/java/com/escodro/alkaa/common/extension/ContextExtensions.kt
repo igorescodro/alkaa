@@ -4,10 +4,12 @@ import android.annotation.SuppressLint
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.widget.Toast
 import androidx.annotation.ColorRes
 import androidx.annotation.StringRes
 import androidx.core.app.AlarmManagerCompat
+import androidx.core.net.toUri
 import timber.log.Timber
 import java.util.Calendar
 
@@ -64,3 +66,15 @@ fun Context.showToast(@StringRes messageId: Int, duration: Int = Toast.LENGTH_SH
 @SuppressLint("ResourceType")
 fun Context.getStringColor(@ColorRes colorRes: Int): String =
     resources.getString(colorRes)
+
+/**
+ * Opens the given url in string format.
+ *
+ * @param url the url in string format
+ */
+fun Context.openUrl(url: String) {
+    with(Intent(Intent.ACTION_VIEW)) {
+        this.data = url.toUri()
+        startActivity(this)
+    }
+}

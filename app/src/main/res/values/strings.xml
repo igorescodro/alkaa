@@ -1,6 +1,7 @@
 <resources>
 
     <string name="app_name">Alkaa</string>
+    <string name="app_name_lowercase">alkaa</string>
 
     <!-- Task database -->
     <string name="category_default_personal">Personal</string>
@@ -38,9 +39,15 @@
 
     <!-- Preference  screen-->
     <string name="preference_title">Preferences</string>
+    <string name="preference_item_about">About</string>
 
     <!-- Category  screen-->
     <string name="category_detail_title">Add New Category</string>
+
+    <!-- About screen-->
+    <string name="about_detail_title">About</string>
+    <string name="about_description">Alkaa (to begin, to start in Finnish) is a simple to-do list to make your life easier.\n\nIt all started when I created a project to learn and keep me updated about the latest Android components and libraries. If you\'re a developer or an enthusiast feel free to access, copy and updated the open-source code.\n\nThanks a lot for using my app! </string>
+    <string name="about_button_project">Visit project on GitHub</string>
 
     <string-array name="task_dialog_options">
         <item>Delete</item>

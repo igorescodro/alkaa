@@ -2,12 +2,11 @@
     android:title="Preferences">
 
     <Preference
-        android:key="pref_version"
-        android:summary="1.0.0"
-        android:title="Version" />
-
-    <Preference
         android:key="@string/key_pref_about"
         android:title="@string/preference_item_about" />
+
+    <Preference
+        android:key="@string/key_pref_version"
+        android:title="Version" />
 
 </PreferenceScreen>

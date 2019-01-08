@@ -5,6 +5,7 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.widget.Toast
 import androidx.annotation.ColorRes
 import androidx.annotation.StringRes
@@ -12,6 +13,8 @@ import androidx.core.app.AlarmManagerCompat
 import androidx.core.net.toUri
 import timber.log.Timber
 import java.util.Calendar
+
+private const val INVALID_VERSION = "x.x.x"
 
 /**
  * Sets a alarm using [AlarmManagerCompat] to be triggered based on the given parameter.
@@ -77,4 +80,20 @@ fun Context.openUrl(url: String) {
         this.data = url.toUri()
         startActivity(this)
     }
+}
+
+/**
+ * Returns the version name of the application.
+ *
+ * @return the version name of the application.
+ */
+fun Context.getVersionName(): String {
+    val packageInfo = with(packageName) {
+        try {
+            packageManager.getPackageInfo(this, 0)
+        } catch (e: PackageManager.NameNotFoundException) {
+            null
+        }
+    }
+    return packageInfo?.versionName ?: INVALID_VERSION
 }

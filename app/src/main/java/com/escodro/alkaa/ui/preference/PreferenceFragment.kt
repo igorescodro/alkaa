@@ -2,10 +2,12 @@ package com.escodro.alkaa.ui.preference
 
 import android.os.Bundle
 import android.view.View
+import androidx.annotation.StringRes
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.preference.PreferenceFragmentCompat
 import com.escodro.alkaa.R
+import com.escodro.alkaa.common.extension.getVersionName
 import timber.log.Timber
 
 /**
@@ -20,11 +22,18 @@ class PreferenceFragment : PreferenceFragmentCompat() {
 
         setPreferencesFromResource(R.xml.preferences, rootKey)
 
-        val aboutPref = findPreference(getString(R.string.key_pref_about))
+        initPreferences()
+    }
+
+    private fun initPreferences() {
+        val aboutPref = findPreference(R.string.key_pref_about)
         aboutPref.setOnPreferenceClickListener {
             navigator?.navigate(R.id.key_action_open_about)
             true
         }
+
+        val versionPref = findPreference(R.string.key_pref_version)
+        versionPref?.summary = context?.getVersionName()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -32,4 +41,7 @@ class PreferenceFragment : PreferenceFragmentCompat() {
 
         navigator = NavHostFragment.findNavController(this)
     }
+
+    private fun findPreference(@StringRes resId: Int) =
+        findPreference(getString(resId))
 }

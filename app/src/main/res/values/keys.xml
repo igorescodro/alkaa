@@ -2,5 +2,6 @@
 <resources>
 
     <string name="key_pref_about">key_pref_about</string>
+    <string name="key_pref_version">key_pref_version</string>
 
 </resources>

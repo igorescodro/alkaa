@@ -1,6 +1,5 @@
 package com.escodro.alkaa.ui.main
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -155,8 +154,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
         drawer_layout_main_parent.apply {
-            setScrimColor(Color.TRANSPARENT)
-            drawerElevation = 0F
+            setScrimColor(getColor(R.color.gray_shadow_light))
             addDrawerListener(toggle)
             toggle.syncState()
         }

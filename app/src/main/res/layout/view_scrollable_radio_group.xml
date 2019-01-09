@@ -10,12 +10,29 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent">
 
-    <RadioGroup
-        android:id="@+id/srg_radiogroup_list"
+    <FrameLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal" />
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textview_radiogroup_empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:text="@string/task_details_category_empty"
+            android:textColor="@color/gray_light"
+            android:textSize="18sp"
+            android:visibility="invisible" />
+
+        <RadioGroup
+            android:id="@+id/srg_radiogroup_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal" />
+
+    </FrameLayout>
 
 </HorizontalScrollView>
 

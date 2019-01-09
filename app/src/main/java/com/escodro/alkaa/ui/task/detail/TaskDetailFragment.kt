@@ -102,7 +102,7 @@ class TaskDetailFragment : Fragment() {
     private fun updateCategoryList(list: List<Category>) {
         Timber.d("updateCategoryList() - Size = ${list.size}")
 
-        binding?.srgTaskdetailList?.addAll(list)
+        binding?.srgTaskdetailList?.updateList(list)
 
         val checked = list.asSequence().withIndex().firstOrNull {
             it.value.id == viewModel.taskData.value?.categoryId

@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.HorizontalScrollView
 import android.widget.RadioGroup
 import com.escodro.alkaa.R
@@ -37,12 +38,20 @@ class ScrollableRadioGroup : HorizontalScrollView {
      *
      * @param list of all categories
      */
-    fun addAll(list: List<Category>) {
-        val rb = arrayOfNulls<LabelRadioButton>(list.size)
+    fun updateList(list: List<Category>) {
+        if (list.isEmpty()) {
+            textview_radiogroup_empty.visibility = View.VISIBLE
+        } else {
+            addCategoryItems(list)
+        }
+    }
+
+    private fun addCategoryItems(list: List<Category>) {
+        val radioButtonArray = arrayOfNulls<LabelRadioButton>(list.size)
 
         list.forEachIndexed { index, category ->
-            rb[index] = LabelRadioButton(context)
-            val radioButton = rb[index]
+            radioButtonArray[index] = LabelRadioButton(context)
+            val radioButton = radioButtonArray[index]
 
             radioButton?.apply {
                 text = category.name

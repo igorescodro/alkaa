@@ -10,10 +10,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
+import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.escodro.alkaa.R
 import com.escodro.alkaa.common.extension.close
+import com.escodro.alkaa.common.extension.hideKeyboard
 import com.escodro.alkaa.common.extension.isOpen
 import com.escodro.alkaa.common.extension.navigateSingleTop
 import com.escodro.alkaa.data.local.model.Category
@@ -65,7 +67,7 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowTitleEnabled(false)
         NavigationUI.setupActionBarWithNavController(this, navController, drawer_layout_main_parent)
 
-        navController.addOnNavigatedListener { _, dest -> toolbar_title.text = dest.label }
+        navController.addOnNavigatedListener { _, dest -> onNavigate(dest) }
         sharedViewModel.actionBarTitle.observe(this, Observer { toolbar_title.text = it })
     }
 
@@ -85,6 +87,11 @@ class MainActivity : AppCompatActivity() {
         } else {
             super.onBackPressed()
         }
+    }
+
+    private fun onNavigate(dest: NavDestination) {
+        toolbar_title.text = dest.label
+        hideKeyboard()
     }
 
     private fun updateList(list: List<Category>) {

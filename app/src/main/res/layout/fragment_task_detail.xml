@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -29,36 +30,35 @@
             android:text="@{viewModel.taskData.title}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Buy organic milk?" />
 
-        <View
-            android:id="@+id/view_category_separator_top"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginStart="8dp"
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageview_taskdetail_category"
+            android:layout_width="32dp"
+            android:layout_height="63dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
-            android:layout_marginEnd="8dp"
-            android:background="@color/gray_light"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:src="@drawable/ic_category"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/edittext_taskdetail_title" />
 
         <com.escodro.alkaa.common.view.ScrollableRadioGroup
             android:id="@+id/srg_taskdetail_list"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/view_category_separator_top" />
-
-        <View
-            android:id="@+id/view_category_separator_bottom"
             android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_margin="8dp"
-            android:background="@color/gray_light"
+            android:layout_height="64dp"
+            android:layout_marginStart="16dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imageview_taskdetail_category"
+            app:layout_constraintTop_toTopOf="@id/imageview_taskdetail_category" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageview_taskdetail_description"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:src="@drawable/ic_task_description"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/srg_taskdetail_list" />
 
@@ -66,35 +66,24 @@
             android:id="@+id/edittext_taskdetail_description"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_margin="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:background="@android:color/transparent"
             android:gravity="top"
             android:hint="@string/task_details_description_hint"
             android:inputType="textCapSentences|textMultiLine"
             android:text="@{viewModel.taskData.description}"
-            app:layout_constraintBottom_toTopOf="@+id/view_description_separator_bottom"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/view_category_separator_bottom" />
-
-        <View
-            android:id="@+id/view_description_separator_bottom"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="16dp"
-            android:background="@color/gray_light"
             app:layout_constraintBottom_toTopOf="@+id/btn_taskdetail_date"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toEndOf="@id/imageview_taskdetail_description"
+            app:layout_constraintTop_toTopOf="@id/imageview_taskdetail_description" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/btn_taskdetail_date"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_margin="16dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="32dp"
             android:background="@null"
             android:src="@drawable/ic_alarm"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -108,6 +97,19 @@
             android:text="@{viewModel.taskData.dueDate}"
             android:visibility="@{viewModel.chipVisibility}"
             app:closeIconVisible="true"
+            app:layout_constraintBottom_toBottomOf="@id/btn_taskdetail_date"
+            app:layout_constraintStart_toEndOf="@id/btn_taskdetail_date"
+            app:layout_constraintTop_toTopOf="@id/btn_taskdetail_date" />
+
+        <TextView
+            android:id="@+id/textview_taskdetail_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@string/task_details_alarm_hint"
+            android:textColor="@color/gray_light"
+            android:textSize="18sp"
+            android:visibility="@{!viewModel.chipVisibility}"
             app:layout_constraintBottom_toBottomOf="@id/btn_taskdetail_date"
             app:layout_constraintStart_toEndOf="@id/btn_taskdetail_date"
             app:layout_constraintTop_toTopOf="@id/btn_taskdetail_date" />

@@ -20,6 +20,7 @@
     <!-- Task details -->
     <string name="task_details_alarm_removed">Alarm removed</string>
     <string name="task_details_description_hint">Add a description</string>
+    <string name="task_details_alarm_hint">Add an alarm</string>
 
     <!-- Category screen -->
     <string name="category_list_label">Categories</string>

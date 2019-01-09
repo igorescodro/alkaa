@@ -85,7 +85,8 @@ class TaskDetailFragment : Fragment() {
             updateTaskWithCategory(radioGroup, position)
         }
 
-        btn_taskdetail_date.setOnClickListener { _ -> showDateTimePicker(::updateTaskWithDueDate) }
+        btn_taskdetail_date.setOnClickListener { showDateTimePicker(::updateTaskWithDueDate) }
+        textview_taskdetail_date.setOnClickListener { showDateTimePicker(::updateTaskWithDueDate) }
 
         val titleDisposable = edittext_taskdetail_title.textChangedObservable()
             .subscribe { text -> viewModel.updateTitle(text) }

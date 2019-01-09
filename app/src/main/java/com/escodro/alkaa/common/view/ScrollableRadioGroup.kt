@@ -73,9 +73,7 @@ class ScrollableRadioGroup : HorizontalScrollView {
         val marginX = dpInPixel(RADIO_MARGIN_X)
         val marginY = dpInPixel(RADIO_MARGIN_Y)
 
-        if (position == 0) {
-            params.setMargins(marginX, marginY, 0, marginY)
-        } else if (position == list.size - 1) {
+        if (position == list.size - 1) {
             params.setMargins(0, marginY, marginX, marginY)
         }
     }

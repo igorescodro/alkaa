@@ -52,7 +52,8 @@ class LabelRadioButton : AppCompatRadioButton {
         elevation = dpInPixel(VIEW_ELEVATION)
         background = setShapeColor(hexCode, R.drawable.shape_category_label)
         setTextColor(ContextCompat.getColor(context, android.R.color.white))
-        setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
+        val label = setShapeColor(DEFAULT_COLOR, R.drawable.ic_category_label)
+        setCompoundDrawablesWithIntrinsicBounds(label, null, null, null)
     }
 
     /**

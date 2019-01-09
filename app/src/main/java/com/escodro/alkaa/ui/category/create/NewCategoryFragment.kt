@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import com.escodro.alkaa.R
+import com.escodro.alkaa.common.extension.showKeyboard
 import com.escodro.alkaa.databinding.FragmentCategoryNewBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
@@ -46,6 +47,7 @@ class NewCategoryFragment : androidx.fragment.app.Fragment() {
                 getCategoryColor = ::getCategoryColor)
         }
         binding?.viewModel = viewModel
+        showKeyboard()
     }
 
     private fun onEmptyField() {

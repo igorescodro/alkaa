@@ -18,6 +18,9 @@
             android:id="@+id/edittext_categorynew_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:hint="@string/category_detail_hint"
             android:inputType="textCapSentences"
             android:text="@={viewModel.newCategory}"
             android:textSize="32sp" />
@@ -26,7 +29,9 @@
             android:id="@+id/radiogroup_categorynew_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
             android:checkedButton="@+id/radiobutton_categorynew_blue"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
@@ -102,12 +107,23 @@
             android:id="@+id/button_categorynew_add"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:background="@color/colorPrimary"
+            android:layout_marginTop="16dp"
+            android:background="@color/colorAccent"
+            android:elevation="48dp"
             android:text="@string/new_category_add"
             android:textColor="@android:color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/radiogroup_categorynew_label" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/gray_shadow_light"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_categorynew_add" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

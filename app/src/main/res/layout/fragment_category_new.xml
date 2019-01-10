@@ -21,7 +21,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:hint="@string/category_detail_hint"
-            android:inputType="textCapSentences"
+            android:inputType="text"
             android:text="@={viewModel.newCategory}"
             android:textSize="32sp" />
 
@@ -30,8 +30,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
             android:checkedButton="@+id/radiobutton_categorynew_blue"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"

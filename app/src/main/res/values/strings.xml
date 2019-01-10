@@ -45,7 +45,7 @@
 
     <!-- Category  screen-->
     <string name="category_detail_title">Add New Category</string>
-    <string name="category_detail_hint">Name</string>
+    <string name="category_detail_hint">Category name</string>
 
     <!-- About screen-->
     <string name="about_detail_title">About</string>

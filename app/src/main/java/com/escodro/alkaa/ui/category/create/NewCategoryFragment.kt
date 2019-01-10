@@ -11,6 +11,7 @@ import androidx.navigation.fragment.NavHostFragment
 import com.escodro.alkaa.R
 import com.escodro.alkaa.common.extension.showKeyboard
 import com.escodro.alkaa.databinding.FragmentCategoryNewBinding
+import kotlinx.android.synthetic.main.fragment_category_new.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
@@ -44,9 +45,15 @@ class NewCategoryFragment : androidx.fragment.app.Fragment() {
             viewModel.addCategory(
                 onEmptyField = ::onEmptyField,
                 onCategoryAdded = ::onNewCategoryAdded,
-                getCategoryColor = ::getCategoryColor)
+                getCategoryColor = ::getCategoryColor
+            )
         }
         binding?.viewModel = viewModel
+        setupTextInput()
+    }
+
+    private fun setupTextInput() {
+        edittext_categorynew_description.requestFocus()
         showKeyboard()
     }
 

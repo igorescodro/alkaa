@@ -1,5 +1,9 @@
 package com.escodro.alkaa.ui.category.create
 
+import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -23,6 +27,8 @@ class NewCategoryFragment : androidx.fragment.app.Fragment() {
     private var binding: FragmentCategoryNewBinding? = null
 
     private val viewModel: NewCategoryViewModel by viewModel()
+
+    private var categoryColor: Int = R.color.colorAccent
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,7 +55,17 @@ class NewCategoryFragment : androidx.fragment.app.Fragment() {
             )
         }
         binding?.viewModel = viewModel
+        initComponents()
+    }
+
+    @SuppressLint("ResourceAsColor")
+    private fun initComponents() {
+        Timber.d("initComponents()")
+
         setupTextInput()
+        categoryColor = Color.parseColor(getCategoryColor())
+        updateScreenColor()
+        radiogroup_categorynew_label.setOnCheckedChangeListener { _, _ -> updateScreenColor() }
     }
 
     private fun setupTextInput() {
@@ -60,7 +76,7 @@ class NewCategoryFragment : androidx.fragment.app.Fragment() {
     private fun onEmptyField() {
         Timber.d("onEmptyField()")
 
-        binding?.edittextCategorynewDescription?.error = getString(R.string.task_error_empty)
+        edittext_categorynew_description?.error = getString(R.string.task_error_empty)
     }
 
     private fun onNewCategoryAdded() {
@@ -78,5 +94,18 @@ class NewCategoryFragment : androidx.fragment.app.Fragment() {
         val checked = checkedId?.let { radioGroup.findViewById<RadioButton>(it) }
 
         return checked?.tag as? String?
+    }
+
+    private fun updateScreenColor() {
+        val newColor = Color.parseColor(getCategoryColor())
+        ObjectAnimator
+            .ofArgb(button_categorynew_add, ANIM_PROPERTY_NAME, categoryColor, newColor).start()
+        edittext_categorynew_description?.backgroundTintList = ColorStateList.valueOf(newColor)
+        categoryColor = newColor
+    }
+
+    companion object {
+
+        private const val ANIM_PROPERTY_NAME = "backgroundColor"
     }
 }

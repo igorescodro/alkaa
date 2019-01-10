@@ -5,6 +5,7 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.widget.Toast
 import androidx.annotation.ColorRes
@@ -88,11 +89,12 @@ fun Context.openUrl(url: String) {
  * @return the version name of the application.
  */
 fun Context.getVersionName(): String {
-    val packageInfo = with(packageName) {
+    var packageInfo: PackageInfo? = null
+    packageName.let {
         try {
-            packageManager.getPackageInfo(this, 0)
+            packageInfo = packageManager.getPackageInfo(it, 0)
         } catch (e: PackageManager.NameNotFoundException) {
-            null
+            Timber.e(e)
         }
     }
     return packageInfo?.versionName ?: INVALID_VERSION

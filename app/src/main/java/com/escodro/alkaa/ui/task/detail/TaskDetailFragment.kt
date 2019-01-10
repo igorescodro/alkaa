@@ -75,7 +75,7 @@ class TaskDetailFragment : Fragment() {
         binding?.setLifecycleOwner(this)
         binding?.viewModel = viewModel
 
-        viewModel.taskData.value = TaskDetailFragmentArgs.fromBundle(arguments).task
+        viewModel.taskData.value = arguments?.let { TaskDetailFragmentArgs.fromBundle(it).task }
     }
 
     private fun initListeners() {

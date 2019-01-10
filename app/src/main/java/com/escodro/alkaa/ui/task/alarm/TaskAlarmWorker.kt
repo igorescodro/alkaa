@@ -39,11 +39,11 @@ class TaskAlarmWorker(context: Context, params: WorkerParameters) :
             .subscribe(
                 {
                     onSuccess(it)
-                    result.put(Result.SUCCESS)
+                    result.put(Result.success())
                 },
                 {
                     Timber.e(it)
-                    result.put(Result.FAILURE)
+                    result.put(Result.failure())
                 }
             )
 
@@ -52,7 +52,7 @@ class TaskAlarmWorker(context: Context, params: WorkerParameters) :
         return try {
             result.take()
         } catch (e: InterruptedException) {
-            Result.RETRY
+            Result.retry()
         }
     }
 
@@ -67,7 +67,7 @@ class TaskAlarmWorker(context: Context, params: WorkerParameters) :
         return calendar?.after(currentTime) ?: false
     }
 
-    override fun onStopped(cancelled: Boolean) {
+    override fun onStopped() {
         Timber.d("onStopped")
         compositeDisposable.clear()
     }

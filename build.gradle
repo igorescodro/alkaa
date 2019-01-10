@@ -2,13 +2,13 @@
 
 buildscript {
     project.ext {
-        kotlin_version = '1.2.61'
+        kotlin_version = '1.2.71'
         androidx_version = '1.0.0'
         arch_version = '1.1.1'
-        navigation_version = '1.0.0-alpha06'
+        navigation_version = '1.0.0-alpha09'
         koin_version = '1.0.0'
         ktlint_version = '0.29.0'
-        detekt_version = '1.0.0-RC10'
+        detekt_version = '1.0.0-RC12'
     }
     repositories {
         google()

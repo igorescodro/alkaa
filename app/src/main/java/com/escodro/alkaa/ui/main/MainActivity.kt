@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowTitleEnabled(false)
         NavigationUI.setupActionBarWithNavController(this, navController, drawer_layout_main_parent)
 
-        navController.addOnNavigatedListener { _, dest -> onNavigate(dest) }
+        navController.addOnDestinationChangedListener { _, dest, _ -> onNavigate(dest) }
         sharedViewModel.actionBarTitle.observe(this, Observer { toolbar_title.text = it })
     }
 
@@ -78,7 +78,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp() =
-        NavigationUI.navigateUp(drawer_layout_main_parent, navController)
+        NavigationUI.navigateUp(navController, drawer_layout_main_parent)
 
     override fun onBackPressed() {
         if (drawer_layout_main_parent.isOpen()) {

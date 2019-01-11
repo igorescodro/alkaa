@@ -7,6 +7,6 @@
 
     <Preference
         android:key="@string/key_pref_version"
-        android:title="Version" />
+        android:title="@string/preference_item_version" />
 
 </PreferenceScreen>

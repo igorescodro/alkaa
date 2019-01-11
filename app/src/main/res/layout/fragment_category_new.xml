@@ -47,7 +47,7 @@
                 android:buttonTint="@color/blue" />
 
             <RadioButton
-                android:id="@+id/radiobutton_categorynew_orange"
+                android:id="@+id/radiobutton_categorynew_green"
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:layout_weight="1"
@@ -55,7 +55,7 @@
                 android:buttonTint="@color/green" />
 
             <RadioButton
-                android:id="@+id/radiobutton_categorynew_pink"
+                android:id="@+id/radiobutton_categorynew_purple"
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:layout_weight="1"
@@ -63,7 +63,7 @@
                 android:buttonTint="@color/purple" />
 
             <RadioButton
-                android:id="@+id/radiobutton_categorynew_red"
+                android:id="@+id/radiobutton_categorynew_pink"
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:layout_weight="1"
@@ -71,7 +71,7 @@
                 android:buttonTint="@color/pink" />
 
             <RadioButton
-                android:id="@+id/radiobutton_categorynew_purple"
+                android:id="@+id/radiobutton_categorynew_red"
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:layout_weight="1"
@@ -79,7 +79,7 @@
                 android:buttonTint="@color/red" />
 
             <RadioButton
-                android:id="@+id/radiobutton_categorynew_green"
+                android:id="@+id/radiobutton_categorynew_orange"
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:layout_weight="1"

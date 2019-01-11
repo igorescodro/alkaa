@@ -26,7 +26,7 @@ abstract class AcceptanceTest<T : Activity>(clazz: Class<T>) : KoinTest {
 
     val context: Context = ApplicationProvider.getApplicationContext()
 
-    val checkThat: Matchers = Matchers()
+    val checkThat: Checkers = Checkers()
 
     val events: Events = Events()
 

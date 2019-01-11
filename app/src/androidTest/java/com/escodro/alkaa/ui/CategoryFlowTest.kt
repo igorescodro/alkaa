@@ -68,6 +68,19 @@ class CategoryFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) 
         checkThat.listContainsItem(R.id.recyclerview_categorylist_list, categoryName)
     }
 
+    @Test
+    fun validateColorChange() {
+        val categoryName = "Color rush"
+        events.clickOnView(R.id.button_categorylist_add)
+        events.textOnView(R.id.edittext_categorynew_description, categoryName)
+        events.clickOnView(R.id.radiobutton_categorynew_orange)
+        events.clickOnView(R.id.radiobutton_categorynew_green)
+        events.clickOnView(R.id.radiobutton_categorynew_yellow)
+        events.clickOnView(R.id.radiobutton_categorynew_pink)
+        events.waitFor(R.id.button_categorynew_add, 1000)
+        checkThat.viewHasBackgroundColor(R.id.button_categorynew_add, R.color.pink)
+    }
+
     private fun addCategory(categoryName: String) {
         events.clickOnView(R.id.button_categorylist_add)
         events.textOnView(R.id.edittext_categorynew_description, categoryName)

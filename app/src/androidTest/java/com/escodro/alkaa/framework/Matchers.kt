@@ -1,5 +1,6 @@
 package com.escodro.alkaa.framework
 
+import android.graphics.drawable.ColorDrawable
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
@@ -59,6 +60,16 @@ object Matchers {
 
             override fun describeTo(description: Description?) {
                 description?.appendText("compare two dates from string format")
+            }
+        }
+
+    fun hasBackgroundColor(colorId: Int) =
+        object : TypeSafeMatcher<View>() {
+            override fun matchesSafely(view: View?): Boolean =
+                (view?.background as ColorDrawable).color == view.context.getColor(colorId)
+
+            override fun describeTo(description: Description?) {
+                description?.appendText("compare colors")
             }
         }
 }

@@ -74,4 +74,8 @@ class Checkers {
     fun drawerIsClosed(@IdRes drawerId: Int) {
         onView(withId(drawerId)).check(matches(DrawerMatchers.isClosed()))
     }
+
+    fun viewHasBackgroundColor(@IdRes viewId: Int, color: Int) {
+        onView(withId(viewId)).check(matches(Matchers.hasBackgroundColor(color)))
+    }
 }

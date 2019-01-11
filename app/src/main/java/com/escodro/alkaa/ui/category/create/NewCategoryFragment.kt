@@ -1,9 +1,7 @@
 package com.escodro.alkaa.ui.category.create
 
 import android.animation.ObjectAnimator
-import android.annotation.SuppressLint
 import android.content.res.ColorStateList
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +11,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import com.escodro.alkaa.R
+import com.escodro.alkaa.common.extension.getTintColor
 import com.escodro.alkaa.common.extension.showKeyboard
 import com.escodro.alkaa.databinding.FragmentCategoryNewBinding
 import kotlinx.android.synthetic.main.fragment_category_new.*
@@ -58,12 +57,11 @@ class NewCategoryFragment : androidx.fragment.app.Fragment() {
         initComponents()
     }
 
-    @SuppressLint("ResourceAsColor")
     private fun initComponents() {
         Timber.d("initComponents()")
 
         setupTextInput()
-        categoryColor = Color.parseColor(getCategoryColor())
+        categoryColor = getCategoryColor()
         updateScreenColor()
         radiogroup_categorynew_label.setOnCheckedChangeListener { _, _ -> updateScreenColor() }
     }
@@ -86,18 +84,18 @@ class NewCategoryFragment : androidx.fragment.app.Fragment() {
         NavHostFragment.findNavController(this).navigateUp()
     }
 
-    private fun getCategoryColor(): String? {
+    private fun getCategoryColor(): Int {
         Timber.d("getCategoryColor()")
 
         val radioGroup = binding?.radiogroupCategorynewLabel
         val checkedId = radioGroup?.checkedRadioButtonId
         val checked = checkedId?.let { radioGroup.findViewById<RadioButton>(it) }
 
-        return checked?.tag as? String?
+        return checked?.getTintColor() ?: R.color.colorAccent
     }
 
     private fun updateScreenColor() {
-        val newColor = Color.parseColor(getCategoryColor())
+        val newColor = getCategoryColor()
         ObjectAnimator
             .ofArgb(button_categorynew_add, ANIM_PROPERTY_NAME, categoryColor, newColor).start()
         edittext_categorynew_description?.backgroundTintList = ColorStateList.valueOf(newColor)

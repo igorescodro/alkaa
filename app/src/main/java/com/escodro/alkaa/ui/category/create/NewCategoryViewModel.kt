@@ -1,15 +1,14 @@
 package com.escodro.alkaa.ui.category.create
 
+import android.text.TextUtils
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import android.text.TextUtils
+import com.escodro.alkaa.common.extension.toStringColor
 import com.escodro.alkaa.data.local.model.Category
 import io.reactivex.disposables.CompositeDisposable
 
 /**
  * [ViewModel] responsible to provide information to [NewCategoryFragment].
- *
- * Created by Igor Escodro on 3/6/18.
  */
 class NewCategoryViewModel(private val contract: NewCategoryContract) : ViewModel() {
 
@@ -22,7 +21,7 @@ class NewCategoryViewModel(private val contract: NewCategoryContract) : ViewMode
      */
     fun addCategory(
         onEmptyField: () -> Unit,
-        getCategoryColor: () -> String?,
+        getCategoryColor: () -> Int?,
         onCategoryAdded: () -> Unit
     ) {
         val name = newCategory.value
@@ -31,7 +30,7 @@ class NewCategoryViewModel(private val contract: NewCategoryContract) : ViewMode
             return
         }
 
-        val color = getCategoryColor()
+        val color = getCategoryColor()?.toStringColor()
         val category = Category(name = name, color = color)
         val disposable = contract.addCategory(category)
             .doOnComplete { onCategoryAdded() }

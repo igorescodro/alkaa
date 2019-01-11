@@ -1,9 +1,11 @@
 package com.escodro.alkaa.common.extension
 
+import android.graphics.Color
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
+import android.widget.RadioButton
 import android.widget.TextView
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -78,6 +80,16 @@ fun EditText.onActionDone(onActionDone: (String) -> Unit) {
         }
         isActionClicked
     }
+}
+
+/**
+ * Get the Tint Color from the [RadioButton].
+ *
+ * @return the Tint Color from the [RadioButton]
+ */
+fun RadioButton.getTintColor(): Int {
+    val intColor = buttonTintList?.defaultColor ?: return Color.WHITE
+    return intColor.let { Color.parseColor(intColor.toStringColor()) }
 }
 
 private fun TextView.stringText() = text.toString()

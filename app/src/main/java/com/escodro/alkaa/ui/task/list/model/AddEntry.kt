@@ -7,7 +7,10 @@ import com.escodro.alkaa.databinding.ItemAddTaskBinding
 /**
  * Entry representing an item to add a new task.
  */
-class AddEntry(private val onInsertTask: (String) -> Unit) : ItemEntry(0, null) {
+class AddEntry(
+    private val onAddClicked: () -> Unit,
+    private val onInsertTask: (String) -> Unit
+) : ItemEntry(0, null) {
 
     override val type: Int
         get() = ItemEntry.TYPE_ADD
@@ -15,6 +18,7 @@ class AddEntry(private val onInsertTask: (String) -> Unit) : ItemEntry(0, null) 
     override fun bindData(holder: BindingHolder<*>) {
         val binding = holder.binding as? ItemAddTaskBinding
 
+        binding?.checkboxItemaddCompleted?.setOnClickListener { onAddClicked() }
         binding?.edittextItemaddDescription?.onActionDone { onInsertTask(it) }
     }
 }

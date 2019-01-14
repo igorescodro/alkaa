@@ -24,7 +24,7 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/checkbox_itemadd_completed"
             android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_height="0dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="8dp"
             android:elevation="4dp"

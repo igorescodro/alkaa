@@ -15,10 +15,12 @@ import com.escodro.alkaa.R
 import com.escodro.alkaa.common.extension.hideKeyboard
 import com.escodro.alkaa.common.extension.itemDialog
 import com.escodro.alkaa.common.extension.items
+import com.escodro.alkaa.common.extension.showKeyboard
 import com.escodro.alkaa.common.extension.withDelay
 import com.escodro.alkaa.data.local.model.TaskWithCategory
 import com.escodro.alkaa.ui.main.MainTaskViewModel
 import kotlinx.android.synthetic.main.fragment_task_list.*
+import kotlinx.android.synthetic.main.item_add_task.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
@@ -38,7 +40,8 @@ class TaskListFragment : Fragment() {
         onItemClicked = ::onItemClicked,
         onItemLongPressed = ::onItemLongPressed,
         onItemCheckedChanged = ::onItemCheckedChanged,
-        onInsertTask = ::onInsertTask
+        onInsertTask = ::onInsertTask,
+        onAddClicked = ::onAddClicked
     )
 
     override fun onCreateView(
@@ -128,6 +131,13 @@ class TaskListFragment : Fragment() {
         }.show()
 
         return true
+    }
+
+    private fun onAddClicked() {
+        Timber.d("onAddClicked")
+
+        edittext_itemadd_description.requestFocus()
+        showKeyboard()
     }
 
     companion object {

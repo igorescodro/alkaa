@@ -20,7 +20,8 @@ class TaskListAdapter(
     private val onItemClicked: (TaskWithCategory) -> Unit,
     private val onItemLongPressed: (TaskWithCategory) -> Boolean,
     private val onItemCheckedChanged: (TaskWithCategory, Boolean) -> Unit,
-    private val onInsertTask: (String) -> Unit
+    private val onInsertTask: (String) -> Unit,
+    private val onAddClicked: () -> Unit
 ) : ListAdapter<ItemEntry, BindingHolder<*>>(TaskDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingHolder<*> {
@@ -49,7 +50,7 @@ class TaskListAdapter(
     fun updateList(list: List<TaskWithCategory>) {
         val itemList = list.asSequence()
             .map { toItemEntry(it) }
-            .plus(AddEntry(onInsertTask = onInsertTask))
+            .plus(getAddEntry())
             .toList()
 
         submitList(itemList)
@@ -65,4 +66,7 @@ class TaskListAdapter(
             onItemLongPressed = onItemLongPressed,
             onItemCheckedChanged = onItemCheckedChanged
         )
+
+    private fun getAddEntry() =
+        AddEntry(onInsertTask = onInsertTask, onAddClicked = onAddClicked)
 }

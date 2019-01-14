@@ -1,16 +1,14 @@
 package com.escodro.alkaa.framework
 
 import android.content.Context
-import android.view.View
 import android.widget.DatePicker
 import android.widget.TimePicker
 import androidx.annotation.IdRes
 import androidx.annotation.StringRes
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.core.app.ApplicationProvider
+import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.UiController
-import androidx.test.espresso.ViewAction
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.longClick
 import androidx.test.espresso.action.ViewActions.pressImeActionButton
@@ -21,15 +19,12 @@ import androidx.test.espresso.contrib.NavigationViewActions
 import androidx.test.espresso.contrib.PickerActions
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.RootMatchers.isDialog
-import androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom
+import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isRoot
-import androidx.test.espresso.matcher.ViewMatchers.withClassName
 import androidx.test.espresso.matcher.ViewMatchers.withContentDescription
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
-import com.google.android.material.chip.Chip
-import org.hamcrest.Matcher
 import java.util.Calendar
 
 /**
@@ -56,7 +51,7 @@ class Events {
     }
 
     fun clickOnCloseChip(@StringRes viewId: Int) {
-        onView(withId(viewId)).perform(closeChip())
+        onView(withId(viewId)).perform(ViewActions.closeChip())
     }
 
     fun longPressOnRecyclerItem(@IdRes recyclerView: Int) {
@@ -92,7 +87,7 @@ class Events {
     }
 
     fun waitFor(@IdRes viewId: Int, delay: Long) {
-        onView(isRoot()).perform(waitId(viewId, delay))
+        onView(isRoot()).perform(ViewActions.waitId(viewId, delay))
     }
 
     fun openDrawer(@IdRes drawerId: Int) {
@@ -104,7 +99,7 @@ class Events {
     }
 
     fun setDate(calendar: Calendar) {
-        onView(withClassName(org.hamcrest.Matchers.equalTo(DatePicker::class.java.name)))
+        Espresso.onView(ViewMatchers.withClassName(org.hamcrest.Matchers.equalTo(DatePicker::class.java.name)))
             .perform(
                 PickerActions.setDate(
                     calendar.get(Calendar.YEAR),
@@ -115,7 +110,7 @@ class Events {
     }
 
     fun setTime(calendar: Calendar) {
-        onView(withClassName(org.hamcrest.Matchers.equalTo(TimePicker::class.java.name)))
+        Espresso.onView(ViewMatchers.withClassName(org.hamcrest.Matchers.equalTo(TimePicker::class.java.name)))
             .perform(
                 PickerActions.setTime(
                     calendar.get(Calendar.HOUR_OF_DAY),
@@ -123,37 +118,4 @@ class Events {
                 )
             )
     }
-
-    private fun waitId(@IdRes viewId: Int, delay: Long): ViewAction =
-        object : ViewAction {
-
-            override fun getDescription(): String {
-                return "wait for a specific view with id [$viewId} during [$delay] millis."
-            }
-
-            override fun getConstraints(): Matcher<View> {
-                return isRoot()
-            }
-
-            override fun perform(uiController: UiController?, view: View?) {
-                uiController?.loopMainThreadForAtLeast(delay)
-            }
-        }
-
-    private fun closeChip(): ViewAction =
-        object : ViewAction {
-
-            override fun getDescription(): String {
-                return "close the chip"
-            }
-
-            override fun getConstraints(): Matcher<View> {
-                return isAssignableFrom(Chip::class.java)
-            }
-
-            override fun perform(uiController: UiController?, view: View?) {
-                val chip = view as Chip
-                chip.performCloseIconClick()
-            }
-        }
 }

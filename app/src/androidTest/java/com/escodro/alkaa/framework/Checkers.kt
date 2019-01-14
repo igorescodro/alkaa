@@ -78,4 +78,8 @@ class Checkers {
     fun viewHasBackgroundColor(@IdRes viewId: Int, color: Int) {
         onView(withId(viewId)).check(matches(Matchers.hasBackgroundColor(color)))
     }
+
+    fun viewHasFocus(@IdRes viewId: Int) {
+        onView(withId(viewId)).check(matches(Matchers.hasFocus()))
+    }
 }

@@ -19,9 +19,8 @@ object Matchers {
 
     fun isTextInLines(lines: Int) =
         object : TypeSafeMatcher<View>() {
-            override fun matchesSafely(item: View?): Boolean {
-                return (item as? TextView)?.lineCount == lines
-            }
+            override fun matchesSafely(item: View?) =
+                (item as? TextView)?.lineCount == lines
 
             override fun describeTo(description: Description?) {
                 description?.appendText("check number of lines")
@@ -70,6 +69,15 @@ object Matchers {
 
             override fun describeTo(description: Description?) {
                 description?.appendText("compare colors")
+            }
+        }
+
+    fun hasFocus() =
+        object : TypeSafeMatcher<View>() {
+            override fun matchesSafely(view: View?) = view?.hasFocus() ?: false
+
+            override fun describeTo(description: Description?) {
+                description?.appendText("has focus")
             }
         }
 }

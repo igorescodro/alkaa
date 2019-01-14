@@ -22,7 +22,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/checkbox_itemadd_completed"
+            android:id="@+id/imageview_itemadd_completed"
             android:layout_width="32dp"
             android:layout_height="0dp"
             android:layout_marginStart="16dp"
@@ -52,7 +52,7 @@
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@id/cardview_itemadd_background"
             app:layout_constraintEnd_toEndOf="@id/cardview_itemadd_background"
-            app:layout_constraintStart_toEndOf="@id/checkbox_itemadd_completed"
+            app:layout_constraintStart_toEndOf="@id/imageview_itemadd_completed"
             app:layout_constraintTop_toTopOf="@id/cardview_itemadd_background" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

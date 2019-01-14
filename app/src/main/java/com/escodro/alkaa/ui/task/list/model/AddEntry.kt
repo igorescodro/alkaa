@@ -18,7 +18,7 @@ class AddEntry(
     override fun bindData(holder: BindingHolder<*>) {
         val binding = holder.binding as? ItemAddTaskBinding
 
-        binding?.checkboxItemaddCompleted?.setOnClickListener { onAddClicked() }
+        binding?.imageviewItemaddCompleted?.setOnClickListener { onAddClicked() }
         binding?.edittextItemaddDescription?.onActionDone { onInsertTask(it) }
     }
 }

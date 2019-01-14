@@ -140,6 +140,12 @@ class TaskFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
         checkThat.viewHasText(R.id.edittext_taskdetail_description, description)
     }
 
+    @Test
+    fun checkFocusWhenClickingOnAddIcon() {
+        events.clickOnView(R.id.imageview_itemadd_completed)
+        checkThat.viewHasFocus(R.id.edittext_itemadd_description)
+    }
+
     private fun addTask(taskName: String) {
         events.clickOnView(R.id.edittext_itemadd_description)
         events.textOnView(R.id.edittext_itemadd_description, taskName)

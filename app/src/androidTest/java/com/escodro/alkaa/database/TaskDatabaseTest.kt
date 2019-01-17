@@ -32,9 +32,9 @@ class TaskDatabaseTest {
         taskDao = database.taskDao()
 
         categoryDao = database.categoryDao()
-        categoryDao.insertCategory(Category("Work", "#cc5a71"))
-        categoryDao.insertCategory(Category("Personal", "#58a4b0"))
-        categoryDao.insertCategory(Category("Family", "#519872"))
+        categoryDao.insertCategory(Category(name = "Work", color = "#cc5a71"))
+        categoryDao.insertCategory(Category(name = "Personal", color = "#58a4b0"))
+        categoryDao.insertCategory(Category(name = "Family", color = "#519872"))
     }
 
     @After
@@ -44,7 +44,7 @@ class TaskDatabaseTest {
 
     @Test
     fun insertTaskAndReadInList() {
-        val task = Task(title = TASK_NAME)
+        val task = Task(id = 14, title = TASK_NAME)
         taskDao.insertTask(task)
 
         val list = taskDao.getAllTasks().blockingFirst()
@@ -77,7 +77,7 @@ class TaskDatabaseTest {
 
     @Test
     fun insertAndAddCategoryInTask() {
-        val task = Task(title = TASK_NAME)
+        val task = Task(id = 16, title = TASK_NAME)
         task.categoryId = categoryDao.getAllCategories().blockingFirst()[0].id
         taskDao.insertTask(task)
 

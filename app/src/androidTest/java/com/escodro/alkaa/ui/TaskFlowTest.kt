@@ -16,9 +16,9 @@ class TaskFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
 
     @Before
     fun addCategories() {
-        daoProvider.getCategoryDao().insertCategory(Category("Books", "#cc5a71"))
-        daoProvider.getCategoryDao().insertCategory(Category("Music", "#58a4b0"))
-        daoProvider.getCategoryDao().insertCategory(Category("Shared", "#519872"))
+        daoProvider.getCategoryDao().insertCategory(Category(name = "Books", color = "#cc5a71"))
+        daoProvider.getCategoryDao().insertCategory(Category(name = "Music", color = "#58a4b0"))
+        daoProvider.getCategoryDao().insertCategory(Category(name = "Shared", color = "#519872"))
     }
 
     @After

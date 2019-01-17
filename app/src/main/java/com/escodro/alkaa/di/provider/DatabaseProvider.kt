@@ -45,16 +45,16 @@ class DatabaseProvider(private val context: Context) {
     private fun getDefaultCategoryList() =
         listOf(
             Category(
-                context.getString(R.string.category_default_personal),
-                context.getStringColor(R.color.blue)
+                name = context.getString(R.string.category_default_personal),
+                color = context.getStringColor(R.color.blue)
             ),
             Category(
-                context.getString(R.string.category_default_work),
-                context.getStringColor(R.color.green)
+                name = context.getString(R.string.category_default_work),
+                color = context.getStringColor(R.color.green)
             ),
             Category(
-                context.getString(R.string.category_default_shopping),
-                context.getStringColor(R.color.orange)
+                name = context.getString(R.string.category_default_shopping),
+                color = context.getStringColor(R.color.orange)
             )
         )
 }

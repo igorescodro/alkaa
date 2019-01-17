@@ -14,28 +14,28 @@ import org.junit.Test
  */
 class MainDrawerTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
 
-    private var categoryPersonalId = 0L
-    private var categoryWorkId = 0L
-    private var categoryFamilyId = 0L
+    private var personalId = 0L
+    private var workId = 0L
+    private var familyId = 0L
 
     @Before
     fun populateApplication() {
         val categoryDao = daoProvider.getCategoryDao()
         val taskDao = daoProvider.getTaskDao()
 
-        categoryDao.insertCategory(Category(PERSONAL_CATEGORY, "#cc5a71"))
-        categoryDao.insertCategory(Category(WORK_CATEGORY, "#58a4b0"))
-        categoryDao.insertCategory(Category(FAMILY_CATEGORY, "#519872"))
+        categoryDao.insertCategory(Category(name = PERSONAL_CATEGORY, color = "#cc5a71"))
+        categoryDao.insertCategory(Category(name = WORK_CATEGORY, color = "#58a4b0"))
+        categoryDao.insertCategory(Category(name = FAMILY_CATEGORY, color = "#519872"))
 
-        categoryPersonalId = categoryDao.findTaskByName(PERSONAL_CATEGORY).blockingGet().id
-        categoryWorkId = categoryDao.findTaskByName(WORK_CATEGORY).blockingGet().id
-        categoryFamilyId = categoryDao.findTaskByName(FAMILY_CATEGORY).blockingGet().id
+        personalId = categoryDao.findTaskByName(PERSONAL_CATEGORY).blockingGet().id
+        workId = categoryDao.findTaskByName(WORK_CATEGORY).blockingGet().id
+        familyId = categoryDao.findTaskByName(FAMILY_CATEGORY).blockingGet().id
 
-        taskDao.insertTask(Task(false, "Buy milk", categoryId = categoryPersonalId))
-        taskDao.insertTask(Task(true, "Buy onion", categoryId = categoryPersonalId))
-        taskDao.insertTask(Task(false, "Study presentation", categoryId = categoryWorkId))
-        taskDao.insertTask(Task(false, "Visit grandpa", categoryId = categoryFamilyId))
-        taskDao.insertTask(Task(false, "Call dad", categoryId = categoryFamilyId))
+        taskDao.insertTask(Task(completed = false, title = "Buy milk", categoryId = personalId))
+        taskDao.insertTask(Task(completed = true, title = "Buy onion", categoryId = personalId))
+        taskDao.insertTask(Task(completed = false, title = "Study docs", categoryId = workId))
+        taskDao.insertTask(Task(completed = false, title = "Visit grandpa", categoryId = familyId))
+        taskDao.insertTask(Task(completed = false, title = "Call dad", categoryId = familyId))
     }
 
     @After
@@ -61,7 +61,7 @@ class MainDrawerTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
     @Test
     fun checkDrawerMainFlow() {
         openDrawer()
-        events.clickOnNavigationViewItem(R.id.navigationview_main_drawer, categoryFamilyId.toInt())
+        events.clickOnNavigationViewItem(R.id.navigationview_main_drawer, familyId.toInt())
         events.waitFor(R.id.drawer_layout_main_parent, 600)
         checkThat.drawerIsClosed(R.id.drawer_layout_main_parent)
         checkThat.viewHasText(R.id.toolbar_title, FAMILY_CATEGORY)
@@ -74,7 +74,7 @@ class MainDrawerTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
         openDrawer()
         events.clickOnNavigationViewItem(
             R.id.navigationview_main_drawer,
-            categoryPersonalId.toInt()
+            personalId.toInt()
         )
         events.waitFor(R.id.drawer_layout_main_parent, 600)
         checkThat.drawerIsClosed(R.id.drawer_layout_main_parent)

@@ -3,13 +3,10 @@ package com.escodro.alkaa.ui.task.alarm
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.provider.Settings
-import androidx.core.app.NotificationCompat
 import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
-import com.escodro.alkaa.R
-import com.escodro.alkaa.common.extension.getNotificationManager
-import com.escodro.alkaa.ui.TaskNotificationChannel
+import com.escodro.alkaa.common.extension.unmarshallParcelable
+import com.escodro.alkaa.data.local.model.Task
 import org.koin.standalone.KoinComponent
 import org.koin.standalone.inject
 import timber.log.Timber
@@ -19,13 +16,13 @@ import timber.log.Timber
  */
 class TaskAlarmReceiver : BroadcastReceiver(), KoinComponent {
 
-    private val channel: TaskNotificationChannel by inject()
+    private val taskNotification: TaskNotification by inject()
 
     override fun onReceive(context: Context?, intent: Intent?) {
         Timber.d("onReceive() - intent ${intent?.action}")
 
         when (intent?.action) {
-            TaskAlarmManager.ALARM_ACTION -> onAlarm(intent, context)
+            TaskAlarmManager.ALARM_ACTION -> onAlarm(intent)
             Intent.ACTION_BOOT_COMPLETED -> onBootCompleted()
         }
     }
@@ -37,22 +34,12 @@ class TaskAlarmReceiver : BroadcastReceiver(), KoinComponent {
         WorkManager.getInstance().enqueue(worker)
     }
 
-    private fun onAlarm(intent: Intent?, context: Context?) {
-        val id = intent?.getLongExtra(TaskAlarmManager.EXTRA_TASK_ID, 0) ?: 0
+    private fun onAlarm(intent: Intent?) {
 
-        if (context == null || id == 0L) {
-            return
-        }
+        val byte = intent?.getByteArrayExtra(TaskAlarmManager.EXTRA_TASK) ?: return
+        val task = unmarshallParcelable<Task>(byte) ?: return
 
-        val description = intent?.getStringExtra(TaskAlarmManager.EXTRA_TASK_TITLE)
-
-        val builder = NotificationCompat.Builder(context, channel.getChannelId())
-            .setSmallIcon(R.mipmap.ic_launcher)
-            .setContentTitle(context.getString(R.string.app_name))
-            .setContentText(description)
-            .setSound(Settings.System.DEFAULT_NOTIFICATION_URI)
-
-        Timber.d("Notifying task '$description'")
-        context.getNotificationManager()?.notify(id.toInt(), builder.build())
+        Timber.d("Notifying task '${task.title}'")
+        taskNotification.show(task)
     }
 }

@@ -4,6 +4,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import com.escodro.alkaa.common.extension.cancelAlarm
+import com.escodro.alkaa.common.extension.marshallParcelable
 import com.escodro.alkaa.common.extension.setAlarm
 import com.escodro.alkaa.data.local.model.Task
 import timber.log.Timber
@@ -19,17 +20,17 @@ class TaskAlarmManager(private val context: Context) {
      * @param task task to be scheduled
      */
     fun scheduleTaskAlarm(task: Task) {
+        val byte = marshallParcelable(task)
         val receiverIntent = Intent(context, TaskAlarmReceiver::class.java).apply {
             action = ALARM_ACTION
-            putExtra(EXTRA_TASK_ID, task.id)
-            putExtra(EXTRA_TASK_TITLE, task.title)
+            putExtra(EXTRA_TASK, byte)
         }
 
         val pendingIntent = PendingIntent.getBroadcast(
             context,
             task.id.toInt(),
             receiverIntent,
-            PendingIntent.FLAG_UPDATE_CURRENT
+            PendingIntent.FLAG_CANCEL_CURRENT
         )
 
         task.dueDate?.time?.time?.let {
@@ -60,9 +61,7 @@ class TaskAlarmManager(private val context: Context) {
 
     companion object {
 
-        const val EXTRA_TASK_ID = "extra_task_id"
-
-        const val EXTRA_TASK_TITLE = "extra_task_title"
+        const val EXTRA_TASK = "extra_task"
 
         const val ALARM_ACTION = "com.escodro.alkaa.SET_ALARM"
     }

@@ -11,6 +11,7 @@ import com.escodro.alkaa.ui.main.MainContract
 import com.escodro.alkaa.ui.main.MainTaskViewModel
 import com.escodro.alkaa.ui.main.MainViewModel
 import com.escodro.alkaa.ui.task.alarm.TaskAlarmManager
+import com.escodro.alkaa.ui.task.alarm.TaskNotification
 import com.escodro.alkaa.ui.task.detail.TaskDetailContract
 import com.escodro.alkaa.ui.task.detail.TaskDetailViewModel
 import com.escodro.alkaa.ui.task.list.TaskListContract
@@ -50,6 +51,7 @@ val applicationModule = module {
 
     // Notification
     single { TaskNotificationChannel(androidContext()) }
+    single { TaskNotification(androidContext(), get()) }
 }
 
 /**

@@ -7,27 +7,29 @@ complexity:
 comments:
   CommentOverPrivateFunction:
     active: false
+  CommentOverPrivateProperty:
+    active: false
 
 
 test-pattern:
   active: true
 
   patterns:
-    - '.*/test/.*'
-    - '.*Test.kt'
-    - '.*Spec.kt'
-    - '.*/androidTest/.*'
+  - '.*/test/.*'
+  - '.*Test.kt'
+  - '.*Spec.kt'
+  - '.*/androidTest/.*'
 
   exclude-rule-sets:
-    - 'comments'
+  - 'comments'
 
   exclude-rules:
-    - 'NamingRules'
-    - 'WildcardImport'
-    - 'MagicNumber'
-    - 'MaxLineLength'
-    - 'LateinitUsage'
-    - 'StringLiteralDuplication'
-    - 'SpreadOperator'
-    - 'TooManyFunctions'
-    - 'UnsafeCast'
+  - 'NamingRules'
+  - 'WildcardImport'
+  - 'MagicNumber'
+  - 'MaxLineLength'
+  - 'LateinitUsage'
+  - 'StringLiteralDuplication'
+  - 'SpreadOperator'
+  - 'TooManyFunctions'
+  - 'UnsafeCast'

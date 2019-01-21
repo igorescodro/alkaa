@@ -13,11 +13,9 @@ import org.junit.Test
 class CategoryFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
 
     @Before
-    fun navigateToCategoryScreen() {
+    fun navigateToTestScreen() {
         daoProvider.getCategoryDao().cleanTable()
-        openDrawer()
-        events.clickOnViewWithText(R.string.drawer_menu_manage_categories)
-        checkThat.viewHasText(R.id.toolbar_main_toolbar, R.string.category_list_label)
+        navigateToCategoryScreen()
     }
 
     @After
@@ -79,6 +77,23 @@ class CategoryFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) 
         events.clickOnView(R.id.radiobutton_categorynew_pink)
         events.waitFor(R.id.button_categorynew_add, 1000)
         checkThat.viewHasBackgroundColor(R.id.button_categorynew_add, R.color.pink)
+    }
+
+    @Test
+    fun openCategoryMultipleTimes() {
+        navigateToCategoryScreen()
+        addCategory("Music")
+        navigateToCategoryScreen()
+        addCategory("Books")
+        navigateToCategoryScreen()
+        addCategory("Movies")
+        navigateToCategoryScreen()
+    }
+
+    private fun navigateToCategoryScreen() {
+        openDrawer()
+        events.clickOnViewWithText(R.string.drawer_menu_manage_categories)
+        checkThat.viewHasText(R.id.toolbar_main_toolbar, R.string.category_list_label)
     }
 
     private fun addCategory(categoryName: String) {

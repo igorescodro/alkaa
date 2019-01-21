@@ -60,12 +60,17 @@ class TaskListFragment : Fragment() {
         Timber.d("onViewCreated()")
 
         bindComponents()
-        loadTasks()
         navigator = NavHostFragment.findNavController(this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         inflater?.inflate(R.menu.task_menu, menu)
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        loadTasks()
     }
 
     override fun onStop() {

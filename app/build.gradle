@@ -51,21 +51,6 @@ dependencies {
     implementation "android.arch.work:work-runtime:1.0.0-beta01"
     implementation 'androidx.core:core-ktx:1.0.1'
 
-    // Test
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.1.1'
-    androidTestImplementation 'androidx.test:rules:1.1.1'
-    androidTestImplementation 'androidx.test:core:1.1.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-intents:3.1.1'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.1.0-alpha4', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-        exclude group: 'com.android.support', module: 'support-v4'
-        exclude group: 'com.android.support', module: 'design'
-        exclude group: 'com.android.support', module: 'recyclerview-v7'
-    }
-
     // Timber
     implementation 'com.jakewharton.timber:timber:4.7.1'
 
@@ -84,4 +69,20 @@ dependencies {
     implementation 'androidx.room:room-rxjava2:2.0.0'
     implementation "android.arch.navigation:navigation-fragment:$navigation_version"
     implementation "android.arch.navigation:navigation-ui:$navigation_version"
+
+    // Test
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.1.1'
+    androidTestImplementation 'androidx.test:rules:1.1.1'
+    androidTestImplementation 'androidx.test:core:1.1.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-intents:3.1.1'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.1.0-alpha4', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'design'
+        exclude group: 'com.android.support', module: 'recyclerview-v7'
+    }
+    androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
 }

@@ -1,8 +1,10 @@
 package com.escodro.alkaa.ui
 
+import androidx.test.uiautomator.UiSelector
 import com.escodro.alkaa.R
 import com.escodro.alkaa.data.local.model.Category
 import com.escodro.alkaa.framework.AcceptanceTest
+import com.escodro.alkaa.framework.extension.waitForLaucher
 import com.escodro.alkaa.ui.main.MainActivity
 import org.junit.After
 import org.junit.Before
@@ -144,6 +146,17 @@ class TaskFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
     fun checkFocusWhenClickingOnAddIcon() {
         events.clickOnView(R.id.imageview_itemadd_completed)
         checkThat.viewHasFocus(R.id.edittext_itemadd_description)
+    }
+
+    @Test
+    fun addTaskAfterLeaveScreen() {
+        uiDevice.pressHome()
+        uiDevice.pressRecentApps()
+        uiDevice.waitForLaucher()
+        uiDevice.findObject(UiSelector().descriptionContains(context.getString(R.string.app_name)))
+            .click()
+
+        addTask("It must reflect on UI")
     }
 
     private fun addTask(taskName: String) {

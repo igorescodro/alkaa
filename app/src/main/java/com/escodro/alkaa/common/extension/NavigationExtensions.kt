@@ -14,10 +14,10 @@ import androidx.navigation.NavOptions
  *              navigate to
  * @param args arguments to pass to the destination
  */
-fun NavController.navigateSingleTop(@IdRes resId: Int, args: Bundle?) {
+fun NavController.navigateSingleTop(@IdRes resId: Int, args: Bundle? = null) {
     val hostDestinationId = graph.startDestination
     val navOptions = NavOptions.Builder()
-        .setPopUpTo(hostDestinationId, true)
+        .setPopUpTo(hostDestinationId, false)
         .setLaunchSingleTop(true)
         .build()
     navigate(resId, args, navOptions)

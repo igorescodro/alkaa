@@ -20,7 +20,7 @@ class MainTaskViewModel : ViewModel() {
      *
      * @param title the title to be updated
      */
-    fun updateTitle(title: String) {
+    fun updateTitle(title: String?) {
         actionBarTitle.value = title
     }
 }

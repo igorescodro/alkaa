@@ -67,7 +67,7 @@ class MainActivity : AppCompatActivity() {
         NavigationUI.setupActionBarWithNavController(this, navController, drawer_layout_main_parent)
 
         navController.addOnDestinationChangedListener { _, dest, _ -> onNavigate(dest) }
-        sharedViewModel.actionBarTitle.observe(this, Observer { toolbar_title.text = it })
+        sharedViewModel.actionBarTitle.observe(this, Observer { updateToolbarTitle(it) })
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -89,8 +89,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onNavigate(dest: NavDestination) {
-        toolbar_title.text = dest.label
+        val title = dest.label as? String?
+        Timber.d("onNavigate() - title  = $title")
+
+        // If the destination label is null ignore it. All the destinations without label are being
+        // handled by the shared ViewModel.
+        title?.let { updateToolbarTitle(title) }
         hideKeyboard()
+    }
+
+    private fun updateToolbarTitle(title: String?) {
+        Timber.d("updateToolbarTitle() - title  = $title")
+
+        toolbar_title.text = title
     }
 
     private fun updateList(list: List<Category>) {

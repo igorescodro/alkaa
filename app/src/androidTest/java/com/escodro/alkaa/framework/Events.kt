@@ -25,6 +25,7 @@ import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import androidx.test.espresso.matcher.ViewMatchers.withContentDescription
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
+import com.escodro.alkaa.R
 import java.util.Calendar
 
 /**
@@ -83,7 +84,7 @@ class Events {
     }
 
     fun navigateUp() {
-        onView(withContentDescription("Navigate up")).perform(click())
+        onView(withContentDescription(R.string.abc_action_bar_up_description)).perform(click())
     }
 
     fun waitFor(@IdRes viewId: Int, delay: Long) {

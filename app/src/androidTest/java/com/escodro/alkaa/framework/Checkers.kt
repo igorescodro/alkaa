@@ -12,7 +12,6 @@ import androidx.test.espresso.matcher.ViewMatchers.hasErrorText
 import androidx.test.espresso.matcher.ViewMatchers.isChecked
 import androidx.test.espresso.matcher.ViewMatchers.isCompletelyDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
-import androidx.test.espresso.matcher.ViewMatchers.withParent
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import org.hamcrest.Matchers.not
 import java.util.Calendar
@@ -33,8 +32,8 @@ class Checkers {
         onView(withId(viewId)).check(matches(withText(text)))
     }
 
-    fun viewHasText(@IdRes toolbarId: Int, @StringRes resId: Int) {
-        onView(withText(resId)).check(matches(withParent(withId(toolbarId))))
+    fun viewHasText(@IdRes viewId: Int, @StringRes stringRes: Int) {
+        onView(withId(viewId)).check(matches(withText(stringRes)))
     }
 
     fun viewHasDate(@IdRes viewId: Int, calendar: Calendar) {

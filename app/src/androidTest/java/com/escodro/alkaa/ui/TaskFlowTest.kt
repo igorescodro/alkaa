@@ -159,6 +159,22 @@ class TaskFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
         addTask("It must reflect on UI")
     }
 
+    @Test
+    fun validateCategoryTitlePressingBack() {
+        val title = "What lovers do"
+        addAndOpenTask(title)
+        uiDevice.pressBack()
+        checkThat.viewHasText(R.id.toolbar_title, R.string.drawer_menu_all_tasks)
+    }
+
+    @Test
+    fun validateCategoryTitlePressingUp() {
+        val title = "UH UH UH UH UH"
+        addAndOpenTask(title)
+        events.navigateUp()
+        checkThat.viewHasText(R.id.toolbar_title, R.string.drawer_menu_all_tasks)
+    }
+
     private fun addTask(taskName: String) {
         events.clickOnView(R.id.edittext_itemadd_description)
         events.textOnView(R.id.edittext_itemadd_description, taskName)

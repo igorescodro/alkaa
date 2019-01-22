@@ -5,7 +5,7 @@ apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs"
 
 apply from: '../config/quality.gradle'
-apply from: "../artifacts.gradle"
+apply from: "../config/artifacts.gradle"
 
 android {
     compileSdkVersion 28

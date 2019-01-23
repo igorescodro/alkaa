@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
         initComponents()
-        viewModel.loadCategories(onListLoaded = ::updateList)
+        viewModel.loadCategories(onListLoaded = ::updateDrawerList)
     }
 
     private fun initComponents() {
@@ -104,15 +104,20 @@ class MainActivity : AppCompatActivity() {
         toolbar_title.text = title
     }
 
-    private fun updateList(list: List<Category>) {
-        Timber.d("updateList() - Size = ${list.size}")
+    private fun updateDrawerList(list: List<Category>) {
+        Timber.d("updateDrawerList() - Size = ${list.size}")
 
         val menu = navigationview_main_drawer.menu
         menu.clear()
-        menu.add(Menu.NONE, 0, Menu.NONE, R.string.drawer_menu_all_tasks).isCheckable = true
-        list.forEach { menu.add(Menu.NONE, it.id.toInt(), Menu.NONE, it.name).isCheckable = true }
-        navigationview_main_drawer.setCheckedItem(drawerSelectedItem)
+
+        menu.add(GROUP_TASKS, ALL_TASKS_ITEM, Menu.NONE, R.string.drawer_menu_all_tasks)
+        list.forEach { menu.add(GROUP_TASKS, it.id.toInt(), Menu.NONE, it.name) }
+        menu.add(GROUP_TASKS, COMPLETED_ITEM, Menu.NONE, R.string.drawer_menu_completed_tasks)
         menu.add(GROUP_SETTINGS, CATEGORY_ITEM, Menu.NONE, R.string.drawer_menu_manage_categories)
+
+        menu.setGroupCheckable(GROUP_TASKS, true, true)
+        menu.setGroupCheckable(GROUP_SETTINGS, true, true)
+        navigationview_main_drawer.setCheckedItem(drawerSelectedItem)
     }
 
     /**
@@ -161,7 +166,7 @@ class MainActivity : AppCompatActivity() {
             override fun onDrawerOpened(drawerView: View) {
                 super.onDrawerOpened(drawerView)
 
-                viewModel.loadCategories(onListLoaded = ::updateList)
+                viewModel.loadCategories(onListLoaded = ::updateDrawerList)
             }
         }
         drawer_layout_main_parent.apply {
@@ -173,8 +178,14 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
 
+        private const val ALL_TASKS_ITEM = 0
+
         private const val CATEGORY_ITEM = -1
 
-        private const val GROUP_SETTINGS = 1
+        private const val COMPLETED_ITEM = -2
+
+        private const val GROUP_TASKS = 1
+
+        private const val GROUP_SETTINGS = 2
     }
 }

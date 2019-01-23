@@ -16,9 +16,11 @@ import com.escodro.alkaa.common.view.LabelRadioButton
 import com.escodro.alkaa.data.local.model.Category
 import com.escodro.alkaa.data.local.model.Task
 import com.escodro.alkaa.databinding.FragmentTaskDetailBinding
+import com.escodro.alkaa.ui.main.MainTaskViewModel
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_task_detail.*
 import kotlinx.android.synthetic.main.view_scrollable_radio_group.*
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 import java.util.Calendar
@@ -29,6 +31,8 @@ import java.util.Calendar
 class TaskDetailFragment : Fragment() {
 
     private val viewModel: TaskDetailViewModel by viewModel()
+
+    private val sharedViewModel: MainTaskViewModel by sharedViewModel()
 
     private val compositeDisposable = CompositeDisposable()
 
@@ -76,6 +80,7 @@ class TaskDetailFragment : Fragment() {
         binding?.viewModel = viewModel
 
         viewModel.taskData.value = arguments?.let { TaskDetailFragmentArgs.fromBundle(it).task }
+        sharedViewModel.updateTitle(null)
     }
 
     private fun initListeners() {

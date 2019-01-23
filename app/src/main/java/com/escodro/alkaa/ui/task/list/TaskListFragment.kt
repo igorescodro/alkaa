@@ -12,6 +12,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.escodro.alkaa.R
+import com.escodro.alkaa.common.extension.createSnackbar
 import com.escodro.alkaa.common.extension.hideKeyboard
 import com.escodro.alkaa.common.extension.itemDialog
 import com.escodro.alkaa.common.extension.items
@@ -35,6 +36,8 @@ class TaskListFragment : Fragment() {
     private val sharedViewModel: MainTaskViewModel by sharedViewModel()
 
     private var navigator: NavController? = null
+
+    private var itemId: Long = 0
 
     private val adapter = TaskListAdapter(
         onItemClicked = ::onItemClicked,
@@ -90,7 +93,7 @@ class TaskListFragment : Fragment() {
         Timber.d("loadTasks()")
 
         val defaultTitle = getString(R.string.drawer_menu_all_tasks)
-        val itemId = arguments?.getLong(TaskListFragment.EXTRA_CATEGORY_ID) ?: 0
+        itemId = arguments?.getLong(TaskListFragment.EXTRA_CATEGORY_ID) ?: 0
         val taskName = arguments?.getString(TaskListFragment.EXTRA_CATEGORY_NAME) ?: defaultTitle
 
         viewModel.loadTasks(itemId, onTasksLoaded = { onTaskLoaded(it) })
@@ -108,7 +111,16 @@ class TaskListFragment : Fragment() {
     private fun onTaskLoaded(list: List<TaskWithCategory>) {
         Timber.d("onTaskLoaded() - Size = ${list.size}")
 
-        adapter.updateList(list)
+        val showAddButton = itemId != TaskListContract.COMPLETED_TASKS
+        adapter.updateList(list, showAddButton)
+
+        if (list.isEmpty() && !showAddButton) {
+            recyclerview_tasklist_list?.visibility = View.INVISIBLE
+            textview_tasklist_empty?.visibility = View.VISIBLE
+        } else {
+            recyclerview_tasklist_list?.visibility = View.VISIBLE
+            textview_tasklist_empty?.visibility = View.INVISIBLE
+        }
     }
 
     private fun onItemClicked(taskWithCategory: TaskWithCategory) {
@@ -122,6 +134,15 @@ class TaskListFragment : Fragment() {
         Timber.d("onItemCheckedChanged() - Task = ${taskWithCategory.task.title} - Value = $value")
 
         viewModel.updateTaskStatus(taskWithCategory.task, value)
+
+        if (value) {
+            constraint_tasklist_root
+                .createSnackbar(R.string.task_snackbar_completed)
+                .setAction(R.string.task_snackbar_undo) {
+                    Timber.d("Undo completed action - Task = ${taskWithCategory.task.title}")
+                    viewModel.updateTaskStatus(taskWithCategory.task, false)
+                }.show()
+        }
     }
 
     private fun onItemLongPressed(taskWithCategory: TaskWithCategory): Boolean {

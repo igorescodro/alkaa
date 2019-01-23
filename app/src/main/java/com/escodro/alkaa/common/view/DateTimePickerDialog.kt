@@ -28,8 +28,8 @@ class DateTimePickerDialog(context: Context, private val onDateChanged: (Calenda
         timePickerDialog = TimePickerDialog(
             context,
             getTimeListener(),
-            calendar.get(Calendar.HOUR_OF_DAY),
-            calendar.get(Calendar.MINUTE),
+            calendar.get(Calendar.HOUR_OF_DAY) + 1,
+            0,
             true
         )
     }

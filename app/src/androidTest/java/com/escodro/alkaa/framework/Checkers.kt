@@ -11,8 +11,8 @@ import androidx.test.espresso.matcher.ViewMatchers.hasDescendant
 import androidx.test.espresso.matcher.ViewMatchers.hasErrorText
 import androidx.test.espresso.matcher.ViewMatchers.isChecked
 import androidx.test.espresso.matcher.ViewMatchers.isCompletelyDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.withHint
 import androidx.test.espresso.matcher.ViewMatchers.withId
-import androidx.test.espresso.matcher.ViewMatchers.withParent
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import org.hamcrest.Matchers.not
 import java.util.Calendar
@@ -33,8 +33,8 @@ class Checkers {
         onView(withId(viewId)).check(matches(withText(text)))
     }
 
-    fun viewHasText(@IdRes toolbarId: Int, @StringRes resId: Int) {
-        onView(withText(resId)).check(matches(withParent(withId(toolbarId))))
+    fun viewHasText(@IdRes viewId: Int, @StringRes stringRes: Int) {
+        onView(withId(viewId)).check(matches(withText(stringRes)))
     }
 
     fun viewHasDate(@IdRes viewId: Int, calendar: Calendar) {
@@ -54,13 +54,17 @@ class Checkers {
         onView(withId(viewId)).check(matches(not(hasDescendant(withText(itemName)))))
     }
 
+    fun listContainsHint(@IdRes viewId: Int, @StringRes stringRes: Int) {
+        onView(withId(viewId)).check(matches(hasDescendant(withHint(stringRes))))
+    }
+
+    fun listNotContainsHint(@IdRes viewId: Int, @StringRes stringRes: Int) {
+        onView(withId(viewId)).check(matches(not(hasDescendant(withText(stringRes)))))
+    }
+
     fun textHasFixedLines(@IdRes viewId: Int, numberOfLines: Int) {
         onView(withId(viewId))
             .check(matches(Matchers.isTextInLines(numberOfLines)))
-    }
-
-    fun checkBoxIsChecked(@IdRes viewId: Int) {
-        onView(withId(viewId)).check(matches(isChecked()))
     }
 
     fun radioButtonIsChecked(@IdRes radioButtonGroupId: Int, index: Int) {
@@ -81,5 +85,10 @@ class Checkers {
 
     fun viewHasFocus(@IdRes viewId: Int) {
         onView(withId(viewId)).check(matches(Matchers.hasFocus()))
+    }
+
+    fun snackbarIsVisible() {
+        onView(withId(com.google.android.material.R.id.snackbar_text))
+            .check(matches(isCompletelyDisplayed()))
     }
 }

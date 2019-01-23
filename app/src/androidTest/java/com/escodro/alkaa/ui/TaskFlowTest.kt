@@ -70,13 +70,6 @@ class TaskFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
     }
 
     @Test
-    fun checkTaskAsCompleted() {
-        addTask("write article")
-        events.clickOnView(R.id.checkbox_itemtask_completed)
-        checkThat.checkBoxIsChecked(R.id.checkbox_itemtask_completed)
-    }
-
-    @Test
     fun addAndOpenTask() {
         addAndOpenTask("select a new category")
     }
@@ -89,7 +82,7 @@ class TaskFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
         events.textOnView(R.id.edittext_taskdetail_title, taskUpdated)
         events.waitFor(R.id.recyclerview_tasklist_list, 500)
         events.navigateUp()
-        events.waitFor(R.id.recyclerview_tasklist_list, 2000)
+        events.waitFor(R.id.recyclerview_tasklist_list, 1000)
         checkThat.listContainsItem(R.id.recyclerview_tasklist_list, taskUpdated)
         events.clickOnRecyclerItem(R.id.recyclerview_tasklist_list)
         checkThat.viewHasText(R.id.edittext_taskdetail_title, taskUpdated)
@@ -103,7 +96,7 @@ class TaskFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
         events.textOnView(R.id.edittext_taskdetail_title, "")
         events.waitFor(R.id.recyclerview_tasklist_list, 500)
         events.navigateUp()
-        events.waitFor(R.id.recyclerview_tasklist_list, 2000)
+        events.waitFor(R.id.recyclerview_tasklist_list, 1000)
         checkThat.listContainsItem(R.id.recyclerview_tasklist_list, task)
     }
 
@@ -159,11 +152,27 @@ class TaskFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
         addTask("It must reflect on UI")
     }
 
+    @Test
+    fun validateCategoryTitlePressingBack() {
+        val title = "What lovers do"
+        addAndOpenTask(title)
+        uiDevice.pressBack()
+        checkThat.viewHasText(R.id.toolbar_title, R.string.drawer_menu_all_tasks)
+    }
+
+    @Test
+    fun validateCategoryTitlePressingUp() {
+        val title = "UH UH UH UH UH"
+        addAndOpenTask(title)
+        events.navigateUp()
+        checkThat.viewHasText(R.id.toolbar_title, R.string.drawer_menu_all_tasks)
+    }
+
     private fun addTask(taskName: String) {
         events.clickOnView(R.id.edittext_itemadd_description)
         events.textOnView(R.id.edittext_itemadd_description, taskName)
         events.pressImeActionButton(R.id.edittext_itemadd_description)
-        events.waitFor(R.id.recyclerview_tasklist_list, 2000)
+        events.waitFor(R.id.recyclerview_tasklist_list, 1000)
         checkThat.listContainsItem(R.id.recyclerview_tasklist_list, taskName)
     }
 

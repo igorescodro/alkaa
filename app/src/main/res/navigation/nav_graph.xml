@@ -25,14 +25,6 @@
             app:popEnterAnim="@anim/slide_pop_enter_anim"
             app:popExitAnim="@anim/slide_pop_exit_name" />
 
-        <action
-            android:id="@id/key_action_open_category"
-            app:destination="@id/categoryFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
-
     </fragment>
 
     <fragment
@@ -57,6 +49,7 @@
         <argument
             android:name="task"
             app:argType="com.escodro.alkaa.data.local.model.Task" />
+
     </fragment>
 
     <fragment

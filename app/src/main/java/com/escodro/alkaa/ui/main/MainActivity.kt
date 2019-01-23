@@ -18,6 +18,7 @@ import com.escodro.alkaa.common.extension.hideKeyboard
 import com.escodro.alkaa.common.extension.isOpen
 import com.escodro.alkaa.common.extension.navigateSingleTop
 import com.escodro.alkaa.data.local.model.Category
+import com.escodro.alkaa.ui.task.list.TaskListContract
 import com.escodro.alkaa.ui.task.list.TaskListFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -43,7 +44,7 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
         initComponents()
-        viewModel.loadCategories(onListLoaded = ::updateList)
+        viewModel.loadCategories(onListLoaded = ::updateDrawerList)
     }
 
     private fun initComponents() {
@@ -67,7 +68,7 @@ class MainActivity : AppCompatActivity() {
         NavigationUI.setupActionBarWithNavController(this, navController, drawer_layout_main_parent)
 
         navController.addOnDestinationChangedListener { _, dest, _ -> onNavigate(dest) }
-        sharedViewModel.actionBarTitle.observe(this, Observer { toolbar_title.text = it })
+        sharedViewModel.actionBarTitle.observe(this, Observer { updateToolbarTitle(it) })
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -89,19 +90,35 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onNavigate(dest: NavDestination) {
-        toolbar_title.text = dest.label
+        val title = dest.label as? String?
+        Timber.d("onNavigate() - title  = $title")
+
+        // If the destination label is null ignore it. All the destinations without label are being
+        // handled by the shared ViewModel.
+        title?.let { updateToolbarTitle(title) }
         hideKeyboard()
     }
 
-    private fun updateList(list: List<Category>) {
-        Timber.d("updateList() - Size = ${list.size}")
+    private fun updateToolbarTitle(title: String?) {
+        Timber.d("updateToolbarTitle() - title  = $title")
+
+        toolbar_title.text = title
+    }
+
+    private fun updateDrawerList(list: List<Category>) {
+        Timber.d("updateDrawerList() - Size = ${list.size}")
 
         val menu = navigationview_main_drawer.menu
         menu.clear()
-        menu.add(Menu.NONE, 0, Menu.NONE, R.string.drawer_menu_all_tasks).isCheckable = true
-        list.forEach { menu.add(Menu.NONE, it.id.toInt(), Menu.NONE, it.name).isCheckable = true }
-        navigationview_main_drawer.setCheckedItem(drawerSelectedItem)
+
+        menu.add(GROUP_TASKS, ALL_TASKS_ITEM, Menu.NONE, R.string.drawer_menu_all_tasks)
+        list.forEach { menu.add(GROUP_TASKS, it.id.toInt(), Menu.NONE, it.name) }
+        menu.add(GROUP_TASKS, COMPLETED_ITEM, Menu.NONE, R.string.drawer_menu_completed_tasks)
         menu.add(GROUP_SETTINGS, CATEGORY_ITEM, Menu.NONE, R.string.drawer_menu_manage_categories)
+
+        menu.setGroupCheckable(GROUP_TASKS, true, true)
+        menu.setGroupCheckable(GROUP_SETTINGS, true, true)
+        navigationview_main_drawer.setCheckedItem(drawerSelectedItem)
     }
 
     /**
@@ -115,7 +132,7 @@ class MainActivity : AppCompatActivity() {
 
         drawerSelectedItem = item.itemId
         when (drawerSelectedItem) {
-            CATEGORY_ITEM -> navController.navigate(R.id.key_action_open_category)
+            CATEGORY_ITEM -> navController.navigateSingleTop(R.id.categoryFragment)
             else -> navigateToCategory(item)
         }
 
@@ -150,7 +167,7 @@ class MainActivity : AppCompatActivity() {
             override fun onDrawerOpened(drawerView: View) {
                 super.onDrawerOpened(drawerView)
 
-                viewModel.loadCategories(onListLoaded = ::updateList)
+                viewModel.loadCategories(onListLoaded = ::updateDrawerList)
             }
         }
         drawer_layout_main_parent.apply {
@@ -162,8 +179,14 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
 
-        private const val CATEGORY_ITEM = -1
+        private const val ALL_TASKS_ITEM = TaskListContract.ALL_TASKS.toInt()
 
-        private const val GROUP_SETTINGS = 1
+        private const val COMPLETED_ITEM = TaskListContract.COMPLETED_TASKS.toInt()
+
+        private const val CATEGORY_ITEM = -2
+
+        private const val GROUP_TASKS = 1
+
+        private const val GROUP_SETTINGS = 2
     }
 }

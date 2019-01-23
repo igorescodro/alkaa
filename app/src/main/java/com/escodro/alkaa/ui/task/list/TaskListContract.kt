@@ -24,10 +24,10 @@ class TaskListContract(daoProvider: DaoProvider) {
      */
     fun loadTasks(categoryId: Long): Flowable<MutableList<TaskWithCategory>> {
         val observable =
-            if (categoryId == NO_CATEGORY) {
-                taskDao.getAllTasksWithCategory()
-            } else {
-                taskDao.getAllTasksWithCategoryId(categoryId)
+            when (categoryId) {
+                ALL_TASKS -> taskDao.getAllTasksWithCategory(false)
+                COMPLETED_TASKS -> taskDao.getAllTasksWithCategory(true)
+                else -> taskDao.getAllTasksWithCategoryId(categoryId)
             }
 
         return observable.applySchedulers()
@@ -65,6 +65,8 @@ class TaskListContract(daoProvider: DaoProvider) {
 
     companion object {
 
-        private const val NO_CATEGORY = 0L
+        const val ALL_TASKS = 0L
+
+        const val COMPLETED_TASKS = -1L
     }
 }

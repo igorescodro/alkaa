@@ -1,0 +1,12 @@
+android.applicationVariants.all { variant ->
+    def appName
+    if (project.hasProperty("applicationName")) {
+        appName = applicationName
+    } else {
+        appName = parent.name
+    }
+
+    variant.outputs.all { output ->
+        outputFileName = "${appName.capitalize()}-${variant.versionName}-${output.baseName}.apk"
+    }
+}

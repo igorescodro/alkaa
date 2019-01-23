@@ -70,13 +70,6 @@ class TaskFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
     }
 
     @Test
-    fun checkTaskAsCompleted() {
-        addTask("write article")
-        events.clickOnView(R.id.checkbox_itemtask_completed)
-        checkThat.checkBoxIsChecked(R.id.checkbox_itemtask_completed)
-    }
-
-    @Test
     fun addAndOpenTask() {
         addAndOpenTask("select a new category")
     }

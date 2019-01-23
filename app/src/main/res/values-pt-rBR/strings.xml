@@ -39,4 +39,5 @@
     <string name="drawer_menu_completed_tasks">Finalizadas</string>
     <string name="task_snackbar_completed">Movido para \'Finalizadas\'</string>
     <string name="task_snackbar_undo">Desfazer</string>
+    <string name="task_list_empty">Sem tarefas</string>
 </resources>

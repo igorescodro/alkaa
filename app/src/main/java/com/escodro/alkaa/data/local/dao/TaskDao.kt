@@ -10,20 +10,13 @@ import com.escodro.alkaa.data.local.model.Task
 import com.escodro.alkaa.data.local.model.TaskWithCategory
 import io.reactivex.Flowable
 import io.reactivex.Single
+import org.jetbrains.annotations.TestOnly
 
 /**
  * DAO class to handle all [Task]-related database operations.
  */
 @Dao
 interface TaskDao {
-
-    /**
-     * Get all inserted tasks.
-     *
-     * @return all inserted tasks
-     */
-    @Query("SELECT * FROM task")
-    fun getAllTasks(): Flowable<MutableList<Task>>
 
     /**
      * Inserts a new task.
@@ -54,14 +47,6 @@ interface TaskDao {
      */
     @Query("DELETE FROM task")
     fun cleanTable()
-
-    /**
-     * Gets a specific task by title.
-     *
-     * @param title task title
-     */
-    @Query("SELECT * FROM task WHERE task_title = :title")
-    fun findTaskByTitle(title: String): Single<Task>
 
     /**
      * Get all inserted tasks with category.
@@ -96,4 +81,22 @@ interface TaskDao {
      */
     @Query("SELECT * FROM task where task_due_date is not null")
     fun getAllTasksWithDueDate(): Single<List<Task>>
+
+    /**
+     * Get all inserted tasks.
+     *
+     * @return all inserted tasks
+     */
+    @TestOnly
+    @Query("SELECT * FROM task")
+    fun getAllTasks(): Flowable<MutableList<Task>>
+
+    /**
+     * Gets a specific task by title.
+     *
+     * @param title task title
+     */
+    @TestOnly
+    @Query("SELECT * FROM task WHERE task_title = :title")
+    fun findTaskByTitle(title: String): Single<Task>
 }

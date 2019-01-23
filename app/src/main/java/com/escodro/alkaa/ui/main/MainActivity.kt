@@ -18,6 +18,7 @@ import com.escodro.alkaa.common.extension.hideKeyboard
 import com.escodro.alkaa.common.extension.isOpen
 import com.escodro.alkaa.common.extension.navigateSingleTop
 import com.escodro.alkaa.data.local.model.Category
+import com.escodro.alkaa.ui.task.list.TaskListContract
 import com.escodro.alkaa.ui.task.list.TaskListFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -178,11 +179,11 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
 
-        private const val ALL_TASKS_ITEM = 0
+        private const val ALL_TASKS_ITEM = TaskListContract.ALL_TASKS.toInt()
 
-        private const val CATEGORY_ITEM = -1
+        private const val COMPLETED_ITEM = TaskListContract.COMPLETED_TASKS.toInt()
 
-        private const val COMPLETED_ITEM = -2
+        private const val CATEGORY_ITEM = -2
 
         private const val GROUP_TASKS = 1
 

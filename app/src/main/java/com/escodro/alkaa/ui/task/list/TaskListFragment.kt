@@ -36,6 +36,8 @@ class TaskListFragment : Fragment() {
 
     private var navigator: NavController? = null
 
+    private var itemId: Long = 0
+
     private val adapter = TaskListAdapter(
         onItemClicked = ::onItemClicked,
         onItemLongPressed = ::onItemLongPressed,
@@ -90,7 +92,7 @@ class TaskListFragment : Fragment() {
         Timber.d("loadTasks()")
 
         val defaultTitle = getString(R.string.drawer_menu_all_tasks)
-        val itemId = arguments?.getLong(TaskListFragment.EXTRA_CATEGORY_ID) ?: 0
+        itemId = arguments?.getLong(TaskListFragment.EXTRA_CATEGORY_ID) ?: 0
         val taskName = arguments?.getString(TaskListFragment.EXTRA_CATEGORY_NAME) ?: defaultTitle
 
         viewModel.loadTasks(itemId, onTasksLoaded = { onTaskLoaded(it) })
@@ -108,7 +110,8 @@ class TaskListFragment : Fragment() {
     private fun onTaskLoaded(list: List<TaskWithCategory>) {
         Timber.d("onTaskLoaded() - Size = ${list.size}")
 
-        adapter.updateList(list)
+        val showAddButton = itemId != TaskListContract.COMPLETED_TASKS
+        adapter.updateList(list, showAddButton)
     }
 
     private fun onItemClicked(taskWithCategory: TaskWithCategory) {

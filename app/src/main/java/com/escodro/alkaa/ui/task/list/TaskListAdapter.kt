@@ -47,11 +47,14 @@ class TaskListAdapter(
      *
      * @param list The new list to be displayed.
      */
-    fun updateList(list: List<TaskWithCategory>) {
-        val itemList = list.asSequence()
+    fun updateList(list: List<TaskWithCategory>, showAddButton: Boolean) {
+        val itemList: MutableList<ItemEntry> = list
             .map { toItemEntry(it) }
-            .plus(getAddEntry())
-            .toList()
+            .toMutableList()
+
+        if (showAddButton) {
+            itemList.add(getAddEntry())
+        }
 
         submitList(itemList)
     }

@@ -25,7 +25,7 @@ class TaskListContract(daoProvider: DaoProvider) {
     fun loadTasks(categoryId: Long): Flowable<MutableList<TaskWithCategory>> {
         val observable =
             if (categoryId == NO_CATEGORY) {
-                taskDao.getAllTasksWithCategory()
+                taskDao.getAllTasksWithCategory(false)
             } else {
                 taskDao.getAllTasksWithCategoryId(categoryId)
             }

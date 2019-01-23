@@ -2,6 +2,7 @@ package com.escodro.alkaa.ui.task.list.model
 
 import android.widget.CheckBox
 import com.escodro.alkaa.common.databinding.BindingHolder
+import com.escodro.alkaa.common.extension.setStyleDisable
 import com.escodro.alkaa.data.local.model.TaskWithCategory
 import com.escodro.alkaa.databinding.ItemTaskBinding
 
@@ -27,6 +28,11 @@ class TaskEntry(
             checkboxItemtaskCompleted.setOnClickListener { view ->
                 val isChecked = (view as? CheckBox)?.isChecked ?: false
                 onItemCheckedChanged(data, isChecked)
+            }
+
+            if (data.task.completed) {
+                textviewItemtaskDescription.setStyleDisable()
+                textviewItemtaskAlarm.setStyleDisable()
             }
         }
     }

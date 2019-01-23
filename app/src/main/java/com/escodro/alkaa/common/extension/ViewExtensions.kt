@@ -1,6 +1,7 @@
 package com.escodro.alkaa.common.extension
 
 import android.graphics.Color
+import android.graphics.Paint
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -103,6 +104,14 @@ fun RadioButton.getTintColor(): Int {
  */
 fun View.createSnackbar(@StringRes messageId: Int, duration: Int = Snackbar.LENGTH_LONG) =
     Snackbar.make(this, messageId, duration)
+
+/**
+ * Sets the [TextView] as strikethrough and disabled style.
+ */
+fun TextView.setStyleDisable() {
+    paintFlags = this.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+    isEnabled = false
+}
 
 private fun TextView.stringText() = text.toString()
 

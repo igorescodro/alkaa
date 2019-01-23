@@ -37,4 +37,5 @@
         <item>Remover</item>
     </string-array>
     <string name="drawer_menu_completed_tasks">Finalizadas</string>
+    <string name="task_snackbar_completed">Movido para \'Finalizadas\'</string>
 </resources>

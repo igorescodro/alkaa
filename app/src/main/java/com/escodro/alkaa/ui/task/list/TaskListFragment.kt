@@ -12,11 +12,11 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.escodro.alkaa.R
+import com.escodro.alkaa.common.extension.createSnackbar
 import com.escodro.alkaa.common.extension.hideKeyboard
 import com.escodro.alkaa.common.extension.itemDialog
 import com.escodro.alkaa.common.extension.items
 import com.escodro.alkaa.common.extension.showKeyboard
-import com.escodro.alkaa.common.extension.showSnackbar
 import com.escodro.alkaa.common.extension.withDelay
 import com.escodro.alkaa.data.local.model.TaskWithCategory
 import com.escodro.alkaa.ui.main.MainTaskViewModel
@@ -128,7 +128,12 @@ class TaskListFragment : Fragment() {
         viewModel.updateTaskStatus(taskWithCategory.task, value)
 
         if (value) {
-            constraint_tasklist_root.showSnackbar(R.string.task_snackbar_completed)
+            constraint_tasklist_root
+                .createSnackbar(R.string.task_snackbar_completed)
+                .setAction(R.string.task_snackbar_undo) {
+                    Timber.d("Undo completed action - Task = ${taskWithCategory.task.title}")
+                    viewModel.updateTaskStatus(taskWithCategory.task, false)
+                }.show()
         }
     }
 

@@ -96,14 +96,13 @@ fun RadioButton.getTintColor(): Int {
 }
 
 /**
- * Shows a [Snackbar] with the given message.
+ * Creates a [Snackbar] with the given message.
  *
  * @param messageId the message String resource id
  * @param duration the Snackbar duration, if not provided will be set to [Snackbar.LENGTH_LONG]
  */
-fun View.showSnackbar(@StringRes messageId: Int, duration: Int = Snackbar.LENGTH_LONG) {
-    Snackbar.make(this, messageId, duration).show()
-}
+fun View.createSnackbar(@StringRes messageId: Int, duration: Int = Snackbar.LENGTH_LONG) =
+    Snackbar.make(this, messageId, duration)
 
 private fun TextView.stringText() = text.toString()
 

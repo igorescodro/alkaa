@@ -16,6 +16,7 @@ import com.escodro.alkaa.common.extension.hideKeyboard
 import com.escodro.alkaa.common.extension.itemDialog
 import com.escodro.alkaa.common.extension.items
 import com.escodro.alkaa.common.extension.showKeyboard
+import com.escodro.alkaa.common.extension.showSnackbar
 import com.escodro.alkaa.common.extension.withDelay
 import com.escodro.alkaa.data.local.model.TaskWithCategory
 import com.escodro.alkaa.ui.main.MainTaskViewModel
@@ -125,6 +126,10 @@ class TaskListFragment : Fragment() {
         Timber.d("onItemCheckedChanged() - Task = ${taskWithCategory.task.title} - Value = $value")
 
         viewModel.updateTaskStatus(taskWithCategory.task, value)
+
+        if (value) {
+            constraint_tasklist_root.showSnackbar(R.string.task_snackbar_completed)
+        }
     }
 
     private fun onItemLongPressed(taskWithCategory: TaskWithCategory): Boolean {

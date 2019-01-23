@@ -3,12 +3,15 @@ package com.escodro.alkaa.common.extension
 import android.graphics.Color
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.TextView
+import androidx.annotation.StringRes
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import com.google.android.material.snackbar.Snackbar
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import java.util.concurrent.TimeUnit
@@ -90,6 +93,16 @@ fun EditText.onActionDone(onActionDone: (String) -> Unit) {
 fun RadioButton.getTintColor(): Int {
     val intColor = buttonTintList?.defaultColor ?: return Color.WHITE
     return intColor.let { Color.parseColor(intColor.toStringColor()) }
+}
+
+/**
+ * Shows a [Snackbar] with the given message.
+ *
+ * @param messageId the message String resource id
+ * @param duration the Snackbar duration, if not provided will be set to [Snackbar.LENGTH_LONG]
+ */
+fun View.showSnackbar(@StringRes messageId: Int, duration: Int = Snackbar.LENGTH_LONG) {
+    Snackbar.make(this, messageId, duration).show()
 }
 
 private fun TextView.stringText() = text.toString()

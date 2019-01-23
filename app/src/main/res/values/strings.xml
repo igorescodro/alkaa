@@ -19,6 +19,7 @@
     <string name="task_add_new">Add new task</string>
     <string name="task_snackbar_completed">Moved to \'Completed\'</string>
     <string name="task_snackbar_undo">Undo</string>
+    <string name="task_list_empty">No tasks</string>
 
     <!-- Task details -->
     <string name="task_details_category_empty">No category</string>

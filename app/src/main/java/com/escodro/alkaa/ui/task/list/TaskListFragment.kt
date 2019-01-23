@@ -113,6 +113,14 @@ class TaskListFragment : Fragment() {
 
         val showAddButton = itemId != TaskListContract.COMPLETED_TASKS
         adapter.updateList(list, showAddButton)
+
+        if (list.isEmpty() && !showAddButton) {
+            recyclerview_tasklist_list?.visibility = View.INVISIBLE
+            textview_tasklist_empty?.visibility = View.VISIBLE
+        } else {
+            recyclerview_tasklist_list?.visibility = View.VISIBLE
+            textview_tasklist_empty?.visibility = View.INVISIBLE
+        }
     }
 
     private fun onItemClicked(taskWithCategory: TaskWithCategory) {

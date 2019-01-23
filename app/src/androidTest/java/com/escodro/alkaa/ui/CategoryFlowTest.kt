@@ -93,7 +93,7 @@ class CategoryFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) 
     private fun navigateToCategoryScreen() {
         openDrawer()
         events.clickOnViewWithText(R.string.drawer_menu_manage_categories)
-        checkThat.viewHasText(R.id.toolbar_main_toolbar, R.string.category_list_label)
+        checkThat.viewHasText(R.id.toolbar_title, R.string.category_list_label)
     }
 
     private fun addCategory(categoryName: String) {

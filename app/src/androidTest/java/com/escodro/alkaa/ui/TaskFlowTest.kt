@@ -71,9 +71,10 @@ class TaskFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
 
     @Test
     fun checkTaskAsCompleted() {
-        addTask("write article")
+        val taskName = "write article"
+        addTask(taskName)
         events.clickOnView(R.id.checkbox_itemtask_completed)
-        checkThat.checkBoxIsChecked(R.id.checkbox_itemtask_completed)
+        checkThat.listNotContainsItem(R.id.recyclerview_tasklist_list, taskName)
     }
 
     @Test

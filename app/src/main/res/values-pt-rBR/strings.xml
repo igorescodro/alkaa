@@ -36,4 +36,5 @@
     <string-array name="task_dialog_options">
         <item>Remover</item>
     </string-array>
+    <string name="drawer_menu_completed_tasks">Finalizadas</string>
 </resources>

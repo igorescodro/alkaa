@@ -50,7 +50,6 @@ class CategoryFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) 
         events.clickOnView(R.id.imageview_itemcategory_options)
         events.clickOnViewWithText(R.string.category_list_menu_remove)
         events.clickOnViewWithText(R.string.category_list_dialog_remove_positive)
-        events.waitFor(R.id.recyclerview_categorylist_list, 1000)
         checkThat.listNotContainsItem(R.id.recyclerview_categorylist_list, categoryName)
         checkThat.viewIsCompletelyDisplayed(R.id.textview_categorylist_empty)
     }
@@ -62,7 +61,6 @@ class CategoryFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) 
         events.clickOnView(R.id.imageview_itemcategory_options)
         events.clickOnViewWithText(R.string.category_list_menu_remove)
         events.clickOnViewWithText(R.string.category_list_dialog_remove_negative)
-        events.waitFor(R.id.recyclerview_categorylist_list, 1000)
         checkThat.listContainsItem(R.id.recyclerview_categorylist_list, categoryName)
     }
 
@@ -75,7 +73,6 @@ class CategoryFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) 
         events.clickOnView(R.id.radiobutton_categorynew_green)
         events.clickOnView(R.id.radiobutton_categorynew_yellow)
         events.clickOnView(R.id.radiobutton_categorynew_pink)
-        events.waitFor(R.id.button_categorynew_add, 1000)
         checkThat.viewHasBackgroundColor(R.id.button_categorynew_add, R.color.pink)
     }
 

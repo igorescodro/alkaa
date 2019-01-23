@@ -10,6 +10,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.ActivityTestRule
 import androidx.test.uiautomator.UiDevice
 import com.escodro.alkaa.di.provider.DaoProvider
+import com.escodro.alkaa.framework.rule.DisableAnimationsRule
 import org.junit.Rule
 import org.junit.runner.RunWith
 import org.koin.standalone.inject
@@ -25,6 +26,10 @@ abstract class AcceptanceTest<T : Activity>(clazz: Class<T>) : KoinTest {
     @Rule
     @JvmField
     val testRule: ActivityTestRule<T> = IntentsTestRule(clazz)
+
+    @Rule
+    @JvmField
+    val animationRule = DisableAnimationsRule()
 
     val uiDevice: UiDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
 

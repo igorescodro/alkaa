@@ -82,7 +82,7 @@ class TaskFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
         events.textOnView(R.id.edittext_taskdetail_title, taskUpdated)
         events.waitFor(R.id.recyclerview_tasklist_list, 500)
         events.navigateUp()
-        events.waitFor(R.id.recyclerview_tasklist_list, 2000)
+        events.waitFor(R.id.recyclerview_tasklist_list, 1000)
         checkThat.listContainsItem(R.id.recyclerview_tasklist_list, taskUpdated)
         events.clickOnRecyclerItem(R.id.recyclerview_tasklist_list)
         checkThat.viewHasText(R.id.edittext_taskdetail_title, taskUpdated)
@@ -96,7 +96,7 @@ class TaskFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
         events.textOnView(R.id.edittext_taskdetail_title, "")
         events.waitFor(R.id.recyclerview_tasklist_list, 500)
         events.navigateUp()
-        events.waitFor(R.id.recyclerview_tasklist_list, 2000)
+        events.waitFor(R.id.recyclerview_tasklist_list, 1000)
         checkThat.listContainsItem(R.id.recyclerview_tasklist_list, task)
     }
 
@@ -172,7 +172,7 @@ class TaskFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
         events.clickOnView(R.id.edittext_itemadd_description)
         events.textOnView(R.id.edittext_itemadd_description, taskName)
         events.pressImeActionButton(R.id.edittext_itemadd_description)
-        events.waitFor(R.id.recyclerview_tasklist_list, 2000)
+        events.waitFor(R.id.recyclerview_tasklist_list, 1000)
         checkThat.listContainsItem(R.id.recyclerview_tasklist_list, taskName)
     }
 

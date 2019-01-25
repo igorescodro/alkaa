@@ -1,4 +1,4 @@
-package com.escodro.alkaa.ui.task.alarm
+package com.escodro.alkaa.ui.task.notification
 
 import android.app.PendingIntent
 import android.content.Context
@@ -8,7 +8,6 @@ import androidx.navigation.NavDeepLinkBuilder
 import com.escodro.alkaa.R
 import com.escodro.alkaa.common.extension.getNotificationManager
 import com.escodro.alkaa.data.local.model.Task
-import com.escodro.alkaa.ui.TaskNotificationChannel
 import timber.log.Timber
 
 /**

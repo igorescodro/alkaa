@@ -16,7 +16,7 @@ import java.util.concurrent.LinkedBlockingQueue
 /**
  * [Worker] to reschedule the Task alarms.
  */
-class TaskAlarmWorker(context: Context, params: WorkerParameters) :
+class TaskReschedulerWorker(context: Context, params: WorkerParameters) :
     Worker(context, params), KoinComponent {
 
     private val daoProvider: DaoProvider by inject()

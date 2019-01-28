@@ -31,7 +31,7 @@ class TaskAlarmReceiver : BroadcastReceiver(), KoinComponent {
     private fun onBootCompleted() {
         Timber.d("onBootCompleted")
 
-        val worker = OneTimeWorkRequest.Builder(TaskAlarmWorker::class.java).build()
+        val worker = OneTimeWorkRequest.Builder(TaskReschedulerWorker::class.java).build()
         WorkManager.getInstance().enqueue(worker)
     }
 

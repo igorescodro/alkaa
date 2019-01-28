@@ -126,7 +126,7 @@ class TaskListFragment : Fragment() {
     private fun onItemClicked(taskWithCategory: TaskWithCategory) {
         Timber.d("onItemClicked() - Task = ${taskWithCategory.task.title}")
 
-        val action = TaskListFragmentDirections.actionDetail(taskWithCategory.task)
+        val action = TaskListFragmentDirections.actionDetail(taskWithCategory.task.id)
         navigator?.navigate(action)
     }
 

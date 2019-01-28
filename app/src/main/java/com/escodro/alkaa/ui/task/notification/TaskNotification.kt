@@ -40,7 +40,7 @@ class TaskNotification(
 
     private fun buildPendingIntent(task: Task): PendingIntent {
         val arguments = Bundle()
-        arguments.putParcelable(ARGUMENT_TASK, task)
+        arguments.putLong(ARGUMENT_TASK, task.id)
 
         return NavDeepLinkBuilder(context)
             .setGraph(R.navigation.nav_graph)
@@ -56,6 +56,6 @@ class TaskNotification(
          * [NavDeepLinkBuilder], the argument name must be passed hardcoded. This value must match
          * with the argument in _nav.graph.xml_.
          */
-        private const val ARGUMENT_TASK = "task"
+        private const val ARGUMENT_TASK = "taskId"
     }
 }

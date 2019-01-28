@@ -6,6 +6,7 @@ import androidx.room.TypeConverters
 import com.escodro.alkaa.data.local.converter.DateConverter
 import com.escodro.alkaa.data.local.dao.CategoryDao
 import com.escodro.alkaa.data.local.dao.TaskDao
+import com.escodro.alkaa.data.local.dao.TaskWithCategoryDao
 import com.escodro.alkaa.data.local.model.Category
 import com.escodro.alkaa.data.local.model.Task
 
@@ -22,6 +23,13 @@ abstract class TaskDatabase : RoomDatabase() {
      * @return the [TaskDao]
      */
     abstract fun taskDao(): TaskDao
+
+    /**
+     * Gets the [TaskWithCategoryDao].
+     *
+     * @return the [TaskWithCategoryDao]
+     */
+    abstract fun taskWithCategoryDao(): TaskWithCategoryDao
 
     /**
      * Gets the [CategoryDao].

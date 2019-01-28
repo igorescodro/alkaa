@@ -7,6 +7,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.escodro.alkaa.data.local.TaskDatabase
 import com.escodro.alkaa.data.local.dao.CategoryDao
 import com.escodro.alkaa.data.local.dao.TaskDao
+import com.escodro.alkaa.data.local.dao.TaskWithCategoryDao
 import com.escodro.alkaa.data.local.model.Category
 import com.escodro.alkaa.data.local.model.Task
 import org.junit.After
@@ -23,6 +24,8 @@ class TaskDatabaseTest {
 
     private lateinit var taskDao: TaskDao
 
+    private lateinit var taskWithCategoryDao: TaskWithCategoryDao
+
     private lateinit var categoryDao: CategoryDao
 
     @Before
@@ -30,8 +33,9 @@ class TaskDatabaseTest {
         val context: Context = ApplicationProvider.getApplicationContext()
         database = Room.inMemoryDatabaseBuilder(context, TaskDatabase::class.java).build()
         taskDao = database.taskDao()
-
+        taskWithCategoryDao = database.taskWithCategoryDao()
         categoryDao = database.categoryDao()
+
         categoryDao.insertCategory(Category(name = "Work", color = "#cc5a71"))
         categoryDao.insertCategory(Category(name = "Personal", color = "#58a4b0"))
         categoryDao.insertCategory(Category(name = "Family", color = "#519872"))
@@ -81,7 +85,7 @@ class TaskDatabaseTest {
         task.categoryId = categoryDao.getAllCategories().blockingFirst()[0].id
         taskDao.insertTask(task)
 
-        val taskWithCategory = taskDao.getAllTasksWithCategory(false).blockingFirst()[0]
+        val taskWithCategory = taskWithCategoryDao.getAllTasksWithCategory(false).blockingFirst()[0]
         assertTrue(taskWithCategory.task == task)
     }
 

@@ -111,6 +111,7 @@ class TaskDetailViewModel(
         taskData.value?.let {
             it.dueDate = alarm
             updateTask(it)
+            alarmManager.scheduleTaskAlarm(it)
         }
         taskData.notify()
     }
@@ -134,16 +135,6 @@ class TaskDetailViewModel(
 
         val disposable = contract.updateTask(task).subscribe()
         compositeDisposable.add(disposable)
-
-        scheduleAlarm(task)
-    }
-
-    private fun scheduleAlarm(task: Task) {
-        Timber.d("scheduleAlarm()")
-
-        if (task.dueDate != null) {
-            alarmManager.scheduleTaskAlarm(task)
-        }
     }
 
     override fun onCleared() {

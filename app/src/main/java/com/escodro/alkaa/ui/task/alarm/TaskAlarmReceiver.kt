@@ -3,21 +3,16 @@ package com.escodro.alkaa.ui.task.alarm
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import androidx.work.Data
 import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
-import com.escodro.alkaa.common.extension.unmarshallParcelable
-import com.escodro.alkaa.data.local.model.Task
-import com.escodro.alkaa.ui.task.notification.TaskNotification
 import org.koin.standalone.KoinComponent
-import org.koin.standalone.inject
 import timber.log.Timber
 
 /**
  * [BroadcastReceiver] to be notified by the [android.app.AlarmManager].
  */
 class TaskAlarmReceiver : BroadcastReceiver(), KoinComponent {
-
-    private val taskNotification: TaskNotification by inject()
 
     override fun onReceive(context: Context?, intent: Intent?) {
         Timber.d("onReceive() - intent ${intent?.action}")
@@ -36,11 +31,15 @@ class TaskAlarmReceiver : BroadcastReceiver(), KoinComponent {
     }
 
     private fun onAlarm(intent: Intent?) {
+        Timber.d("onAlarm")
 
-        val byte = intent?.getByteArrayExtra(TaskAlarmManager.EXTRA_TASK) ?: return
-        val task = unmarshallParcelable<Task>(byte) ?: return
+        val taskId = intent?.getLongExtra(TaskAlarmManager.EXTRA_TASK, 0) ?: return
+        val data = Data.Builder()
+        data.putLong(TaskAlarmManager.EXTRA_TASK, taskId)
 
-        Timber.d("Notifying task '${task.title}'")
-        taskNotification.show(task)
+        val worker = OneTimeWorkRequest.Builder(TaskAlarmWorker::class.java)
+        worker.setInputData(data.build())
+
+        WorkManager.getInstance().enqueue(worker.build())
     }
 }

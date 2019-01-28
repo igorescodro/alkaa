@@ -83,6 +83,16 @@ interface TaskDao {
     fun getAllTasksWithDueDate(): Single<List<Task>>
 
     /**
+     * Get task by id.
+     *
+     * @param taskId task id
+     *
+     * @return selected task
+     */
+    @Query("SELECT * FROM task WHERE task_id = :taskId")
+    fun getTaskById(taskId: Long): Single<Task>
+
+    /**
      * Get all inserted tasks.
      *
      * @return all inserted tasks
@@ -95,6 +105,8 @@ interface TaskDao {
      * Gets a specific task by title.
      *
      * @param title task title
+     *
+     * @return selected task
      */
     @TestOnly
     @Query("SELECT * FROM task WHERE task_title = :title")

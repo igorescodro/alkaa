@@ -64,8 +64,7 @@ class TaskDetailViewModel(
 
         taskData.value?.let {
             taskData.value?.title = title
-            val disposable = contract.updateTask(it).subscribe()
-            compositeDisposable.add(disposable)
+            updateTask(it)
         }
     }
 
@@ -79,8 +78,7 @@ class TaskDetailViewModel(
 
         taskData.value?.let {
             taskData.value?.description = description
-            val disposable = contract.updateTask(it).subscribe()
-            compositeDisposable.add(disposable)
+            updateTask(it)
         }
     }
 
@@ -98,8 +96,7 @@ class TaskDetailViewModel(
             }
 
             taskData.value?.categoryId = categoryId
-            val disposable = contract.updateTask(it).subscribe()
-            compositeDisposable.add(disposable)
+            updateTask(it)
         }
     }
 
@@ -113,7 +110,6 @@ class TaskDetailViewModel(
 
         taskData.value?.let {
             it.dueDate = alarm
-            alarmManager.scheduleTaskAlarm(it)
             updateTask(it)
         }
         taskData.notify()
@@ -138,6 +134,16 @@ class TaskDetailViewModel(
 
         val disposable = contract.updateTask(task).subscribe()
         compositeDisposable.add(disposable)
+
+        scheduleAlarm(task)
+    }
+
+    private fun scheduleAlarm(task: Task) {
+        Timber.d("scheduleAlarm()")
+
+        if (task.dueDate != null) {
+            alarmManager.scheduleTaskAlarm(task)
+        }
     }
 
     override fun onCleared() {

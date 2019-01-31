@@ -1,8 +1,11 @@
 [![Build Status](https://travis-ci.org/igorescodro/alkaa.svg?branch=master)](https://travis-ci.org/igorescodro/alkaa)
+<a href="https://ktlint.github.io/"><img src="https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg" alt="ktlint"></a>
 
 # Alkaa
 
-Alkaa (_to begin_, _to start_ in Finnish) is a simple to-do list project to study the latest components, architecure, tools, and APIs released in Android Platform.
+Alkaa (_begin_, _start_ in Finnish) is a simple to-do list project to study the latest components, architecure, tools, and APIs released in Android Platform. The project evolved a lot in the last year and now is available in Google Play! :heart:
+
+<a href='https://play.google.com/store/apps/details?id=com.escodro.alkaa'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' height=64/></a>
 
 Currently, this project covers the following topics:
 
@@ -24,6 +27,7 @@ Currently, this project covers the following topics:
 #### Third-Party
 - [Koin](https://insert-koin.io)
 - [RxJava 2 e RxAndroid 2](https://github.com/ReactiveX/RxAndroid)
+- [Timber](https://github.com/JakeWharton/timber)
 
 #### Quality check
 - [klint](https://github.com/shyiko/ktlint)
@@ -32,6 +36,7 @@ Currently, this project covers the following topics:
 
 #### Tests
 - [Espresso](https://developer.android.com/training/testing/espresso/)
+- [UiAutomator](https://developer.android.com/training/testing/ui-automator)
 
 #### Continuous Integration
 - [Travis CI](https://travis-ci.org)
@@ -40,7 +45,7 @@ Currently, this project covers the following topics:
 - [Dagger 2](https://google.github.io/dagger/) (replaced by Koin)
 
 ---
-### Feel free to fork it and update as you prefer - Enjoy your studies!
+### Feel free to use the code the way you prefer - Enjoy your studies!
 ---
 
 ## License

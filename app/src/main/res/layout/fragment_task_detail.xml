@@ -11,109 +11,116 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:descendantFocusability="beforeDescendants"
-        android:focusableInTouchMode="true">
+        android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/edittext_taskdetail_title"
-            style="@style/TaskTitle"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:background="@android:color/transparent"
-            android:imeOptions="actionDone"
-            android:inputType="text"
-            android:maxLines="1"
-            android:text="@{viewModel.taskData.title}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Buy organic milk?" />
+            android:descendantFocusability="beforeDescendants"
+            android:focusableInTouchMode="true">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/imageview_taskdetail_category"
-            android:layout_width="32dp"
-            android:layout_height="63dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
-            android:src="@drawable/ic_category"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edittext_taskdetail_title" />
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edittext_taskdetail_title"
+                style="@style/TaskTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:background="@android:color/transparent"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:maxLines="1"
+                android:text="@{viewModel.taskData.title}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Buy organic milk?" />
 
-        <com.escodro.alkaa.common.view.ScrollableRadioGroup
-            android:id="@+id/srg_taskdetail_list"
-            android:layout_width="0dp"
-            android:layout_height="64dp"
-            android:layout_marginStart="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/imageview_taskdetail_category"
-            app:layout_constraintTop_toTopOf="@id/imageview_taskdetail_category" />
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageview_taskdetail_category"
+                android:layout_width="32dp"
+                android:layout_height="63dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:src="@drawable/ic_category"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edittext_taskdetail_title" />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/imageview_taskdetail_description"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
-            android:src="@drawable/ic_task_description"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/srg_taskdetail_list" />
+            <com.escodro.alkaa.common.view.ScrollableRadioGroup
+                android:id="@+id/srg_taskdetail_list"
+                android:layout_width="0dp"
+                android:layout_height="64dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/imageview_taskdetail_category"
+                app:layout_constraintTop_toTopOf="@id/imageview_taskdetail_category" />
 
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/edittext_taskdetail_description"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="@android:color/transparent"
-            android:gravity="top"
-            android:hint="@string/task_details_description_hint"
-            android:inputType="textCapSentences|textMultiLine"
-            android:text="@{viewModel.taskData.description}"
-            app:layout_constraintBottom_toTopOf="@+id/btn_taskdetail_date"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/imageview_taskdetail_description"
-            app:layout_constraintTop_toTopOf="@id/imageview_taskdetail_description" />
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageview_taskdetail_description"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:src="@drawable/ic_task_description"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/srg_taskdetail_list" />
 
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/btn_taskdetail_date"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="32dp"
-            android:background="@null"
-            android:src="@drawable/ic_alarm"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edittext_taskdetail_description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@android:color/transparent"
+                android:gravity="top"
+                android:hint="@string/task_details_description_hint"
+                android:inputType="textCapSentences|textMultiLine"
+                android:text="@{viewModel.taskData.description}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/imageview_taskdetail_description"
+                app:layout_constraintTop_toTopOf="@id/imageview_taskdetail_description" />
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chip_taskdetail_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="@{viewModel.taskData.dueDate}"
-            android:visibility="@{viewModel.chipVisibility}"
-            app:closeIconVisible="true"
-            app:layout_constraintBottom_toBottomOf="@id/btn_taskdetail_date"
-            app:layout_constraintStart_toEndOf="@id/btn_taskdetail_date"
-            app:layout_constraintTop_toTopOf="@id/btn_taskdetail_date" />
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/btn_taskdetail_date"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="32dp"
+                android:background="@null"
+                android:src="@drawable/ic_alarm"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edittext_taskdetail_description" />
 
-        <TextView
-            android:id="@+id/textview_taskdetail_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="@string/task_details_alarm_hint"
-            android:textColor="@color/gray_light"
-            android:textSize="18sp"
-            android:visibility="@{!viewModel.chipVisibility}"
-            app:layout_constraintBottom_toBottomOf="@id/btn_taskdetail_date"
-            app:layout_constraintStart_toEndOf="@id/btn_taskdetail_date"
-            app:layout_constraintTop_toTopOf="@id/btn_taskdetail_date" />
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_taskdetail_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@{viewModel.taskData.dueDate}"
+                android:visibility="@{viewModel.chipVisibility}"
+                app:closeIconVisible="true"
+                app:layout_constraintBottom_toBottomOf="@id/btn_taskdetail_date"
+                app:layout_constraintStart_toEndOf="@id/btn_taskdetail_date"
+                app:layout_constraintTop_toTopOf="@id/btn_taskdetail_date" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/textview_taskdetail_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/task_details_alarm_hint"
+                android:textColor="@color/gray_light"
+                android:textSize="18sp"
+                android:visibility="@{!viewModel.chipVisibility}"
+                app:layout_constraintBottom_toBottomOf="@id/btn_taskdetail_date"
+                app:layout_constraintStart_toEndOf="@id/btn_taskdetail_date"
+                app:layout_constraintTop_toTopOf="@id/btn_taskdetail_date" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
 
 </layout>

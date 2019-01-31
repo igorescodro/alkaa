@@ -4,7 +4,7 @@ import androidx.test.uiautomator.UiSelector
 import com.escodro.alkaa.R
 import com.escodro.alkaa.data.local.model.Category
 import com.escodro.alkaa.framework.AcceptanceTest
-import com.escodro.alkaa.framework.extension.waitForLaucher
+import com.escodro.alkaa.framework.extension.waitForLauncher
 import com.escodro.alkaa.ui.main.MainActivity
 import org.junit.After
 import org.junit.Before
@@ -146,7 +146,7 @@ class TaskFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
     fun addTaskAfterLeaveScreen() {
         uiDevice.pressHome()
         uiDevice.pressRecentApps()
-        uiDevice.waitForLaucher()
+        uiDevice.waitForLauncher()
         uiDevice.findObject(UiSelector().descriptionContains(context.getString(R.string.app_name)))
             .click()
 

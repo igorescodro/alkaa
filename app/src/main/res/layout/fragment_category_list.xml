@@ -29,7 +29,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/item_task" />
+        tools:listitem="@layout/item_category" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/button_categorylist_add"

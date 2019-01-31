@@ -13,6 +13,7 @@ import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.longClick
 import androidx.test.espresso.action.ViewActions.pressImeActionButton
 import androidx.test.espresso.action.ViewActions.replaceText
+import androidx.test.espresso.action.ViewActions.scrollTo
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.DrawerActions
 import androidx.test.espresso.contrib.NavigationViewActions
@@ -97,6 +98,10 @@ class Events {
 
     fun clickOnNavigationViewItem(@IdRes viewId: Int, itemId: Int) {
         onView(withId(viewId)).perform(NavigationViewActions.navigateTo(itemId))
+    }
+
+    fun scrollTo(@IdRes viewId: Int) {
+        onView(withId(viewId)).perform(scrollTo())
     }
 
     fun setDate(calendar: Calendar) {

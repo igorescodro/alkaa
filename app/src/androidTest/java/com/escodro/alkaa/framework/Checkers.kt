@@ -24,6 +24,10 @@ class Checkers {
         onView(withId(viewId)).check(matches(isCompletelyDisplayed()))
     }
 
+    fun viewIsNotDisplayed(@IdRes viewId: Int) {
+        onView(withId(viewId)).check(matches(not(isCompletelyDisplayed())))
+    }
+
     fun viewHasText(@IdRes viewId: Int, text: String) {
         onView(withId(viewId)).check(matches(withText(text)))
     }

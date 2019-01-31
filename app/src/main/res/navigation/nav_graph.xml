@@ -47,8 +47,8 @@
         android:name="com.escodro.alkaa.ui.task.detail.TaskDetailFragment">
 
         <argument
-            android:name="task"
-            app:argType="com.escodro.alkaa.data.local.model.Task" />
+            android:name="taskId"
+            app:argType="long" />
 
     </fragment>
 

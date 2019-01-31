@@ -106,6 +106,7 @@ class TaskFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
         events.clickOnRadioButton(R.id.srg_radiogroup_list, 1)
         events.navigateUp()
         events.clickOnRecyclerItem(R.id.recyclerview_tasklist_list)
+        events.waitFor(R.id.recyclerview_tasklist_list, 1000)
         checkThat.radioButtonIsChecked(R.id.srg_radiogroup_list, 1)
     }
 

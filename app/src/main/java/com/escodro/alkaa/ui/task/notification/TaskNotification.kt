@@ -1,4 +1,4 @@
-package com.escodro.alkaa.ui.task.alarm
+package com.escodro.alkaa.ui.task.notification
 
 import android.app.PendingIntent
 import android.content.Context
@@ -8,7 +8,6 @@ import androidx.navigation.NavDeepLinkBuilder
 import com.escodro.alkaa.R
 import com.escodro.alkaa.common.extension.getNotificationManager
 import com.escodro.alkaa.data.local.model.Task
-import com.escodro.alkaa.ui.TaskNotificationChannel
 import timber.log.Timber
 
 /**
@@ -41,7 +40,7 @@ class TaskNotification(
 
     private fun buildPendingIntent(task: Task): PendingIntent {
         val arguments = Bundle()
-        arguments.putParcelable(ARGUMENT_TASK, task)
+        arguments.putLong(ARGUMENT_TASK, task.id)
 
         return NavDeepLinkBuilder(context)
             .setGraph(R.navigation.nav_graph)
@@ -57,6 +56,6 @@ class TaskNotification(
          * [NavDeepLinkBuilder], the argument name must be passed hardcoded. This value must match
          * with the argument in _nav.graph.xml_.
          */
-        private const val ARGUMENT_TASK = "task"
+        private const val ARGUMENT_TASK = "taskId"
     }
 }

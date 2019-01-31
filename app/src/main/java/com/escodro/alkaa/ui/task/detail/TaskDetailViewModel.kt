@@ -31,6 +31,18 @@ class TaskDetailViewModel(
     }
 
     /**
+     * Loads the task based on the given id.
+     *
+     * @param taskId task id
+     */
+    fun loadTask(taskId: Long) {
+        val disposable = contract.loadTask(taskId).subscribe(
+            { taskData.value = it },
+            { Timber.e("Task not found in database") })
+        compositeDisposable.add(disposable)
+    }
+
+    /**
      * Load all categories.
      */
     fun loadCategories(onCategoryListLoaded: (list: List<Category>) -> Unit) {
@@ -52,8 +64,7 @@ class TaskDetailViewModel(
 
         taskData.value?.let {
             taskData.value?.title = title
-            val disposable = contract.updateTask(it).subscribe()
-            compositeDisposable.add(disposable)
+            updateTask(it)
         }
     }
 
@@ -67,8 +78,7 @@ class TaskDetailViewModel(
 
         taskData.value?.let {
             taskData.value?.description = description
-            val disposable = contract.updateTask(it).subscribe()
-            compositeDisposable.add(disposable)
+            updateTask(it)
         }
     }
 
@@ -86,8 +96,7 @@ class TaskDetailViewModel(
             }
 
             taskData.value?.categoryId = categoryId
-            val disposable = contract.updateTask(it).subscribe()
-            compositeDisposable.add(disposable)
+            updateTask(it)
         }
     }
 
@@ -101,8 +110,8 @@ class TaskDetailViewModel(
 
         taskData.value?.let {
             it.dueDate = alarm
-            alarmManager.scheduleTaskAlarm(it)
             updateTask(it)
+            alarmManager.scheduleTaskAlarm(it)
         }
         taskData.notify()
     }

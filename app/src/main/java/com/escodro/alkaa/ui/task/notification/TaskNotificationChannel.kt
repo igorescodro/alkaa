@@ -1,4 +1,4 @@
-package com.escodro.alkaa.ui
+package com.escodro.alkaa.ui.task.notification
 
 import android.app.NotificationChannel
 import android.app.NotificationManager

@@ -1,14 +1,11 @@
 package com.escodro.alkaa.framework
 
-import android.content.Context
 import androidx.annotation.IdRes
 import androidx.annotation.StringRes
-import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.DrawerMatchers
 import androidx.test.espresso.matcher.ViewMatchers.hasDescendant
-import androidx.test.espresso.matcher.ViewMatchers.hasErrorText
 import androidx.test.espresso.matcher.ViewMatchers.isChecked
 import androidx.test.espresso.matcher.ViewMatchers.isCompletelyDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withHint
@@ -22,8 +19,6 @@ import java.util.Calendar
  */
 @Suppress("UndocumentedPublicFunction")
 class Checkers {
-
-    private val context: Context = ApplicationProvider.getApplicationContext()
 
     fun viewIsCompletelyDisplayed(@IdRes viewId: Int) {
         onView(withId(viewId)).check(matches(isCompletelyDisplayed()))
@@ -39,11 +34,6 @@ class Checkers {
 
     fun viewHasDate(@IdRes viewId: Int, calendar: Calendar) {
         onView(withId(viewId)).check(matches(Matchers.compareDates(calendar)))
-    }
-
-    fun viewContainsError(@IdRes viewId: Int, @StringRes stringResource: Int) {
-        val errorMessage = context.getString(stringResource)
-        onView(withId(viewId)).check(matches(hasErrorText(errorMessage)))
     }
 
     fun listContainsItem(@IdRes viewId: Int, itemName: String) {

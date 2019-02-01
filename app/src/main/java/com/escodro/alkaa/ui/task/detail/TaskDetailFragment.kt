@@ -1,5 +1,7 @@
 package com.escodro.alkaa.ui.task.detail
 
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +19,7 @@ import com.escodro.alkaa.data.local.model.Category
 import com.escodro.alkaa.data.local.model.Task
 import com.escodro.alkaa.databinding.FragmentTaskDetailBinding
 import com.escodro.alkaa.ui.main.MainTaskViewModel
+import com.google.android.material.chip.Chip
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_task_detail.*
 import kotlinx.android.synthetic.main.view_scrollable_radio_group.*
@@ -113,6 +116,42 @@ class TaskDetailFragment : Fragment() {
             it.value.id == viewModel.taskData.value?.categoryId
         }
         checked?.let { binding?.srgTaskdetailList?.setChecked(it.index) }
+        updateCategoryChips(list)
+    }
+
+    private fun updateCategoryChips(list: List<Category>) {
+        Timber.d("updateCategoryChips() - Size = ${list.size}")
+
+        list.forEach { category ->
+            val chip = createChip(category)
+            chipgrp_taskdetail_category.addView(chip)
+            Timber.d("addingChip = ${chip.text}")
+        }
+    }
+
+    private fun createChip(category: Category) =
+        Chip(context).apply {
+            text = category.name
+            chipBackgroundColor = getChipBackgroundColors(category)
+            chipStrokeWidth = CHIP_STROKE_WIDTH
+            chipStrokeColor = getChipTextColors(category)
+            isCheckedIconVisible = false
+            isClickable = true
+            isCheckable = true
+            setTextColor(context.getColorStateList(R.color.chip_text))
+        }
+
+    private fun getChipBackgroundColors(category: Category): ColorStateList {
+        val colors = intArrayOf(Color.parseColor(category.color), Color.WHITE)
+        return ColorStateList(chipStates, colors)
+    }
+
+    private fun getChipTextColors(category: Category): ColorStateList {
+        val colors = context?.let {
+            intArrayOf(Color.parseColor(category.color), it.getColor(R.color.gray_light))
+        }
+
+        return ColorStateList(chipStates, colors)
     }
 
     private fun updateTaskWithCategory(radioGroup: RadioGroup?, position: Int) {
@@ -134,5 +173,15 @@ class TaskDetailFragment : Fragment() {
 
         context?.showToast(R.string.task_details_alarm_removed)
         viewModel.removeAlarm()
+    }
+
+    companion object {
+
+        private const val CHIP_STROKE_WIDTH = 2F
+
+        private val chipStates = arrayOf(
+            intArrayOf(android.R.attr.state_checked),
+            intArrayOf(-android.R.attr.state_checked)
+        )
     }
 }

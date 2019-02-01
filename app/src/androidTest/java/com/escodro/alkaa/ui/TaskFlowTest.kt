@@ -169,6 +169,23 @@ class TaskFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
         checkThat.viewHasText(R.id.toolbar_title, R.string.drawer_menu_all_tasks)
     }
 
+    @Test
+    fun validateLongDescription() {
+        val title = "La vie en rose"
+        addAndOpenTask(title)
+
+        val description = StringBuilder()
+        for (i in 0..50) {
+            description.append("Quand il me prend dans ses bras [$i]\n")
+        }
+
+        events.textOnView(R.id.edittext_taskdetail_description, description.toString())
+        events.waitFor(R.id.recyclerview_tasklist_list, 500)
+        checkThat.viewIsNotDisplayed(R.id.btn_taskdetail_date)
+        events.scrollTo(R.id.btn_taskdetail_date)
+        checkThat.viewIsCompletelyDisplayed(R.id.btn_taskdetail_date)
+    }
+
     private fun addTask(taskName: String) {
         events.clickOnView(R.id.edittext_itemadd_description)
         events.textOnView(R.id.edittext_itemadd_description, taskName)

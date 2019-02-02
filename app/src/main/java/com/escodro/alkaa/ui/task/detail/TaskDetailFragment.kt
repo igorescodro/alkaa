@@ -18,6 +18,7 @@ import com.escodro.alkaa.data.local.model.Task
 import com.escodro.alkaa.databinding.FragmentTaskDetailBinding
 import com.escodro.alkaa.ui.main.MainTaskViewModel
 import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_task_detail.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -86,10 +87,7 @@ class TaskDetailFragment : Fragment() {
     private fun initListeners() {
         Timber.d("initListeners()")
 
-//        srg_radiogroup_list.setOnCheckedChangeListener { radioGroup, position ->
-//            updateTaskWithCategory(radioGroup, position)
-//        }
-
+        chipgrp_taskdetail_category.setOnCheckedChangeListener(::updateTaskWithCategory)
         btn_taskdetail_date.setOnClickListener { showDateTimePicker(::updateTaskWithDueDate) }
         textview_taskdetail_date.setOnClickListener { showDateTimePicker(::updateTaskWithDueDate) }
 
@@ -107,21 +105,23 @@ class TaskDetailFragment : Fragment() {
     private fun updateCategoryChips(list: List<Category>) {
         Timber.d("updateCategoryChips() - Size = ${list.size}")
 
+        val chipGroup = chipgrp_taskdetail_category
         list.forEach { category ->
             val chip = createChip(category)
-            chipgrp_taskdetail_category.addView(chip)
+            chipGroup.addView(chip)
             Timber.d("addingChip = ${chip.text}")
         }
 
         val checked = list.asSequence().withIndex().firstOrNull {
             it.value.id == viewModel.taskData.value?.categoryId
         }
-        checked?.let { (chipgrp_taskdetail_category.getChildAt(it.index) as Chip).isChecked = true }
+        checked?.let { (chipGroup.getChildAt(it.index) as? Chip)?.isChecked = true }
     }
 
     private fun createChip(category: Category) =
         Chip(context).apply {
             text = category.name
+            tag = category.id
             chipBackgroundColor = getChipBackgroundColors(category)
             chipStrokeWidth = CHIP_STROKE_WIDTH
             chipStrokeColor = getChipTextColors(category)
@@ -144,13 +144,13 @@ class TaskDetailFragment : Fragment() {
         return ColorStateList(chipStates, colors)
     }
 
-//    private fun updateTaskWithCategory(radioGroup: RadioGroup?, position: Int) {
-//        Timber.d("updateTaskWithCategory() - Position = $position")
-//
-//        val checked = radioGroup?.findViewById<LabelRadioButton>(position)
-//        val categoryId = checked?.tag as? Long ?: 0
-//        viewModel.updateCategory(categoryId)
-//    }
+    private fun updateTaskWithCategory(chipGroup: ChipGroup?, position: Int) {
+        Timber.d("updateTaskWithCategory() - Position = $position")
+
+        val checked = chipGroup?.findViewById<Chip>(position)
+        val categoryId = checked?.tag as? Long
+        viewModel.updateCategory(categoryId)
+    }
 
     private fun updateTaskWithDueDate(calendar: Calendar) {
         Timber.d("updateTaskWithDueDate() - Calendar = ${calendar.time}")

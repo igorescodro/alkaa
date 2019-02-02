@@ -87,7 +87,7 @@ class TaskDetailViewModel(
      *
      * @param categoryId the task category id
      */
-    fun updateCategory(categoryId: Long) {
+    fun updateCategory(categoryId: Long?) {
         Timber.d("updateCategory() - $categoryId")
 
         taskData.value?.let {

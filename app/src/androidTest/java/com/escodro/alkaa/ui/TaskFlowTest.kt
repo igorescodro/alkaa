@@ -39,7 +39,7 @@ class TaskFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
         addAndOpenTask("everybody dance now")
         scheduleTask(1993, 3, 15, 16, 2)
         checkThat.viewIsCompletelyDisplayed(R.id.edittext_taskdetail_title)
-        checkThat.viewIsCompletelyDisplayed(R.id.srg_taskdetail_list)
+        checkThat.viewIsCompletelyDisplayed(R.id.chipgrp_taskdetail_category)
         checkThat.viewIsCompletelyDisplayed(R.id.edittext_taskdetail_description)
         checkThat.viewIsCompletelyDisplayed(R.id.chip_taskdetail_date)
         checkThat.viewIsCompletelyDisplayed(R.id.btn_taskdetail_date)
@@ -101,13 +101,37 @@ class TaskFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
     }
 
     @Test
+    fun checkIfTaskCategoryIsSingleSelection() {
+        addAndOpenTask("you'll never walk alone")
+        events.clickOnChild(R.id.chipgrp_taskdetail_category, 0)
+        events.clickOnChild(R.id.chipgrp_taskdetail_category, 1)
+        events.clickOnChild(R.id.chipgrp_taskdetail_category, 2)
+        checkThat.viewIsChecked(R.id.chipgrp_taskdetail_category, 2)
+        checkThat.viewIsNotChecked(R.id.chipgrp_taskdetail_category, 0)
+        checkThat.viewIsNotChecked(R.id.chipgrp_taskdetail_category, 1)
+    }
+
+    @Test
     fun checkIfTaskCategoryIsSaved() {
         addAndOpenTask("call my by your name")
-        events.clickOnRadioButton(R.id.srg_radiogroup_list, 1)
+        events.clickOnChild(R.id.chipgrp_taskdetail_category, 1)
         events.navigateUp()
         events.clickOnRecyclerItem(R.id.recyclerview_tasklist_list)
         events.waitFor(R.id.recyclerview_tasklist_list, 1000)
-        checkThat.radioButtonIsChecked(R.id.srg_radiogroup_list, 1)
+        checkThat.viewIsChecked(R.id.chipgrp_taskdetail_category, 1)
+    }
+
+    @Test
+    fun checkIfTaskCategoryIsRemoved() {
+        addAndOpenTask("enigma variations")
+        events.clickOnChild(R.id.chipgrp_taskdetail_category, 2)
+        events.navigateUp()
+        events.clickOnRecyclerItem(R.id.recyclerview_tasklist_list)
+        events.waitFor(R.id.recyclerview_tasklist_list, 1000)
+        events.clickOnChild(R.id.chipgrp_taskdetail_category, 2)
+        events.navigateUp()
+        events.clickOnRecyclerItem(R.id.recyclerview_tasklist_list)
+        checkThat.viewIsNotChecked(R.id.chipgrp_taskdetail_category, 1)
     }
 
     @Test

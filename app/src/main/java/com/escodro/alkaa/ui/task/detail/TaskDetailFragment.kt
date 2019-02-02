@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RadioGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.escodro.alkaa.R
@@ -14,7 +13,6 @@ import com.escodro.alkaa.common.extension.hideKeyboard
 import com.escodro.alkaa.common.extension.showDateTimePicker
 import com.escodro.alkaa.common.extension.showToast
 import com.escodro.alkaa.common.extension.textChangedObservable
-import com.escodro.alkaa.common.view.LabelRadioButton
 import com.escodro.alkaa.data.local.model.Category
 import com.escodro.alkaa.data.local.model.Task
 import com.escodro.alkaa.databinding.FragmentTaskDetailBinding
@@ -22,7 +20,6 @@ import com.escodro.alkaa.ui.main.MainTaskViewModel
 import com.google.android.material.chip.Chip
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_task_detail.*
-import kotlinx.android.synthetic.main.view_scrollable_radio_group.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
@@ -59,7 +56,7 @@ class TaskDetailFragment : Fragment() {
 
         initComponents()
         initListeners()
-        viewModel.loadCategories(onCategoryListLoaded = ::updateCategoryList)
+        viewModel.loadCategories(onCategoryListLoaded = ::updateCategoryChips)
     }
 
     override fun onStop() {
@@ -89,9 +86,9 @@ class TaskDetailFragment : Fragment() {
     private fun initListeners() {
         Timber.d("initListeners()")
 
-        srg_radiogroup_list.setOnCheckedChangeListener { radioGroup, position ->
-            updateTaskWithCategory(radioGroup, position)
-        }
+//        srg_radiogroup_list.setOnCheckedChangeListener { radioGroup, position ->
+//            updateTaskWithCategory(radioGroup, position)
+//        }
 
         btn_taskdetail_date.setOnClickListener { showDateTimePicker(::updateTaskWithDueDate) }
         textview_taskdetail_date.setOnClickListener { showDateTimePicker(::updateTaskWithDueDate) }
@@ -105,18 +102,6 @@ class TaskDetailFragment : Fragment() {
         chip_taskdetail_date.setOnCloseIconClickListener { removeAlarm() }
 
         compositeDisposable.addAll(titleDisposable, descDisposable)
-    }
-
-    private fun updateCategoryList(list: List<Category>) {
-        Timber.d("updateCategoryList() - Size = ${list.size}")
-
-        binding?.srgTaskdetailList?.updateList(list)
-
-        val checked = list.asSequence().withIndex().firstOrNull {
-            it.value.id == viewModel.taskData.value?.categoryId
-        }
-        checked?.let { binding?.srgTaskdetailList?.setChecked(it.index) }
-        updateCategoryChips(list)
     }
 
     private fun updateCategoryChips(list: List<Category>) {
@@ -154,13 +139,13 @@ class TaskDetailFragment : Fragment() {
         return ColorStateList(chipStates, colors)
     }
 
-    private fun updateTaskWithCategory(radioGroup: RadioGroup?, position: Int) {
-        Timber.d("updateTaskWithCategory() - Position = $position")
-
-        val checked = radioGroup?.findViewById<LabelRadioButton>(position)
-        val categoryId = checked?.tag as? Long ?: 0
-        viewModel.updateCategory(categoryId)
-    }
+//    private fun updateTaskWithCategory(radioGroup: RadioGroup?, position: Int) {
+//        Timber.d("updateTaskWithCategory() - Position = $position")
+//
+//        val checked = radioGroup?.findViewById<LabelRadioButton>(position)
+//        val categoryId = checked?.tag as? Long ?: 0
+//        viewModel.updateCategory(categoryId)
+//    }
 
     private fun updateTaskWithDueDate(calendar: Calendar) {
         Timber.d("updateTaskWithDueDate() - Calendar = ${calendar.time}")

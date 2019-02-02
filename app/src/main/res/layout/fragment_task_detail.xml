@@ -47,19 +47,10 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/edittext_taskdetail_title" />
 
-            <com.escodro.alkaa.common.view.ScrollableRadioGroup
-                android:id="@+id/srg_taskdetail_list"
+            <HorizontalScrollView
+                android:id="@+id/scrollview_taskdetail_category"
                 android:layout_width="0dp"
                 android:layout_height="32dp"
-                android:layout_marginStart="16dp"
-                android:visibility="invisible"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/imageview_taskdetail_category"
-                app:layout_constraintTop_toTopOf="@id/imageview_taskdetail_category" />
-
-            <HorizontalScrollView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:scrollbars="none"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -84,7 +75,7 @@
                 android:layout_marginTop="24dp"
                 android:src="@drawable/ic_task_description"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/srg_taskdetail_list" />
+                app:layout_constraintTop_toBottomOf="@id/scrollview_taskdetail_category" />
 
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/edittext_taskdetail_description"

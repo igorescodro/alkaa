@@ -72,8 +72,8 @@ class Events {
             .perform(click())
     }
 
-    fun clickOnRadioButton(@IdRes radioButtonGroupId: Int, index: Int) {
-        onView(Matchers.getChildAt(withId(radioButtonGroupId), index)).perform(click())
+    fun clickOnChild(@IdRes viewGroupId: Int, index: Int) {
+        onView(Matchers.getChildAt(withId(viewGroupId), index)).perform(click())
     }
 
     fun textOnView(@IdRes viewId: Int, text: String) {

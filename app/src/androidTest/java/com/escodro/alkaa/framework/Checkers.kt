@@ -61,8 +61,12 @@ class Checkers {
             .check(matches(Matchers.isTextInLines(numberOfLines)))
     }
 
-    fun radioButtonIsChecked(@IdRes radioButtonGroupId: Int, index: Int) {
-        onView(Matchers.getChildAt(withId(radioButtonGroupId), index)).check(matches(isChecked()))
+    fun viewIsChecked(@IdRes viewGroupId: Int, index: Int) {
+        onView(Matchers.getChildAt(withId(viewGroupId), index)).check(matches(isChecked()))
+    }
+
+    fun viewIsNotChecked(@IdRes viewGroupId: Int, index: Int) {
+        onView(Matchers.getChildAt(withId(viewGroupId), index)).check(matches(not(isChecked())))
     }
 
     fun drawerIsOpen(@IdRes drawerId: Int) {

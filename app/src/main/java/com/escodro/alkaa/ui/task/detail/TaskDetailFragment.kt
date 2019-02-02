@@ -112,6 +112,11 @@ class TaskDetailFragment : Fragment() {
             chipgrp_taskdetail_category.addView(chip)
             Timber.d("addingChip = ${chip.text}")
         }
+
+        val checked = list.asSequence().withIndex().firstOrNull {
+            it.value.id == viewModel.taskData.value?.categoryId
+        }
+        checked?.let { (chipgrp_taskdetail_category.getChildAt(it.index) as Chip).isChecked = true }
     }
 
     private fun createChip(category: Category) =

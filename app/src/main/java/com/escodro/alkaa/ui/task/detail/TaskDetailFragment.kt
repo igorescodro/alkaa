@@ -106,16 +106,32 @@ class TaskDetailFragment : Fragment() {
         Timber.d("updateCategoryChips() - Size = ${list.size}")
 
         val chipGroup = chipgrp_taskdetail_category
+
+        if (list.isEmpty()) {
+            onCategoryListEmpty(chipGroup)
+        } else {
+            createChipGroup(list, chipGroup)
+        }
+    }
+
+    private fun createChipGroup(list: List<Category>, chipGroup: ChipGroup) {
         list.forEach { category ->
             val chip = createChip(category)
             chipGroup.addView(chip)
             Timber.d("addingChip = ${chip.text}")
         }
 
-        val checked = list.asSequence().withIndex().firstOrNull {
+        val checked = list.withIndex().firstOrNull {
             it.value.id == viewModel.taskData.value?.categoryId
         }
         checked?.let { (chipGroup.getChildAt(it.index) as? Chip)?.isChecked = true }
+    }
+
+    private fun onCategoryListEmpty(chipGroup: ChipGroup) {
+        val emptyChip = Chip(context)
+        emptyChip.text = context?.getString(R.string.task_details_category_empty)
+        chipGroup.addView(emptyChip)
+        return
     }
 
     private fun createChip(category: Category) =

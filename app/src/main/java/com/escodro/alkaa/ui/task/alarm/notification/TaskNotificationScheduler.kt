@@ -21,8 +21,8 @@ class TaskNotificationScheduler(private val context: Context) {
      */
     fun scheduleTaskAlarm(task: Task) {
         val receiverIntent = Intent(context, TaskReceiver::class.java).apply {
-            action = ALARM_ACTION
-            putExtra(EXTRA_TASK, task.id)
+            action = TaskReceiver.ALARM_ACTION
+            putExtra(TaskReceiver.EXTRA_TASK, task.id)
         }
 
         val pendingIntent = PendingIntent.getBroadcast(
@@ -45,7 +45,7 @@ class TaskNotificationScheduler(private val context: Context) {
      */
     fun cancelTaskAlarm(taskId: Long) {
         val receiverIntent = Intent(context, TaskReceiver::class.java)
-        receiverIntent.action = ALARM_ACTION
+        receiverIntent.action = TaskReceiver.ALARM_ACTION
 
         val pendingIntent = PendingIntent.getBroadcast(
             context,
@@ -56,12 +56,5 @@ class TaskNotificationScheduler(private val context: Context) {
 
         Timber.d("Canceling notification with id '$taskId'")
         context.cancelAlarm(pendingIntent)
-    }
-
-    companion object {
-
-        const val EXTRA_TASK = "extra_task"
-
-        const val ALARM_ACTION = "com.escodro.alkaa.SET_ALARM"
     }
 }

@@ -5,7 +5,7 @@ import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.escodro.alkaa.data.local.model.Task
 import com.escodro.alkaa.di.provider.DaoProvider
-import com.escodro.alkaa.ui.task.alarm.notification.TaskNotificationScheduler
+import com.escodro.alkaa.ui.task.alarm.TaskReceiver
 import com.escodro.alkaa.ui.task.alarm.notification.TaskNotification
 import io.reactivex.disposables.CompositeDisposable
 import org.koin.standalone.KoinComponent
@@ -29,7 +29,7 @@ class TaskNotifierWorker(context: Context, params: WorkerParameters) :
         Timber.d("doWork")
 
         val result = LinkedBlockingQueue<Result>()
-        val taskId = inputData.getLong(TaskNotificationScheduler.EXTRA_TASK, 0)
+        val taskId = inputData.getLong(TaskReceiver.EXTRA_TASK, 0)
 
         if (taskId == 0L) {
             return Result.success()

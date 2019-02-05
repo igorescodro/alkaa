@@ -4,7 +4,7 @@ import android.text.TextUtils
 import androidx.lifecycle.ViewModel
 import com.escodro.alkaa.data.local.model.Task
 import com.escodro.alkaa.data.local.model.TaskWithCategory
-import com.escodro.alkaa.ui.task.alarm.TaskAlarmManager
+import com.escodro.alkaa.ui.task.alarm.notification.TaskNotificationScheduler
 import io.reactivex.disposables.CompositeDisposable
 
 /**
@@ -12,7 +12,7 @@ import io.reactivex.disposables.CompositeDisposable
  */
 class TaskListViewModel(
     private val contract: TaskListContract,
-    private val alarmManager: TaskAlarmManager
+    private val alarmManager: TaskNotificationScheduler
 ) : ViewModel() {
 
     private var categoryId: Long? = null

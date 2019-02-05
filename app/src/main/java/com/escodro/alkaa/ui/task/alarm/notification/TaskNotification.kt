@@ -1,4 +1,4 @@
-package com.escodro.alkaa.ui.task.notification
+package com.escodro.alkaa.ui.task.alarm.notification
 
 import android.app.PendingIntent
 import android.content.Context

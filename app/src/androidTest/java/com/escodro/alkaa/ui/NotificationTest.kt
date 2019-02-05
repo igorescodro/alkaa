@@ -7,7 +7,7 @@ import com.escodro.alkaa.R
 import com.escodro.alkaa.data.local.model.Task
 import com.escodro.alkaa.framework.AcceptanceTest
 import com.escodro.alkaa.ui.main.MainActivity
-import com.escodro.alkaa.ui.task.alarm.TaskAlarmManager
+import com.escodro.alkaa.ui.task.alarm.notification.TaskNotificationScheduler
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
@@ -20,7 +20,7 @@ import java.util.Calendar
  */
 class NotificationTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
 
-    private val alarmManager: TaskAlarmManager by inject()
+    private val alarmManager: TaskNotificationScheduler by inject()
 
     private val appName by lazy { context.getString(R.string.app_name) }
 

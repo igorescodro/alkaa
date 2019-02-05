@@ -1,11 +1,12 @@
-package com.escodro.alkaa.ui.task.alarm
+package com.escodro.alkaa.ui.task.alarm.worker
 
 import android.content.Context
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.escodro.alkaa.data.local.model.Task
 import com.escodro.alkaa.di.provider.DaoProvider
-import com.escodro.alkaa.ui.task.notification.TaskNotification
+import com.escodro.alkaa.ui.task.alarm.notification.TaskNotificationScheduler
+import com.escodro.alkaa.ui.task.alarm.notification.TaskNotification
 import io.reactivex.disposables.CompositeDisposable
 import org.koin.standalone.KoinComponent
 import org.koin.standalone.inject
@@ -15,7 +16,7 @@ import java.util.concurrent.LinkedBlockingQueue
 /**
  * [Worker] to process and show the Task alarms.
  */
-class TaskAlarmWorker(context: Context, params: WorkerParameters) :
+class TaskNotifierWorker(context: Context, params: WorkerParameters) :
     Worker(context, params), KoinComponent {
 
     private val daoProvider: DaoProvider by inject()
@@ -28,7 +29,7 @@ class TaskAlarmWorker(context: Context, params: WorkerParameters) :
         Timber.d("doWork")
 
         val result = LinkedBlockingQueue<Result>()
-        val taskId = inputData.getLong(TaskAlarmManager.EXTRA_TASK, 0)
+        val taskId = inputData.getLong(TaskNotificationScheduler.EXTRA_TASK, 0)
 
         if (taskId == 0L) {
             return Result.success()

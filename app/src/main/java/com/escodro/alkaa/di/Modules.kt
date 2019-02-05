@@ -2,7 +2,7 @@ package com.escodro.alkaa.di
 
 import com.escodro.alkaa.di.provider.DaoProvider
 import com.escodro.alkaa.di.provider.DatabaseProvider
-import com.escodro.alkaa.ui.task.notification.TaskNotificationChannel
+import com.escodro.alkaa.ui.task.alarm.notification.TaskNotificationChannel
 import com.escodro.alkaa.ui.category.create.NewCategoryContract
 import com.escodro.alkaa.ui.category.create.NewCategoryViewModel
 import com.escodro.alkaa.ui.category.list.CategoryListContract
@@ -10,8 +10,8 @@ import com.escodro.alkaa.ui.category.list.CategoryListViewModel
 import com.escodro.alkaa.ui.main.MainContract
 import com.escodro.alkaa.ui.main.MainTaskViewModel
 import com.escodro.alkaa.ui.main.MainViewModel
-import com.escodro.alkaa.ui.task.alarm.TaskAlarmManager
-import com.escodro.alkaa.ui.task.notification.TaskNotification
+import com.escodro.alkaa.ui.task.alarm.notification.TaskNotificationScheduler
+import com.escodro.alkaa.ui.task.alarm.notification.TaskNotification
 import com.escodro.alkaa.ui.task.detail.TaskDetailContract
 import com.escodro.alkaa.ui.task.detail.TaskDetailViewModel
 import com.escodro.alkaa.ui.task.list.TaskListContract
@@ -47,7 +47,7 @@ val applicationModule = module {
     viewModel { NewCategoryViewModel(get()) }
 
     // Alarm
-    single { TaskAlarmManager(androidContext()) }
+    single { TaskNotificationScheduler(androidContext()) }
 
     // Notification
     single { TaskNotificationChannel(androidContext()) }

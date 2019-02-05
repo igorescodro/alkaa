@@ -27,7 +27,7 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".ui.task.alarm.TaskAlarmReceiver">
+        <receiver android:name=".ui.task.alarm.TaskReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
 

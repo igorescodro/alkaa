@@ -1,4 +1,4 @@
-package com.escodro.alkaa.ui.task.alarm
+package com.escodro.alkaa.ui.task.alarm.notification
 
 import android.app.PendingIntent
 import android.content.Context
@@ -6,12 +6,13 @@ import android.content.Intent
 import com.escodro.alkaa.common.extension.cancelAlarm
 import com.escodro.alkaa.common.extension.setAlarm
 import com.escodro.alkaa.data.local.model.Task
+import com.escodro.alkaa.ui.task.alarm.TaskReceiver
 import timber.log.Timber
 
 /**
  * Alarm manager to schedule a event based on the due date from a [Task].
  */
-class TaskAlarmManager(private val context: Context) {
+class TaskNotificationScheduler(private val context: Context) {
 
     /**
      * Schedules a task notification based on the due date.
@@ -19,7 +20,7 @@ class TaskAlarmManager(private val context: Context) {
      * @param task task to be scheduled
      */
     fun scheduleTaskAlarm(task: Task) {
-        val receiverIntent = Intent(context, TaskAlarmReceiver::class.java).apply {
+        val receiverIntent = Intent(context, TaskReceiver::class.java).apply {
             action = ALARM_ACTION
             putExtra(EXTRA_TASK, task.id)
         }
@@ -43,7 +44,7 @@ class TaskAlarmManager(private val context: Context) {
      * @param taskId task id to be canceled
      */
     fun cancelTaskAlarm(taskId: Long) {
-        val receiverIntent = Intent(context, TaskAlarmReceiver::class.java)
+        val receiverIntent = Intent(context, TaskReceiver::class.java)
         receiverIntent.action = ALARM_ACTION
 
         val pendingIntent = PendingIntent.getBroadcast(

@@ -1,4 +1,4 @@
-package com.escodro.alkaa.ui.task.alarm
+package com.escodro.alkaa.ui.task.alarm.worker
 
 import android.content.Context
 import androidx.work.Worker
@@ -6,6 +6,7 @@ import androidx.work.WorkerParameters
 import com.escodro.alkaa.common.extension.applySchedulers
 import com.escodro.alkaa.data.local.model.Task
 import com.escodro.alkaa.di.provider.DaoProvider
+import com.escodro.alkaa.ui.task.alarm.notification.TaskNotificationScheduler
 import io.reactivex.disposables.CompositeDisposable
 import org.koin.standalone.KoinComponent
 import org.koin.standalone.inject
@@ -21,7 +22,7 @@ class TaskReschedulerWorker(context: Context, params: WorkerParameters) :
 
     private val daoProvider: DaoProvider by inject()
 
-    private val taskAlarmManager: TaskAlarmManager by inject()
+    private val taskAlarmManager: TaskNotificationScheduler by inject()
 
     private val compositeDisposable = CompositeDisposable()
 

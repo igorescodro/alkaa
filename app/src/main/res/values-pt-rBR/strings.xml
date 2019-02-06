@@ -41,4 +41,5 @@
     <string name="task_snackbar_undo">Desfazer</string>
     <string name="task_list_empty">Sem tarefas</string>
     <string name="notification_action_completed">Concluído</string>
+    <string name="notification_action_snooze">Daqui 15 min</string>
 </resources>

@@ -5,58 +5,33 @@ import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.escodro.alkaa.di.provider.DaoProvider
 import com.escodro.alkaa.ui.task.alarm.TaskReceiver
-import io.reactivex.disposables.CompositeDisposable
-import org.koin.standalone.KoinComponent
+import io.reactivex.Single
 import org.koin.standalone.inject
 import timber.log.Timber
-import java.util.concurrent.LinkedBlockingQueue
 
 /**
  * [Worker] to set the Task alarms as completed.
  */
 class TaskCompletedWorker(context: Context, params: WorkerParameters) :
-    Worker(context, params), KoinComponent {
+    ObservableWorker<Unit>(context, params) {
 
     private val daoProvider: DaoProvider by inject()
 
-    private val compositeDisposable = CompositeDisposable()
-
-    override fun doWork(): Result {
-        Timber.d("doWork")
-
-        val result = LinkedBlockingQueue<Result>()
+    override fun getObservable(): Single<Unit> {
         val taskId = inputData.getLong(TaskReceiver.EXTRA_TASK, 0)
 
-        if (taskId == 0L) {
-            return Result.success()
-        }
-
-        val disposable =
-            daoProvider.getTaskDao().getTaskById(taskId)
-                .map {
-                    it.completed = true
-                    daoProvider.getTaskDao().updateTask(it)
-                }.subscribe(
-                    {
-                        Timber.d("Task updated as completed")
-                        result.put(Result.success())
-                    },
-                    {
-                        Timber.e(it)
-                        result.put(Result.failure())
-                    }
-                )
-        compositeDisposable.add(disposable)
-
-        return try {
-            result.take()
-        } catch (e: InterruptedException) {
-            Result.retry()
-        }
+        return daoProvider.getTaskDao().getTaskById(taskId)
+            .map {
+                it.completed = true
+                daoProvider.getTaskDao().updateTask(it)
+            }
     }
 
-    override fun onStopped() {
-        Timber.d("onStopped")
-        compositeDisposable.clear()
+    override fun onSuccess(result: Unit) {
+        Timber.d("Task updated as completed")
+    }
+
+    override fun onError(error: Throwable) {
+        Timber.d("onError: $error")
     }
 }

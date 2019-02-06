@@ -7,65 +7,36 @@ import com.escodro.alkaa.data.local.model.Task
 import com.escodro.alkaa.di.provider.DaoProvider
 import com.escodro.alkaa.ui.task.alarm.TaskReceiver
 import com.escodro.alkaa.ui.task.alarm.notification.TaskNotification
-import io.reactivex.disposables.CompositeDisposable
-import org.koin.standalone.KoinComponent
+import io.reactivex.Single
 import org.koin.standalone.inject
 import timber.log.Timber
-import java.util.concurrent.LinkedBlockingQueue
 
 /**
  * [Worker] to process and show the Task alarms.
  */
 class TaskNotifierWorker(context: Context, params: WorkerParameters) :
-    Worker(context, params), KoinComponent {
-
-    private val daoProvider: DaoProvider by inject()
+    ObservableWorker<Task>(context, params) {
 
     private val taskNotification: TaskNotification by inject()
 
-    private val compositeDisposable = CompositeDisposable()
+    private val daoProvider: DaoProvider by inject()
 
-    override fun doWork(): Result {
-        Timber.d("doWork")
-
-        val result = LinkedBlockingQueue<Result>()
+    override fun getObservable(): Single<Task> {
         val taskId = inputData.getLong(TaskReceiver.EXTRA_TASK, 0)
-
-        if (taskId == 0L) {
-            return Result.success()
-        }
-
-        val disposable = daoProvider.getTaskDao().getTaskById(taskId).subscribe(
-            {
-                onSuccess(it)
-                result.put(Result.success())
-            },
-            {
-                Timber.e(it)
-                result.put(Result.failure())
-            }
-        )
-        compositeDisposable.add(disposable)
-
-        return try {
-            result.take()
-        } catch (e: InterruptedException) {
-            Result.retry()
-        }
+        return daoProvider.getTaskDao().getTaskById(taskId)
     }
 
-    private fun onSuccess(task: Task) {
-        if (task.completed) {
-            Timber.d("Task '${task.title}' is already completed. Will not notify")
+    override fun onSuccess(result: Task) {
+        if (result.completed) {
+            Timber.d("Task '${result.title}' is already completed. Will not notify")
             return
         }
 
-        Timber.d("Notifying task '${task.title}'")
-        taskNotification.show(task)
+        Timber.d("Notifying task '${result.title}'")
+        taskNotification.show(result)
     }
 
-    override fun onStopped() {
-        Timber.d("onStopped")
-        compositeDisposable.clear()
+    override fun onError(error: Throwable) {
+        Timber.d("onError: $error")
     }
 }

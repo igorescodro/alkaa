@@ -2,12 +2,14 @@ package com.escodro.alkaa.ui.task.alarm.notification
 
 import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.core.app.NotificationCompat
 import androidx.navigation.NavDeepLinkBuilder
 import com.escodro.alkaa.R
 import com.escodro.alkaa.common.extension.getNotificationManager
 import com.escodro.alkaa.data.local.model.Task
+import com.escodro.alkaa.ui.task.alarm.TaskReceiver
 import timber.log.Timber
 
 /**
@@ -36,6 +38,7 @@ class TaskNotification(
             setContentText(task.title)
             setContentIntent(buildPendingIntent(task))
             setAutoCancel(true)
+            addAction(getCompleteAction(task))
         }.build()
 
     private fun buildPendingIntent(task: Task): PendingIntent {
@@ -49,6 +52,25 @@ class TaskNotification(
             .createPendingIntent()
     }
 
+    private fun getCompleteAction(task: Task): NotificationCompat.Action {
+        val actionTitle = context.getString(R.string.notification_completed_action)
+        return NotificationCompat.Action(ACTION_NO_ICON, actionTitle, getCompleteIntent(task))
+    }
+
+    private fun getCompleteIntent(task: Task): PendingIntent {
+        val receiverIntent = Intent(context, TaskReceiver::class.java).apply {
+            action = TaskReceiver.COMPLETE_ACTION
+            putExtra(TaskReceiver.EXTRA_TASK, task.id)
+        }
+
+        return PendingIntent.getBroadcast(
+            context,
+            REQUEST_CODE_COMPLETE_ACTION,
+            receiverIntent,
+            PendingIntent.FLAG_CANCEL_CURRENT
+        )
+    }
+
     companion object {
 
         /**
@@ -57,5 +79,9 @@ class TaskNotification(
          * with the argument in _nav.graph.xml_.
          */
         private const val ARGUMENT_TASK = "taskId"
+
+        private const val REQUEST_CODE_COMPLETE_ACTION = 1234
+
+        private const val ACTION_NO_ICON = 0
     }
 }

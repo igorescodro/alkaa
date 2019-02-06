@@ -65,7 +65,7 @@ class TaskFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
         addTask(taskName)
         events.longPressOnRecyclerItem(R.id.recyclerview_tasklist_list)
         events.clickDialogOption(R.array.task_dialog_options, 0)
-        events.waitFor(R.id.recyclerview_tasklist_list, 1000)
+        events.waitFor(1000)
         checkThat.listNotContainsItem(R.id.recyclerview_tasklist_list, taskName)
     }
 
@@ -80,9 +80,9 @@ class TaskFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
         addAndOpenTask("one kiss is all it takes")
         events.clickOnView(R.id.edittext_taskdetail_title)
         events.textOnView(R.id.edittext_taskdetail_title, taskUpdated)
-        events.waitFor(R.id.recyclerview_tasklist_list, 500)
+        events.waitFor(500)
         events.navigateUp()
-        events.waitFor(R.id.recyclerview_tasklist_list, 1000)
+        events.waitFor(1000)
         checkThat.listContainsItem(R.id.recyclerview_tasklist_list, taskUpdated)
         events.clickOnRecyclerItem(R.id.recyclerview_tasklist_list)
         checkThat.viewHasText(R.id.edittext_taskdetail_title, taskUpdated)
@@ -94,9 +94,9 @@ class TaskFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
         addAndOpenTask(task)
         events.clickOnView(R.id.edittext_taskdetail_title)
         events.textOnView(R.id.edittext_taskdetail_title, "")
-        events.waitFor(R.id.recyclerview_tasklist_list, 500)
+        events.waitFor(500)
         events.navigateUp()
-        events.waitFor(R.id.recyclerview_tasklist_list, 1000)
+        events.waitFor(1000)
         checkThat.listContainsItem(R.id.recyclerview_tasklist_list, task)
     }
 
@@ -117,7 +117,7 @@ class TaskFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
         events.clickOnChild(R.id.chipgrp_taskdetail_category, 1)
         events.navigateUp()
         events.clickOnRecyclerItem(R.id.recyclerview_tasklist_list)
-        events.waitFor(R.id.recyclerview_tasklist_list, 1000)
+        events.waitFor(1000)
         checkThat.viewIsChecked(R.id.chipgrp_taskdetail_category, 1)
     }
 
@@ -127,7 +127,7 @@ class TaskFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
         events.clickOnChild(R.id.chipgrp_taskdetail_category, 2)
         events.navigateUp()
         events.clickOnRecyclerItem(R.id.recyclerview_tasklist_list)
-        events.waitFor(R.id.recyclerview_tasklist_list, 1000)
+        events.waitFor(1000)
         events.clickOnChild(R.id.chipgrp_taskdetail_category, 2)
         events.navigateUp()
         events.clickOnRecyclerItem(R.id.recyclerview_tasklist_list)
@@ -153,9 +153,9 @@ class TaskFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
         val description = "- call me by you name\n- never let me go\n- love, simon"
         addAndOpenTask("my book list")
         events.textOnView(R.id.edittext_taskdetail_description, description)
-        events.waitFor(R.id.recyclerview_tasklist_list, 500)
+        events.waitFor(500)
         events.navigateUp()
-        events.waitFor(R.id.recyclerview_tasklist_list, 2000)
+        events.waitFor(2000)
         events.clickOnRecyclerItem(R.id.recyclerview_tasklist_list)
         checkThat.viewHasText(R.id.edittext_taskdetail_description, description)
     }
@@ -204,7 +204,7 @@ class TaskFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
         }
 
         events.textOnView(R.id.edittext_taskdetail_description, description.toString())
-        events.waitFor(R.id.recyclerview_tasklist_list, 500)
+        events.waitFor(500)
         checkThat.viewIsNotDisplayed(R.id.btn_taskdetail_date)
         events.scrollTo(R.id.btn_taskdetail_date)
         checkThat.viewIsCompletelyDisplayed(R.id.btn_taskdetail_date)
@@ -214,7 +214,7 @@ class TaskFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
         events.clickOnView(R.id.edittext_itemadd_description)
         events.textOnView(R.id.edittext_itemadd_description, taskName)
         events.pressImeActionButton(R.id.edittext_itemadd_description)
-        events.waitFor(R.id.recyclerview_tasklist_list, 1000)
+        events.waitFor(1000)
         checkThat.listContainsItem(R.id.recyclerview_tasklist_list, taskName)
     }
 

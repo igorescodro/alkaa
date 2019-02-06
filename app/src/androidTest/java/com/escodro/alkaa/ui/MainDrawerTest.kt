@@ -62,7 +62,7 @@ class MainDrawerTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
     fun checkDrawerMainFlow() {
         openDrawer()
         events.clickOnNavigationViewItem(R.id.navigationview_main_drawer, familyId.toInt())
-        events.waitFor(R.id.drawer_layout_main_parent, 600)
+        events.waitFor(600)
         checkThat.drawerIsClosed(R.id.drawer_layout_main_parent)
         checkThat.viewHasText(R.id.toolbar_title, FAMILY_CATEGORY)
     }
@@ -76,7 +76,7 @@ class MainDrawerTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
             R.id.navigationview_main_drawer,
             personalId.toInt()
         )
-        events.waitFor(R.id.drawer_layout_main_parent, 600)
+        events.waitFor(600)
         checkThat.drawerIsClosed(R.id.drawer_layout_main_parent)
         checkThat.viewHasText(R.id.toolbar_title, PERSONAL_CATEGORY)
     }

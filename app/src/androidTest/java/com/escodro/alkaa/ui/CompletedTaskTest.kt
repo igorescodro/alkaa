@@ -92,7 +92,7 @@ class CompletedTaskTest : AcceptanceTest<MainActivity>(MainActivity::class.java)
         events.clickOnView(R.id.edittext_itemadd_description)
         events.textOnView(R.id.edittext_itemadd_description, taskName)
         events.pressImeActionButton(R.id.edittext_itemadd_description)
-        events.waitFor(R.id.recyclerview_tasklist_list, 1000)
+        events.waitFor(1000)
         checkThat.listContainsItem(R.id.recyclerview_tasklist_list, taskName)
     }
 

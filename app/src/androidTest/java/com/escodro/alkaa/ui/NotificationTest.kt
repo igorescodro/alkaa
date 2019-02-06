@@ -2,10 +2,12 @@ package com.escodro.alkaa.ui
 
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiObject2
+import androidx.test.uiautomator.UiSelector
 import androidx.test.uiautomator.Until
 import com.escodro.alkaa.R
 import com.escodro.alkaa.data.local.model.Task
 import com.escodro.alkaa.framework.AcceptanceTest
+import com.escodro.alkaa.framework.extension.waitForLauncher
 import com.escodro.alkaa.ui.main.MainActivity
 import com.escodro.alkaa.ui.task.alarm.notification.TaskNotificationScheduler
 import org.junit.After
@@ -81,6 +83,44 @@ class NotificationTest : AcceptanceTest<MainActivity>(MainActivity::class.java) 
         checkThat.viewHasText(R.id.edittext_taskdetail_title, taskName)
     }
 
+    @Test
+    fun completeTaskViaNotification() {
+        val taskName = "Sonic, gotta go fast!"
+        insertTask(taskName)
+        goToNotificationDrawer()
+        validateNotificationContent(taskName)
+        val doneButton =
+            By.text(context.getString(R.string.notification_action_completed).toUpperCase())
+        uiDevice.findObject(doneButton).click()
+        reopenApp()
+        events.waitFor(R.id.recyclerview_tasklist_list, 1000)
+        checkThat.listNotContainsItem(R.id.recyclerview_tasklist_list, taskName)
+        openDrawer()
+        events.clickOnViewWithText(R.string.drawer_menu_completed_tasks)
+        checkThat.viewHasText(R.id.toolbar_title, R.string.drawer_menu_completed_tasks)
+        checkThat.listContainsItem(R.id.recyclerview_tasklist_list, taskName)
+    }
+
+    @Test
+    fun snoozeTaskViaNotification() {
+        val taskName = "Sorry, I need to sleep more"
+        insertTask(taskName)
+        goToNotificationDrawer()
+        validateNotificationContent(taskName)
+        val doneButton =
+            By.text(context.getString(R.string.notification_action_snooze).toUpperCase())
+        uiDevice.findObject(doneButton).click()
+        reopenApp()
+        checkThat.listContainsItem(R.id.recyclerview_tasklist_list, taskName)
+        events.clickOnRecyclerItem(R.id.recyclerview_tasklist_list)
+
+        val delayedCalendar = Calendar.getInstance()
+        delayedCalendar.add(Calendar.MINUTE, 15)
+        delayedCalendar.set(Calendar.SECOND, 0)
+        delayedCalendar.set(Calendar.MILLISECOND, 0)
+        checkThat.viewHasDate(R.id.chip_taskdetail_date, delayedCalendar)
+    }
+
     private fun insertTask(taskName: String) =
         with(Task(id = 15, title = taskName)) {
             val calendar = Calendar.getInstance()
@@ -118,5 +158,17 @@ class NotificationTest : AcceptanceTest<MainActivity>(MainActivity::class.java) 
         val clearAll: UiObject2 =
             uiDevice.findObject(By.res("com.android.systemui:id/dismiss_text"))
         clearAll.click()
+    }
+
+    private fun reopenApp() {
+        uiDevice.pressRecentApps()
+        uiDevice.waitForLauncher()
+        uiDevice.findObject(UiSelector().descriptionContains(context.getString(R.string.app_name)))
+            .click()
+    }
+
+    private fun openDrawer() {
+        events.openDrawer(R.id.drawer_layout_main_parent)
+        checkThat.drawerIsOpen(R.id.drawer_layout_main_parent)
     }
 }

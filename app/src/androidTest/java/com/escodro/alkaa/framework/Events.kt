@@ -88,8 +88,8 @@ class Events {
         onView(withContentDescription(R.string.abc_action_bar_up_description)).perform(click())
     }
 
-    fun waitFor(@IdRes viewId: Int, delay: Long) {
-        onView(isRoot()).perform(ViewActions.waitId(viewId, delay))
+    fun waitFor(delay: Long) {
+        onView(isRoot()).perform(ViewActions.waitId(delay))
     }
 
     fun openDrawer(@IdRes drawerId: Int) {

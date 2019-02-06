@@ -1,7 +1,6 @@
 package com.escodro.alkaa.framework
 
 import android.view.View
-import androidx.annotation.IdRes
 import androidx.test.espresso.UiController
 import androidx.test.espresso.ViewAction
 import androidx.test.espresso.matcher.ViewMatchers
@@ -13,11 +12,11 @@ import org.hamcrest.Matcher
  */
 object ViewActions {
 
-    fun waitId(@IdRes viewId: Int, delay: Long): ViewAction =
+    fun waitId(delay: Long): ViewAction =
         object : ViewAction {
 
             override fun getDescription(): String {
-                return "wait for a specific view with id [$viewId} during [$delay] millis."
+                return "wait for [$delay] millis."
             }
 
             override fun getConstraints(): Matcher<View> {

@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.escodro.alkaa.common.extension.notify
 import com.escodro.alkaa.data.local.model.Category
 import com.escodro.alkaa.data.local.model.Task
-import com.escodro.alkaa.ui.task.alarm.TaskAlarmManager
+import com.escodro.alkaa.ui.task.alarm.notification.TaskNotificationScheduler
 import io.reactivex.disposables.CompositeDisposable
 import timber.log.Timber
 import java.util.Calendar
@@ -17,7 +17,7 @@ import java.util.Calendar
  */
 class TaskDetailViewModel(
     private val contract: TaskDetailContract,
-    private val alarmManager: TaskAlarmManager
+    private val alarmManager: TaskNotificationScheduler
 ) : ViewModel() {
 
     val taskData = MutableLiveData<Task>()

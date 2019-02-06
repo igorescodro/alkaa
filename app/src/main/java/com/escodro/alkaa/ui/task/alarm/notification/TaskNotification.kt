@@ -1,13 +1,15 @@
-package com.escodro.alkaa.ui.task.notification
+package com.escodro.alkaa.ui.task.alarm.notification
 
 import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.core.app.NotificationCompat
 import androidx.navigation.NavDeepLinkBuilder
 import com.escodro.alkaa.R
 import com.escodro.alkaa.common.extension.getNotificationManager
 import com.escodro.alkaa.data.local.model.Task
+import com.escodro.alkaa.ui.task.alarm.TaskReceiver
 import timber.log.Timber
 
 /**
@@ -36,6 +38,8 @@ class TaskNotification(
             setContentText(task.title)
             setContentIntent(buildPendingIntent(task))
             setAutoCancel(true)
+            addAction(getCompleteAction(task))
+            addAction(getSnoozeAction(task))
         }.build()
 
     private fun buildPendingIntent(task: Task): PendingIntent {
@@ -49,6 +53,28 @@ class TaskNotification(
             .createPendingIntent()
     }
 
+    private fun getCompleteAction(task: Task): NotificationCompat.Action {
+        val actionTitle = context.getString(R.string.notification_action_completed)
+        val intent = getIntent(task, TaskReceiver.COMPLETE_ACTION, REQUEST_CODE_ACTION_COMPLETE)
+        return NotificationCompat.Action(ACTION_NO_ICON, actionTitle, intent)
+    }
+
+    private fun getSnoozeAction(task: Task): NotificationCompat.Action {
+        val actionTitle = context.getString(R.string.notification_action_snooze)
+        val intent = getIntent(task, TaskReceiver.SNOOZE_ACTION, REQUEST_CODE_ACTION_SNOOZE)
+        return NotificationCompat.Action(ACTION_NO_ICON, actionTitle, intent)
+    }
+
+    private fun getIntent(task: Task, intentAction: String, requestCode: Int): PendingIntent {
+        val receiverIntent = Intent(context, TaskReceiver::class.java).apply {
+            action = intentAction
+            putExtra(TaskReceiver.EXTRA_TASK, task.id)
+        }
+
+        return PendingIntent
+            .getBroadcast(context, requestCode, receiverIntent, PendingIntent.FLAG_CANCEL_CURRENT)
+    }
+
     companion object {
 
         /**
@@ -57,5 +83,11 @@ class TaskNotification(
          * with the argument in _nav.graph.xml_.
          */
         private const val ARGUMENT_TASK = "taskId"
+
+        private const val REQUEST_CODE_ACTION_COMPLETE = 1234
+
+        private const val REQUEST_CODE_ACTION_SNOOZE = 4321
+
+        private const val ACTION_NO_ICON = 0
     }
 }

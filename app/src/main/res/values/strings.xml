@@ -43,6 +43,10 @@
     <string name="channel_task_name">Task alarms</string>
     <string name="channel_task_description">Notifications for reminders</string>
 
+    <!-- Task notification -->
+    <string name="notification_action_completed">Done</string>
+    <string name="notification_action_snooze">In 15 min</string>
+
     <!-- Preference  screen-->
     <string name="preference_title">Preferences</string>
     <string name="preference_item_about">About</string>

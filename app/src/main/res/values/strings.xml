@@ -44,7 +44,8 @@
     <string name="channel_task_description">Notifications for reminders</string>
 
     <!-- Task notification -->
-    <string name="notification_completed_action">Done</string>
+    <string name="notification_action_completed">Done</string>
+    <string name="notification_action_snooze">Snooze</string>
 
     <!-- Preference  screen-->
     <string name="preference_title">Preferences</string>

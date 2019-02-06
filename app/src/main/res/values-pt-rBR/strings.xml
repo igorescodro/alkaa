@@ -40,5 +40,5 @@
     <string name="task_snackbar_completed">Movido para \'Finalizadas\'</string>
     <string name="task_snackbar_undo">Desfazer</string>
     <string name="task_list_empty">Sem tarefas</string>
-    <string name="notification_completed_action">Concluído</string>
+    <string name="notification_action_completed">Concluído</string>
 </resources>

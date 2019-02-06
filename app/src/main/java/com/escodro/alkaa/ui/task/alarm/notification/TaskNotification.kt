@@ -39,6 +39,7 @@ class TaskNotification(
             setContentIntent(buildPendingIntent(task))
             setAutoCancel(true)
             addAction(getCompleteAction(task))
+            addAction(getSnoozeAction(task))
         }.build()
 
     private fun buildPendingIntent(task: Task): PendingIntent {
@@ -53,22 +54,25 @@ class TaskNotification(
     }
 
     private fun getCompleteAction(task: Task): NotificationCompat.Action {
-        val actionTitle = context.getString(R.string.notification_completed_action)
-        return NotificationCompat.Action(ACTION_NO_ICON, actionTitle, getCompleteIntent(task))
+        val actionTitle = context.getString(R.string.notification_action_completed)
+        val intent = getIntent(task, TaskReceiver.COMPLETE_ACTION, REQUEST_CODE_ACTION_COMPLETE)
+        return NotificationCompat.Action(ACTION_NO_ICON, actionTitle, intent)
     }
 
-    private fun getCompleteIntent(task: Task): PendingIntent {
+    private fun getSnoozeAction(task: Task): NotificationCompat.Action {
+        val actionTitle = context.getString(R.string.notification_action_snooze)
+        val intent = getIntent(task, TaskReceiver.SNOOZE_ACTION, REQUEST_CODE_ACTION_SNOOZE)
+        return NotificationCompat.Action(ACTION_NO_ICON, actionTitle, intent)
+    }
+
+    private fun getIntent(task: Task, intentAction: String, requestCode: Int): PendingIntent {
         val receiverIntent = Intent(context, TaskReceiver::class.java).apply {
-            action = TaskReceiver.COMPLETE_ACTION
+            action = intentAction
             putExtra(TaskReceiver.EXTRA_TASK, task.id)
         }
 
-        return PendingIntent.getBroadcast(
-            context,
-            REQUEST_CODE_COMPLETE_ACTION,
-            receiverIntent,
-            PendingIntent.FLAG_CANCEL_CURRENT
-        )
+        return PendingIntent
+            .getBroadcast(context, requestCode, receiverIntent, PendingIntent.FLAG_CANCEL_CURRENT)
     }
 
     companion object {
@@ -80,7 +84,9 @@ class TaskNotification(
          */
         private const val ARGUMENT_TASK = "taskId"
 
-        private const val REQUEST_CODE_COMPLETE_ACTION = 1234
+        private const val REQUEST_CODE_ACTION_COMPLETE = 1234
+
+        private const val REQUEST_CODE_ACTION_SNOOZE = 4321
 
         private const val ACTION_NO_ICON = 0
     }

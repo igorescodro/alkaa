@@ -1,7 +1,6 @@
 package com.escodro.alkaa.ui.task.detail
 
 import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.escodro.alkaa.common.extension.notify
 import com.escodro.alkaa.data.local.model.Category
@@ -17,12 +16,13 @@ import java.util.Calendar
  */
 class TaskDetailViewModel(
     private val contract: TaskDetailContract,
-    private val alarmManager: TaskNotificationScheduler
+    private val alarmManager: TaskNotificationScheduler,
+    taskProvider: TaskDetailProvider
 ) : ViewModel() {
 
-    val taskData = MutableLiveData<Task>()
-
     val chipVisibility = MediatorLiveData<Boolean>()
+
+    val taskData = taskProvider.taskData
 
     private val compositeDisposable = CompositeDisposable()
 

@@ -3,7 +3,6 @@ package com.escodro.alkaa.ui.task.detail
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import com.escodro.alkaa.common.extension.notify
-import com.escodro.alkaa.data.local.model.Category
 import com.escodro.alkaa.data.local.model.Task
 import com.escodro.alkaa.ui.task.alarm.notification.TaskNotificationScheduler
 import io.reactivex.disposables.CompositeDisposable
@@ -43,14 +42,6 @@ class TaskDetailViewModel(
     }
 
     /**
-     * Load all categories.
-     */
-    fun loadCategories(onCategoryListLoaded: (list: List<Category>) -> Unit) {
-        val disposable = contract.loadAllCategories().subscribe { onCategoryListLoaded(it) }
-        compositeDisposable.add(disposable)
-    }
-
-    /**
      * Updates the task title.
      *
      * @param title the task title
@@ -78,24 +69,6 @@ class TaskDetailViewModel(
 
         taskData.value?.let {
             taskData.value?.description = description
-            updateTask(it)
-        }
-    }
-
-    /**
-     * Updates the task category.
-     *
-     * @param categoryId the task category id
-     */
-    fun updateCategory(categoryId: Long?) {
-        Timber.d("updateCategory() - $categoryId")
-
-        taskData.value?.let {
-            if (it.categoryId == categoryId) {
-                return
-            }
-
-            taskData.value?.categoryId = categoryId
             updateTask(it)
         }
     }

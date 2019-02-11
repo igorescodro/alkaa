@@ -38,7 +38,7 @@ val applicationModule = module {
     viewModel { TaskListViewModel(get(), get()) }
 
     // Detail
-    single { TaskDetailProvider() }
+    single { TaskDetailProvider(get()) }
 
     single { TaskDetailContract(get()) }
     viewModel { TaskDetailViewModel(get(), get(), get()) }

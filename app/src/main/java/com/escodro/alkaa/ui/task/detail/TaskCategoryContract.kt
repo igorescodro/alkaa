@@ -7,6 +7,9 @@ import com.escodro.alkaa.di.provider.DaoProvider
 import io.reactivex.Flowable
 import io.reactivex.Observable
 
+/**
+ * Class containing the contract methods related to [TaskCategoryViewModel].
+ */
 class TaskCategoryContract(daoProvider: DaoProvider) {
 
     private val categoryDao = daoProvider.getCategoryDao()

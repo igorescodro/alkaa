@@ -30,18 +30,6 @@ class TaskDetailViewModel(
     }
 
     /**
-     * Loads the task based on the given id.
-     *
-     * @param taskId task id
-     */
-    fun loadTask(taskId: Long) {
-        val disposable = contract.loadTask(taskId).subscribe(
-            { taskData.value = it },
-            { Timber.e("Task not found in database") })
-        compositeDisposable.add(disposable)
-    }
-
-    /**
      * Updates the task title.
      *
      * @param title the task title

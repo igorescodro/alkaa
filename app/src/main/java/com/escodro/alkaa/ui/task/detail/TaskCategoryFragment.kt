@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.escodro.alkaa.R
 import com.escodro.alkaa.data.local.model.Category
 import com.google.android.material.chip.Chip
@@ -55,10 +56,19 @@ class TaskCategoryFragment : Fragment() {
             Timber.d("addingChip = ${chip.text}")
         }
 
+        viewModel.taskData.observe(this, Observer { updateCheckedChip(list, chipGroup) })
+    }
+
+    private fun updateCheckedChip(list: List<Category>, chipGroup: ChipGroup) {
         val checked = list.withIndex().firstOrNull {
             it.value.id == viewModel.taskData.value?.categoryId
         }
-        checked?.let { (chipGroup.getChildAt(it.index) as? Chip)?.isChecked = true }
+
+        val index = checked?.index ?: return
+        val chip = chipGroup.getChildAt(index) as? Chip ?: return
+        chip.isChecked = true
+
+        Timber.d("updateCheckedChip = ${chip.text}")
     }
 
     private fun onCategoryListEmpty(chipGroup: ChipGroup) {

@@ -6,10 +6,13 @@ import com.escodro.alkaa.data.local.model.Task
 import io.reactivex.disposables.CompositeDisposable
 import timber.log.Timber
 
+/**
+ * [ViewModel] responsible to provide information to Task Category layout.
+ */
 class TaskCategoryViewModel(
     private val contract: TaskCategoryContract,
     taskProvider: TaskDetailProvider
-) : ViewModel(){
+) : ViewModel() {
 
     val taskData = taskProvider.taskData
 
@@ -54,4 +57,3 @@ class TaskCategoryViewModel(
         compositeDisposable.clear()
     }
 }
-

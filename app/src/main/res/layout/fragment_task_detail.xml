@@ -93,7 +93,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:text="@{viewModel.taskData.dueDate}"
-                android:visibility="@{viewModel.chipVisibility}"
+                android:visibility="@{safeUnbox(viewModel.chipVisibility)}"
                 app:closeIconVisible="true"
                 app:layout_constraintBottom_toBottomOf="@id/btn_taskdetail_date"
                 app:layout_constraintStart_toEndOf="@id/btn_taskdetail_date"
@@ -107,7 +107,7 @@
                 android:text="@string/task_details_alarm_hint"
                 android:textColor="@color/gray_light"
                 android:textSize="18sp"
-                android:visibility="@{!viewModel.chipVisibility}"
+                android:visibility="@{!safeUnbox(viewModel.chipVisibility)}"
                 app:layout_constraintBottom_toBottomOf="@id/btn_taskdetail_date"
                 app:layout_constraintStart_toEndOf="@id/btn_taskdetail_date"
                 app:layout_constraintTop_toTopOf="@id/btn_taskdetail_date" />

@@ -32,6 +32,13 @@ android {
     androidExtensions {
         experimental = true
     }
+
+    kapt {
+        javacOptions {
+            option("-Xmaxerrs", 1000)
+            option("-Werror")
+        }
+    }
 }
 
 dependencies {

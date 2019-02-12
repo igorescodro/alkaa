@@ -1,10 +1,8 @@
 package com.escodro.alkaa.ui.task.detail
 
 import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.escodro.alkaa.common.extension.notify
-import com.escodro.alkaa.data.local.model.Category
 import com.escodro.alkaa.data.local.model.Task
 import com.escodro.alkaa.ui.task.alarm.notification.TaskNotificationScheduler
 import io.reactivex.disposables.CompositeDisposable
@@ -17,37 +15,18 @@ import java.util.Calendar
  */
 class TaskDetailViewModel(
     private val contract: TaskDetailContract,
-    private val alarmManager: TaskNotificationScheduler
+    private val alarmManager: TaskNotificationScheduler,
+    taskProvider: TaskDetailProvider
 ) : ViewModel() {
 
-    val taskData = MutableLiveData<Task>()
-
     val chipVisibility = MediatorLiveData<Boolean>()
+
+    val taskData = taskProvider.taskData
 
     private val compositeDisposable = CompositeDisposable()
 
     init {
         chipVisibility.addSource(taskData) { chipVisibility.value = it.dueDate != null }
-    }
-
-    /**
-     * Loads the task based on the given id.
-     *
-     * @param taskId task id
-     */
-    fun loadTask(taskId: Long) {
-        val disposable = contract.loadTask(taskId).subscribe(
-            { taskData.value = it },
-            { Timber.e("Task not found in database") })
-        compositeDisposable.add(disposable)
-    }
-
-    /**
-     * Load all categories.
-     */
-    fun loadCategories(onCategoryListLoaded: (list: List<Category>) -> Unit) {
-        val disposable = contract.loadAllCategories().subscribe { onCategoryListLoaded(it) }
-        compositeDisposable.add(disposable)
     }
 
     /**
@@ -78,24 +57,6 @@ class TaskDetailViewModel(
 
         taskData.value?.let {
             taskData.value?.description = description
-            updateTask(it)
-        }
-    }
-
-    /**
-     * Updates the task category.
-     *
-     * @param categoryId the task category id
-     */
-    fun updateCategory(categoryId: Long?) {
-        Timber.d("updateCategory() - $categoryId")
-
-        taskData.value?.let {
-            if (it.categoryId == categoryId) {
-                return
-            }
-
-            taskData.value?.categoryId = categoryId
             updateTask(it)
         }
     }

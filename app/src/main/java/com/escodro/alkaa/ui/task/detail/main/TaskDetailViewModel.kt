@@ -1,27 +1,18 @@
 package com.escodro.alkaa.ui.task.detail.main
 
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
-import com.escodro.alkaa.common.extension.notify
-import com.escodro.alkaa.data.local.model.Task
-import com.escodro.alkaa.ui.task.alarm.notification.TaskNotificationScheduler
 import com.escodro.alkaa.ui.task.detail.TaskDetailProvider
-import io.reactivex.disposables.CompositeDisposable
 import timber.log.Timber
-import java.util.Calendar
 
 /**
  * [ViewModel] responsible to provide information to [com.escodro.alkaa.databinding
  * .FragmentDetailBinding].
  */
 class TaskDetailViewModel(
-    private val contract: TaskDetailContract,
-    taskProvider: TaskDetailProvider
+    private val taskProvider: TaskDetailProvider
 ) : ViewModel() {
 
     val taskData = taskProvider.taskData
-
-    private val compositeDisposable = CompositeDisposable()
 
     /**
      * Updates the task title.
@@ -37,7 +28,7 @@ class TaskDetailViewModel(
 
         taskData.value?.let {
             taskData.value?.title = title
-            updateTask(it)
+            taskProvider.updateTask(it)
         }
     }
 
@@ -51,20 +42,7 @@ class TaskDetailViewModel(
 
         taskData.value?.let {
             taskData.value?.description = description
-            updateTask(it)
+            taskProvider.updateTask(it)
         }
-    }
-
-    private fun updateTask(task: Task) {
-        Timber.d("updateTask() - $task")
-
-        val disposable = contract.updateTask(task).subscribe()
-        compositeDisposable.add(disposable)
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-
-        compositeDisposable.clear()
     }
 }

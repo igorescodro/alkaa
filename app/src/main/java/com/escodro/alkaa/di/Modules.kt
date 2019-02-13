@@ -13,11 +13,9 @@ import com.escodro.alkaa.ui.task.alarm.notification.TaskNotification
 import com.escodro.alkaa.ui.task.alarm.notification.TaskNotificationChannel
 import com.escodro.alkaa.ui.task.alarm.notification.TaskNotificationScheduler
 import com.escodro.alkaa.ui.task.detail.TaskDetailProvider
-import com.escodro.alkaa.ui.task.detail.alarm.TaskAlarmContract
 import com.escodro.alkaa.ui.task.detail.alarm.TaskAlarmViewModel
 import com.escodro.alkaa.ui.task.detail.category.TaskCategoryContract
 import com.escodro.alkaa.ui.task.detail.category.TaskCategoryViewModel
-import com.escodro.alkaa.ui.task.detail.main.TaskDetailContract
 import com.escodro.alkaa.ui.task.detail.main.TaskDetailViewModel
 import com.escodro.alkaa.ui.task.list.TaskListContract
 import com.escodro.alkaa.ui.task.list.TaskListViewModel
@@ -42,14 +40,12 @@ val applicationModule = module {
     // Detail
     single { TaskDetailProvider(get()) }
 
-    single { TaskDetailContract(get()) }
-    viewModel { TaskDetailViewModel(get(), get()) }
+    viewModel { TaskDetailViewModel(get()) }
 
     single { TaskCategoryContract(get()) }
     viewModel { TaskCategoryViewModel(get(), get()) }
 
-    single { TaskAlarmContract(get()) }
-    viewModel { TaskAlarmViewModel(get(), get(), get()) }
+    viewModel { TaskAlarmViewModel(get(), get()) }
 
     // Category
     single { CategoryListContract(get()) }

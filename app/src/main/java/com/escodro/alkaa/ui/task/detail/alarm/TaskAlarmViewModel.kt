@@ -1,4 +1,4 @@
-package com.escodro.alkaa.ui.task.detail.main
+package com.escodro.alkaa.ui.task.detail.alarm
 
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
@@ -6,53 +6,55 @@ import com.escodro.alkaa.common.extension.notify
 import com.escodro.alkaa.data.local.model.Task
 import com.escodro.alkaa.ui.task.alarm.notification.TaskNotificationScheduler
 import com.escodro.alkaa.ui.task.detail.TaskDetailProvider
+import com.escodro.alkaa.ui.task.detail.main.TaskDetailContract
 import io.reactivex.disposables.CompositeDisposable
 import timber.log.Timber
 import java.util.Calendar
 
-/**
- * [ViewModel] responsible to provide information to [com.escodro.alkaa.databinding
- * .FragmentDetailBinding].
- */
-class TaskDetailViewModel(
+class TaskAlarmViewModel(
     private val contract: TaskDetailContract,
+    private val alarmManager: TaskNotificationScheduler,
     taskProvider: TaskDetailProvider
 ) : ViewModel() {
 
     val taskData = taskProvider.taskData
 
+    val chipVisibility = MediatorLiveData<Boolean>()
+
     private val compositeDisposable = CompositeDisposable()
 
-    /**
-     * Updates the task title.
-     *
-     * @param title the task title
-     */
-    fun updateTitle(title: String) {
-        Timber.d("updateTitle() - $title")
-
-        if (title.isEmpty()) {
-            return
-        }
-
-        taskData.value?.let {
-            taskData.value?.title = title
-            updateTask(it)
-        }
+    init {
+        chipVisibility.addSource(taskData) { chipVisibility.value = it.dueDate != null }
     }
 
     /**
-     * Updates the task description.
+     * Sets an alarm to the task.
      *
-     * @param description the task description
+     * @param alarm the date and time to ring the calendar
      */
-    fun updateDescription(description: String) {
-        Timber.d("updateDescription() - $description")
+    fun setAlarm(alarm: Calendar) {
+        Timber.d("setAlarm()")
 
         taskData.value?.let {
-            taskData.value?.description = description
+            it.dueDate = alarm
+            updateTask(it)
+            alarmManager.scheduleTaskAlarm(it)
+        }
+        taskData.notify()
+    }
+
+    /**
+     * Removes the task alarm.
+     */
+    fun removeAlarm() {
+        Timber.d("removeAlarm()")
+
+        taskData.value?.let {
+            it.dueDate = null
+            alarmManager.cancelTaskAlarm(it.id)
             updateTask(it)
         }
+        taskData.notify()
     }
 
     private fun updateTask(task: Task) {
@@ -60,11 +62,5 @@ class TaskDetailViewModel(
 
         val disposable = contract.updateTask(task).subscribe()
         compositeDisposable.add(disposable)
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-
-        compositeDisposable.clear()
     }
 }

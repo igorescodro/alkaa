@@ -87,30 +87,12 @@ class TaskDetailFragment : Fragment() {
     private fun initListeners() {
         Timber.d("initListeners()")
 
-//        btn_taskdetail_date.setOnClickListener { showDateTimePicker(::updateTaskWithDueDate) }
-//        textview_taskdetail_date.setOnClickListener { showDateTimePicker(::updateTaskWithDueDate) }
-
         val titleDisposable = edittext_taskdetail_title.textChangedObservable()
             .subscribe { text -> viewModel.updateTitle(text) }
 
         val descDisposable = edittext_taskdetail_description.textChangedObservable()
             .subscribe { text -> viewModel.updateDescription(text) }
 
-//        chip_taskdetail_date.setOnCloseIconClickListener { removeAlarm() }
-
         compositeDisposable.addAll(titleDisposable, descDisposable)
     }
-
-//    private fun updateTaskWithDueDate(calendar: Calendar) {
-//        Timber.d("updateTaskWithDueDate() - Calendar = ${calendar.time}")
-//
-//        viewModel.setAlarm(calendar)
-//    }
-//
-//    private fun removeAlarm() {
-//        Timber.d("removeAlarm()")
-//
-//        context?.showToast(R.string.task_details_alarm_removed)
-//        viewModel.removeAlarm()
-//    }
 }

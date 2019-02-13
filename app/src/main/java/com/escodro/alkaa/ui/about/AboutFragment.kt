@@ -48,7 +48,7 @@ class AboutFragment : Fragment() {
 
     companion object {
 
-        private const val FADE_ANIMATION_DURATION = 4000
+        private const val FADE_ANIMATION_DURATION = 4_000
 
         private const val PROJECT_URL = "https://github.com/igorescodro/alkaa"
     }

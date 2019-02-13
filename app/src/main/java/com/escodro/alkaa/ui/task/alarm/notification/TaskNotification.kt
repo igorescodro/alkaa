@@ -84,9 +84,9 @@ class TaskNotification(
          */
         private const val ARGUMENT_TASK = "taskId"
 
-        private const val REQUEST_CODE_ACTION_COMPLETE = 1234
+        private const val REQUEST_CODE_ACTION_COMPLETE = 1_234
 
-        private const val REQUEST_CODE_ACTION_SNOOZE = 4321
+        private const val REQUEST_CODE_ACTION_SNOOZE = 4_321
 
         private const val ACTION_NO_ICON = 0
     }

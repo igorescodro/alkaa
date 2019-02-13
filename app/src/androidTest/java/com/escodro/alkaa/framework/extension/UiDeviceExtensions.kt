@@ -9,5 +9,5 @@ import androidx.test.uiautomator.Until
  *
  * @param timeout maximum amount of time to wait in milliseconds
  */
-fun UiDevice.waitForLauncher(timeout: Long = 1000): Boolean =
+fun UiDevice.waitForLauncher(timeout: Long = 1_000): Boolean =
     wait(Until.hasObject(By.pkg(launcherPackageName).depth(0)), timeout)

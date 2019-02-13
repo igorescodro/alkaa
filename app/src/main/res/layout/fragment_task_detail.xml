@@ -74,43 +74,17 @@
                 app:layout_constraintStart_toEndOf="@id/imageview_taskdetail_description"
                 app:layout_constraintTop_toTopOf="@id/imageview_taskdetail_description" />
 
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/btn_taskdetail_date"
-                android:layout_width="32dp"
+            <fragment
+                android:id="@+id/fragment_taskdetail_alarm"
+                android:name="com.escodro.alkaa.ui.task.detail.category.TaskCategoryFragment"
+                android:layout_width="0dp"
                 android:layout_height="32dp"
-                android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
-                android:layout_marginBottom="32dp"
-                android:background="@null"
-                android:src="@drawable/ic_alarm"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/edittext_taskdetail_description" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_taskdetail_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="@{viewModel.taskData.dueDate}"
-                android:visibility="@{safeUnbox(viewModel.chipVisibility)}"
-                app:closeIconVisible="true"
-                app:layout_constraintBottom_toBottomOf="@id/btn_taskdetail_date"
-                app:layout_constraintStart_toEndOf="@id/btn_taskdetail_date"
-                app:layout_constraintTop_toTopOf="@id/btn_taskdetail_date" />
-
-            <TextView
-                android:id="@+id/textview_taskdetail_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="@string/task_details_alarm_hint"
-                android:textColor="@color/gray_light"
-                android:textSize="18sp"
-                android:visibility="@{!safeUnbox(viewModel.chipVisibility)}"
-                app:layout_constraintBottom_toBottomOf="@id/btn_taskdetail_date"
-                app:layout_constraintStart_toEndOf="@id/btn_taskdetail_date"
-                app:layout_constraintTop_toTopOf="@id/btn_taskdetail_date" />
+                app:layout_constraintTop_toBottomOf="@id/edittext_taskdetail_description"
+                tools:layout="@layout/fragment_task_detail_alarm" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

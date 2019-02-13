@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.escodro.alkaa.ui.task.detail.TaskDetailViewModel" />
+            type="com.escodro.alkaa.ui.task.detail.main.TaskDetailViewModel" />
 
     </data>
 
@@ -39,7 +39,7 @@
 
             <fragment
                 android:id="@+id/fragment_taskdetail_category"
-                android:name="com.escodro.alkaa.ui.task.detail.TaskCategoryFragment"
+                android:name="com.escodro.alkaa.ui.task.detail.category.TaskCategoryFragment"
                 android:layout_width="0dp"
                 android:layout_height="32dp"
                 android:layout_marginTop="24dp"

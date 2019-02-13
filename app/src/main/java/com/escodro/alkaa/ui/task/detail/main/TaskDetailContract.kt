@@ -1,4 +1,4 @@
-package com.escodro.alkaa.ui.task.detail
+package com.escodro.alkaa.ui.task.detail.main
 
 import com.escodro.alkaa.common.extension.applySchedulers
 import com.escodro.alkaa.data.local.model.Task

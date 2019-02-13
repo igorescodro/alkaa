@@ -1,8 +1,9 @@
-package com.escodro.alkaa.ui.task.detail
+package com.escodro.alkaa.ui.task.detail.category
 
 import androidx.lifecycle.ViewModel
 import com.escodro.alkaa.data.local.model.Category
 import com.escodro.alkaa.data.local.model.Task
+import com.escodro.alkaa.ui.task.detail.TaskDetailProvider
 import io.reactivex.disposables.CompositeDisposable
 import timber.log.Timber
 

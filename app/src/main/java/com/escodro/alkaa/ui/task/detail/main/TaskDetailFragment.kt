@@ -1,4 +1,4 @@
-package com.escodro.alkaa.ui.task.detail
+package com.escodro.alkaa.ui.task.detail.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,6 +14,7 @@ import com.escodro.alkaa.common.extension.textChangedObservable
 import com.escodro.alkaa.data.local.model.Task
 import com.escodro.alkaa.databinding.FragmentTaskDetailBinding
 import com.escodro.alkaa.ui.main.MainTaskViewModel
+import com.escodro.alkaa.ui.task.detail.TaskDetailProvider
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_task_detail.*
 import org.koin.android.ext.android.inject

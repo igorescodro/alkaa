@@ -12,11 +12,11 @@ import com.escodro.alkaa.ui.main.MainViewModel
 import com.escodro.alkaa.ui.task.alarm.notification.TaskNotification
 import com.escodro.alkaa.ui.task.alarm.notification.TaskNotificationChannel
 import com.escodro.alkaa.ui.task.alarm.notification.TaskNotificationScheduler
-import com.escodro.alkaa.ui.task.detail.TaskCategoryContract
-import com.escodro.alkaa.ui.task.detail.TaskCategoryViewModel
-import com.escodro.alkaa.ui.task.detail.TaskDetailContract
+import com.escodro.alkaa.ui.task.detail.category.TaskCategoryContract
+import com.escodro.alkaa.ui.task.detail.category.TaskCategoryViewModel
+import com.escodro.alkaa.ui.task.detail.main.TaskDetailContract
 import com.escodro.alkaa.ui.task.detail.TaskDetailProvider
-import com.escodro.alkaa.ui.task.detail.TaskDetailViewModel
+import com.escodro.alkaa.ui.task.detail.main.TaskDetailViewModel
 import com.escodro.alkaa.ui.task.list.TaskListContract
 import com.escodro.alkaa.ui.task.list.TaskListViewModel
 import org.koin.android.ext.koin.androidContext

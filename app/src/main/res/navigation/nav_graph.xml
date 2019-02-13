@@ -44,7 +44,7 @@
 
     <fragment
         android:id="@+id/taskDetailFragment"
-        android:name="com.escodro.alkaa.ui.task.detail.TaskDetailFragment"
+        android:name="com.escodro.alkaa.ui.task.detail.main.TaskDetailFragment"
         tools:layout="@layout/fragment_task_detail">
 
         <argument

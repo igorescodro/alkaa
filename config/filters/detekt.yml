@@ -33,3 +33,4 @@ test-pattern:
   - 'SpreadOperator'
   - 'TooManyFunctions'
   - 'UnsafeCast'
+  - 'UnderscoresInNumericLiterals'

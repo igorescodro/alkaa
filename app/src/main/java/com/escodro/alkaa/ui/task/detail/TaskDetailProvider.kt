@@ -49,8 +49,10 @@ class TaskDetailProvider(daoProvider: DaoProvider) {
     fun updateTask(task: Task) {
         Timber.d("updateTask() - $task")
 
-        val disposable =
-            Observable.fromCallable { taskDao.updateTask(task) }.applySchedulers().subscribe()
+        val disposable = Observable.fromCallable { taskDao.updateTask(task) }
+            .applySchedulers()
+            .subscribe()
+
         compositeDisposable.add(disposable)
     }
 

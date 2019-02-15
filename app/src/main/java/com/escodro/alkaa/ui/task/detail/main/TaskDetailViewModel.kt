@@ -8,9 +8,7 @@ import timber.log.Timber
  * [ViewModel] responsible to provide information to [com.escodro.alkaa.databinding
  * .FragmentDetailBinding].
  */
-class TaskDetailViewModel(
-    private val taskProvider: TaskDetailProvider
-) : ViewModel() {
+class TaskDetailViewModel(private val taskProvider: TaskDetailProvider) : ViewModel() {
 
     val taskData = taskProvider.taskData
 

@@ -41,6 +41,11 @@ class TaskDetailProvider(daoProvider: DaoProvider) {
         compositeDisposable.add(disposable)
     }
 
+    /**
+     * Updates the given task in database.
+     *
+     * @param task task to be updated
+     */
     fun updateTask(task: Task) {
         Timber.d("updateTask() - $task")
 

@@ -6,16 +6,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import com.escodro.alkaa.R
 import com.escodro.alkaa.common.extension.showDateTimePicker
 import com.escodro.alkaa.common.extension.showToast
+import com.escodro.alkaa.data.local.model.Task
 import com.escodro.alkaa.databinding.FragmentTaskDetailAlarmBinding
 import kotlinx.android.synthetic.main.fragment_task_detail_alarm.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 import java.util.Calendar
 
+/**
+ * [Fragment] responsible to show the [Task] alarm.
+ */
 class TaskAlarmFragment : Fragment() {
 
     private val viewModel: TaskAlarmViewModel by viewModel()

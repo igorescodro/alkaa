@@ -8,6 +8,9 @@ import com.escodro.alkaa.ui.task.detail.TaskDetailProvider
 import timber.log.Timber
 import java.util.Calendar
 
+/**
+ * [ViewModel] responsible to provide information to Task Alarm layout.
+ */
 class TaskAlarmViewModel(
     private val alarmManager: TaskNotificationScheduler,
     private val taskProvider: TaskDetailProvider

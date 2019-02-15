@@ -1,4 +1,4 @@
-package com.escodro.alkaa.ui.task.detail
+package com.escodro.alkaa.ui.task.detail.category
 
 import android.content.res.ColorStateList
 import android.graphics.Color

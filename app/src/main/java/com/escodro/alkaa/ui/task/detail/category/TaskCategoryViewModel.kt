@@ -1,8 +1,8 @@
-package com.escodro.alkaa.ui.task.detail
+package com.escodro.alkaa.ui.task.detail.category
 
 import androidx.lifecycle.ViewModel
 import com.escodro.alkaa.data.local.model.Category
-import com.escodro.alkaa.data.local.model.Task
+import com.escodro.alkaa.ui.task.detail.TaskDetailProvider
 import io.reactivex.disposables.CompositeDisposable
 import timber.log.Timber
 
@@ -11,7 +11,7 @@ import timber.log.Timber
  */
 class TaskCategoryViewModel(
     private val contract: TaskCategoryContract,
-    taskProvider: TaskDetailProvider
+    private val taskProvider: TaskDetailProvider
 ) : ViewModel() {
 
     val taskData = taskProvider.taskData
@@ -40,15 +40,8 @@ class TaskCategoryViewModel(
             }
 
             taskData.value?.categoryId = categoryId
-            updateTask(it)
+            taskProvider.updateTask(it)
         }
-    }
-
-    private fun updateTask(task: Task) {
-        Timber.d("updateTask() - $task")
-
-        val disposable = contract.updateTask(task).subscribe()
-        compositeDisposable.add(disposable)
     }
 
     override fun onCleared() {

@@ -12,11 +12,11 @@ import com.escodro.alkaa.ui.main.MainViewModel
 import com.escodro.alkaa.ui.task.alarm.notification.TaskNotification
 import com.escodro.alkaa.ui.task.alarm.notification.TaskNotificationChannel
 import com.escodro.alkaa.ui.task.alarm.notification.TaskNotificationScheduler
-import com.escodro.alkaa.ui.task.detail.TaskCategoryContract
-import com.escodro.alkaa.ui.task.detail.TaskCategoryViewModel
-import com.escodro.alkaa.ui.task.detail.TaskDetailContract
 import com.escodro.alkaa.ui.task.detail.TaskDetailProvider
-import com.escodro.alkaa.ui.task.detail.TaskDetailViewModel
+import com.escodro.alkaa.ui.task.detail.alarm.TaskAlarmViewModel
+import com.escodro.alkaa.ui.task.detail.category.TaskCategoryContract
+import com.escodro.alkaa.ui.task.detail.category.TaskCategoryViewModel
+import com.escodro.alkaa.ui.task.detail.main.TaskDetailViewModel
 import com.escodro.alkaa.ui.task.list.TaskListContract
 import com.escodro.alkaa.ui.task.list.TaskListViewModel
 import org.koin.android.ext.koin.androidContext
@@ -40,11 +40,12 @@ val applicationModule = module {
     // Detail
     single { TaskDetailProvider(get()) }
 
-    single { TaskDetailContract(get()) }
-    viewModel { TaskDetailViewModel(get(), get(), get()) }
+    viewModel { TaskDetailViewModel(get()) }
 
     single { TaskCategoryContract(get()) }
     viewModel { TaskCategoryViewModel(get(), get()) }
+
+    viewModel { TaskAlarmViewModel(get(), get()) }
 
     // Category
     single { CategoryListContract(get()) }

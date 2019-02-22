@@ -60,6 +60,8 @@ class NewCategoryFragment : androidx.fragment.app.Fragment() {
     private fun initComponents() {
         Timber.d("initComponents()")
 
+        val categoryId = arguments?.let { NewCategoryFragmentArgs.fromBundle(it).categoryId }
+
         setupTextInput()
         categoryColor = getCategoryColor()
         updateScreenColor()

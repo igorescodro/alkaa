@@ -87,6 +87,7 @@ class CategoryListFragment : Fragment() {
         PopupMenu.OnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.key_action_remove_category -> confirmRemoval(category)
+                R.id.key_action_edit_category -> editCategory(category)
             }
             true
         }
@@ -98,6 +99,11 @@ class CategoryListFragment : Fragment() {
             positiveButton(R.string.category_list_dialog_remove_positive) { removeCategory(category) }
             negativeButton(R.string.category_list_dialog_remove_negative) { /* Do nothing */ }
         }.show()
+    }
+
+    private fun editCategory(category: Category) {
+        val action = CategoryListFragmentDirections.actionNewCategory(category.id)
+        navigator?.navigate(action)
     }
 
     private fun removeCategory(category: Category) {

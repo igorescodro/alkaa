@@ -59,5 +59,13 @@ interface CategoryDao {
      * @param name category name
      */
     @Query("SELECT * FROM category WHERE category_name = :name")
-    fun findTaskByName(name: String): Single<Category>
+    fun findCategoryByName(name: String): Single<Category>
+
+    /**
+     * Gets a specific category by id.
+     *
+     * @param categoryId category id
+     */
+    @Query("SELECT * FROM category WHERE category_id = :categoryId")
+    fun findCategory(categoryId: Long): Single<Category>
 }

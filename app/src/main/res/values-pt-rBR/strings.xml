@@ -42,4 +42,5 @@
     <string name="task_list_empty">Sem tarefas</string>
     <string name="notification_action_completed">Concluído</string>
     <string name="notification_action_snooze">Daqui 15 min</string>
+    <string name="category_list_menu_edit">Editar</string>
 </resources>

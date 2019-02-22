@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.escodro.alkaa.common.extension.toStringColor
 import com.escodro.alkaa.data.local.model.Category
 import io.reactivex.disposables.CompositeDisposable
+import timber.log.Timber
 
 /**
  * [ViewModel] responsible to provide information to [NewCategoryFragment].
@@ -15,6 +16,19 @@ class NewCategoryViewModel(private val contract: NewCategoryContract) : ViewMode
     val newCategory = MutableLiveData<String>()
 
     private val compositeDisposable = CompositeDisposable()
+
+    /**
+     * Loads the categoryId based on the given id.
+     *
+     * @param categoryId categoryId id
+     */
+    fun loadCategory(categoryId: Long) {
+        val disposable = contract.loadCategory(categoryId).subscribe(
+            { newCategory.value = it.name },
+            { Timber.e("Category not found in database") })
+
+        compositeDisposable.add(disposable)
+    }
 
     /**
      * Add a new category.

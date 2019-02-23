@@ -6,6 +6,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import android.widget.CompoundButton
 import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.TextView
@@ -91,7 +92,7 @@ fun EditText.onActionDone(onActionDone: (String) -> Unit) {
  *
  * @return the Tint Color from the [RadioButton]
  */
-fun RadioButton.getTintColor(): Int {
+fun CompoundButton.getTintColor(): Int {
     val intColor = buttonTintList?.defaultColor ?: return Color.WHITE
     return intColor.let { Color.parseColor(intColor.toStringColor()) }
 }

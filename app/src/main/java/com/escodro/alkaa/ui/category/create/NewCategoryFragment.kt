@@ -2,6 +2,7 @@ package com.escodro.alkaa.ui.category.create
 
 import android.animation.ObjectAnimator
 import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,8 +12,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import com.escodro.alkaa.R
+import com.escodro.alkaa.common.extension.getChildren
 import com.escodro.alkaa.common.extension.getTintColor
 import com.escodro.alkaa.common.extension.showKeyboard
+import com.escodro.alkaa.common.extension.toStringColor
 import com.escodro.alkaa.databinding.FragmentCategoryNewBinding
 import kotlinx.android.synthetic.main.fragment_category_new.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -47,7 +50,7 @@ class NewCategoryFragment : androidx.fragment.app.Fragment() {
 
         binding?.setLifecycleOwner(this)
         binding?.buttonCategorynewAdd?.setOnClickListener {
-            viewModel.addCategory(
+            viewModel.saveCategory(
                 onEmptyField = ::onEmptyField,
                 onCategoryAdded = ::onNewCategoryAdded,
                 getCategoryColor = ::getCategoryColor
@@ -61,7 +64,7 @@ class NewCategoryFragment : androidx.fragment.app.Fragment() {
         Timber.d("initComponents()")
 
         val categoryId = arguments?.let { NewCategoryFragmentArgs.fromBundle(it).categoryId }
-        categoryId?.let { viewModel.loadCategory(it) }
+        categoryId?.let { viewModel.loadCategory(it, ::updateSelectedColor) }
 
         setupTextInput()
         categoryColor = getCategoryColor()
@@ -103,6 +106,16 @@ class NewCategoryFragment : androidx.fragment.app.Fragment() {
             .ofArgb(button_categorynew_add, ANIM_PROPERTY_NAME, categoryColor, newColor).start()
         edittext_categorynew_description?.backgroundTintList = ColorStateList.valueOf(newColor)
         categoryColor = newColor
+    }
+
+    private fun updateSelectedColor(color: String) {
+        val categories = binding?.radiogroupCategorynewLabel?.getChildren<RadioButton>() ?: return
+
+        val checked = categories.firstOrNull {
+            it.getTintColor() == Color.parseColor(color)
+        }
+
+        checked?.isChecked = true
     }
 
     companion object {

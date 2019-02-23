@@ -1,6 +1,7 @@
 package com.escodro.alkaa.ui.category.create
 
 import android.text.TextUtils
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.escodro.alkaa.common.extension.toStringColor
@@ -13,45 +14,69 @@ import timber.log.Timber
  */
 class NewCategoryViewModel(private val contract: NewCategoryContract) : ViewModel() {
 
-    val newCategory = MutableLiveData<String>()
+    val newCategory = MediatorLiveData<String>()
+
+    private val categoryData = MutableLiveData<Category>()
 
     private val compositeDisposable = CompositeDisposable()
+
+    init {
+        newCategory.addSource(categoryData) { newCategory.value = it.name }
+    }
 
     /**
      * Loads the categoryId based on the given id.
      *
      * @param categoryId categoryId id
      */
-    fun loadCategory(categoryId: Long) {
+    fun loadCategory(categoryId: Long, onLoadCategory: (color: String) -> Unit) {
         val disposable = contract.loadCategory(categoryId).subscribe(
-            { newCategory.value = it.name },
+            { category ->
+                categoryData.value = category
+                category.color?.let { color -> onLoadCategory(color) }
+            },
             { Timber.e("Category not found in database") })
 
         compositeDisposable.add(disposable)
     }
 
     /**
-     * Add a new category.
+     * Adds or updates a category.
      */
-    fun addCategory(
+    fun saveCategory(
         onEmptyField: () -> Unit,
         getCategoryColor: () -> Int?,
         onCategoryAdded: () -> Unit
     ) {
         val name = newCategory.value
-        if (TextUtils.isEmpty(name)) {
+        val color = getCategoryColor()?.toStringColor() ?: return
+
+        if (name == null || TextUtils.isEmpty(name)) {
             onEmptyField()
             return
         }
 
-        val color = getCategoryColor()?.toStringColor()
-        val category = Category(name = name, color = color)
+        val category = if (categoryData.value == null) {
+            getNewCategory(name, color)
+        } else {
+            getCurrentCategory(name, color)
+        }
+
         val disposable = contract.addCategory(category)
             .doOnComplete { onCategoryAdded() }
             .subscribe()
 
         compositeDisposable.add(disposable)
     }
+
+    private fun getNewCategory(name: String, color: String) =
+        Category(name = name, color = color)
+
+    private fun getCurrentCategory(name: String, color: String) =
+        categoryData.apply {
+            value?.name = name
+            value?.color = color
+        }.value ?: getNewCategory(name, color)
 
     override fun onCleared() {
         super.onCleared()

@@ -22,12 +22,19 @@ class NewCategoryContract(daoProvider: DaoProvider) {
         categoryDao.findCategory(categoryId).applySchedulers()
 
     /**
-     * Adds a category.
+     * Adds or updates a category.
      *
-     * @param category category to be added
+     * @param category category to be added or updated
      *
      * @return observable to be subscribe
      */
-    fun addCategory(category: Category): Observable<Unit> =
-        Observable.fromCallable { categoryDao.insertCategory(category) }.applySchedulers()
+    fun addCategory(category: Category): Observable<Unit> {
+        val isNewCategory = category.id == 0L
+
+        return if (isNewCategory) {
+            Observable.fromCallable { categoryDao.insertCategory(category) }.applySchedulers()
+        } else {
+            Observable.fromCallable { categoryDao.updateCategory(category) }.applySchedulers()
+        }
+    }
 }

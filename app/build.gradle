@@ -13,8 +13,8 @@ android {
         applicationId "com.escodro.alkaa"
         minSdkVersion 23
         targetSdkVersion 28
-        versionCode 10200
-        versionName "1.2.0"
+        versionCode 10201
+        versionName "1.2.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 

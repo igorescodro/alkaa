@@ -61,6 +61,10 @@ class Checkers {
             .check(matches(Matchers.isTextInLines(numberOfLines)))
     }
 
+    fun viewIsChecked(@IdRes viewId: Int) {
+        onView(withId(viewId)).check(matches(isChecked()))
+    }
+
     fun viewIsChecked(@IdRes viewGroupId: Int, index: Int) {
         onView(Matchers.getChildAt(withId(viewGroupId), index)).check(matches(isChecked()))
     }

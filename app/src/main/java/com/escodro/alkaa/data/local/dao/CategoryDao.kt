@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
+import androidx.room.Update
 import com.escodro.alkaa.data.local.model.Category
 import io.reactivex.Flowable
 import io.reactivex.Single
@@ -38,6 +39,14 @@ interface CategoryDao {
      */
     @Insert(onConflict = REPLACE)
     fun insertCategory(category: List<Category>)
+
+    /**
+     * Updates the given new category.
+     *
+     * @param category category to be updated
+     */
+    @Update
+    fun updateCategory(category: Category)
 
     /**
      * Deletes a category.

@@ -41,7 +41,7 @@ interface CategoryDao {
     fun insertCategory(category: List<Category>)
 
     /**
-     * Updates the given new category.
+     * Updates the given category.
      *
      * @param category category to be updated
      */

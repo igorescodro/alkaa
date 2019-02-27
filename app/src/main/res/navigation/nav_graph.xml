@@ -71,7 +71,7 @@
 
     <fragment
         android:id="@+id/newCategoryFragment"
-        android:name="com.escodro.alkaa.ui.category.create.NewCategoryFragment"
+        android:name="com.escodro.alkaa.ui.category.detail.CategoryDetailFragment"
         android:label="@string/category_detail_title"
         tools:layout="@layout/fragment_category_new">
 

@@ -1,4 +1,4 @@
-package com.escodro.alkaa.ui.category.create
+package com.escodro.alkaa.ui.category.detail
 
 import android.animation.ObjectAnimator
 import android.content.res.ColorStateList
@@ -15,7 +15,6 @@ import com.escodro.alkaa.R
 import com.escodro.alkaa.common.extension.getChildren
 import com.escodro.alkaa.common.extension.getTintColor
 import com.escodro.alkaa.common.extension.showKeyboard
-import com.escodro.alkaa.common.extension.toStringColor
 import com.escodro.alkaa.databinding.FragmentCategoryNewBinding
 import kotlinx.android.synthetic.main.fragment_category_new.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -24,11 +23,11 @@ import timber.log.Timber
 /**
  * [Fragment] responsible to create a new [com.escodro.alkaa.data.local.model.Category].
  */
-class NewCategoryFragment : androidx.fragment.app.Fragment() {
+class CategoryDetailFragment : androidx.fragment.app.Fragment() {
 
     private var binding: FragmentCategoryNewBinding? = null
 
-    private val viewModel: NewCategoryViewModel by viewModel()
+    private val viewModel: CategoryDetailViewModel by viewModel()
 
     private var categoryColor: Int = R.color.colorAccent
 
@@ -63,7 +62,7 @@ class NewCategoryFragment : androidx.fragment.app.Fragment() {
     private fun initComponents() {
         Timber.d("initComponents()")
 
-        val categoryId = arguments?.let { NewCategoryFragmentArgs.fromBundle(it).categoryId }
+        val categoryId = arguments?.let { CategoryDetailFragmentArgs.fromBundle(it).categoryId }
         categoryId?.let { viewModel.loadCategory(it, ::updateSelectedColor) }
 
         setupTextInput()

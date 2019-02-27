@@ -1,4 +1,4 @@
-package com.escodro.alkaa.ui.category.create
+package com.escodro.alkaa.ui.category.detail
 
 import com.escodro.alkaa.common.extension.applySchedulers
 import com.escodro.alkaa.data.local.model.Category
@@ -7,9 +7,9 @@ import io.reactivex.Observable
 import io.reactivex.Single
 
 /**
- * Class containing the contract methods related to [NewCategoryViewModel].
+ * Class containing the contract methods related to [CategoryDetailViewModel].
  */
-class NewCategoryContract(daoProvider: DaoProvider) {
+class CategoryDetailContract(daoProvider: DaoProvider) {
 
     private val categoryDao = daoProvider.getCategoryDao()
 

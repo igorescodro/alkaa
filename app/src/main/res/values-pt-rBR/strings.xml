@@ -19,7 +19,7 @@
     <string name="category_list_dialog_remove_positive">Remover</string>
     <string name="category_list_dialog_remove_negative">Cancelar</string>
     <string name="category_list_empty">Sem categorias</string>
-    <string name="new_category_add">Adicionar</string>
+    <string name="category_detail_add">Adicionar</string>
     <string name="channel_task_name">Alarme de tarefas</string>
     <string name="channel_task_description">Notificações para lembretes</string>
     <string name="preference_title">Preferências</string>

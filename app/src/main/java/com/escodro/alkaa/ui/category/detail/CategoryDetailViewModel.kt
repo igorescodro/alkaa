@@ -1,4 +1,4 @@
-package com.escodro.alkaa.ui.category.create
+package com.escodro.alkaa.ui.category.detail
 
 import android.text.TextUtils
 import androidx.lifecycle.MediatorLiveData
@@ -10,9 +10,9 @@ import io.reactivex.disposables.CompositeDisposable
 import timber.log.Timber
 
 /**
- * [ViewModel] responsible to provide information to [NewCategoryFragment].
+ * [ViewModel] responsible to provide information to [CategoryDetailFragment].
  */
-class NewCategoryViewModel(private val contract: NewCategoryContract) : ViewModel() {
+class CategoryDetailViewModel(private val contract: CategoryDetailContract) : ViewModel() {
 
     val newCategory = MediatorLiveData<String>()
 

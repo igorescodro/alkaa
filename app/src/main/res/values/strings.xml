@@ -37,8 +37,8 @@
     <string name="category_list_dialog_remove_negative">Cancel</string>
     <string name="category_list_empty">No category</string>
 
-    <!-- New Category screen -->
-    <string name="new_category_add">Add</string>
+    <!-- Category detail screen -->
+    <string name="category_detail_add">Add</string>
 
     <!-- Task notification channel -->
     <string name="channel_task_name">Task alarms</string>

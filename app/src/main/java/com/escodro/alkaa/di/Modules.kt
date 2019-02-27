@@ -2,8 +2,8 @@ package com.escodro.alkaa.di
 
 import com.escodro.alkaa.di.provider.DaoProvider
 import com.escodro.alkaa.di.provider.DatabaseProvider
-import com.escodro.alkaa.ui.category.create.NewCategoryContract
-import com.escodro.alkaa.ui.category.create.NewCategoryViewModel
+import com.escodro.alkaa.ui.category.detail.CategoryDetailContract
+import com.escodro.alkaa.ui.category.detail.CategoryDetailViewModel
 import com.escodro.alkaa.ui.category.list.CategoryListContract
 import com.escodro.alkaa.ui.category.list.CategoryListViewModel
 import com.escodro.alkaa.ui.main.MainContract
@@ -37,7 +37,7 @@ val applicationModule = module {
     single { TaskListContract(get()) }
     viewModel { TaskListViewModel(get(), get()) }
 
-    // Detail
+    // Task Detail
     single { TaskDetailProvider(get()) }
 
     viewModel { TaskDetailViewModel(get()) }
@@ -47,13 +47,13 @@ val applicationModule = module {
 
     viewModel { TaskAlarmViewModel(get(), get()) }
 
-    // Category
+    // Category List
     single { CategoryListContract(get()) }
     viewModel { CategoryListViewModel(get()) }
 
-    // New Category
-    single { NewCategoryContract(get()) }
-    viewModel { NewCategoryViewModel(get()) }
+    // Category Detail
+    single { CategoryDetailContract(get()) }
+    viewModel { CategoryDetailViewModel(get()) }
 
     // Alarm
     single { TaskNotificationScheduler(androidContext()) }

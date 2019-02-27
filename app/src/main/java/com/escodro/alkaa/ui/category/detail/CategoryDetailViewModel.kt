@@ -56,18 +56,20 @@ class CategoryDetailViewModel(private val contract: CategoryDetailContract) : Vi
             return
         }
 
-        val category = if (categoryData.value == null) {
-            getNewCategory(name, color)
-        } else {
+        val category = if (isEditMode()) {
             getCurrentCategory(name, color)
+        } else {
+            getNewCategory(name, color)
         }
 
-        val disposable = contract.addCategory(category)
+        val disposable = contract.saveCategory(category)
             .doOnComplete { onCategoryAdded() }
             .subscribe()
 
         compositeDisposable.add(disposable)
     }
+
+    private fun isEditMode() = categoryData.value != null
 
     private fun getNewCategory(name: String, color: String) =
         Category(name = name, color = color)

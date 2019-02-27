@@ -28,7 +28,7 @@ class CategoryDetailContract(daoProvider: DaoProvider) {
      *
      * @return observable to be subscribe
      */
-    fun addCategory(category: Category): Observable<Unit> {
+    fun saveCategory(category: Category): Observable<Unit> {
         val isNewCategory = category.id == 0L
 
         return if (isNewCategory) {

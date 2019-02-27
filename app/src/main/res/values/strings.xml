@@ -38,7 +38,7 @@
     <string name="category_list_empty">No category</string>
 
     <!-- Category detail screen -->
-    <string name="category_detail_add">Add</string>
+    <string name="category_detail_save">Save</string>
 
     <!-- Task notification channel -->
     <string name="channel_task_name">Task alarms</string>
@@ -54,7 +54,6 @@
     <string name="preference_item_version">Version</string>
 
     <!-- Category  screen-->
-    <string name="category_detail_title">Add New Category</string>
     <string name="category_detail_hint">Category name</string>
 
     <!-- About screen-->

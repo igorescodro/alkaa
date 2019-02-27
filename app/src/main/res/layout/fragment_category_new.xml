@@ -106,7 +106,7 @@
             android:layout_marginTop="16dp"
             android:background="@color/colorAccent"
             android:elevation="48dp"
-            android:text="@string/category_detail_add"
+            android:text="@string/category_detail_save"
             android:textColor="@android:color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

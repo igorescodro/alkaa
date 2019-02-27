@@ -19,12 +19,11 @@
     <string name="category_list_dialog_remove_positive">Remover</string>
     <string name="category_list_dialog_remove_negative">Cancelar</string>
     <string name="category_list_empty">Sem categorias</string>
-    <string name="new_category_add">Adicionar</string>
+    <string name="category_detail_save">Salvar</string>
     <string name="channel_task_name">Alarme de tarefas</string>
     <string name="channel_task_description">Notificações para lembretes</string>
     <string name="preference_title">Preferências</string>
     <string name="preference_item_about">Sobre</string>
-    <string name="category_detail_title">Adicionar Nova Categoria</string>
     <string name="category_detail_hint">Nome da categoria</string>
     <string name="about_detail_title">Sobre</string>
     <string name="about_description">Alkaa (começar, iniciar em finlandês) é um gerenciador de tarefas simples para deixar sua vida mais fácil.\n\nTudo começou quando criei um projeto para aprender e me manter atualizado sobre os últimos componentes e bibliotecas Android. Se você é um desenvolvedor ou entusiasta, sinta-se livre para acessar, copiar or atualizar o código aberto.\n\nMuito obrigado por usar o meu app!</string>
@@ -42,4 +41,5 @@
     <string name="task_list_empty">Sem tarefas</string>
     <string name="notification_action_completed">Concluído</string>
     <string name="notification_action_snooze">Daqui 15 min</string>
+    <string name="category_list_menu_edit">Editar</string>
 </resources>

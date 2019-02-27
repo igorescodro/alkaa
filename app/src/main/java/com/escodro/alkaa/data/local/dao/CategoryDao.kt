@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
+import androidx.room.Update
 import com.escodro.alkaa.data.local.model.Category
 import io.reactivex.Flowable
 import io.reactivex.Single
@@ -40,6 +41,14 @@ interface CategoryDao {
     fun insertCategory(category: List<Category>)
 
     /**
+     * Updates the given category.
+     *
+     * @param category category to be updated
+     */
+    @Update
+    fun updateCategory(category: Category)
+
+    /**
      * Deletes a category.
      *
      * @param category task to be deleted
@@ -59,5 +68,13 @@ interface CategoryDao {
      * @param name category name
      */
     @Query("SELECT * FROM category WHERE category_name = :name")
-    fun findTaskByName(name: String): Single<Category>
+    fun findCategoryByName(name: String): Single<Category>
+
+    /**
+     * Gets a specific category by id.
+     *
+     * @param categoryId category id
+     */
+    @Query("SELECT * FROM category WHERE category_id = :categoryId")
+    fun findCategory(categoryId: Long): Single<Category>
 }

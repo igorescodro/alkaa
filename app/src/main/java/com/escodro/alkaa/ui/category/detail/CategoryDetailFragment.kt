@@ -1,7 +1,8 @@
-package com.escodro.alkaa.ui.category.create
+package com.escodro.alkaa.ui.category.detail
 
 import android.animation.ObjectAnimator
 import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import com.escodro.alkaa.R
+import com.escodro.alkaa.common.extension.getChildren
 import com.escodro.alkaa.common.extension.getTintColor
 import com.escodro.alkaa.common.extension.showKeyboard
 import com.escodro.alkaa.databinding.FragmentCategoryNewBinding
@@ -21,11 +23,11 @@ import timber.log.Timber
 /**
  * [Fragment] responsible to create a new [com.escodro.alkaa.data.local.model.Category].
  */
-class NewCategoryFragment : androidx.fragment.app.Fragment() {
+class CategoryDetailFragment : androidx.fragment.app.Fragment() {
 
     private var binding: FragmentCategoryNewBinding? = null
 
-    private val viewModel: NewCategoryViewModel by viewModel()
+    private val viewModel: CategoryDetailViewModel by viewModel()
 
     private var categoryColor: Int = R.color.colorAccent
 
@@ -47,7 +49,7 @@ class NewCategoryFragment : androidx.fragment.app.Fragment() {
 
         binding?.setLifecycleOwner(this)
         binding?.buttonCategorynewAdd?.setOnClickListener {
-            viewModel.addCategory(
+            viewModel.saveCategory(
                 onEmptyField = ::onEmptyField,
                 onCategoryAdded = ::onNewCategoryAdded,
                 getCategoryColor = ::getCategoryColor
@@ -59,6 +61,9 @@ class NewCategoryFragment : androidx.fragment.app.Fragment() {
 
     private fun initComponents() {
         Timber.d("initComponents()")
+
+        val categoryId = arguments?.let { CategoryDetailFragmentArgs.fromBundle(it).categoryId }
+        categoryId?.let { viewModel.loadCategory(it, ::updateSelectedColor) }
 
         setupTextInput()
         categoryColor = getCategoryColor()
@@ -100,6 +105,16 @@ class NewCategoryFragment : androidx.fragment.app.Fragment() {
             .ofArgb(button_categorynew_add, ANIM_PROPERTY_NAME, categoryColor, newColor).start()
         edittext_categorynew_description?.backgroundTintList = ColorStateList.valueOf(newColor)
         categoryColor = newColor
+    }
+
+    private fun updateSelectedColor(color: String) {
+        val categories = binding?.radiogroupCategorynewLabel?.getChildren<RadioButton>() ?: return
+
+        val checked = categories.firstOrNull {
+            it.getTintColor() == Color.parseColor(color)
+        }
+
+        checked?.isChecked = true
     }
 
     companion object {

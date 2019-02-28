@@ -11,12 +11,10 @@ import com.escodro.alkaa.common.extension.hideKeyboard
 import com.escodro.alkaa.common.extension.textChangedObservable
 import com.escodro.alkaa.data.local.model.Task
 import com.escodro.alkaa.databinding.FragmentTaskDetailBinding
-import com.escodro.alkaa.ui.main.MainTaskViewModel
 import com.escodro.alkaa.ui.task.detail.TaskDetailProvider
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_task_detail.*
 import org.koin.android.ext.android.inject
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
@@ -26,8 +24,6 @@ import timber.log.Timber
 class TaskDetailFragment : Fragment() {
 
     private val viewModel: TaskDetailViewModel by viewModel()
-
-    private val sharedViewModel: MainTaskViewModel by sharedViewModel()
 
     private val taskProvider: TaskDetailProvider by inject()
 
@@ -78,7 +74,6 @@ class TaskDetailFragment : Fragment() {
 
         val taskId = arguments?.let { TaskDetailFragmentArgs.fromBundle(it).taskId }
         taskProvider.loadTask(taskId)
-        sharedViewModel.updateTitle(null)
     }
 
     private fun initListeners() {

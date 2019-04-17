@@ -23,14 +23,14 @@ class AboutFragment : Fragment() {
     ): View? {
         Timber.d("onCreateView()")
 
-        return inflater.inflate(R.layout.fragment_about, container, false)
+        return inflater.inflate(R.layout.fragment_hero, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        startDrawableAnimation()
-        initComponents()
+//        startDrawableAnimation()
+//        initComponents()
     }
 
     private fun startDrawableAnimation() {

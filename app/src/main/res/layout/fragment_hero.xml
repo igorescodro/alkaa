@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layoutDescription="@xml/motion_hero">
+
+    <TextView
+        android:id="@+id/background"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/blue"
+        android:gravity="top|center"
+        android:paddingTop="16dp"
+        android:text="What Lovers Do"
+        android:textColor="@android:color/white"
+        android:textSize="48sp" />
+
+    <TextView
+        android:id="@+id/family"
+        android:layout_width="match_parent"
+        android:layout_height="124dp"
+        android:background="@color/yellow"
+        android:gravity="top|center"
+        android:text="Uh Uh Uh Uh Uh"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="506dp" />
+
+</androidx.constraintlayout.motion.widget.MotionLayout>

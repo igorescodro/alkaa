@@ -45,6 +45,10 @@ class Events {
         onView(withText(resId)).perform(click())
     }
 
+    fun clickOnViewWithText(text: String) {
+        onView(withText(text)).perform(click())
+    }
+
     fun clickOnRecyclerItem(@IdRes recyclerView: Int) {
         onView(withId(recyclerView)).perform(
             RecyclerViewActions

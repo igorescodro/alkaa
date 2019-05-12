@@ -210,6 +210,16 @@ class TaskFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
         checkThat.viewIsCompletelyDisplayed(R.id.btn_taskdetail_date)
     }
 
+    @Test
+    fun checkIfSecondTaskHasCleanCategory() {
+        val title = "Thanks a lot for your help. :)"
+        addAndOpenTask("I really want this... Help me?")
+        events.clickOnChild(R.id.chipgrp_taskdetail_category, 0)
+        events.navigateUp()
+        addAndOpenTask(title)
+        checkThat.viewIsNotChecked(R.id.chipgrp_taskdetail_category, 0)
+    }
+
     private fun addTask(taskName: String) {
         events.clickOnView(R.id.edittext_itemadd_description)
         events.textOnView(R.id.edittext_itemadd_description, taskName)
@@ -220,7 +230,7 @@ class TaskFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
 
     private fun addAndOpenTask(taskName: String) {
         addTask(taskName)
-        events.clickOnRecyclerItem(R.id.recyclerview_tasklist_list)
+        events.clickOnViewWithText(taskName)
         checkThat.viewHasText(R.id.edittext_taskdetail_title, taskName)
         checkThat.viewHasText(R.id.toolbar_title, "")
     }

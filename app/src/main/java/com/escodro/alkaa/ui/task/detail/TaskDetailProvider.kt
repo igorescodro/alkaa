@@ -1,7 +1,9 @@
 package com.escodro.alkaa.ui.task.detail
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.escodro.alkaa.common.extension.applySchedulers
+import com.escodro.alkaa.common.extension.notify
 import com.escodro.alkaa.data.local.model.Task
 import com.escodro.alkaa.di.provider.DaoProvider
 import io.reactivex.Observable
@@ -13,7 +15,10 @@ import timber.log.Timber
  */
 class TaskDetailProvider(daoProvider: DaoProvider) {
 
-    val taskData = MutableLiveData<Task>()
+    val taskData: LiveData<Task>
+        get() = mutableTaskData
+
+    private var mutableTaskData = MutableLiveData<Task>()
 
     private val taskDao = daoProvider.getTaskDao()
 
@@ -34,7 +39,7 @@ class TaskDetailProvider(daoProvider: DaoProvider) {
             .applySchedulers().subscribe(
                 {
                     Timber.d("loadTask = ${it.title}")
-                    taskData.value = it
+                    mutableTaskData.value = it
                 },
                 { Timber.e("Task not found in database") })
 
@@ -53,6 +58,7 @@ class TaskDetailProvider(daoProvider: DaoProvider) {
             .applySchedulers()
             .subscribe()
 
+        mutableTaskData.notify()
         compositeDisposable.add(disposable)
     }
 
@@ -61,6 +67,7 @@ class TaskDetailProvider(daoProvider: DaoProvider) {
      */
     fun clear() {
         Timber.d("clear()")
+        mutableTaskData = MutableLiveData()
         compositeDisposable.clear()
     }
 }

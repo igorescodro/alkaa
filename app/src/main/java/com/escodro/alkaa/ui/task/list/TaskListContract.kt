@@ -4,13 +4,17 @@ import com.escodro.alkaa.common.extension.applySchedulers
 import com.escodro.alkaa.data.local.model.Task
 import com.escodro.alkaa.data.local.model.TaskWithCategory
 import com.escodro.alkaa.di.provider.DaoProvider
+import com.escodro.alkaa.ui.task.alarm.notification.TaskNotificationScheduler
 import io.reactivex.Flowable
 import io.reactivex.Observable
 
 /**
  * Class containing the contract methods related to [TaskListViewModel].
  */
-class TaskListContract(daoProvider: DaoProvider) {
+class TaskListContract(
+    daoProvider: DaoProvider,
+    private val alarmManager: TaskNotificationScheduler
+) {
 
     private val taskDao = daoProvider.getTaskDao()
 
@@ -62,8 +66,10 @@ class TaskListContract(daoProvider: DaoProvider) {
      *
      * @return observable to be subscribe
      */
-    fun deleteTask(task: Task): Observable<Unit> =
-        Observable.fromCallable { taskDao.deleteTask(task) }.applySchedulers()
+    fun deleteTask(task: Task): Observable<Unit> {
+        alarmManager.cancelTaskAlarm(task.id)
+        return Observable.fromCallable { taskDao.deleteTask(task) }.applySchedulers()
+    }
 
     companion object {
 

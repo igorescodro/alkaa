@@ -4,16 +4,12 @@ import android.text.TextUtils
 import androidx.lifecycle.ViewModel
 import com.escodro.alkaa.data.local.model.Task
 import com.escodro.alkaa.data.local.model.TaskWithCategory
-import com.escodro.alkaa.ui.task.alarm.notification.TaskNotificationScheduler
 import io.reactivex.disposables.CompositeDisposable
 
 /**
  * [ViewModel] responsible to provide information to [TaskListFragment].
  */
-class TaskListViewModel(
-    private val contract: TaskListContract,
-    private val alarmManager: TaskNotificationScheduler
-) : ViewModel() {
+class TaskListViewModel(private val contract: TaskListContract) : ViewModel() {
 
     private var categoryId: Long? = null
 
@@ -67,8 +63,6 @@ class TaskListViewModel(
         val disposable = contract.deleteTask(task)
             .subscribe()
         compositeDisposable.add(disposable)
-
-        alarmManager.cancelTaskAlarm(task.id)
     }
 
     /**

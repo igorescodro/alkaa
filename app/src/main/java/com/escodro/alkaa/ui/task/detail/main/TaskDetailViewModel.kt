@@ -2,6 +2,7 @@ package com.escodro.alkaa.ui.task.detail.main
 
 import androidx.lifecycle.ViewModel
 import com.escodro.alkaa.ui.task.detail.TaskDetailProvider
+import com.escodro.alkaa.ui.task.list.TaskListFragment
 import timber.log.Timber
 
 /**
@@ -11,6 +12,16 @@ import timber.log.Timber
 class TaskDetailViewModel(private val taskProvider: TaskDetailProvider) : ViewModel() {
 
     val taskData = taskProvider.taskData
+
+    /**
+     * Loads the Task to be handled by the [ViewModel]s.
+     *
+     * @param id the task id
+     */
+    fun loadTask(id: Long) {
+        Timber.d("loadTask() - $id")
+        taskProvider.loadTask(id)
+    }
 
     /**
      * Updates the task title.
@@ -42,5 +53,12 @@ class TaskDetailViewModel(private val taskProvider: TaskDetailProvider) : ViewMo
             taskData.value?.description = description
             taskProvider.updateTask(it)
         }
+    }
+
+    /**
+     * Clears the [ViewModel] when the [TaskListFragment] is not visible to user.
+     */
+    fun onDetach() {
+        taskProvider.clear()
     }
 }

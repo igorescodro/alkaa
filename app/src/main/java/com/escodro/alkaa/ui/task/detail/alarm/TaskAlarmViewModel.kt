@@ -2,7 +2,6 @@ package com.escodro.alkaa.ui.task.detail.alarm
 
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
-import com.escodro.alkaa.common.extension.notify
 import com.escodro.alkaa.ui.task.alarm.notification.TaskNotificationScheduler
 import com.escodro.alkaa.ui.task.detail.TaskDetailProvider
 import timber.log.Timber
@@ -37,7 +36,6 @@ class TaskAlarmViewModel(
             taskProvider.updateTask(it)
             alarmManager.scheduleTaskAlarm(it)
         }
-        taskData.notify()
     }
 
     /**
@@ -51,6 +49,5 @@ class TaskAlarmViewModel(
             alarmManager.cancelTaskAlarm(it.id)
             taskProvider.updateTask(it)
         }
-        taskData.notify()
     }
 }

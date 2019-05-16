@@ -16,15 +16,28 @@ class TaskListViewModel(private val contract: TaskListContract) : ViewModel() {
     private val compositeDisposable = CompositeDisposable()
 
     /**
-     * Loads all tasks.
+     * Load the tasks based on the given state.
      *
-     * @param categoryId the category id to show only tasks related to this category, if `0` is
-     * passed, all the categories will be shown.
+     * @param state the list state
+     * @param onTasksLoaded HOF to be called when the task list is loaded
      */
-    fun loadTasks(categoryId: Long, onTasksLoaded: (list: List<TaskWithCategory>) -> Unit) {
-        this.categoryId = categoryId
+    fun loadTasks(
+        state: TaskListState,
+        onTasksLoaded: (list: List<TaskWithCategory>, shouldShowAddButton: Boolean) -> Unit
+    ) {
+        val observable = when (state) {
+            is TaskListState.ShowAllTasks -> contract.loadAllTasks()
+            is TaskListState.ShowCompletedTasks -> contract.loadAllCompletedTasks()
+            is TaskListState.ShowTaskByCategory -> {
+                categoryId = state.categoryId
+                contract.loadTaskWithCategoryId(state.categoryId)
+            }
+        }
 
-        val disposable = contract.loadTasks(categoryId).subscribe { onTasksLoaded(it) }
+        val disposable = observable.subscribe {
+            val shouldShow = state !is TaskListState.ShowCompletedTasks
+            onTasksLoaded(it, shouldShow)
+        }
         compositeDisposable.add(disposable)
     }
 

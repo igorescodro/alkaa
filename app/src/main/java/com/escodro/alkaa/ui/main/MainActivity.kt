@@ -18,8 +18,8 @@ import com.escodro.alkaa.common.extension.hideKeyboard
 import com.escodro.alkaa.common.extension.isOpen
 import com.escodro.alkaa.common.extension.navigateSingleTop
 import com.escodro.alkaa.data.local.model.Category
-import com.escodro.alkaa.ui.task.list.TaskListContract
 import com.escodro.alkaa.ui.task.list.TaskListFragment
+import com.escodro.alkaa.ui.task.list.TaskListState
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
@@ -141,8 +141,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun navigateToCategory(item: MenuItem) {
+        val state = when (item.itemId) {
+            ALL_TASKS_ITEM -> TaskListState.ShowAllTasks
+            COMPLETED_ITEM -> TaskListState.ShowCompletedTasks
+            else -> TaskListState.ShowTaskByCategory(item.itemId.toLong())
+        }
+
         val bundle = bundleOf(
-            TaskListFragment.EXTRA_CATEGORY_ID to item.itemId.toLong(),
+            TaskListFragment.EXTRA_TASK_LIST_STATE to state,
             TaskListFragment.EXTRA_CATEGORY_NAME to item.title
         )
         navController.navigateSingleTop(R.id.taskListFragment, bundle)
@@ -179,11 +185,15 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
 
-        private const val ALL_TASKS_ITEM = TaskListContract.ALL_TASKS.toInt()
+        // Drawer Menu Constants
 
-        private const val COMPLETED_ITEM = TaskListContract.COMPLETED_TASKS.toInt()
+        private const val ALL_TASKS_ITEM = 0
+
+        private const val COMPLETED_ITEM = -1
 
         private const val CATEGORY_ITEM = -2
+
+        // Drawer Menu Groups
 
         private const val GROUP_TASKS = 1
 

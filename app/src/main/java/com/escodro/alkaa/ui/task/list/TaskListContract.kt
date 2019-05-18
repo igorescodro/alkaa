@@ -2,19 +2,13 @@ package com.escodro.alkaa.ui.task.list
 
 import com.escodro.alkaa.common.extension.applySchedulers
 import com.escodro.alkaa.data.local.model.Task
-import com.escodro.alkaa.data.local.model.TaskWithCategory
 import com.escodro.alkaa.di.provider.DaoProvider
-import com.escodro.alkaa.ui.task.alarm.notification.TaskNotificationScheduler
-import io.reactivex.Flowable
 import io.reactivex.Observable
 
 /**
  * Class containing the contract methods related to [TaskListViewModel].
  */
-class TaskListContract(
-    daoProvider: DaoProvider,
-    private val alarmManager: TaskNotificationScheduler
-) {
+class TaskListContract(daoProvider: DaoProvider) {
 
     private val taskDao = daoProvider.getTaskDao()
 
@@ -22,22 +16,23 @@ class TaskListContract(
 
     /**
      * Loads all tasks.
-     *
-     * @param categoryId the category id to show only tasks related to this category, if `0` is
-     * passed, all the categories will be shown.
-     *
-     * @return a mutable list of all tasks
      */
-    fun loadTasks(categoryId: Long): Flowable<MutableList<TaskWithCategory>> {
-        val observable =
-            when (categoryId) {
-                ALL_TASKS -> taskWithCategoryDao.getAllTasksWithCategory(false)
-                COMPLETED_TASKS -> taskWithCategoryDao.getAllTasksWithCategory(true)
-                else -> taskWithCategoryDao.getAllTasksWithCategoryId(categoryId)
-            }
+    fun loadAllTasks() =
+        taskWithCategoryDao.getAllTasksWithCategory(false).applySchedulers()
 
-        return observable.applySchedulers()
-    }
+    /**
+     * Loads all completed tasks.
+     */
+    fun loadAllCompletedTasks() =
+        taskWithCategoryDao.getAllTasksWithCategory(true).applySchedulers()
+
+    /**
+     * Loads all tasks with the given category id.
+     *
+     * @param categoryId the category id to show only tasks related to this category
+     */
+    fun loadTaskWithCategoryId(categoryId: Long) =
+        taskWithCategoryDao.getAllTasksWithCategoryId(categoryId).applySchedulers()
 
     /**
      * Adds a task.
@@ -66,15 +61,6 @@ class TaskListContract(
      *
      * @return observable to be subscribe
      */
-    fun deleteTask(task: Task): Observable<Unit> {
-        alarmManager.cancelTaskAlarm(task.id)
-        return Observable.fromCallable { taskDao.deleteTask(task) }.applySchedulers()
-    }
-
-    companion object {
-
-        const val ALL_TASKS = 0L
-
-        const val COMPLETED_TASKS = -1L
-    }
+    fun deleteTask(task: Task): Observable<Unit> =
+        Observable.fromCallable { taskDao.deleteTask(task) }.applySchedulers()
 }

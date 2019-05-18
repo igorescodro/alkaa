@@ -37,8 +37,6 @@ class TaskListFragment : Fragment() {
 
     private var navigator: NavController? = null
 
-    private var itemId: Long = 0
-
     private val adapter = TaskListAdapter(
         onItemClicked = ::onItemClicked,
         onItemLongPressed = ::onItemLongPressed,
@@ -92,11 +90,13 @@ class TaskListFragment : Fragment() {
     private fun loadTasks() {
         Timber.d("loadTasks()")
 
+        val state = arguments?.getParcelable<TaskListState>(TaskListFragment.EXTRA_TASK_LIST_STATE)
+            ?: TaskListState.ShowAllTasks
+
         val defaultTitle = getString(R.string.drawer_menu_all_tasks)
-        itemId = arguments?.getLong(TaskListFragment.EXTRA_CATEGORY_ID) ?: 0
         val taskName = arguments?.getString(TaskListFragment.EXTRA_CATEGORY_NAME) ?: defaultTitle
 
-        viewModel.loadTasks(itemId, onTasksLoaded = { onTaskLoaded(it) })
+        viewModel.loadTasks(state, onTasksLoaded = ::onTaskLoaded)
         sharedViewModel.updateTitle(taskName)
     }
 
@@ -108,10 +108,9 @@ class TaskListFragment : Fragment() {
         withDelay(INSERT_DELAY) { viewModel.addTask(description) }
     }
 
-    private fun onTaskLoaded(list: List<TaskWithCategory>) {
+    private fun onTaskLoaded(list: List<TaskWithCategory>, showAddButton: Boolean) {
         Timber.d("onTaskLoaded() - Size = ${list.size}")
 
-        val showAddButton = itemId != TaskListContract.COMPLETED_TASKS
         adapter.updateList(list, showAddButton)
 
         if (list.isEmpty() && !showAddButton) {
@@ -170,8 +169,8 @@ class TaskListFragment : Fragment() {
 
         private const val INSERT_DELAY = 200L
 
-        const val EXTRA_CATEGORY_ID = "category_id"
-
         const val EXTRA_CATEGORY_NAME = "category_name"
+
+        const val EXTRA_TASK_LIST_STATE = "task_list_state"
     }
 }

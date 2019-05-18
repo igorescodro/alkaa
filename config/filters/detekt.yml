@@ -1,5 +1,3 @@
-failFast: true
-
 complexity:
   TooManyFunctions:
     thresholdInClasses: 20
@@ -15,22 +13,22 @@ test-pattern:
   active: true
 
   patterns:
-  - '.*/test/.*'
-  - '.*Test.kt'
-  - '.*Spec.kt'
-  - '.*/androidTest/.*'
+    - '.*/test/.*'
+    - '.*Test.kt'
+    - '.*Spec.kt'
+    - '.*/androidTest/.*'
 
   exclude-rule-sets:
-  - 'comments'
+    - 'comments'
 
   exclude-rules:
-  - 'NamingRules'
-  - 'WildcardImport'
-  - 'MagicNumber'
-  - 'MaxLineLength'
-  - 'LateinitUsage'
-  - 'StringLiteralDuplication'
-  - 'SpreadOperator'
-  - 'TooManyFunctions'
-  - 'UnsafeCast'
-  - 'UnderscoresInNumericLiterals'
+    - 'NamingRules'
+    - 'WildcardImport'
+    - 'MagicNumber'
+    - 'MaxLineLength'
+    - 'LateinitUsage'
+    - 'StringLiteralDuplication'
+    - 'SpreadOperator'
+    - 'TooManyFunctions'
+    - 'UnsafeCast'
+    - 'UnderscoresInNumericLiterals'

@@ -51,9 +51,9 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:$androidx_version"
     implementation "androidx.preference:preference:$androidx_version"
     implementation "androidx.cardview:cardview:$androidx_version"
-    implementation "androidx.constraintlayout:constraintlayout:2.0.0-alpha3"
-    implementation "android.arch.work:work-runtime:1.0.0-beta05"
-    implementation 'androidx.core:core-ktx:1.0.1'
+    implementation "androidx.constraintlayout:constraintlayout:2.0.0-beta1"
+    implementation "android.arch.work:work-runtime:1.0.1"
+    implementation 'androidx.core:core-ktx:1.0.2'
 
     // Timber
     implementation 'com.jakewharton.timber:timber:4.7.1'

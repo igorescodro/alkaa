@@ -1,6 +1,6 @@
 package com.escodro.alkaa.framework.rule
 
-import androidx.test.InstrumentationRegistry
+import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
 import org.junit.rules.TestRule
 import org.junit.runner.Description

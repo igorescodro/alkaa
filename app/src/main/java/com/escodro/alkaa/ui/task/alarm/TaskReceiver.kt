@@ -11,7 +11,7 @@ import com.escodro.alkaa.ui.task.alarm.worker.TaskCompletedWorker
 import com.escodro.alkaa.ui.task.alarm.worker.TaskNotifierWorker
 import com.escodro.alkaa.ui.task.alarm.worker.TaskReschedulerWorker
 import com.escodro.alkaa.ui.task.alarm.worker.TaskSnoozeWorker
-import org.koin.standalone.KoinComponent
+import org.koin.core.KoinComponent
 import timber.log.Timber
 
 /**

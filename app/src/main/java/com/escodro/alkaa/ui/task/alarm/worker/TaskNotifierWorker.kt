@@ -8,7 +8,7 @@ import com.escodro.alkaa.di.provider.DaoProvider
 import com.escodro.alkaa.ui.task.alarm.TaskReceiver
 import com.escodro.alkaa.ui.task.alarm.notification.TaskNotification
 import io.reactivex.Single
-import org.koin.standalone.inject
+import org.koin.core.inject
 import timber.log.Timber
 
 /**

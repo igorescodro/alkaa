@@ -14,7 +14,7 @@ import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Test
-import org.koin.standalone.inject
+import org.koin.test.inject
 import java.util.Calendar
 
 /**

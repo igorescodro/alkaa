@@ -13,8 +13,8 @@ import com.escodro.alkaa.di.provider.DaoProvider
 import com.escodro.alkaa.framework.rule.DisableAnimationsRule
 import org.junit.Rule
 import org.junit.runner.RunWith
-import org.koin.standalone.inject
 import org.koin.test.KoinTest
+import org.koin.test.inject
 
 /**
  * Class to wrap the test intents.

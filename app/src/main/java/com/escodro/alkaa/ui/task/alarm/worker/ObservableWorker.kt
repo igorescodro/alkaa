@@ -6,7 +6,7 @@ import androidx.work.WorkerParameters
 import com.escodro.alkaa.common.extension.applySchedulers
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
-import org.koin.standalone.KoinComponent
+import org.koin.core.KoinComponent
 import timber.log.Timber
 import java.util.concurrent.LinkedBlockingQueue
 

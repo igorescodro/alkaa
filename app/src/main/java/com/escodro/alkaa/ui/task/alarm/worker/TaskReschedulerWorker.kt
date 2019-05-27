@@ -7,7 +7,7 @@ import com.escodro.alkaa.data.local.model.Task
 import com.escodro.alkaa.di.provider.DaoProvider
 import com.escodro.alkaa.ui.task.alarm.notification.TaskNotificationScheduler
 import io.reactivex.Single
-import org.koin.standalone.inject
+import org.koin.core.inject
 import timber.log.Timber
 import java.util.Calendar
 

@@ -2,7 +2,8 @@ package com.escodro.alkaa
 
 import android.app.Application
 import com.escodro.alkaa.di.alkaaModules
-import org.koin.android.ext.android.startKoin
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
 import timber.log.Timber
 
 /**
@@ -17,6 +18,10 @@ class AlkaaApp : Application() {
             Timber.plant(Timber.DebugTree())
         }
 
-        startKoin(this, alkaaModules)
+        startKoin {
+            printLogger()
+            androidContext(this@AlkaaApp)
+            modules(alkaaModules)
+        }
     }
 }

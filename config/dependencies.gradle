@@ -31,7 +31,10 @@ ext.versions = [
         testJunitExt       : '1.1.0',
 
         buildGradle        : '3.4.1',
-        kotlinGradle       : '1.3.31'
+        kotlinGradle       : '1.3.31',
+
+        detekt             : '1.0.0-RC14',
+        ktlint             : '0.32.0'
 ]
 
 ext.libraries = [
@@ -81,6 +84,11 @@ ext.libraries = [
                 ],
                 uiAutomator: "androidx.test.uiautomator:uiautomator:$versions.testUiAutomator",
                 junitExt   : "androidx.test.ext:junit:$versions.testJunitExt"
+        ],
+
+        quality: [
+                detekt: "io.gitlab.arturbosch.detekt:detekt-cli:$versions.detekt",
+                ktlint: "com.pinterest:ktlint:$versions.ktlint"
         ]
 ]
 

@@ -44,49 +44,38 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    // Android
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation "androidx.appcompat:appcompat:1.0.2"
-    implementation "com.google.android.material:material:$androidx_version"
-    implementation "androidx.recyclerview:recyclerview:$androidx_version"
-    implementation "androidx.preference:preference:$androidx_version"
-    implementation "androidx.cardview:cardview:$androidx_version"
-    implementation "androidx.constraintlayout:constraintlayout:2.0.0-beta1"
-    implementation "android.arch.work:work-runtime:1.0.1"
-    implementation 'androidx.core:core-ktx:1.0.2'
+    implementation libraries.android.kotlin
+    implementation libraries.android.appCompat
+    implementation libraries.android.material
+    implementation libraries.android.recyclerView
+    implementation libraries.android.preference
+    implementation libraries.android.cardView
+    implementation libraries.android.constraintLayout
+    implementation libraries.android.workManager
+    implementation libraries.android.ktx
 
-    // Timber
-    implementation 'com.jakewharton.timber:timber:4.7.1'
+    implementation libraries.timber
 
-    // Koin
-    implementation "org.koin:koin-androidx-viewmodel:$koin_version"
-    androidTestImplementation "org.koin:koin-test:$koin_version"
+    implementation libraries.koin.viewModel
+    androidTestImplementation libraries.koin.test
 
-    // Rx
-    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.0'
+    implementation libraries.rx.android
+    implementation libraries.rx.java
 
-    // Architecture Components
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
-    implementation 'androidx.room:room-runtime:2.0.0'
-    kapt 'androidx.room:room-compiler:2.0.0'
-    implementation 'androidx.room:room-rxjava2:2.0.0'
-    implementation "android.arch.navigation:navigation-fragment:$navigation_version"
-    implementation "android.arch.navigation:navigation-ui:$navigation_version"
+    implementation libraries.android.lifecycle
+    implementation libraries.android.room.runtime
+    kapt libraries.android.room.compiler
+    implementation libraries.android.room.rx
+    implementation libraries.android.navigation.fragment
+    implementation libraries.android.navigation.ui
 
-    // Test
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.1.1'
-    androidTestImplementation 'androidx.test:rules:1.1.1'
-    androidTestImplementation 'androidx.test:core:1.1.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-intents:3.1.1'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.1.0-alpha4', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-        exclude group: 'com.android.support', module: 'support-v4'
-        exclude group: 'com.android.support', module: 'design'
-        exclude group: 'com.android.support', module: 'recyclerview-v7'
-    }
-    androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
+    testImplementation libraries.test.junit
+    androidTestImplementation libraries.test.runner
+    androidTestImplementation libraries.test.rules
+    androidTestImplementation libraries.test.core
+    androidTestImplementation libraries.test.espresso.core
+    androidTestImplementation libraries.test.espresso.intents
+    androidTestImplementation libraries.test.espresso.contrib
+    androidTestImplementation libraries.test.junitExt
+    androidTestImplementation libraries.test.uiAutomator
 }

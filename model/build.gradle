@@ -1,0 +1,6 @@
+apply plugin: 'kotlin'
+
+dependencies {
+    implementation libraries.kotlin
+    implementation libraries.android.room.runtime
+}

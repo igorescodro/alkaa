@@ -1,28 +1,15 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
+apply plugin: "com.android.application"
+apply plugin: "kotlin-kapt"
 apply plugin: "androidx.navigation.safeargs"
 
-apply from: '../config/quality.gradle'
+apply from: "../config/dependencies/android_dependencies.gradle"
 apply from: "../config/artifacts.gradle"
 
 android {
-    compileSdkVersion versions.compileSdk
     defaultConfig {
         applicationId "com.escodro.alkaa"
-        minSdkVersion versions.minSdk
-        targetSdkVersion versions.targetSdk
         versionCode releases.versionCode
         versionName releases.versionName
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
     }
 
     dataBinding {
@@ -42,9 +29,6 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-
-    implementation libraries.android.kotlin
     implementation libraries.android.appCompat
     implementation libraries.android.material
     implementation libraries.android.recyclerView

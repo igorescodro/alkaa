@@ -1,0 +1,2 @@
+apply plugin: 'com.android.library'
+apply from: "../config/dependencies/android_dependencies.gradle"

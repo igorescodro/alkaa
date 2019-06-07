@@ -47,8 +47,9 @@ ext.versions = [
 ]
 
 ext.libraries = [
+        kotlin : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin",
+
         android: [
-                kotlin          : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin",
                 appCompat       : "androidx.appcompat:appcompat:$versions.appCompat",
                 material        : "com.google.android.material:material:$versions.material",
                 recyclerView    : "androidx.recyclerview:recyclerview:$versions.recyclerView",

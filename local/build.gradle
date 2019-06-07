@@ -1,0 +1,11 @@
+apply from: "../config/dependencies/feature_dependencies.gradle"
+apply plugin: "kotlin-kapt"
+
+dependencies {
+    implementation project(":model")
+
+    implementation libraries.android.room.runtime
+    implementation libraries.android.room.rx
+    kapt libraries.android.room.compiler
+    implementation libraries.rx.java
+}

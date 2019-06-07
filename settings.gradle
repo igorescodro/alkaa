@@ -1,2 +1,3 @@
 include ':app',
-        ':model'
+        ':model',
+        ':local'

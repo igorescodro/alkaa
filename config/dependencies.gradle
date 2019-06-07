@@ -1,0 +1,109 @@
+ext.releases = [
+        versionCode: 10301,
+        versionName: '1.3.1'
+]
+
+ext.versions = [
+        compileSdk         : 28,
+        targetSdk          : 28,
+        minSdk             : 23,
+
+        kotlin             : '1.3.31',
+        appCompat          : '1.0.2',
+        material           : '1.0.0',
+        recyclerView       : '1.0.0',
+        preference         : '1.0.0',
+        cardView           : '1.0.0',
+        androidx           : '1.0.0',
+        constraintLayout   : "2.0.0-beta1",
+        workManager        : '1.0.1',
+        ktx                : '1.0.2',
+        lifecycle          : '1.0.0',
+        room               : '2.0.0',
+        navigation         : '1.0.0',
+
+        timber             : '4.7.1',
+
+        koin               : '2.0.0',
+
+        rxJava             : '2.1.0',
+        rxAndroid          : '2.2.0',
+
+        testJunit          : '4.12',
+        testRunner         : '1.1.1',
+        testRules          : '1.1.1',
+        testCore           : '1.1.0',
+        testEspressoCore   : '3.1.1',
+        testEspressoIntents: '3.1.1',
+        testEspressoContrib: '3.1.0-alpha4',
+        testUiAutomator    : '2.2.0',
+        testJunitExt       : '1.1.0',
+
+        buildGradle        : '3.4.1',
+        kotlinGradle       : '1.3.31',
+
+        detekt             : '1.0.0-RC14',
+        ktlint             : '0.32.0'
+]
+
+ext.libraries = [
+        kotlin : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin",
+
+        android: [
+                appCompat       : "androidx.appcompat:appcompat:$versions.appCompat",
+                material        : "com.google.android.material:material:$versions.material",
+                recyclerView    : "androidx.recyclerview:recyclerview:$versions.recyclerView",
+                preference      : "androidx.preference:preference:$versions.preference",
+                cardView        : "androidx.cardview:cardview:$versions.cardView",
+                constraintLayout: "androidx.constraintlayout:constraintlayout:$versions.constraintLayout",
+                workManager     : "android.arch.work:work-runtime:$versions.workManager",
+                ktx             : "androidx.core:core-ktx:$versions.ktx",
+                lifecycle       : "androidx.lifecycle:lifecycle-extensions:$versions.lifecycle",
+                room            : [
+                        runtime : "androidx.room:room-runtime:$versions.room",
+                        compiler: "androidx.room:room-compiler:$versions.room",
+                        rx      : "androidx.room:room-rxjava2:$versions.room"
+                ],
+                navigation      : [
+                        fragment: "android.arch.navigation:navigation-fragment:$versions.navigation",
+                        ui      : "android.arch.navigation:navigation-ui:$versions.navigation"
+                ]
+        ],
+
+        timber : "com.jakewharton.timber:timber:$versions.timber",
+
+        koin   : [
+                viewModel: "org.koin:koin-androidx-viewmodel:$versions.koin",
+                test     : "org.koin:koin-test:$versions.koin"
+        ],
+
+        rx     : [
+                android: "io.reactivex.rxjava2:rxandroid:$versions.rxJava",
+                java   : "io.reactivex.rxjava2:rxjava:$versions.rxAndroid"
+        ],
+
+        test   : [
+                junit      : "junit:junit:$versions.testJunit",
+                runner     : "androidx.test:runner:$versions.testRunner",
+                rules      : "androidx.test:rules:$versions.testRules",
+                core       : "androidx.test:core:$versions.testCore",
+                espresso   : [
+                        core   : "androidx.test.espresso:espresso-core:$versions.testEspressoCore",
+                        intents: "androidx.test.espresso:espresso-intents:$versions.testEspressoIntents",
+                        contrib: "androidx.test.espresso:espresso-contrib:$versions.testEspressoContrib",
+                ],
+                uiAutomator: "androidx.test.uiautomator:uiautomator:$versions.testUiAutomator",
+                junitExt   : "androidx.test.ext:junit:$versions.testJunitExt"
+        ],
+
+        quality: [
+                detekt: "io.gitlab.arturbosch.detekt:detekt-cli:$versions.detekt",
+                ktlint: "com.pinterest:ktlint:$versions.ktlint"
+        ]
+]
+
+ext.gradlePlugins = [
+        buildGradle       : "com.android.tools.build:gradle:$versions.buildGradle",
+        kotlinGradle      : "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlinGradle",
+        navigationSafeArgs: "android.arch.navigation:navigation-safe-args-gradle-plugin:$versions.navigation"
+]

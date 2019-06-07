@@ -3,7 +3,7 @@ configurations {
 }
 
 dependencies {
-    ktlint "com.pinterest:ktlint:$ktlint_version"
+    ktlint libraries.quality.ktlint
 }
 
 task ktlint(type: JavaExec, group: "verification") {

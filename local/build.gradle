@@ -4,6 +4,7 @@ apply plugin: "kotlin-kapt"
 dependencies {
     implementation project(":model")
 
+    implementation libraries.koin.core
     implementation libraries.android.room.runtime
     implementation libraries.android.room.rx
     kapt libraries.android.room.compiler

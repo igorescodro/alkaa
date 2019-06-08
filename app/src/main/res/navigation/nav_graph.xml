@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     app:startDestination="@id/taskListFragment">
 
+    <include app:graph="@navigation/nav_graph_category" />
+
     <fragment
         android:id="@+id/taskListFragment"
         android:name="com.escodro.alkaa.ui.task.list.TaskListFragment"
@@ -54,33 +56,33 @@
 
     </fragment>
 
-    <fragment
-        android:id="@+id/categoryFragment"
-        android:name="com.escodro.alkaa.ui.category.list.CategoryListFragment"
-        android:label="@string/category_list_label"
-        tools:layout="@layout/fragment_category_list">
+    <!--<fragment-->
+        <!--android:id="@+id/categoryFragment"-->
+        <!--android:name="com.escodro.alkaa.ui.category.list.CategoryListFragment"-->
+        <!--android:label="@string/category_list_label"-->
+        <!--tools:layout="@layout/fragment_category_list">-->
 
-        <action
-            android:id="@+id/action_new_category"
-            app:destination="@id/newCategoryFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <!--<action-->
+            <!--android:id="@+id/action_new_category"-->
+            <!--app:destination="@id/newCategoryFragment"-->
+            <!--app:enterAnim="@anim/nav_default_enter_anim"-->
+            <!--app:exitAnim="@anim/nav_default_exit_anim"-->
+            <!--app:popEnterAnim="@anim/nav_default_pop_enter_anim"-->
+            <!--app:popExitAnim="@anim/nav_default_pop_exit_anim" />-->
 
-    </fragment>
+    <!--</fragment>-->
 
-    <fragment
-        android:id="@+id/newCategoryFragment"
-        android:name="com.escodro.alkaa.ui.category.detail.CategoryDetailFragment"
-        android:label=""
-        tools:layout="@layout/fragment_category_new">
+    <!--<fragment-->
+        <!--android:id="@+id/newCategoryFragment"-->
+        <!--android:name="com.escodro.alkaa.ui.category.detail.CategoryDetailFragment"-->
+        <!--android:label=""-->
+        <!--tools:layout="@layout/fragment_category_new">-->
 
-        <argument
-            android:name="categoryId"
-            app:argType="long" />
+        <!--<argument-->
+            <!--android:name="categoryId"-->
+            <!--app:argType="long" />-->
 
-    </fragment>
+    <!--</fragment>-->
 
     <fragment
         android:id="@+id/aboutFragment"

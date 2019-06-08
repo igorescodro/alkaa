@@ -29,6 +29,11 @@ android {
 }
 
 dependencies {
+    implementation project(":local")
+    implementation project(":domain")
+
+    implementation project(":category")
+
     implementation libraries.android.appCompat
     implementation libraries.android.material
     implementation libraries.android.recyclerView

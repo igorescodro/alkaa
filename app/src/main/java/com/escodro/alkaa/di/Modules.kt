@@ -47,9 +47,9 @@ val applicationModule = module {
 
     viewModel { TaskAlarmViewModel(get(), get()) }
 
-    // Category List
-    single { CategoryListContract(get()) }
-    viewModel { CategoryListViewModel(get()) }
+//    // Category List
+//    single { CategoryListContract(get()) }
+//    viewModel { CategoryListViewModel(get()) }
 
     // Category Detail
     single { CategoryDetailContract(get()) }

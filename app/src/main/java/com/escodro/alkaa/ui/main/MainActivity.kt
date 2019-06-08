@@ -132,7 +132,7 @@ class MainActivity : AppCompatActivity() {
 
         drawerSelectedItem = item.itemId
         when (drawerSelectedItem) {
-            CATEGORY_ITEM -> navController.navigateSingleTop(R.id.categoryFragment)
+            CATEGORY_ITEM -> navController.navigateSingleTop(R.id.nav_graph_category)
             else -> navigateToCategory(item)
         }
 

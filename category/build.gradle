@@ -1,0 +1,26 @@
+apply from: "../config/dependencies/feature_dependencies.gradle"
+
+android {
+    dataBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    implementation project(":domain")
+
+    implementation libraries.android.appCompat
+    implementation libraries.android.material
+    implementation libraries.android.recyclerView
+    implementation libraries.android.navigation.fragment
+    implementation libraries.android.cardView
+
+    implementation libraries.koin.viewModel
+
+    implementation libraries.rx.android
+    implementation libraries.rx.java
+
+    testImplementation libraries.test.junit
+    androidTestImplementation libraries.test.runner
+    androidTestImplementation libraries.test.espresso.core
+}

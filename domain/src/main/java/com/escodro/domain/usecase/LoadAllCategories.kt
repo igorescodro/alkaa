@@ -9,7 +9,7 @@ import io.reactivex.Flowable
 /**
  * Use case to load all categories from the database.
  */
-class LoadCategories(private val daoProvider: DaoProvider, private val mapper: CategoryMapper) {
+class LoadAllCategories(private val daoProvider: DaoProvider, private val mapper: CategoryMapper) {
 
     /**
      * Loads all categories.
@@ -17,8 +17,7 @@ class LoadCategories(private val daoProvider: DaoProvider, private val mapper: C
      * @return a mutable list of all categories
      */
     operator fun invoke(): Flowable<List<ViewData.Category>> =
-        daoProvider
-            .getCategoryDao()
+        daoProvider.getCategoryDao()
             .getAllCategories()
             .map { mapper.toViewCategory(it) }
             .applySchedulers()

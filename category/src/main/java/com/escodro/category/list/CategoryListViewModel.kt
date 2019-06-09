@@ -2,7 +2,7 @@ package com.escodro.category.list
 
 import androidx.lifecycle.ViewModel
 import com.escodro.domain.usecase.DeleteCategory
-import com.escodro.domain.usecase.LoadCategories
+import com.escodro.domain.usecase.LoadAllCategories
 import com.escodro.domain.viewdata.ViewData
 import io.reactivex.disposables.CompositeDisposable
 
@@ -11,7 +11,7 @@ import io.reactivex.disposables.CompositeDisposable
  * .FragmentCategoryBinding].
  */
 class CategoryListViewModel(
-    private val loadCategories: LoadCategories,
+    private val loadCategories: LoadAllCategories,
     private val deleteCategory: DeleteCategory
 ) : ViewModel() {
 

@@ -1,4 +1,4 @@
-package com.escodro.category.list
+package com.escodro.category.presentation.list
 
 import androidx.recyclerview.widget.DiffUtil
 import com.escodro.domain.viewdata.ViewData

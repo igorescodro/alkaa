@@ -1,4 +1,4 @@
-package com.escodro.category.list
+package com.escodro.category.presentation.list
 
 import android.os.Bundle
 import android.view.LayoutInflater

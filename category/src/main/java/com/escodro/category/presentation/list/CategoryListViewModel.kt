@@ -1,4 +1,4 @@
-package com.escodro.category.list
+package com.escodro.category.presentation.list
 
 import androidx.lifecycle.ViewModel
 import com.escodro.domain.usecase.DeleteCategory

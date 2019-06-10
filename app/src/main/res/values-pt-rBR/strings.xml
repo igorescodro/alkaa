@@ -8,23 +8,13 @@
     <string name="drawer_menu_all_tasks">Todas as Tarefas</string>
     <string name="drawer_menu_manage_categories">Gerenciar categorias</string>
     <string name="task_menu_preferences">Preferências</string>
-    <string name="task_error_empty">Campo vazio</string>
     <string name="task_add_new">Adicionar nova tarefa</string>
     <string name="task_details_alarm_removed">Alarme removido</string>
     <string name="task_details_description_hint">Adicionar uma descrição</string>
-    <string name="category_list_label">Categorias</string>
-    <string name="category_list_menu_remove">Remover</string>
-    <string name="category_list_dialog_remove_title">Remover categoria?</string>
-    <string name="category_list_dialog_remove_description">Deletar \"%s\" também irá remover todas as tarefas sob essa categoria.</string>
-    <string name="category_list_dialog_remove_positive">Remover</string>
-    <string name="category_list_dialog_remove_negative">Cancelar</string>
-    <string name="category_list_empty">Sem categorias</string>
-    <string name="category_detail_save">Salvar</string>
     <string name="channel_task_name">Alarme de tarefas</string>
     <string name="channel_task_description">Notificações para lembretes</string>
     <string name="preference_title">Preferências</string>
     <string name="preference_item_about">Sobre</string>
-    <string name="category_detail_hint">Nome da categoria</string>
     <string name="about_detail_title">Sobre</string>
     <string name="about_description">Alkaa (começar, iniciar em finlandês) é um gerenciador de tarefas simples para deixar sua vida mais fácil.\n\nTudo começou quando criei um projeto para aprender e me manter atualizado sobre os últimos componentes e bibliotecas Android. Se você é um desenvolvedor ou entusiasta, sinta-se livre para acessar, copiar or atualizar o código aberto.\n\nMuito obrigado por usar o meu app!</string>
     <string name="about_button_project">Visite projeto no GitHub</string>
@@ -41,5 +31,4 @@
     <string name="task_list_empty">Sem tarefas</string>
     <string name="notification_action_completed">Concluído</string>
     <string name="notification_action_snooze">Daqui 15 min</string>
-    <string name="category_list_menu_edit">Editar</string>
 </resources>

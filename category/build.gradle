@@ -1,4 +1,5 @@
 apply from: "../config/dependencies/feature_dependencies.gradle"
+apply plugin: "androidx.navigation.safeargs"
 
 android {
     dataBinding {
@@ -10,9 +11,11 @@ dependencies {
     implementation project(":domain")
 
     implementation libraries.android.appCompat
+    implementation libraries.android.constraintLayout
     implementation libraries.android.material
     implementation libraries.android.recyclerView
     implementation libraries.android.navigation.fragment
+    implementation libraries.android.navigation.ui
     implementation libraries.android.cardView
 
     implementation libraries.koin.viewModel

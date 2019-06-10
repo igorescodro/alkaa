@@ -53,7 +53,7 @@ class CategoryListFragment : Fragment() {
 
         recyclerview_categorylist_list?.adapter = adapter
         recyclerview_categorylist_list?.layoutManager = getLayoutManager()
-//        button_categorylist_add?.setOnClickListener { navigator?.navigate(R.id.action_new_category) }
+        button_categorylist_add?.setOnClickListener { navigator?.navigate(R.id.action_new_category) }
     }
 
     private fun getLayoutManager() =
@@ -102,8 +102,8 @@ class CategoryListFragment : Fragment() {
     }
 
     private fun editCategory(category: ViewData.Category) {
-//        val action = CategoryListFragmentDirections.actionNewCategory(category.id)
-//        navigator?.navigate(action)
+        val action = CategoryListFragmentDirections.actionNewCategory(category.id)
+        navigator?.navigate(action)
     }
 
     private fun removeCategory(category: ViewData.Category) {

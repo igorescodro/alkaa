@@ -21,6 +21,16 @@ class CategoryMapper {
         }
 
     /**
+     * Maps from a [Category] to [ViewData.Category].
+     *
+     * @param category object to be mapped
+     *
+     * @return the converted object
+     */
+    fun toViewCategory(category: Category) =
+        ViewData.Category(category.id, category.name, category.color)
+
+    /**
      * Maps from a of [ViewData.Category] to [Category].
      *
      * @param category object to be mapped

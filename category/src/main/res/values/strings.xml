@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">category</string>
 
+    <!-- Category detail screen -->
     <string name="category_list_label">Categories</string>
     <string name="category_list_menu_remove">Remove</string>
     <string name="category_list_menu_edit">Edit</string>
@@ -9,5 +9,11 @@
     <string name="category_list_dialog_remove_positive">Remove</string>
     <string name="category_list_dialog_remove_negative">Cancel</string>
     <string name="category_list_empty">No category</string>
+
+    <!-- Category detail screen -->
+    <string name="category_detail_save">Save</string>
+    <string name="category_detail_hint">Category name</string>
+    <string name="category_detail_error_empty">Empty field</string>
+
 
 </resources>

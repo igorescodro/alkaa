@@ -5,8 +5,8 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.escodro.core.extension.toStringColor
-import com.escodro.domain.usecase.LoadCategory
-import com.escodro.domain.usecase.SaveCategory
+import com.escodro.domain.usecase.category.LoadCategory
+import com.escodro.domain.usecase.category.SaveCategory
 import com.escodro.domain.viewdata.ViewData
 import io.reactivex.disposables.CompositeDisposable
 import timber.log.Timber

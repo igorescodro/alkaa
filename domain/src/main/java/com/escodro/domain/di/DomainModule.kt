@@ -1,10 +1,10 @@
 package com.escodro.domain.di
 
 import com.escodro.domain.mapper.CategoryMapper
-import com.escodro.domain.usecase.DeleteCategory
-import com.escodro.domain.usecase.LoadAllCategories
-import com.escodro.domain.usecase.LoadCategory
-import com.escodro.domain.usecase.SaveCategory
+import com.escodro.domain.usecase.category.DeleteCategory
+import com.escodro.domain.usecase.category.LoadAllCategories
+import com.escodro.domain.usecase.category.LoadCategory
+import com.escodro.domain.usecase.category.SaveCategory
 import org.koin.dsl.module
 
 /**

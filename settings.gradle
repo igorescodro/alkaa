@@ -1,4 +1,6 @@
-include ':app', ':category',
+include ':app',
+        ':category',
+        ':core',
         ':model',
         ':local',
         ':domain'

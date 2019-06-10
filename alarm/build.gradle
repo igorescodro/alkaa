@@ -1,0 +1,4 @@
+apply from: "../config/dependencies/feature_dependencies.gradle"
+
+dependencies {
+}

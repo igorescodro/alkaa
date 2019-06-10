@@ -15,8 +15,8 @@ import timber.log.Timber
  * [ViewModel] responsible to provide information to [CategoryDetailFragment].
  */
 class CategoryDetailViewModel(
-    private val loadCategory: LoadCategory,
-    private val saveCategory: SaveCategory
+    private val loadCategoryUseCase: LoadCategory,
+    private val saveCategoryUseCase: SaveCategory
 ) : ViewModel() {
 
     val newCategory = MediatorLiveData<String>()
@@ -35,7 +35,7 @@ class CategoryDetailViewModel(
      * @param categoryId categoryId id
      */
     fun loadCategory(categoryId: Long, onLoadCategory: (color: String) -> Unit) {
-        val disposable = loadCategory.invoke(categoryId).subscribe(
+        val disposable = loadCategoryUseCase(categoryId).subscribe(
             { category ->
                 categoryData.value = category
                 category.color?.let { color -> onLoadCategory(color) }
@@ -67,7 +67,7 @@ class CategoryDetailViewModel(
             getNewCategory(name, color)
         }
 
-        val disposable = saveCategory.invoke(category)
+        val disposable = saveCategoryUseCase(category)
             .doOnComplete { onCategoryAdded() }
             .subscribe()
 

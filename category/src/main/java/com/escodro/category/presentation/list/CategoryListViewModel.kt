@@ -11,8 +11,8 @@ import io.reactivex.disposables.CompositeDisposable
  * .FragmentCategoryBinding].
  */
 class CategoryListViewModel(
-    private val loadCategories: LoadAllCategories,
-    private val deleteCategory: DeleteCategory
+    private val loadCategoriesUseCase: LoadAllCategories,
+    private val deleteCategoryUseCase: DeleteCategory
 ) : ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()
@@ -21,7 +21,7 @@ class CategoryListViewModel(
      * Loads all categories.
      */
     fun loadCategories(onListLoaded: (list: List<ViewData.Category>) -> Unit) {
-        val disposable = loadCategories.invoke().subscribe { onListLoaded(it) }
+        val disposable = loadCategoriesUseCase().subscribe { onListLoaded(it) }
         compositeDisposable.add(disposable)
     }
 
@@ -31,7 +31,7 @@ class CategoryListViewModel(
      * @param category category to be removed
      */
     fun deleteCategory(category: ViewData.Category) {
-        val disposable = deleteCategory.invoke(category).subscribe()
+        val disposable = deleteCategoryUseCase(category).subscribe()
         compositeDisposable.add(disposable)
     }
 

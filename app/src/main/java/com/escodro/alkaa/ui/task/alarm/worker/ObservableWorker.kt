@@ -3,7 +3,7 @@ package com.escodro.alkaa.ui.task.alarm.worker
 import android.content.Context
 import androidx.work.Worker
 import androidx.work.WorkerParameters
-import com.escodro.alkaa.common.extension.applySchedulers
+import com.escodro.core.extension.applySchedulers
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import org.koin.core.KoinComponent

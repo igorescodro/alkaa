@@ -12,16 +12,16 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import com.escodro.category.R
-import com.escodro.category.common.getChildren
-import com.escodro.category.common.getTintColor
-import com.escodro.category.common.showKeyboard
 import com.escodro.category.databinding.FragmentCategoryDetailBinding
+import com.escodro.core.extension.getChildren
+import com.escodro.core.extension.getTintColor
+import com.escodro.core.extension.showKeyboard
 import kotlinx.android.synthetic.main.fragment_category_detail.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
 /**
- * [Fragment] responsible to create a new [com.escodro.alkaa.data.local.model.Category].
+ * [Fragment] responsible to create a new [com.escodro.domain.viewdata.ViewData.Category].
  */
 class CategoryDetailFragment : Fragment() {
 

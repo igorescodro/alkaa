@@ -1,8 +1,8 @@
 package com.escodro.alkaa.ui.task.list.model
 
 import android.widget.CheckBox
-import com.escodro.alkaa.common.databinding.BindingHolder
-import com.escodro.alkaa.common.extension.setStyleDisable
+import com.escodro.core.databinding.BindingHolder
+import com.escodro.core.extension.setStyleDisable
 import com.escodro.alkaa.data.local.model.TaskWithCategory
 import com.escodro.alkaa.databinding.ItemTaskBinding
 

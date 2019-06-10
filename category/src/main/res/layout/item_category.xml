@@ -28,7 +28,7 @@
             android:orientation="vertical"
             tools:ignore="UseCompoundDrawables">
 
-            <com.escodro.category.common.ShapeView
+            <com.escodro.category.view.ShapeView
                 android:id="@+id/shapeview_itemcategory_color"
                 android:layout_width="64dp"
                 android:layout_height="64dp"

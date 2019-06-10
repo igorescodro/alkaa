@@ -2,6 +2,7 @@ apply from: "../config/dependencies/feature_dependencies.gradle"
 apply plugin: "kotlin-kapt"
 
 dependencies {
+    implementation project(":core")
     implementation project(":model")
 
     implementation libraries.koin.core

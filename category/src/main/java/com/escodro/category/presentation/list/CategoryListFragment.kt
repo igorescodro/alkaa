@@ -10,16 +10,16 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.escodro.category.R
-import com.escodro.category.common.dialog
-import com.escodro.category.common.negativeButton
-import com.escodro.category.common.positiveButton
+import com.escodro.core.extension.dialog
+import com.escodro.core.extension.negativeButton
+import com.escodro.core.extension.positiveButton
 import com.escodro.domain.viewdata.ViewData
 import kotlinx.android.synthetic.main.fragment_category_list.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
 /**
- * [Fragment] responsible to show all [Category].
+ * [Fragment] responsible to show all [com.escodro.domain.viewdata.ViewData.Category].
  */
 class CategoryListFragment : Fragment() {
 

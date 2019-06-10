@@ -2,9 +2,6 @@
 <resources>
     <string name="app_name">Alkaa</string>
     <string name="app_name_lowercase">alkaa</string>
-    <string name="category_default_personal">Pessoal</string>
-    <string name="category_default_work">Trabalho</string>
-    <string name="category_default_shopping">Lista de Compras</string>
     <string name="drawer_menu_all_tasks">Todas as Tarefas</string>
     <string name="drawer_menu_manage_categories">Gerenciar categorias</string>
     <string name="task_menu_preferences">Preferências</string>

@@ -9,7 +9,6 @@ import org.koin.dsl.module
  */
 val localModule = module {
 
-    // Database
     single { DatabaseProvider(get()) }
     single { DaoProvider(get()) }
 }

@@ -29,6 +29,7 @@ android {
 }
 
 dependencies {
+    implementation project(":core")
     implementation project(":local")
     implementation project(":domain")
 

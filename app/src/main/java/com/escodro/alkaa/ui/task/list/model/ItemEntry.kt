@@ -1,6 +1,6 @@
 package com.escodro.alkaa.ui.task.list.model
 
-import com.escodro.alkaa.common.databinding.BindingHolder
+import com.escodro.core.databinding.BindingHolder
 import com.escodro.alkaa.data.local.model.TaskWithCategory
 
 /**

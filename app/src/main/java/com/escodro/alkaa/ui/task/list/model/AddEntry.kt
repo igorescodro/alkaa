@@ -1,7 +1,7 @@
 package com.escodro.alkaa.ui.task.list.model
 
-import com.escodro.alkaa.common.databinding.BindingHolder
-import com.escodro.alkaa.common.extension.onActionDone
+import com.escodro.core.databinding.BindingHolder
+import com.escodro.core.extension.onActionDone
 import com.escodro.alkaa.databinding.ItemAddTaskBinding
 
 /**

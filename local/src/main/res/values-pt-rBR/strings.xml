@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="category_default_personal">Pessoal</string>
+    <string name="category_default_work">Trabalho</string>
+    <string name="category_default_shopping">Lista de Compras</string>
+</resources>

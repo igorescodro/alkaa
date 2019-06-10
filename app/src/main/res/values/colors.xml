@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#2f4550</color>
-    <color name="colorAccent">#1976d2</color>
-
-    <!-- General -->
-    <color name="gray">#808080</color>
-    <color name="gray_light">#9d9d9d</color>
-    <color name="gray_shadow_light">#7e9d9d9d</color>
 
     <!-- About background -->
     <color name="gradient_start_1">#044fab</color>

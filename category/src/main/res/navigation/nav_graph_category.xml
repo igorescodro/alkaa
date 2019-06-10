@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph_category"
-    app:startDestination="@id/categoryFragment">
+    app:startDestination="@id/categoryFragment"
+    tools:ignore="UnusedNavigation">
 
     <fragment
         android:id="@+id/categoryFragment"
@@ -13,11 +14,11 @@
 
         <action
             android:id="@+id/action_new_category"
-            app:destination="@id/newCategoryFragment" />
-        <!--app:enterAnim="@anim/nav_default_enter_anim"-->
-        <!--app:exitAnim="@anim/nav_default_exit_anim"-->
-        <!--app:popEnterAnim="@anim/nav_default_pop_enter_anim"-->
-        <!--app:popExitAnim="@anim/nav_default_pop_exit_anim" />-->
+            app:destination="@id/newCategoryFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
 
     </fragment>
 

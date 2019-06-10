@@ -4,7 +4,7 @@ import android.text.TextUtils
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.escodro.category.common.toStringColor
+import com.escodro.core.extension.toStringColor
 import com.escodro.domain.usecase.LoadCategory
 import com.escodro.domain.usecase.SaveCategory
 import com.escodro.domain.viewdata.ViewData

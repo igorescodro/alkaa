@@ -1,6 +1,6 @@
 package com.escodro.alkaa.ui.task.list
 
-import com.escodro.alkaa.common.extension.applySchedulers
+import com.escodro.core.extension.applySchedulers
 import com.escodro.alkaa.data.local.model.Task
 import com.escodro.alkaa.di.provider.DaoProvider
 import io.reactivex.Observable

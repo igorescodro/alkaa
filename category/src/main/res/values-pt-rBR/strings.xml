@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="category_list_label">Categorias</string>
     <string name="category_list_menu_remove">Remover</string>
     <string name="category_list_dialog_remove_title">Remover categoria?</string>
     <string name="category_list_dialog_remove_description">Deletar \"%s\" também irá remover todas as tarefas sob essa categoria.</string>

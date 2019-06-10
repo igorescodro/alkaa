@@ -1,7 +1,6 @@
 <resources>
 
     <!-- Category detail screen -->
-    <string name="category_list_label">Categories</string>
     <string name="category_list_menu_remove">Remove</string>
     <string name="category_list_menu_edit">Edit</string>
     <string name="category_list_dialog_remove_title">Remove category?</string>

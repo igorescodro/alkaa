@@ -5,7 +5,7 @@ import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
 import com.escodro.alkaa.R
-import com.escodro.alkaa.common.extension.getNotificationManager
+import com.escodro.core.extension.getNotificationManager
 
 /**
  * [NotificationChannel] to send Task notifications in Android O and above.

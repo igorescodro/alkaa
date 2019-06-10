@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.escodro.alkaa.R
-import com.escodro.alkaa.common.extension.hideKeyboard
-import com.escodro.alkaa.common.extension.textChangedObservable
+import com.escodro.core.extension.hideKeyboard
+import com.escodro.core.extension.textChangedObservable
 import com.escodro.alkaa.data.local.model.Task
 import com.escodro.alkaa.databinding.FragmentTaskDetailBinding
 import io.reactivex.disposables.CompositeDisposable

@@ -2,8 +2,8 @@ package com.escodro.alkaa.ui.task.detail
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.escodro.alkaa.common.extension.applySchedulers
-import com.escodro.alkaa.common.extension.notify
+import com.escodro.core.extension.applySchedulers
+import com.escodro.core.extension.notify
 import com.escodro.alkaa.data.local.model.Task
 import com.escodro.alkaa.di.provider.DaoProvider
 import io.reactivex.Observable

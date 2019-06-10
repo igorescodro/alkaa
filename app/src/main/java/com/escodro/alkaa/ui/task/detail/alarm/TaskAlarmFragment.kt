@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.escodro.alkaa.R
-import com.escodro.alkaa.common.extension.showDateTimePicker
-import com.escodro.alkaa.common.extension.showToast
+import com.escodro.core.extension.showDateTimePicker
+import com.escodro.core.extension.showToast
 import com.escodro.alkaa.data.local.model.Task
 import com.escodro.alkaa.databinding.FragmentTaskDetailAlarmBinding
 import kotlinx.android.synthetic.main.fragment_task_detail_alarm.*

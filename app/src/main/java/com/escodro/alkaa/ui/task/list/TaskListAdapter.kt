@@ -7,7 +7,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.escodro.alkaa.R
-import com.escodro.alkaa.common.databinding.BindingHolder
+import com.escodro.core.databinding.BindingHolder
 import com.escodro.alkaa.data.local.model.TaskWithCategory
 import com.escodro.alkaa.ui.task.list.model.AddEntry
 import com.escodro.alkaa.ui.task.list.model.ItemEntry

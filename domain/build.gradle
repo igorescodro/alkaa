@@ -1,0 +1,16 @@
+apply from: "../config/dependencies/feature_dependencies.gradle"
+
+android {
+    androidExtensions {
+        experimental = true
+    }
+}
+
+dependencies {
+    implementation project(":local")
+    implementation project(":model")
+
+    implementation libraries.koin.core
+    implementation libraries.rx.java
+    implementation libraries.rx.android
+}

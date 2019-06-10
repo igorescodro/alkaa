@@ -13,10 +13,10 @@ import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.escodro.alkaa.R
-import com.escodro.alkaa.common.extension.close
-import com.escodro.alkaa.common.extension.hideKeyboard
-import com.escodro.alkaa.common.extension.isOpen
-import com.escodro.alkaa.common.extension.navigateSingleTop
+import com.escodro.core.extension.close
+import com.escodro.core.extension.hideKeyboard
+import com.escodro.core.extension.isOpen
+import com.escodro.core.extension.navigateSingleTop
 import com.escodro.alkaa.data.local.model.Category
 import com.escodro.alkaa.ui.task.list.TaskListFragment
 import com.escodro.alkaa.ui.task.list.TaskListState
@@ -132,7 +132,7 @@ class MainActivity : AppCompatActivity() {
 
         drawerSelectedItem = item.itemId
         when (drawerSelectedItem) {
-            CATEGORY_ITEM -> navController.navigateSingleTop(R.id.categoryFragment)
+            CATEGORY_ITEM -> navController.navigateSingleTop(R.id.nav_graph_category)
             else -> navigateToCategory(item)
         }
 

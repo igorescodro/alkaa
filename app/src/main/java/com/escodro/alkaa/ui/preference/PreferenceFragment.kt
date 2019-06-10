@@ -7,7 +7,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.preference.PreferenceFragmentCompat
 import com.escodro.alkaa.R
-import com.escodro.alkaa.common.extension.getVersionName
+import com.escodro.core.extension.getVersionName
 import timber.log.Timber
 
 /**

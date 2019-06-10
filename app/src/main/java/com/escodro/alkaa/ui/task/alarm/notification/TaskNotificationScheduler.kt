@@ -3,8 +3,8 @@ package com.escodro.alkaa.ui.task.alarm.notification
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import com.escodro.alkaa.common.extension.cancelAlarm
-import com.escodro.alkaa.common.extension.setAlarm
+import com.escodro.core.extension.cancelAlarm
+import com.escodro.core.extension.setAlarm
 import com.escodro.alkaa.data.local.model.Task
 import com.escodro.alkaa.ui.task.alarm.TaskReceiver
 import timber.log.Timber

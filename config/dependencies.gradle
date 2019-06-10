@@ -73,6 +73,7 @@ ext.libraries = [
         timber : "com.jakewharton.timber:timber:$versions.timber",
 
         koin   : [
+                core     : "org.koin:koin-android:$versions.koin",
                 viewModel: "org.koin:koin-androidx-viewmodel:$versions.koin",
                 test     : "org.koin:koin-test:$versions.koin"
         ],

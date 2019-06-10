@@ -2,10 +2,6 @@ package com.escodro.alkaa.di
 
 import com.escodro.alkaa.di.provider.DaoProvider
 import com.escodro.alkaa.di.provider.DatabaseProvider
-import com.escodro.alkaa.ui.category.detail.CategoryDetailContract
-import com.escodro.alkaa.ui.category.detail.CategoryDetailViewModel
-import com.escodro.alkaa.ui.category.list.CategoryListContract
-import com.escodro.alkaa.ui.category.list.CategoryListViewModel
 import com.escodro.alkaa.ui.main.MainContract
 import com.escodro.alkaa.ui.main.MainTaskViewModel
 import com.escodro.alkaa.ui.main.MainViewModel
@@ -46,14 +42,6 @@ val applicationModule = module {
     viewModel { TaskCategoryViewModel(get(), get()) }
 
     viewModel { TaskAlarmViewModel(get(), get()) }
-
-    // Category List
-    single { CategoryListContract(get()) }
-    viewModel { CategoryListViewModel(get()) }
-
-    // Category Detail
-    single { CategoryDetailContract(get()) }
-    viewModel { CategoryDetailViewModel(get()) }
 
     // Alarm
     single { TaskNotificationScheduler(androidContext()) }

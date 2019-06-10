@@ -7,7 +7,7 @@ import android.os.Bundle
 import androidx.core.app.NotificationCompat
 import androidx.navigation.NavDeepLinkBuilder
 import com.escodro.alkaa.R
-import com.escodro.alkaa.common.extension.getNotificationManager
+import com.escodro.core.extension.getNotificationManager
 import com.escodro.alkaa.data.local.model.Task
 import com.escodro.alkaa.ui.task.alarm.TaskReceiver
 import timber.log.Timber

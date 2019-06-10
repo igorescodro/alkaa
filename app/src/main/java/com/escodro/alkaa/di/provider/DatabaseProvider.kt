@@ -5,7 +5,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.escodro.alkaa.R
-import com.escodro.alkaa.common.extension.getStringColor
+import com.escodro.core.extension.getStringColor
 import com.escodro.alkaa.data.local.TaskDatabase
 import com.escodro.alkaa.data.local.model.Category
 import java.util.concurrent.Executors

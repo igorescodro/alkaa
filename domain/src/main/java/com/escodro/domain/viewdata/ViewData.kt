@@ -2,6 +2,7 @@ package com.escodro.domain.viewdata
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
+import java.util.Calendar
 
 /**
  * Encapsulates the UI representation of database models.
@@ -13,4 +14,23 @@ sealed class ViewData {
      */
     @Parcelize
     data class Category(var id: Long = 0, var name: String?, var color: String?) : Parcelable
+
+    /**
+     * UI representation of a Task.
+     */
+    @Parcelize
+    data class Task(
+        var id: Long = 0,
+        var completed: Boolean = false,
+        var title: String,
+        var description: String? = null,
+        var categoryId: Long? = null,
+        var dueDate: Calendar? = null
+    ) : Parcelable
+
+    /**
+     * UI representation of a Task with Category.
+     */
+    @Parcelize
+    data class TaskWithCategory(val task: Task, val category: Category? = null) : Parcelable
 }

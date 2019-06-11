@@ -2,7 +2,7 @@ package com.escodro.alkaa.ui.task.detail.alarm
 
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
-import com.escodro.alkaa.ui.task.alarm.notification.TaskNotificationScheduler
+import com.escodro.alarm.notification.TaskNotificationScheduler
 import com.escodro.alkaa.ui.task.detail.TaskDetailProvider
 import timber.log.Timber
 import java.util.Calendar

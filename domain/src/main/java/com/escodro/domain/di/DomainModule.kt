@@ -25,12 +25,8 @@ val domainModule = module {
     single { CompleteTask(get(), get()) }
 
     single { LoadAllCategories(get(), get()) }
-    single { LoadAllCategories(get(), get()) }
-    single { LoadCategory(get(), get()) }
     single { LoadCategory(get(), get()) }
     single { SaveCategory(get(), get()) }
-    single { SaveCategory(get(), get()) }
-    single { DeleteCategory(get(), get()) }
     single { DeleteCategory(get(), get()) }
 
     single { CategoryMapper() }

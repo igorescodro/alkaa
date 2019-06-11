@@ -2,10 +2,12 @@ package com.escodro.alkaa.ui.task.detail
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.escodro.alkaa.data.local.model.Task
 import com.escodro.core.extension.applySchedulers
 import com.escodro.core.extension.notify
-import com.escodro.alkaa.data.local.model.Task
-import com.escodro.alkaa.di.provider.DaoProvider
+import com.escodro.domain.usecase.task.GetTask
+import com.escodro.domain.usecase.task.UpdateTask
+import com.escodro.domain.viewdata.ViewData
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import timber.log.Timber
@@ -13,14 +15,15 @@ import timber.log.Timber
 /**
  * Provides the [MutableLiveData] of [Task] to be used in [TaskDetailFragment] layout.
  */
-class TaskDetailProvider(daoProvider: DaoProvider) {
+class TaskDetailProvider(
+    private val getTaskUseCase: GetTask,
+    private val updateTaskUseCase: UpdateTask
+) {
 
-    val taskData: LiveData<Task>
+    val taskData: LiveData<ViewData.Task>
         get() = mutableTaskData
 
-    private var mutableTaskData = MutableLiveData<Task>()
-
-    private val taskDao = daoProvider.getTaskDao()
+    private var mutableTaskData = MutableLiveData<ViewData.Task>()
 
     private val compositeDisposable = CompositeDisposable()
 
@@ -35,7 +38,7 @@ class TaskDetailProvider(daoProvider: DaoProvider) {
             return
         }
 
-        val disposable = taskDao.getTaskById(taskId)
+        val disposable = getTaskUseCase(taskId)
             .applySchedulers().subscribe(
                 {
                     Timber.d("loadTask = ${it.title}")
@@ -51,10 +54,10 @@ class TaskDetailProvider(daoProvider: DaoProvider) {
      *
      * @param task task to be updated
      */
-    fun updateTask(task: Task) {
+    fun updateTask(task: ViewData.Task) {
         Timber.d("updateTask() - $task")
 
-        val disposable = Observable.fromCallable { taskDao.updateTask(task) }
+        val disposable = Observable.fromCallable { updateTaskUseCase(task) }
             .applySchedulers()
             .subscribe()
 

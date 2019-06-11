@@ -1,6 +1,5 @@
 <resources>
 
-    <string name="app_name">Alkaa</string>
     <string name="app_name_lowercase">alkaa</string>
 
     <!-- Main drawer -->
@@ -20,14 +19,6 @@
     <string name="task_details_alarm_removed">Alarm removed</string>
     <string name="task_details_description_hint">Add a description</string>
     <string name="task_details_alarm_hint">Add an alarm</string>
-
-    <!-- Task notification channel -->
-    <string name="channel_task_name">Task alarms</string>
-    <string name="channel_task_description">Notifications for reminders</string>
-
-    <!-- Task notification -->
-    <string name="notification_action_completed">Done</string>
-    <string name="notification_action_snooze">In 15 min</string>
 
     <!-- Preference  screen-->
     <string name="preference_item_about">About</string>

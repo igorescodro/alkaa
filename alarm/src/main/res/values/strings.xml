@@ -1,0 +1,9 @@
+<resources>
+    <!-- Task notification channel -->
+    <string name="channel_task_name">Task alarms</string>
+    <string name="channel_task_description">Notifications for reminders</string>
+
+    <!-- Task notification -->
+    <string name="notification_action_completed">Done</string>
+    <string name="notification_action_snooze">In 15 min</string>
+</resources>

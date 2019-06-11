@@ -1,4 +1,4 @@
-package com.escodro.domain.usecase
+package com.escodro.domain.usecase.category
 
 import com.escodro.domain.extension.applySchedulers
 import com.escodro.domain.mapper.CategoryMapper

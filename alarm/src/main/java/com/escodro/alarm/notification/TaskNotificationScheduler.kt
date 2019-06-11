@@ -1,12 +1,12 @@
-package com.escodro.alkaa.ui.task.alarm.notification
+package com.escodro.alarm.notification
 
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import com.escodro.alarm.TaskReceiver
 import com.escodro.core.extension.cancelAlarm
 import com.escodro.core.extension.setAlarm
-import com.escodro.alkaa.data.local.model.Task
-import com.escodro.alkaa.ui.task.alarm.TaskReceiver
+import com.escodro.domain.viewdata.ViewData
 import timber.log.Timber
 
 /**
@@ -19,7 +19,7 @@ class TaskNotificationScheduler(private val context: Context) {
      *
      * @param task task to be scheduled
      */
-    fun scheduleTaskAlarm(task: Task) {
+    fun scheduleTaskAlarm(task: ViewData.Task) {
         val receiverIntent = Intent(context, TaskReceiver::class.java).apply {
             action = TaskReceiver.ALARM_ACTION
             putExtra(TaskReceiver.EXTRA_TASK, task.id)

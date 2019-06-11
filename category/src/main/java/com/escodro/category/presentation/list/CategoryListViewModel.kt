@@ -1,8 +1,8 @@
 package com.escodro.category.presentation.list
 
 import androidx.lifecycle.ViewModel
-import com.escodro.domain.usecase.DeleteCategory
-import com.escodro.domain.usecase.LoadAllCategories
+import com.escodro.domain.usecase.category.DeleteCategory
+import com.escodro.domain.usecase.category.LoadAllCategories
 import com.escodro.domain.viewdata.ViewData
 import io.reactivex.disposables.CompositeDisposable
 

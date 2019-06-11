@@ -1,4 +1,4 @@
-package com.escodro.alkaa.ui.task.alarm.notification
+package com.escodro.alarm.notification
 
 import android.app.PendingIntent
 import android.content.Context
@@ -6,10 +6,10 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.core.app.NotificationCompat
 import androidx.navigation.NavDeepLinkBuilder
-import com.escodro.alkaa.R
+import com.escodro.alarm.R
+import com.escodro.alarm.TaskReceiver
 import com.escodro.core.extension.getNotificationManager
-import com.escodro.alkaa.data.local.model.Task
-import com.escodro.alkaa.ui.task.alarm.TaskReceiver
+import com.escodro.domain.viewdata.ViewData
 import timber.log.Timber
 
 /**
@@ -25,13 +25,13 @@ class TaskNotification(
      *
      * @param task the task to be shown in the notification
      */
-    fun show(task: Task) {
+    fun show(task: ViewData.Task) {
         Timber.d("Showing notification for '${task.title}'")
         val notification = buildNotification(task)
         context.getNotificationManager()?.notify(task.id.toInt(), notification)
     }
 
-    private fun buildNotification(task: Task) =
+    private fun buildNotification(task: ViewData.Task) =
         NotificationCompat.Builder(context, channel.getChannelId()).apply {
             setSmallIcon(R.drawable.ic_bookmark_check)
             setContentTitle(context.getString(R.string.app_name))
@@ -42,7 +42,7 @@ class TaskNotification(
             addAction(getSnoozeAction(task))
         }.build()
 
-    private fun buildPendingIntent(task: Task): PendingIntent {
+    private fun buildPendingIntent(task: ViewData.Task): PendingIntent {
         val arguments = Bundle()
         arguments.putLong(ARGUMENT_TASK, task.id)
 
@@ -53,19 +53,23 @@ class TaskNotification(
             .createPendingIntent()
     }
 
-    private fun getCompleteAction(task: Task): NotificationCompat.Action {
+    private fun getCompleteAction(task: ViewData.Task): NotificationCompat.Action {
         val actionTitle = context.getString(R.string.notification_action_completed)
         val intent = getIntent(task, TaskReceiver.COMPLETE_ACTION, REQUEST_CODE_ACTION_COMPLETE)
         return NotificationCompat.Action(ACTION_NO_ICON, actionTitle, intent)
     }
 
-    private fun getSnoozeAction(task: Task): NotificationCompat.Action {
+    private fun getSnoozeAction(task: ViewData.Task): NotificationCompat.Action {
         val actionTitle = context.getString(R.string.notification_action_snooze)
         val intent = getIntent(task, TaskReceiver.SNOOZE_ACTION, REQUEST_CODE_ACTION_SNOOZE)
         return NotificationCompat.Action(ACTION_NO_ICON, actionTitle, intent)
     }
 
-    private fun getIntent(task: Task, intentAction: String, requestCode: Int): PendingIntent {
+    private fun getIntent(
+        task: ViewData.Task,
+        intentAction: String,
+        requestCode: Int
+    ): PendingIntent {
         val receiverIntent = Intent(context, TaskReceiver::class.java).apply {
             action = intentAction
             putExtra(TaskReceiver.EXTRA_TASK, task.id)

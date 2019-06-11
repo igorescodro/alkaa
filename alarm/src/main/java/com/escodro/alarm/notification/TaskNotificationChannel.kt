@@ -1,10 +1,10 @@
-package com.escodro.alkaa.ui.task.alarm.notification
+package com.escodro.alarm.notification
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
-import com.escodro.alkaa.R
+import com.escodro.alarm.R
 import com.escodro.core.extension.getNotificationManager
 
 /**

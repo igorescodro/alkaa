@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="channel_task_name">Alarme de tarefas</string>
+    <string name="channel_task_description">Notificações para lembretes</string>
+    <string name="notification_action_completed">Concluído</string>
+    <string name="notification_action_snooze">Daqui 15 min</string>
+</resources>

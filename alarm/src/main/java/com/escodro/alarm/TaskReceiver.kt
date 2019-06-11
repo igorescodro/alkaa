@@ -1,4 +1,4 @@
-package com.escodro.alkaa.ui.task.alarm
+package com.escodro.alarm
 
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -6,11 +6,11 @@ import android.content.Intent
 import androidx.work.Data
 import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
+import com.escodro.alarm.worker.TaskCompletedWorker
+import com.escodro.alarm.worker.TaskNotifierWorker
+import com.escodro.alarm.worker.TaskReschedulerWorker
+import com.escodro.alarm.worker.TaskSnoozeWorker
 import com.escodro.core.extension.getNotificationManager
-import com.escodro.alkaa.ui.task.alarm.worker.TaskCompletedWorker
-import com.escodro.alkaa.ui.task.alarm.worker.TaskNotifierWorker
-import com.escodro.alkaa.ui.task.alarm.worker.TaskReschedulerWorker
-import com.escodro.alkaa.ui.task.alarm.worker.TaskSnoozeWorker
 import org.koin.core.KoinComponent
 import timber.log.Timber
 

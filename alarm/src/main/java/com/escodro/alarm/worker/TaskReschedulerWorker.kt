@@ -25,6 +25,7 @@ class TaskReschedulerWorker(context: Context, params: WorkerParameters) :
 
     override fun onSuccess(result: MutableList<ViewData.Task>) {
         result.forEach {
+            Timber.d("Task '${it.title} reescheduled for '${it.dueDate}")
             taskAlarmManager.scheduleTaskAlarm(it)
         }
     }

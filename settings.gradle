@@ -1,6 +1,6 @@
 include ':app',
         ':navigation',
-	':alarm',
+        ':alarm',
         ':category',
         ':core',
         ':model',

@@ -1,10 +1,10 @@
-package com.escodro.alkaa.ui.task.alarm.notification
+package com.escodro.alarm.notification
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
-import com.escodro.alkaa.R
+import com.escodro.alarm.R
 import com.escodro.core.extension.getNotificationManager
 
 /**
@@ -14,8 +14,8 @@ class TaskNotificationChannel(context: Context) {
 
     init {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name = context.getString(R.string.app_name)
-            val description = context.getString(R.string.app_name)
+            val name = context.getString(R.string.channel_task_name)
+            val description = context.getString(R.string.channel_task_description)
             val importance = NotificationManager.IMPORTANCE_HIGH
 
             NotificationChannel(CHANNEL_ID, name, importance).apply {

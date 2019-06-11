@@ -10,6 +10,7 @@ android {
 dependencies {
     implementation project(":core")
     implementation project(":domain")
+    implementation project(":navigation")
 
     implementation libraries.android.appCompat
     implementation libraries.android.constraintLayout

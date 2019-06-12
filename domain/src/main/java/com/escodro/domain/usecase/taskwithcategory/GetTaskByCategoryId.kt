@@ -1,6 +1,6 @@
 package com.escodro.domain.usecase.taskwithcategory
 
-import com.escodro.domain.extension.applySchedulers
+import com.escodro.core.extension.applySchedulers
 import com.escodro.domain.mapper.TaskWithCategoryMapper
 import com.escodro.domain.viewdata.ViewData
 import com.escodro.local.provider.DaoProvider

@@ -34,6 +34,7 @@ dependencies {
     implementation project(":domain")
     implementation project(":navigation")
 
+    implementation project(":task")
     implementation project(":alarm")
     implementation project(":category")
 

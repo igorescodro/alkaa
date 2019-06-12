@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="task_menu_preferences">Preferências</string>
+    <string name="task_add_new">Adicionar nova tarefa</string>
+    <string name="task_details_alarm_removed">Alarme removido</string>
+    <string name="task_details_description_hint">Adicionar uma descrição</string>
+    <string name="task_details_alarm_hint">Adicionar alarme</string>
+    <string name="task_details_category_empty">Sem categoria</string>
+    <string-array name="task_dialog_options">
+        <item>Remover</item>
+    </string-array>
+    <string name="task_snackbar_completed">Movido para \'Finalizadas\'</string>
+    <string name="task_snackbar_undo">Desfazer</string>
+    <string name="task_list_empty">Sem tarefas</string>
+    <string name="task_list_default_title">Todas as Tarefas</string>
+</resources>

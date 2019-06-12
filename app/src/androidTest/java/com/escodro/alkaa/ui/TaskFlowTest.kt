@@ -2,10 +2,10 @@ package com.escodro.alkaa.ui
 
 import androidx.test.uiautomator.UiSelector
 import com.escodro.alkaa.R
-import com.escodro.alkaa.data.local.model.Category
 import com.escodro.alkaa.framework.AcceptanceTest
 import com.escodro.alkaa.framework.extension.waitForLauncher
 import com.escodro.alkaa.ui.main.MainActivity
+import com.escodro.model.Category
 import org.junit.After
 import org.junit.Before
 import org.junit.Test

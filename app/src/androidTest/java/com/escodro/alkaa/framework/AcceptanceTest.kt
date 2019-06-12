@@ -9,8 +9,8 @@ import androidx.test.filters.LargeTest
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.ActivityTestRule
 import androidx.test.uiautomator.UiDevice
-import com.escodro.alkaa.di.provider.DaoProvider
 import com.escodro.alkaa.framework.rule.DisableAnimationsRule
+import com.escodro.local.provider.DaoProvider
 import org.junit.Rule
 import org.junit.runner.RunWith
 import org.koin.test.KoinTest

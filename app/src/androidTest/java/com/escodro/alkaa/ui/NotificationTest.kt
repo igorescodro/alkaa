@@ -6,11 +6,11 @@ import androidx.test.uiautomator.UiSelector
 import androidx.test.uiautomator.Until
 import com.escodro.alarm.notification.TaskNotificationScheduler
 import com.escodro.alkaa.R
-import com.escodro.alkaa.data.local.model.Task
 import com.escodro.alkaa.framework.AcceptanceTest
 import com.escodro.alkaa.framework.extension.waitForLauncher
 import com.escodro.alkaa.ui.main.MainActivity
-import com.escodro.domain.viewdata.ViewData
+import com.escodro.domain.mapper.TaskMapper
+import com.escodro.model.Task
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
@@ -129,8 +129,7 @@ class NotificationTest : AcceptanceTest<MainActivity>(MainActivity::class.java) 
             dueDate = calendar
             daoProvider.getTaskDao().insertTask(this)
 
-            // TODO update it when all modules are created
-            val viewData = ViewData.Task(id = id, title = title, dueDate = dueDate)
+            val viewData = TaskMapper().toViewTask(this)
             alarmManager.scheduleTaskAlarm(viewData)
             this
         }

@@ -2,7 +2,7 @@ package com.escodro.alkaa
 
 import android.app.Application
 import com.escodro.alarm.di.alarmModule
-import com.escodro.alkaa.di.alkaaModules
+import com.escodro.alkaa.di.appModule
 import com.escodro.category.di.categoryModule
 import com.escodro.core.di.coreModule
 import com.escodro.domain.di.domainModule
@@ -27,7 +27,7 @@ class AlkaaApp : Application() {
         startKoin {
             printLogger()
             androidContext(this@AlkaaApp)
-            modules(alkaaModules + coreModule + taskModule + localModule + domainModule + categoryModule + alarmModule)
+            modules(appModule + coreModule + taskModule + localModule + domainModule + categoryModule + alarmModule)
         }
     }
 }

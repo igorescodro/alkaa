@@ -32,6 +32,7 @@ dependencies {
     implementation project(":core")
     implementation project(":local")
     implementation project(":domain")
+    implementation project(":model")
     implementation project(":navigation")
 
     implementation project(":task")

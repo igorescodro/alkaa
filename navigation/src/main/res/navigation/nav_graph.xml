@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/taskListFragment"
-        android:name="com.escodro.alkaa.ui.task.list.TaskListFragment"
+        android:name="com.escodro.task.presentation.list.TaskListFragment"
         tools:layout="@layout/fragment_task_list">
 
         <action
@@ -46,7 +46,7 @@
 
     <fragment
         android:id="@+id/taskDetailFragment"
-        android:name="com.escodro.alkaa.ui.task.detail.main.TaskDetailFragment"
+        android:name="com.escodro.task.presentation.detail.main.TaskDetailFragment"
         android:label=""
         tools:layout="@layout/fragment_task_detail">
 

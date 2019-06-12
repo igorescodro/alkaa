@@ -7,19 +7,6 @@
     <string name="drawer_menu_completed_tasks">Completed</string>
     <string name="drawer_menu_manage_categories">Manage categories</string>
 
-    <!-- Task screen -->
-    <string name="task_menu_preferences">Preferences</string>
-    <string name="task_add_new">Add new task</string>
-    <string name="task_snackbar_completed">Moved to \'Completed\'</string>
-    <string name="task_snackbar_undo">Undo</string>
-    <string name="task_list_empty">No tasks</string>
-
-    <!-- Task details -->
-    <string name="task_details_category_empty">No category</string>
-    <string name="task_details_alarm_removed">Alarm removed</string>
-    <string name="task_details_description_hint">Add a description</string>
-    <string name="task_details_alarm_hint">Add an alarm</string>
-
     <!-- Preference  screen-->
     <string name="preference_item_about">About</string>
     <string name="preference_item_version">Version</string>
@@ -27,9 +14,5 @@
     <!-- About screen-->
     <string name="about_description">Alkaa (to begin, to start in Finnish) is a simple to-do list to make your life easier.\n\nIt all started when I created a project to learn and keep me updated about the latest Android components and libraries. If you\'re a developer or an enthusiast feel free to access, copy and updated the open-source code.\n\nThanks a lot for using my app! </string>
     <string name="about_button_project">Visit project on GitHub</string>
-
-    <string-array name="task_dialog_options">
-        <item>Remove</item>
-    </string-array>
 
 </resources>

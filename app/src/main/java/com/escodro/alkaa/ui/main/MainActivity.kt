@@ -17,9 +17,10 @@ import com.escodro.core.extension.close
 import com.escodro.core.extension.hideKeyboard
 import com.escodro.core.extension.isOpen
 import com.escodro.core.extension.navigateSingleTop
-import com.escodro.alkaa.data.local.model.Category
-import com.escodro.alkaa.ui.task.list.TaskListFragment
-import com.escodro.alkaa.ui.task.list.TaskListState
+import com.escodro.core.viewmodel.ToolbarViewModel
+import com.escodro.domain.viewdata.ViewData
+import com.escodro.task.presentation.list.TaskListFragment
+import com.escodro.task.presentation.list.TaskListState
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
@@ -31,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 
     private val viewModel: MainViewModel by viewModel()
 
-    private val sharedViewModel: MainTaskViewModel by viewModel()
+    private val sharedViewModel: ToolbarViewModel by viewModel()
 
     private var drawerSelectedItem = 0
 
@@ -105,7 +106,7 @@ class MainActivity : AppCompatActivity() {
         toolbar_title.text = title
     }
 
-    private fun updateDrawerList(list: List<Category>) {
+    private fun updateDrawerList(list: List<ViewData.Category>) {
         Timber.d("updateDrawerList() - Size = ${list.size}")
 
         val menu = navigationview_main_drawer.menu

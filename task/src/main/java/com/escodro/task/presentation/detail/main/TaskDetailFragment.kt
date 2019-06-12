@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import com.escodro.alkaa.ui.task.detail.main.TaskDetailFragmentArgs
 import com.escodro.core.extension.hideKeyboard
 import com.escodro.core.extension.textChangedObservable
 import com.escodro.task.R

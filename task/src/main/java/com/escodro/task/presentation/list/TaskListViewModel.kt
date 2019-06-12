@@ -2,6 +2,7 @@ package com.escodro.task.presentation.list
 
 import android.text.TextUtils
 import androidx.lifecycle.ViewModel
+import com.escodro.core.extension.applySchedulers
 import com.escodro.domain.usecase.task.AddTask
 import com.escodro.domain.usecase.task.DeleteTask
 import com.escodro.domain.usecase.task.UpdateTask
@@ -62,7 +63,8 @@ class TaskListViewModel(
 
         val categoryIdValue = if (categoryId != 0L) categoryId else null
         val task = ViewData.Task(title = description, categoryId = categoryIdValue)
-        val disposable = Observable.fromCallable { addTaskUseCase(task) }.subscribe()
+        val disposable =
+            Observable.fromCallable { addTaskUseCase(task) }.applySchedulers().subscribe()
         compositeDisposable.add(disposable)
     }
 
@@ -74,7 +76,8 @@ class TaskListViewModel(
     fun updateTaskStatus(task: ViewData.Task, isCompleted: Boolean) {
         task.completed = isCompleted
 
-        val disposable = Observable.fromCallable { updateTaskUseCase(task) }.subscribe()
+        val disposable =
+            Observable.fromCallable { updateTaskUseCase(task) }.applySchedulers().subscribe()
         compositeDisposable.add(disposable)
     }
 
@@ -85,7 +88,8 @@ class TaskListViewModel(
      */
     fun deleteTask(taskWithCategory: ViewData.TaskWithCategory) {
         val task = taskWithCategory.task
-        val disposable = Observable.fromCallable { deleteTaskUseCase(task) }.subscribe()
+        val disposable =
+            Observable.fromCallable { deleteTaskUseCase(task) }.applySchedulers().subscribe()
         compositeDisposable.add(disposable)
     }
 

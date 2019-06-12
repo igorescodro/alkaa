@@ -11,7 +11,6 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.escodro.alkaa.ui.task.list.TaskListFragmentDirections
 import com.escodro.core.extension.createSnackbar
 import com.escodro.core.extension.hideKeyboard
 import com.escodro.core.extension.itemDialog

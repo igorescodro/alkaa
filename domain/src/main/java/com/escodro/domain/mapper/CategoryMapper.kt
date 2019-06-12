@@ -16,9 +16,7 @@ class CategoryMapper {
      * @return the converted list
      */
     fun toViewCategory(categoryList: List<Category>) =
-        categoryList.map { category ->
-            ViewData.Category(category.id, category.name, category.color)
-        }
+        categoryList.map { toViewCategory(it) }
 
     /**
      * Maps from a [Category] to [ViewData.Category].

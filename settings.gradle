@@ -1,6 +1,7 @@
 include ':app',
         ':navigation',
         ':alarm',
+        ':task',
         ':category',
         ':core',
         ':model',

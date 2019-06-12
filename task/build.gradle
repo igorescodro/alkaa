@@ -1,0 +1,15 @@
+apply from: "../config/dependencies/feature_dependencies.gradle"
+apply plugin: "androidx.navigation.safeargs"
+
+android {
+    dataBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    implementation project(":core")
+    implementation project(":domain")
+    implementation project(":navigation")
+
+}

@@ -40,13 +40,12 @@ dependencies {
     implementation project(":category")
 
     implementation libraries.android.appCompat
-    implementation libraries.android.material
-    implementation libraries.android.recyclerView
     implementation libraries.android.preference
-    implementation libraries.android.cardView
     implementation libraries.android.constraintLayout
-    implementation libraries.android.workManager
     implementation libraries.android.ktx
+    implementation libraries.android.room.runtime
+    implementation libraries.android.navigation.fragment
+    implementation libraries.android.navigation.ui
 
     implementation libraries.timber
 
@@ -55,13 +54,6 @@ dependencies {
 
     implementation libraries.rx.android
     implementation libraries.rx.java
-
-    implementation libraries.android.lifecycle
-    implementation libraries.android.room.runtime
-    kapt libraries.android.room.compiler
-    implementation libraries.android.room.rx
-    implementation libraries.android.navigation.fragment
-    implementation libraries.android.navigation.ui
 
     testImplementation libraries.test.junit
     androidTestImplementation libraries.test.runner

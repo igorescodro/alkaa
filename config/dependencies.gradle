@@ -19,7 +19,7 @@ ext.versions = [
         workManager        : '1.0.1',
         ktx                : '1.0.2',
         lifecycle          : '1.0.0',
-        room               : '2.0.0',
+        room               : '2.1.0-rc01',
         navigation         : '1.0.0',
 
         timber             : '4.7.1',

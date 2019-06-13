@@ -7,6 +7,7 @@ import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
 import androidx.room.Update
 import com.escodro.model.Category
+import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
 
@@ -30,7 +31,7 @@ interface CategoryDao {
      * @param category category to be added
      */
     @Insert(onConflict = REPLACE)
-    fun insertCategory(category: Category)
+    fun insertCategory(category: Category): Completable
 
     /**
      * Inserts a new category list.
@@ -38,7 +39,7 @@ interface CategoryDao {
      * @param category list of category to be added
      */
     @Insert(onConflict = REPLACE)
-    fun insertCategory(category: List<Category>)
+    fun insertCategory(category: List<Category>): Completable
 
     /**
      * Updates the given category.
@@ -46,7 +47,7 @@ interface CategoryDao {
      * @param category category to be updated
      */
     @Update
-    fun updateCategory(category: Category)
+    fun updateCategory(category: Category): Completable
 
     /**
      * Deletes a category.
@@ -54,13 +55,13 @@ interface CategoryDao {
      * @param category task to be deleted
      */
     @Delete
-    fun deleteCategory(category: Category)
+    fun deleteCategory(category: Category): Completable
 
     /**
      * Cleans the entire table.
      */
     @Query("DELETE FROM category")
-    fun cleanTable()
+    fun cleanTable(): Completable
 
     /**
      * Gets a specific category by name.

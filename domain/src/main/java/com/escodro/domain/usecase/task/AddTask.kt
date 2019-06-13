@@ -1,8 +1,10 @@
 package com.escodro.domain.usecase.task
 
+import com.escodro.core.extension.applySchedulers
 import com.escodro.domain.mapper.TaskMapper
 import com.escodro.domain.viewdata.ViewData
 import com.escodro.local.provider.DaoProvider
+import io.reactivex.Completable
 
 /**
  * Use case to add a task from the database.
@@ -16,8 +18,8 @@ class AddTask(private val daoProvider: DaoProvider, private val mapper: TaskMapp
      *
      * @return observable to be subscribe
      */
-    operator fun invoke(task: ViewData.Task) {
+    operator fun invoke(task: ViewData.Task): Completable {
         val entityTask = mapper.toEntityTask(task)
-        return daoProvider.getTaskDao().insertTask(entityTask)
+        return daoProvider.getTaskDao().insertTask(entityTask).applySchedulers()
     }
 }

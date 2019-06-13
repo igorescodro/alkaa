@@ -7,6 +7,7 @@ import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
 import androidx.room.Update
 import com.escodro.model.Task
+import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
 import org.jetbrains.annotations.TestOnly
@@ -23,7 +24,7 @@ interface TaskDao {
      * @param task task to be added
      */
     @Insert(onConflict = REPLACE)
-    fun insertTask(task: Task)
+    fun insertTask(task: Task): Completable
 
     /**
      * Updates a task.
@@ -31,7 +32,7 @@ interface TaskDao {
      * @param task task to be updated
      */
     @Update
-    fun updateTask(task: Task)
+    fun updateTask(task: Task): Completable
 
     /**
      * Deletes a task.
@@ -39,13 +40,13 @@ interface TaskDao {
      * @param task task to be deleted
      */
     @Delete
-    fun deleteTask(task: Task)
+    fun deleteTask(task: Task): Completable
 
     /**
      * Cleans the entire table.
      */
     @Query("DELETE FROM task")
-    fun cleanTable()
+    fun cleanTable(): Completable
 
     /**
      * Get all inserted tasks with due date.

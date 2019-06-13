@@ -15,7 +15,7 @@ import timber.log.Timber
  * [Worker] to process and show the Task alarms.
  */
 class TaskNotifierWorker(context: Context, params: WorkerParameters) :
-    ObservableWorker<ViewData.Task>(context, params) {
+    SingleWorker<ViewData.Task>(context, params) {
 
     private val taskNotification: TaskNotification by inject()
 

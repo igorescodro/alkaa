@@ -13,7 +13,7 @@ import java.util.concurrent.LinkedBlockingQueue
 /**
  * Abstract [Worker] class to encapsulate the [Single] logic.
  */
-abstract class ObservableWorker<T>(context: Context, params: WorkerParameters) :
+abstract class SingleWorker<T>(context: Context, params: WorkerParameters) :
     Worker(context, params), KoinComponent {
 
     private val compositeDisposable = CompositeDisposable()

@@ -7,7 +7,6 @@ import com.escodro.core.extension.notify
 import com.escodro.domain.usecase.task.GetTask
 import com.escodro.domain.usecase.task.UpdateTask
 import com.escodro.domain.viewdata.ViewData
-import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import timber.log.Timber
 
@@ -56,9 +55,7 @@ class TaskDetailProvider(
     fun updateTask(task: ViewData.Task) {
         Timber.d("updateTask() - $task")
 
-        val disposable = Observable.fromCallable { updateTaskUseCase(task) }
-            .applySchedulers()
-            .subscribe()
+        val disposable = updateTaskUseCase(task).subscribe()
 
         mutableTaskData.notify()
         compositeDisposable.add(disposable)

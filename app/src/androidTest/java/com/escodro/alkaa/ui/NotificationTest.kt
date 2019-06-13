@@ -29,7 +29,7 @@ class NotificationTest : AcceptanceTest<MainActivity>(MainActivity::class.java) 
 
     @After
     fun clearTable() {
-        daoProvider.getTaskDao().cleanTable()
+        daoProvider.getTaskDao().cleanTable().blockingGet()
     }
 
     @Test
@@ -46,7 +46,7 @@ class NotificationTest : AcceptanceTest<MainActivity>(MainActivity::class.java) 
         val task = insertTask("Hi, I'm a PC")
         val updatedTitle = "Hi, I'm a Mac"
         task.title = updatedTitle
-        daoProvider.getTaskDao().updateTask(task)
+        daoProvider.getTaskDao().updateTask(task).blockingGet()
 
         goToNotificationDrawer()
         validateNotificationContent(updatedTitle)
@@ -58,7 +58,7 @@ class NotificationTest : AcceptanceTest<MainActivity>(MainActivity::class.java) 
         val taskName = "I should not be seen"
         val task = insertTask(taskName)
         task.completed = true
-        daoProvider.getTaskDao().updateTask(task)
+        daoProvider.getTaskDao().updateTask(task).blockingGet()
 
         goToNotificationDrawer()
         validateNotificationNotShown(taskName)
@@ -68,7 +68,7 @@ class NotificationTest : AcceptanceTest<MainActivity>(MainActivity::class.java) 
     fun validateDeletedTask() {
         val taskName = "Ops, I did it again..."
         val task = insertTask(taskName)
-        daoProvider.getTaskDao().deleteTask(task)
+        daoProvider.getTaskDao().deleteTask(task).blockingGet()
 
         goToNotificationDrawer()
         validateNotificationNotShown(taskName)
@@ -127,7 +127,7 @@ class NotificationTest : AcceptanceTest<MainActivity>(MainActivity::class.java) 
             val calendar = Calendar.getInstance()
             calendar.add(Calendar.SECOND, 3)
             dueDate = calendar
-            daoProvider.getTaskDao().insertTask(this)
+            daoProvider.getTaskDao().insertTask(this).blockingGet()
 
             val viewData = TaskMapper().toViewTask(this)
             alarmManager.scheduleTaskAlarm(viewData)

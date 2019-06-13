@@ -14,13 +14,13 @@ class CategoryFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) 
 
     @Before
     fun navigateToTestScreen() {
-        daoProvider.getCategoryDao().cleanTable()
+        daoProvider.getCategoryDao().cleanTable().blockingGet()
         navigateToCategoryScreen()
     }
 
     @After
     fun cleanTable() {
-        daoProvider.getCategoryDao().cleanTable()
+        daoProvider.getCategoryDao().cleanTable().blockingGet()
     }
 
     @Test

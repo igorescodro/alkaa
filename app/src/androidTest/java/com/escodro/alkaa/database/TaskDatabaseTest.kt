@@ -36,9 +36,9 @@ class TaskDatabaseTest {
         taskWithCategoryDao = database.taskWithCategoryDao()
         categoryDao = database.categoryDao()
 
-        categoryDao.insertCategory(Category(name = "Work", color = "#cc5a71"))
-        categoryDao.insertCategory(Category(name = "Personal", color = "#58a4b0"))
-        categoryDao.insertCategory(Category(name = "Family", color = "#519872"))
+        categoryDao.insertCategory(Category(name = "Work", color = "#cc5a71")).blockingGet()
+        categoryDao.insertCategory(Category(name = "Personal", color = "#58a4b0")).blockingGet()
+        categoryDao.insertCategory(Category(name = "Family", color = "#519872")).blockingGet()
     }
 
     @After
@@ -49,7 +49,7 @@ class TaskDatabaseTest {
     @Test
     fun insertTaskAndReadInList() {
         val task = Task(id = 14, title = TASK_NAME)
-        taskDao.insertTask(task)
+        taskDao.insertTask(task).blockingGet()
 
         val list = taskDao.getAllTasks().blockingFirst()
         assertTrue(list.contains(task))
@@ -58,7 +58,7 @@ class TaskDatabaseTest {
     @Test
     fun insertTaskWithDescription() {
         val task = Task(title = TASK_NAME, description = TASK_DESCRIPTION)
-        taskDao.insertTask(task)
+        taskDao.insertTask(task).blockingGet()
 
         val taskDescription = taskDao.findTaskByTitle(TASK_NAME).blockingGet().description
         assertTrue(taskDescription == TASK_DESCRIPTION)
@@ -67,13 +67,13 @@ class TaskDatabaseTest {
     @Test
     fun insertAndUpdateTask() {
         val task = Task(title = TASK_NAME)
-        taskDao.insertTask(task)
+        taskDao.insertTask(task).blockingGet()
 
         val list = taskDao.getAllTasks().blockingFirst()
         val updatedTask = list[0]
         updatedTask.title = "call Martha"
         updatedTask.description = TASK_DESCRIPTION
-        taskDao.updateTask(updatedTask)
+        taskDao.updateTask(updatedTask).blockingGet()
 
         val updatedList = taskDao.getAllTasks().blockingFirst()
         assertTrue(updatedList.contains(updatedTask))
@@ -83,7 +83,7 @@ class TaskDatabaseTest {
     fun insertAndAddCategoryInTask() {
         val task = Task(id = 16, title = TASK_NAME)
         task.categoryId = categoryDao.getAllCategories().blockingFirst()[0].id
-        taskDao.insertTask(task)
+        taskDao.insertTask(task).blockingGet()
 
         val taskWithCategory = taskWithCategoryDao.getAllTasksWithCategory(false).blockingFirst()[0]
         assertTrue(taskWithCategory.task == task)
@@ -96,7 +96,7 @@ class TaskDatabaseTest {
             description = TASK_DESCRIPTION
             dueDate = Calendar.getInstance()
         }
-        taskDao.insertTask(task)
+        taskDao.insertTask(task).blockingGet()
 
         val clearTask = taskDao.findTaskByTitle(TASK_NAME).blockingGet()
         clearTask.apply {
@@ -104,7 +104,7 @@ class TaskDatabaseTest {
             description = null
             dueDate = null
         }
-        taskDao.updateTask(clearTask)
+        taskDao.updateTask(clearTask).blockingGet()
 
         val updatedList = taskDao.getAllTasks().blockingFirst()
         assertTrue(updatedList.contains(clearTask))
@@ -119,7 +119,7 @@ class TaskDatabaseTest {
         calendar.set(2018, 3, 15, 16, 1)
         task.dueDate = calendar
 
-        taskDao.insertTask(task)
+        taskDao.insertTask(task).blockingGet()
 
         val selectedDate = taskDao.findTaskByTitle(taskName).blockingGet().dueDate
 

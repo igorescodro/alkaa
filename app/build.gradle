@@ -2,8 +2,8 @@ apply plugin: "com.android.application"
 apply plugin: "kotlin-kapt"
 apply plugin: "androidx.navigation.safeargs"
 
-apply from: "../config/dependencies/android_dependencies.gradle"
-apply from: "../config/artifacts.gradle"
+apply from: "$rootDir/config/dependencies/android_dependencies.gradle"
+apply from: "$rootDir/config/artifacts.gradle"
 
 android {
     defaultConfig {
@@ -29,16 +29,15 @@ android {
 }
 
 dependencies {
-    implementation project(":core")
-    implementation project(":local")
-    implementation project(":domain")
-    implementation project(":model")
-    implementation project(":navigation")
-
-    implementation project(":task")
-    implementation project(":alarm")
-    implementation project(":category")
-    implementation project(":preference")
+    implementation project(":libraries:core")
+    implementation project(":libraries:navigation")
+    implementation project(":data:local")
+    implementation project(":data:domain")
+    implementation project(":data:model")
+    implementation project(":features:task")
+    implementation project(":features:alarm")
+    implementation project(":features:category")
+    implementation project(":features:preference")
 
     implementation libraries.android.appCompat
     implementation libraries.android.preference

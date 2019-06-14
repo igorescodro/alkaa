@@ -1,11 +1,11 @@
-apply from: "../config/dependencies/feature_dependencies.gradle"
+apply from: "$rootDir/config/dependencies/feature_dependencies.gradle"
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 dependencies {
-    implementation project(":core")
-    implementation project(":navigation")
-    implementation project(":domain")
+    implementation project(":libraries:core")
+    implementation project(":libraries:navigation")
+    implementation project(":data:domain")
 
     implementation libraries.android.workManager
     implementation libraries.android.navigation.fragment

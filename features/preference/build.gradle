@@ -1,8 +1,8 @@
-apply from: "../config/dependencies/feature_dependencies.gradle"
+apply from: "$rootDir/config/dependencies/feature_dependencies.gradle"
 
 dependencies {
-    implementation project(":core")
-    implementation project(":navigation")
+    implementation project(":libraries:core")
+    implementation project(":libraries:navigation")
 
     implementation libraries.android.appCompat
     implementation libraries.android.preference

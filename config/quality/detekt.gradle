@@ -10,7 +10,7 @@ task detekt(type: JavaExec) {
     main = "io.gitlab.arturbosch.detekt.cli.Main"
     classpath = configurations.detekt
     def input = "$projectDir"
-    def config = "../config/filters/detekt.yml"
+    def config = "$rootDir/config/filters/detekt.yml"
     def filters = ".*/resources/.*,.*/build/.*"
     def report = "html:$buildDir/reports/detekt.html"
     def params = ['-i', input, '-c', config, '-f', filters, '-r', report, '--fail-fast']

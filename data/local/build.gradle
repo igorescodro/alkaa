@@ -1,9 +1,9 @@
-apply from: "../config/dependencies/feature_dependencies.gradle"
+apply from: "$rootDir/config/dependencies/feature_dependencies.gradle"
 apply plugin: "kotlin-kapt"
 
 dependencies {
-    implementation project(":core")
-    implementation project(":model")
+    implementation project(":libraries:core")
+    implementation project(":data:model")
 
     implementation libraries.koin.core
     implementation libraries.android.room.runtime

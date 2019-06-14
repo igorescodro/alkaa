@@ -1,4 +1,4 @@
-apply from: "../config/dependencies/feature_dependencies.gradle"
+apply from: "$rootDir/config/dependencies/feature_dependencies.gradle"
 
 android {
     androidExtensions {
@@ -7,9 +7,9 @@ android {
 }
 
 dependencies {
-    implementation project(":core")
-    implementation project(":local")
-    implementation project(":model")
+    implementation project(":libraries:core")
+    implementation project(":data:local")
+    implementation project(":data:model")
 
     implementation libraries.koin.core
     implementation libraries.rx.java

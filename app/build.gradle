@@ -38,6 +38,7 @@ dependencies {
     implementation project(":task")
     implementation project(":alarm")
     implementation project(":category")
+    implementation project(":preference")
 
     implementation libraries.android.appCompat
     implementation libraries.android.preference

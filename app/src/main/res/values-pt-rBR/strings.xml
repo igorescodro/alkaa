@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name_lowercase">alkaa</string>
     <string name="drawer_menu_all_tasks">Todas as Tarefas</string>
     <string name="drawer_menu_manage_categories">Gerenciar categorias</string>
-    <string name="preference_item_about">Sobre</string>
-    <string name="about_description">Alkaa (começar, iniciar em finlandês) é um gerenciador de tarefas simples para deixar sua vida mais fácil.\n\nTudo começou quando criei um projeto para aprender e me manter atualizado sobre os últimos componentes e bibliotecas Android. Se você é um desenvolvedor ou entusiasta, sinta-se livre para acessar, copiar or atualizar o código aberto.\n\nMuito obrigado por usar o meu app!</string>
-    <string name="about_button_project">Visite projeto no GitHub</string>
-    <string name="preference_item_version">Versão</string>
     <string name="drawer_menu_completed_tasks">Finalizadas</string>
 </resources>

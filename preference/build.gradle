@@ -1,0 +1,12 @@
+apply from: "../config/dependencies/feature_dependencies.gradle"
+
+dependencies {
+    implementation project(":core")
+    implementation project(":navigation")
+
+    implementation libraries.android.appCompat
+    implementation libraries.android.preference
+    implementation libraries.android.constraintLayout
+    implementation libraries.android.navigation.fragment
+    implementation libraries.android.navigation.ui
+}

@@ -1,4 +1,4 @@
-package com.escodro.alkaa.ui.preference
+package com.escodro.preference
 
 import android.os.Bundle
 import android.view.View
@@ -6,7 +6,6 @@ import androidx.annotation.StringRes
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.preference.PreferenceFragmentCompat
-import com.escodro.alkaa.R
 import com.escodro.core.extension.getVersionName
 import timber.log.Timber
 

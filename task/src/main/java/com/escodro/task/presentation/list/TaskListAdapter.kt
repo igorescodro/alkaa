@@ -16,7 +16,7 @@ import com.escodro.task.presentation.list.model.TaskEntry
 /**
  * [RecyclerView.Adapter] to bind the [com.escodro.domain.viewdata.ViewData.TaskWithCategory] in the [RecyclerView].
  */
-class TaskListAdapter(
+internal class TaskListAdapter(
     private val onItemClicked: (ViewData.TaskWithCategory) -> Unit,
     private val onItemLongPressed: (ViewData.TaskWithCategory) -> Boolean,
     private val onItemCheckedChanged: (ViewData.TaskWithCategory, Boolean) -> Unit,

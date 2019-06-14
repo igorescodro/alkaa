@@ -14,7 +14,7 @@ import io.reactivex.disposables.CompositeDisposable
 /**
  * [ViewModel] responsible to provide information to [TaskListFragment].
  */
-class TaskListViewModel(
+internal class TaskListViewModel(
     private val loadAllTasksUseCase: LoadUncompletedTasks,
     private val loadAllCompletedTasksUseCase: LoadCompletedTasks,
     private val getTaskByCategoryIdUseCase: GetTaskByCategoryId,

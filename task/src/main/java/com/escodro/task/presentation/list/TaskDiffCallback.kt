@@ -6,7 +6,7 @@ import com.escodro.task.presentation.list.model.ItemEntry
 /**
  * Comparator used to check if the item loaded is already in the list.
  */
-class TaskDiffCallback : DiffUtil.ItemCallback<ItemEntry>() {
+internal class TaskDiffCallback : DiffUtil.ItemCallback<ItemEntry>() {
 
     override fun areItemsTheSame(oldItem: ItemEntry, newItem: ItemEntry) =
         oldItem.id == newItem.id

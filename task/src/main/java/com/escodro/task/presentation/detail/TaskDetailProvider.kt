@@ -14,7 +14,7 @@ import timber.log.Timber
  * Provides the [MutableLiveData] of [ViewData.Task] to be used in all screens that needs to share
  * the same information reactivity.
  */
-class TaskDetailProvider(
+internal class TaskDetailProvider(
     private val getTaskUseCase: GetTask,
     private val updateTaskUseCase: UpdateTask
 ) {

@@ -12,7 +12,7 @@ import timber.log.Timber
 /**
  * [Worker] to snooze Task alarms as completed.
  */
-class TaskSnoozeWorker(context: Context, params: WorkerParameters) :
+internal class TaskSnoozeWorker(context: Context, params: WorkerParameters) :
     CompletableWorker(context, params) {
 
     private val snoozeTaskUseCase: SnoozeTask by inject()

@@ -6,7 +6,7 @@ import java.util.Calendar
 /**
  * Converts the [Calendar] to [Long] and vice versa to be stored in the database.
  */
-class DateConverter {
+internal class DateConverter {
 
     /**
      * Converts a timestamp in [Long] format to [Calendar].

@@ -18,7 +18,7 @@ import java.util.Calendar
 /**
  * [Fragment] responsible to show the [com.escodro.domain.viewdata.ViewData.Task] alarm.
  */
-class TaskAlarmFragment : Fragment() {
+internal class TaskAlarmFragment : Fragment() {
 
     private val viewModel: TaskAlarmViewModel by viewModel()
 

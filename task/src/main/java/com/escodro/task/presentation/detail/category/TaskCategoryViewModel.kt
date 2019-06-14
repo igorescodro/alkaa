@@ -10,7 +10,7 @@ import timber.log.Timber
 /**
  * [ViewModel] responsible to provide information to Task Category layout.
  */
-class TaskCategoryViewModel(
+internal class TaskCategoryViewModel(
     private val taskProvider: TaskDetailProvider,
     private val loadAllCategoriesUseCase: LoadAllCategories
 ) : ViewModel() {

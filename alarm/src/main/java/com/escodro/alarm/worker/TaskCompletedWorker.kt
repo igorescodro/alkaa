@@ -12,7 +12,7 @@ import timber.log.Timber
 /**
  * [Worker] to set the Task alarms as completed.
  */
-class TaskCompletedWorker(context: Context, params: WorkerParameters) :
+internal class TaskCompletedWorker(context: Context, params: WorkerParameters) :
     CompletableWorker(context, params) {
 
     private val completeTaskUseCase: CompleteTask by inject()

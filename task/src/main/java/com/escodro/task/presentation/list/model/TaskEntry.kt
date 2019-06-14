@@ -9,7 +9,7 @@ import com.escodro.task.databinding.ItemTaskBinding
 /**
  * Entry representing an item with task information.
  */
-class TaskEntry(
+internal class TaskEntry(
     private val data: ViewData.TaskWithCategory,
     private val onItemClicked: (ViewData.TaskWithCategory) -> Unit,
     private val onItemLongPressed: (ViewData.TaskWithCategory) -> Boolean,

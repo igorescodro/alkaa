@@ -18,7 +18,7 @@ import timber.log.Timber
 /**
  * [Fragment] responsible to show the [com.escodro.domain.viewdata.ViewData.Task] details.
  */
-class TaskDetailFragment : Fragment() {
+internal class TaskDetailFragment : Fragment() {
 
     private val viewModel: TaskDetailViewModel by viewModel()
 

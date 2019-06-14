@@ -7,7 +7,7 @@ import com.escodro.task.databinding.ItemAddTaskBinding
 /**
  * Entry representing an item to add a new task.
  */
-class AddEntry(
+internal class AddEntry(
     private val onAddClicked: () -> Unit,
     private val onInsertTask: (String) -> Unit
 ) : ItemEntry(0, null) {

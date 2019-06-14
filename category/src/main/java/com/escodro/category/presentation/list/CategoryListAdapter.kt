@@ -14,7 +14,7 @@ import com.escodro.domain.viewdata.ViewData
 /**
  * [RecyclerView.Adapter] to bind the [com.escodro.domain.viewdata.ViewData.Category] in the [RecyclerView].
  */
-class CategoryListAdapter(val onOptionMenuClicked: (view: View, category: ViewData.Category) -> Unit) :
+internal class CategoryListAdapter(val onOptionMenuClicked: (view: View, category: ViewData.Category) -> Unit) :
     ListAdapter<ViewData.Category, BindingHolder<ItemCategoryBinding>>(CategoryDiffCallback()) {
 
     override fun onCreateViewHolder(

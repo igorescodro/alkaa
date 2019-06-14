@@ -14,7 +14,7 @@ import timber.log.Timber
 /**
  * [ViewModel] responsible to provide information to [CategoryDetailFragment].
  */
-class CategoryDetailViewModel(
+internal class CategoryDetailViewModel(
     private val loadCategoryUseCase: LoadCategory,
     private val saveCategoryUseCase: SaveCategory
 ) : ViewModel() {

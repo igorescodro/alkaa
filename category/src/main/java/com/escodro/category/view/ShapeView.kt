@@ -10,7 +10,7 @@ import android.util.AttributeSet
 /**
  * Custom view to load and change the color of a given shape.
  */
-class ShapeView : AppCompatImageView {
+internal class ShapeView : AppCompatImageView {
 
     constructor(context: Context?) : super(context)
 

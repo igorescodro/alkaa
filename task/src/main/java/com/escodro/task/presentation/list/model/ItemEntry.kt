@@ -6,7 +6,7 @@ import com.escodro.domain.viewdata.ViewData
 /**
  * Abstract reference of an item in [com.escodro.task.presentation.list.TaskListFragment].
  */
-abstract class ItemEntry(val id: Long, val task: ViewData.TaskWithCategory?) {
+internal abstract class ItemEntry(val id: Long, val task: ViewData.TaskWithCategory?) {
 
     /**
      * Represent the view type.

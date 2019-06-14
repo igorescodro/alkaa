@@ -23,7 +23,7 @@ import timber.log.Timber
 /**
  * [Fragment] responsible to create a new [com.escodro.domain.viewdata.ViewData.Category].
  */
-class CategoryDetailFragment : Fragment() {
+internal class CategoryDetailFragment : Fragment() {
 
     private var binding: FragmentCategoryDetailBinding? = null
 

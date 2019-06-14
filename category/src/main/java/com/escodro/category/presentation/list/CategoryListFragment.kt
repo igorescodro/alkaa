@@ -21,7 +21,7 @@ import timber.log.Timber
 /**
  * [Fragment] responsible to show all [com.escodro.domain.viewdata.ViewData.Category].
  */
-class CategoryListFragment : Fragment() {
+internal class CategoryListFragment : Fragment() {
 
     private val adapter = CategoryListAdapter(onOptionMenuClicked = ::onOptionMenuClicked)
 

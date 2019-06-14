@@ -10,7 +10,7 @@ import io.reactivex.disposables.CompositeDisposable
  * [ViewModel] responsible to provide information to [com.escodro.alkaa.databinding
  * .FragmentCategoryBinding].
  */
-class CategoryListViewModel(
+internal class CategoryListViewModel(
     private val loadCategoriesUseCase: LoadAllCategories,
     private val deleteCategoryUseCase: DeleteCategory
 ) : ViewModel() {

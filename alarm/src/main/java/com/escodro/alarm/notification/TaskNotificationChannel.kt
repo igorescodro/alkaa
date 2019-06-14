@@ -10,7 +10,7 @@ import com.escodro.core.extension.getNotificationManager
 /**
  * [NotificationChannel] to send Task notifications in Android O and above.
  */
-class TaskNotificationChannel(context: Context) {
+internal class TaskNotificationChannel(context: Context) {
 
     init {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

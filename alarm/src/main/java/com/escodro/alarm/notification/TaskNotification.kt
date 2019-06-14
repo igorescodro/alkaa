@@ -15,7 +15,7 @@ import timber.log.Timber
 /**
  * Handles the notification related to the [com.escodro.domain.viewdata.ViewData.Task] reminders.
  */
-class TaskNotification(
+internal class TaskNotification(
     private val context: Context,
     private val channel: TaskNotificationChannel
 ) {

@@ -13,7 +13,7 @@ import timber.log.Timber
 /**
  * [Fragment] responsible to show information about the application.
  */
-class AboutFragment : Fragment() {
+internal class AboutFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,

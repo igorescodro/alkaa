@@ -6,7 +6,7 @@ import com.escodro.domain.viewdata.ViewData
 /**
  * Comparator used to check if the item loaded is already in the list.
  */
-class CategoryDiffCallback : DiffUtil.ItemCallback<ViewData.Category>() {
+internal class CategoryDiffCallback : DiffUtil.ItemCallback<ViewData.Category>() {
 
     override fun areItemsTheSame(oldItem: ViewData.Category, newItem: ViewData.Category) =
         oldItem.id == newItem.id

@@ -17,7 +17,7 @@ import timber.log.Timber
 /**
  * [BroadcastReceiver] to be notified by the [android.app.AlarmManager].
  */
-class TaskReceiver : BroadcastReceiver(), KoinComponent {
+internal class TaskReceiver : BroadcastReceiver(), KoinComponent {
 
     override fun onReceive(context: Context?, intent: Intent?) {
         Timber.d("onReceive() - intent ${intent?.action}")

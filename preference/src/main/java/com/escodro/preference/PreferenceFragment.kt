@@ -12,7 +12,7 @@ import timber.log.Timber
 /**
  * [PreferenceFragmentCompat] containing the application preferences.
  */
-class PreferenceFragment : PreferenceFragmentCompat() {
+internal class PreferenceFragment : PreferenceFragmentCompat() {
 
     private var navigator: NavController? = null
 

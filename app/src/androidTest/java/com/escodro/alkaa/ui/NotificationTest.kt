@@ -6,11 +6,11 @@ import androidx.test.uiautomator.UiSelector
 import androidx.test.uiautomator.Until
 import com.escodro.alarm.notification.TaskNotificationScheduler
 import com.escodro.alkaa.R
-import com.escodro.alkaa.data.local.model.Task
 import com.escodro.alkaa.framework.AcceptanceTest
 import com.escodro.alkaa.framework.extension.waitForLauncher
 import com.escodro.alkaa.ui.main.MainActivity
-import com.escodro.domain.viewdata.ViewData
+import com.escodro.domain.mapper.TaskMapper
+import com.escodro.model.Task
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
@@ -29,7 +29,7 @@ class NotificationTest : AcceptanceTest<MainActivity>(MainActivity::class.java) 
 
     @After
     fun clearTable() {
-        daoProvider.getTaskDao().cleanTable()
+        daoProvider.getTaskDao().cleanTable().blockingGet()
     }
 
     @Test
@@ -46,7 +46,7 @@ class NotificationTest : AcceptanceTest<MainActivity>(MainActivity::class.java) 
         val task = insertTask("Hi, I'm a PC")
         val updatedTitle = "Hi, I'm a Mac"
         task.title = updatedTitle
-        daoProvider.getTaskDao().updateTask(task)
+        daoProvider.getTaskDao().updateTask(task).blockingGet()
 
         goToNotificationDrawer()
         validateNotificationContent(updatedTitle)
@@ -58,7 +58,7 @@ class NotificationTest : AcceptanceTest<MainActivity>(MainActivity::class.java) 
         val taskName = "I should not be seen"
         val task = insertTask(taskName)
         task.completed = true
-        daoProvider.getTaskDao().updateTask(task)
+        daoProvider.getTaskDao().updateTask(task).blockingGet()
 
         goToNotificationDrawer()
         validateNotificationNotShown(taskName)
@@ -68,7 +68,7 @@ class NotificationTest : AcceptanceTest<MainActivity>(MainActivity::class.java) 
     fun validateDeletedTask() {
         val taskName = "Ops, I did it again..."
         val task = insertTask(taskName)
-        daoProvider.getTaskDao().deleteTask(task)
+        daoProvider.getTaskDao().deleteTask(task).blockingGet()
 
         goToNotificationDrawer()
         validateNotificationNotShown(taskName)
@@ -127,10 +127,9 @@ class NotificationTest : AcceptanceTest<MainActivity>(MainActivity::class.java) 
             val calendar = Calendar.getInstance()
             calendar.add(Calendar.SECOND, 3)
             dueDate = calendar
-            daoProvider.getTaskDao().insertTask(this)
+            daoProvider.getTaskDao().insertTask(this).blockingGet()
 
-            // TODO update it when all modules are created
-            val viewData = ViewData.Task(id = id, title = title, dueDate = dueDate)
+            val viewData = TaskMapper().toViewTask(this)
             alarmManager.scheduleTaskAlarm(viewData)
             this
         }

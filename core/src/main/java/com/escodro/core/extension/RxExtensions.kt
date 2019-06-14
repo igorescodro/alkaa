@@ -1,5 +1,6 @@
 package com.escodro.core.extension
 
+import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -22,4 +23,10 @@ fun <T> Flowable<T>.applySchedulers(): Flowable<T> =
  * Extension to apply the default schedulers to the [Single].
  */
 fun <T> Single<T>.applySchedulers(): Single<T> =
+    subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+
+/**
+ * Extension to apply the default schedulers to the [Completable].
+ */
+fun Completable.applySchedulers(): Completable =
     subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())

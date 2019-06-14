@@ -1,10 +1,5 @@
 <resources>
 
-    <style name="TaskTitle">
-        <item name="android:textSize">36sp</item>
-        <item name="android:fontFamily">sans-serif-light</item>
-    </style>
-
     <style name="ToolbarTitle">
         <item name="android:textSize">18sp</item>
         <item name="android:fontFamily">sans-serif-light</item>

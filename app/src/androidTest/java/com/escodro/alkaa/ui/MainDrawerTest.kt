@@ -1,10 +1,10 @@
 package com.escodro.alkaa.ui
 
 import com.escodro.alkaa.R
-import com.escodro.alkaa.data.local.model.Category
-import com.escodro.alkaa.data.local.model.Task
 import com.escodro.alkaa.framework.AcceptanceTest
 import com.escodro.alkaa.ui.main.MainActivity
+import com.escodro.model.Category
+import com.escodro.model.Task
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -23,9 +23,9 @@ class MainDrawerTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
         val categoryDao = daoProvider.getCategoryDao()
         val taskDao = daoProvider.getTaskDao()
 
-        categoryDao.insertCategory(Category(name = PERSONAL_CATEGORY, color = "#cc5a71"))
-        categoryDao.insertCategory(Category(name = WORK_CATEGORY, color = "#58a4b0"))
-        categoryDao.insertCategory(Category(name = FAMILY_CATEGORY, color = "#519872"))
+        categoryDao.insertCategory(Category(name = PERSONAL_CATEGORY, color = "#cc5a71")).blockingGet()
+        categoryDao.insertCategory(Category(name = WORK_CATEGORY, color = "#58a4b0")).blockingGet()
+        categoryDao.insertCategory(Category(name = FAMILY_CATEGORY, color = "#519872")).blockingGet()
 
         personalId = categoryDao.findCategoryByName(PERSONAL_CATEGORY).blockingGet().id
         workId = categoryDao.findCategoryByName(WORK_CATEGORY).blockingGet().id
@@ -40,8 +40,8 @@ class MainDrawerTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
 
     @After
     fun cleanTable() {
-        daoProvider.getTaskDao().cleanTable()
-        daoProvider.getCategoryDao().cleanTable()
+        daoProvider.getTaskDao().cleanTable().blockingGet()
+        daoProvider.getCategoryDao().cleanTable().blockingGet()
     }
 
     @Test

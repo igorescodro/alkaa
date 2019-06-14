@@ -13,7 +13,7 @@ class CompletedTaskTest : AcceptanceTest<MainActivity>(MainActivity::class.java)
 
     @After
     fun cleanTable() {
-        daoProvider.getTaskDao().cleanTable()
+        daoProvider.getTaskDao().cleanTable().blockingGet()
     }
 
     @Test

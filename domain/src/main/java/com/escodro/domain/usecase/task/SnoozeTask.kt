@@ -1,6 +1,7 @@
 package com.escodro.domain.usecase.task
 
-import io.reactivex.Single
+import com.escodro.core.extension.applySchedulers
+import io.reactivex.Completable
 import java.util.Calendar
 
 /**
@@ -16,9 +17,10 @@ class SnoozeTask(private val getTask: GetTask, private val updateTask: UpdateTas
      *
      * @return observable to be subscribe
      */
-    operator fun invoke(taskId: Long, minutes: Int): Single<Unit> =
-        getTask(taskId).map {
+    operator fun invoke(taskId: Long, minutes: Int): Completable =
+        getTask(taskId).flatMapCompletable {
             it.dueDate?.add(Calendar.MINUTE, minutes)
             updateTask(it)
         }
+            .applySchedulers()
 }

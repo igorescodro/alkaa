@@ -14,7 +14,7 @@ import timber.log.Timber
  * [Worker] to reschedule the Task alarms.
  */
 class TaskReschedulerWorker(context: Context, params: WorkerParameters) :
-    ObservableWorker<MutableList<ViewData.Task>>(context, params) {
+    SingleWorker<MutableList<ViewData.Task>>(context, params) {
 
     private val getFutureTasksUseCase: GetFutureTasks by inject()
 

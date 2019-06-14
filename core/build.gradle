@@ -15,6 +15,9 @@ dependencies {
     implementation libraries.android.ktx
     implementation libraries.android.navigation.fragment
     implementation libraries.android.navigation.ui
+
     implementation libraries.rx.android
     implementation libraries.rx.java
+
+    implementation libraries.koin.viewModel
 }

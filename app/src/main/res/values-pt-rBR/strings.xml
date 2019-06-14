@@ -3,22 +3,9 @@
     <string name="app_name_lowercase">alkaa</string>
     <string name="drawer_menu_all_tasks">Todas as Tarefas</string>
     <string name="drawer_menu_manage_categories">Gerenciar categorias</string>
-    <string name="task_menu_preferences">Preferências</string>
-    <string name="task_add_new">Adicionar nova tarefa</string>
-    <string name="task_details_alarm_removed">Alarme removido</string>
-    <string name="task_details_description_hint">Adicionar uma descrição</string>
     <string name="preference_item_about">Sobre</string>
     <string name="about_description">Alkaa (começar, iniciar em finlandês) é um gerenciador de tarefas simples para deixar sua vida mais fácil.\n\nTudo começou quando criei um projeto para aprender e me manter atualizado sobre os últimos componentes e bibliotecas Android. Se você é um desenvolvedor ou entusiasta, sinta-se livre para acessar, copiar or atualizar o código aberto.\n\nMuito obrigado por usar o meu app!</string>
     <string name="about_button_project">Visite projeto no GitHub</string>
-    <string name="task_details_alarm_hint">Adicionar alarme</string>
-    <string name="task_details_category_empty">Sem categoria</string>
     <string name="preference_item_version">Versão</string>
-
-    <string-array name="task_dialog_options">
-        <item>Remover</item>
-    </string-array>
     <string name="drawer_menu_completed_tasks">Finalizadas</string>
-    <string name="task_snackbar_completed">Movido para \'Finalizadas\'</string>
-    <string name="task_snackbar_undo">Desfazer</string>
-    <string name="task_list_empty">Sem tarefas</string>
 </resources>

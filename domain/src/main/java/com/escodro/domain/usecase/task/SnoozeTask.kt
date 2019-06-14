@@ -21,6 +21,5 @@ class SnoozeTask(private val getTask: GetTask, private val updateTask: UpdateTas
         getTask(taskId).flatMapCompletable {
             it.dueDate?.add(Calendar.MINUTE, minutes)
             updateTask(it)
-        }
-            .applySchedulers()
+        }.applySchedulers()
 }

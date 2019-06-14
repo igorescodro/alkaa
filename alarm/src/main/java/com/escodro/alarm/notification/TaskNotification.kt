@@ -13,7 +13,7 @@ import com.escodro.domain.viewdata.ViewData
 import timber.log.Timber
 
 /**
- * Handles the notification related to the [Task] reminders.
+ * Handles the notification related to the [com.escodro.domain.viewdata.ViewData.Task] reminders.
  */
 class TaskNotification(
     private val context: Context,
@@ -21,7 +21,7 @@ class TaskNotification(
 ) {
 
     /**
-     * Shows the [TaskNotification] based on the given [Task].
+     * Shows the [TaskNotification] based on the given [com.escodro.domain.viewdata.ViewData.Task].
      *
      * @param task the task to be shown in the notification
      */

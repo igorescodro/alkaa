@@ -9,7 +9,6 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val taskModule = module {
-
     viewModel { TaskListViewModel(get(), get(), get(), get(), get(), get()) }
 
     single { TaskDetailProvider(get(), get()) }

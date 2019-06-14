@@ -17,7 +17,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
 /**
- * [Fragment] responsible to show the [com.escodro.alkaa.data.local.model.Category] options .
+ * [Fragment] responsible to show the [com.escodro.domain.viewdata.ViewData.Category] options .
  */
 class TaskCategoryFragment : Fragment() {
 

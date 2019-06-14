@@ -34,17 +34,4 @@ class TaskWithCategoryMapper(
             task = taskMapper.toViewTask(taskWithCategory.task),
             category = taskWithCategory.category?.let { categoryMapper.toViewCategory(it) }
         )
-
-    /**
-     * Maps from a [ViewData.TaskWithCategory] to [TaskWithCategory].
-     *
-     * @param taskWithCategory object to be mapped
-     *
-     * @return the converted object
-     */
-    fun toEntityTask(taskWithCategory: ViewData.TaskWithCategory) =
-        TaskWithCategory(
-            task = taskMapper.toEntityTask(taskWithCategory.task),
-            category = taskWithCategory.category?.let { categoryMapper.toEntityCategory(it) }
-        )
 }

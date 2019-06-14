@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModel
 class ToolbarViewModel : ViewModel() {
 
     /**
-     * [MutableLiveData] to be observed by the [MainActivity] and set the action bar title when
+     * [MutableLiveData] to be observed by the MainActivity and set the action bar title when
      * updated.
      */
     val actionBarTitle = MutableLiveData<String>()

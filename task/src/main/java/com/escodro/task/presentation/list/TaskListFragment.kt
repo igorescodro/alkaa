@@ -27,7 +27,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
 /**
- * [Fragment] responsible to show and handle all [TaskWithCategory]s.
+ * [Fragment] responsible to show and handle all [com.escodro.domain.viewdata.ViewData.TaskWithCategory]s.
  */
 class TaskListFragment : Fragment() {
 

@@ -10,7 +10,7 @@ import com.escodro.domain.viewdata.ViewData
 import timber.log.Timber
 
 /**
- * Alarm manager to schedule a event based on the due date from a [Task].
+ * Alarm manager to schedule a event based on the due date from a [ViewData.Task].
  */
 class TaskNotificationScheduler(private val context: Context) {
 

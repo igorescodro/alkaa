@@ -55,7 +55,7 @@ class TaskDetailViewModel(private val taskProvider: TaskDetailProvider) : ViewMo
     }
 
     /**
-     * Clears the [ViewModel] when the [TaskListFragment] is not visible to user.
+     * Clears the [ViewModel] when the [androidx.fragment.app.Fragment] is not visible to user.
      */
     fun onDetach() {
         taskProvider.clear()

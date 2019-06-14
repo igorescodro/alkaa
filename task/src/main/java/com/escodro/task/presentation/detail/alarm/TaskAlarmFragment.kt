@@ -16,7 +16,7 @@ import timber.log.Timber
 import java.util.Calendar
 
 /**
- * [Fragment] responsible to show the [Task] alarm.
+ * [Fragment] responsible to show the [com.escodro.domain.viewdata.ViewData.Task] alarm.
  */
 class TaskAlarmFragment : Fragment() {
 

@@ -19,6 +19,5 @@ class CompleteTask(private val getTask: GetTask, private val updateTask: UpdateT
         getTask(taskId).flatMapCompletable {
             it.completed = true
             updateTask(it)
-        }
-            .applySchedulers()
+        }.applySchedulers()
 }

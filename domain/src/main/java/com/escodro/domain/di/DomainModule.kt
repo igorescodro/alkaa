@@ -23,7 +23,6 @@ import org.koin.dsl.module
  * Domain dependency injection module.
  */
 val domainModule = module {
-
     single { AddTask(get(), get()) }
     single { CompleteTask(get(), get()) }
     single { DeleteTask(get(), get()) }

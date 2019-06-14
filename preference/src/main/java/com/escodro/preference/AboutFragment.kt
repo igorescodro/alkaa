@@ -1,4 +1,4 @@
-package com.escodro.alkaa.ui.about
+package com.escodro.preference
 
 import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.escodro.alkaa.R
 import com.escodro.core.extension.openUrl
 import kotlinx.android.synthetic.main.fragment_about.*
 import timber.log.Timber

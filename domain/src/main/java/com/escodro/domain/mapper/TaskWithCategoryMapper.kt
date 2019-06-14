@@ -1,7 +1,6 @@
 package com.escodro.domain.mapper
 
 import com.escodro.domain.viewdata.ViewData
-import com.escodro.model.Task
 import com.escodro.model.TaskWithCategory
 
 /**
@@ -14,9 +13,9 @@ class TaskWithCategoryMapper(
 ) {
 
     /**
-     * Maps from a [List] of [Task] to [List] of [ViewData.Task].
+     * Maps from a [List] of [TaskWithCategory] to [List] of [ViewData.TaskWithCategory].
      *
-     * @param task list to be mapped
+     * @param taskList list to be mapped
      *
      * @return the converted list
      */
@@ -26,11 +25,11 @@ class TaskWithCategoryMapper(
     /**
      * Maps from a [TaskWithCategory] with category to [ViewData.TaskWithCategory].
      *
-     * @param task object to be mapped
+     * @param taskWithCategory object to be mapped
      *
      * @return the converted object
      */
-    fun toViewTask(taskWithCategory: TaskWithCategory) =
+    private fun toViewTask(taskWithCategory: TaskWithCategory) =
         ViewData.TaskWithCategory(
             task = taskMapper.toViewTask(taskWithCategory.task),
             category = taskWithCategory.category?.let { categoryMapper.toViewCategory(it) }
@@ -39,7 +38,7 @@ class TaskWithCategoryMapper(
     /**
      * Maps from a [ViewData.TaskWithCategory] to [TaskWithCategory].
      *
-     * @param task object to be mapped
+     * @param taskWithCategory object to be mapped
      *
      * @return the converted object
      */

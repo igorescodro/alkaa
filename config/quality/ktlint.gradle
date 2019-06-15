@@ -3,7 +3,7 @@ configurations {
 }
 
 dependencies {
-    ktlint libraries.quality.ktlint
+    ktlint Deps.quality.ktlint
 }
 
 task ktlint(type: JavaExec, group: "verification") {

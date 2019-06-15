@@ -3,10 +3,10 @@ apply plugin: 'kotlin-android-extensions'
 apply from: "$rootDir/config/quality.gradle"
 
 android {
-    compileSdkVersion versions.compileSdk
+    compileSdkVersion Versions.compileSdk
     defaultConfig {
-        minSdkVersion versions.minSdk
-        targetSdkVersion versions.targetSdk
+        minSdkVersion Versions.minSdk
+        targetSdkVersion Versions.targetSdk
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -19,6 +19,6 @@ android {
 }
 
 dependencies {
-    implementation libraries.kotlin
-    implementation libraries.timber
+    implementation Deps.kotlin
+    implementation Deps.timber
 }

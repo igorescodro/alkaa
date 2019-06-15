@@ -17,14 +17,14 @@ dependencies {
     implementation project(":features:alarm")
     implementation project(":data:domain")
 
-    implementation libraries.android.appCompat
-    implementation libraries.android.constraintLayout
-    implementation libraries.android.material
-    implementation libraries.android.navigation.fragment
-    implementation libraries.android.navigation.ui
+    implementation Deps.android.appCompat
+    implementation Deps.android.constraintLayout
+    implementation Deps.android.material
+    implementation Deps.android.navigation.fragment
+    implementation Deps.android.navigation.ui
 
-    implementation libraries.koin.viewModel
+    implementation Deps.koin.viewModel
 
-    implementation libraries.rx.android
-    implementation libraries.rx.java
+    implementation Deps.rx.android
+    implementation Deps.rx.java
 }

@@ -8,8 +8,8 @@ apply from: "$rootDir/config/artifacts.gradle"
 android {
     defaultConfig {
         applicationId "com.escodro.alkaa"
-        versionCode releases.versionCode
-        versionName releases.versionName
+        versionCode Releases.versionCode
+        versionName Releases.versionName
     }
 
     dataBinding {
@@ -39,29 +39,29 @@ dependencies {
     implementation project(":features:category")
     implementation project(":features:preference")
 
-    implementation libraries.android.appCompat
-    implementation libraries.android.preference
-    implementation libraries.android.constraintLayout
-    implementation libraries.android.ktx
-    implementation libraries.android.room.runtime
-    implementation libraries.android.navigation.fragment
-    implementation libraries.android.navigation.ui
+    implementation Deps.android.appCompat
+    implementation Deps.android.preference
+    implementation Deps.android.constraintLayout
+    implementation Deps.android.ktx
+    implementation Deps.android.room.runtime
+    implementation Deps.android.navigation.fragment
+    implementation Deps.android.navigation.ui
 
-    implementation libraries.timber
+    implementation Deps.timber
 
-    implementation libraries.koin.viewModel
-    androidTestImplementation libraries.koin.test
+    implementation Deps.koin.viewModel
+    androidTestImplementation Deps.koin.test
 
-    implementation libraries.rx.android
-    implementation libraries.rx.java
+    implementation Deps.rx.android
+    implementation Deps.rx.java
 
-    testImplementation libraries.test.junit
-    androidTestImplementation libraries.test.runner
-    androidTestImplementation libraries.test.rules
-    androidTestImplementation libraries.test.core
-    androidTestImplementation libraries.test.espresso.core
-    androidTestImplementation libraries.test.espresso.intents
-    androidTestImplementation libraries.test.espresso.contrib
-    androidTestImplementation libraries.test.junitExt
-    androidTestImplementation libraries.test.uiAutomator
+    testImplementation Deps.test.junit
+    androidTestImplementation Deps.test.runner
+    androidTestImplementation Deps.test.rules
+    androidTestImplementation Deps.test.core
+    androidTestImplementation Deps.test.espresso.core
+    androidTestImplementation Deps.test.espresso.intents
+    androidTestImplementation Deps.test.espresso.contrib
+    androidTestImplementation Deps.test.junitExt
+    androidTestImplementation Deps.test.uiAutomator
 }

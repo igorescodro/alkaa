@@ -11,7 +11,7 @@ dependencies {
     implementation project(":data:local")
     implementation project(":data:model")
 
-    implementation libraries.koin.core
-    implementation libraries.rx.java
-    implementation libraries.rx.android
+    implementation Deps.koin.core
+    implementation Deps.rx.java
+    implementation Deps.rx.android
 }

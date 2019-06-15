@@ -4,9 +4,9 @@ dependencies {
     implementation project(":libraries:core")
     implementation project(":libraries:navigation")
 
-    implementation libraries.android.appCompat
-    implementation libraries.android.preference
-    implementation libraries.android.constraintLayout
-    implementation libraries.android.navigation.fragment
-    implementation libraries.android.navigation.ui
+    implementation Deps.android.appCompat
+    implementation Deps.android.preference
+    implementation Deps.android.constraintLayout
+    implementation Deps.android.navigation.fragment
+    implementation Deps.android.navigation.ui
 }

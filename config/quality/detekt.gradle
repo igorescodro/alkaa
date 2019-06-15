@@ -3,7 +3,7 @@ configurations {
 }
 
 dependencies {
-    detekt libraries.quality.detekt
+    detekt Deps.quality.detekt
 }
 
 task detekt(type: JavaExec) {

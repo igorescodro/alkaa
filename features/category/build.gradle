@@ -12,20 +12,20 @@ dependencies {
     implementation project(":data:domain")
     implementation project(":libraries:navigation")
 
-    implementation libraries.android.appCompat
-    implementation libraries.android.constraintLayout
-    implementation libraries.android.material
-    implementation libraries.android.recyclerView
-    implementation libraries.android.navigation.fragment
-    implementation libraries.android.navigation.ui
-    implementation libraries.android.cardView
+    implementation Deps.android.appCompat
+    implementation Deps.android.constraintLayout
+    implementation Deps.android.material
+    implementation Deps.android.recyclerView
+    implementation Deps.android.navigation.fragment
+    implementation Deps.android.navigation.ui
+    implementation Deps.android.cardView
 
-    implementation libraries.koin.viewModel
+    implementation Deps.koin.viewModel
 
-    implementation libraries.rx.android
-    implementation libraries.rx.java
+    implementation Deps.rx.android
+    implementation Deps.rx.java
 
-    testImplementation libraries.test.junit
-    androidTestImplementation libraries.test.runner
-    androidTestImplementation libraries.test.espresso.core
+    testImplementation Deps.test.junit
+    androidTestImplementation Deps.test.runner
+    androidTestImplementation Deps.test.espresso.core
 }

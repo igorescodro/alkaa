@@ -1,0 +1,13 @@
+apply from: "$rootDir/config/dependencies/feature_dependencies.gradle"
+apply plugin: "kotlin-kapt"
+
+dependencies {
+    implementation project(":libraries:core")
+    implementation project(":data:model")
+
+    implementation Deps.koin.core
+    implementation Deps.android.room.runtime
+    implementation Deps.android.room.rx
+    kapt Deps.android.room.compiler
+    implementation Deps.rx.java
+}

@@ -1,24 +1,15 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
-apply from: "config/dependencies.gradle"
-
 buildscript {
-    apply from: "config/dependencies.gradle"
-
-    project.ext {
-        ktlint_version = '0.32.0'
-        detekt_version = '1.0.0-RC14'
-    }
-
     repositories {
         google()
         jcenter()
     }
 
     dependencies {
-        classpath gradlePlugins.buildGradle
-        classpath gradlePlugins.kotlinGradle
-        classpath gradlePlugins.navigationSafeArgs
+        classpath Deps.gradle.buildGradle
+        classpath Deps.gradle.kotlinGradle
+        classpath Deps.gradle.navigationSafeArgs
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files

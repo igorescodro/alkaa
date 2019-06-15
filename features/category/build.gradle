@@ -1,0 +1,31 @@
+apply from: "$rootDir/config/dependencies/feature_dependencies.gradle"
+apply plugin: "androidx.navigation.safeargs"
+
+android {
+    dataBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    implementation project(":libraries:core")
+    implementation project(":data:domain")
+    implementation project(":libraries:navigation")
+
+    implementation Deps.android.appCompat
+    implementation Deps.android.constraintLayout
+    implementation Deps.android.material
+    implementation Deps.android.recyclerView
+    implementation Deps.android.navigation.fragment
+    implementation Deps.android.navigation.ui
+    implementation Deps.android.cardView
+
+    implementation Deps.koin.viewModel
+
+    implementation Deps.rx.android
+    implementation Deps.rx.java
+
+    testImplementation Deps.test.junit
+    androidTestImplementation Deps.test.runner
+    androidTestImplementation Deps.test.espresso.core
+}

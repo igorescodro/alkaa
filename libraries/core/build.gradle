@@ -1,0 +1,23 @@
+apply from: "$rootDir/config/dependencies/feature_dependencies.gradle"
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-kapt'
+
+android {
+    dataBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    implementation Deps.android.appCompat
+    implementation Deps.android.recyclerView
+    implementation Deps.android.material
+    implementation Deps.android.ktx
+    implementation Deps.android.navigation.fragment
+    implementation Deps.android.navigation.ui
+
+    implementation Deps.rx.android
+    implementation Deps.rx.java
+
+    implementation Deps.koin.viewModel
+}

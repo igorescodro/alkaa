@@ -1,0 +1,7 @@
+apply from: "$rootDir/config/dependencies/feature_dependencies.gradle"
+apply plugin: "androidx.navigation.safeargs.kotlin"
+
+dependencies {
+    implementation Deps.android.navigation.fragment
+    implementation Deps.android.navigation.ui
+}

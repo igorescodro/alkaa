@@ -1,0 +1,17 @@
+apply from: "$rootDir/config/dependencies/feature_dependencies.gradle"
+
+android {
+    androidExtensions {
+        experimental = true
+    }
+}
+
+dependencies {
+    implementation project(":libraries:core")
+    implementation project(":data:local")
+    implementation project(":data:model")
+
+    implementation Deps.koin.core
+    implementation Deps.rx.java
+    implementation Deps.rx.android
+}

@@ -2,14 +2,14 @@ apply plugin: "com.android.application"
 apply plugin: "kotlin-kapt"
 apply plugin: "androidx.navigation.safeargs"
 
-apply from: "../config/dependencies/android_dependencies.gradle"
-apply from: "../config/artifacts.gradle"
+apply from: "$rootDir/config/dependencies/android_dependencies.gradle"
+apply from: "$rootDir/config/artifacts.gradle"
 
 android {
     defaultConfig {
         applicationId "com.escodro.alkaa"
-        versionCode releases.versionCode
-        versionName releases.versionName
+        versionCode Releases.versionCode
+        versionName Releases.versionName
     }
 
     dataBinding {
@@ -29,40 +29,39 @@ android {
 }
 
 dependencies {
-    implementation project(":core")
-    implementation project(":local")
-    implementation project(":domain")
-    implementation project(":model")
-    implementation project(":navigation")
+    implementation project(":libraries:core")
+    implementation project(":libraries:navigation")
+    implementation project(":data:local")
+    implementation project(":data:domain")
+    implementation project(":data:model")
+    implementation project(":features:task")
+    implementation project(":features:alarm")
+    implementation project(":features:category")
+    implementation project(":features:preference")
 
-    implementation project(":task")
-    implementation project(":alarm")
-    implementation project(":category")
-    implementation project(":preference")
+    implementation Deps.android.appCompat
+    implementation Deps.android.preference
+    implementation Deps.android.constraintLayout
+    implementation Deps.android.ktx
+    implementation Deps.android.room.runtime
+    implementation Deps.android.navigation.fragment
+    implementation Deps.android.navigation.ui
 
-    implementation libraries.android.appCompat
-    implementation libraries.android.preference
-    implementation libraries.android.constraintLayout
-    implementation libraries.android.ktx
-    implementation libraries.android.room.runtime
-    implementation libraries.android.navigation.fragment
-    implementation libraries.android.navigation.ui
+    implementation Deps.timber
 
-    implementation libraries.timber
+    implementation Deps.koin.viewModel
+    androidTestImplementation Deps.koin.test
 
-    implementation libraries.koin.viewModel
-    androidTestImplementation libraries.koin.test
+    implementation Deps.rx.android
+    implementation Deps.rx.java
 
-    implementation libraries.rx.android
-    implementation libraries.rx.java
-
-    testImplementation libraries.test.junit
-    androidTestImplementation libraries.test.runner
-    androidTestImplementation libraries.test.rules
-    androidTestImplementation libraries.test.core
-    androidTestImplementation libraries.test.espresso.core
-    androidTestImplementation libraries.test.espresso.intents
-    androidTestImplementation libraries.test.espresso.contrib
-    androidTestImplementation libraries.test.junitExt
-    androidTestImplementation libraries.test.uiAutomator
+    testImplementation Deps.test.junit
+    androidTestImplementation Deps.test.runner
+    androidTestImplementation Deps.test.rules
+    androidTestImplementation Deps.test.core
+    androidTestImplementation Deps.test.espresso.core
+    androidTestImplementation Deps.test.espresso.intents
+    androidTestImplementation Deps.test.espresso.contrib
+    androidTestImplementation Deps.test.junitExt
+    androidTestImplementation Deps.test.uiAutomator
 }

@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
@@ -162,7 +162,8 @@ class MainActivity : AppCompatActivity() {
     private fun updateDrawer() {
         Timber.d("updateDrawer()")
 
-        val toggle = object : ActionBarDrawerToggle(this, drawer_layout_main_parent, 0, 0) {
+        val drawerListener = object : DrawerLayout.SimpleDrawerListener() {
+
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
                 super.onDrawerSlide(drawerView, slideOffset)
 
@@ -170,17 +171,11 @@ class MainActivity : AppCompatActivity() {
                 navigationview_main_drawer.translationX = drawerWidth * (1 - slideOffset)
                 layout_main_content.translationX = drawerWidth * slideOffset
             }
-
-            override fun onDrawerOpened(drawerView: View) {
-                super.onDrawerOpened(drawerView)
-
-                viewModel.loadCategories(onListLoaded = ::updateDrawerList)
-            }
         }
+
         drawer_layout_main_parent.apply {
             setScrimColor(getColor(R.color.gray_shadow_light))
-            addDrawerListener(toggle)
-            toggle.syncState()
+            addDrawerListener(drawerListener)
         }
     }
 

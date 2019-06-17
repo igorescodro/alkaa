@@ -37,7 +37,7 @@ class DatabaseProvider(private val context: Context) {
             override fun onCreate(db: SupportSQLiteDatabase) {
                 super.onCreate(db)
                 Executors.newSingleThreadExecutor().execute {
-                    database?.categoryDao()?.insertCategory(getDefaultCategoryList())
+                    database?.categoryDao()?.insertCategory(getDefaultCategoryList())?.subscribe()
                 }
             }
         }

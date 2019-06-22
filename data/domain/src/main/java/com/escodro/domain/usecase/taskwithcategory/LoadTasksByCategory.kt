@@ -9,21 +9,26 @@ import io.reactivex.Flowable
 /**
  * Use case to get a task with category by the category id from the database.
  */
-class GetTaskByCategoryId(
+class LoadTasksByCategory(
     private val daoProvider: DaoProvider,
     private val mapper: TaskWithCategoryMapper
 ) {
 
     /**
-     * Gets a task with category by the category id.
+     * Gets a task with category by the category id if the category exists.
      *
      * @param categoryId the category id
      *
      * @return observable to be subscribe
      */
     operator fun invoke(categoryId: Long): Flowable<List<ViewData.TaskWithCategory>> =
+        daoProvider.getCategoryDao()
+            .findCategory(categoryId)
+            .flatMapPublisher { getAllTasksWithCategoryId(it.id) }
+            .applySchedulers()
+
+    private fun getAllTasksWithCategoryId(categoryId: Long) =
         daoProvider.getTaskWithCategoryDao()
             .getAllTasksWithCategoryId(categoryId)
-            .map { mapper.toViewTask(it) }
-            .applySchedulers()
+            .map { category -> mapper.toViewTask(category) }
 }

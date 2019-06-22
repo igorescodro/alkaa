@@ -5,10 +5,11 @@ import androidx.lifecycle.ViewModel
 import com.escodro.domain.usecase.task.AddTask
 import com.escodro.domain.usecase.task.DeleteTask
 import com.escodro.domain.usecase.task.UpdateTask
-import com.escodro.domain.usecase.taskwithcategory.GetTaskByCategoryId
 import com.escodro.domain.usecase.taskwithcategory.LoadCompletedTasks
+import com.escodro.domain.usecase.taskwithcategory.LoadTasksByCategory
 import com.escodro.domain.usecase.taskwithcategory.LoadUncompletedTasks
 import com.escodro.domain.viewdata.ViewData
+import io.reactivex.Flowable
 import io.reactivex.disposables.CompositeDisposable
 
 /**
@@ -17,7 +18,7 @@ import io.reactivex.disposables.CompositeDisposable
 internal class TaskListViewModel(
     private val loadAllTasksUseCase: LoadUncompletedTasks,
     private val loadAllCompletedTasksUseCase: LoadCompletedTasks,
-    private val getTaskByCategoryIdUseCase: GetTaskByCategoryId,
+    private val loadTasksByCategoryUseCase: LoadTasksByCategory,
     private val addTaskUseCase: AddTask,
     private val updateTaskUseCase: UpdateTask,
     private val deleteTaskUseCase: DeleteTask
@@ -35,22 +36,32 @@ internal class TaskListViewModel(
      */
     fun loadTasks(
         state: TaskListState,
-        onTasksLoaded: (list: List<ViewData.TaskWithCategory>, shouldShowAddButton: Boolean) -> Unit
+        onTasksLoaded: (list: List<ViewData.TaskWithCategory>, shouldShowAddButton: Boolean) -> Unit,
+        onLoadError: () -> Unit
     ) {
         val observable = when (state) {
             is TaskListState.ShowAllTasks -> loadAllTasksUseCase()
             is TaskListState.ShowCompletedTasks -> loadAllCompletedTasksUseCase()
-            is TaskListState.ShowTaskByCategory -> {
-                categoryId = state.categoryId
-                getTaskByCategoryIdUseCase(state.categoryId)
-            }
+            is TaskListState.ShowTaskByCategory -> loadTasksByCategoryId(state.categoryId)
         }
 
-        val disposable = observable.subscribe {
-            val shouldShow = state !is TaskListState.ShowCompletedTasks
-            onTasksLoaded(it, shouldShow)
-        }
+        val disposable = observable
+            .subscribe(
+                {
+                    val shouldShow = state !is TaskListState.ShowCompletedTasks
+                    onTasksLoaded(it, shouldShow)
+                },
+                {
+                    categoryId = 0L
+                    onLoadError()
+                })
+
         compositeDisposable.add(disposable)
+    }
+
+    private fun loadTasksByCategoryId(id: Long): Flowable<List<ViewData.TaskWithCategory>> {
+        categoryId = id
+        return loadTasksByCategoryUseCase(id)
     }
 
     /**

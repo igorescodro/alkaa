@@ -14,8 +14,8 @@ import com.escodro.domain.usecase.task.GetFutureTasks
 import com.escodro.domain.usecase.task.GetTask
 import com.escodro.domain.usecase.task.SnoozeTask
 import com.escodro.domain.usecase.task.UpdateTask
-import com.escodro.domain.usecase.taskwithcategory.GetTaskByCategoryId
 import com.escodro.domain.usecase.taskwithcategory.LoadCompletedTasks
+import com.escodro.domain.usecase.taskwithcategory.LoadTasksByCategory
 import com.escodro.domain.usecase.taskwithcategory.LoadUncompletedTasks
 import org.koin.dsl.module
 
@@ -36,7 +36,7 @@ val domainModule = module {
     single { LoadCategory(get(), get()) }
     single { SaveCategory(get(), get()) }
 
-    single { GetTaskByCategoryId(get(), get()) }
+    single { LoadTasksByCategory(get(), get()) }
     single { LoadCompletedTasks(get(), get()) }
     single { LoadUncompletedTasks(get(), get()) }
 

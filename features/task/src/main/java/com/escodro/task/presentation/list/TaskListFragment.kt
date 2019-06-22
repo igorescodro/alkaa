@@ -96,7 +96,7 @@ class TaskListFragment : Fragment() {
         val defaultTitle = getString(R.string.task_list_default_title)
         val taskName = arguments?.getString(EXTRA_CATEGORY_NAME) ?: defaultTitle
 
-        viewModel.loadTasks(state, onTasksLoaded = ::onTaskLoaded)
+        viewModel.loadTasks(state, onTasksLoaded = ::onTaskLoaded, onLoadError = ::onLoadError)
         sharedViewModel.updateTitle(taskName)
     }
 
@@ -120,6 +120,11 @@ class TaskListFragment : Fragment() {
             recyclerview_tasklist_list?.visibility = View.VISIBLE
             textview_tasklist_empty?.visibility = View.INVISIBLE
         }
+    }
+
+    private fun onLoadError() {
+        arguments?.clear()
+        loadTasks()
     }
 
     private fun onItemClicked(taskWithCategory: ViewData.TaskWithCategory) {

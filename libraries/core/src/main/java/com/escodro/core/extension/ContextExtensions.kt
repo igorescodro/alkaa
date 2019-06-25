@@ -1,3 +1,5 @@
+@file:JvmName("extension-context")
+
 package com.escodro.core.extension
 
 import android.annotation.SuppressLint
@@ -27,12 +29,17 @@ private const val INVALID_VERSION = "x.x.x"
  */
 fun Context.setAlarm(
     triggerAtMillis: Long,
-    operation: PendingIntent,
+    operation: PendingIntent?,
     type: Int = AlarmManager.RTC_WAKEUP
 ) {
     val currentTime = Calendar.getInstance().timeInMillis
     if (triggerAtMillis <= currentTime) {
         Timber.w("It is not possible to set alarm in the past")
+        return
+    }
+
+    if (operation == null) {
+        Timber.e("PendingIntent is null")
         return
     }
 
@@ -45,7 +52,12 @@ fun Context.setAlarm(
  *
  * @param operation action to be canceled
  */
-fun Context.cancelAlarm(operation: PendingIntent) {
+fun Context.cancelAlarm(operation: PendingIntent?) {
+    if (operation == null) {
+        Timber.e("PendingIntent is null")
+        return
+    }
+
     val manager = getAlarmManager()
     manager?.let { manager.cancel(operation) }
 }

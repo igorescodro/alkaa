@@ -32,3 +32,4 @@ test-pattern:
     - 'TooManyFunctions'
     - 'UnsafeCast'
     - 'UnderscoresInNumericLiterals'
+    - 'UnsafeCallOnNullableType'

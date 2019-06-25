@@ -2,6 +2,12 @@ apply from: "$rootDir/config/dependencies/feature_dependencies.gradle"
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
+android {
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+}
+
 dependencies {
     implementation project(":libraries:core")
     implementation project(":libraries:navigation")
@@ -15,4 +21,6 @@ dependencies {
 
     implementation Deps.koin.core
 
+    testImplementation Deps.test.junit
+    testImplementation Deps.test.mockk
 }

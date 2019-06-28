@@ -21,6 +21,7 @@ object Versions {
     const val lifecycle = "1.0.0"
     const val room = "2.1.0"
     const val navigation = "1.0.0"
+    const val playCore = "1.6.1"
 
     const val timber = "4.7.1"
 
@@ -68,6 +69,7 @@ object AndroidDeps {
     val workManager = "android.arch.work:work-runtime:${Versions.workManager}"
     val ktx = "androidx.core:core-ktx:${Versions.ktx}"
     val lifecycle = "androidx.lifecycle:lifecycle-extensions:${Versions.lifecycle}"
+    val playCore = "com.google.android.play:core:${Versions.playCore}"
     val room = RoomDeps
     val navigation = NavigationDeps
 }

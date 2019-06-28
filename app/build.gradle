@@ -38,6 +38,9 @@ android {
             option("-Werror")
         }
     }
+
+    dynamicFeatures = [":features:tracker"]
+
 }
 
 dependencies {

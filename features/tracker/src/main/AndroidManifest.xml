@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:dist="http://schemas.android.com/apk/distribution"
+    package="com.escodro.tracker">
+
+    <dist:module
+        dist:instant="false"
+        dist:onDemand="true"
+        dist:title="@string/dynamic_feature_title_tracker">
+        <dist:fusing dist:include="true" />
+    </dist:module>
+
+</manifest>

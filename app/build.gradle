@@ -1,6 +1,7 @@
 apply plugin: "com.android.application"
 
 apply from: "$rootDir/config/dependencies/android_dependencies.gradle"
+apply from: "$rootDir/config/dependencies/obfuscation_dependencies.gradle"
 apply from: "$rootDir/config/artifacts.gradle"
 
 apply plugin: "kotlin-kapt"

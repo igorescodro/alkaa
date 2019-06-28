@@ -1,2 +1,3 @@
 apply plugin: 'com.android.library'
 apply from: "$rootDir/config/dependencies/android_dependencies.gradle"
+apply from: "$rootDir/config/dependencies/obfuscation_dependencies.gradle"

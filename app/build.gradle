@@ -57,6 +57,7 @@ dependencies {
     implementation Deps.android.room.runtime
     implementation Deps.android.navigation.fragment
     implementation Deps.android.navigation.ui
+    implementation Deps.android.playCore
 
     implementation Deps.timber
 

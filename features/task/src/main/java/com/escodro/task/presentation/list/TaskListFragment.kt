@@ -64,8 +64,8 @@ class TaskListFragment : Fragment() {
         navigator = NavHostFragment.findNavController(this)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        inflater?.inflate(R.menu.task_menu, menu)
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.task_menu, menu)
     }
 
     override fun onStart() {

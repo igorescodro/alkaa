@@ -8,6 +8,7 @@
 
     <include app:graph="@navigation/nav_graph_preference" />
 
+    <include app:graph="@navigation/nav_graph_tracker" />
 
     <fragment
         android:id="@+id/taskListFragment"

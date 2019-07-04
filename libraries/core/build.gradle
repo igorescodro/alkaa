@@ -1,5 +1,4 @@
 apply from: "$rootDir/config/dependencies/feature_dependencies.gradle"
-apply plugin: 'com.android.library'
 apply plugin: 'kotlin-kapt'
 
 android {

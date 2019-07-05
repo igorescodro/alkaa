@@ -1,9 +1,10 @@
 apply plugin: "com.android.application"
-apply plugin: "kotlin-kapt"
-apply plugin: "androidx.navigation.safeargs"
 
 apply from: "$rootDir/config/dependencies/android_dependencies.gradle"
 apply from: "$rootDir/config/artifacts.gradle"
+
+apply plugin: "kotlin-kapt"
+apply plugin: "androidx.navigation.safeargs"
 
 android {
     defaultConfig {

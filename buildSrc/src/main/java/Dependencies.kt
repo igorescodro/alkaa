@@ -33,7 +33,7 @@ object Versions {
     const val testRunner = "1.1.1"
     const val testRules = "1.1.1"
     const val testCore = "1.1.0"
-    const val testMokk = "1.9.3"
+    const val testMockk = "1.9.3"
     const val testEspressoCore = "3.1.1"
     const val testEspressoIntents = "3.1.1"
     const val testEspressoContrib = "3.1.0-alpha4"
@@ -101,7 +101,7 @@ object TestDeps {
     val core = "androidx.test:core:${Versions.testCore}"
     val uiAutomator = "androidx.test.uiautomator:uiautomator:${Versions.testUiAutomator}"
     val junitExt = "androidx.test.ext:junit:${Versions.testJunitExt}"
-    val mockk = "io.mockk:mockk:${Versions.testMokk}"
+    val mockk = "io.mockk:mockk:${Versions.testMockk}"
     val espresso = EspressoDeps
 }
 

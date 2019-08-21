@@ -8,7 +8,7 @@ object Versions {
     const val targetSdk = 28
     const val minSdk = 23
 
-    const val kotlin = "1.3.31"
+    const val kotlin = "1.3.40"
     const val appCompat = "1.0.2"
     const val material = "1.0.0"
     const val recyclerView = "1.0.0"
@@ -40,8 +40,7 @@ object Versions {
     const val testUiAutomator = "2.2.0"
     const val testJunitExt = "1.1.0"
 
-    const val buildGradle = "3.4.1"
-    const val kotlinGradle = "1.3.31"
+    const val buildGradle = "3.5.0"
 
     const val detekt = "1.0.0-RC14"
     const val ktlint = "0.32.0"
@@ -118,7 +117,7 @@ object QualityDeps {
 
 object GradleDeps {
     val buildGradle = "com.android.tools.build:gradle:${Versions.buildGradle}"
-    val kotlinGradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlinGradle}"
+    val kotlinGradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
     val navigationSafeArgs =
         "android.arch.navigation:navigation-safe-args-gradle-plugin:${Versions.navigation}"
 }

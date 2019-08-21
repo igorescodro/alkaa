@@ -42,7 +42,7 @@ object Versions {
 
     const val buildGradle = "3.5.0"
 
-    const val detekt = "1.0.0-RC14"
+    const val detekt = "1.0.0"
     const val ktlint = "0.32.0"
 }
 

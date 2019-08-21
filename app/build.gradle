@@ -13,6 +13,16 @@ android {
         versionName Releases.versionName
     }
 
+    lintOptions {
+        warningsAsErrors true
+        abortOnError true
+        htmlReport true
+        checkDependencies true
+
+        lintConfig file("${rootDir}/config/filters/lint.xml")
+        htmlOutput file("${buildDir}/reports/lint.html")
+    }
+
     dataBinding {
         enabled = true
     }

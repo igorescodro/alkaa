@@ -6,10 +6,10 @@ import com.escodro.alkaa.framework.AcceptanceTest
 import com.escodro.alkaa.framework.extension.waitForLauncher
 import com.escodro.alkaa.ui.main.MainActivity
 import com.escodro.model.Category
+import java.util.Calendar
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
-import java.util.Calendar
 
 /**
  * Test class to validate Task screen and flow.

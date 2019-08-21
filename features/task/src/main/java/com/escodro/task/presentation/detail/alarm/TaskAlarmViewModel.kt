@@ -4,8 +4,8 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import com.escodro.alarm.notification.TaskNotificationScheduler
 import com.escodro.task.presentation.detail.TaskDetailProvider
-import timber.log.Timber
 import java.util.Calendar
+import timber.log.Timber
 
 /**
  * [ViewModel] responsible to provide information to Task Alarm layout.

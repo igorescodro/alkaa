@@ -11,8 +11,8 @@ import androidx.test.espresso.matcher.ViewMatchers.isCompletelyDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withHint
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
-import org.hamcrest.Matchers.not
 import java.util.Calendar
+import org.hamcrest.Matchers.not
 
 /**
  * Handles all the test matchers.

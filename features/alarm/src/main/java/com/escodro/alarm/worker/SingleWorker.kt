@@ -6,9 +6,9 @@ import androidx.work.WorkerParameters
 import com.escodro.core.extension.applySchedulers
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
+import java.util.concurrent.LinkedBlockingQueue
 import org.koin.core.KoinComponent
 import timber.log.Timber
-import java.util.concurrent.LinkedBlockingQueue
 
 /**
  * Abstract [Worker] class to encapsulate the [Single] logic.

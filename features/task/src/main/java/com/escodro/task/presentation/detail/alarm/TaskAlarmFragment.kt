@@ -10,10 +10,10 @@ import com.escodro.core.extension.showDateTimePicker
 import com.escodro.core.extension.showToast
 import com.escodro.task.R
 import com.escodro.task.databinding.FragmentTaskDetailAlarmBinding
+import java.util.Calendar
 import kotlinx.android.synthetic.main.fragment_task_detail_alarm.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
-import java.util.Calendar
 
 /**
  * [Fragment] responsible to show the [com.escodro.domain.viewdata.ViewData.Task] alarm.

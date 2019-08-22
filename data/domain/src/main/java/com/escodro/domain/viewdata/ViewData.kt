@@ -1,8 +1,8 @@
 package com.escodro.domain.viewdata
 
 import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
 import java.util.Calendar
+import kotlinx.android.parcel.Parcelize
 
 /**
  * Encapsulates the UI representation of database models.

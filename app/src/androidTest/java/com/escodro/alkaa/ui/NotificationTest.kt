@@ -11,12 +11,12 @@ import com.escodro.alkaa.framework.extension.waitForLauncher
 import com.escodro.alkaa.ui.main.MainActivity
 import com.escodro.domain.mapper.TaskMapper
 import com.escodro.model.Task
+import java.util.Calendar
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Test
 import org.koin.test.inject
-import java.util.Calendar
 
 /**
  * Test class to validate the notification flow.

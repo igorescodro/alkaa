@@ -10,12 +10,12 @@ import com.escodro.local.dao.TaskDao
 import com.escodro.local.dao.TaskWithCategoryDao
 import com.escodro.model.Category
 import com.escodro.model.Task
+import java.util.Calendar
 import org.junit.After
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import java.util.Calendar
 
 @RunWith(AndroidJUnit4::class)
 class TaskDatabaseTest {

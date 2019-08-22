@@ -3,33 +3,18 @@ complexity:
     thresholdInClasses: 20
 
 comments:
+  excludes: "**/test/**,**/androidTest/**,**/*.Test.kt,**/*.Spec.kt,**/*.Spek.kt"
   CommentOverPrivateFunction:
     active: false
   CommentOverPrivateProperty:
     active: false
 
+style:
+  DataClassShouldBeImmutable:
+    active: false
 
-test-pattern:
-  active: true
-
-  patterns:
-    - '.*/test/.*'
-    - '.*Test.kt'
-    - '.*Spec.kt'
-    - '.*/androidTest/.*'
-
-  exclude-rule-sets:
-    - 'comments'
-
-  exclude-rules:
-    - 'NamingRules'
-    - 'WildcardImport'
-    - 'MagicNumber'
-    - 'MaxLineLength'
-    - 'LateinitUsage'
-    - 'StringLiteralDuplication'
-    - 'SpreadOperator'
-    - 'TooManyFunctions'
-    - 'UnsafeCast'
-    - 'UnderscoresInNumericLiterals'
-    - 'UnsafeCallOnNullableType'
+potential-bugs:
+  UnsafeCallOnNullableType:
+    excludes: "**/test/**,**/androidTest/**,**/*.Test.kt,**/*.Spec.kt,**/*.Spek.kt"
+  UnsafeCast:
+    excludes: "**/test/**,**/androidTest/**,**/*.Test.kt,**/*.Spec.kt,**/*.Spek.kt"

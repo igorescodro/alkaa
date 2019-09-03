@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="split_confirmation_install_title">Download new feature</string>
+    <string name="split_confirmation_install_description">This feature needs to be downloaded from Google Play before you can use it</string>
+    <string name="split_confirmation_install_accept">Download</string>
+    <string name="split_confirmation_install_deny">No, thanks</string>
+    <string name="split_downloading_title">Downloading feature</string>
+    <string name="split_downloading_description">This may take several minutes</string>
+</resources>

@@ -1,8 +1,10 @@
 package com.escodro.core.extension
 
 import android.app.AlertDialog
+import android.content.Context
 import android.content.DialogInterface
 import androidx.annotation.ArrayRes
+import androidx.annotation.LayoutRes
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import com.escodro.core.view.DateTimePickerDialog
@@ -69,6 +71,26 @@ fun Fragment.dialog(
     }
 
 /**
+ * Create a custom [AlertDialog].
+ *
+ * @param titleRes dialog title
+ * @param message dialog description message
+ * @param builder HFO to build dialog with custom parameters
+ *
+ * @return an instance of [AlertDialog]
+ */
+fun Context.dialog(
+    @StringRes titleRes: Int,
+    @StringRes message: Int? = null,
+    builder: AlertDialog.Builder.() -> Unit
+): AlertDialog.Builder =
+    AlertDialog.Builder(this).apply {
+        setTitle(titleRes)
+        message?.let { setMessage(it) }
+        builder()
+    }
+
+/**
  * Action to be taken in the positive button.
  *
  * @param resTitle title of positive button
@@ -96,4 +118,13 @@ fun AlertDialog.Builder.negativeButton(
     func: AlertDialog.Builder.() -> Unit
 ) {
     setNegativeButton(resTitle) { _: DialogInterface?, _: Int -> func() }
+}
+
+/**
+ * Sets the dialog view.
+ *
+ * @param viewRes the layout resource
+ */
+fun AlertDialog.Builder.view(@LayoutRes viewRes: Int) {
+    setView(viewRes)
 }

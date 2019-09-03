@@ -1,5 +1,9 @@
 apply from: "$rootDir/config/dependencies/feature_dependencies.gradle"
 
 dependencies {
+    implementation project(":libraries:core")
+
+    implementation Deps.android.appCompat
+    implementation Deps.android.constraintLayout
     implementation Deps.android.playCore
 }

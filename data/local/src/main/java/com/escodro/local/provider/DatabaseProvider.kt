@@ -7,6 +7,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.escodro.core.extension.getStringColor
 import com.escodro.local.R
 import com.escodro.local.TaskDatabase
+import com.escodro.local.migration.MIGRATION_1_2
 import com.escodro.model.Category
 import java.util.concurrent.Executors
 
@@ -30,6 +31,7 @@ class DatabaseProvider(private val context: Context) {
     private fun buildDatabase(): TaskDatabase =
         Room.databaseBuilder(context, TaskDatabase::class.java, "todo-db")
             .addCallback(onCreateDatabase())
+            .addMigrations(MIGRATION_1_2)
             .build()
 
     private fun onCreateDatabase() =

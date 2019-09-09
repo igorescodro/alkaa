@@ -26,5 +26,7 @@ data class Task(
     @ColumnInfo(name = "task_title") var title: String,
     @ColumnInfo(name = "task_description") var description: String? = null,
     @ColumnInfo(name = "task_category_id") var categoryId: Long? = null,
-    @ColumnInfo(name = "task_due_date") var dueDate: Calendar? = null
+    @ColumnInfo(name = "task_due_date") var dueDate: Calendar? = null,
+    @ColumnInfo(name = "task_creation_date") var creationDate: Calendar? = null,
+    @ColumnInfo(name = "task_completed_date") var completedDate: Calendar? = null
 )

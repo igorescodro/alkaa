@@ -13,7 +13,7 @@ import com.escodro.model.Task
 /**
  * [Task] Database class.
  */
-@Database(entities = [Task::class, Category::class], version = 1)
+@Database(entities = [Task::class, Category::class], version = 2)
 @TypeConverters(DateConverter::class)
 abstract class TaskDatabase : RoomDatabase() {
 

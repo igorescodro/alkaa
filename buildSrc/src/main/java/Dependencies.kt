@@ -39,6 +39,7 @@ object Versions {
     const val testEspressoContrib = "3.1.0-alpha4"
     const val testUiAutomator = "2.2.0"
     const val testJunitExt = "1.1.0"
+    const val testRoom = "2.1.0"
 
     const val buildGradle = "3.5.0"
 
@@ -101,6 +102,7 @@ object TestDeps {
     val uiAutomator = "androidx.test.uiautomator:uiautomator:${Versions.testUiAutomator}"
     val junitExt = "androidx.test.ext:junit:${Versions.testJunitExt}"
     val mockk = "io.mockk:mockk:${Versions.testMockk}"
+    val room = "androidx.room:room-testing:${Versions.testRoom}"
     val espresso = EspressoDeps
 }
 

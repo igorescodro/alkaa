@@ -25,7 +25,9 @@ sealed class ViewData {
         var title: String,
         var description: String? = null,
         var categoryId: Long? = null,
-        var dueDate: Calendar? = null
+        var dueDate: Calendar? = null,
+        var creationDate: Calendar? = null,
+        var completedDate: Calendar? = null
     ) : Parcelable
 
     /**

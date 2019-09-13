@@ -4,7 +4,7 @@ import android.text.TextUtils
 import androidx.lifecycle.ViewModel
 import com.escodro.domain.usecase.task.AddTask
 import com.escodro.domain.usecase.task.DeleteTask
-import com.escodro.domain.usecase.task.UpdateTask
+import com.escodro.domain.usecase.task.UpdateTaskStatus
 import com.escodro.domain.usecase.taskwithcategory.LoadCompletedTasks
 import com.escodro.domain.usecase.taskwithcategory.LoadTasksByCategory
 import com.escodro.domain.usecase.taskwithcategory.LoadUncompletedTasks
@@ -20,7 +20,7 @@ internal class TaskListViewModel(
     private val loadAllCompletedTasksUseCase: LoadCompletedTasks,
     private val loadTasksByCategoryUseCase: LoadTasksByCategory,
     private val addTaskUseCase: AddTask,
-    private val updateTaskUseCase: UpdateTask,
+    private val updateStatusUseCase: UpdateTaskStatus,
     private val deleteTaskUseCase: DeleteTask
 ) : ViewModel() {
 
@@ -77,14 +77,12 @@ internal class TaskListViewModel(
     }
 
     /**
-     * Updates the task status.
+     * Updates the task status as completed or uncompleted.
      *
      * @param task task to be updated
      */
-    fun updateTaskStatus(task: ViewData.Task, isCompleted: Boolean) {
-        task.completed = isCompleted
-
-        val disposable = updateTaskUseCase(task).subscribe()
+    fun updateTaskStatus(task: ViewData.Task) {
+        val disposable = updateStatusUseCase(task).subscribe()
         compositeDisposable.add(disposable)
     }
 

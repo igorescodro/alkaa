@@ -8,7 +8,6 @@ import io.reactivex.Completable
  * Use case to update a task as completed or uncompleted from the database.
  */
 class UpdateTaskStatus(
-    private val getTask: GetTask,
     private val completeTask: CompleteTask,
     private val uncompleteTask: UncompleteTask
 ) {

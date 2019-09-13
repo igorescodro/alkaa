@@ -18,6 +18,7 @@ class UncompleteTask(private val getTask: GetTask, private val updateTask: Updat
     operator fun invoke(taskId: Long): Completable =
         getTask(taskId).flatMapCompletable {
             it.completed = false
+            it.completedDate = null
             updateTask(it)
         }.applySchedulers()
 }

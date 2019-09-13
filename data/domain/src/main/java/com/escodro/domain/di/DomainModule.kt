@@ -1,5 +1,6 @@
 package com.escodro.domain.di
 
+import com.escodro.domain.calendar.TaskCalendar
 import com.escodro.domain.mapper.CategoryMapper
 import com.escodro.domain.mapper.TaskMapper
 import com.escodro.domain.mapper.TaskWithCategoryMapper
@@ -25,10 +26,10 @@ import org.koin.dsl.module
  * Domain dependency injection module.
  */
 val domainModule = module {
-    single { AddTask(get(), get()) }
-    single { CompleteTask(get(), get()) }
+    single { AddTask(get(), get(), get()) }
+    single { CompleteTask(get(), get(), get()) }
     single { UncompleteTask(get(), get()) }
-    single { UpdateTaskStatus(get(), get(), get()) }
+    single { UpdateTaskStatus(get(), get()) }
     single { DeleteTask(get(), get()) }
     single { GetFutureTasks(get(), get()) }
     single { GetTask(get(), get()) }
@@ -47,4 +48,6 @@ val domainModule = module {
     single { CategoryMapper() }
     single { TaskMapper() }
     single { TaskWithCategoryMapper(get(), get()) }
+
+    single { TaskCalendar() }
 }

@@ -1,17 +1,12 @@
 package com.escodro.domain.usecase.task
 
 import com.escodro.core.extension.applySchedulers
-import com.escodro.domain.calendar.TaskCalendar
 import io.reactivex.Completable
 
 /**
- * Use case to set a task as completed in the database.
+ * Use case to set a task as uncompleted in the database.
  */
-class CompleteTask(
-    private val getTask: GetTask,
-    private val updateTask: UpdateTask,
-    private val taskCalendar: TaskCalendar
-) {
+class UncompleteTask(private val getTask: GetTask, private val updateTask: UpdateTask) {
 
     /**
      * Completes the given task.
@@ -22,8 +17,8 @@ class CompleteTask(
      */
     operator fun invoke(taskId: Long): Completable =
         getTask(taskId).flatMapCompletable {
-            it.completed = true
-            it.completedDate = taskCalendar.getCurrentCalendar()
+            it.completed = false
+            it.completedDate = null
             updateTask(it)
         }.applySchedulers()
 }

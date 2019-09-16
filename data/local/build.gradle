@@ -1,6 +1,19 @@
 apply from: "$rootDir/config/dependencies/feature_dependencies.gradle"
 apply plugin: "kotlin-kapt"
 
+android {
+    defaultConfig {
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
+    }
+    sourceSets {
+        androidTest.assets.srcDirs += files("$projectDir/schemas".toString())
+    }
+}
+
 dependencies {
     implementation project(":libraries:core")
     implementation project(":data:model")
@@ -10,4 +23,7 @@ dependencies {
     implementation Deps.android.room.rx
     kapt Deps.android.room.compiler
     implementation Deps.rx.java
+
+    androidTestImplementation Deps.test.runner
+    androidTestImplementation Deps.test.room
 }

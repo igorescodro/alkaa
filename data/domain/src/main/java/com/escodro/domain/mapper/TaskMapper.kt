@@ -22,7 +22,9 @@ class TaskMapper {
             title = task.title,
             description = task.description,
             categoryId = task.categoryId,
-            dueDate = task.dueDate
+            dueDate = task.dueDate,
+            creationDate = task.creationDate,
+            completedDate = task.completedDate
         )
 
     /**
@@ -39,6 +41,8 @@ class TaskMapper {
             title = task.title,
             description = task.description,
             categoryId = task.categoryId,
-            dueDate = task.dueDate
+            dueDate = task.dueDate,
+            creationDate = task.creationDate,
+            completedDate = task.completedDate
         )
 }

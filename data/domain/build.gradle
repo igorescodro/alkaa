@@ -11,7 +11,12 @@ dependencies {
     implementation project(":data:local")
     implementation project(":data:model")
 
+    testImplementation project(':libraries:test')
+
     implementation Deps.koin.core
     implementation Deps.rx.java
     implementation Deps.rx.android
+
+    testImplementation Deps.test.junit
+    testImplementation Deps.test.mockk
 }

@@ -137,14 +137,14 @@ class TaskListFragment : Fragment() {
     private fun onItemCheckedChanged(taskWithCategory: ViewData.TaskWithCategory, value: Boolean) {
         Timber.d("onItemCheckedChanged() - Task = ${taskWithCategory.task.title} - Value = $value")
 
-        viewModel.updateTaskStatus(taskWithCategory.task, value)
+        viewModel.updateTaskStatus(taskWithCategory.task)
 
         if (value) {
             constraint_tasklist_root
                 .createSnackbar(R.string.task_snackbar_completed)
                 .setAction(R.string.task_snackbar_undo) {
                     Timber.d("Undo completed action - Task = ${taskWithCategory.task.title}")
-                    viewModel.updateTaskStatus(taskWithCategory.task, false)
+                    viewModel.updateTaskStatus(taskWithCategory.task)
                 }.show()
         }
     }

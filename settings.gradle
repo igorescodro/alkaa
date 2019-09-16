@@ -1,5 +1,6 @@
 include ':app'
 include ':libraries:core'
+include ':libraries:test'
 include ':libraries:navigation'
 include ':features:alarm'
 include ':features:task'

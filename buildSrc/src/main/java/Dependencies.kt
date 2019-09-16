@@ -1,6 +1,6 @@
 object Releases {
-    const val versionCode = 10302
-    const val versionName = "1.3.2"
+    const val versionCode = 10303
+    const val versionName = "1.3.3"
 }
 
 object Versions {

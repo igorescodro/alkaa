@@ -1,7 +1,6 @@
 apply plugin: "com.android.application"
 
 apply from: "$rootDir/config/dependencies/android_dependencies.gradle"
-apply from: "$rootDir/config/dependencies/obfuscation_dependencies.gradle"
 apply from: "$rootDir/config/artifacts.gradle"
 
 apply plugin: "kotlin-kapt"
@@ -12,6 +11,13 @@ android {
         applicationId "com.escodro.alkaa"
         versionCode Releases.versionCode
         versionName Releases.versionName
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
     }
 
     lintOptions {

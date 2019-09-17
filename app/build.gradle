@@ -13,6 +13,13 @@ android {
         versionName Releases.versionName
     }
 
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
     lintOptions {
         warningsAsErrors true
         abortOnError true
@@ -37,11 +44,15 @@ android {
             option("-Werror")
         }
     }
+
+    dynamicFeatures = [":features:tracker"]
+
 }
 
 dependencies {
     implementation project(":libraries:core")
     implementation project(":libraries:navigation")
+    implementation project(":libraries:splitInstall")
     implementation project(":data:local")
     implementation project(":data:domain")
     implementation project(":data:model")
@@ -57,6 +68,7 @@ dependencies {
     implementation Deps.android.room.runtime
     implementation Deps.android.navigation.fragment
     implementation Deps.android.navigation.ui
+    implementation Deps.android.playCore
 
     implementation Deps.timber
 

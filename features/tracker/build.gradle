@@ -1,0 +1,6 @@
+apply from: "$rootDir/config/dependencies/dynamic_dependencies.gradle"
+
+dependencies {
+    implementation Deps.android.appCompat
+    implementation Deps.android.material
+}

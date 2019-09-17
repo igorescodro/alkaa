@@ -20,7 +20,8 @@ object Versions {
     const val ktx = "1.0.2"
     const val lifecycle = "1.0.0"
     const val room = "2.1.0"
-    const val navigation = "1.0.0"
+    const val navigation = "2.1.0-alpha05"
+    const val playCore = "1.6.1"
 
     const val timber = "4.7.1"
 
@@ -68,6 +69,7 @@ object AndroidDeps {
     val workManager = "android.arch.work:work-runtime:${Versions.workManager}"
     val ktx = "androidx.core:core-ktx:${Versions.ktx}"
     val lifecycle = "androidx.lifecycle:lifecycle-extensions:${Versions.lifecycle}"
+    val playCore = "com.google.android.play:core:${Versions.playCore}"
     val room = RoomDeps
     val navigation = NavigationDeps
 }
@@ -79,8 +81,8 @@ object RoomDeps {
 }
 
 object NavigationDeps {
-    val fragment = "android.arch.navigation:navigation-fragment:${Versions.navigation}"
-    val ui = "android.arch.navigation:navigation-ui:${Versions.navigation}"
+    val fragment = "androidx.navigation:navigation-fragment:${Versions.navigation}"
+    val ui = "androidx.navigation:navigation-ui:${Versions.navigation}"
 }
 
 object KoinDeps {
@@ -121,5 +123,5 @@ object GradleDeps {
     val buildGradle = "com.android.tools.build:gradle:${Versions.buildGradle}"
     val kotlinGradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
     val navigationSafeArgs =
-        "android.arch.navigation:navigation-safe-args-gradle-plugin:${Versions.navigation}"
+        "androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.navigation}"
 }

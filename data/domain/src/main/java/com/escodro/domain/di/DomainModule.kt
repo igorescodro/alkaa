@@ -20,6 +20,7 @@ import com.escodro.domain.usecase.task.UpdateTaskStatus
 import com.escodro.domain.usecase.taskwithcategory.LoadCompletedTasks
 import com.escodro.domain.usecase.taskwithcategory.LoadTasksByCategory
 import com.escodro.domain.usecase.taskwithcategory.LoadUncompletedTasks
+import com.escodro.domain.usecase.tracker.LoadCompletedTracker
 import org.koin.dsl.module
 
 /**
@@ -44,6 +45,8 @@ val domainModule = module {
     single { LoadTasksByCategory(get(), get()) }
     single { LoadCompletedTasks(get(), get()) }
     single { LoadUncompletedTasks(get(), get()) }
+
+    single { LoadCompletedTracker(get()) }
 
     single { CategoryMapper() }
     single { TaskMapper() }

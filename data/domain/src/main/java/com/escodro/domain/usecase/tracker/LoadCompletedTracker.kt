@@ -2,6 +2,7 @@ package com.escodro.domain.usecase.tracker
 
 import com.escodro.domain.usecase.taskwithcategory.LoadCompletedTasks
 import com.escodro.domain.viewdata.ViewData
+import io.reactivex.Flowable
 import io.reactivex.Single
 import java.util.Calendar
 
@@ -15,10 +16,13 @@ class LoadCompletedTracker(private val loadCompletedTasks: LoadCompletedTasks) {
      */
     operator fun invoke(): Single<List<ViewData.Tracker>> =
         loadCompletedTasks()
-            .flatMapIterable { it }
-            .filter { filterByLastMonth(it) }
-            .toList()
-            .map { mapToTrackerList(it) }
+            .flatMap {
+                Flowable.fromIterable(it)
+                    .filter { taskWithCategory -> filterByLastMonth(taskWithCategory) }
+                    .toList()
+                    .map { taskList -> mapToTrackerList(taskList) }
+                    .toFlowable()
+            }.firstOrError()
 
     private fun filterByLastMonth(task: ViewData.TaskWithCategory): Boolean {
         val lastMonth = Calendar.getInstance().apply { add(Calendar.DAY_OF_MONTH, LAST_30_DAYS) }

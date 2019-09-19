@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.escodro.tracker.R
+import com.escodro.tracker.di.injectDynamicFeature
 import com.google.android.play.core.splitcompat.SplitCompat
 
 /**
@@ -18,7 +19,11 @@ class TrackerFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.fragment_tracker, container, false)
+    ): View? {
+
+        injectDynamicFeature()
+        return inflater.inflate(R.layout.fragment_tracker, container, false)
+    }
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)

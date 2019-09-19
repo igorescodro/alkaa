@@ -1,4 +1,4 @@
-package com.escodro.tracker
+package com.escodro.tracker.presentation
 
 import android.content.Context
 import android.os.Bundle
@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.escodro.tracker.R
 import com.google.android.play.core.splitcompat.SplitCompat
 
 /**

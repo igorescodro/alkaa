@@ -62,8 +62,12 @@ internal class CategoryDetailFragment : Fragment() {
     private fun initComponents() {
         Timber.d("initComponents()")
 
-        val categoryId = arguments?.let { CategoryDetailFragmentArgs.fromBundle(it).categoryId }
-        categoryId?.let { viewModel.loadCategory(it, ::updateSelectedColor) }
+        val categoryId =
+            arguments?.let { CategoryDetailFragmentArgs.fromBundle(it).categoryId } ?: 0L
+
+        if (categoryId != 0L) {
+            viewModel.loadCategory(categoryId, ::updateSelectedColor)
+        }
 
         setupTextInput()
         categoryColor = getCategoryColor()

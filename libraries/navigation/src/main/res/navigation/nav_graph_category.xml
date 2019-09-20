@@ -29,7 +29,8 @@
 
         <argument
             android:name="categoryId"
-            app:argType="long" />
+            app:argType="long"
+            android:defaultValue="0L"/>
 
     </fragment>
 

@@ -30,6 +30,8 @@ object Versions {
     const val rxJava = "2.1.0"
     const val rxAndroid = "2.2.0"
 
+    const val mpAndroidChart = "3.1.0"
+
     const val testJunit = "4.12"
     const val testRunner = "1.1.1"
     const val testRules = "1.1.1"
@@ -51,6 +53,7 @@ object Versions {
 object Deps {
     val kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
     val timber = "com.jakewharton.timber:timber:${Versions.timber}"
+    val mpAndroidChart = "com.github.PhilJay:MPAndroidChart:v${Versions.mpAndroidChart}"
     val android = AndroidDeps
     val koin = KoinDeps
     val rx = RxDeps

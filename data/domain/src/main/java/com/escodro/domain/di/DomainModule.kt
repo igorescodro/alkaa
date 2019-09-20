@@ -4,6 +4,7 @@ import com.escodro.domain.calendar.TaskCalendar
 import com.escodro.domain.mapper.CategoryMapper
 import com.escodro.domain.mapper.TaskMapper
 import com.escodro.domain.mapper.TaskWithCategoryMapper
+import com.escodro.domain.mapper.TrackerMapper
 import com.escodro.domain.usecase.category.DeleteCategory
 import com.escodro.domain.usecase.category.LoadAllCategories
 import com.escodro.domain.usecase.category.LoadCategory
@@ -46,11 +47,12 @@ val domainModule = module {
     single { LoadCompletedTasks(get(), get()) }
     single { LoadUncompletedTasks(get(), get()) }
 
-    single { LoadCompletedTracker(get()) }
+    single { LoadCompletedTracker(get(), get()) }
 
     single { CategoryMapper() }
     single { TaskMapper() }
     single { TaskWithCategoryMapper(get(), get()) }
+    single { TrackerMapper() }
 
     single { TaskCalendar() }
 }

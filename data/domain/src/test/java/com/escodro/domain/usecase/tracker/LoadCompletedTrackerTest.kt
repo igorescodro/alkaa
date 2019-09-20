@@ -1,5 +1,6 @@
 package com.escodro.domain.usecase.tracker
 
+import com.escodro.domain.mapper.TrackerMapper
 import com.escodro.domain.usecase.taskwithcategory.LoadCompletedTasks
 import com.escodro.domain.viewdata.ViewData
 import com.escodro.test.ImmediateSchedulerRule
@@ -18,7 +19,7 @@ class LoadCompletedTrackerTest {
 
     private val mockCompletedTasks = mockk<LoadCompletedTasks>(relaxed = true)
 
-    private val completeTracker = LoadCompletedTracker(mockCompletedTasks)
+    private val completeTracker = LoadCompletedTracker(mockCompletedTasks, TrackerMapper())
 
     @Test
     fun `check if completed tasks are shown in group`() {

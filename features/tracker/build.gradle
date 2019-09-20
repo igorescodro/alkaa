@@ -11,4 +11,6 @@ dependencies {
 
     implementation Deps.rx.android
     implementation Deps.rx.java
+
+    implementation Deps.mpAndroidChart
 }

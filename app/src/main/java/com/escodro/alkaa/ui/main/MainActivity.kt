@@ -19,6 +19,7 @@ import com.escodro.core.extension.isOpen
 import com.escodro.core.extension.navigateSingleTop
 import com.escodro.core.viewmodel.ToolbarViewModel
 import com.escodro.domain.viewdata.ViewData
+import com.escodro.splitinstall.SplitInstall
 import com.escodro.task.presentation.list.TaskListFragment
 import com.escodro.task.presentation.list.TaskListState
 import kotlinx.android.synthetic.main.activity_main.*
@@ -116,6 +117,7 @@ class MainActivity : AppCompatActivity() {
         list.forEach { menu.add(GROUP_TASKS, it.id.toInt(), Menu.NONE, it.name) }
         menu.add(GROUP_TASKS, COMPLETED_ITEM, Menu.NONE, R.string.drawer_menu_completed_tasks)
         menu.add(GROUP_SETTINGS, CATEGORY_ITEM, Menu.NONE, R.string.drawer_menu_manage_categories)
+        menu.add(GROUP_SETTINGS, TRACKER_ITEM, Menu.NONE, R.string.drawer_menu_tracker)
 
         menu.setGroupCheckable(GROUP_TASKS, true, true)
         menu.setGroupCheckable(GROUP_SETTINGS, true, true)
@@ -134,6 +136,7 @@ class MainActivity : AppCompatActivity() {
         drawerSelectedItem = item.itemId
         when (drawerSelectedItem) {
             CATEGORY_ITEM -> navController.navigateSingleTop(R.id.nav_graph_category)
+            TRACKER_ITEM -> openDynamicFeature()
             else -> navigateToCategory(item)
         }
 
@@ -179,6 +182,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun openDynamicFeature() {
+        SplitInstall(this).loadFeature(FEATURE_TRACKER) {
+            onFeatureReady { navController.navigate(R.id.nav_graph_tracker) }
+        }
+    }
+
     companion object {
 
         // Drawer Menu Constants
@@ -189,10 +198,16 @@ class MainActivity : AppCompatActivity() {
 
         private const val CATEGORY_ITEM = -2
 
+        private const val TRACKER_ITEM = -3
+
         // Drawer Menu Groups
 
         private const val GROUP_TASKS = 1
 
         private const val GROUP_SETTINGS = 2
+
+        // Dynamic Features
+
+        private const val FEATURE_TRACKER = "tracker"
     }
 }

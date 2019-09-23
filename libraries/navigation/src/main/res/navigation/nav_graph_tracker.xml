@@ -6,7 +6,8 @@
 
     <fragment
         android:id="@+id/trackerFragment"
-        android:name="com.escodro.tracker.presentation.TrackerFragment">
+        android:name="com.escodro.tracker.presentation.TrackerFragment"
+        android:label="@string/tracker_title">
 
         <deepLink app:uri="alkaa.escodro.com/tracker" />
 

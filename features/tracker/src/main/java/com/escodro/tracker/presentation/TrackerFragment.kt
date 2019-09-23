@@ -45,7 +45,7 @@ class TrackerFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         Timber.d("onViewCreated()")
 
-        trackerViewModel.loadData(onDataLoaded = ::updateChart)
+        trackerViewModel.loadData(updateChart = ::updateChart, updateCount = ::updateCount)
     }
 
     private fun updateChart(list: List<ViewData.Tracker>) {
@@ -54,8 +54,18 @@ class TrackerFragment : Fragment() {
         val dataSet = PieDataSet(convertToEntry(list), "")
         dataSet.colors = getDataSetColors(list)
 
-        piechart_tracker.data = createPieData(dataSet)
-        piechart_tracker.invalidate()
+        piechart_tracker.apply {
+            data = createPieData(dataSet)
+            description.isEnabled = false
+            invalidate()
+        }
+    }
+
+    private fun updateCount(taskCount: Int) {
+        Timber.d("updateCount() - Total = $taskCount")
+
+        textview_tracker_tasks.text =
+            resources.getQuantityString(R.plurals.tracker_message_title, taskCount, taskCount)
     }
 
     private fun getDataSetColors(trackerList: List<ViewData.Tracker>) =

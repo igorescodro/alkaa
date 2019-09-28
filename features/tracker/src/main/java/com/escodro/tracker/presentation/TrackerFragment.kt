@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.escodro.domain.viewdata.ViewData
 import com.escodro.tracker.R
 import com.escodro.tracker.di.injectDynamicFeature
@@ -45,7 +46,34 @@ class TrackerFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         Timber.d("onViewCreated()")
 
-        trackerViewModel.loadData(updateChart = ::updateChart, updateCount = ::updateCount)
+        trackerViewModel.loadData()
+        trackerViewModel.viewState.observe(this, Observer(::renderViewState))
+    }
+
+    private fun renderViewState(state: TrackerUIState) {
+        Timber.d("renderViewState() - State = $state")
+
+        when (state) {
+            is TrackerUIState.ShowDataState -> showData(state.trackerList, state.taskCount)
+            is TrackerUIState.EmptyChartState -> showEmptyView()
+        }
+    }
+
+    private fun showEmptyView() {
+        Timber.d("showEmptyView()")
+
+        image_tracker_empty.visibility = View.VISIBLE
+        piechart_tracker.visibility = View.INVISIBLE
+        updateCount()
+    }
+
+    private fun showData(list: List<ViewData.Tracker>, taskCount: Int) {
+        Timber.d("showData()")
+
+        image_tracker_empty.visibility = View.INVISIBLE
+        piechart_tracker.visibility = View.VISIBLE
+        updateChart(list)
+        updateCount(taskCount)
     }
 
     private fun updateChart(list: List<ViewData.Tracker>) {
@@ -61,7 +89,7 @@ class TrackerFragment : Fragment() {
         }
     }
 
-    private fun updateCount(taskCount: Int) {
+    private fun updateCount(taskCount: Int = 0) {
         Timber.d("updateCount() - Total = $taskCount")
 
         textview_tracker_tasks.text =

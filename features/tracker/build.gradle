@@ -14,4 +14,8 @@ dependencies {
     implementation Deps.rx.java
 
     implementation Deps.mpAndroidChart
+
+    testImplementation Deps.test.junit
+    testImplementation Deps.test.mockk
+    testImplementation Deps.test.arch
 }

@@ -15,8 +15,7 @@ import timber.log.Timber
 class TrackerViewModel(
     private val loadTasksByPeriodUseCase: LoadCompletedTasksByPeriod,
     private val trackerMapper: TrackerMapper
-) :
-    ViewModel() {
+) : ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()
 

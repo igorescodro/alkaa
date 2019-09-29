@@ -4,7 +4,6 @@ import com.escodro.domain.calendar.TaskCalendar
 import com.escodro.domain.mapper.CategoryMapper
 import com.escodro.domain.mapper.TaskMapper
 import com.escodro.domain.mapper.TaskWithCategoryMapper
-import com.escodro.domain.mapper.TrackerMapper
 import com.escodro.domain.usecase.category.DeleteCategory
 import com.escodro.domain.usecase.category.LoadAllCategories
 import com.escodro.domain.usecase.category.LoadCategory
@@ -21,7 +20,7 @@ import com.escodro.domain.usecase.task.UpdateTaskStatus
 import com.escodro.domain.usecase.taskwithcategory.LoadCompletedTasks
 import com.escodro.domain.usecase.taskwithcategory.LoadTasksByCategory
 import com.escodro.domain.usecase.taskwithcategory.LoadUncompletedTasks
-import com.escodro.domain.usecase.tracker.LoadCompletedTracker
+import com.escodro.domain.usecase.tracker.LoadCompletedTasksByPeriod
 import org.koin.dsl.module
 
 /**
@@ -47,12 +46,11 @@ val domainModule = module {
     single { LoadCompletedTasks(get(), get()) }
     single { LoadUncompletedTasks(get(), get()) }
 
-    single { LoadCompletedTracker(get(), get()) }
+    single { LoadCompletedTasksByPeriod(get()) }
 
     single { CategoryMapper() }
     single { TaskMapper() }
     single { TaskWithCategoryMapper(get(), get()) }
-    single { TrackerMapper() }
 
     single { TaskCalendar() }
 }

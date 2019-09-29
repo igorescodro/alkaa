@@ -1,5 +1,6 @@
 package com.escodro.tracker.di
 
+import com.escodro.tracker.model.mapper.TrackerMapper
 import com.escodro.tracker.presentation.TrackerViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.loadKoinModules
@@ -16,5 +17,7 @@ private val loadFeatureModules by lazy {
 }
 
 val trackerModule = module {
-    viewModel { TrackerViewModel(get()) }
+    viewModel { TrackerViewModel(get(), get()) }
+
+    single { TrackerMapper() }
 }

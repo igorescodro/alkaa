@@ -35,14 +35,4 @@ sealed class ViewData {
      */
     @Parcelize
     data class TaskWithCategory(val task: Task, val category: Category? = null) : Parcelable
-
-    /**
-     * UI representation of a Tracker.
-     */
-    @Parcelize
-    data class Tracker(
-        val categoryName: String?,
-        val categoryColor: String?,
-        val taskCount: Int?
-    ) : Parcelable
 }

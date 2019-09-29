@@ -1,6 +1,6 @@
 package com.escodro.tracker.presentation
 
-import com.escodro.domain.viewdata.ViewData
+import com.escodro.tracker.model.Tracker
 
 /**
  * Represents the possible UI States of [TrackerFragment].
@@ -8,10 +8,9 @@ import com.escodro.domain.viewdata.ViewData
 sealed class TrackerUIState {
 
     /**
-     * Represents the state where they are [ViewData.Tracker] to be shown on the screen.
+     * Represents the state where they are [Tracker.Info] to be shown on the screen.
      */
-    data class ShowDataState(val trackerList: List<ViewData.Tracker>, val taskCount: Int) :
-        TrackerUIState()
+    data class ShowDataState(val trackerInfo: Tracker.Info) : TrackerUIState()
 
     /**
      * Represents the state where they are no information to be shown.

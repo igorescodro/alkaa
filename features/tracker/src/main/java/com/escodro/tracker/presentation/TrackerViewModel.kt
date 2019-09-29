@@ -3,15 +3,20 @@ package com.escodro.tracker.presentation
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.escodro.domain.usecase.tracker.LoadCompletedTracker
-import com.escodro.domain.viewdata.ViewData
+import com.escodro.domain.usecase.tracker.LoadCompletedTasksByPeriod
+import com.escodro.tracker.model.Tracker
+import com.escodro.tracker.model.mapper.TrackerMapper
 import io.reactivex.disposables.CompositeDisposable
 import timber.log.Timber
 
 /**
  * [ViewModel] responsible to provide information to Task Tracker layout.
  */
-class TrackerViewModel(private val loadTrackerUseCase: LoadCompletedTracker) : ViewModel() {
+class TrackerViewModel(
+    private val loadTasksByPeriodUseCase: LoadCompletedTasksByPeriod,
+    private val trackerMapper: TrackerMapper
+) :
+    ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()
 
@@ -26,21 +31,21 @@ class TrackerViewModel(private val loadTrackerUseCase: LoadCompletedTracker) : V
     fun loadData() {
         Timber.d("loadData()")
 
-        val disposable = loadTrackerUseCase().subscribe(::onSuccess) { Timber.e(it) }
+        val disposable = loadTasksByPeriodUseCase()
+            .map { trackerMapper.toTracker(it) }
+            .subscribe(::onSuccess) { Timber.e(it) }
+
         compositeDisposable.add(disposable)
     }
 
-    private fun onSuccess(list: List<ViewData.Tracker>) {
-        Timber.d("onSuccess() - Size = ${list.size}")
+    private fun onSuccess(trackerInfo: Tracker.Info) {
+        Timber.d("onSuccess() = $trackerInfo")
 
         _viewState.value = when {
-            list.isEmpty() -> TrackerUIState.EmptyChartState
-            else -> TrackerUIState.ShowDataState(list, getTaskCount(list))
+            trackerInfo.categoryList.isEmpty() -> TrackerUIState.EmptyChartState
+            else -> TrackerUIState.ShowDataState(trackerInfo)
         }
     }
-
-    private fun getTaskCount(list: List<ViewData.Tracker>) =
-        list.sumBy { tracker -> tracker.taskCount ?: 0 }
 
     override fun onCleared() {
         super.onCleared()

@@ -1,6 +1,5 @@
 package com.escodro.domain.usecase.tracker
 
-import com.escodro.domain.mapper.TrackerMapper
 import com.escodro.domain.usecase.taskwithcategory.LoadCompletedTasks
 import com.escodro.domain.viewdata.ViewData
 import com.escodro.test.ImmediateSchedulerRule
@@ -12,14 +11,14 @@ import java.util.Calendar
 import org.junit.Rule
 import org.junit.Test
 
-class LoadCompletedTrackerTest {
+class LoadCompletedTasksByPeriodTest {
 
     @get:Rule
     var testSchedulerRule = ImmediateSchedulerRule()
 
     private val mockCompletedTasks = mockk<LoadCompletedTasks>(relaxed = true)
 
-    private val completeTracker = LoadCompletedTracker(mockCompletedTasks, TrackerMapper())
+    private val completeTracker = LoadCompletedTasksByPeriod(mockCompletedTasks)
 
     @Test
     fun `check if completed tasks are shown in group`() {
@@ -47,13 +46,14 @@ class LoadCompletedTrackerTest {
         )
 
         val assertList = listOf(
-            ViewData.Tracker(category2.name, category2.color, 2),
-            ViewData.Tracker(category3.name, category3.color, 1)
+            ViewData.TaskWithCategory(task2, category2),
+            ViewData.TaskWithCategory(task3, category2),
+            ViewData.TaskWithCategory(task5, category3)
         )
 
         every { mockCompletedTasks() } returns Flowable.just(taskList)
 
-        val testObserver = TestObserver<List<ViewData.Tracker>>()
+        val testObserver = TestObserver<List<ViewData.TaskWithCategory>>()
         completeTracker().subscribe(testObserver)
         testObserver.assertValue(assertList)
     }
@@ -66,10 +66,9 @@ class LoadCompletedTrackerTest {
         val taskList = listOf(ViewData.TaskWithCategory(task, null))
         every { mockCompletedTasks() } returns Flowable.just(taskList)
 
-        val testObserver = TestObserver<List<ViewData.Tracker>>()
+        val testObserver = TestObserver<List<ViewData.TaskWithCategory>>()
         completeTracker().subscribe(testObserver)
 
-        val assertList = listOf(ViewData.Tracker(null, null, 1))
-        testObserver.assertValue(assertList)
+        testObserver.assertValue(taskList)
     }
 }

@@ -30,6 +30,8 @@ object Versions {
     const val rxJava = "2.1.0"
     const val rxAndroid = "2.2.0"
 
+    const val mpAndroidChart = "3.1.0"
+
     const val testJunit = "4.12"
     const val testRunner = "1.1.1"
     const val testRules = "1.1.1"
@@ -41,6 +43,7 @@ object Versions {
     const val testUiAutomator = "2.2.0"
     const val testJunitExt = "1.1.0"
     const val testRoom = "2.1.0"
+    const val testArch = "2.1.0"
 
     const val buildGradle = "3.5.0"
 
@@ -51,6 +54,7 @@ object Versions {
 object Deps {
     val kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
     val timber = "com.jakewharton.timber:timber:${Versions.timber}"
+    val mpAndroidChart = "com.github.PhilJay:MPAndroidChart:v${Versions.mpAndroidChart}"
     val android = AndroidDeps
     val koin = KoinDeps
     val rx = RxDeps
@@ -105,6 +109,7 @@ object TestDeps {
     val junitExt = "androidx.test.ext:junit:${Versions.testJunitExt}"
     val mockk = "io.mockk:mockk:${Versions.testMockk}"
     val room = "androidx.room:room-testing:${Versions.testRoom}"
+    val arch = "androidx.arch.core:core-testing:${Versions.testArch}"
     val espresso = EspressoDeps
 }
 

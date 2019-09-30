@@ -9,9 +9,7 @@ import java.util.Calendar
 /**
  * Use case to get completed tasks in Tracker format for the last month from the database.
  */
-class LoadCompletedTasksByPeriod(
-    private val loadCompletedTasks: LoadCompletedTasks
-) {
+class LoadCompletedTasksByPeriod(private val loadCompletedTasks: LoadCompletedTasks) {
 
     /**
      * Gets completed tasks in Tracker format for the last month.
@@ -20,7 +18,7 @@ class LoadCompletedTasksByPeriod(
         loadCompletedTasks()
             .flatMap {
                 Flowable.fromIterable(it)
-                    .filter { taskWithCategory -> filterByLastMonth(taskWithCategory) }
+                    .filter(::filterByLastMonth)
                     .toList()
                     .toFlowable()
             }.firstOrError()

@@ -6,7 +6,7 @@ import com.escodro.tracker.model.Tracker
 /**
  * Converts between the [ViewData.TaskWithCategory] model from the database and [Tracker] UI object.
  */
-class TrackerMapper {
+internal class TrackerMapper {
 
     /**
      * Maps from a grouped [Map] of [List<ViewData.TaskWithCategory>] to [Tracker].
@@ -15,7 +15,7 @@ class TrackerMapper {
      *
      * @return the converted object
      */
-    fun toTracker(list: List<ViewData.TaskWithCategory>): Tracker.Info {
+    internal fun toTracker(list: List<ViewData.TaskWithCategory>): Tracker.Info {
 
         val categories = list.groupBy { task -> task.category?.id }
             .map(::toCategory)

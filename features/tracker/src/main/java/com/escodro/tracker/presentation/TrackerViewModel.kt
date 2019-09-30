@@ -12,14 +12,14 @@ import timber.log.Timber
 /**
  * [ViewModel] responsible to provide information to Task Tracker layout.
  */
-class TrackerViewModel(
+internal class TrackerViewModel(
     private val loadTasksByPeriodUseCase: LoadCompletedTasksByPeriod,
     private val trackerMapper: TrackerMapper
 ) : ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()
 
-    val viewState: LiveData<TrackerUIState>
+    internal val viewState: LiveData<TrackerUIState>
         get() = _viewState
 
     private val _viewState: MutableLiveData<TrackerUIState> = MutableLiveData()

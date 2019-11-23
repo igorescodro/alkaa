@@ -6,7 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
 import androidx.room.Update
-import com.escodro.model.Task
+import com.escodro.local.model.Task
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single

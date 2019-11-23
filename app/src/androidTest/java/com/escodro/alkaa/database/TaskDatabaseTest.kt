@@ -8,8 +8,8 @@ import com.escodro.local.TaskDatabase
 import com.escodro.local.dao.CategoryDao
 import com.escodro.local.dao.TaskDao
 import com.escodro.local.dao.TaskWithCategoryDao
-import com.escodro.model.Category
-import com.escodro.model.Task
+import com.escodro.local.model.Category
+import com.escodro.local.model.Task
 import java.util.Calendar
 import org.junit.After
 import org.junit.Assert.assertTrue

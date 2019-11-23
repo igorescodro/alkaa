@@ -3,7 +3,7 @@ package com.escodro.alkaa.ui
 import com.escodro.alkaa.R
 import com.escodro.alkaa.framework.AcceptanceTest
 import com.escodro.alkaa.ui.main.MainActivity
-import com.escodro.model.Category
+import com.escodro.local.model.Category
 import org.junit.After
 import org.junit.Test
 

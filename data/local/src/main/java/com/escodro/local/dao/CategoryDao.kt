@@ -6,7 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
 import androidx.room.Update
-import com.escodro.model.Category
+import com.escodro.local.model.Category
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single

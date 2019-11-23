@@ -1,4 +1,4 @@
-package com.escodro.model
+package com.escodro.local.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

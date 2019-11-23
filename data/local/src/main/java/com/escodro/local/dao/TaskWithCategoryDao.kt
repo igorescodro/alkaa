@@ -2,7 +2,7 @@ package com.escodro.local.dao
 
 import androidx.room.Dao
 import androidx.room.Query
-import com.escodro.model.TaskWithCategory
+import com.escodro.local.model.TaskWithCategory
 import io.reactivex.Flowable
 
 /**

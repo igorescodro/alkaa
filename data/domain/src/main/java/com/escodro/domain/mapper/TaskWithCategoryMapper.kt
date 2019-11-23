@@ -1,7 +1,7 @@
 package com.escodro.domain.mapper
 
 import com.escodro.domain.viewdata.ViewData
-import com.escodro.model.TaskWithCategory
+import com.escodro.local.model.TaskWithCategory
 
 /**
  * Converts between the [TaskWithCategory] model from the database and [ViewData.TaskWithCategory]

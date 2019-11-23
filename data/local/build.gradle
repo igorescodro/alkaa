@@ -16,7 +16,6 @@ android {
 
 dependencies {
     implementation project(":libraries:core")
-    implementation project(":data:model")
 
     implementation Deps.koin.core
     implementation Deps.android.room.runtime

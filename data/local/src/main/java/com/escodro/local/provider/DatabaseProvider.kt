@@ -8,7 +8,7 @@ import com.escodro.core.extension.getStringColor
 import com.escodro.local.R
 import com.escodro.local.TaskDatabase
 import com.escodro.local.migration.MIGRATION_1_2
-import com.escodro.model.Category
+import com.escodro.local.model.Category
 import java.util.concurrent.Executors
 
 /**

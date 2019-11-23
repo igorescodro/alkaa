@@ -10,7 +10,7 @@ import com.escodro.alkaa.framework.AcceptanceTest
 import com.escodro.alkaa.framework.extension.waitForLauncher
 import com.escodro.alkaa.ui.main.MainActivity
 import com.escodro.domain.mapper.TaskMapper
-import com.escodro.model.Task
+import com.escodro.local.model.Task
 import java.util.Calendar
 import org.junit.After
 import org.junit.Assert.assertEquals

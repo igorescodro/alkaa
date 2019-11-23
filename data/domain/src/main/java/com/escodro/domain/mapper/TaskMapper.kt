@@ -1,7 +1,7 @@
 package com.escodro.domain.mapper
 
 import com.escodro.domain.viewdata.ViewData
-import com.escodro.model.Task
+import com.escodro.local.model.Task
 
 /**
  * Converts between the [Task] model from the database and [ViewData.Task] UI object.

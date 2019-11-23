@@ -7,8 +7,8 @@ import com.escodro.local.converter.DateConverter
 import com.escodro.local.dao.CategoryDao
 import com.escodro.local.dao.TaskDao
 import com.escodro.local.dao.TaskWithCategoryDao
-import com.escodro.model.Category
-import com.escodro.model.Task
+import com.escodro.local.model.Category
+import com.escodro.local.model.Task
 
 /**
  * [Task] Database class.

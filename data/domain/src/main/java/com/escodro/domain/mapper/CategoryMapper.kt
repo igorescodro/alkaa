@@ -1,7 +1,7 @@
 package com.escodro.domain.mapper
 
 import com.escodro.domain.viewdata.ViewData
-import com.escodro.model.Category
+import com.escodro.local.model.Category
 
 /**
  * Converts between the [Category] model from the database and [ViewData.Category] UI object.

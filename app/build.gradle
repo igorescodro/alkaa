@@ -55,7 +55,6 @@ dependencies {
     implementation project(":libraries:splitInstall")
     implementation project(":data:local")
     implementation project(":data:domain")
-    implementation project(":data:model")
     implementation project(":features:task")
     implementation project(":features:alarm")
     implementation project(":features:category")

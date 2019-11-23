@@ -2,8 +2,6 @@ package com.escodro.local.model
 
 import androidx.room.Embedded
 import androidx.room.Entity
-import com.escodro.model.Category
-import com.escodro.model.Task
 
 /**
  * [Entity] to represent a wrapper of [Task] and [Category].

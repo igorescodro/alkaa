@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/igorescodro/alkaa.svg?branch=master)](https://travis-ci.org/igorescodro/alkaa)
+[![Build Status](https://travis-ci.com/igorescodro/alkaa.svg?branch=master)](https://travis-ci.com/igorescodro/alkaa)
 <a href="https://ktlint.github.io/"><img src="https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg" alt="ktlint"></a>
 <a href="https://codebeat.co/projects/github-com-igorescodro-alkaa-master"><img alt="codebeat badge" src="https://codebeat.co/badges/e742f8bf-2047-4a59-bdb4-14ed2b1d9d28" /></a>
 
@@ -30,6 +30,7 @@ Currently, this project covers the following topics:
 - [ConstraintLayout](https://developer.android.com/training/constraint-layout/)
 - [Android KTX](https://developer.android.com/kotlin/ktx)
 - [Modularization](https://www.youtube.com/watch?v=PZBg5DIzNww)
+- [Dynamic Delivery](https://developer.android.com/studio/projects/dynamic-delivery)
 
 #### Third-Party
 - [Koin](https://insert-koin.io)

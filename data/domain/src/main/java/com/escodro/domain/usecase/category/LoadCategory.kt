@@ -18,7 +18,7 @@ class LoadCategory(private val daoProvider: DaoProvider, private val mapper: Cat
      */
     operator fun invoke(categoryId: Long) =
         daoProvider.getCategoryDao()
-            .findCategory(categoryId)
+            .findCategoryById(categoryId)
             .map { mapper.toViewCategory(it) }
             .applySchedulers()
 }

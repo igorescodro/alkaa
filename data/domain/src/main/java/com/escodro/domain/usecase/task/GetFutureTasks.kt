@@ -18,7 +18,7 @@ class GetFutureTasks(private val daoProvider: DaoProvider, private val mapper: T
      */
     operator fun invoke(): Single<MutableList<ViewData.Task>> =
         daoProvider.getTaskDao()
-            .getAllTasksWithDueDate()
+            .findAllTasksWithDueDate()
             .flattenAsObservable { it }
             .filter { isInFuture(it.dueDate) }
             .map { mapper.toViewTask(it) }

@@ -34,11 +34,11 @@ internal class CategoryLocalDataSource(
         categoryDao.cleanTable()
 
     override fun findAllCategories(): Flowable<List<Category>> =
-        categoryDao.getAllCategories().map { categoryMapper.toRepo(it) }
+        categoryDao.findAllCategories().map { categoryMapper.toRepo(it) }
 
     override fun findCategoryByName(name: String): Single<Category> =
         categoryDao.findCategoryByName(name).map { categoryMapper.toRepo(it) }
 
     override fun findCategoryById(categoryId: Long): Single<Category> =
-        categoryDao.findCategory(categoryId).map { categoryMapper.toRepo(it) }
+        categoryDao.findCategoryById(categoryId).map { categoryMapper.toRepo(it) }
 }

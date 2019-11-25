@@ -29,10 +29,10 @@ internal class TaskLocalDataSource(daoProvider: DaoProvider, private val taskMap
         taskDao.cleanTable()
 
     override fun findAllTasksWithDueDate(): Single<List<Task>> =
-        taskDao.getAllTasksWithDueDate().map { taskMapper.toRepo(it) }
+        taskDao.findAllTasksWithDueDate().map { taskMapper.toRepo(it) }
 
     override fun findAllTasks(): Flowable<List<Task>> =
-        taskDao.getAllTasks().map { taskMapper.toRepo(it) }
+        taskDao.findAllTasks().map { taskMapper.toRepo(it) }
 
     override fun findTaskByTitle(title: String): Single<Task> =
         taskDao.findTaskByTitle(title).map { taskMapper.toRepo(it) }

@@ -23,7 +23,7 @@ interface CategoryDao {
      * @return all inserted categories.
      */
     @Query("SELECT * FROM category")
-    fun getAllCategories(): Flowable<MutableList<Category>>
+    fun findAllCategories(): Flowable<MutableList<Category>>
 
     /**
      * Inserts a new category.
@@ -77,5 +77,5 @@ interface CategoryDao {
      * @param categoryId category id
      */
     @Query("SELECT * FROM category WHERE category_id = :categoryId")
-    fun findCategory(categoryId: Long): Single<Category>
+    fun findCategoryById(categoryId: Long): Single<Category>
 }

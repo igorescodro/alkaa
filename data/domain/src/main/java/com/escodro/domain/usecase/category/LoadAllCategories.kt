@@ -18,7 +18,7 @@ class LoadAllCategories(private val daoProvider: DaoProvider, private val mapper
      */
     operator fun invoke(): Flowable<List<ViewData.Category>> =
         daoProvider.getCategoryDao()
-            .getAllCategories()
+            .findAllCategories()
             .map { mapper.toViewCategory(it) }
             .applySchedulers()
 }

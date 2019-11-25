@@ -23,7 +23,7 @@ class LoadTasksByCategory(
      */
     operator fun invoke(categoryId: Long): Flowable<List<ViewData.TaskWithCategory>> =
         daoProvider.getCategoryDao()
-            .findCategory(categoryId)
+            .findCategoryById(categoryId)
             .flatMapPublisher { getAllTasksWithCategoryId(it.id) }
             .applySchedulers()
 

@@ -19,11 +19,11 @@ interface TaskWithCategoryDao {
      * @return all inserted tasks with category
      */
     @Query(
-        """SELECT * FROM task 
+        """SELECT * FROM task
             LEFT JOIN category ON task_category_id = category_id
             WHERE task_is_completed = :isCompleted"""
     )
-    fun getAllTasksWithCategory(isCompleted: Boolean): Flowable<MutableList<TaskWithCategory>>
+    fun getAllTasksWithCategory(isCompleted: Boolean): Flowable<List<TaskWithCategory>>
 
     /**
      * Get all inserted tasks related with the given category.
@@ -33,10 +33,10 @@ interface TaskWithCategoryDao {
      * @return all inserted tasks with category
      */
     @Query(
-        """SELECT * FROM task 
+        """SELECT * FROM task
             LEFT JOIN category ON task_category_id = category_id
-            WHERE task_category_id = :categoryId 
+            WHERE task_category_id = :categoryId
             AND task_is_completed = 0"""
     )
-    fun getAllTasksWithCategoryId(categoryId: Long): Flowable<MutableList<TaskWithCategory>>
+    fun getAllTasksWithCategoryId(categoryId: Long): Flowable<List<TaskWithCategory>>
 }

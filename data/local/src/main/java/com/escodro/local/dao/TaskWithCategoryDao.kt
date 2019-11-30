@@ -23,7 +23,7 @@ interface TaskWithCategoryDao {
             LEFT JOIN category ON task_category_id = category_id
             WHERE task_is_completed = :isCompleted"""
     )
-    fun getAllTasksWithCategory(isCompleted: Boolean): Flowable<List<TaskWithCategory>>
+    fun findAllTasksWithCategory(isCompleted: Boolean): Flowable<List<TaskWithCategory>>
 
     /**
      * Get all inserted tasks related with the given category.
@@ -38,5 +38,5 @@ interface TaskWithCategoryDao {
             WHERE task_category_id = :categoryId
             AND task_is_completed = 0"""
     )
-    fun getAllTasksWithCategoryId(categoryId: Long): Flowable<List<TaskWithCategory>>
+    fun findAllTasksWithCategoryId(categoryId: Long): Flowable<List<TaskWithCategory>>
 }

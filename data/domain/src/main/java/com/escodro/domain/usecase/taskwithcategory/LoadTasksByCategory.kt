@@ -29,6 +29,6 @@ class LoadTasksByCategory(
 
     private fun getAllTasksWithCategoryId(categoryId: Long) =
         daoProvider.getTaskWithCategoryDao()
-            .getAllTasksWithCategoryId(categoryId)
+            .findAllTasksWithCategoryId(categoryId)
             .map { category -> mapper.toViewTask(category) }
 }

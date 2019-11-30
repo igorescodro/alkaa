@@ -21,7 +21,7 @@ class LoadUncompletedTasks(
      */
     operator fun invoke(): Flowable<List<ViewData.TaskWithCategory>> =
         daoProvider.getTaskWithCategoryDao()
-            .getAllTasksWithCategory(isCompleted = false)
+            .findAllTasksWithCategory(isCompleted = false)
             .map { mapper.toViewTask(it) }
             .applySchedulers()
 }

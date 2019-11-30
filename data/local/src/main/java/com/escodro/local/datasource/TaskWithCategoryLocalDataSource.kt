@@ -17,8 +17,8 @@ internal class TaskWithCategoryLocalDataSource(
     private val taskWithCategoryDao = daoProvider.getTaskWithCategoryDao()
 
     override fun findAllTasksWithCategory(isCompleted: Boolean): Flowable<List<TaskWithCategory>> =
-        taskWithCategoryDao.getAllTasksWithCategory(isCompleted).map { mapper.toRepo(it) }
+        taskWithCategoryDao.findAllTasksWithCategory(isCompleted).map { mapper.toRepo(it) }
 
     override fun findAllTasksWithCategoryId(categoryId: Long): Flowable<List<TaskWithCategory>> =
-        taskWithCategoryDao.getAllTasksWithCategoryId(categoryId).map { mapper.toRepo(it) }
+        taskWithCategoryDao.findAllTasksWithCategoryId(categoryId).map { mapper.toRepo(it) }
 }

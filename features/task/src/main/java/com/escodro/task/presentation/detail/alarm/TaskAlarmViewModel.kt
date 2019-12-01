@@ -34,7 +34,7 @@ internal class TaskAlarmViewModel(
         taskData.value?.let {
             it.dueDate = alarm
             taskProvider.updateTask(it)
-            alarmManager.scheduleTaskAlarm(it)
+            alarmManager.scheduleTaskAlarm(it.id, it.dueDate?.time?.time)
         }
     }
 

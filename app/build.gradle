@@ -54,6 +54,7 @@ dependencies {
     implementation project(":libraries:navigation")
     implementation project(":libraries:splitInstall")
     implementation project(":data:local")
+    implementation project(":data:repository")
     implementation project(":data:domain")
     implementation project(":features:task")
     implementation project(":features:alarm")

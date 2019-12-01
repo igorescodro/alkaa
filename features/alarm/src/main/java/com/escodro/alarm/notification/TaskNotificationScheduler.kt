@@ -17,24 +17,25 @@ class TaskNotificationScheduler(private val context: Context) {
     /**
      * Schedules a task notification based on the due date.
      *
-     * @param task task to be scheduled
+     * @param taskId task id to be scheduled
+     * @param timeInMillis the time to the alarm be scheduled
      */
-    fun scheduleTaskAlarm(task: ViewData.Task) {
+    fun scheduleTaskAlarm(taskId: Long, timeInMillis: Long?) {
         val receiverIntent = Intent(context, TaskReceiver::class.java).apply {
             action = TaskReceiver.ALARM_ACTION
-            putExtra(TaskReceiver.EXTRA_TASK, task.id)
+            putExtra(TaskReceiver.EXTRA_TASK, taskId)
         }
 
         val pendingIntent = PendingIntent.getBroadcast(
             context,
-            task.id.toInt(),
+            taskId.toInt(),
             receiverIntent,
             PendingIntent.FLAG_CANCEL_CURRENT
         )
 
-        task.dueDate?.time?.time?.let {
-            Timber.d("Scheduling notification for '${task.title}' at '${task.dueDate?.time}'")
-            context.setAlarm(it, pendingIntent)
+        timeInMillis?.let {
+            Timber.d("Scheduling notification for '$taskId' at '$timeInMillis'")
+            context.setAlarm(timeInMillis, pendingIntent)
         }
     }
 

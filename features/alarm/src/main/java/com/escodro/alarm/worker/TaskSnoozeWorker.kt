@@ -20,7 +20,7 @@ internal class TaskSnoozeWorker(context: Context, params: WorkerParameters) :
     override fun getObservable(): Completable {
         val taskId = inputData.getLong(TaskReceiver.EXTRA_TASK, 0)
 
-        return snoozeTaskUseCase(taskId, SNOOZE_MINUTES)
+        return snoozeTaskUseCase.test(taskId, SNOOZE_MINUTES)
     }
 
     override fun onSuccess() {

@@ -9,7 +9,6 @@ import com.escodro.alkaa.R
 import com.escodro.alkaa.framework.AcceptanceTest
 import com.escodro.alkaa.framework.extension.waitForLauncher
 import com.escodro.alkaa.ui.main.MainActivity
-import com.escodro.domain.mapper.TaskMapper
 import com.escodro.local.model.Task
 import java.util.Calendar
 import org.junit.After
@@ -128,9 +127,7 @@ class NotificationTest : AcceptanceTest<MainActivity>(MainActivity::class.java) 
             calendar.add(Calendar.SECOND, 3)
             dueDate = calendar
             daoProvider.getTaskDao().insertTask(this).blockingGet()
-
-            val viewData = TaskMapper().toViewTask(this)
-            alarmManager.scheduleTaskAlarm(viewData)
+            alarmManager.scheduleTaskAlarm(this.id, this.dueDate?.time?.time)
             this
         }
 

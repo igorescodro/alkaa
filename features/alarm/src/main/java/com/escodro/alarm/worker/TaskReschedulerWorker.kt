@@ -3,9 +3,10 @@ package com.escodro.alarm.worker
 import android.content.Context
 import androidx.work.Worker
 import androidx.work.WorkerParameters
+import com.escodro.alarm.TaskMapper
+import com.escodro.alarm.model.Task
 import com.escodro.alarm.notification.TaskNotificationScheduler
 import com.escodro.domain.usecase.task.GetFutureTasks
-import com.escodro.domain.viewdata.ViewData
 import io.reactivex.Single
 import org.koin.core.inject
 import timber.log.Timber
@@ -14,19 +15,21 @@ import timber.log.Timber
  * [Worker] to reschedule the Task alarms.
  */
 internal class TaskReschedulerWorker(context: Context, params: WorkerParameters) :
-    SingleWorker<MutableList<ViewData.Task>>(context, params) {
+    SingleWorker<List<Task>>(context, params) {
 
     private val getFutureTasksUseCase: GetFutureTasks by inject()
 
     private val taskAlarmManager: TaskNotificationScheduler by inject()
 
-    override fun getObservable(): Single<MutableList<ViewData.Task>> =
-        getFutureTasksUseCase()
+    private val taskMapper: TaskMapper by inject()
 
-    override fun onSuccess(result: MutableList<ViewData.Task>) {
+    override fun getObservable(): Single<List<Task>> =
+        getFutureTasksUseCase.test().map { taskMapper.fromDomain(it) }
+
+    override fun onSuccess(result: List<Task>) {
         result.forEach {
-            Timber.d("Task '${it.title} reescheduled for '${it.dueDate}")
-            taskAlarmManager.scheduleTaskAlarm(it)
+            Timber.d("Task '${it.title} rescheduled to '${it.dueDate}")
+            taskAlarmManager.scheduleTaskAlarm(it.id, it.dueDate?.time?.time)
         }
     }
 

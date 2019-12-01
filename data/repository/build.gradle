@@ -1,5 +1,6 @@
 apply from: "$rootDir/config/dependencies/feature_dependencies.gradle"
 
 dependencies {
+    implementation Deps.koin.core
     implementation Deps.rx.java
 }

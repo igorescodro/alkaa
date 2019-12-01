@@ -20,7 +20,7 @@ internal class TaskCompletedWorker(context: Context, params: WorkerParameters) :
     override fun getObservable(): Completable {
         val taskId = inputData.getLong(TaskReceiver.EXTRA_TASK, 0)
 
-        return completeTaskUseCase(taskId)
+        return completeTaskUseCase.test(taskId)
     }
 
     override fun onSuccess() {

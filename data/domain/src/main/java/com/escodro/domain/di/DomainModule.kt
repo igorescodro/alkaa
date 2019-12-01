@@ -37,10 +37,10 @@ val domainModule = module {
     single { SnoozeTask(get(), get(), get()) }
     single { UpdateTask(get(), get(), get()) }
 
-    single { DeleteCategory(get(), get()) }
-    single { LoadAllCategories(get(), get()) }
-    single { LoadCategory(get(), get()) }
-    single { SaveCategory(get(), get()) }
+    single { DeleteCategory(get(), get(), get()) }
+    single { LoadAllCategories(get(), get(), get()) }
+    single { LoadCategory(get(), get(), get()) }
+    single { SaveCategory(get(), get(), get()) }
 
     single { LoadTasksByCategory(get(), get()) }
     single { LoadCompletedTasks(get(), get()) }

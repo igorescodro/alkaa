@@ -2,12 +2,17 @@ package com.escodro.domain.usecase.category
 
 import com.escodro.core.extension.applySchedulers
 import com.escodro.domain.mapper.CategoryMapper
+import com.escodro.domain.repository.CategoryRepository
 import com.escodro.local.provider.DaoProvider
 
 /**
  * Use case to load a specific category from the database.
  */
-class LoadCategory(private val daoProvider: DaoProvider, private val mapper: CategoryMapper) {
+class LoadCategory(
+    private val categoryRepository: CategoryRepository,
+    private val daoProvider: DaoProvider,
+    private val mapper: CategoryMapper
+) {
 
     /**
      * Loads the category based on the given id.
@@ -21,4 +26,8 @@ class LoadCategory(private val daoProvider: DaoProvider, private val mapper: Cat
             .findCategoryById(categoryId)
             .map { mapper.toViewCategory(it) }
             .applySchedulers()
+
+    @Suppress("UndocumentedPublicFunction")
+    fun test(categoryId: Long) =
+        categoryRepository.findCategoryById(categoryId).applySchedulers()
 }

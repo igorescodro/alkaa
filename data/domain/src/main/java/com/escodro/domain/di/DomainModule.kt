@@ -46,7 +46,7 @@ val domainModule = module {
     single { LoadCompletedTasks(get(), get(), get()) }
     single { LoadUncompletedTasks(get(), get(), get()) }
 
-    single { LoadCompletedTasksByPeriod(get()) }
+    single { LoadCompletedTasksByPeriod(get(), get()) }
 
     single { CategoryMapper() }
     single { TaskMapper() }

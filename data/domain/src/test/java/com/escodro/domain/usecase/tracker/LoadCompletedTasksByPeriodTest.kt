@@ -1,5 +1,6 @@
 package com.escodro.domain.usecase.tracker
 
+import com.escodro.domain.repository.TaskWithCategoryRepository
 import com.escodro.domain.usecase.taskwithcategory.LoadCompletedTasks
 import com.escodro.domain.viewdata.ViewData
 import com.escodro.test.ImmediateSchedulerRule
@@ -18,7 +19,9 @@ class LoadCompletedTasksByPeriodTest {
 
     private val mockCompletedTasks = mockk<LoadCompletedTasks>(relaxed = true)
 
-    private val completeTracker = LoadCompletedTasksByPeriod(mockCompletedTasks)
+    private val mockRepo = mockk<TaskWithCategoryRepository>(relaxed = true)
+
+    private val completeTracker = LoadCompletedTasksByPeriod(mockRepo, mockCompletedTasks)
 
     @Test
     fun `check if completed tasks are shown in group`() {

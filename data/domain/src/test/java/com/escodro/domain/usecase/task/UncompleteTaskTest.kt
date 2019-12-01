@@ -1,5 +1,6 @@
 package com.escodro.domain.usecase.task
 
+import com.escodro.domain.repository.TaskRepository
 import com.escodro.domain.viewdata.ViewData
 import com.escodro.test.ImmediateSchedulerRule
 import io.mockk.every
@@ -16,11 +17,13 @@ class UncompleteTaskTest {
 
     private val mockTask = mockk<ViewData.Task>(relaxed = true)
 
+    private val mockTaskRepo = mockk<TaskRepository>(relaxed = true)
+
     private val mockGetTask = mockk<GetTask>(relaxed = true)
 
     private val mockUpdateTask = mockk<UpdateTask>(relaxed = true)
 
-    private val uncompleteTask = UncompleteTask(mockGetTask, mockUpdateTask)
+    private val uncompleteTask = UncompleteTask(mockTaskRepo, mockGetTask, mockUpdateTask)
 
     @Test
     fun `check if task was uncompleted`() {

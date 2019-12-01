@@ -1,15 +1,15 @@
-package com.escodro.repository.datasource
+package com.escodro.domain.repository
 
-import com.escodro.repository.model.Task
+import com.escodro.domain.model.Task
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
 import org.jetbrains.annotations.TestOnly
 
 /**
- * Interface to represent the implementation of Task data source.
+ * Interface to represent the implementation of Task repository.
  */
-interface TaskDataSource {
+interface TaskRepository {
 
     /**
      * Inserts a new task.

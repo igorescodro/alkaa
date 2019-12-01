@@ -1,6 +1,7 @@
 package com.escodro.domain.usecase.task
 
 import com.escodro.domain.calendar.TaskCalendar
+import com.escodro.domain.repository.TaskRepository
 import com.escodro.domain.viewdata.ViewData
 import com.escodro.test.ImmediateSchedulerRule
 import io.mockk.every
@@ -18,13 +19,15 @@ class CompleteTaskTest {
 
     private val mockTask = mockk<ViewData.Task>(relaxed = true)
 
+    private val mockTaskRepo = mockk<TaskRepository>(relaxed = true)
+
     private val mockGetTask = mockk<GetTask>(relaxed = true)
 
     private val mockUpdateTask = mockk<UpdateTask>(relaxed = true)
 
     private val mockCalendar = mockk<TaskCalendar>(relaxed = true)
 
-    private val completeTask = CompleteTask(mockGetTask, mockUpdateTask, mockCalendar)
+    private val completeTask = CompleteTask(mockTaskRepo, mockGetTask, mockUpdateTask, mockCalendar)
 
     @Test
     fun `check if task was completed`() {

@@ -27,15 +27,15 @@ import org.koin.dsl.module
  * Domain dependency injection module.
  */
 val domainModule = module {
-    single { AddTask(get(), get(), get()) }
-    single { CompleteTask(get(), get(), get()) }
-    single { UncompleteTask(get(), get()) }
+    single { AddTask(get(), get(), get(), get()) }
+    single { CompleteTask(get(), get(), get(), get()) }
+    single { UncompleteTask(get(), get(), get()) }
     single { UpdateTaskStatus(get(), get()) }
-    single { DeleteTask(get(), get()) }
-    single { GetFutureTasks(get(), get()) }
-    single { GetTask(get(), get()) }
-    single { SnoozeTask(get(), get()) }
-    single { UpdateTask(get(), get()) }
+    single { DeleteTask(get(), get(), get()) }
+    single { GetFutureTasks(get(), get(), get()) }
+    single { GetTask(get(), get(), get()) }
+    single { SnoozeTask(get(), get(), get()) }
+    single { UpdateTask(get(), get(), get()) }
 
     single { DeleteCategory(get(), get()) }
     single { LoadAllCategories(get(), get()) }

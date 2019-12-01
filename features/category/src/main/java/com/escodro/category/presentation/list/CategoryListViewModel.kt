@@ -1,9 +1,10 @@
 package com.escodro.category.presentation.list
 
 import androidx.lifecycle.ViewModel
+import com.escodro.category.mapper.CategoryMapper
+import com.escodro.category.model.Category
 import com.escodro.domain.usecase.category.DeleteCategory
 import com.escodro.domain.usecase.category.LoadAllCategories
-import com.escodro.domain.viewdata.ViewData
 import io.reactivex.disposables.CompositeDisposable
 
 /**
@@ -12,7 +13,8 @@ import io.reactivex.disposables.CompositeDisposable
  */
 internal class CategoryListViewModel(
     private val loadCategoriesUseCase: LoadAllCategories,
-    private val deleteCategoryUseCase: DeleteCategory
+    private val deleteCategoryUseCase: DeleteCategory,
+    private val categoryMapper: CategoryMapper
 ) : ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()
@@ -20,8 +22,13 @@ internal class CategoryListViewModel(
     /**
      * Loads all categories.
      */
-    fun loadCategories(onListLoaded: (list: List<ViewData.Category>) -> Unit) {
-        val disposable = loadCategoriesUseCase().subscribe { onListLoaded(it) }
+    fun loadCategories(onListLoaded: (list: List<Category>) -> Unit) {
+        val disposable =
+            loadCategoriesUseCase.test()
+                .map { categoryMapper.fromDomain(it) }
+                .subscribe {
+                    onListLoaded(it)
+                }
         compositeDisposable.add(disposable)
     }
 
@@ -30,8 +37,11 @@ internal class CategoryListViewModel(
      *
      * @param category category to be removed
      */
-    fun deleteCategory(category: ViewData.Category) {
-        val disposable = deleteCategoryUseCase(category).subscribe()
+    fun deleteCategory(category: Category) {
+        val disposable = deleteCategoryUseCase
+            .test(categoryMapper.toDomain(category))
+            .subscribe()
+
         compositeDisposable.add(disposable)
     }
 

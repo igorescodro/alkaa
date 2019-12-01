@@ -3,7 +3,7 @@ package com.escodro.alarm.worker
 import android.content.Context
 import androidx.work.Worker
 import androidx.work.WorkerParameters
-import com.escodro.alarm.TaskMapper
+import com.escodro.alarm.mapper.TaskMapper
 import com.escodro.alarm.model.Task
 import com.escodro.alarm.notification.TaskNotificationScheduler
 import com.escodro.domain.usecase.task.GetFutureTasks

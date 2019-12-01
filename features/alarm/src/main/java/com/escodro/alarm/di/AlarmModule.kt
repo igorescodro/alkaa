@@ -1,6 +1,6 @@
 package com.escodro.alarm.di
 
-import com.escodro.alarm.TaskMapper
+import com.escodro.alarm.mapper.TaskMapper
 import com.escodro.alarm.notification.TaskNotification
 import com.escodro.alarm.notification.TaskNotificationChannel
 import com.escodro.alarm.notification.TaskNotificationScheduler

@@ -1,4 +1,4 @@
-package com.escodro.alarm
+package com.escodro.alarm.mapper
 
 import com.escodro.alarm.model.Task as ViewTask
 import com.escodro.domain.model.Task as DomainTask

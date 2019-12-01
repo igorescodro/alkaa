@@ -10,10 +10,10 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.escodro.category.R
+import com.escodro.category.model.Category
 import com.escodro.core.extension.dialog
 import com.escodro.core.extension.negativeButton
 import com.escodro.core.extension.positiveButton
-import com.escodro.domain.viewdata.ViewData
 import kotlinx.android.synthetic.main.fragment_category_list.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
@@ -59,7 +59,7 @@ internal class CategoryListFragment : Fragment() {
     private fun getLayoutManager() =
         GridLayoutManager(context, NUMBER_OF_COLUMNS)
 
-    private fun updateList(list: List<ViewData.Category>) {
+    private fun updateList(list: List<Category>) {
         Timber.d("updateList() - Size = ${list.size}")
 
         if (list.isEmpty()) {
@@ -73,7 +73,7 @@ internal class CategoryListFragment : Fragment() {
         adapter.submitList(list)
     }
 
-    private fun onOptionMenuClicked(view: View, category: ViewData.Category) {
+    private fun onOptionMenuClicked(view: View, category: Category) {
         Timber.d("onOptionMenuClicked() - clicked = ${category.name}")
 
         val popupMenu = context?.let { PopupMenu(it, view) }
@@ -83,7 +83,7 @@ internal class CategoryListFragment : Fragment() {
         popupMenu?.show()
     }
 
-    private fun onMenuItemClicked(category: ViewData.Category) =
+    private fun onMenuItemClicked(category: Category) =
         PopupMenu.OnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.key_action_remove_category -> confirmRemoval(category)
@@ -92,7 +92,7 @@ internal class CategoryListFragment : Fragment() {
             true
         }
 
-    private fun confirmRemoval(category: ViewData.Category) {
+    private fun confirmRemoval(category: Category) {
         val description = getString(R.string.category_list_dialog_remove_description, category.name)
 
         dialog(R.string.category_list_dialog_remove_title, description) {
@@ -101,12 +101,12 @@ internal class CategoryListFragment : Fragment() {
         }.show()
     }
 
-    private fun editCategory(category: ViewData.Category) {
+    private fun editCategory(category: Category) {
         val action = CategoryListFragmentDirections.actionNewCategory(category.id)
         navigator?.navigate(action)
     }
 
-    private fun removeCategory(category: ViewData.Category) {
+    private fun removeCategory(category: Category) {
         viewModel.deleteCategory(category)
     }
 

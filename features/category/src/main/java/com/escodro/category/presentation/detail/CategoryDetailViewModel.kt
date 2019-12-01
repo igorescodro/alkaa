@@ -4,10 +4,11 @@ import android.text.TextUtils
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.escodro.category.mapper.CategoryMapper
+import com.escodro.category.model.Category
 import com.escodro.core.extension.toStringColor
 import com.escodro.domain.usecase.category.LoadCategory
 import com.escodro.domain.usecase.category.SaveCategory
-import com.escodro.domain.viewdata.ViewData
 import io.reactivex.disposables.CompositeDisposable
 import timber.log.Timber
 
@@ -16,12 +17,13 @@ import timber.log.Timber
  */
 internal class CategoryDetailViewModel(
     private val loadCategoryUseCase: LoadCategory,
-    private val saveCategoryUseCase: SaveCategory
+    private val saveCategoryUseCase: SaveCategory,
+    private val categoryMapper: CategoryMapper
 ) : ViewModel() {
 
     val newCategory = MediatorLiveData<String>()
 
-    private val categoryData = MutableLiveData<ViewData.Category>()
+    private val categoryData = MutableLiveData<Category>()
 
     private val compositeDisposable = CompositeDisposable()
 
@@ -35,12 +37,15 @@ internal class CategoryDetailViewModel(
      * @param categoryId categoryId id
      */
     fun loadCategory(categoryId: Long, onLoadCategory: (color: String) -> Unit) {
-        val disposable = loadCategoryUseCase(categoryId).subscribe(
-            { category ->
-                categoryData.value = category
-                category.color?.let { color -> onLoadCategory(color) }
-            },
-            { Timber.e("Category not found in database") })
+        val disposable =
+            loadCategoryUseCase.test(categoryId)
+                .map { categoryMapper.fromDomain(it) }
+                .subscribe(
+                    { category ->
+                        categoryData.value = category
+                        category.color?.let { color -> onLoadCategory(color) }
+                    },
+                    { Timber.e("Category not found in database") })
 
         compositeDisposable.add(disposable)
     }
@@ -67,7 +72,7 @@ internal class CategoryDetailViewModel(
             getNewCategory(name, color)
         }
 
-        val disposable = saveCategoryUseCase(category)
+        val disposable = saveCategoryUseCase.test(categoryMapper.toDomain(category))
             .doOnComplete { onCategoryAdded() }
             .subscribe()
 
@@ -76,14 +81,12 @@ internal class CategoryDetailViewModel(
 
     private fun isEditMode() = categoryData.value != null
 
-    private fun getNewCategory(name: String, color: String) =
-        ViewData.Category(name = name, color = color)
+    private fun getNewCategory(name: String, color: String): Category =
+        Category(name = name, color = color)
 
-    private fun getCurrentCategory(name: String, color: String) =
-        categoryData.apply {
-            value?.name = name
-            value?.color = color
-        }.value ?: getNewCategory(name, color)
+    private fun getCurrentCategory(name: String, color: String): Category =
+        categoryData.value?.copy(name = name, color = color)
+            ?: getNewCategory(name, color)
 
     override fun onCleared() {
         super.onCleared()

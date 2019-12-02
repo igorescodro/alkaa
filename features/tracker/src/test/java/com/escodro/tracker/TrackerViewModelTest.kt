@@ -4,7 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.escodro.domain.usecase.tracker.LoadCompletedTasksByPeriod
 import com.escodro.domain.viewdata.ViewData
-import com.escodro.tracker.model.mapper.TrackerMapper
+import com.escodro.tracker.mapper.TrackerMapper
 import com.escodro.tracker.presentation.TrackerUIState
 import com.escodro.tracker.presentation.TrackerViewModel
 import io.mockk.every

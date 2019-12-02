@@ -1,10 +1,10 @@
-package com.escodro.tracker.model.mapper
+package com.escodro.tracker.mapper
 
-import com.escodro.domain.viewdata.ViewData
+import com.escodro.domain.model.TaskWithCategory
 import com.escodro.tracker.model.Tracker
 
 /**
- * Converts between the [ViewData.TaskWithCategory] model from the database and [Tracker] UI object.
+ * Maps Tracker between View and Domain.
  */
 internal class TrackerMapper {
 
@@ -15,7 +15,7 @@ internal class TrackerMapper {
      *
      * @return the converted object
      */
-    internal fun toTracker(list: List<ViewData.TaskWithCategory>): Tracker.Info {
+    internal fun toTracker(list: List<TaskWithCategory>): Tracker.Info {
 
         val categories = list.groupBy { task -> task.category?.id }
             .map(::toCategory)
@@ -24,7 +24,7 @@ internal class TrackerMapper {
         return Tracker.Info(count, categories)
     }
 
-    private fun toCategory(map: Map.Entry<Long?, List<ViewData.TaskWithCategory>>):
+    private fun toCategory(map: Map.Entry<Long?, List<TaskWithCategory>>):
         Tracker.Category {
 
         val first = map.value.first()

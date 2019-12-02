@@ -18,7 +18,7 @@ internal class CategoryMapper {
     fun fromRepo(repoCategory: RepoCategory): LocalCategory =
         LocalCategory(
             id = repoCategory.id,
-            name = repoCategory.color,
+            name = repoCategory.name,
             color = repoCategory.color
         )
 
@@ -42,7 +42,7 @@ internal class CategoryMapper {
     fun toRepo(localCategory: LocalCategory): RepoCategory =
         RepoCategory(
             id = localCategory.id,
-            name = localCategory.color,
+            name = localCategory.name,
             color = localCategory.color
         )
 

@@ -80,10 +80,13 @@ class CategoryFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) 
     fun openCategoryMultipleTimes() {
         navigateToCategoryScreen()
         addCategory("Music")
+        events.navigateUp()
         navigateToCategoryScreen()
         addCategory("Books")
+        events.navigateUp()
         navigateToCategoryScreen()
         addCategory("Movies")
+        events.navigateUp()
         navigateToCategoryScreen()
     }
 

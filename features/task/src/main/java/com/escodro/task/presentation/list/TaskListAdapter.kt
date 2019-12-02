@@ -14,7 +14,7 @@ import com.escodro.task.presentation.list.model.ItemEntry
 import com.escodro.task.presentation.list.model.TaskEntry
 
 /**
- * [RecyclerView.Adapter] to bind the [com.escodro.domain.viewdata.ViewData.TaskWithCategory] in the [RecyclerView].
+ * [RecyclerView.Adapter] to bind the [TaskWithCategory] in the [RecyclerView].
  */
 internal class TaskListAdapter(
     private val onItemClicked: (TaskWithCategory) -> Unit,

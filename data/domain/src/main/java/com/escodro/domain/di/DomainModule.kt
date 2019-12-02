@@ -27,7 +27,7 @@ val domainModule = module {
     single { AddTask(get()) }
     single { CompleteTask(get(), get()) }
     single { UncompleteTask(get()) }
-    single { UpdateTaskStatus(get(), get()) }
+    single { UpdateTaskStatus(get(), get(), get()) }
     single { DeleteTask(get()) }
     single { GetFutureTasks(get()) }
     single { GetTask(get()) }

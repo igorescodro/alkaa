@@ -3,7 +3,6 @@ package com.escodro.task.presentation.detail
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.escodro.core.extension.applySchedulers
-import com.escodro.core.extension.notify
 import com.escodro.domain.usecase.task.GetTask
 import com.escodro.domain.usecase.task.UpdateTask
 import com.escodro.task.mapper.TaskMapper
@@ -60,7 +59,7 @@ internal class TaskDetailProvider(
 
         val disposable = updateTaskUseCase(taskMapper.toDomain(task)).subscribe()
 
-        mutableTaskData.notify()
+        mutableTaskData.value = task
         compositeDisposable.add(disposable)
     }
 

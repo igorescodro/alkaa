@@ -18,7 +18,7 @@ internal class CategoryMapper {
     fun toDomain(repoCategory: RepoCategory): DomainCategory =
         DomainCategory(
             id = repoCategory.id,
-            name = repoCategory.color,
+            name = repoCategory.name,
             color = repoCategory.color
         )
 
@@ -42,7 +42,7 @@ internal class CategoryMapper {
     fun toRepo(localCategory: DomainCategory): RepoCategory =
         RepoCategory(
             id = localCategory.id,
-            name = localCategory.color,
+            name = localCategory.name,
             color = localCategory.color
         )
 

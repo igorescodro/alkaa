@@ -16,5 +16,5 @@ class LoadUncompletedTasks(private val repository: TaskWithCategoryRepository) {
      * @return observable to be subscribe
      */
     operator fun invoke(): Flowable<List<TaskWithCategory>> =
-        repository.findAllTasksWithCategory(isCompleted = true).applySchedulers()
+        repository.findAllTasksWithCategory(isCompleted = false).applySchedulers()
 }

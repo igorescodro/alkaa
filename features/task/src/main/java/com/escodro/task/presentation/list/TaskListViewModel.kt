@@ -85,7 +85,7 @@ internal class TaskListViewModel(
      * @param task task to be updated
      */
     fun updateTaskStatus(task: Task) {
-        val disposable = updateStatusUseCase(taskMapper.toDomain(task)).subscribe()
+        val disposable = updateStatusUseCase(task.id).subscribe()
         compositeDisposable.add(disposable)
     }
 

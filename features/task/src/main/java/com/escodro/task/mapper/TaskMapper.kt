@@ -40,6 +40,7 @@ internal class TaskMapper {
             completed = localTask.completed,
             title = localTask.title,
             description = localTask.description,
+            categoryId = localTask.categoryId,
             dueDate = localTask.dueDate,
             creationDate = localTask.creationDate,
             completedDate = localTask.completedDate

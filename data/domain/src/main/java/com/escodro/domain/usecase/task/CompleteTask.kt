@@ -17,6 +17,18 @@ class CompleteTask(
     /**
      * Completes the given task.
      *
+     * @param task the task to be updated
+     *
+     * @return observable to be subscribe
+     */
+    operator fun invoke(task: Task): Completable {
+        val updatedTask = updateTaskAsCompleted(task)
+        return taskRepository.updateTask(updatedTask).applySchedulers()
+    }
+
+    /**
+     * Completes the given task.
+     *
      * @param taskId the task id
      *
      * @return observable to be subscribe

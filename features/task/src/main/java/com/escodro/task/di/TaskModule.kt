@@ -9,10 +9,10 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val taskModule = module {
-    viewModel { TaskListViewModel(get(), get(), get(), get(), get(), get()) }
+    viewModel { TaskListViewModel(get(), get(), get(), get(), get(), get(), get(), get()) }
 
     single { TaskDetailProvider(get(), get()) }
     viewModel { TaskDetailViewModel(get()) }
-    viewModel { TaskCategoryViewModel(get(), get()) }
+    viewModel { TaskCategoryViewModel(get(), get(), get()) }
     viewModel { TaskAlarmViewModel(get(), get()) }
 }

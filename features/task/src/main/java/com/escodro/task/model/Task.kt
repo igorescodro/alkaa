@@ -1,4 +1,4 @@
-package com.escodro.repository.model
+package com.escodro.task.model
 
 import java.util.Calendar
 
@@ -9,7 +9,7 @@ data class Task(
     val id: Long = 0,
     val completed: Boolean = false,
     val title: String,
-    val description: String?,
+    val description: String? = null,
     val categoryId: Long? = null,
     val dueDate: Calendar? = null,
     val creationDate: Calendar? = null,

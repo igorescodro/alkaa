@@ -2,7 +2,8 @@ package com.escodro.task.presentation.detail.category
 
 import androidx.lifecycle.ViewModel
 import com.escodro.domain.usecase.category.LoadAllCategories
-import com.escodro.domain.viewdata.ViewData
+import com.escodro.task.mapper.CategoryMapper
+import com.escodro.task.model.Category
 import com.escodro.task.presentation.detail.TaskDetailProvider
 import io.reactivex.disposables.CompositeDisposable
 import timber.log.Timber
@@ -12,7 +13,8 @@ import timber.log.Timber
  */
 internal class TaskCategoryViewModel(
     private val taskProvider: TaskDetailProvider,
-    private val loadAllCategoriesUseCase: LoadAllCategories
+    private val loadAllCategoriesUseCase: LoadAllCategories,
+    private val categoryMapper: CategoryMapper
 ) : ViewModel() {
 
     val taskData = taskProvider.taskData
@@ -22,8 +24,11 @@ internal class TaskCategoryViewModel(
     /**
      * Load all categories.
      */
-    fun loadCategories(onCategoryListLoaded: (list: List<ViewData.Category>) -> Unit) {
-        val disposable = loadAllCategoriesUseCase().subscribe { onCategoryListLoaded(it) }
+    fun loadCategories(onCategoryListLoaded: (list: List<Category>) -> Unit) {
+        val disposable = loadAllCategoriesUseCase.test()
+            .map { categoryMapper.toView(it) }
+            .subscribe { onCategoryListLoaded(it) }
+
         compositeDisposable.add(disposable)
     }
 

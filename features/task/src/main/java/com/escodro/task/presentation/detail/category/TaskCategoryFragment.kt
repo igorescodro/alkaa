@@ -8,8 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import com.escodro.domain.viewdata.ViewData
 import com.escodro.task.R
+import com.escodro.task.model.Category
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import kotlinx.android.synthetic.main.fragment_task_detail_category.*
@@ -37,7 +37,7 @@ internal class TaskCategoryFragment : Fragment() {
         chipgrp_taskdetail_category.setOnCheckedChangeListener(::updateTaskWithCategory)
     }
 
-    private fun updateCategoryChips(list: List<ViewData.Category>) {
+    private fun updateCategoryChips(list: List<Category>) {
         Timber.d("updateCategoryChips() - Size = ${list.size}")
 
         val chipGroup = chipgrp_taskdetail_category
@@ -49,7 +49,7 @@ internal class TaskCategoryFragment : Fragment() {
         }
     }
 
-    private fun createChipGroup(list: List<ViewData.Category>, chipGroup: ChipGroup) {
+    private fun createChipGroup(list: List<Category>, chipGroup: ChipGroup) {
         list.forEach { category ->
             val chip = createChip(category)
             chipGroup.addView(chip)
@@ -59,7 +59,7 @@ internal class TaskCategoryFragment : Fragment() {
         viewModel.taskData.observe(this, Observer { updateCheckedChip(list, chipGroup) })
     }
 
-    private fun updateCheckedChip(list: List<ViewData.Category>, chipGroup: ChipGroup) {
+    private fun updateCheckedChip(list: List<Category>, chipGroup: ChipGroup) {
         val checked = list.withIndex().firstOrNull {
             it.value.id == viewModel.taskData.value?.categoryId
         }
@@ -78,7 +78,7 @@ internal class TaskCategoryFragment : Fragment() {
         return
     }
 
-    private fun createChip(category: ViewData.Category) =
+    private fun createChip(category: Category) =
         Chip(context).apply {
             text = category.name
             tag = category.id
@@ -91,12 +91,12 @@ internal class TaskCategoryFragment : Fragment() {
             setTextColor(context.getColorStateList(R.color.chip_text))
         }
 
-    private fun getChipBackgroundColors(category: ViewData.Category): ColorStateList {
+    private fun getChipBackgroundColors(category: Category): ColorStateList {
         val colors = intArrayOf(Color.parseColor(category.color), Color.WHITE)
         return ColorStateList(chipStates, colors)
     }
 
-    private fun getChipTextColors(category: ViewData.Category): ColorStateList {
+    private fun getChipTextColors(category: Category): ColorStateList {
         val colors = context?.let {
             intArrayOf(Color.parseColor(category.color), it.getColor(R.color.gray_light))
         }

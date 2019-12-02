@@ -1,12 +1,12 @@
 package com.escodro.task.presentation.list.model
 
 import com.escodro.core.databinding.BindingHolder
-import com.escodro.domain.viewdata.ViewData
+import com.escodro.task.model.TaskWithCategory
 
 /**
  * Abstract reference of an item in [com.escodro.task.presentation.list.TaskListFragment].
  */
-internal abstract class ItemEntry(val id: Long, val task: ViewData.TaskWithCategory?) {
+internal abstract class ItemEntry(val id: Long, val task: TaskWithCategory?) {
 
     /**
      * Represent the view type.

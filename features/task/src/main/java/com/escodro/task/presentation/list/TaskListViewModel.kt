@@ -8,8 +8,10 @@ import com.escodro.domain.usecase.task.UpdateTaskStatus
 import com.escodro.domain.usecase.taskwithcategory.LoadCompletedTasks
 import com.escodro.domain.usecase.taskwithcategory.LoadTasksByCategory
 import com.escodro.domain.usecase.taskwithcategory.LoadUncompletedTasks
-import com.escodro.domain.viewdata.ViewData
-import io.reactivex.Flowable
+import com.escodro.task.mapper.TaskMapper
+import com.escodro.task.mapper.TaskWithCategoryMapper
+import com.escodro.task.model.Task
+import com.escodro.task.model.TaskWithCategory
 import io.reactivex.disposables.CompositeDisposable
 
 /**
@@ -21,7 +23,9 @@ internal class TaskListViewModel(
     private val loadTasksByCategoryUseCase: LoadTasksByCategory,
     private val addTaskUseCase: AddTask,
     private val updateStatusUseCase: UpdateTaskStatus,
-    private val deleteTaskUseCase: DeleteTask
+    private val deleteTaskUseCase: DeleteTask,
+    private val taskMapper: TaskMapper,
+    private val taskWithCategoryMapper: TaskWithCategoryMapper
 ) : ViewModel() {
 
     private var categoryId: Long? = null
@@ -36,16 +40,20 @@ internal class TaskListViewModel(
      */
     fun loadTasks(
         state: TaskListState,
-        onTasksLoaded: (list: List<ViewData.TaskWithCategory>, shouldShowAddButton: Boolean) -> Unit,
+        onTasksLoaded: (list: List<TaskWithCategory>, shouldShowAddButton: Boolean) -> Unit,
         onLoadError: () -> Unit
     ) {
         val observable = when (state) {
-            is TaskListState.ShowAllTasks -> loadAllTasksUseCase()
-            is TaskListState.ShowCompletedTasks -> loadAllCompletedTasksUseCase()
-            is TaskListState.ShowTaskByCategory -> loadTasksByCategoryId(state.categoryId)
+            is TaskListState.ShowAllTasks -> loadAllTasksUseCase.test()
+            is TaskListState.ShowCompletedTasks -> loadAllCompletedTasksUseCase.test()
+            is TaskListState.ShowTaskByCategory -> {
+                categoryId = state.categoryId
+                loadTasksByCategoryUseCase.test(state.categoryId)
+            }
         }
 
         val disposable = observable
+            .map { taskWithCategoryMapper.toView(it) }
             .subscribe(
                 {
                     val shouldShow = state !is TaskListState.ShowCompletedTasks
@@ -59,11 +67,6 @@ internal class TaskListViewModel(
         compositeDisposable.add(disposable)
     }
 
-    private fun loadTasksByCategoryId(id: Long): Flowable<List<ViewData.TaskWithCategory>> {
-        categoryId = id
-        return loadTasksByCategoryUseCase(id)
-    }
-
     /**
      * Add a new task.
      */
@@ -71,8 +74,8 @@ internal class TaskListViewModel(
         if (TextUtils.isEmpty(description)) return
 
         val categoryIdValue = if (categoryId != 0L) categoryId else null
-        val task = ViewData.Task(title = description, categoryId = categoryIdValue)
-        val disposable = addTaskUseCase(task).subscribe()
+        val task = Task(title = description, categoryId = categoryIdValue)
+        val disposable = addTaskUseCase.test(taskMapper.toDomain(task)).subscribe()
         compositeDisposable.add(disposable)
     }
 
@@ -81,8 +84,8 @@ internal class TaskListViewModel(
      *
      * @param task task to be updated
      */
-    fun updateTaskStatus(task: ViewData.Task) {
-        val disposable = updateStatusUseCase(task).subscribe()
+    fun updateTaskStatus(task: Task) {
+        val disposable = updateStatusUseCase.test(taskMapper.toDomain(task)).subscribe()
         compositeDisposable.add(disposable)
     }
 
@@ -91,9 +94,9 @@ internal class TaskListViewModel(
      *
      * @param taskWithCategory task to be removed
      */
-    fun deleteTask(taskWithCategory: ViewData.TaskWithCategory) {
+    fun deleteTask(taskWithCategory: TaskWithCategory) {
         val task = taskWithCategory.task
-        val disposable = deleteTaskUseCase(task).subscribe()
+        val disposable = deleteTaskUseCase.test(taskMapper.toDomain(task)).subscribe()
         compositeDisposable.add(disposable)
     }
 

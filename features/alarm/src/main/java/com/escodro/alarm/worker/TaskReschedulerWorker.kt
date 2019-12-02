@@ -24,7 +24,7 @@ internal class TaskReschedulerWorker(context: Context, params: WorkerParameters)
     private val taskMapper: TaskMapper by inject()
 
     override fun getObservable(): Single<List<Task>> =
-        getFutureTasksUseCase.test().map { taskMapper.fromDomain(it) }
+        getFutureTasksUseCase().map { taskMapper.fromDomain(it) }
 
     override fun onSuccess(result: List<Task>) {
         result.forEach {

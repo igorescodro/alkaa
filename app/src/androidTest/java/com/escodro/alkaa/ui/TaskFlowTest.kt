@@ -4,7 +4,7 @@ import androidx.test.uiautomator.UiSelector
 import com.escodro.alkaa.R
 import com.escodro.alkaa.framework.AcceptanceTest
 import com.escodro.alkaa.framework.extension.waitForLauncher
-import com.escodro.alkaa.ui.main.MainActivity
+import com.escodro.alkaa.presentation.MainActivity
 import com.escodro.local.model.Category
 import java.util.Calendar
 import org.junit.After

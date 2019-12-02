@@ -38,7 +38,7 @@ internal class CategoryDetailViewModel(
      */
     fun loadCategory(categoryId: Long, onLoadCategory: (color: String) -> Unit) {
         val disposable =
-            loadCategoryUseCase.test(categoryId)
+            loadCategoryUseCase(categoryId)
                 .map { categoryMapper.fromDomain(it) }
                 .subscribe(
                     { category ->
@@ -72,7 +72,7 @@ internal class CategoryDetailViewModel(
             getNewCategory(name, color)
         }
 
-        val disposable = saveCategoryUseCase.test(categoryMapper.toDomain(category))
+        val disposable = saveCategoryUseCase(categoryMapper.toDomain(category))
             .doOnComplete { onCategoryAdded() }
             .subscribe()
 

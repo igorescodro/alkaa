@@ -44,11 +44,11 @@ internal class TaskListViewModel(
         onLoadError: () -> Unit
     ) {
         val observable = when (state) {
-            is TaskListState.ShowAllTasks -> loadAllTasksUseCase.test()
-            is TaskListState.ShowCompletedTasks -> loadAllCompletedTasksUseCase.test()
+            is TaskListState.ShowAllTasks -> loadAllTasksUseCase()
+            is TaskListState.ShowCompletedTasks -> loadAllCompletedTasksUseCase()
             is TaskListState.ShowTaskByCategory -> {
                 categoryId = state.categoryId
-                loadTasksByCategoryUseCase.test(state.categoryId)
+                loadTasksByCategoryUseCase(state.categoryId)
             }
         }
 
@@ -75,7 +75,7 @@ internal class TaskListViewModel(
 
         val categoryIdValue = if (categoryId != 0L) categoryId else null
         val task = Task(title = description, categoryId = categoryIdValue)
-        val disposable = addTaskUseCase.test(taskMapper.toDomain(task)).subscribe()
+        val disposable = addTaskUseCase(taskMapper.toDomain(task)).subscribe()
         compositeDisposable.add(disposable)
     }
 
@@ -85,7 +85,7 @@ internal class TaskListViewModel(
      * @param task task to be updated
      */
     fun updateTaskStatus(task: Task) {
-        val disposable = updateStatusUseCase.test(taskMapper.toDomain(task)).subscribe()
+        val disposable = updateStatusUseCase(taskMapper.toDomain(task)).subscribe()
         compositeDisposable.add(disposable)
     }
 
@@ -96,7 +96,7 @@ internal class TaskListViewModel(
      */
     fun deleteTask(taskWithCategory: TaskWithCategory) {
         val task = taskWithCategory.task
-        val disposable = deleteTaskUseCase.test(taskMapper.toDomain(task)).subscribe()
+        val disposable = deleteTaskUseCase(taskMapper.toDomain(task)).subscribe()
         compositeDisposable.add(disposable)
     }
 

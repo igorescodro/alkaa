@@ -34,8 +34,7 @@ internal class TaskDetailViewModel(private val taskProvider: TaskDetailProvider)
             return
         }
 
-        taskData.value?.let {
-            taskData.value?.title = title
+        taskData.value?.copy(title = title)?.let {
             taskProvider.updateTask(it)
         }
     }
@@ -48,8 +47,7 @@ internal class TaskDetailViewModel(private val taskProvider: TaskDetailProvider)
     fun updateDescription(description: String) {
         Timber.d("updateDescription() - $description")
 
-        taskData.value?.let {
-            taskData.value?.description = description
+        taskData.value?.copy(description = description)?.let {
             taskProvider.updateTask(it)
         }
     }

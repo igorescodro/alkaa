@@ -26,7 +26,7 @@ internal class TaskNotifierWorker(context: Context, params: WorkerParameters) :
 
     override fun getObservable(): Single<Task> {
         val taskId = inputData.getLong(TaskReceiver.EXTRA_TASK, 0)
-        return getTaskUseCase.test(taskId).map { taskMapper.fromDomain(it) }
+        return getTaskUseCase(taskId).map { taskMapper.fromDomain(it) }
     }
 
     override fun onSuccess(result: Task) {

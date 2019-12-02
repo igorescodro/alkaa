@@ -8,7 +8,7 @@ import com.escodro.alarm.notification.TaskNotificationScheduler
 import com.escodro.alkaa.R
 import com.escodro.alkaa.framework.AcceptanceTest
 import com.escodro.alkaa.framework.extension.waitForLauncher
-import com.escodro.alkaa.ui.main.MainActivity
+import com.escodro.alkaa.presentation.MainActivity
 import com.escodro.local.model.Task
 import java.util.Calendar
 import org.junit.After

@@ -1,4 +1,4 @@
-package com.escodro.alkaa.ui.main
+package com.escodro.alkaa.presentation
 
 import android.os.Bundle
 import android.view.Menu
@@ -13,12 +13,12 @@ import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.escodro.alkaa.R
+import com.escodro.alkaa.model.Category
 import com.escodro.core.extension.close
 import com.escodro.core.extension.hideKeyboard
 import com.escodro.core.extension.isOpen
 import com.escodro.core.extension.navigateSingleTop
 import com.escodro.core.viewmodel.ToolbarViewModel
-import com.escodro.domain.viewdata.ViewData
 import com.escodro.splitinstall.SplitInstall
 import com.escodro.task.presentation.list.TaskListFragment
 import com.escodro.task.presentation.list.TaskListState
@@ -107,17 +107,25 @@ class MainActivity : AppCompatActivity() {
         toolbar_title.text = title
     }
 
-    private fun updateDrawerList(list: List<ViewData.Category>) {
+    private fun updateDrawerList(list: List<Category>) {
         Timber.d("updateDrawerList() - Size = ${list.size}")
 
         val menu = navigationview_main_drawer.menu
         menu.clear()
 
-        menu.add(GROUP_TASKS, ALL_TASKS_ITEM, Menu.NONE, R.string.drawer_menu_all_tasks)
+        menu.add(
+            GROUP_TASKS,
+            ALL_TASKS_ITEM, Menu.NONE, R.string.drawer_menu_all_tasks)
         list.forEach { menu.add(GROUP_TASKS, it.id.toInt(), Menu.NONE, it.name) }
-        menu.add(GROUP_TASKS, COMPLETED_ITEM, Menu.NONE, R.string.drawer_menu_completed_tasks)
-        menu.add(GROUP_SETTINGS, CATEGORY_ITEM, Menu.NONE, R.string.drawer_menu_manage_categories)
-        menu.add(GROUP_SETTINGS, TRACKER_ITEM, Menu.NONE, R.string.drawer_menu_tracker)
+        menu.add(
+            GROUP_TASKS,
+            COMPLETED_ITEM, Menu.NONE, R.string.drawer_menu_completed_tasks)
+        menu.add(
+            GROUP_SETTINGS,
+            CATEGORY_ITEM, Menu.NONE, R.string.drawer_menu_manage_categories)
+        menu.add(
+            GROUP_SETTINGS,
+            TRACKER_ITEM, Menu.NONE, R.string.drawer_menu_tracker)
 
         menu.setGroupCheckable(GROUP_TASKS, true, true)
         menu.setGroupCheckable(GROUP_SETTINGS, true, true)

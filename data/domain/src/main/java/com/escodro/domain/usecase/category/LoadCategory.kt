@@ -1,18 +1,14 @@
 package com.escodro.domain.usecase.category
 
 import com.escodro.core.extension.applySchedulers
-import com.escodro.domain.mapper.CategoryMapper
+import com.escodro.domain.model.Category
 import com.escodro.domain.repository.CategoryRepository
-import com.escodro.local.provider.DaoProvider
+import io.reactivex.Single
 
 /**
  * Use case to load a specific category from the database.
  */
-class LoadCategory(
-    private val categoryRepository: CategoryRepository,
-    private val daoProvider: DaoProvider,
-    private val mapper: CategoryMapper
-) {
+class LoadCategory(private val categoryRepository: CategoryRepository) {
 
     /**
      * Loads the category based on the given id.
@@ -21,13 +17,6 @@ class LoadCategory(
      *
      * @return an single observable to be subscribed
      */
-    operator fun invoke(categoryId: Long) =
-        daoProvider.getCategoryDao()
-            .findCategoryById(categoryId)
-            .map { mapper.toViewCategory(it) }
-            .applySchedulers()
-
-    @Suppress("UndocumentedPublicFunction")
-    fun test(categoryId: Long) =
+    operator fun invoke(categoryId: Long): Single<Category> =
         categoryRepository.findCategoryById(categoryId).applySchedulers()
 }

@@ -11,7 +11,7 @@ import org.koin.dsl.module
 val taskModule = module {
     viewModel { TaskListViewModel(get(), get(), get(), get(), get(), get(), get(), get()) }
 
-    single { TaskDetailProvider(get(), get()) }
+    single { TaskDetailProvider(get(), get(), get()) }
     viewModel { TaskDetailViewModel(get()) }
     viewModel { TaskCategoryViewModel(get(), get(), get()) }
     viewModel { TaskAlarmViewModel(get(), get()) }

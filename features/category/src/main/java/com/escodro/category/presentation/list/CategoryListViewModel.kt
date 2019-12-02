@@ -24,7 +24,7 @@ internal class CategoryListViewModel(
      */
     fun loadCategories(onListLoaded: (list: List<Category>) -> Unit) {
         val disposable =
-            loadCategoriesUseCase.test()
+            loadCategoriesUseCase()
                 .map { categoryMapper.fromDomain(it) }
                 .subscribe {
                     onListLoaded(it)
@@ -38,10 +38,7 @@ internal class CategoryListViewModel(
      * @param category category to be removed
      */
     fun deleteCategory(category: Category) {
-        val disposable = deleteCategoryUseCase
-            .test(categoryMapper.toDomain(category))
-            .subscribe()
-
+        val disposable = deleteCategoryUseCase(categoryMapper.toDomain(category)).subscribe()
         compositeDisposable.add(disposable)
     }
 

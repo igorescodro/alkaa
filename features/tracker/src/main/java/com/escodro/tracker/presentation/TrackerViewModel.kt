@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.escodro.domain.usecase.tracker.LoadCompletedTasksByPeriod
-import com.escodro.tracker.model.Tracker
 import com.escodro.tracker.mapper.TrackerMapper
+import com.escodro.tracker.model.Tracker
 import io.reactivex.disposables.CompositeDisposable
 import timber.log.Timber
 
@@ -30,7 +30,7 @@ internal class TrackerViewModel(
     fun loadData() {
         Timber.d("loadData()")
 
-        val disposable = loadTasksByPeriodUseCase.test()
+        val disposable = loadTasksByPeriodUseCase()
             .map { trackerMapper.toTracker(it) }
             .subscribe(::onSuccess) { Timber.e(it) }
 

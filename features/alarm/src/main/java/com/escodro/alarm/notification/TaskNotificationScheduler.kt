@@ -6,7 +6,6 @@ import android.content.Intent
 import com.escodro.alarm.TaskReceiver
 import com.escodro.core.extension.cancelAlarm
 import com.escodro.core.extension.setAlarm
-import com.escodro.domain.viewdata.ViewData
 import timber.log.Timber
 
 /**

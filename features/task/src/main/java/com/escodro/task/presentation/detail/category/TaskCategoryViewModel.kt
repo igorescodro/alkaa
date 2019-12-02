@@ -25,7 +25,7 @@ internal class TaskCategoryViewModel(
      * Load all categories.
      */
     fun loadCategories(onCategoryListLoaded: (list: List<Category>) -> Unit) {
-        val disposable = loadAllCategoriesUseCase.test()
+        val disposable = loadAllCategoriesUseCase()
             .map { categoryMapper.toView(it) }
             .subscribe { onCategoryListLoaded(it) }
 
@@ -45,8 +45,9 @@ internal class TaskCategoryViewModel(
                 return
             }
 
-            taskData.value?.categoryId = categoryId
-            taskProvider.updateTask(it)
+            taskData.value?.copy(categoryId = categoryId)?.let {
+                taskProvider.updateTask(it)
+            }
         }
     }
 

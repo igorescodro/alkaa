@@ -6,7 +6,8 @@ import com.escodro.core.extension.applySchedulers
 import com.escodro.core.extension.notify
 import com.escodro.domain.usecase.task.GetTask
 import com.escodro.domain.usecase.task.UpdateTask
-import com.escodro.domain.viewdata.ViewData
+import com.escodro.task.mapper.TaskMapper
+import com.escodro.task.model.Task
 import io.reactivex.disposables.CompositeDisposable
 import timber.log.Timber
 
@@ -16,13 +17,14 @@ import timber.log.Timber
  */
 internal class TaskDetailProvider(
     private val getTaskUseCase: GetTask,
-    private val updateTaskUseCase: UpdateTask
+    private val updateTaskUseCase: UpdateTask,
+    private val taskMapper: TaskMapper
 ) {
 
-    val taskData: LiveData<ViewData.Task>
+    val taskData: LiveData<Task>
         get() = mutableTaskData
 
-    private var mutableTaskData = MutableLiveData<ViewData.Task>()
+    private var mutableTaskData = MutableLiveData<Task>()
 
     private val compositeDisposable = CompositeDisposable()
 
@@ -41,7 +43,7 @@ internal class TaskDetailProvider(
             .applySchedulers().subscribe(
                 {
                     Timber.d("loadTask = ${it.title}")
-                    mutableTaskData.value = it
+                    mutableTaskData.value = taskMapper.toView(it)
                 },
                 { Timber.e("Task not found in database") })
 
@@ -53,10 +55,10 @@ internal class TaskDetailProvider(
      *
      * @param task task to be updated
      */
-    fun updateTask(task: ViewData.Task) {
+    fun updateTask(task: Task) {
         Timber.d("updateTask() - $task")
 
-        val disposable = updateTaskUseCase(task).subscribe()
+        val disposable = updateTaskUseCase(taskMapper.toDomain(task)).subscribe()
 
         mutableTaskData.notify()
         compositeDisposable.add(disposable)

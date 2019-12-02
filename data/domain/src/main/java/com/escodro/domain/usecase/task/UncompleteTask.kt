@@ -8,11 +8,7 @@ import io.reactivex.Completable
 /**
  * Use case to set a task as uncompleted in the database.
  */
-class UncompleteTask(
-    private val taskRepository: TaskRepository,
-    private val getTask: GetTask,
-    private val updateTask: UpdateTask
-) {
+class UncompleteTask(private val taskRepository: TaskRepository) {
 
     /**
      * Completes the given task.
@@ -22,14 +18,6 @@ class UncompleteTask(
      * @return observable to be subscribe
      */
     operator fun invoke(taskId: Long): Completable =
-        getTask(taskId).flatMapCompletable {
-            it.completed = false
-            it.completedDate = null
-            updateTask(it)
-        }.applySchedulers()
-
-    @Suppress("UndocumentedPublicFunction")
-    fun test(taskId: Long): Completable =
         taskRepository.findTaskById(taskId)
             .map { task -> updateTaskAsUncompleted(task) }
             .flatMapCompletable { task -> taskRepository.updateTask(task) }

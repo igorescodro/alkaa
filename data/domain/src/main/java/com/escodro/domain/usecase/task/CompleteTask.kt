@@ -11,8 +11,6 @@ import io.reactivex.Completable
  */
 class CompleteTask(
     private val taskRepository: TaskRepository,
-    private val getTask: GetTask,
-    private val updateTask: UpdateTask,
     private val taskCalendar: TaskCalendar
 ) {
 
@@ -24,14 +22,6 @@ class CompleteTask(
      * @return observable to be subscribe
      */
     operator fun invoke(taskId: Long): Completable =
-        getTask(taskId).flatMapCompletable {
-            it.completed = true
-            it.completedDate = taskCalendar.getCurrentCalendar()
-            updateTask(it)
-        }.applySchedulers()
-
-    @Suppress("UndocumentedPublicFunction")
-    fun test(taskId: Long): Completable =
         taskRepository.findTaskById(taskId)
             .map { task -> updateTaskAsCompleted(task) }
             .flatMapCompletable { task -> taskRepository.updateTask(task) }

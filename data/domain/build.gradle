@@ -8,7 +8,6 @@ android {
 
 dependencies {
     implementation project(":libraries:core")
-    implementation project(":data:local")
 
     testImplementation project(':libraries:test')
 

@@ -25,5 +25,4 @@ val repositoryModule = module {
     factory { TaskMapper() }
     factory { CategoryMapper() }
     factory { TaskWithCategoryMapper(get(), get()) }
-
 }

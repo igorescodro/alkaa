@@ -23,7 +23,7 @@ class UpdateTaskStatus(
     operator fun invoke(taskId: Long): Completable =
         taskRepository.findTaskById(taskId)
             .flatMapCompletable { task ->
-                when (!task.completed) {
+                when (task.completed.not()) {
                     true -> completeTask(task)
                     false -> uncompleteTask(task)
                 }

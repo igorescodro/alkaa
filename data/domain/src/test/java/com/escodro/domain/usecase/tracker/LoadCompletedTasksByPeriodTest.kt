@@ -1,8 +1,9 @@
 package com.escodro.domain.usecase.tracker
 
+import com.escodro.domain.model.Category
+import com.escodro.domain.model.Task
+import com.escodro.domain.model.TaskWithCategory
 import com.escodro.domain.repository.TaskWithCategoryRepository
-import com.escodro.domain.usecase.taskwithcategory.LoadCompletedTasks
-import com.escodro.domain.viewdata.ViewData
 import com.escodro.test.ImmediateSchedulerRule
 import io.mockk.every
 import io.mockk.mockk
@@ -17,46 +18,44 @@ class LoadCompletedTasksByPeriodTest {
     @get:Rule
     var testSchedulerRule = ImmediateSchedulerRule()
 
-    private val mockCompletedTasks = mockk<LoadCompletedTasks>(relaxed = true)
-
     private val mockRepo = mockk<TaskWithCategoryRepository>(relaxed = true)
 
-    private val completeTracker = LoadCompletedTasksByPeriod(mockRepo, mockCompletedTasks)
+    private val completeTracker = LoadCompletedTasksByPeriod(mockRepo)
 
     @Test
     fun `check if completed tasks are shown in group`() {
-        val category1 = ViewData.Category(1, "Category A", "#FFFFFF")
-        val category2 = ViewData.Category(2, "Category B", "#CCCCCC")
-        val category3 = ViewData.Category(3, "Category C", "#AAAAAA")
+        val category1 = Category(1, "Category A", "#FFFFFF")
+        val category2 = Category(2, "Category B", "#CCCCCC")
+        val category3 = Category(3, "Category C", "#AAAAAA")
 
         val calendarIn = Calendar.getInstance().apply { add(Calendar.DAY_OF_MONTH, -15) }
         val calendarOut = Calendar.getInstance().apply { add(Calendar.MONTH, -3) }
 
-        val task1 = ViewData.Task(1, false, "Task 1")
-        val task2 = ViewData.Task(2, true, "Task 2", completedDate = calendarIn)
-        val task3 = ViewData.Task(3, true, "Task 3", completedDate = calendarIn)
-        val task4 = ViewData.Task(4, false, "Task 4")
-        val task5 = ViewData.Task(5, true, "Task 5", completedDate = calendarIn)
-        val task6 = ViewData.Task(6, true, "Task 6", completedDate = calendarOut)
+        val task1 = Task(1, false, "Task 1")
+        val task2 = Task(2, true, "Task 2", completedDate = calendarIn)
+        val task3 = Task(3, true, "Task 3", completedDate = calendarIn)
+        val task4 = Task(4, false, "Task 4")
+        val task5 = Task(5, true, "Task 5", completedDate = calendarIn)
+        val task6 = Task(6, true, "Task 6", completedDate = calendarOut)
 
         val taskList = listOf(
-            ViewData.TaskWithCategory(task1, category1),
-            ViewData.TaskWithCategory(task2, category2),
-            ViewData.TaskWithCategory(task3, category2),
-            ViewData.TaskWithCategory(task4, category3),
-            ViewData.TaskWithCategory(task5, category3),
-            ViewData.TaskWithCategory(task6, category3)
+            TaskWithCategory(task1, category1),
+            TaskWithCategory(task2, category2),
+            TaskWithCategory(task3, category2),
+            TaskWithCategory(task4, category3),
+            TaskWithCategory(task5, category3),
+            TaskWithCategory(task6, category3)
         )
 
         val assertList = listOf(
-            ViewData.TaskWithCategory(task2, category2),
-            ViewData.TaskWithCategory(task3, category2),
-            ViewData.TaskWithCategory(task5, category3)
+            TaskWithCategory(task2, category2),
+            TaskWithCategory(task3, category2),
+            TaskWithCategory(task5, category3)
         )
 
-        every { mockCompletedTasks() } returns Flowable.just(taskList)
+        every { mockRepo.findAllTasksWithCategory(true) } returns Flowable.just(taskList)
 
-        val testObserver = TestObserver<List<ViewData.TaskWithCategory>>()
+        val testObserver = TestObserver<List<TaskWithCategory>>()
         completeTracker().subscribe(testObserver)
         testObserver.assertValue(assertList)
     }
@@ -64,12 +63,12 @@ class LoadCompletedTasksByPeriodTest {
     @Test
     fun `show tasks without category`() {
         val calendarIn = Calendar.getInstance().apply { add(Calendar.DAY_OF_MONTH, -10) }
-        val task = ViewData.Task(3, true, "Task 3", completedDate = calendarIn)
+        val task = Task(3, true, "Task 3", completedDate = calendarIn)
 
-        val taskList = listOf(ViewData.TaskWithCategory(task, null))
-        every { mockCompletedTasks() } returns Flowable.just(taskList)
+        val taskList = listOf(TaskWithCategory(task, null))
+        every { mockRepo.findAllTasksWithCategory(true) } returns Flowable.just(taskList)
 
-        val testObserver = TestObserver<List<ViewData.TaskWithCategory>>()
+        val testObserver = TestObserver<List<TaskWithCategory>>()
         completeTracker().subscribe(testObserver)
 
         testObserver.assertValue(taskList)

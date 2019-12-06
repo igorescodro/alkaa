@@ -9,7 +9,7 @@ data class Task(
     val id: Long = 0,
     val completed: Boolean = false,
     val title: String,
-    val description: String?,
+    val description: String? = null,
     val categoryId: Long? = null,
     val dueDate: Calendar? = null,
     val creationDate: Calendar? = null,

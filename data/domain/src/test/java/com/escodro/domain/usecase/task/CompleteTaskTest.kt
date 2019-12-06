@@ -1,8 +1,8 @@
 package com.escodro.domain.usecase.task
 
 import com.escodro.domain.calendar.TaskCalendar
+import com.escodro.domain.model.Task
 import com.escodro.domain.repository.TaskRepository
-import com.escodro.domain.viewdata.ViewData
 import com.escodro.test.ImmediateSchedulerRule
 import io.mockk.every
 import io.mockk.mockk
@@ -17,29 +17,24 @@ class CompleteTaskTest {
     @get:Rule
     var testSchedulerRule = ImmediateSchedulerRule()
 
-    private val mockTask = mockk<ViewData.Task>(relaxed = true)
+    private val mockTask = mockk<Task>(relaxed = true)
 
     private val mockTaskRepo = mockk<TaskRepository>(relaxed = true)
 
-    private val mockGetTask = mockk<GetTask>(relaxed = true)
-
-    private val mockUpdateTask = mockk<UpdateTask>(relaxed = true)
-
     private val mockCalendar = mockk<TaskCalendar>(relaxed = true)
 
-    private val completeTask = CompleteTask(mockTaskRepo, mockGetTask, mockUpdateTask, mockCalendar)
+    private val completeTask = CompleteTask(mockTaskRepo, mockCalendar)
 
     @Test
     fun `check if task was completed`() {
         val currentTime = Calendar.getInstance()
 
         every { mockCalendar.getCurrentCalendar() } returns currentTime
-        every { mockGetTask.invoke(any()) } returns Single.just(mockTask)
+        every { mockTaskRepo.findTaskById(any()) } returns Single.just(mockTask)
 
         completeTask(mockTask.id).subscribe()
 
-        verify { mockTask.completed = true }
-        verify { mockTask.completedDate = currentTime }
-        verify { mockUpdateTask.invoke(any()) }
+        val updatedTask = mockTask.copy(completed = true, completedDate = currentTime)
+        verify { mockTaskRepo.updateTask(updatedTask) }
     }
 }

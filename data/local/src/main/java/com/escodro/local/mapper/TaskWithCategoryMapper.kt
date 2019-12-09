@@ -12,7 +12,7 @@ internal class TaskWithCategoryMapper(
 ) {
 
     /**
-     * Maps Task With Category from Repo to Local.
+     * Maps Task With Category from Local to Repo.
      *
      * @param localTaskList the list of Task With Category to be converted.
      *

@@ -4,7 +4,7 @@ import com.escodro.domain.calendar.TaskCalendar
 import com.escodro.domain.usecase.category.DeleteCategory
 import com.escodro.domain.usecase.category.LoadAllCategories
 import com.escodro.domain.usecase.category.LoadCategory
-import com.escodro.domain.usecase.category.SaveCategory
+import com.escodro.domain.usecase.category.UpsertCategory
 import com.escodro.domain.usecase.task.AddTask
 import com.escodro.domain.usecase.task.CompleteTask
 import com.escodro.domain.usecase.task.DeleteTask
@@ -37,7 +37,7 @@ val domainModule = module {
     single { DeleteCategory(get()) }
     single { LoadAllCategories(get()) }
     single { LoadCategory(get()) }
-    single { SaveCategory(get()) }
+    single { UpsertCategory(get()) }
 
     single { LoadTasksByCategory(get(), get()) }
     single { LoadCompletedTasks(get()) }

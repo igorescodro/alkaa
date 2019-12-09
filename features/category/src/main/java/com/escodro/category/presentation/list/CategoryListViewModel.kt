@@ -25,7 +25,7 @@ internal class CategoryListViewModel(
     fun loadCategories(onListLoaded: (list: List<Category>) -> Unit) {
         val disposable =
             loadCategoriesUseCase()
-                .map { categoryMapper.fromDomain(it) }
+                .map { categoryMapper.toView(it) }
                 .subscribe {
                     onListLoaded(it)
                 }

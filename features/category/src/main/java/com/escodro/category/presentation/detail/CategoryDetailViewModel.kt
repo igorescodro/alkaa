@@ -8,7 +8,7 @@ import com.escodro.category.mapper.CategoryMapper
 import com.escodro.category.model.Category
 import com.escodro.core.extension.toStringColor
 import com.escodro.domain.usecase.category.LoadCategory
-import com.escodro.domain.usecase.category.SaveCategory
+import com.escodro.domain.usecase.category.UpsertCategory
 import io.reactivex.disposables.CompositeDisposable
 import timber.log.Timber
 
@@ -17,7 +17,7 @@ import timber.log.Timber
  */
 internal class CategoryDetailViewModel(
     private val loadCategoryUseCase: LoadCategory,
-    private val saveCategoryUseCase: SaveCategory,
+    private val upsertCategoryUseCase: UpsertCategory,
     private val categoryMapper: CategoryMapper
 ) : ViewModel() {
 
@@ -39,7 +39,7 @@ internal class CategoryDetailViewModel(
     fun loadCategory(categoryId: Long, onLoadCategory: (color: String) -> Unit) {
         val disposable =
             loadCategoryUseCase(categoryId)
-                .map { categoryMapper.fromDomain(it) }
+                .map { categoryMapper.toView(it) }
                 .subscribe(
                     { category ->
                         categoryData.value = category
@@ -72,7 +72,7 @@ internal class CategoryDetailViewModel(
             getNewCategory(name, color)
         }
 
-        val disposable = saveCategoryUseCase(categoryMapper.toDomain(category))
+        val disposable = upsertCategoryUseCase(categoryMapper.toDomain(category))
             .doOnComplete { onCategoryAdded() }
             .subscribe()
 

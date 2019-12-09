@@ -113,19 +113,11 @@ class MainActivity : AppCompatActivity() {
         val menu = navigationview_main_drawer.menu
         menu.clear()
 
-        menu.add(
-            GROUP_TASKS,
-            ALL_TASKS_ITEM, Menu.NONE, R.string.drawer_menu_all_tasks)
+        menu.add(GROUP_TASKS, ALL_TASKS_ITEM, Menu.NONE, R.string.drawer_menu_all_tasks)
         list.forEach { menu.add(GROUP_TASKS, it.id.toInt(), Menu.NONE, it.name) }
-        menu.add(
-            GROUP_TASKS,
-            COMPLETED_ITEM, Menu.NONE, R.string.drawer_menu_completed_tasks)
-        menu.add(
-            GROUP_SETTINGS,
-            CATEGORY_ITEM, Menu.NONE, R.string.drawer_menu_manage_categories)
-        menu.add(
-            GROUP_SETTINGS,
-            TRACKER_ITEM, Menu.NONE, R.string.drawer_menu_tracker)
+        menu.add(GROUP_TASKS, COMPLETED_ITEM, Menu.NONE, R.string.drawer_menu_completed_tasks)
+        menu.add(GROUP_SETTINGS, CATEGORY_ITEM, Menu.NONE, R.string.drawer_menu_manage_categories)
+        menu.add(GROUP_SETTINGS, TRACKER_ITEM, Menu.NONE, R.string.drawer_menu_tracker)
 
         menu.setGroupCheckable(GROUP_TASKS, true, true)
         menu.setGroupCheckable(GROUP_SETTINGS, true, true)

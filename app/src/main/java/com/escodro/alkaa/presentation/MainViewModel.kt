@@ -21,7 +21,8 @@ internal class MainViewModel(
      */
     fun loadCategories(onListLoaded: (list: List<Category>) -> Unit) {
         val disposable =
-            loadAllCategories().map { categoryMapper.toView(it) }.subscribe { onListLoaded(it) }
+            loadAllCategories().map { categoryMapper.toView(it) }
+                .subscribe { onListLoaded(it) }
         compositeDisposable.add(disposable)
     }
 

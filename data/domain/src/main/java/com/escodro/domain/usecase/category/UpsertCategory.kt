@@ -8,7 +8,7 @@ import io.reactivex.Completable
 /**
  * Use case to save or update a category in the database.
  */
-class SaveCategory(private val categoryRepository: CategoryRepository) {
+class UpsertCategory(private val categoryRepository: CategoryRepository) {
 
     /**
      * Adds or updates a category.

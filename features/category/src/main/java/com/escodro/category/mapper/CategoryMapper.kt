@@ -15,8 +15,8 @@ internal class CategoryMapper {
      *
      * @return the converted list of Category
      */
-    fun fromDomain(domainCategoryList: List<DomainCategory>): List<ViewCategory> =
-        domainCategoryList.map { fromDomain(it) }
+    fun toView(domainCategoryList: List<DomainCategory>): List<ViewCategory> =
+        domainCategoryList.map { toView(it) }
 
     /**
      * Maps Category from Domain to View.
@@ -25,13 +25,20 @@ internal class CategoryMapper {
      *
      * @return the converted Category
      */
-    fun fromDomain(domainCategory: DomainCategory): ViewCategory =
+    fun toView(domainCategory: DomainCategory): ViewCategory =
         ViewCategory(
             id = domainCategory.id,
             name = domainCategory.name,
             color = domainCategory.color
         )
 
+    /**
+     * Maps Category from View to Domain.
+     *
+     * @param viewCategory the Category to be converted.
+     *
+     * @return the converted Category
+     */
     fun toDomain(viewCategory: ViewCategory): DomainCategory =
         DomainCategory(
             id = viewCategory.id,

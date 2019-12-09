@@ -34,11 +34,11 @@ class AlkaaApp : Application() {
                 appModule +
                     coreModule +
                     taskModule +
-                    localModule +
+                    alarmModule +
+                    categoryModule +
                     domainModule +
                     repositoryModule +
-                    categoryModule +
-                    alarmModule
+                    localModule
             )
         }
     }

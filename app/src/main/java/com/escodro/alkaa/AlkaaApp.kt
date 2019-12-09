@@ -8,6 +8,7 @@ import com.escodro.category.di.categoryModule
 import com.escodro.core.di.coreModule
 import com.escodro.domain.di.domainModule
 import com.escodro.local.di.localModule
+import com.escodro.repository.di.repositoryModule
 import com.escodro.task.di.taskModule
 import com.google.android.play.core.splitcompat.SplitCompat
 import org.koin.android.ext.koin.androidContext
@@ -29,7 +30,16 @@ class AlkaaApp : Application() {
         startKoin {
             printLogger()
             androidContext(this@AlkaaApp)
-            modules(appModule + coreModule + taskModule + localModule + domainModule + categoryModule + alarmModule)
+            modules(
+                appModule +
+                    coreModule +
+                    taskModule +
+                    alarmModule +
+                    categoryModule +
+                    domainModule +
+                    repositoryModule +
+                    localModule
+            )
         }
     }
 

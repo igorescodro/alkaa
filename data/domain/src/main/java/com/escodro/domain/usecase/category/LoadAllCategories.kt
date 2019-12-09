@@ -1,24 +1,20 @@
 package com.escodro.domain.usecase.category
 
 import com.escodro.core.extension.applySchedulers
-import com.escodro.domain.mapper.CategoryMapper
-import com.escodro.domain.viewdata.ViewData
-import com.escodro.local.provider.DaoProvider
+import com.escodro.domain.model.Category
+import com.escodro.domain.repository.CategoryRepository
 import io.reactivex.Flowable
 
 /**
  * Use case to load all categories from the database.
  */
-class LoadAllCategories(private val daoProvider: DaoProvider, private val mapper: CategoryMapper) {
+class LoadAllCategories(private val categoryRepository: CategoryRepository) {
 
     /**
      * Loads all categories.
      *
      * @return a mutable list of all categories
      */
-    operator fun invoke(): Flowable<List<ViewData.Category>> =
-        daoProvider.getCategoryDao()
-            .getAllCategories()
-            .map { mapper.toViewCategory(it) }
-            .applySchedulers()
+    operator fun invoke(): Flowable<List<Category>> =
+        categoryRepository.findAllCategories().applySchedulers()
 }

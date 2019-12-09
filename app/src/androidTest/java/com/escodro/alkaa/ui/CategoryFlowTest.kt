@@ -2,7 +2,7 @@ package com.escodro.alkaa.ui
 
 import com.escodro.alkaa.R
 import com.escodro.alkaa.framework.AcceptanceTest
-import com.escodro.alkaa.ui.main.MainActivity
+import com.escodro.alkaa.presentation.MainActivity
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -80,10 +80,13 @@ class CategoryFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) 
     fun openCategoryMultipleTimes() {
         navigateToCategoryScreen()
         addCategory("Music")
+        events.navigateUp()
         navigateToCategoryScreen()
         addCategory("Books")
+        events.navigateUp()
         navigateToCategoryScreen()
         addCategory("Movies")
+        events.navigateUp()
         navigateToCategoryScreen()
     }
 

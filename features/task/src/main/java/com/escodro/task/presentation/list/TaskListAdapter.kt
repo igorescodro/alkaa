@@ -7,19 +7,19 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.escodro.core.databinding.BindingHolder
-import com.escodro.domain.viewdata.ViewData
 import com.escodro.task.R
+import com.escodro.task.model.TaskWithCategory
 import com.escodro.task.presentation.list.model.AddEntry
 import com.escodro.task.presentation.list.model.ItemEntry
 import com.escodro.task.presentation.list.model.TaskEntry
 
 /**
- * [RecyclerView.Adapter] to bind the [com.escodro.domain.viewdata.ViewData.TaskWithCategory] in the [RecyclerView].
+ * [RecyclerView.Adapter] to bind the [TaskWithCategory] in the [RecyclerView].
  */
 internal class TaskListAdapter(
-    private val onItemClicked: (ViewData.TaskWithCategory) -> Unit,
-    private val onItemLongPressed: (ViewData.TaskWithCategory) -> Boolean,
-    private val onItemCheckedChanged: (ViewData.TaskWithCategory, Boolean) -> Unit,
+    private val onItemClicked: (TaskWithCategory) -> Unit,
+    private val onItemLongPressed: (TaskWithCategory) -> Boolean,
+    private val onItemCheckedChanged: (TaskWithCategory, Boolean) -> Unit,
     private val onInsertTask: (String) -> Unit,
     private val onAddClicked: () -> Unit
 ) : ListAdapter<ItemEntry, BindingHolder<*>>(TaskDiffCallback()) {
@@ -47,7 +47,7 @@ internal class TaskListAdapter(
      *
      * @param list The new list to be displayed.
      */
-    fun updateList(list: List<ViewData.TaskWithCategory>, showAddButton: Boolean) {
+    fun updateList(list: List<TaskWithCategory>, showAddButton: Boolean) {
         val itemList: MutableList<ItemEntry> = list
             .map { toItemEntry(it) }
             .toMutableList()
@@ -62,7 +62,7 @@ internal class TaskListAdapter(
     private fun getLayout(type: Int) =
         if (type == ItemEntry.TYPE_ADD) R.layout.item_add_task else R.layout.item_task
 
-    private fun toItemEntry(task: ViewData.TaskWithCategory) =
+    private fun toItemEntry(task: TaskWithCategory) =
         TaskEntry(
             task,
             onItemClicked = onItemClicked,

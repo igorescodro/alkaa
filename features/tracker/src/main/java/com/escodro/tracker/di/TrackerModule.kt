@@ -1,6 +1,6 @@
 package com.escodro.tracker.di
 
-import com.escodro.tracker.model.mapper.TrackerMapper
+import com.escodro.tracker.mapper.TrackerMapper
 import com.escodro.tracker.presentation.TrackerViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.loadKoinModules

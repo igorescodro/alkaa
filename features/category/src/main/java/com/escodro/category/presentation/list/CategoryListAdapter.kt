@@ -8,14 +8,14 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.escodro.category.R
 import com.escodro.category.databinding.ItemCategoryBinding
+import com.escodro.category.model.Category
 import com.escodro.core.databinding.BindingHolder
-import com.escodro.domain.viewdata.ViewData
 
 /**
  * [RecyclerView.Adapter] to bind the [com.escodro.domain.viewdata.ViewData.Category] in the [RecyclerView].
  */
-internal class CategoryListAdapter(val onOptionMenuClicked: (view: View, category: ViewData.Category) -> Unit) :
-    ListAdapter<ViewData.Category, BindingHolder<ItemCategoryBinding>>(CategoryDiffCallback()) {
+internal class CategoryListAdapter(val onOptionMenuClicked: (view: View, category: Category) -> Unit) :
+    ListAdapter<Category, BindingHolder<ItemCategoryBinding>>(CategoryDiffCallback()) {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,

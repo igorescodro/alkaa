@@ -18,8 +18,8 @@ import com.escodro.core.extension.items
 import com.escodro.core.extension.showKeyboard
 import com.escodro.core.extension.withDelay
 import com.escodro.core.viewmodel.ToolbarViewModel
-import com.escodro.domain.viewdata.ViewData
 import com.escodro.task.R
+import com.escodro.task.model.TaskWithCategory
 import kotlinx.android.synthetic.main.fragment_task_list.*
 import kotlinx.android.synthetic.main.item_add_task.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -108,7 +108,7 @@ class TaskListFragment : Fragment() {
         withDelay(INSERT_DELAY) { viewModel.addTask(description) }
     }
 
-    private fun onTaskLoaded(list: List<ViewData.TaskWithCategory>, showAddButton: Boolean) {
+    private fun onTaskLoaded(list: List<TaskWithCategory>, showAddButton: Boolean) {
         Timber.d("onTaskLoaded() - Size = ${list.size}")
 
         adapter.updateList(list, showAddButton)
@@ -127,14 +127,14 @@ class TaskListFragment : Fragment() {
         loadTasks()
     }
 
-    private fun onItemClicked(taskWithCategory: ViewData.TaskWithCategory) {
+    private fun onItemClicked(taskWithCategory: TaskWithCategory) {
         Timber.d("onItemClicked() - Task = ${taskWithCategory.task.title}")
 
         val action = TaskListFragmentDirections.actionDetail(taskWithCategory.task.id)
         navigator?.navigate(action)
     }
 
-    private fun onItemCheckedChanged(taskWithCategory: ViewData.TaskWithCategory, value: Boolean) {
+    private fun onItemCheckedChanged(taskWithCategory: TaskWithCategory, value: Boolean) {
         Timber.d("onItemCheckedChanged() - Task = ${taskWithCategory.task.title} - Value = $value")
 
         viewModel.updateTaskStatus(taskWithCategory.task)
@@ -149,7 +149,7 @@ class TaskListFragment : Fragment() {
         }
     }
 
-    private fun onItemLongPressed(taskWithCategory: ViewData.TaskWithCategory): Boolean {
+    private fun onItemLongPressed(taskWithCategory: TaskWithCategory): Boolean {
         Timber.d("onItemLongPressed() - Task = ${taskWithCategory.task.title}")
 
         itemDialog(taskWithCategory.task.title) {

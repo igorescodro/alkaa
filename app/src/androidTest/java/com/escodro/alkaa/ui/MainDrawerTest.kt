@@ -2,9 +2,9 @@ package com.escodro.alkaa.ui
 
 import com.escodro.alkaa.R
 import com.escodro.alkaa.framework.AcceptanceTest
-import com.escodro.alkaa.ui.main.MainActivity
-import com.escodro.model.Category
-import com.escodro.model.Task
+import com.escodro.alkaa.presentation.MainActivity
+import com.escodro.local.model.Category
+import com.escodro.local.model.Task
 import org.junit.After
 import org.junit.Before
 import org.junit.Test

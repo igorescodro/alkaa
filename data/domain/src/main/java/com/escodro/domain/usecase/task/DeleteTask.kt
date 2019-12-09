@@ -1,15 +1,14 @@
 package com.escodro.domain.usecase.task
 
 import com.escodro.core.extension.applySchedulers
-import com.escodro.domain.mapper.TaskMapper
-import com.escodro.domain.viewdata.ViewData
-import com.escodro.local.provider.DaoProvider
+import com.escodro.domain.model.Task
+import com.escodro.domain.repository.TaskRepository
 import io.reactivex.Completable
 
 /**
  * Use case to delete a task from the database.
  */
-class DeleteTask(private val daoProvider: DaoProvider, private val mapper: TaskMapper) {
+class DeleteTask(private val taskRepository: TaskRepository) {
 
     /**
      * Deletes a task.
@@ -18,8 +17,6 @@ class DeleteTask(private val daoProvider: DaoProvider, private val mapper: TaskM
      *
      * @return observable to be subscribe
      */
-    operator fun invoke(task: ViewData.Task): Completable {
-        val entityTask = mapper.toEntityTask(task)
-        return daoProvider.getTaskDao().deleteTask(entityTask).applySchedulers()
-    }
+    operator fun invoke(task: Task): Completable =
+        taskRepository.deleteTask(task).applySchedulers()
 }

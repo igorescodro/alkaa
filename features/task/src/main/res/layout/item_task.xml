@@ -7,7 +7,7 @@
 
         <variable
             name="task"
-            type="com.escodro.domain.viewdata.ViewData.Task" />
+            type="com.escodro.task.model.Task" />
 
         <variable
             name="color"

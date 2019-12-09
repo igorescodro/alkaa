@@ -1,13 +1,10 @@
 package com.escodro.domain.di
 
 import com.escodro.domain.calendar.TaskCalendar
-import com.escodro.domain.mapper.CategoryMapper
-import com.escodro.domain.mapper.TaskMapper
-import com.escodro.domain.mapper.TaskWithCategoryMapper
 import com.escodro.domain.usecase.category.DeleteCategory
 import com.escodro.domain.usecase.category.LoadAllCategories
 import com.escodro.domain.usecase.category.LoadCategory
-import com.escodro.domain.usecase.category.SaveCategory
+import com.escodro.domain.usecase.category.UpsertCategory
 import com.escodro.domain.usecase.task.AddTask
 import com.escodro.domain.usecase.task.CompleteTask
 import com.escodro.domain.usecase.task.DeleteTask
@@ -27,30 +24,26 @@ import org.koin.dsl.module
  * Domain dependency injection module.
  */
 val domainModule = module {
-    single { AddTask(get(), get(), get()) }
-    single { CompleteTask(get(), get(), get()) }
-    single { UncompleteTask(get(), get()) }
-    single { UpdateTaskStatus(get(), get()) }
-    single { DeleteTask(get(), get()) }
-    single { GetFutureTasks(get(), get()) }
-    single { GetTask(get(), get()) }
-    single { SnoozeTask(get(), get()) }
-    single { UpdateTask(get(), get()) }
+    single { AddTask(get()) }
+    single { CompleteTask(get(), get()) }
+    single { UncompleteTask(get()) }
+    single { UpdateTaskStatus(get(), get(), get()) }
+    single { DeleteTask(get()) }
+    single { GetFutureTasks(get()) }
+    single { GetTask(get()) }
+    single { SnoozeTask(get()) }
+    single { UpdateTask(get()) }
 
-    single { DeleteCategory(get(), get()) }
-    single { LoadAllCategories(get(), get()) }
-    single { LoadCategory(get(), get()) }
-    single { SaveCategory(get(), get()) }
+    single { DeleteCategory(get()) }
+    single { LoadAllCategories(get()) }
+    single { LoadCategory(get()) }
+    single { UpsertCategory(get()) }
 
     single { LoadTasksByCategory(get(), get()) }
-    single { LoadCompletedTasks(get(), get()) }
-    single { LoadUncompletedTasks(get(), get()) }
+    single { LoadCompletedTasks(get()) }
+    single { LoadUncompletedTasks(get()) }
 
     single { LoadCompletedTasksByPeriod(get()) }
-
-    single { CategoryMapper() }
-    single { TaskMapper() }
-    single { TaskWithCategoryMapper(get(), get()) }
 
     single { TaskCalendar() }
 }

@@ -1,5 +1,8 @@
 package com.escodro.task.di
 
+import com.escodro.task.mapper.CategoryMapper
+import com.escodro.task.mapper.TaskMapper
+import com.escodro.task.mapper.TaskWithCategoryMapper
 import com.escodro.task.presentation.detail.TaskDetailProvider
 import com.escodro.task.presentation.detail.alarm.TaskAlarmViewModel
 import com.escodro.task.presentation.detail.category.TaskCategoryViewModel
@@ -9,10 +12,15 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val taskModule = module {
-    viewModel { TaskListViewModel(get(), get(), get(), get(), get(), get()) }
+    viewModel { TaskListViewModel(get(), get(), get(), get(), get(), get(), get(), get()) }
 
-    single { TaskDetailProvider(get(), get()) }
+    single { TaskDetailProvider(get(), get(), get()) }
     viewModel { TaskDetailViewModel(get()) }
-    viewModel { TaskCategoryViewModel(get(), get()) }
+    viewModel { TaskCategoryViewModel(get(), get(), get()) }
     viewModel { TaskAlarmViewModel(get(), get()) }
+
+    // Mappers
+    factory { TaskMapper() }
+    factory { CategoryMapper() }
+    factory { TaskWithCategoryMapper(get(), get()) }
 }

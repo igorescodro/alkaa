@@ -6,7 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
 import androidx.room.Update
-import com.escodro.model.Task
+import com.escodro.local.model.Task
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
@@ -54,7 +54,7 @@ interface TaskDao {
      * @return all inserted tasks with due date
      */
     @Query("SELECT * FROM task where task_due_date is not null")
-    fun getAllTasksWithDueDate(): Single<List<Task>>
+    fun findAllTasksWithDueDate(): Single<List<Task>>
 
     /**
      * Get task by id.
@@ -73,7 +73,7 @@ interface TaskDao {
      */
     @TestOnly
     @Query("SELECT * FROM task")
-    fun getAllTasks(): Flowable<MutableList<Task>>
+    fun findAllTasks(): Flowable<MutableList<Task>>
 
     /**
      * Gets a specific task by title.

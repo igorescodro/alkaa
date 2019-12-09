@@ -8,8 +8,8 @@ import com.escodro.local.TaskDatabase
 import com.escodro.local.dao.CategoryDao
 import com.escodro.local.dao.TaskDao
 import com.escodro.local.dao.TaskWithCategoryDao
-import com.escodro.model.Category
-import com.escodro.model.Task
+import com.escodro.local.model.Category
+import com.escodro.local.model.Task
 import java.util.Calendar
 import org.junit.After
 import org.junit.Assert.assertTrue
@@ -51,7 +51,7 @@ class TaskDatabaseTest {
         val task = Task(id = 14, title = TASK_NAME)
         taskDao.insertTask(task).blockingGet()
 
-        val list = taskDao.getAllTasks().blockingFirst()
+        val list = taskDao.findAllTasks().blockingFirst()
         assertTrue(list.contains(task))
     }
 
@@ -69,30 +69,30 @@ class TaskDatabaseTest {
         val task = Task(title = TASK_NAME)
         taskDao.insertTask(task).blockingGet()
 
-        val list = taskDao.getAllTasks().blockingFirst()
+        val list = taskDao.findAllTasks().blockingFirst()
         val updatedTask = list[0]
         updatedTask.title = "call Martha"
         updatedTask.description = TASK_DESCRIPTION
         taskDao.updateTask(updatedTask).blockingGet()
 
-        val updatedList = taskDao.getAllTasks().blockingFirst()
+        val updatedList = taskDao.findAllTasks().blockingFirst()
         assertTrue(updatedList.contains(updatedTask))
     }
 
     @Test
     fun insertAndAddCategoryInTask() {
         val task = Task(id = 16, title = TASK_NAME)
-        task.categoryId = categoryDao.getAllCategories().blockingFirst()[0].id
+        task.categoryId = categoryDao.findAllCategories().blockingFirst()[0].id
         taskDao.insertTask(task).blockingGet()
 
-        val taskWithCategory = taskWithCategoryDao.getAllTasksWithCategory(false).blockingFirst()[0]
+        val taskWithCategory = taskWithCategoryDao.findAllTasksWithCategory(false).blockingFirst()[0]
         assertTrue(taskWithCategory.task == task)
     }
 
     @Test
     fun clearTaskFields() {
         val task = Task(title = TASK_NAME).apply {
-            categoryId = categoryDao.getAllCategories().blockingFirst()[0].id
+            categoryId = categoryDao.findAllCategories().blockingFirst()[0].id
             description = TASK_DESCRIPTION
             dueDate = Calendar.getInstance()
         }
@@ -106,7 +106,7 @@ class TaskDatabaseTest {
         }
         taskDao.updateTask(clearTask).blockingGet()
 
-        val updatedList = taskDao.getAllTasks().blockingFirst()
+        val updatedList = taskDao.findAllTasks().blockingFirst()
         assertTrue(updatedList.contains(clearTask))
     }
 

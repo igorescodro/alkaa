@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.escodro.domain.usecase.tracker.LoadCompletedTasksByPeriod
+import com.escodro.tracker.mapper.TrackerMapper
 import com.escodro.tracker.model.Tracker
-import com.escodro.tracker.model.mapper.TrackerMapper
 import io.reactivex.disposables.CompositeDisposable
 import timber.log.Timber
 

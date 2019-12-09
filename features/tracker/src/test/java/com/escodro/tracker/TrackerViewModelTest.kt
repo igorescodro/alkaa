@@ -2,9 +2,9 @@ package com.escodro.tracker
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
+import com.escodro.domain.model.TaskWithCategory
 import com.escodro.domain.usecase.tracker.LoadCompletedTasksByPeriod
-import com.escodro.domain.viewdata.ViewData
-import com.escodro.tracker.model.mapper.TrackerMapper
+import com.escodro.tracker.mapper.TrackerMapper
 import com.escodro.tracker.presentation.TrackerUIState
 import com.escodro.tracker.presentation.TrackerViewModel
 import io.mockk.every
@@ -35,8 +35,8 @@ class TrackerViewModelTest {
 
     @Test
     fun `check if show state was called`() {
-        val obj1 = mockk<ViewData.TaskWithCategory>(relaxed = true)
-        val obj2 = mockk<ViewData.TaskWithCategory>(relaxed = true)
+        val obj1 = mockk<TaskWithCategory>(relaxed = true)
+        val obj2 = mockk<TaskWithCategory>(relaxed = true)
         val mockList = listOf(obj1, obj2)
 
         every { mockUseCase.invoke() } returns Single.just(mockList)

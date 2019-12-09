@@ -8,12 +8,12 @@ import androidx.core.app.NotificationCompat
 import androidx.navigation.NavDeepLinkBuilder
 import com.escodro.alarm.R
 import com.escodro.alarm.TaskReceiver
+import com.escodro.alarm.model.Task
 import com.escodro.core.extension.getNotificationManager
-import com.escodro.domain.viewdata.ViewData
 import timber.log.Timber
 
 /**
- * Handles the notification related to the [com.escodro.domain.viewdata.ViewData.Task] reminders.
+ * Handles the notification related to the Task reminders.
  */
 internal class TaskNotification(
     private val context: Context,
@@ -21,17 +21,17 @@ internal class TaskNotification(
 ) {
 
     /**
-     * Shows the [TaskNotification] based on the given [com.escodro.domain.viewdata.ViewData.Task].
+     * Shows the [TaskNotification] based on the given Task.
      *
      * @param task the task to be shown in the notification
      */
-    fun show(task: ViewData.Task) {
+    fun show(task: Task) {
         Timber.d("Showing notification for '${task.title}'")
         val notification = buildNotification(task)
         context.getNotificationManager()?.notify(task.id.toInt(), notification)
     }
 
-    private fun buildNotification(task: ViewData.Task) =
+    private fun buildNotification(task: Task) =
         NotificationCompat.Builder(context, channel.getChannelId()).apply {
             setSmallIcon(R.drawable.ic_bookmark_check)
             setContentTitle(context.getString(R.string.app_name))
@@ -42,7 +42,7 @@ internal class TaskNotification(
             addAction(getSnoozeAction(task))
         }.build()
 
-    private fun buildPendingIntent(task: ViewData.Task): PendingIntent {
+    private fun buildPendingIntent(task: Task): PendingIntent {
         val arguments = Bundle()
         arguments.putLong(ARGUMENT_TASK, task.id)
 
@@ -53,20 +53,20 @@ internal class TaskNotification(
             .createPendingIntent()
     }
 
-    private fun getCompleteAction(task: ViewData.Task): NotificationCompat.Action {
+    private fun getCompleteAction(task: Task): NotificationCompat.Action {
         val actionTitle = context.getString(R.string.notification_action_completed)
         val intent = getIntent(task, TaskReceiver.COMPLETE_ACTION, REQUEST_CODE_ACTION_COMPLETE)
         return NotificationCompat.Action(ACTION_NO_ICON, actionTitle, intent)
     }
 
-    private fun getSnoozeAction(task: ViewData.Task): NotificationCompat.Action {
+    private fun getSnoozeAction(task: Task): NotificationCompat.Action {
         val actionTitle = context.getString(R.string.notification_action_snooze)
         val intent = getIntent(task, TaskReceiver.SNOOZE_ACTION, REQUEST_CODE_ACTION_SNOOZE)
         return NotificationCompat.Action(ACTION_NO_ICON, actionTitle, intent)
     }
 
     private fun getIntent(
-        task: ViewData.Task,
+        task: Task,
         intentAction: String,
         requestCode: Int
     ): PendingIntent {

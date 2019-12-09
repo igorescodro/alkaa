@@ -9,9 +9,9 @@ import org.koin.dsl.module
 
 val alarmModule = module {
 
-    single { TaskNotificationScheduler(androidContext()) }
-    single { TaskNotificationChannel(androidContext()) }
-    single { TaskNotification(androidContext(), get()) }
+    factory { TaskNotificationScheduler(androidContext()) }
+    factory { TaskNotificationChannel(androidContext()) }
+    factory { TaskNotification(androidContext(), get()) }
 
     factory { TaskMapper() }
 }

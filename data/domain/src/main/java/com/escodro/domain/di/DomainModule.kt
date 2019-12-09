@@ -24,26 +24,26 @@ import org.koin.dsl.module
  * Domain dependency injection module.
  */
 val domainModule = module {
-    single { AddTask(get()) }
-    single { CompleteTask(get(), get()) }
-    single { UncompleteTask(get()) }
-    single { UpdateTaskStatus(get(), get(), get()) }
-    single { DeleteTask(get()) }
-    single { GetFutureTasks(get()) }
-    single { GetTask(get()) }
-    single { SnoozeTask(get()) }
-    single { UpdateTask(get()) }
+    factory { AddTask(get()) }
+    factory { CompleteTask(get(), get()) }
+    factory { UncompleteTask(get()) }
+    factory { UpdateTaskStatus(get(), get(), get()) }
+    factory { DeleteTask(get()) }
+    factory { GetFutureTasks(get()) }
+    factory { GetTask(get()) }
+    factory { SnoozeTask(get()) }
+    factory { UpdateTask(get()) }
 
-    single { DeleteCategory(get()) }
-    single { LoadAllCategories(get()) }
-    single { LoadCategory(get()) }
-    single { UpsertCategory(get()) }
+    factory { DeleteCategory(get()) }
+    factory { LoadAllCategories(get()) }
+    factory { LoadCategory(get()) }
+    factory { UpsertCategory(get()) }
 
-    single { LoadTasksByCategory(get(), get()) }
-    single { LoadCompletedTasks(get()) }
-    single { LoadUncompletedTasks(get()) }
+    factory { LoadTasksByCategory(get(), get()) }
+    factory { LoadCompletedTasks(get()) }
+    factory { LoadUncompletedTasks(get()) }
 
-    single { LoadCompletedTasksByPeriod(get()) }
+    factory { LoadCompletedTasksByPeriod(get()) }
 
-    single { TaskCalendar() }
+    factory { TaskCalendar() }
 }

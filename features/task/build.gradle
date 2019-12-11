@@ -1,4 +1,5 @@
 apply from: "$rootDir/config/dependencies/feature_dependencies.gradle"
+apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs"
 
 android {
@@ -9,6 +10,10 @@ android {
     androidExtensions {
         experimental = true
     }
+}
+
+kapt {
+    correctErrorTypes = true
 }
 
 dependencies {
@@ -28,4 +33,7 @@ dependencies {
 
     implementation Deps.rx.android
     implementation Deps.rx.java
+
+    implementation Deps.epoxy.core
+    kapt Deps.epoxy.annotation
 }

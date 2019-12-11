@@ -30,6 +30,8 @@ object Versions {
     const val rxJava = "2.1.0"
     const val rxAndroid = "2.2.0"
 
+    const val epoxy = "3.8.0"
+
     const val mpAndroidChart = "3.1.0"
 
     const val testJunit = "4.12"
@@ -58,6 +60,7 @@ object Deps {
     val android = AndroidDeps
     val koin = KoinDeps
     val rx = RxDeps
+    val epoxy = EpoxyDeps
     val test = TestDeps
     val quality = QualityDeps
     val gradle = GradleDeps
@@ -98,6 +101,11 @@ object KoinDeps {
 object RxDeps {
     val android = "io.reactivex.rxjava2:rxandroid:${Versions.rxJava}"
     val java = "io.reactivex.rxjava2:rxjava:${Versions.rxAndroid}"
+}
+
+object EpoxyDeps {
+    val core = "com.airbnb.android:epoxy:${Versions.epoxy}"
+    val annotation = "com.airbnb.android:epoxy-processor:${Versions.epoxy}"
 }
 
 object TestDeps {

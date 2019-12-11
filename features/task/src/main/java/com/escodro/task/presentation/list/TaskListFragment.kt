@@ -9,8 +9,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.escodro.core.extension.createSnackbar
 import com.escodro.core.extension.hideKeyboard
 import com.escodro.core.extension.itemDialog
@@ -20,6 +18,8 @@ import com.escodro.core.extension.withDelay
 import com.escodro.core.viewmodel.ToolbarViewModel
 import com.escodro.task.R
 import com.escodro.task.model.TaskWithCategory
+import com.escodro.task.presentation.list.model.addEntryView
+import com.escodro.task.presentation.list.model.itemEntryView
 import kotlinx.android.synthetic.main.fragment_task_list.*
 import kotlinx.android.synthetic.main.item_add_task.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -37,14 +37,6 @@ class TaskListFragment : Fragment() {
 
     private var navigator: NavController? = null
 
-    private val adapter = TaskListAdapter(
-        onItemClicked = ::onItemClicked,
-        onItemLongPressed = ::onItemLongPressed,
-        onItemCheckedChanged = ::onItemCheckedChanged,
-        onInsertTask = ::onInsertTask,
-        onAddClicked = ::onAddClicked
-    )
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -60,7 +52,6 @@ class TaskListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         Timber.d("onViewCreated()")
 
-        bindComponents()
         navigator = NavHostFragment.findNavController(this)
     }
 
@@ -80,13 +71,6 @@ class TaskListFragment : Fragment() {
         viewModel.onDetach()
     }
 
-    private fun bindComponents() {
-        Timber.d("bindComponents()")
-
-        recyclerview_tasklist_list?.adapter = adapter
-        recyclerview_tasklist_list?.layoutManager = getLayoutManager()
-    }
-
     private fun loadTasks() {
         Timber.d("loadTasks()")
 
@@ -100,9 +84,6 @@ class TaskListFragment : Fragment() {
         sharedViewModel.updateTitle(taskName)
     }
 
-    private fun getLayoutManager() =
-        LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-
     private fun onInsertTask(description: String) {
         hideKeyboard()
         withDelay(INSERT_DELAY) { viewModel.addTask(description) }
@@ -111,7 +92,27 @@ class TaskListFragment : Fragment() {
     private fun onTaskLoaded(list: List<TaskWithCategory>, showAddButton: Boolean) {
         Timber.d("onTaskLoaded() - Size = ${list.size}")
 
-        adapter.updateList(list, showAddButton)
+        recyclerview_tasklist_list.withModels {
+            list.forEach {
+                itemEntryView {
+                    id(it.task.id)
+                    checkedState(it.task.completed)
+                    description(it.task.title)
+                    alarm(it.task.dueDate)
+                    color(it.category?.color)
+                    onItemClicked { onItemClicked(it) }
+                    onItemLongPressed { onItemLongPressed(it) }
+                    onItemCheckedChanged { value -> onItemCheckedChanged(it, value) }
+                }
+            }
+            if (showAddButton) {
+                addEntryView {
+                    id("add")
+                    onActionDone { onInsertTask(it) }
+                    onAddClicked { onAddClicked() }
+                }
+            }
+        }
 
         if (list.isEmpty() && !showAddButton) {
             recyclerview_tasklist_list?.visibility = View.INVISIBLE

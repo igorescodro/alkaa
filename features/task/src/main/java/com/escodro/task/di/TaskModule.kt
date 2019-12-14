@@ -11,6 +11,9 @@ import com.escodro.task.presentation.list.TaskListViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
+/**
+ * Task dependency injection module.
+ */
 val taskModule = module {
 
     single { TaskDetailProvider(get(), get(), get()) }

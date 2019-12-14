@@ -40,10 +40,11 @@ internal class TrackerViewModel(
     private fun onSuccess(trackerInfo: Tracker.Info) {
         Timber.d("onSuccess() = $trackerInfo")
 
-        _viewState.value = when {
-            trackerInfo.categoryList.isEmpty() -> TrackerUIState.EmptyChartState
-            else -> TrackerUIState.ShowDataState(trackerInfo)
-        }
+        _viewState.value = if (trackerInfo.categoryList.isEmpty()) {
+            TrackerUIState.EmptyChartState
+        } else TrackerUIState.ShowDataState(
+            trackerInfo
+        )
     }
 
     override fun onCleared() {

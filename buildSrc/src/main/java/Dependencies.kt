@@ -47,8 +47,8 @@ object Versions {
 
     const val buildGradle = "3.5.3"
 
-    const val detekt = "1.0.0"
-    const val ktlint = "0.34.2"
+    const val detekt = "1.2.2"
+    const val ktlint = "0.36.0"
 }
 
 object Deps {

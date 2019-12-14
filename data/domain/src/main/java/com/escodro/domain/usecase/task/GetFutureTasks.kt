@@ -18,6 +18,7 @@ class GetFutureTasks(private val taskRepository: TaskRepository) {
     operator fun invoke(): Single<MutableList<Task>> =
         taskRepository.findAllTasksWithDueDate()
             .flattenAsObservable { it }
+            .filter { !it.completed }
             .filter { isInFuture(it.dueDate) }
             .toList()
 

@@ -4,8 +4,8 @@ object Releases {
 }
 
 object Versions {
-    const val compileSdk = 28
-    const val targetSdk = 28
+    const val compileSdk = 29
+    const val targetSdk = 29
     const val minSdk = 23
 
     const val kotlin = "1.3.40"
@@ -45,7 +45,7 @@ object Versions {
     const val testRoom = "2.1.0"
     const val testArch = "2.1.0"
 
-    const val buildGradle = "3.5.0"
+    const val buildGradle = "3.5.3"
 
     const val detekt = "1.0.0"
     const val ktlint = "0.34.2"

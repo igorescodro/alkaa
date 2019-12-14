@@ -22,7 +22,7 @@ internal class DateConverter {
         }
 
         val calendar = Calendar.getInstance()
-        calendar?.timeInMillis = timestamp
+        calendar.timeInMillis = timestamp
         return calendar
     }
 

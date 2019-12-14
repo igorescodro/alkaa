@@ -13,6 +13,9 @@ import com.escodro.repository.datasource.TaskDataSource
 import com.escodro.repository.datasource.TaskWithCategoryDataSource
 import org.koin.dsl.module
 
+/**
+ * Local dependency injection module.
+ */
 val localModule = module {
 
     // Data Sources

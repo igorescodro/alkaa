@@ -16,6 +16,9 @@ private val loadFeatureModules by lazy {
     loadKoinModules(trackerModule)
 }
 
+/**
+ * Tracker dependency injection module.
+ */
 val trackerModule = module {
     viewModel { TrackerViewModel(get(), get()) }
 

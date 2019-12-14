@@ -4,17 +4,16 @@ object Releases {
 }
 
 object Versions {
-    const val compileSdk = 28
-    const val targetSdk = 28
+    const val compileSdk = 29
+    const val targetSdk = 29
     const val minSdk = 23
 
-    const val kotlin = "1.3.40"
+    const val kotlin = "1.3.61"
     const val appCompat = "1.0.2"
     const val material = "1.0.0"
     const val recyclerView = "1.0.0"
     const val preference = "1.0.0"
     const val cardView = "1.0.0"
-    const val androidx = "1.0.0"
     const val constraintLayout = "2.0.0-beta1"
     const val workManager = "1.0.1"
     const val ktx = "1.0.2"
@@ -45,10 +44,10 @@ object Versions {
     const val testRoom = "2.1.0"
     const val testArch = "2.1.0"
 
-    const val buildGradle = "3.5.0"
+    const val buildGradle = "3.5.3"
 
-    const val detekt = "1.0.0"
-    const val ktlint = "0.34.2"
+    const val detekt = "1.2.2"
+    const val ktlint = "0.36.0"
 }
 
 object Deps {

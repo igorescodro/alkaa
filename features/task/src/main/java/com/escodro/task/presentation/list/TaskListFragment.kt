@@ -27,7 +27,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
 /**
- * [Fragment] responsible to show and handle all [com.escodro.domain.viewdata.ViewData.TaskWithCategory]s.
+ * [Fragment] responsible to show and handle all [TaskWithCategory]s.
  */
 class TaskListFragment : Fragment() {
 
@@ -174,8 +174,14 @@ class TaskListFragment : Fragment() {
 
         private const val INSERT_DELAY = 200L
 
+        /**
+         * Represent the extra to store the category name.
+         */
         const val EXTRA_CATEGORY_NAME = "category_name"
 
+        /**
+         * Represent the extra to store the task list state.
+         */
         const val EXTRA_TASK_LIST_STATE = "task_list_state"
     }
 }

@@ -26,7 +26,7 @@ class TaskNotificationSchedulerTest {
     @Test
     fun `check if alarm was scheduled with valid task`() {
         scheduler.scheduleTaskAlarm(mockTask.id, mockTask.dueDate?.time?.time)
-        verify { mockContext.setAlarm(mockTask.dueDate!!.time!!.time, any()) }
+        verify { mockContext.setAlarm(mockTask.dueDate!!.time.time, any()) }
     }
 
     @Test

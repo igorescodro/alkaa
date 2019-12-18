@@ -17,8 +17,8 @@ object Versions {
     const val constraintLayout = "2.0.0-beta1"
     const val workManager = "1.0.1"
     const val ktx = "1.0.2"
-    const val lifecycle = "1.0.0"
-    const val room = "2.1.0"
+    const val lifecycle = "2.1.0"
+    const val room = "2.2.3"
     const val navigation = "2.1.0"
     const val playCore = "1.6.1"
 
@@ -71,7 +71,7 @@ object AndroidDeps {
     val constraintLayout = "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
     val workManager = "android.arch.work:work-runtime:${Versions.workManager}"
     val ktx = "androidx.core:core-ktx:${Versions.ktx}"
-    val lifecycle = "androidx.lifecycle:lifecycle-extensions:${Versions.lifecycle}"
+    val lifecycle = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}"
     val playCore = "com.google.android.play:core:${Versions.playCore}"
     val room = RoomDeps
     val navigation = NavigationDeps
@@ -81,6 +81,7 @@ object RoomDeps {
     val runtime = "androidx.room:room-runtime:${Versions.room}"
     val compiler = "androidx.room:room-compiler:${Versions.room}"
     val rx = "androidx.room:room-rxjava2:${Versions.room}"
+    val ktx = "androidx.room:room-ktx:${Versions.room}"
 }
 
 object NavigationDeps {

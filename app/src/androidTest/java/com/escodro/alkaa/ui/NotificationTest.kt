@@ -1,6 +1,7 @@
 package com.escodro.alkaa.ui
 
 import androidx.test.uiautomator.By
+import androidx.test.uiautomator.BySelector
 import androidx.test.uiautomator.UiObject2
 import androidx.test.uiautomator.UiSelector
 import androidx.test.uiautomator.Until
@@ -11,6 +12,7 @@ import com.escodro.alkaa.framework.extension.waitForLauncher
 import com.escodro.alkaa.presentation.MainActivity
 import com.escodro.local.model.Task
 import java.util.Calendar
+import java.util.regex.Pattern
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
@@ -89,8 +91,7 @@ class NotificationTest : AcceptanceTest<MainActivity>(MainActivity::class.java) 
         insertTask(taskName)
         goToNotificationDrawer()
         validateNotificationContent(taskName)
-        val doneButton =
-            By.text(context.getString(R.string.notification_action_completed).toUpperCase())
+        val doneButton = byTextIgnoreCase(context.getString(R.string.notification_action_completed))
         uiDevice.findObject(doneButton).click()
         reopenApp()
         events.waitFor(1000)
@@ -107,8 +108,7 @@ class NotificationTest : AcceptanceTest<MainActivity>(MainActivity::class.java) 
         insertTask(taskName)
         goToNotificationDrawer()
         validateNotificationContent(taskName)
-        val doneButton =
-            By.text(context.getString(R.string.notification_action_snooze).toUpperCase())
+        val doneButton = byTextIgnoreCase(context.getString(R.string.notification_action_snooze))
         uiDevice.findObject(doneButton).click()
         reopenApp()
         checkThat.listContainsItem(R.id.recyclerview_tasklist_list, taskName)
@@ -170,5 +170,10 @@ class NotificationTest : AcceptanceTest<MainActivity>(MainActivity::class.java) 
     private fun openDrawer() {
         events.openDrawer(R.id.drawer_layout_main_parent)
         checkThat.drawerIsOpen(R.id.drawer_layout_main_parent)
+    }
+
+    private fun byTextIgnoreCase(text: String): BySelector {
+        val pattern = Pattern.compile(text, Pattern.CASE_INSENSITIVE)
+        return By.text(pattern)
     }
 }

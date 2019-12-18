@@ -39,4 +39,3 @@ class LoadAllCategoriesTest {
         verify { mockCategoryRepo.findAllCategories() }
     }
 }
-

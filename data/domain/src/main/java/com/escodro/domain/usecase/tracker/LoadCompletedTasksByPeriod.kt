@@ -16,9 +16,10 @@ class LoadCompletedTasksByPeriod(private val repository: TaskWithCategoryReposit
      * Gets completed tasks in Tracker format for the last month.
      */
     operator fun invoke(): Single<List<TaskWithCategory>> =
-        repository.findAllTasksWithCategory(isCompleted = true)
+        repository.findAllTasksWithCategory()
             .flatMap {
                 Flowable.fromIterable(it)
+                    .filter { item -> item.task.completed }
                     .filter(::filterByLastMonth)
                     .toList()
                     .toFlowable()

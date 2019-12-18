@@ -11,11 +11,9 @@ interface TaskWithCategoryDataSource {
     /**
      * Get all inserted tasks with category.
      *
-     * @param isCompleted `false` to show all the completed tasks, `false` otherwise
-     *
      * @return all inserted tasks with category
      */
-    fun findAllTasksWithCategory(isCompleted: Boolean): Flowable<List<TaskWithCategory>>
+    fun findAllTasksWithCategory(): Flowable<List<TaskWithCategory>>
 
     /**
      * Get all inserted tasks related with the given category.

@@ -14,16 +14,13 @@ interface TaskWithCategoryDao {
     /**
      * Get all inserted tasks with category.
      *
-     * @param isCompleted `false` to show all the completed tasks, `false` otherwise
-     *
      * @return all inserted tasks with category
      */
     @Query(
         """SELECT * FROM task
-            LEFT JOIN category ON task_category_id = category_id
-            WHERE task_is_completed = :isCompleted"""
+            LEFT JOIN category ON task_category_id = category_id"""
     )
-    fun findAllTasksWithCategory(isCompleted: Boolean): Flowable<List<TaskWithCategory>>
+    fun findAllTasksWithCategory(): Flowable<List<TaskWithCategory>>
 
     /**
      * Get all inserted tasks related with the given category.

@@ -53,7 +53,37 @@ class LoadCompletedTasksByPeriodTest {
             TaskWithCategory(task5, category3)
         )
 
-        every { mockRepo.findAllTasksWithCategory(true) } returns Flowable.just(taskList)
+        every { mockRepo.findAllTasksWithCategory() } returns Flowable.just(taskList)
+
+        val testObserver = TestObserver<List<TaskWithCategory>>()
+        completeTracker().subscribe(testObserver)
+        testObserver.assertValue(assertList)
+    }
+
+    @Test
+    fun `check if only completed tasks are returned`() {
+        val category1 = Category(1, "Category A", "#FFFFFF")
+        val category2 = Category(2, "Category B", "#CCCCCC")
+
+        val calendarIn = Calendar.getInstance().apply { add(Calendar.DAY_OF_MONTH, -15) }
+
+        val task1 = Task(1, false, "Task 1")
+        val task2 = Task(2, false, "Task 2", completedDate = calendarIn)
+        val task3 = Task(3, false, "Task 3", completedDate = calendarIn)
+        val task4 = Task(4, true, "Task 4", completedDate = calendarIn)
+
+        val taskList = listOf(
+            TaskWithCategory(task1, category1),
+            TaskWithCategory(task2, category1),
+            TaskWithCategory(task3, category1),
+            TaskWithCategory(task4, category2)
+        )
+
+        val assertList = listOf(
+            TaskWithCategory(task4, category2)
+        )
+
+        every { mockRepo.findAllTasksWithCategory() } returns Flowable.just(taskList)
 
         val testObserver = TestObserver<List<TaskWithCategory>>()
         completeTracker().subscribe(testObserver)
@@ -66,7 +96,7 @@ class LoadCompletedTasksByPeriodTest {
         val task = Task(3, true, "Task 3", completedDate = calendarIn)
 
         val taskList = listOf(TaskWithCategory(task, null))
-        every { mockRepo.findAllTasksWithCategory(true) } returns Flowable.just(taskList)
+        every { mockRepo.findAllTasksWithCategory() } returns Flowable.just(taskList)
 
         val testObserver = TestObserver<List<TaskWithCategory>>()
         completeTracker().subscribe(testObserver)

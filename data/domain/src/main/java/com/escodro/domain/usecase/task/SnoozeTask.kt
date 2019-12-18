@@ -18,10 +18,15 @@ class SnoozeTask(private val taskRepository: TaskRepository) {
      *
      * @return observable to be subscribe
      */
-    operator fun invoke(taskId: Long, minutes: Int): Completable =
-        taskRepository.findTaskById(taskId)
+    operator fun invoke(taskId: Long, minutes: Int): Completable {
+        if (minutes <= 0) {
+            return Completable.error(IllegalArgumentException("The delay minutes must be positive"))
+        }
+
+        return taskRepository.findTaskById(taskId)
             .map { task -> getSnoozedTask(task, minutes) }
             .flatMapCompletable { task -> taskRepository.updateTask(task) }
+    }
 
     private fun getSnoozedTask(task: Task, minutes: Int): Task {
         val updatedCalendar = task.dueDate?.apply { add(Calendar.MINUTE, minutes) }

@@ -11,8 +11,8 @@ internal class TaskWithCategoryRepositoryImpl(
     private val mapper: TaskWithCategoryMapper
 ) : TaskWithCategoryRepository {
 
-    override fun findAllTasksWithCategory(isCompleted: Boolean): Flowable<List<TaskWithCategory>> =
-        dataSource.findAllTasksWithCategory(isCompleted).map { mapper.toDomain(it) }
+    override fun findAllTasksWithCategory(): Flowable<List<TaskWithCategory>> =
+        dataSource.findAllTasksWithCategory().map { mapper.toDomain(it) }
 
     override fun findAllTasksWithCategoryId(categoryId: Long): Flowable<List<TaskWithCategory>> =
         dataSource.findAllTasksWithCategoryId(categoryId).map { mapper.toDomain(it) }

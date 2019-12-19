@@ -22,6 +22,7 @@ dependencies {
     implementation Deps.android.material
     implementation Deps.android.navigation.fragment
     implementation Deps.android.navigation.ui
+    implementation Deps.android.lifecycle
     implementation Deps.android.playCore
 
     implementation Deps.koin.viewModel

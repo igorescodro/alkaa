@@ -7,6 +7,7 @@ import com.escodro.alkaa.framework.extension.waitForLauncher
 import com.escodro.alkaa.presentation.MainActivity
 import com.escodro.local.model.Category
 import java.util.Calendar
+import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -17,19 +18,16 @@ import org.junit.Test
 class TaskFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
 
     @Before
-    fun addCategories() {
+    fun addCategories() = runBlocking {
         daoProvider.getCategoryDao().insertCategory(Category(name = "Books", color = "#cc5a71"))
-            .blockingGet()
         daoProvider.getCategoryDao().insertCategory(Category(name = "Music", color = "#58a4b0"))
-            .blockingGet()
         daoProvider.getCategoryDao().insertCategory(Category(name = "Shared", color = "#519872"))
-            .blockingGet()
     }
 
     @After
-    fun cleanTable() {
+    fun cleanTable() = runBlocking {
         daoProvider.getTaskDao().cleanTable().blockingGet()
-        daoProvider.getCategoryDao().cleanTable().blockingGet()
+        daoProvider.getCategoryDao().cleanTable()
     }
 
     @Test

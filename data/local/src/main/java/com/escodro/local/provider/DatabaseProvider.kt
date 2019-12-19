@@ -9,7 +9,8 @@ import com.escodro.local.R
 import com.escodro.local.TaskDatabase
 import com.escodro.local.migration.MIGRATION_1_2
 import com.escodro.local.model.Category
-import java.util.concurrent.Executors
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 /**
  * Repository with the [Room] database.
@@ -38,8 +39,8 @@ class DatabaseProvider(private val context: Context) {
         object : RoomDatabase.Callback() {
             override fun onCreate(db: SupportSQLiteDatabase) {
                 super.onCreate(db)
-                Executors.newSingleThreadExecutor().execute {
-                    database?.categoryDao()?.insertCategory(getDefaultCategoryList())?.subscribe()
+                GlobalScope.launch {
+                    database?.categoryDao()?.insertCategory(getDefaultCategoryList())
                 }
             }
         }

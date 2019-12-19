@@ -19,7 +19,7 @@ dependencies {
     implementation Deps.android.navigation.fragment
     implementation Deps.android.navigation.ui
     implementation Deps.android.cardView
-
+    implementation Deps.android.lifecycle
     implementation Deps.koin.viewModel
 
     implementation Deps.rx.android

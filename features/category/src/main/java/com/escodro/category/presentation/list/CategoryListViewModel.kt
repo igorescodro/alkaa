@@ -1,11 +1,14 @@
 package com.escodro.category.presentation.list
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.escodro.category.mapper.CategoryMapper
 import com.escodro.category.model.Category
 import com.escodro.domain.usecase.category.DeleteCategory
 import com.escodro.domain.usecase.category.LoadAllCategories
-import io.reactivex.disposables.CompositeDisposable
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 
 /**
  * [ViewModel] responsible to provide information to [com.escodro.alkaa.databinding
@@ -17,34 +20,23 @@ internal class CategoryListViewModel(
     private val categoryMapper: CategoryMapper
 ) : ViewModel() {
 
-    private val compositeDisposable = CompositeDisposable()
-
     /**
      * Loads all categories.
      */
-    fun loadCategories(onListLoaded: (list: List<Category>) -> Unit) {
-        val disposable =
+    fun loadCategories(onListLoaded: (list: List<Category>) -> Unit) =
+        viewModelScope.launch {
             loadCategoriesUseCase()
                 .map { categoryMapper.toView(it) }
-                .subscribe {
-                    onListLoaded(it)
-                }
-        compositeDisposable.add(disposable)
-    }
+                .collect { onListLoaded(it) }
+        }
 
     /**
      * Deletes the given category.
      *
      * @param category category to be removed
      */
-    fun deleteCategory(category: Category) {
-        val disposable = deleteCategoryUseCase(categoryMapper.toDomain(category)).subscribe()
-        compositeDisposable.add(disposable)
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-
-        compositeDisposable.clear()
-    }
+    fun deleteCategory(category: Category) =
+        viewModelScope.launch {
+            deleteCategoryUseCase(categoryMapper.toDomain(category))
+        }
 }

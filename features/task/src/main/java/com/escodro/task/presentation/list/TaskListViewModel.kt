@@ -2,6 +2,7 @@ package com.escodro.task.presentation.list
 
 import android.text.TextUtils
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.escodro.domain.usecase.task.AddTask
 import com.escodro.domain.usecase.task.DeleteTask
 import com.escodro.domain.usecase.task.UpdateTaskStatus
@@ -13,6 +14,7 @@ import com.escodro.task.mapper.TaskWithCategoryMapper
 import com.escodro.task.model.Task
 import com.escodro.task.model.TaskWithCategory
 import io.reactivex.disposables.CompositeDisposable
+import kotlinx.coroutines.launch
 
 /**
  * [ViewModel] responsible to provide information to [TaskListFragment].
@@ -42,7 +44,7 @@ internal class TaskListViewModel(
         state: TaskListState,
         onTasksLoaded: (list: List<TaskWithCategory>, shouldShowAddButton: Boolean) -> Unit,
         onLoadError: () -> Unit
-    ) {
+    ) = viewModelScope.launch {
         val observable = when (state) {
             is TaskListState.ShowAllTasks -> loadAllTasksUseCase()
             is TaskListState.ShowCompletedTasks -> loadAllCompletedTasksUseCase()

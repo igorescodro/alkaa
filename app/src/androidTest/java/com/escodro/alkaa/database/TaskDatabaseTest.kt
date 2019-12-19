@@ -11,6 +11,8 @@ import com.escodro.local.dao.TaskWithCategoryDao
 import com.escodro.local.model.Category
 import com.escodro.local.model.Task
 import java.util.Calendar
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertTrue
 import org.junit.Before
@@ -29,16 +31,16 @@ class TaskDatabaseTest {
     private lateinit var categoryDao: CategoryDao
 
     @Before
-    fun createDb() {
+    fun createDb() = runBlocking {
         val context: Context = ApplicationProvider.getApplicationContext()
         database = Room.inMemoryDatabaseBuilder(context, TaskDatabase::class.java).build()
         taskDao = database.taskDao()
         taskWithCategoryDao = database.taskWithCategoryDao()
         categoryDao = database.categoryDao()
 
-        categoryDao.insertCategory(Category(name = "Work", color = "#cc5a71")).blockingGet()
-        categoryDao.insertCategory(Category(name = "Personal", color = "#58a4b0")).blockingGet()
-        categoryDao.insertCategory(Category(name = "Family", color = "#519872")).blockingGet()
+        categoryDao.insertCategory(Category(name = "Work", color = "#cc5a71"))
+        categoryDao.insertCategory(Category(name = "Personal", color = "#58a4b0"))
+        categoryDao.insertCategory(Category(name = "Family", color = "#519872"))
     }
 
     @After
@@ -80,9 +82,9 @@ class TaskDatabaseTest {
     }
 
     @Test
-    fun insertAndAddCategoryInTask() {
+    fun insertAndAddCategoryInTask() = runBlocking {
         val task = Task(id = 16, title = TASK_NAME)
-        task.categoryId = categoryDao.findAllCategories().blockingFirst()[0].id
+        task.categoryId = categoryDao.findAllCategories().first()[0].id
         taskDao.insertTask(task).blockingGet()
 
         val taskWithCategory = taskWithCategoryDao.findAllTasksWithCategory().blockingFirst()[0]
@@ -90,9 +92,9 @@ class TaskDatabaseTest {
     }
 
     @Test
-    fun clearTaskFields() {
+    fun clearTaskFields() = runBlocking {
         val task = Task(title = TASK_NAME).apply {
-            categoryId = categoryDao.findAllCategories().blockingFirst()[0].id
+            categoryId = categoryDao.findAllCategories().first()[0].id
             description = TASK_DESCRIPTION
             dueDate = Calendar.getInstance()
         }

@@ -4,36 +4,35 @@ import com.escodro.domain.model.Category
 import com.escodro.domain.repository.CategoryRepository
 import com.escodro.repository.datasource.CategoryDataSource
 import com.escodro.repository.mapper.CategoryMapper
-import io.reactivex.Completable
-import io.reactivex.Flowable
-import io.reactivex.Single
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 internal class CategoryRepositoryImpl(
     private val categoryDataSource: CategoryDataSource,
     private val categoryMapper: CategoryMapper
 ) : CategoryRepository {
 
-    override fun insertCategory(category: Category): Completable =
+    override suspend fun insertCategory(category: Category) =
         categoryDataSource.insertCategory(categoryMapper.toRepo(category))
 
-    override fun insertCategory(category: List<Category>): Completable =
+    override suspend fun insertCategory(category: List<Category>) =
         categoryDataSource.insertCategory(categoryMapper.toRepo(category))
 
-    override fun updateCategory(category: Category): Completable =
+    override suspend fun updateCategory(category: Category) =
         categoryDataSource.updateCategory(categoryMapper.toRepo(category))
 
-    override fun deleteCategory(category: Category): Completable =
+    override suspend fun deleteCategory(category: Category) =
         categoryDataSource.deleteCategory(categoryMapper.toRepo(category))
 
-    override fun cleanTable(): Completable =
+    override suspend fun cleanTable() =
         categoryDataSource.cleanTable()
 
-    override fun findAllCategories(): Flowable<List<Category>> =
+    override fun findAllCategories(): Flow<List<Category>> =
         categoryDataSource.findAllCategories().map { categoryMapper.toDomain(it) }
 
-    override fun findCategoryByName(name: String): Single<Category> =
-        categoryDataSource.findCategoryByName(name).map { categoryMapper.toDomain(it) }
+    override suspend fun findCategoryByName(name: String): Category =
+        categoryMapper.toDomain(categoryDataSource.findCategoryByName(name))
 
-    override fun findCategoryById(categoryId: Long): Single<Category> =
-        categoryDataSource.findCategoryById(categoryId).map { categoryMapper.toDomain(it) }
+    override suspend fun findCategoryById(categoryId: Long): Category? =
+        categoryDataSource.findCategoryById(categoryId)?.let { categoryMapper.toDomain(it) }
 }

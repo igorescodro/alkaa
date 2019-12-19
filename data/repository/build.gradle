@@ -5,4 +5,5 @@ dependencies {
 
     implementation Deps.koin.core
     implementation Deps.rx.java
+    implementation Deps.coroutines.core
 }

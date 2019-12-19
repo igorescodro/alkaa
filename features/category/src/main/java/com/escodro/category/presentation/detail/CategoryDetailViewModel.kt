@@ -4,13 +4,13 @@ import android.text.TextUtils
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.escodro.category.mapper.CategoryMapper
 import com.escodro.category.model.Category
 import com.escodro.core.extension.toStringColor
 import com.escodro.domain.usecase.category.LoadCategory
 import com.escodro.domain.usecase.category.UpsertCategory
-import io.reactivex.disposables.CompositeDisposable
-import timber.log.Timber
+import kotlinx.coroutines.launch
 
 /**
  * [ViewModel] responsible to provide information to [CategoryDetailFragment].
@@ -25,8 +25,6 @@ internal class CategoryDetailViewModel(
 
     private val categoryData = MutableLiveData<Category>()
 
-    private val compositeDisposable = CompositeDisposable()
-
     init {
         newCategory.addSource(categoryData) { newCategory.value = it.name }
     }
@@ -36,19 +34,13 @@ internal class CategoryDetailViewModel(
      *
      * @param categoryId categoryId id
      */
-    fun loadCategory(categoryId: Long, onLoadCategory: (color: String) -> Unit) {
-        val disposable =
-            loadCategoryUseCase(categoryId)
-                .map { categoryMapper.toView(it) }
-                .subscribe(
-                    { category ->
-                        categoryData.value = category
-                        category.color?.let { color -> onLoadCategory(color) }
-                    },
-                    { Timber.e("Category not found in database") })
-
-        compositeDisposable.add(disposable)
-    }
+    fun loadCategory(categoryId: Long, onLoadCategory: (color: String) -> Unit) =
+        viewModelScope.launch {
+            val category = loadCategoryUseCase(categoryId)
+            val view = category?.let { categoryMapper.toView(it) }
+            categoryData.value = view
+            category?.color?.let { onLoadCategory(it) }
+        }
 
     /**
      * Adds or updates a category.
@@ -72,11 +64,10 @@ internal class CategoryDetailViewModel(
             getNewCategory(name, color)
         }
 
-        val disposable = upsertCategoryUseCase(categoryMapper.toDomain(category))
-            .doOnComplete { onCategoryAdded() }
-            .subscribe()
-
-        compositeDisposable.add(disposable)
+        viewModelScope.launch {
+            upsertCategoryUseCase(categoryMapper.toDomain(category))
+            onCategoryAdded()
+        }
     }
 
     private fun isEditMode() = categoryData.value != null
@@ -87,10 +78,4 @@ internal class CategoryDetailViewModel(
     private fun getCurrentCategory(name: String, color: String): Category =
         categoryData.value?.copy(name = name, color = color)
             ?: getNewCategory(name, color)
-
-    override fun onCleared() {
-        super.onCleared()
-
-        compositeDisposable.clear()
-    }
 }

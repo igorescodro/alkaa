@@ -24,6 +24,7 @@ dependencies {
     implementation Deps.koin.core
     implementation Deps.android.room.runtime
     implementation Deps.android.room.rx
+    implementation Deps.android.room.ktx
     kapt Deps.android.room.compiler
     implementation Deps.rx.java
 

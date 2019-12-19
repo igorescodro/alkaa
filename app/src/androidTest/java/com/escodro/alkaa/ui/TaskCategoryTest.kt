@@ -4,7 +4,8 @@ import com.escodro.alkaa.R
 import com.escodro.alkaa.framework.AcceptanceTest
 import com.escodro.alkaa.presentation.MainActivity
 import com.escodro.local.model.Category
-import org.junit.After
+import kotlinx.coroutines.runBlocking
+import org.junit.Before
 import org.junit.Test
 
 /**
@@ -12,18 +13,18 @@ import org.junit.Test
  */
 class TaskCategoryTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
 
-    @After
-    fun cleanTable() {
-        daoProvider.getTaskDao().cleanTable().blockingGet()
-        daoProvider.getCategoryDao().cleanTable().blockingGet()
+    @Before
+    fun cleanTable() = runBlocking {
+        daoProvider.getTaskDao().cleanTable().blockingAwait()
+        daoProvider.getCategoryDao().cleanTable()
     }
 
     @Test
-    fun addTaskAfterRemovingCategoryAndReturningToScreen() {
+    fun addTaskAfterRemovingCategoryAndReturningToScreen() = runBlocking {
         val categoryName = "Temporary"
         val taskName = "Should be deleted together"
         val category = Category(name = categoryName, color = "#dd55ff")
-        daoProvider.getCategoryDao().insertCategory(category).blockingAwait()
+        daoProvider.getCategoryDao().insertCategory(category)
         navigateToCategory(categoryName)
         addTask(taskName)
         navigateToCategoryScreen()

@@ -21,9 +21,12 @@ class LoadTasksByCategory(
      *
      * @return observable to be subscribe
      */
-    operator fun invoke(categoryId: Long): Flowable<List<TaskWithCategory>> =
-        categoryRepository.findCategoryById(categoryId)
-            .map { category -> category.id }
-            .flatMapPublisher { id -> joinRepository.findAllTasksWithCategoryId(id) }
-            .applySchedulers()
+    suspend operator fun invoke(categoryId: Long): Flowable<List<TaskWithCategory>> {
+        val category = categoryRepository.findCategoryById(categoryId)
+        return if (category != null) {
+            joinRepository.findAllTasksWithCategoryId(category.id).applySchedulers()
+        } else {
+            Flowable.error(IllegalArgumentException("Category not found with id = $categoryId"))
+        }
+    }
 }

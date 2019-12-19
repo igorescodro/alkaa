@@ -22,6 +22,8 @@ object Versions {
     const val navigation = "2.1.0"
     const val playCore = "1.6.1"
 
+    const val coroutines = "1.3.1"
+
     const val timber = "4.7.1"
 
     const val koin = "2.0.0"
@@ -55,6 +57,7 @@ object Deps {
     val timber = "com.jakewharton.timber:timber:${Versions.timber}"
     val mpAndroidChart = "com.github.PhilJay:MPAndroidChart:v${Versions.mpAndroidChart}"
     val android = AndroidDeps
+    val coroutines = CoroutinesDeps
     val koin = KoinDeps
     val rx = RxDeps
     val test = TestDeps
@@ -75,6 +78,11 @@ object AndroidDeps {
     val playCore = "com.google.android.play:core:${Versions.playCore}"
     val room = RoomDeps
     val navigation = NavigationDeps
+}
+
+object CoroutinesDeps {
+    val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
+    val test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutines}"
 }
 
 object RoomDeps {

@@ -1,9 +1,7 @@
 package com.escodro.domain.usecase.task
 
-import com.escodro.core.extension.applySchedulers
 import com.escodro.domain.model.Task
 import com.escodro.domain.repository.TaskRepository
-import io.reactivex.Completable
 
 /**
  * Use case to add a task from the database.
@@ -17,6 +15,6 @@ class AddTask(private val taskRepository: TaskRepository) {
      *
      * @return observable to be subscribe
      */
-    operator fun invoke(task: Task): Completable =
-        taskRepository.insertTask(task).applySchedulers()
+    suspend operator fun invoke(task: Task) =
+        taskRepository.insertTask(task)
 }

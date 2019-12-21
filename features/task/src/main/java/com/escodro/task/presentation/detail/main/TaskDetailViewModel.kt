@@ -1,6 +1,7 @@
 package com.escodro.task.presentation.detail.main
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.escodro.task.presentation.detail.TaskDetailProvider
 import timber.log.Timber
 
@@ -19,7 +20,7 @@ internal class TaskDetailViewModel(private val taskProvider: TaskDetailProvider)
      */
     fun loadTask(id: Long) {
         Timber.d("loadTask() - $id")
-        taskProvider.loadTask(id)
+        taskProvider.loadTask(id, viewModelScope)
     }
 
     /**
@@ -35,7 +36,7 @@ internal class TaskDetailViewModel(private val taskProvider: TaskDetailProvider)
         }
 
         taskData.value?.copy(title = title)?.let {
-            taskProvider.updateTask(it)
+            taskProvider.updateTask(it, viewModelScope)
         }
     }
 
@@ -48,7 +49,7 @@ internal class TaskDetailViewModel(private val taskProvider: TaskDetailProvider)
         Timber.d("updateDescription() - $description")
 
         taskData.value?.copy(description = description)?.let {
-            taskProvider.updateTask(it)
+            taskProvider.updateTask(it, viewModelScope)
         }
     }
 

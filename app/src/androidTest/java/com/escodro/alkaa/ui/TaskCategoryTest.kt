@@ -15,7 +15,7 @@ class TaskCategoryTest : AcceptanceTest<MainActivity>(MainActivity::class.java) 
 
     @Before
     fun cleanTable() = runBlocking {
-        daoProvider.getTaskDao().cleanTable().blockingAwait()
+        daoProvider.getTaskDao().cleanTable()
         daoProvider.getCategoryDao().cleanTable()
     }
 

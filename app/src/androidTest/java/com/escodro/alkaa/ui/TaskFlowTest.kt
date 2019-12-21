@@ -26,7 +26,7 @@ class TaskFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
 
     @After
     fun cleanTable() = runBlocking {
-        daoProvider.getTaskDao().cleanTable().blockingGet()
+        daoProvider.getTaskDao().cleanTable()
         daoProvider.getCategoryDao().cleanTable()
     }
 

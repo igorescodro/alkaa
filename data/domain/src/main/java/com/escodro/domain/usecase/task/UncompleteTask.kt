@@ -1,9 +1,7 @@
 package com.escodro.domain.usecase.task
 
-import com.escodro.core.extension.applySchedulers
 import com.escodro.domain.model.Task
 import com.escodro.domain.repository.TaskRepository
-import io.reactivex.Completable
 
 /**
  * Use case to set a task as uncompleted in the database.
@@ -17,9 +15,9 @@ class UncompleteTask(private val taskRepository: TaskRepository) {
      *
      * @return observable to be subscribe
      */
-    operator fun invoke(task: Task): Completable {
+    suspend operator fun invoke(task: Task) {
         val updatedTask = updateTaskAsUncompleted(task)
-        return taskRepository.updateTask(updatedTask).applySchedulers()
+        return taskRepository.updateTask(updatedTask)
     }
 
     private fun updateTaskAsUncompleted(task: Task) =

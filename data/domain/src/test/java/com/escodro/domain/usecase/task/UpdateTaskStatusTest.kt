@@ -2,18 +2,14 @@ package com.escodro.domain.usecase.task
 
 import com.escodro.domain.model.Task
 import com.escodro.domain.repository.TaskRepository
-import com.escodro.test.ImmediateSchedulerRule
-import io.mockk.every
+import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.mockk
 import io.mockk.verify
-import io.reactivex.Single
-import org.junit.Rule
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Test
 
 class UpdateTaskStatusTest {
-
-    @get:Rule
-    var testSchedulerRule = ImmediateSchedulerRule()
 
     private val mockTask = mockk<Task>(relaxed = true)
 
@@ -27,28 +23,28 @@ class UpdateTaskStatusTest {
         UpdateTaskStatus(mockTaskRepo, mockCompleteTask, mockUncompleteTask)
 
     @Test
-    fun `check if completed flag was inverted`() {
-        every { mockTaskRepo.findTaskById(any()) } returns Single.just(mockTask)
+    fun `check if completed flag was inverted`() = runBlockingTest {
+        coEvery { mockTaskRepo.findTaskById(any()) } returns mockTask
 
-        updateTaskStatus(mockTask.id).subscribe()
+        updateTaskStatus(mockTask.id)
         verify { mockTask.completed.not() }
     }
 
     @Test
-    fun `check if completed flow was called`() {
-        every { mockTaskRepo.findTaskById(any()) } returns Single.just(mockTask)
-        every { mockTask.completed } returns false
+    fun `check if completed flow was called`() = runBlockingTest {
+        coEvery { mockTaskRepo.findTaskById(any()) } returns mockTask
+        coEvery { mockTask.completed } returns false
 
-        updateTaskStatus(mockTask.id).subscribe()
-        verify { mockCompleteTask(mockTask) }
+        updateTaskStatus(mockTask.id)
+        coVerify { mockCompleteTask(mockTask) }
     }
 
     @Test
-    fun `check if uncompleted flow was called`() {
-        every { mockTaskRepo.findTaskById(any()) } returns Single.just(mockTask)
-        every { mockTask.completed } returns true
+    fun `check if uncompleted flow was called`() = runBlockingTest {
+        coEvery { mockTaskRepo.findTaskById(any()) } returns mockTask
+        coEvery { mockTask.completed } returns true
 
-        updateTaskStatus(mockTask.id).subscribe()
-        verify { mockUncompleteTask(mockTask) }
+        updateTaskStatus(mockTask.id)
+        coVerify { mockUncompleteTask(mockTask) }
     }
 }

@@ -3,6 +3,7 @@ package com.escodro.alkaa.ui
 import com.escodro.alkaa.R
 import com.escodro.alkaa.framework.AcceptanceTest
 import com.escodro.alkaa.presentation.MainActivity
+import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Test
 
@@ -12,8 +13,8 @@ import org.junit.Test
 class CompletedTaskTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
 
     @After
-    fun cleanTable() {
-        daoProvider.getTaskDao().cleanTable().blockingGet()
+    fun cleanTable() = runBlocking {
+        daoProvider.getTaskDao().cleanTable()
     }
 
     @Test

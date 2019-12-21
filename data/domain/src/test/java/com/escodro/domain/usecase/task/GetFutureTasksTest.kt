@@ -2,26 +2,21 @@ package com.escodro.domain.usecase.task
 
 import com.escodro.domain.model.Task
 import com.escodro.domain.repository.TaskRepository
-import com.escodro.test.ImmediateSchedulerRule
-import io.mockk.every
+import io.mockk.coEvery
 import io.mockk.mockk
-import io.reactivex.Single
-import io.reactivex.observers.TestObserver
 import java.util.Calendar
-import org.junit.Rule
+import kotlinx.coroutines.test.runBlockingTest
+import org.junit.Assert
 import org.junit.Test
 
 class GetFutureTasksTest {
-
-    @get:Rule
-    var testSchedulerRule = ImmediateSchedulerRule()
 
     private val mockRepo = mockk<TaskRepository>(relaxed = true)
 
     private val getFutureTasks = GetFutureTasks(mockRepo)
 
     @Test
-    fun `check if only tasks in the future are shown`() {
+    fun `check if only tasks in the future are shown`() = runBlockingTest {
         val futureCalendar = Calendar.getInstance().apply { add(Calendar.DAY_OF_MONTH, 15) }
 
         val task1 = Task(id = 1, title = "Title", dueDate = futureCalendar)
@@ -33,15 +28,14 @@ class GetFutureTasksTest {
         val repoList = listOf(task1, task2, task3, task4, task5)
         val assertList = listOf(task1, task3, task5)
 
-        every { mockRepo.findAllTasksWithDueDate() } returns Single.just(repoList)
+        coEvery { mockRepo.findAllTasksWithDueDate() } returns repoList
 
-        val testObserver = TestObserver<List<Task>>()
-        getFutureTasks().subscribe(testObserver)
-        testObserver.assertValue(assertList)
+        val futureTasks = getFutureTasks()
+        Assert.assertEquals(assertList, futureTasks)
     }
 
     @Test
-    fun `check if completed tasks are ignored`() {
+    fun `check if completed tasks are ignored`() = runBlockingTest {
         val futureCalendar = Calendar.getInstance().apply { add(Calendar.DAY_OF_MONTH, 15) }
 
         val task1 = Task(id = 1, completed = true, title = "Title", dueDate = futureCalendar)
@@ -53,15 +47,14 @@ class GetFutureTasksTest {
         val repoList = listOf(task1, task2, task3, task4, task5)
         val assertList = listOf(task4, task5)
 
-        every { mockRepo.findAllTasksWithDueDate() } returns Single.just(repoList)
+        coEvery { mockRepo.findAllTasksWithDueDate() } returns repoList
 
-        val testObserver = TestObserver<List<Task>>()
-        getFutureTasks().subscribe(testObserver)
-        testObserver.assertValue(assertList)
+        val futureTasks = getFutureTasks()
+        Assert.assertEquals(assertList, futureTasks)
     }
 
     @Test
-    fun `check if uncompleted tasks on the past are ignored`() {
+    fun `check if uncompleted tasks on the past are ignored`() = runBlockingTest {
         val pastCalendar = Calendar.getInstance().apply { add(Calendar.DAY_OF_MONTH, -15) }
         val futureCalendar = Calendar.getInstance().apply { add(Calendar.DAY_OF_MONTH, 15) }
 
@@ -74,10 +67,9 @@ class GetFutureTasksTest {
         val repoList = listOf(task1, task2, task3, task4, task5)
         val assertList = listOf(task5)
 
-        every { mockRepo.findAllTasksWithDueDate() } returns Single.just(repoList)
+        coEvery { mockRepo.findAllTasksWithDueDate() } returns repoList
 
-        val testObserver = TestObserver<List<Task>>()
-        getFutureTasks().subscribe(testObserver)
-        testObserver.assertValue(assertList)
+        val futureTasks = getFutureTasks()
+        Assert.assertEquals(assertList, futureTasks)
     }
 }

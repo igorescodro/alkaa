@@ -1,8 +1,6 @@
 package com.escodro.domain.usecase.task
 
-import com.escodro.domain.model.Task
 import com.escodro.domain.repository.TaskRepository
-import io.reactivex.Single
 import java.util.Calendar
 
 /**
@@ -15,12 +13,10 @@ class GetFutureTasks(private val taskRepository: TaskRepository) {
      *
      * @return observable to be subscribe
      */
-    operator fun invoke(): Single<MutableList<Task>> =
+    suspend operator fun invoke() =
         taskRepository.findAllTasksWithDueDate()
-            .flattenAsObservable { it }
             .filter { !it.completed }
             .filter { isInFuture(it.dueDate) }
-            .toList()
 
     private fun isInFuture(calendar: Calendar?): Boolean {
         val currentTime = Calendar.getInstance()

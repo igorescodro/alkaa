@@ -72,7 +72,7 @@ object AndroidDeps {
     val preference = "androidx.preference:preference:${Versions.preference}"
     val cardView = "androidx.cardview:cardview:${Versions.cardView}"
     val constraintLayout = "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
-    val workManager = "android.arch.work:work-runtime:${Versions.workManager}"
+    val workManager = "android.arch.work:work-runtime-ktx:${Versions.workManager}"
     val ktx = "androidx.core:core-ktx:${Versions.ktx}"
     val lifecycle = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}"
     val playCore = "com.google.android.play:core:${Versions.playCore}"

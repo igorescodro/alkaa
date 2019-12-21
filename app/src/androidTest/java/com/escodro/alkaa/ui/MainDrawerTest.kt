@@ -33,20 +33,15 @@ class MainDrawerTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
         familyId = categoryDao.findCategoryByName(FAMILY_CATEGORY).id
 
         taskDao.insertTask(Task(completed = false, title = "Buy milk", categoryId = personalId))
-            .blockingAwait()
         taskDao.insertTask(Task(completed = true, title = "Buy onion", categoryId = personalId))
-            .blockingAwait()
         taskDao.insertTask(Task(completed = false, title = "Study docs", categoryId = workId))
-            .blockingAwait()
         taskDao.insertTask(Task(completed = false, title = "Visit grandpa", categoryId = familyId))
-            .blockingAwait()
         taskDao.insertTask(Task(completed = false, title = "Call dad", categoryId = familyId))
-            .blockingAwait()
     }
 
     @After
     fun cleanTable() = runBlocking {
-        daoProvider.getTaskDao().cleanTable().blockingAwait()
+        daoProvider.getTaskDao().cleanTable()
         daoProvider.getCategoryDao().cleanTable()
     }
 

@@ -2,6 +2,7 @@ package com.escodro.task.presentation.detail.alarm
 
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.escodro.alarm.notification.TaskNotificationScheduler
 import com.escodro.task.presentation.detail.TaskDetailProvider
 import java.util.Calendar
@@ -32,7 +33,7 @@ internal class TaskAlarmViewModel(
         Timber.d("setAlarm()")
 
         taskData.value?.copy(dueDate = alarm)?.let {
-            taskProvider.updateTask(it)
+            taskProvider.updateTask(it, viewModelScope)
             alarmManager.scheduleTaskAlarm(it.id, it.dueDate?.time?.time)
         }
     }
@@ -45,7 +46,7 @@ internal class TaskAlarmViewModel(
 
         taskData.value?.copy(dueDate = null)?.let {
             alarmManager.cancelTaskAlarm(it.id)
-            taskProvider.updateTask(it)
+            taskProvider.updateTask(it, viewModelScope)
         }
     }
 }

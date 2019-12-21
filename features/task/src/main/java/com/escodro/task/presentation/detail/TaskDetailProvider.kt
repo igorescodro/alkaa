@@ -2,12 +2,12 @@ package com.escodro.task.presentation.detail
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.escodro.core.extension.applySchedulers
 import com.escodro.domain.usecase.task.GetTask
 import com.escodro.domain.usecase.task.UpdateTask
 import com.escodro.task.mapper.TaskMapper
 import com.escodro.task.model.Task
-import io.reactivex.disposables.CompositeDisposable
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 /**
@@ -25,28 +25,21 @@ internal class TaskDetailProvider(
 
     private var mutableTaskData = MutableLiveData<Task>()
 
-    private val compositeDisposable = CompositeDisposable()
-
     /**
      * Loads the task based on the given id.
      *
      * @param taskId task id
      */
-    fun loadTask(taskId: Long?) {
+    fun loadTask(taskId: Long?, viewModelScope: CoroutineScope) {
         if (taskId == null) {
             Timber.e("loadTask - Task id is null")
             return
         }
 
-        val disposable = getTaskUseCase(taskId)
-            .applySchedulers().subscribe(
-                {
-                    Timber.d("loadTask = ${it.title}")
-                    mutableTaskData.value = taskMapper.toView(it)
-                },
-                { Timber.e("Task not found in database") })
-
-        compositeDisposable.add(disposable)
+        viewModelScope.launch {
+            val task = getTaskUseCase(taskId)
+            mutableTaskData.value = taskMapper.toView(task)
+        }
     }
 
     /**
@@ -54,13 +47,10 @@ internal class TaskDetailProvider(
      *
      * @param task task to be updated
      */
-    fun updateTask(task: Task) {
+    fun updateTask(task: Task, viewModelScope: CoroutineScope) = viewModelScope.launch {
         Timber.d("updateTask() - $task")
-
-        val disposable = updateTaskUseCase(taskMapper.toDomain(task)).subscribe()
-
+        updateTaskUseCase(taskMapper.toDomain(task))
         mutableTaskData.value = task
-        compositeDisposable.add(disposable)
     }
 
     /**
@@ -69,6 +59,5 @@ internal class TaskDetailProvider(
     fun clear() {
         Timber.d("clear()")
         mutableTaskData = MutableLiveData()
-        compositeDisposable.clear()
     }
 }

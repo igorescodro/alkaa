@@ -1,13 +1,14 @@
 package com.escodro.alarm.worker
 
 import android.content.Context
+import androidx.work.CoroutineWorker
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.escodro.alarm.mapper.TaskMapper
-import com.escodro.alarm.model.Task
 import com.escodro.alarm.notification.TaskNotificationScheduler
 import com.escodro.domain.usecase.task.GetFutureTasks
-import io.reactivex.Single
+import kotlinx.coroutines.coroutineScope
+import org.koin.core.KoinComponent
 import org.koin.core.inject
 import timber.log.Timber
 
@@ -15,7 +16,7 @@ import timber.log.Timber
  * [Worker] to reschedule the Task alarms.
  */
 internal class TaskReschedulerWorker(context: Context, params: WorkerParameters) :
-    SingleWorker<List<Task>>(context, params) {
+    CoroutineWorker(context, params), KoinComponent {
 
     private val getFutureTasksUseCase: GetFutureTasks by inject()
 
@@ -23,17 +24,12 @@ internal class TaskReschedulerWorker(context: Context, params: WorkerParameters)
 
     private val taskMapper: TaskMapper by inject()
 
-    override fun getObservable(): Single<List<Task>> =
+    override suspend fun doWork(): Result = coroutineScope {
         getFutureTasksUseCase().map { taskMapper.fromDomain(it) }
-
-    override fun onSuccess(result: List<Task>) {
-        result.forEach {
-            Timber.d("Task '${it.title} rescheduled to '${it.dueDate}")
-            taskAlarmManager.scheduleTaskAlarm(it.id, it.dueDate?.time?.time)
-        }
-    }
-
-    override fun onError(error: Throwable) {
-        Timber.d("onError: $error")
+            .forEach {
+                Timber.d("Task '${it.title} rescheduled to '${it.dueDate}")
+                taskAlarmManager.scheduleTaskAlarm(it.id, it.dueDate?.time?.time)
+            }
+        Result.success()
     }
 }

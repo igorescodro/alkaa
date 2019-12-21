@@ -1,9 +1,7 @@
 package com.escodro.repository.datasource
 
 import com.escodro.repository.model.Task
-import io.reactivex.Completable
-import io.reactivex.Flowable
-import io.reactivex.Single
+import kotlinx.coroutines.flow.Flow
 import org.jetbrains.annotations.TestOnly
 
 /**
@@ -16,33 +14,33 @@ interface TaskDataSource {
      *
      * @param task task to be added
      */
-    fun insertTask(task: Task): Completable
+    suspend fun insertTask(task: Task)
 
     /**
      * Updates a task.
      *
      * @param task task to be updated
      */
-    fun updateTask(task: Task): Completable
+    suspend fun updateTask(task: Task)
 
     /**
      * Deletes a task.
      *
      * @param task task to be deleted
      */
-    fun deleteTask(task: Task): Completable
+    suspend fun deleteTask(task: Task)
 
     /**
      * Cleans the entire table.
      */
-    fun cleanTable(): Completable
+    suspend fun cleanTable()
 
     /**
      * Get all inserted tasks with due date.
      *
      * @return all inserted tasks with due date
      */
-    fun findAllTasksWithDueDate(): Single<List<Task>>
+    suspend fun findAllTasksWithDueDate(): List<Task>
 
     /**
      * Get task by id.
@@ -51,7 +49,7 @@ interface TaskDataSource {
      *
      * @return selected task
      */
-    fun findTaskById(taskId: Long): Single<Task>
+    suspend fun findTaskById(taskId: Long): Task
 
     /**
      * Get all inserted tasks.
@@ -59,7 +57,7 @@ interface TaskDataSource {
      * @return all inserted tasks
      */
     @TestOnly
-    fun findAllTasks(): Flowable<List<Task>>
+    fun findAllTasks(): Flow<List<Task>>
 
     /**
      * Gets a specific task by title.
@@ -69,5 +67,5 @@ interface TaskDataSource {
      * @return selected task
      */
     @TestOnly
-    fun findTaskByTitle(title: String): Single<Task>
+    suspend fun findTaskByTitle(title: String): Task
 }

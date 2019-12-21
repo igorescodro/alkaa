@@ -48,7 +48,7 @@ internal class TaskCategoryViewModel(
             }
 
             taskData.value?.copy(categoryId = categoryId)?.let {
-                taskProvider.updateTask(it)
+                taskProvider.updateTask(it, viewModelScope)
             }
         }
     }

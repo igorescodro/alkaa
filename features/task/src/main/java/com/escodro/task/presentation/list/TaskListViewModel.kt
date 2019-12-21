@@ -75,10 +75,11 @@ internal class TaskListViewModel(
     fun addTask(description: String) {
         if (TextUtils.isEmpty(description)) return
 
-        val categoryIdValue = if (categoryId != 0L) categoryId else null
-        val task = Task(title = description, categoryId = categoryIdValue)
-        val disposable = addTaskUseCase(taskMapper.toDomain(task)).subscribe()
-        compositeDisposable.add(disposable)
+        viewModelScope.launch {
+            val categoryIdValue = if (categoryId != 0L) categoryId else null
+            val task = Task(title = description, categoryId = categoryIdValue)
+            addTaskUseCase(taskMapper.toDomain(task))
+        }
     }
 
     /**
@@ -86,9 +87,8 @@ internal class TaskListViewModel(
      *
      * @param task task to be updated
      */
-    fun updateTaskStatus(task: Task) {
-        val disposable = updateStatusUseCase(task.id).subscribe()
-        compositeDisposable.add(disposable)
+    fun updateTaskStatus(task: Task) = viewModelScope.launch {
+        updateStatusUseCase(task.id)
     }
 
     /**
@@ -96,10 +96,9 @@ internal class TaskListViewModel(
      *
      * @param taskWithCategory task to be removed
      */
-    fun deleteTask(taskWithCategory: TaskWithCategory) {
+    fun deleteTask(taskWithCategory: TaskWithCategory) = viewModelScope.launch {
         val task = taskWithCategory.task
-        val disposable = deleteTaskUseCase(taskMapper.toDomain(task)).subscribe()
-        compositeDisposable.add(disposable)
+        deleteTaskUseCase(taskMapper.toDomain(task))
     }
 
     /**

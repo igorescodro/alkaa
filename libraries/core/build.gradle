@@ -15,6 +15,8 @@ dependencies {
     implementation Deps.android.navigation.fragment
     implementation Deps.android.navigation.ui
 
+    implementation Deps.coroutines.core
+
     implementation Deps.rx.android
     implementation Deps.rx.java
 

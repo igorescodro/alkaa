@@ -13,8 +13,11 @@ import com.escodro.task.mapper.TaskMapper
 import com.escodro.task.mapper.TaskWithCategoryMapper
 import com.escodro.task.model.Task
 import com.escodro.task.model.TaskWithCategory
-import io.reactivex.disposables.CompositeDisposable
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 /**
  * [ViewModel] responsible to provide information to [TaskListFragment].
@@ -32,8 +35,6 @@ internal class TaskListViewModel(
 
     private var categoryId: Long? = null
 
-    private val compositeDisposable = CompositeDisposable()
-
     /**
      * Load the tasks based on the given state.
      *
@@ -45,7 +46,7 @@ internal class TaskListViewModel(
         onTasksLoaded: (list: List<TaskWithCategory>, shouldShowAddButton: Boolean) -> Unit,
         onLoadError: () -> Unit
     ) = viewModelScope.launch {
-        val observable = when (state) {
+        val flow = when (state) {
             is TaskListState.ShowAllTasks -> loadAllTasksUseCase()
             is TaskListState.ShowCompletedTasks -> loadAllCompletedTasksUseCase()
             is TaskListState.ShowTaskByCategory -> {
@@ -54,19 +55,18 @@ internal class TaskListViewModel(
             }
         }
 
-        val disposable = observable
-            .map { taskWithCategoryMapper.toView(it) }
-            .subscribe(
-                {
-                    val shouldShow = state !is TaskListState.ShowCompletedTasks
-                    onTasksLoaded(it, shouldShow)
-                },
-                {
-                    categoryId = 0L
-                    onLoadError()
-                })
+        flow.map { taskWithCategoryMapper.toView(it) }
+            .catch { handleException(it, onLoadError) }
+            .collect {
+                val shouldShow = state !is TaskListState.ShowCompletedTasks
+                onTasksLoaded(it, shouldShow)
+            }
+    }
 
-        compositeDisposable.add(disposable)
+    private fun handleException(throwable: Throwable, onLoadError: () -> Unit) {
+        Timber.d("handleException = $throwable")
+        categoryId = 0L
+        onLoadError()
     }
 
     /**
@@ -99,12 +99,5 @@ internal class TaskListViewModel(
     fun deleteTask(taskWithCategory: TaskWithCategory) = viewModelScope.launch {
         val task = taskWithCategory.task
         deleteTaskUseCase(taskMapper.toDomain(task))
-    }
-
-    /**
-     * Clears the [ViewModel] when the [TaskListFragment] is not visible to user.
-     */
-    fun onDetach() {
-        compositeDisposable.clear()
     }
 }

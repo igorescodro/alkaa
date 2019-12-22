@@ -1,10 +1,9 @@
 package com.escodro.domain.usecase.taskwithcategory
 
-import com.escodro.core.extension.applySchedulers
 import com.escodro.domain.model.TaskWithCategory
 import com.escodro.domain.repository.CategoryRepository
 import com.escodro.domain.repository.TaskWithCategoryRepository
-import io.reactivex.Flowable
+import kotlinx.coroutines.flow.Flow
 
 /**
  * Use case to get a task with category by the category id from the database.
@@ -21,12 +20,12 @@ class LoadTasksByCategory(
      *
      * @return observable to be subscribe
      */
-    suspend operator fun invoke(categoryId: Long): Flowable<List<TaskWithCategory>> {
+    suspend operator fun invoke(categoryId: Long): Flow<List<TaskWithCategory>> {
         val category = categoryRepository.findCategoryById(categoryId)
         return if (category != null) {
-            joinRepository.findAllTasksWithCategoryId(category.id).applySchedulers()
+            joinRepository.findAllTasksWithCategoryId(category.id)
         } else {
-            Flowable.error(IllegalArgumentException("Category not found with id = $categoryId"))
+            throw IllegalArgumentException("Category not found with id = $categoryId")
         }
     }
 }

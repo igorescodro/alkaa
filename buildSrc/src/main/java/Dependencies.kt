@@ -118,6 +118,7 @@ object TestDeps {
     val mockk = "io.mockk:mockk:${Versions.testMockk}"
     val room = "androidx.room:room-testing:${Versions.testRoom}"
     val arch = "androidx.arch.core:core-testing:${Versions.testArch}"
+    val lifecycle = "androidx.arch.core:core-testing:${Versions.lifecycle}"
     val espresso = EspressoDeps
 }
 

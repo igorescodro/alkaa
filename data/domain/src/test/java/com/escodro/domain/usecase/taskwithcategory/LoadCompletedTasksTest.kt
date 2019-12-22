@@ -4,34 +4,23 @@ import com.escodro.domain.model.Category
 import com.escodro.domain.model.Task
 import com.escodro.domain.model.TaskWithCategory
 import com.escodro.domain.repository.TaskWithCategoryRepository
-import com.escodro.test.ImmediateSchedulerRule
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
-import io.reactivex.Flowable
-import io.reactivex.subscribers.TestSubscriber
-import org.junit.Before
-import org.junit.Rule
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.test.runBlockingTest
+import org.junit.Assert
 import org.junit.Test
 
 class LoadCompletedTasksTest {
-
-    @get:Rule
-    var testSchedulerRule = ImmediateSchedulerRule()
 
     private val mockRepo = mockk<TaskWithCategoryRepository>(relaxed = true)
 
     private val loadCompletedTasks = LoadCompletedTasks(mockRepo)
 
-    private lateinit var testObserver: TestSubscriber<List<TaskWithCategory>>
-
-    @Before
-    fun setup() {
-        testObserver = TestSubscriber.create()
-    }
-
     @Test
-    fun `check if repo tasks are filtered by completed`() {
+    fun `check if repo tasks are filtered by completed`() = runBlockingTest {
         val category1 = Category(1, "Category A", "#FFFFFF")
 
         val task1 = Task(1, false, "Task 1")
@@ -51,10 +40,10 @@ class LoadCompletedTasksTest {
             TaskWithCategory(task3, null)
         )
 
-        every { mockRepo.findAllTasksWithCategory() } returns Flowable.fromArray(mockList)
+        every { mockRepo.findAllTasksWithCategory() } returns flow { emit(mockList) }
 
-        loadCompletedTasks().subscribe(testObserver)
-        testObserver.assertValue(assertList)
+        val completedtasks = loadCompletedTasks().first()
+        Assert.assertEquals(assertList, completedtasks)
 
         verify { mockRepo.findAllTasksWithCategory() }
     }

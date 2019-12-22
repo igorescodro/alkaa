@@ -7,9 +7,14 @@ dependencies {
     implementation project(":libraries:core")
     implementation project(":data:domain")
 
+    testImplementation project(':libraries:test')
+
     implementation Deps.android.appCompat
     implementation Deps.android.constraintLayout
     implementation Deps.android.material
+    implementation Deps.android.lifecycle
+
+    implementation Deps.coroutines.core
 
     implementation Deps.koin.viewModel
 
@@ -21,4 +26,6 @@ dependencies {
     testImplementation Deps.test.junit
     testImplementation Deps.test.mockk
     testImplementation Deps.test.arch
+    testImplementation Deps.coroutines.test
+    testImplementation Deps.test.lifecycle
 }

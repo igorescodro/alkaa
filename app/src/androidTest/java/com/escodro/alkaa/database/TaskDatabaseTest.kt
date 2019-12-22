@@ -86,7 +86,7 @@ class TaskDatabaseTest {
         task.categoryId = categoryDao.findAllCategories().first()[0].id
         taskDao.insertTask(task)
 
-        val taskWithCategory = taskWithCategoryDao.findAllTasksWithCategory().blockingFirst()[0]
+        val taskWithCategory = taskWithCategoryDao.findAllTasksWithCategory().first()[0]
         assertTrue(taskWithCategory.task == task)
     }
 

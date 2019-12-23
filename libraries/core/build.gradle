@@ -17,8 +17,5 @@ dependencies {
 
     implementation Deps.coroutines.core
 
-    implementation Deps.rx.android
-    implementation Deps.rx.java
-
     implementation Deps.koin.viewModel
 }

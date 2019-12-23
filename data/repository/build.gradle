@@ -4,6 +4,5 @@ dependencies {
     implementation project(":data:domain")
 
     implementation Deps.koin.core
-    implementation Deps.rx.java
     implementation Deps.coroutines.core
 }

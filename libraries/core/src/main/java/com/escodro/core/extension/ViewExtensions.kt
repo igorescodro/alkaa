@@ -14,9 +14,10 @@ import androidx.annotation.StringRes
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.snackbar.Snackbar
-import io.reactivex.Observable
-import io.reactivex.subjects.PublishSubject
-import java.util.concurrent.TimeUnit
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.debounce
 
 /**
  * Extension to check if the given drawer view is currently in an open state, abstracting the
@@ -43,30 +44,28 @@ fun DrawerLayout.close(gravity: Int = GravityCompat.START) =
  * Extension to observe text change updates from a [TextView] with a debounce of
  * [TEXT_UPDATE_DEBOUNCE] milliseconds.
  *
- * @return a thread safe [Observable] with the updated text
+ * @return a [Flow] with the updated text
  */
-fun TextView.textChangedObservable(): Observable<String> {
-    val textObservable = PublishSubject.create<String>()
-    val listener = object : TextWatcher {
-        override fun afterTextChanged(s: Editable?) {
-            // Do nothing.
-        }
+fun TextView.textChangedFlow(): Flow<String> {
+    val flow: Flow<String> = callbackFlow {
+        val listener = object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                // Do nothing.
+            }
 
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            // Do nothing.
-        }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // Do nothing.
+            }
 
-        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            textObservable.onNext(s.toString())
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                offer(s.toString())
+            }
         }
+        addTextChangedListener(listener)
+        awaitClose()
     }
 
-    addTextChangedListener(listener)
-
-    return textObservable
-        .debounce(TEXT_UPDATE_DEBOUNCE, TimeUnit.MILLISECONDS)
-        .distinctUntilChanged()
-        .applySchedulers()
+    return flow.debounce(TEXT_UPDATE_DEBOUNCE)
 }
 
 /**

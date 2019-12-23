@@ -3,9 +3,6 @@ apply from: "$rootDir/config/dependencies/feature_dependencies.gradle"
 dependencies {
     implementation project(":libraries:core")
 
-    implementation Deps.rx.java
-    implementation Deps.rx.android
-
     implementation Deps.test.junit
 
     implementation Deps.coroutines.test

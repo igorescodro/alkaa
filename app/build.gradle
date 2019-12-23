@@ -68,16 +68,13 @@ dependencies {
     implementation Deps.android.room.runtime
     implementation Deps.android.navigation.fragment
     implementation Deps.android.navigation.ui
-    implementation Deps.android.lifecycle
+    implementation Deps.android.lifecycle.viewmodel
     implementation Deps.android.playCore
 
     implementation Deps.timber
 
     implementation Deps.koin.viewModel
     androidTestImplementation Deps.koin.test
-
-    implementation Deps.rx.android
-    implementation Deps.rx.java
 
     implementation Deps.coroutines.test
 

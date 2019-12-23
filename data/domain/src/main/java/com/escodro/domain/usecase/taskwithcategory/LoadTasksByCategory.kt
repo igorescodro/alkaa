@@ -4,6 +4,7 @@ import com.escodro.domain.model.TaskWithCategory
 import com.escodro.domain.repository.CategoryRepository
 import com.escodro.domain.repository.TaskWithCategoryRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 
 /**
  * Use case to get a task with category by the category id from the database.
@@ -25,7 +26,7 @@ class LoadTasksByCategory(
         return if (category != null) {
             joinRepository.findAllTasksWithCategoryId(category.id)
         } else {
-            throw IllegalArgumentException("Category not found with id = $categoryId")
+            flow { throw IllegalArgumentException("Category not found with id = $categoryId") }
         }
     }
 }

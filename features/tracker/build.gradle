@@ -12,14 +12,11 @@ dependencies {
     implementation Deps.android.appCompat
     implementation Deps.android.constraintLayout
     implementation Deps.android.material
-    implementation Deps.android.lifecycle
+    implementation Deps.android.lifecycle.viewmodel
 
     implementation Deps.coroutines.core
 
     implementation Deps.koin.viewModel
-
-    implementation Deps.rx.android
-    implementation Deps.rx.java
 
     implementation Deps.mpAndroidChart
 

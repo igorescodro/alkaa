@@ -19,11 +19,8 @@ dependencies {
     implementation Deps.android.navigation.fragment
     implementation Deps.android.navigation.ui
     implementation Deps.android.cardView
-    implementation Deps.android.lifecycle
+    implementation Deps.android.lifecycle.viewmodel
     implementation Deps.koin.viewModel
-
-    implementation Deps.rx.android
-    implementation Deps.rx.java
 
     testImplementation Deps.test.junit
     androidTestImplementation Deps.test.runner

@@ -5,7 +5,7 @@ import com.escodro.alkaa.framework.AcceptanceTest
 import com.escodro.alkaa.presentation.MainActivity
 import com.escodro.local.model.Category
 import kotlinx.coroutines.runBlocking
-import org.junit.After
+import org.junit.Before
 import org.junit.Test
 
 /**
@@ -13,7 +13,7 @@ import org.junit.Test
  */
 class TaskCategoryTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
 
-    @After
+    @Before
     fun cleanTable() = runBlocking {
         daoProvider.getTaskDao().cleanTable()
         daoProvider.getCategoryDao().cleanTable()

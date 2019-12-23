@@ -1,6 +1,9 @@
 apply from: "$rootDir/config/dependencies/dynamic_dependencies.gradle"
 
 dependencies {
+    implementation project(":app")
+    androidTestImplementation project(":app")
+
     implementation project(":libraries:core")
     implementation project(":data:domain")
 

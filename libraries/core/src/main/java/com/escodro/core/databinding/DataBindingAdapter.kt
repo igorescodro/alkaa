@@ -1,28 +1,11 @@
 package com.escodro.core.databinding
 
-import android.graphics.Color
 import android.view.View
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.escodro.core.extension.format
 import com.escodro.core.extension.formatRelativeDate
 import java.util.Calendar
-
-/**
- * Sets a color in [String] format as [View] background.
- *
- * @param view view to have the background updated
- * @param color color in String format (#XXXXXX)
- */
-@BindingAdapter("android:background")
-fun setViewBackgroundColor(view: View, color: String?) {
-    if (color == null) {
-        return
-    }
-
-    val backgroundColor = Color.parseColor(color)
-    view.setBackgroundColor(backgroundColor)
-}
 
 /**
  * Formats and sets a [Calendar] in a [TextView].

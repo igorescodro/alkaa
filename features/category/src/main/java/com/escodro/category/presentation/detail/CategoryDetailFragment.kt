@@ -29,7 +29,7 @@ internal class CategoryDetailFragment : Fragment() {
 
     private val viewModel: CategoryDetailViewModel by viewModel()
 
-    private var categoryColor: Int = android.R.color.white
+    private var categoryColor: Int = android.R.attr.colorBackground
 
     override fun onCreateView(
         inflater: LayoutInflater,

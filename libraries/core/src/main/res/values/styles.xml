@@ -12,7 +12,7 @@
 
     <style name="ActionButton">
         <item name="android:background">@color/colorPrimary</item>
-        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColor">?attr/colorSurface</item>
     </style>
 
 </resources>

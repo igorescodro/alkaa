@@ -37,7 +37,7 @@ class TrackerFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_tracker, container, false)
     }
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         SplitCompat.install(context)
     }

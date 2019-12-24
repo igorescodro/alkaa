@@ -102,6 +102,7 @@ fun CompoundButton.getTintColor(): Int {
  * @param messageId the message String resource id
  * @param duration the Snackbar duration, if not provided will be set to [Snackbar.LENGTH_LONG]
  */
+@Suppress("WrongConstant")
 fun View.createSnackbar(@StringRes messageId: Int, duration: Int = Snackbar.LENGTH_LONG) =
     Snackbar.make(this, messageId, duration)
 

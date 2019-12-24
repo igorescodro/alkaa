@@ -74,12 +74,6 @@ class TaskListFragment : Fragment() {
         loadTasks()
     }
 
-    override fun onStop() {
-        super.onStop()
-
-        viewModel.onDetach()
-    }
-
     private fun bindComponents() {
         Timber.d("bindComponents()")
 

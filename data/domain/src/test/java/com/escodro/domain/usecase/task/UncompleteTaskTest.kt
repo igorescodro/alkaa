@@ -2,16 +2,12 @@ package com.escodro.domain.usecase.task
 
 import com.escodro.domain.model.Task
 import com.escodro.domain.repository.TaskRepository
-import com.escodro.test.ImmediateSchedulerRule
+import io.mockk.coEvery
 import io.mockk.mockk
-import io.mockk.verify
-import org.junit.Rule
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Test
 
 class UncompleteTaskTest {
-
-    @get:Rule
-    var testSchedulerRule = ImmediateSchedulerRule()
 
     private val mockTask = mockk<Task>(relaxed = true)
 
@@ -20,10 +16,10 @@ class UncompleteTaskTest {
     private val uncompleteTask = UncompleteTask(mockTaskRepo)
 
     @Test
-    fun `check if task was uncompleted`() {
-        uncompleteTask(mockTask).subscribe()
+    fun `check if task was uncompleted`() = runBlockingTest {
+        uncompleteTask(mockTask)
 
         val updatedTask = mockTask.copy(completed = false, completedDate = null)
-        verify { mockTaskRepo.updateTask(updatedTask) }
+        coEvery { mockTaskRepo.updateTask(updatedTask) }
     }
 }

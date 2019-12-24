@@ -1,14 +1,15 @@
 package com.escodro.alarm.worker
 
 import android.content.Context
+import androidx.work.CoroutineWorker
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.escodro.alarm.TaskReceiver
 import com.escodro.alarm.mapper.TaskMapper
-import com.escodro.alarm.model.Task
 import com.escodro.alarm.notification.TaskNotification
 import com.escodro.domain.usecase.task.GetTask
-import io.reactivex.Single
+import kotlinx.coroutines.coroutineScope
+import org.koin.core.KoinComponent
 import org.koin.core.inject
 import timber.log.Timber
 
@@ -16,7 +17,7 @@ import timber.log.Timber
  * [Worker] to process and show the Task alarms.
  */
 internal class TaskNotifierWorker(context: Context, params: WorkerParameters) :
-    SingleWorker<Task>(context, params) {
+    CoroutineWorker(context, params), KoinComponent {
 
     private val taskNotification: TaskNotification by inject()
 
@@ -24,22 +25,17 @@ internal class TaskNotifierWorker(context: Context, params: WorkerParameters) :
 
     private val taskMapper: TaskMapper by inject()
 
-    override fun getObservable(): Single<Task> {
+    override suspend fun doWork(): Result = coroutineScope {
         val taskId = inputData.getLong(TaskReceiver.EXTRA_TASK, 0)
-        return getTaskUseCase(taskId).map { taskMapper.fromDomain(it) }
-    }
+        val task = taskMapper.fromDomain(getTaskUseCase(taskId))
 
-    override fun onSuccess(result: Task) {
-        if (result.isCompleted) {
-            Timber.d("Task '${result.title}' is already completed. Will not notify")
-            return
+        if (task.isCompleted) {
+            Timber.d("Task '${task.title}' is already completed. Will not notify")
+        } else {
+            Timber.d("Notifying task '${task.title}'")
+            taskNotification.show(task)
         }
 
-        Timber.d("Notifying task '${result.title}'")
-        taskNotification.show(result)
-    }
-
-    override fun onError(error: Throwable) {
-        Timber.d("onError: $error")
+        Result.success()
     }
 }

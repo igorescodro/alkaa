@@ -1,8 +1,6 @@
 package com.escodro.domain.usecase.task
 
-import com.escodro.core.extension.applySchedulers
 import com.escodro.domain.repository.TaskRepository
-import io.reactivex.Completable
 
 /**
  * Use case to update a task as completed or uncompleted from the database.
@@ -20,12 +18,11 @@ class UpdateTaskStatus(
      *
      * @return observable to be subscribe
      */
-    operator fun invoke(taskId: Long): Completable =
-        taskRepository.findTaskById(taskId)
-            .flatMapCompletable { task ->
-                when (task.completed.not()) {
-                    true -> completeTask(task)
-                    false -> uncompleteTask(task)
-                }
-            }.applySchedulers()
+    suspend operator fun invoke(taskId: Long) {
+        val task = taskRepository.findTaskById(taskId)
+        when (task.completed.not()) {
+            true -> completeTask(task)
+            false -> uncompleteTask(task)
+        }
+    }
 }

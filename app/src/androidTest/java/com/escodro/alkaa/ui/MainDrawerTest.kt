@@ -5,6 +5,7 @@ import com.escodro.alkaa.framework.AcceptanceTest
 import com.escodro.alkaa.presentation.MainActivity
 import com.escodro.local.model.Category
 import com.escodro.local.model.Task
+import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -19,17 +20,17 @@ class MainDrawerTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
     private var familyId = 0L
 
     @Before
-    fun populateApplication() {
+    fun populateApplication() = runBlocking {
         val categoryDao = daoProvider.getCategoryDao()
         val taskDao = daoProvider.getTaskDao()
 
-        categoryDao.insertCategory(Category(name = PERSONAL_CATEGORY, color = "#cc5a71")).blockingGet()
-        categoryDao.insertCategory(Category(name = WORK_CATEGORY, color = "#58a4b0")).blockingGet()
-        categoryDao.insertCategory(Category(name = FAMILY_CATEGORY, color = "#519872")).blockingGet()
+        categoryDao.insertCategory(Category(name = PERSONAL_CATEGORY, color = "#cc5a71"))
+        categoryDao.insertCategory(Category(name = WORK_CATEGORY, color = "#58a4b0"))
+        categoryDao.insertCategory(Category(name = FAMILY_CATEGORY, color = "#519872"))
 
-        personalId = categoryDao.findCategoryByName(PERSONAL_CATEGORY).blockingGet().id
-        workId = categoryDao.findCategoryByName(WORK_CATEGORY).blockingGet().id
-        familyId = categoryDao.findCategoryByName(FAMILY_CATEGORY).blockingGet().id
+        personalId = categoryDao.findCategoryByName(PERSONAL_CATEGORY).id
+        workId = categoryDao.findCategoryByName(WORK_CATEGORY).id
+        familyId = categoryDao.findCategoryByName(FAMILY_CATEGORY).id
 
         taskDao.insertTask(Task(completed = false, title = "Buy milk", categoryId = personalId))
         taskDao.insertTask(Task(completed = true, title = "Buy onion", categoryId = personalId))
@@ -39,9 +40,9 @@ class MainDrawerTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
     }
 
     @After
-    fun cleanTable() {
-        daoProvider.getTaskDao().cleanTable().blockingGet()
-        daoProvider.getCategoryDao().cleanTable().blockingGet()
+    fun cleanTable() = runBlocking {
+        daoProvider.getTaskDao().cleanTable()
+        daoProvider.getCategoryDao().cleanTable()
     }
 
     @Test

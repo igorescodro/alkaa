@@ -2,6 +2,7 @@ package com.escodro.task.presentation.list
 
 import android.text.TextUtils
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.escodro.domain.usecase.task.AddTask
 import com.escodro.domain.usecase.task.DeleteTask
 import com.escodro.domain.usecase.task.UpdateTaskStatus
@@ -12,7 +13,11 @@ import com.escodro.task.mapper.TaskMapper
 import com.escodro.task.mapper.TaskWithCategoryMapper
 import com.escodro.task.model.Task
 import com.escodro.task.model.TaskWithCategory
-import io.reactivex.disposables.CompositeDisposable
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
+import timber.log.Timber
 
 /**
  * [ViewModel] responsible to provide information to [TaskListFragment].
@@ -30,8 +35,6 @@ internal class TaskListViewModel(
 
     private var categoryId: Long? = null
 
-    private val compositeDisposable = CompositeDisposable()
-
     /**
      * Load the tasks based on the given state.
      *
@@ -42,8 +45,8 @@ internal class TaskListViewModel(
         state: TaskListState,
         onTasksLoaded: (list: List<TaskWithCategory>, shouldShowAddButton: Boolean) -> Unit,
         onLoadError: () -> Unit
-    ) {
-        val observable = when (state) {
+    ) = viewModelScope.launch {
+        val flow = when (state) {
             is TaskListState.ShowAllTasks -> loadAllTasksUseCase()
             is TaskListState.ShowCompletedTasks -> loadAllCompletedTasksUseCase()
             is TaskListState.ShowTaskByCategory -> {
@@ -52,19 +55,18 @@ internal class TaskListViewModel(
             }
         }
 
-        val disposable = observable
-            .map { taskWithCategoryMapper.toView(it) }
-            .subscribe(
-                {
-                    val shouldShow = state !is TaskListState.ShowCompletedTasks
-                    onTasksLoaded(it, shouldShow)
-                },
-                {
-                    categoryId = 0L
-                    onLoadError()
-                })
+        flow.map { taskWithCategoryMapper.toView(it) }
+            .catch { handleException(it, onLoadError) }
+            .collect {
+                val shouldShow = state !is TaskListState.ShowCompletedTasks
+                onTasksLoaded(it, shouldShow)
+            }
+    }
 
-        compositeDisposable.add(disposable)
+    private fun handleException(throwable: Throwable, onLoadError: () -> Unit) {
+        Timber.d("handleException = $throwable")
+        categoryId = 0L
+        onLoadError()
     }
 
     /**
@@ -73,10 +75,11 @@ internal class TaskListViewModel(
     fun addTask(description: String) {
         if (TextUtils.isEmpty(description)) return
 
-        val categoryIdValue = if (categoryId != 0L) categoryId else null
-        val task = Task(title = description, categoryId = categoryIdValue)
-        val disposable = addTaskUseCase(taskMapper.toDomain(task)).subscribe()
-        compositeDisposable.add(disposable)
+        viewModelScope.launch {
+            val categoryIdValue = if (categoryId != 0L) categoryId else null
+            val task = Task(title = description, categoryId = categoryIdValue)
+            addTaskUseCase(taskMapper.toDomain(task))
+        }
     }
 
     /**
@@ -84,9 +87,8 @@ internal class TaskListViewModel(
      *
      * @param task task to be updated
      */
-    fun updateTaskStatus(task: Task) {
-        val disposable = updateStatusUseCase(task.id).subscribe()
-        compositeDisposable.add(disposable)
+    fun updateTaskStatus(task: Task) = viewModelScope.launch {
+        updateStatusUseCase(task.id)
     }
 
     /**
@@ -94,16 +96,8 @@ internal class TaskListViewModel(
      *
      * @param taskWithCategory task to be removed
      */
-    fun deleteTask(taskWithCategory: TaskWithCategory) {
+    fun deleteTask(taskWithCategory: TaskWithCategory) = viewModelScope.launch {
         val task = taskWithCategory.task
-        val disposable = deleteTaskUseCase(taskMapper.toDomain(task)).subscribe()
-        compositeDisposable.add(disposable)
-    }
-
-    /**
-     * Clears the [ViewModel] when the [TaskListFragment] is not visible to user.
-     */
-    fun onDetach() {
-        compositeDisposable.clear()
+        deleteTaskUseCase(taskMapper.toDomain(task))
     }
 }

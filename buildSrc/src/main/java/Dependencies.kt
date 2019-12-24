@@ -17,17 +17,16 @@ object Versions {
     const val constraintLayout = "2.0.0-beta1"
     const val workManager = "1.0.1"
     const val ktx = "1.0.2"
-    const val lifecycle = "1.0.0"
-    const val room = "2.1.0"
+    const val lifecycle = "2.2.0-rc03"
+    const val room = "2.2.3"
     const val navigation = "2.1.0"
     const val playCore = "1.6.1"
+
+    const val coroutines = "1.3.1"
 
     const val timber = "4.7.1"
 
     const val koin = "2.0.0"
-
-    const val rxJava = "2.1.0"
-    const val rxAndroid = "2.2.0"
 
     const val mpAndroidChart = "3.1.0"
 
@@ -55,8 +54,8 @@ object Deps {
     val timber = "com.jakewharton.timber:timber:${Versions.timber}"
     val mpAndroidChart = "com.github.PhilJay:MPAndroidChart:v${Versions.mpAndroidChart}"
     val android = AndroidDeps
+    val coroutines = CoroutinesDeps
     val koin = KoinDeps
-    val rx = RxDeps
     val test = TestDeps
     val quality = QualityDeps
     val gradle = GradleDeps
@@ -69,18 +68,28 @@ object AndroidDeps {
     val preference = "androidx.preference:preference:${Versions.preference}"
     val cardView = "androidx.cardview:cardview:${Versions.cardView}"
     val constraintLayout = "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
-    val workManager = "android.arch.work:work-runtime:${Versions.workManager}"
+    val workManager = "android.arch.work:work-runtime-ktx:${Versions.workManager}"
     val ktx = "androidx.core:core-ktx:${Versions.ktx}"
-    val lifecycle = "androidx.lifecycle:lifecycle-extensions:${Versions.lifecycle}"
     val playCore = "com.google.android.play:core:${Versions.playCore}"
     val room = RoomDeps
     val navigation = NavigationDeps
+    val lifecycle = LifecycleDeps
+}
+
+object CoroutinesDeps {
+    val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
+    val test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutines}"
+}
+
+object LifecycleDeps {
+    val viewmodel = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}"
+    val runtime = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycle}"
 }
 
 object RoomDeps {
     val runtime = "androidx.room:room-runtime:${Versions.room}"
     val compiler = "androidx.room:room-compiler:${Versions.room}"
-    val rx = "androidx.room:room-rxjava2:${Versions.room}"
+    val ktx = "androidx.room:room-ktx:${Versions.room}"
 }
 
 object NavigationDeps {
@@ -94,11 +103,6 @@ object KoinDeps {
     val test = "org.koin:koin-test:${Versions.koin}"
 }
 
-object RxDeps {
-    val android = "io.reactivex.rxjava2:rxandroid:${Versions.rxJava}"
-    val java = "io.reactivex.rxjava2:rxjava:${Versions.rxAndroid}"
-}
-
 object TestDeps {
     val junit = "junit:junit:${Versions.testJunit}"
     val runner = "androidx.test:runner:${Versions.testRunner}"
@@ -109,6 +113,7 @@ object TestDeps {
     val mockk = "io.mockk:mockk:${Versions.testMockk}"
     val room = "androidx.room:room-testing:${Versions.testRoom}"
     val arch = "androidx.arch.core:core-testing:${Versions.testArch}"
+    val lifecycle = "androidx.arch.core:core-testing:${Versions.testArch}"
     val espresso = EspressoDeps
 }
 

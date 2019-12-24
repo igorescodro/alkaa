@@ -4,36 +4,35 @@ import com.escodro.domain.model.Task
 import com.escodro.domain.repository.TaskRepository
 import com.escodro.repository.datasource.TaskDataSource
 import com.escodro.repository.mapper.TaskMapper
-import io.reactivex.Completable
-import io.reactivex.Flowable
-import io.reactivex.Single
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 internal class TaskRepositoryImpl(
     private val taskDataSource: TaskDataSource,
     private val taskMapper: TaskMapper
 ) : TaskRepository {
 
-    override fun insertTask(task: Task): Completable =
+    override suspend fun insertTask(task: Task) =
         taskDataSource.insertTask(taskMapper.toRepo(task))
 
-    override fun updateTask(task: Task): Completable =
+    override suspend fun updateTask(task: Task) =
         taskDataSource.updateTask(taskMapper.toRepo(task))
 
-    override fun deleteTask(task: Task): Completable =
+    override suspend fun deleteTask(task: Task) =
         taskDataSource.deleteTask(taskMapper.toRepo(task))
 
-    override fun cleanTable(): Completable =
+    override suspend fun cleanTable() =
         taskDataSource.cleanTable()
 
-    override fun findAllTasksWithDueDate(): Single<List<Task>> =
+    override suspend fun findAllTasksWithDueDate(): List<Task> =
         taskDataSource.findAllTasksWithDueDate().map { taskMapper.toDomain(it) }
 
-    override fun findTaskById(taskId: Long): Single<Task> =
-        taskDataSource.findTaskById(taskId).map { taskMapper.toDomain(it) }
+    override suspend fun findTaskById(taskId: Long): Task =
+        taskMapper.toDomain(taskDataSource.findTaskById(taskId))
 
-    override fun findAllTasks(): Flowable<List<Task>> =
+    override fun findAllTasks(): Flow<List<Task>> =
         taskDataSource.findAllTasks().map { taskMapper.toDomain(it) }
 
-    override fun findTaskByTitle(title: String): Single<Task> =
-        taskDataSource.findTaskByTitle(title).map { taskMapper.toDomain(it) }
+    override suspend fun findTaskByTitle(title: String): Task =
+        taskMapper.toDomain(taskDataSource.findTaskByTitle(title))
 }

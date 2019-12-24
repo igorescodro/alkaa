@@ -3,6 +3,7 @@ package com.escodro.alkaa.ui
 import com.escodro.alkaa.R
 import com.escodro.alkaa.framework.AcceptanceTest
 import com.escodro.alkaa.presentation.MainActivity
+import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -13,14 +14,14 @@ import org.junit.Test
 class CategoryFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
 
     @Before
-    fun navigateToTestScreen() {
-        daoProvider.getCategoryDao().cleanTable().blockingGet()
+    fun navigateToTestScreen() = runBlocking {
+        daoProvider.getCategoryDao().cleanTable()
         navigateToCategoryScreen()
     }
 
     @After
-    fun cleanTable() {
-        daoProvider.getCategoryDao().cleanTable().blockingGet()
+    fun cleanTable() = runBlocking {
+        daoProvider.getCategoryDao().cleanTable()
     }
 
     @Test

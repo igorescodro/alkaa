@@ -6,23 +6,23 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.escodro.core.extension.hideKeyboard
-import com.escodro.core.extension.textChangedObservable
+import com.escodro.core.extension.textChangedFlow
 import com.escodro.task.R
 import com.escodro.task.databinding.FragmentTaskDetailBinding
-import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_task_detail.*
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
 /**
- * [Fragment] responsible to show the [com.escodro.domain.viewdata.ViewData.Task] details.
+ * [Fragment] responsible to show the Task details.
  */
 internal class TaskDetailFragment : Fragment() {
 
     private val viewModel: TaskDetailViewModel by viewModel()
-
-    private val compositeDisposable = CompositeDisposable()
 
     private var binding: FragmentTaskDetailBinding? = null
 
@@ -58,7 +58,6 @@ internal class TaskDetailFragment : Fragment() {
         Timber.d("onDestroy()")
 
         viewModel.onDetach()
-        compositeDisposable.clear()
     }
 
     private fun initComponents() {
@@ -71,15 +70,17 @@ internal class TaskDetailFragment : Fragment() {
         taskId?.let { viewModel.loadTask(it) }
     }
 
-    private fun initListeners() {
+    private fun initListeners() = lifecycleScope.launch {
         Timber.d("initListeners()")
 
-        val titleDisposable = edittext_taskdetail_title.textChangedObservable()
-            .subscribe { text -> viewModel.updateTitle(text) }
+        launch {
+            edittext_taskdetail_title.textChangedFlow()
+                .collect { text -> viewModel.updateTitle(text) }
+        }
 
-        val descDisposable = edittext_taskdetail_description.textChangedObservable()
-            .subscribe { text -> viewModel.updateDescription(text) }
-
-        compositeDisposable.addAll(titleDisposable, descDisposable)
+        launch {
+            edittext_taskdetail_description.textChangedFlow()
+                .collect { text -> viewModel.updateDescription(text) }
+        }
     }
 }

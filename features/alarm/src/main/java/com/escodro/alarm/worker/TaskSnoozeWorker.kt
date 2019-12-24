@@ -1,11 +1,13 @@
 package com.escodro.alarm.worker
 
 import android.content.Context
+import androidx.work.CoroutineWorker
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.escodro.alarm.TaskReceiver
 import com.escodro.domain.usecase.task.SnoozeTask
-import io.reactivex.Completable
+import kotlinx.coroutines.coroutineScope
+import org.koin.core.KoinComponent
 import org.koin.core.inject
 import timber.log.Timber
 
@@ -13,22 +15,16 @@ import timber.log.Timber
  * [Worker] to snooze Task alarms as completed.
  */
 internal class TaskSnoozeWorker(context: Context, params: WorkerParameters) :
-    CompletableWorker(context, params) {
+    CoroutineWorker(context, params), KoinComponent {
 
     private val snoozeTaskUseCase: SnoozeTask by inject()
 
-    override fun getObservable(): Completable {
+    override suspend fun doWork(): Result = coroutineScope {
         val taskId = inputData.getLong(TaskReceiver.EXTRA_TASK, 0)
 
-        return snoozeTaskUseCase(taskId, SNOOZE_MINUTES)
-    }
-
-    override fun onSuccess() {
+        snoozeTaskUseCase(taskId, SNOOZE_MINUTES)
         Timber.d("Task updated as completed")
-    }
-
-    override fun onError(error: Throwable) {
-        Timber.d("onError: $error")
+        Result.success()
     }
 
     companion object {

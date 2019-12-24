@@ -7,9 +7,7 @@ import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
 import androidx.room.Update
 import com.escodro.local.model.Task
-import io.reactivex.Completable
-import io.reactivex.Flowable
-import io.reactivex.Single
+import kotlinx.coroutines.flow.Flow
 import org.jetbrains.annotations.TestOnly
 
 /**
@@ -24,7 +22,7 @@ interface TaskDao {
      * @param task task to be added
      */
     @Insert(onConflict = REPLACE)
-    fun insertTask(task: Task): Completable
+    suspend fun insertTask(task: Task)
 
     /**
      * Updates a task.
@@ -32,7 +30,7 @@ interface TaskDao {
      * @param task task to be updated
      */
     @Update
-    fun updateTask(task: Task): Completable
+    suspend fun updateTask(task: Task)
 
     /**
      * Deletes a task.
@@ -40,13 +38,13 @@ interface TaskDao {
      * @param task task to be deleted
      */
     @Delete
-    fun deleteTask(task: Task): Completable
+    suspend fun deleteTask(task: Task)
 
     /**
      * Cleans the entire table.
      */
     @Query("DELETE FROM task")
-    fun cleanTable(): Completable
+    suspend fun cleanTable()
 
     /**
      * Get all inserted tasks with due date.
@@ -54,7 +52,7 @@ interface TaskDao {
      * @return all inserted tasks with due date
      */
     @Query("SELECT * FROM task where task_due_date is not null")
-    fun findAllTasksWithDueDate(): Single<List<Task>>
+    suspend fun findAllTasksWithDueDate(): List<Task>
 
     /**
      * Get task by id.
@@ -64,7 +62,7 @@ interface TaskDao {
      * @return selected task
      */
     @Query("SELECT * FROM task WHERE task_id = :taskId")
-    fun getTaskById(taskId: Long): Single<Task>
+    suspend fun getTaskById(taskId: Long): Task
 
     /**
      * Get all inserted tasks.
@@ -73,7 +71,7 @@ interface TaskDao {
      */
     @TestOnly
     @Query("SELECT * FROM task")
-    fun findAllTasks(): Flowable<MutableList<Task>>
+    fun findAllTasks(): Flow<List<Task>>
 
     /**
      * Gets a specific task by title.
@@ -84,5 +82,5 @@ interface TaskDao {
      */
     @TestOnly
     @Query("SELECT * FROM task WHERE task_title = :title")
-    fun findTaskByTitle(title: String): Single<Task>
+    suspend fun findTaskByTitle(title: String): Task
 }

@@ -3,19 +3,15 @@ package com.escodro.domain.usecase.task
 import com.escodro.domain.calendar.TaskCalendar
 import com.escodro.domain.model.Task
 import com.escodro.domain.repository.TaskRepository
-import com.escodro.test.ImmediateSchedulerRule
+import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.mockk
-import io.mockk.verify
-import io.reactivex.Single
 import java.util.Calendar
-import org.junit.Rule
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Test
 
 class CompleteTaskTest {
-
-    @get:Rule
-    var testSchedulerRule = ImmediateSchedulerRule()
 
     private val mockTask = mockk<Task>(relaxed = true)
 
@@ -26,15 +22,15 @@ class CompleteTaskTest {
     private val completeTask = CompleteTask(mockTaskRepo, mockCalendar)
 
     @Test
-    fun `check if task was completed`() {
+    fun `check if task was completed`() = runBlockingTest {
         val currentTime = Calendar.getInstance()
 
         every { mockCalendar.getCurrentCalendar() } returns currentTime
-        every { mockTaskRepo.findTaskById(any()) } returns Single.just(mockTask)
+        coEvery { mockTaskRepo.findTaskById(any()) } returns mockTask
 
-        completeTask(mockTask.id).subscribe()
+        completeTask(mockTask.id)
 
         val updatedTask = mockTask.copy(completed = true, completedDate = currentTime)
-        verify { mockTaskRepo.updateTask(updatedTask) }
+        coVerify { mockTaskRepo.updateTask(updatedTask) }
     }
 }

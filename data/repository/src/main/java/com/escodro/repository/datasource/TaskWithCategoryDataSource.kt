@@ -1,7 +1,7 @@
 package com.escodro.repository.datasource
 
 import com.escodro.repository.model.TaskWithCategory
-import io.reactivex.Flowable
+import kotlinx.coroutines.flow.Flow
 
 /**
  * Interface to represent the implementation of Task With Category data source.
@@ -13,7 +13,7 @@ interface TaskWithCategoryDataSource {
      *
      * @return all inserted tasks with category
      */
-    fun findAllTasksWithCategory(): Flowable<List<TaskWithCategory>>
+    fun findAllTasksWithCategory(): Flow<List<TaskWithCategory>>
 
     /**
      * Get all inserted tasks related with the given category.
@@ -22,5 +22,5 @@ interface TaskWithCategoryDataSource {
      *
      * @return all inserted tasks with category
      */
-    fun findAllTasksWithCategoryId(categoryId: Long): Flowable<List<TaskWithCategory>>
+    fun findAllTasksWithCategoryId(categoryId: Long): Flow<List<TaskWithCategory>>
 }

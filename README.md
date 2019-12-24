@@ -4,7 +4,7 @@
 
 # Alkaa
 
-Alkaa (_begin_, _start_ in Finnish) is a simple to-do list project to study the latest components, architecure, tools, and APIs released in Android Platform. The project evolved a lot in the last year and now is available on Google Play! :heart:
+Alkaa (_begin_, _start_ in Finnish) is a simple to-do list project to study the latest components, architecture, tools, and APIs released in Android Platform. The project evolved a lot in the last year and now is available on Google Play! :heart:
 
 <a href='https://play.google.com/store/apps/details?id=com.escodro.alkaa'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' height=64/></a>
 
@@ -17,6 +17,7 @@ Currently, this project covers the following topics:
   - [High Order Functions](https://kotlinlang.org/docs/reference/lambdas.html)
   - [Extensions](https://kotlinlang.org/docs/reference/extensions.html#extensions)
   - [Gradle Kotlin DSL](https://github.com/gradle/kotlin-dsl)
+- [Coroutines](https://kotlin.github.io/kotlinx.coroutines/)
 - [Android Architecture Components](https://developer.android.com/topic/libraries/architecture)
   - [Data Binding](https://developer.android.com/topic/libraries/data-binding)
   - [Lifecycle](https://developer.android.com/topic/libraries/architecture/lifecycle)
@@ -34,7 +35,6 @@ Currently, this project covers the following topics:
 
 #### Third-Party
 - [Koin](https://insert-koin.io)
-- [RxJava 2 e RxAndroid 2](https://github.com/ReactiveX/RxAndroid)
 - [Timber](https://github.com/JakeWharton/timber)
 
 #### Quality check
@@ -47,12 +47,14 @@ Currently, this project covers the following topics:
 - [Espresso](https://developer.android.com/training/testing/espresso/)
 - [UiAutomator](https://developer.android.com/training/testing/ui-automator)
 - [Mockk](https://github.com/mockk/mockk)
+- [Coroutines Test](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-test/)
 
 #### Continuous Integration
 - [Travis CI](https://travis-ci.org)
 
 #### Tools covered but removed:
 - [Dagger 2](https://google.github.io/dagger/) (replaced by Koin)
+- [RxJava 2 and RxAndroid 2](https://github.com/ReactiveX/RxAndroid) (replaced by Coroutines)
 
 ---
 ### Feel free to use the code the way you prefer - Enjoy your studies!

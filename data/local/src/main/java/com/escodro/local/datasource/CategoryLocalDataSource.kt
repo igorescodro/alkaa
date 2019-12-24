@@ -4,9 +4,8 @@ import com.escodro.local.mapper.CategoryMapper
 import com.escodro.local.provider.DaoProvider
 import com.escodro.repository.datasource.CategoryDataSource
 import com.escodro.repository.model.Category
-import io.reactivex.Completable
-import io.reactivex.Flowable
-import io.reactivex.Single
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 /**
  * Local implementation of [CategoryDataSource].
@@ -18,27 +17,27 @@ internal class CategoryLocalDataSource(
 
     private val categoryDao = daoProvider.getCategoryDao()
 
-    override fun insertCategory(category: Category): Completable =
+    override suspend fun insertCategory(category: Category) =
         categoryDao.insertCategory(categoryMapper.fromRepo(category))
 
-    override fun insertCategory(category: List<Category>): Completable =
+    override suspend fun insertCategory(category: List<Category>) =
         categoryDao.insertCategory(categoryMapper.fromRepo(category))
 
-    override fun updateCategory(category: Category): Completable =
+    override suspend fun updateCategory(category: Category) =
         categoryDao.updateCategory(categoryMapper.fromRepo(category))
 
-    override fun deleteCategory(category: Category): Completable =
+    override suspend fun deleteCategory(category: Category) =
         categoryDao.deleteCategory(categoryMapper.fromRepo(category))
 
-    override fun cleanTable(): Completable =
+    override suspend fun cleanTable() =
         categoryDao.cleanTable()
 
-    override fun findAllCategories(): Flowable<List<Category>> =
+    override fun findAllCategories(): Flow<List<Category>> =
         categoryDao.findAllCategories().map { categoryMapper.toRepo(it) }
 
-    override fun findCategoryByName(name: String): Single<Category> =
-        categoryDao.findCategoryByName(name).map { categoryMapper.toRepo(it) }
+    override suspend fun findCategoryByName(name: String): Category =
+        categoryMapper.toRepo(categoryDao.findCategoryByName(name))
 
-    override fun findCategoryById(categoryId: Long): Single<Category> =
-        categoryDao.findCategoryById(categoryId).map { categoryMapper.toRepo(it) }
+    override suspend fun findCategoryById(categoryId: Long): Category? =
+        categoryDao.findCategoryById(categoryId)?.let { categoryMapper.toRepo(it) }
 }

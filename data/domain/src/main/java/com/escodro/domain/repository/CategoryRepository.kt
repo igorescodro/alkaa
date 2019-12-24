@@ -1,9 +1,7 @@
 package com.escodro.domain.repository
 
 import com.escodro.domain.model.Category
-import io.reactivex.Completable
-import io.reactivex.Flowable
-import io.reactivex.Single
+import kotlinx.coroutines.flow.Flow
 
 /**
  * Interface to represent the implementation of Category repository.
@@ -15,52 +13,52 @@ interface CategoryRepository {
      *
      * @param category category to be added
      */
-    fun insertCategory(category: Category): Completable
+    suspend fun insertCategory(category: Category)
 
     /**
      * Inserts a new category list.
      *
      * @param category list of category to be added
      */
-    fun insertCategory(category: List<Category>): Completable
+    suspend fun insertCategory(category: List<Category>)
 
     /**
      * Updates the given category.
      *
      * @param category category to be updated
      */
-    fun updateCategory(category: Category): Completable
+    suspend fun updateCategory(category: Category)
 
     /**
      * Deletes a category.
      *
      * @param category task to be deleted
      */
-    fun deleteCategory(category: Category): Completable
+    suspend fun deleteCategory(category: Category)
 
     /**
      * Cleans the entire table.
      */
-    fun cleanTable(): Completable
+    suspend fun cleanTable()
 
     /**
      * Get all inserted categories.
      *
      * @return all inserted categories.
      */
-    fun findAllCategories(): Flowable<List<Category>>
+    fun findAllCategories(): Flow<List<Category>>
 
     /**
      * Gets a specific category by name.
      *
      * @param name category name
      */
-    fun findCategoryByName(name: String): Single<Category>
+    suspend fun findCategoryByName(name: String): Category
 
     /**
      * Gets a specific category by id.
      *
      * @param categoryId category id
      */
-    fun findCategoryById(categoryId: Long): Single<Category>
+    suspend fun findCategoryById(categoryId: Long): Category?
 }

@@ -1,6 +1,5 @@
 package com.escodro.domain.usecase.category
 
-import com.escodro.core.extension.applySchedulers
 import com.escodro.domain.model.Category
 import com.escodro.domain.repository.CategoryRepository
 
@@ -16,6 +15,6 @@ class DeleteCategory(private val categoryRepository: CategoryRepository) {
      *
      * @return observable to be subscribe
      */
-    operator fun invoke(category: Category) =
-        categoryRepository.deleteCategory(category).applySchedulers()
+    suspend operator fun invoke(category: Category) =
+        categoryRepository.deleteCategory(category)
 }

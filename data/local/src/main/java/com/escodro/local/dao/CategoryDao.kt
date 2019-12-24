@@ -7,9 +7,7 @@ import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
 import androidx.room.Update
 import com.escodro.local.model.Category
-import io.reactivex.Completable
-import io.reactivex.Flowable
-import io.reactivex.Single
+import kotlinx.coroutines.flow.Flow
 
 /**
  * DAO class to handle all [Category]-related database operations.
@@ -23,7 +21,7 @@ interface CategoryDao {
      * @return all inserted categories.
      */
     @Query("SELECT * FROM category")
-    fun findAllCategories(): Flowable<MutableList<Category>>
+    fun findAllCategories(): Flow<List<Category>>
 
     /**
      * Inserts a new category.
@@ -31,7 +29,7 @@ interface CategoryDao {
      * @param category category to be added
      */
     @Insert(onConflict = REPLACE)
-    fun insertCategory(category: Category): Completable
+    suspend fun insertCategory(category: Category)
 
     /**
      * Inserts a new category list.
@@ -39,7 +37,7 @@ interface CategoryDao {
      * @param category list of category to be added
      */
     @Insert(onConflict = REPLACE)
-    fun insertCategory(category: List<Category>): Completable
+    suspend fun insertCategory(category: List<Category>)
 
     /**
      * Updates the given category.
@@ -47,7 +45,7 @@ interface CategoryDao {
      * @param category category to be updated
      */
     @Update
-    fun updateCategory(category: Category): Completable
+    suspend fun updateCategory(category: Category)
 
     /**
      * Deletes a category.
@@ -55,13 +53,13 @@ interface CategoryDao {
      * @param category task to be deleted
      */
     @Delete
-    fun deleteCategory(category: Category): Completable
+    suspend fun deleteCategory(category: Category)
 
     /**
      * Cleans the entire table.
      */
     @Query("DELETE FROM category")
-    fun cleanTable(): Completable
+    suspend fun cleanTable()
 
     /**
      * Gets a specific category by name.
@@ -69,7 +67,7 @@ interface CategoryDao {
      * @param name category name
      */
     @Query("SELECT * FROM category WHERE category_name = :name")
-    fun findCategoryByName(name: String): Single<Category>
+    suspend fun findCategoryByName(name: String): Category
 
     /**
      * Gets a specific category by id.
@@ -77,5 +75,5 @@ interface CategoryDao {
      * @param categoryId category id
      */
     @Query("SELECT * FROM category WHERE category_id = :categoryId")
-    fun findCategoryById(categoryId: Long): Single<Category>
+    suspend fun findCategoryById(categoryId: Long): Category?
 }

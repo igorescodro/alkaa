@@ -13,6 +13,7 @@ import com.escodro.alkaa.presentation.MainActivity
 import com.escodro.local.model.Task
 import java.util.Calendar
 import java.util.regex.Pattern
+import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
@@ -29,8 +30,8 @@ class NotificationTest : AcceptanceTest<MainActivity>(MainActivity::class.java) 
     private val appName by lazy { context.getString(R.string.app_name) }
 
     @After
-    fun clearTable() {
-        daoProvider.getTaskDao().cleanTable().blockingGet()
+    fun clearTable() = runBlocking {
+        daoProvider.getTaskDao().cleanTable()
     }
 
     @Test
@@ -43,11 +44,11 @@ class NotificationTest : AcceptanceTest<MainActivity>(MainActivity::class.java) 
     }
 
     @Test
-    fun validateTaskUpdate() {
+    fun validateTaskUpdate() = runBlocking {
         val task = insertTask("Hi, I'm a PC")
         val updatedTitle = "Hi, I'm a Mac"
         task.title = updatedTitle
-        daoProvider.getTaskDao().updateTask(task).blockingGet()
+        daoProvider.getTaskDao().updateTask(task)
 
         goToNotificationDrawer()
         validateNotificationContent(updatedTitle)
@@ -55,21 +56,21 @@ class NotificationTest : AcceptanceTest<MainActivity>(MainActivity::class.java) 
     }
 
     @Test
-    fun validateCompletedTask() {
+    fun validateCompletedTask() = runBlocking {
         val taskName = "I should not be seen"
         val task = insertTask(taskName)
         task.completed = true
-        daoProvider.getTaskDao().updateTask(task).blockingGet()
+        daoProvider.getTaskDao().updateTask(task)
 
         goToNotificationDrawer()
         validateNotificationNotShown(taskName)
     }
 
     @Test
-    fun validateDeletedTask() {
+    fun validateDeletedTask() = runBlocking {
         val taskName = "Ops, I did it again..."
         val task = insertTask(taskName)
-        daoProvider.getTaskDao().deleteTask(task).blockingGet()
+        daoProvider.getTaskDao().deleteTask(task)
 
         goToNotificationDrawer()
         validateNotificationNotShown(taskName)
@@ -121,15 +122,16 @@ class NotificationTest : AcceptanceTest<MainActivity>(MainActivity::class.java) 
         checkThat.viewHasDate(R.id.chip_taskdetail_date, delayedCalendar)
     }
 
-    private fun insertTask(taskName: String) =
+    private fun insertTask(taskName: String) = runBlocking {
         with(Task(id = 15, title = taskName)) {
             val calendar = Calendar.getInstance()
             calendar.add(Calendar.SECOND, 3)
             dueDate = calendar
-            daoProvider.getTaskDao().insertTask(this).blockingGet()
+            daoProvider.getTaskDao().insertTask(this)
             alarmManager.scheduleTaskAlarm(this.id, this.dueDate?.time?.time)
             this
         }
+    }
 
     private fun goToNotificationDrawer() {
         uiDevice.pressHome()

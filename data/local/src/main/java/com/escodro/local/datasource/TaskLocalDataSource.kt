@@ -4,9 +4,8 @@ import com.escodro.local.mapper.TaskMapper
 import com.escodro.local.provider.DaoProvider
 import com.escodro.repository.datasource.TaskDataSource
 import com.escodro.repository.model.Task
-import io.reactivex.Completable
-import io.reactivex.Flowable
-import io.reactivex.Single
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 /**
  * Local implementation of [TaskDataSource].
@@ -16,27 +15,27 @@ internal class TaskLocalDataSource(daoProvider: DaoProvider, private val taskMap
 
     private val taskDao = daoProvider.getTaskDao()
 
-    override fun insertTask(task: Task): Completable =
+    override suspend fun insertTask(task: Task) =
         taskDao.insertTask(taskMapper.fromRepo(task))
 
-    override fun updateTask(task: Task): Completable =
+    override suspend fun updateTask(task: Task) =
         taskDao.updateTask(taskMapper.fromRepo(task))
 
-    override fun deleteTask(task: Task): Completable =
+    override suspend fun deleteTask(task: Task) =
         taskDao.deleteTask(taskMapper.fromRepo(task))
 
-    override fun cleanTable(): Completable =
+    override suspend fun cleanTable() =
         taskDao.cleanTable()
 
-    override fun findAllTasksWithDueDate(): Single<List<Task>> =
+    override suspend fun findAllTasksWithDueDate(): List<Task> =
         taskDao.findAllTasksWithDueDate().map { taskMapper.toRepo(it) }
 
-    override fun findTaskById(taskId: Long): Single<Task> =
-        taskDao.getTaskById(taskId).map { taskMapper.toRepo(it) }
+    override suspend fun findTaskById(taskId: Long): Task =
+        taskMapper.toRepo(taskDao.getTaskById(taskId))
 
-    override fun findAllTasks(): Flowable<List<Task>> =
+    override fun findAllTasks(): Flow<List<Task>> =
         taskDao.findAllTasks().map { taskMapper.toRepo(it) }
 
-    override fun findTaskByTitle(title: String): Single<Task> =
-        taskDao.findTaskByTitle(title).map { taskMapper.toRepo(it) }
+    override suspend fun findTaskByTitle(title: String): Task =
+        taskMapper.toRepo(taskDao.findTaskByTitle(title))
 }

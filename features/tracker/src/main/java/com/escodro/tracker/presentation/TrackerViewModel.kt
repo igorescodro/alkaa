@@ -3,10 +3,13 @@ package com.escodro.tracker.presentation
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.escodro.domain.usecase.tracker.LoadCompletedTasksByPeriod
 import com.escodro.tracker.mapper.TrackerMapper
 import com.escodro.tracker.model.Tracker
-import io.reactivex.disposables.CompositeDisposable
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 /**
@@ -17,8 +20,6 @@ internal class TrackerViewModel(
     private val trackerMapper: TrackerMapper
 ) : ViewModel() {
 
-    private val compositeDisposable = CompositeDisposable()
-
     internal val viewState: LiveData<TrackerUIState>
         get() = _viewState
 
@@ -27,14 +28,12 @@ internal class TrackerViewModel(
     /**
      * Loads the data to be shown in the chart.
      */
-    fun loadData() {
+    fun loadData() = viewModelScope.launch {
         Timber.d("loadData()")
 
-        val disposable = loadTasksByPeriodUseCase()
+        loadTasksByPeriodUseCase()
             .map { trackerMapper.toTracker(it) }
-            .subscribe(::onSuccess) { Timber.e(it) }
-
-        compositeDisposable.add(disposable)
+            .collect { onSuccess(it) }
     }
 
     private fun onSuccess(trackerInfo: Tracker.Info) {
@@ -45,11 +44,5 @@ internal class TrackerViewModel(
         } else TrackerUIState.ShowDataState(
             trackerInfo
         )
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-
-        compositeDisposable.clear()
     }
 }

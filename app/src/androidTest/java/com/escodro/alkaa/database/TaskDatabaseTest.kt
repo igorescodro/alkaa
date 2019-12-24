@@ -11,6 +11,8 @@ import com.escodro.local.dao.TaskWithCategoryDao
 import com.escodro.local.model.Category
 import com.escodro.local.model.Task
 import java.util.Calendar
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertTrue
 import org.junit.Before
@@ -29,16 +31,16 @@ class TaskDatabaseTest {
     private lateinit var categoryDao: CategoryDao
 
     @Before
-    fun createDb() {
+    fun createDb() = runBlocking {
         val context: Context = ApplicationProvider.getApplicationContext()
         database = Room.inMemoryDatabaseBuilder(context, TaskDatabase::class.java).build()
         taskDao = database.taskDao()
         taskWithCategoryDao = database.taskWithCategoryDao()
         categoryDao = database.categoryDao()
 
-        categoryDao.insertCategory(Category(name = "Work", color = "#cc5a71")).blockingGet()
-        categoryDao.insertCategory(Category(name = "Personal", color = "#58a4b0")).blockingGet()
-        categoryDao.insertCategory(Category(name = "Family", color = "#519872")).blockingGet()
+        categoryDao.insertCategory(Category(name = "Work", color = "#cc5a71"))
+        categoryDao.insertCategory(Category(name = "Personal", color = "#58a4b0"))
+        categoryDao.insertCategory(Category(name = "Family", color = "#519872"))
     }
 
     @After
@@ -47,71 +49,70 @@ class TaskDatabaseTest {
     }
 
     @Test
-    fun insertTaskAndReadInList() {
+    fun insertTaskAndReadInList() = runBlocking {
         val task = Task(id = 14, title = TASK_NAME)
-        taskDao.insertTask(task).blockingGet()
+        taskDao.insertTask(task)
 
-        val list = taskDao.findAllTasks().blockingFirst()
+        val list = taskDao.findAllTasks().first()
         assertTrue(list.contains(task))
     }
 
     @Test
-    fun insertTaskWithDescription() {
+    fun insertTaskWithDescription() = runBlocking {
         val task = Task(title = TASK_NAME, description = TASK_DESCRIPTION)
-        taskDao.insertTask(task).blockingGet()
+        taskDao.insertTask(task)
 
-        val taskDescription = taskDao.findTaskByTitle(TASK_NAME).blockingGet().description
+        val taskDescription = taskDao.findTaskByTitle(TASK_NAME).description
         assertTrue(taskDescription == TASK_DESCRIPTION)
     }
 
     @Test
-    fun insertAndUpdateTask() {
+    fun insertAndUpdateTask() = runBlocking {
         val task = Task(title = TASK_NAME)
-        taskDao.insertTask(task).blockingGet()
+        taskDao.insertTask(task)
 
-        val list = taskDao.findAllTasks().blockingFirst()
-        val updatedTask = list[0]
+        val updatedTask = taskDao.findAllTasks().first()[0]
         updatedTask.title = "call Martha"
         updatedTask.description = TASK_DESCRIPTION
-        taskDao.updateTask(updatedTask).blockingGet()
+        taskDao.updateTask(updatedTask)
 
-        val updatedList = taskDao.findAllTasks().blockingFirst()
+        val updatedList = taskDao.findAllTasks().first()
         assertTrue(updatedList.contains(updatedTask))
     }
 
     @Test
-    fun insertAndAddCategoryInTask() {
+    fun insertAndAddCategoryInTask() = runBlocking {
         val task = Task(id = 16, title = TASK_NAME)
-        task.categoryId = categoryDao.findAllCategories().blockingFirst()[0].id
-        taskDao.insertTask(task).blockingGet()
+        task.categoryId = categoryDao.findAllCategories().first()[0].id
+        taskDao.insertTask(task)
 
-        val taskWithCategory = taskWithCategoryDao.findAllTasksWithCategory().blockingFirst()[0]
+        val taskWithCategory = taskWithCategoryDao.findAllTasksWithCategory().first()[0]
         assertTrue(taskWithCategory.task == task)
     }
 
     @Test
-    fun clearTaskFields() {
+    fun clearTaskFields() = runBlocking {
         val task = Task(title = TASK_NAME).apply {
-            categoryId = categoryDao.findAllCategories().blockingFirst()[0].id
+            categoryId = categoryDao.findAllCategories().first()[0].id
             description = TASK_DESCRIPTION
             dueDate = Calendar.getInstance()
         }
-        taskDao.insertTask(task).blockingGet()
+        taskDao.insertTask(task)
 
-        val clearTask = taskDao.findTaskByTitle(TASK_NAME).blockingGet()
+        val clearTask = taskDao.findTaskByTitle(TASK_NAME)
         clearTask.apply {
             categoryId = null
             description = null
             dueDate = null
         }
-        taskDao.updateTask(clearTask).blockingGet()
+        taskDao.updateTask(clearTask)
 
-        val updatedList = taskDao.findAllTasks().blockingFirst()
+        val updatedList = taskDao.findAllTasks().first()
         assertTrue(updatedList.contains(clearTask))
     }
 
     @Test
-    fun validateDateConverter() {
+    fun validateDateConverter() = runBlocking {
         val taskName = "Take medicine"
         val task = Task(title = taskName)
 
@@ -119,9 +120,9 @@ class TaskDatabaseTest {
         calendar.set(2018, 3, 15, 16, 1)
         task.dueDate = calendar
 
-        taskDao.insertTask(task).blockingGet()
+        taskDao.insertTask(task)
 
-        val selectedDate = taskDao.findTaskByTitle(taskName).blockingGet().dueDate
+        val selectedDate = taskDao.findTaskByTitle(taskName).dueDate
 
         assertTrue(selectedDate?.get(Calendar.YEAR) == 2018)
         assertTrue(selectedDate?.get(Calendar.MONTH) == 3)

@@ -10,7 +10,7 @@ object Versions {
 
     const val kotlin = "1.3.61"
     const val appCompat = "1.0.2"
-    const val material = "1.0.0"
+    const val material = "1.1.0-beta02"
     const val recyclerView = "1.0.0"
     const val preference = "1.0.0"
     const val cardView = "1.0.0"

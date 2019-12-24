@@ -1,7 +1,6 @@
 package com.escodro.task.presentation.detail.category
 
 import android.content.res.ColorStateList
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -92,14 +91,12 @@ internal class TaskCategoryFragment : Fragment() {
         }
 
     private fun getChipBackgroundColors(category: Category): ColorStateList {
-        val colors = intArrayOf(Color.parseColor(category.color), Color.WHITE)
+        val colors = intArrayOf(category.color, android.R.attr.colorBackground)
         return ColorStateList(chipStates, colors)
     }
 
     private fun getChipTextColors(category: Category): ColorStateList {
-        val colors = context?.let {
-            intArrayOf(Color.parseColor(category.color), it.getColor(R.color.gray_light))
-        }
+        val colors = context?.let { intArrayOf(category.color, it.getColor(R.color.gray_light)) }
 
         return ColorStateList(chipStates, colors)
     }

@@ -32,6 +32,7 @@ Currently, this project covers the following topics:
 - [Android KTX](https://developer.android.com/kotlin/ktx)
 - [Modularization](https://www.youtube.com/watch?v=PZBg5DIzNww)
 - [Dynamic Delivery](https://developer.android.com/studio/projects/dynamic-delivery)
+- [Dark Theme](https://developer.android.com/guide/topics/ui/look-and-feel/darktheme)
 
 #### Third-Party
 - [Koin](https://insert-koin.io)

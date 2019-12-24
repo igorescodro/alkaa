@@ -78,7 +78,7 @@
                 android:id="@+id/fragment_taskdetail_alarm"
                 android:name="com.escodro.task.presentation.detail.alarm.TaskAlarmFragment"
                 android:layout_width="0dp"
-                android:layout_height="32dp"
+                android:layout_height="48dp"
                 android:layout_marginTop="24dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -11,7 +11,7 @@
 
         <variable
             name="color"
-            type="String" />
+            type="Integer" />
 
         <variable
             name="isAlarmVisible"

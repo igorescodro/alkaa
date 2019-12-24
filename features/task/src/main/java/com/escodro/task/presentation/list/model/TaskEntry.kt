@@ -21,7 +21,7 @@ internal class TaskEntry(
 
         binding?.apply {
             task = data.task
-            color = data.category?.color ?: DEFAULT_LABEL_COLOR
+            color = data.category?.color ?: android.R.attr.colorBackground
             isAlarmVisible = data.task.dueDate != null
             cardviewItemtaskBackground.setOnClickListener { onItemClicked(data) }
             cardviewItemtaskBackground.setOnLongClickListener { onItemLongPressed(data) }
@@ -39,9 +39,4 @@ internal class TaskEntry(
 
     override val type: Int
         get() = TYPE_TASK
-
-    companion object {
-
-        private const val DEFAULT_LABEL_COLOR = "#FFFFFF"
-    }
 }

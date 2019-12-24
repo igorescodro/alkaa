@@ -62,7 +62,7 @@ fun TextView.textChangedFlow(): Flow<String> {
             }
         }
         addTextChangedListener(listener)
-        awaitClose()
+        awaitClose { removeTextChangedListener(listener) }
     }
 
     return flow.debounce(TEXT_UPDATE_DEBOUNCE)

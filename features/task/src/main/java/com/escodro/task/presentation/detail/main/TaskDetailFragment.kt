@@ -18,7 +18,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
 /**
- * [Fragment] responsible to show the [com.escodro.domain.viewdata.ViewData.Task] details.
+ * [Fragment] responsible to show the Task details.
  */
 internal class TaskDetailFragment : Fragment() {
 
@@ -70,23 +70,17 @@ internal class TaskDetailFragment : Fragment() {
         taskId?.let { viewModel.loadTask(it) }
     }
 
-    private fun initListeners() {
+    private fun initListeners() = lifecycleScope.launch {
         Timber.d("initListeners()")
 
-        lifecycleScope.launch {
+        launch {
             edittext_taskdetail_title.textChangedFlow()
-                .collect { text ->
-                    Timber.d("New text = $text")
-                    viewModel.updateTitle(text)
-                }
+                .collect { text -> viewModel.updateTitle(text) }
         }
 
-        lifecycleScope.launch {
+        launch {
             edittext_taskdetail_description.textChangedFlow()
-                .collect { text ->
-                    Timber.d("New description = $text")
-                    viewModel.updateDescription(text)
-                }
+                .collect { text -> viewModel.updateDescription(text) }
         }
     }
 }

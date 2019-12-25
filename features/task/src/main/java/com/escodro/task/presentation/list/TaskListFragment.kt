@@ -152,7 +152,7 @@ class TaskListFragment : Fragment() {
                     0 -> viewModel.deleteTask(taskWithCategory)
                 }
             }
-        }.show()
+        }?.show()
 
         return true
     }

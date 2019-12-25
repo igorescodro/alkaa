@@ -1,7 +1,7 @@
 package com.escodro.splitinstall
 
-import android.app.AlertDialog
 import android.content.Context
+import androidx.appcompat.app.AlertDialog
 import com.escodro.core.extension.dialog
 import com.escodro.core.extension.negativeButton
 import com.escodro.core.extension.positiveButton

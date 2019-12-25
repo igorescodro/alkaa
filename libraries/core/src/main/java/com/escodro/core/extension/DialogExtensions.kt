@@ -1,11 +1,11 @@
 package com.escodro.core.extension
 
-import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
 import androidx.annotation.ArrayRes
 import androidx.annotation.LayoutRes
 import androidx.annotation.StringRes
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.escodro.core.view.DateTimePickerDialog
 import java.util.Calendar
@@ -32,9 +32,11 @@ fun Fragment.showDateTimePicker(onDateChanged: (Calendar) -> Unit) {
 fun Fragment.itemDialog(
     title: String,
     builder: AlertDialog.Builder.() -> Unit
-): AlertDialog.Builder = AlertDialog.Builder(context).apply {
-    setTitle(title)
-    builder()
+): AlertDialog.Builder? = context?.let {
+    AlertDialog.Builder(it).apply {
+        setTitle(title)
+        builder()
+    }
 }
 
 /**
@@ -63,12 +65,13 @@ fun Fragment.dialog(
     @StringRes titleRes: Int,
     message: String,
     builder: AlertDialog.Builder.() -> Unit
-): AlertDialog.Builder =
-    AlertDialog.Builder(context).apply {
+): AlertDialog.Builder? = context?.let {
+    AlertDialog.Builder(it).apply {
         setTitle(titleRes)
         setMessage(message)
         builder()
     }
+}
 
 /**
  * Create a custom [AlertDialog].

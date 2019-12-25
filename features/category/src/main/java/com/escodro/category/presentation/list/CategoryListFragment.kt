@@ -98,7 +98,7 @@ internal class CategoryListFragment : Fragment() {
         dialog(R.string.category_list_dialog_remove_title, description) {
             positiveButton(R.string.category_list_dialog_remove_positive) { removeCategory(category) }
             negativeButton(R.string.category_list_dialog_remove_negative) { /* Do nothing */ }
-        }.show()
+        }?.show()
     }
 
     private fun editCategory(category: Category) {

@@ -21,6 +21,9 @@ object Versions {
     const val room = "2.2.3"
     const val navigation = "2.1.0"
     const val playCore = "1.6.1"
+    const val googleServices = "4.3.3"
+
+    const val analytics = "17.2.1"
 
     const val coroutines = "1.3.1"
 
@@ -54,6 +57,7 @@ object Deps {
     val timber = "com.jakewharton.timber:timber:${Versions.timber}"
     val mpAndroidChart = "com.github.PhilJay:MPAndroidChart:v${Versions.mpAndroidChart}"
     val android = AndroidDeps
+    val firebase = FirebaseDeps
     val coroutines = CoroutinesDeps
     val koin = KoinDeps
     val test = TestDeps
@@ -74,6 +78,10 @@ object AndroidDeps {
     val room = RoomDeps
     val navigation = NavigationDeps
     val lifecycle = LifecycleDeps
+}
+
+object FirebaseDeps {
+    val analytics = "com.google.firebase:firebase-analytics:${Versions.analytics}"
 }
 
 object CoroutinesDeps {
@@ -133,4 +141,5 @@ object GradleDeps {
     val kotlinGradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
     val navigationSafeArgs =
         "androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.navigation}"
+    val googleServices = "com.google.gms:google-services:${Versions.googleServices}"
 }

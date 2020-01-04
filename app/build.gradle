@@ -5,6 +5,7 @@ apply from: "$rootDir/config/artifacts.gradle"
 
 apply plugin: "kotlin-kapt"
 apply plugin: "androidx.navigation.safeargs"
+apply plugin: 'com.google.gms.google-services'
 
 android {
     defaultConfig {
@@ -70,6 +71,8 @@ dependencies {
     implementation Deps.android.navigation.ui
     implementation Deps.android.lifecycle.viewmodel
     implementation Deps.android.playCore
+
+    implementation Deps.firebase.analytics
 
     implementation Deps.timber
 

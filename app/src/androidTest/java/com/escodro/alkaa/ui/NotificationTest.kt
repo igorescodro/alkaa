@@ -5,11 +5,11 @@ import androidx.test.uiautomator.BySelector
 import androidx.test.uiautomator.UiObject2
 import androidx.test.uiautomator.UiSelector
 import androidx.test.uiautomator.Until
-import com.escodro.alarm.notification.TaskNotificationScheduler
 import com.escodro.alkaa.R
 import com.escodro.alkaa.framework.AcceptanceTest
 import com.escodro.alkaa.framework.extension.waitForLauncher
 import com.escodro.alkaa.presentation.MainActivity
+import com.escodro.domain.usecase.alarm.ScheduleAlarm
 import com.escodro.local.model.Task
 import java.util.Calendar
 import java.util.regex.Pattern
@@ -25,7 +25,7 @@ import org.koin.test.inject
  */
 class NotificationTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
 
-    private val alarmManager: TaskNotificationScheduler by inject()
+    private val scheduleAlarm: ScheduleAlarm by inject()
 
     private val appName by lazy { context.getString(R.string.app_name) }
 
@@ -128,7 +128,7 @@ class NotificationTest : AcceptanceTest<MainActivity>(MainActivity::class.java) 
             calendar.add(Calendar.SECOND, 3)
             dueDate = calendar
             daoProvider.getTaskDao().insertTask(this)
-            alarmManager.scheduleTaskAlarm(this.id, this.dueDate?.time?.time)
+            scheduleAlarm(this.id, this.dueDate?.time?.time)
             this
         }
     }

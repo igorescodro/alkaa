@@ -3,7 +3,8 @@ package com.escodro.task.presentation.detail.alarm
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.escodro.alarm.notification.TaskNotificationScheduler
+import com.escodro.domain.usecase.alarm.CancelAlarm
+import com.escodro.domain.usecase.alarm.ScheduleAlarm
 import com.escodro.task.presentation.detail.TaskDetailProvider
 import java.util.Calendar
 import timber.log.Timber
@@ -12,8 +13,9 @@ import timber.log.Timber
  * [ViewModel] responsible to provide information to Task Alarm layout.
  */
 internal class TaskAlarmViewModel(
-    private val alarmManager: TaskNotificationScheduler,
-    private val taskProvider: TaskDetailProvider
+    private val taskProvider: TaskDetailProvider,
+    private val scheduleAlarmUseCase: ScheduleAlarm,
+    private val cancelAlarmUseCase: CancelAlarm
 ) : ViewModel() {
 
     val taskData = taskProvider.taskData
@@ -34,7 +36,7 @@ internal class TaskAlarmViewModel(
 
         taskData.value?.copy(dueDate = alarm)?.let {
             taskProvider.updateTask(it, viewModelScope)
-            alarmManager.scheduleTaskAlarm(it.id, it.dueDate?.time?.time)
+            scheduleAlarmUseCase(it.id, it.dueDate?.time?.time)
         }
     }
 
@@ -45,7 +47,7 @@ internal class TaskAlarmViewModel(
         Timber.d("removeAlarm()")
 
         taskData.value?.copy(dueDate = null)?.let {
-            alarmManager.cancelTaskAlarm(it.id)
+            cancelAlarmUseCase(it.id)
             taskProvider.updateTask(it, viewModelScope)
         }
     }

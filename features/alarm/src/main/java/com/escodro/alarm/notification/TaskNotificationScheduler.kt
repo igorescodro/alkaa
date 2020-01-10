@@ -9,9 +9,9 @@ import com.escodro.core.extension.setAlarm
 import timber.log.Timber
 
 /**
- * Alarm manager to schedule a event based on the due date from a [ViewData.Task].
+ * Alarm manager to schedule a event based on the due date from a Task.
  */
-class TaskNotificationScheduler(private val context: Context) {
+internal class TaskNotificationScheduler(private val context: Context) {
 
     /**
      * Schedules a task notification based on the due date.

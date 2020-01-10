@@ -14,7 +14,6 @@ android {
 dependencies {
     implementation project(":libraries:core")
     implementation project(":libraries:navigation")
-    implementation project(":features:alarm")
     implementation project(":data:domain")
 
     implementation Deps.android.appCompat

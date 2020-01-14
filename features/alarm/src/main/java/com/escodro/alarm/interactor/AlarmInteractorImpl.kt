@@ -7,7 +7,7 @@ import timber.log.Timber
 internal class AlarmInteractorImpl(private val alarmManager: TaskNotificationScheduler) :
     AlarmInteractor {
 
-    override fun schedule(alarmId: Long, timeInMillis: Long?) {
+    override fun schedule(alarmId: Long, timeInMillis: Long) {
         Timber.d("schedule - alarmId = $alarmId")
         alarmManager.scheduleTaskAlarm(alarmId, timeInMillis)
     }

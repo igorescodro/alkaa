@@ -19,7 +19,7 @@ internal class TaskNotificationScheduler(private val context: Context) {
      * @param taskId task id to be scheduled
      * @param timeInMillis the time to the alarm be scheduled
      */
-    fun scheduleTaskAlarm(taskId: Long, timeInMillis: Long?) {
+    fun scheduleTaskAlarm(taskId: Long, timeInMillis: Long) {
         val receiverIntent = Intent(context, TaskReceiver::class.java).apply {
             action = TaskReceiver.ALARM_ACTION
             putExtra(TaskReceiver.EXTRA_TASK, taskId)
@@ -32,10 +32,8 @@ internal class TaskNotificationScheduler(private val context: Context) {
             PendingIntent.FLAG_CANCEL_CURRENT
         )
 
-        timeInMillis?.let {
-            Timber.d("Scheduling notification for '$taskId' at '$timeInMillis'")
-            context.setAlarm(timeInMillis, pendingIntent)
-        }
+        Timber.d("Scheduling notification for '$taskId' at '$timeInMillis'")
+        context.setAlarm(timeInMillis, pendingIntent)
     }
 
     /**

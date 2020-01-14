@@ -26,9 +26,11 @@ internal class TaskReschedulerWorker(context: Context, params: WorkerParameters)
 
     override suspend fun doWork(): Result = coroutineScope {
         getFutureTasksUseCase().map { taskMapper.fromDomain(it) }
-            .forEach {
-                Timber.d("Task '${it.title} rescheduled to '${it.dueDate}")
-                taskAlarmManager.scheduleTaskAlarm(it.id, it.dueDate?.time?.time)
+            .forEach { task ->
+                Timber.d("Task '${task.title} rescheduled to '${task.dueDate}")
+                task.dueDate?.time?.time?.let { time ->
+                    taskAlarmManager.scheduleTaskAlarm(task.id, time)
+                }
             }
         Result.success()
     }

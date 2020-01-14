@@ -11,7 +11,7 @@ interface AlarmInteractor {
      * @param alarmId the alarm id
      * @param timeInMillis the time to the alarm be scheduled
      */
-    fun schedule(alarmId: Long, timeInMillis: Long?)
+    fun schedule(alarmId: Long, timeInMillis: Long)
 
     /**
      * Cancels an alarm.

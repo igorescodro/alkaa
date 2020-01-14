@@ -13,6 +13,6 @@ class ScheduleAlarm(private val alarmInteractor: AlarmInteractor) {
      * @param alarmId the alarm id
      * @param timeInMillis the time to the alarm be scheduled
      */
-    operator fun invoke(alarmId: Long, timeInMillis: Long?) =
+    operator fun invoke(alarmId: Long, timeInMillis: Long) =
         alarmInteractor.schedule(alarmId, timeInMillis)
 }

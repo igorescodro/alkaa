@@ -15,6 +15,18 @@ class CompleteTask(
     /**
      * Completes the given task.
      *
+     * @param taskId the task id
+     *
+     * @return observable to be subscribe
+     */
+    suspend operator fun invoke(taskId: Long) {
+        val task = taskRepository.findTaskById(taskId)
+        invoke(task)
+    }
+
+    /**
+     * Completes the given task.
+     *
      * @param task the task to be updated
      *
      * @return observable to be subscribe
@@ -22,19 +34,6 @@ class CompleteTask(
     suspend operator fun invoke(task: Task) {
         val updatedTask = updateTaskAsCompleted(task)
         taskRepository.updateTask(updatedTask)
-    }
-
-    /**
-     * Completes the given task.
-     *
-     * @param taskId the task id
-     *
-     * @return observable to be subscribe
-     */
-    suspend operator fun invoke(taskId: Long) {
-        val task = taskRepository.findTaskById(taskId)
-        val completedTask = updateTaskAsCompleted(task)
-        taskRepository.updateTask(completedTask)
     }
 
     private fun updateTaskAsCompleted(task: Task) =

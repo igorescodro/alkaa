@@ -29,7 +29,7 @@ val domainModule = module {
 
     // Task Use Cases
     factory { AddTask(get()) }
-    factory { CompleteTask(get(), get()) }
+    factory { CompleteTask(get(), get(), get()) }
     factory { UncompleteTask(get()) }
     factory { UpdateTaskStatus(get(), get(), get()) }
     factory { DeleteTask(get()) }

@@ -15,7 +15,6 @@ object Versions {
     const val preference = "1.0.0"
     const val cardView = "1.0.0"
     const val constraintLayout = "2.0.0-beta1"
-    const val workManager = "1.0.1"
     const val ktx = "1.0.2"
     const val lifecycle = "2.2.0-rc03"
     const val room = "2.2.3"
@@ -68,7 +67,6 @@ object AndroidDeps {
     val preference = "androidx.preference:preference:${Versions.preference}"
     val cardView = "androidx.cardview:cardview:${Versions.cardView}"
     val constraintLayout = "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
-    val workManager = "android.arch.work:work-runtime-ktx:${Versions.workManager}"
     val ktx = "androidx.core:core-ktx:${Versions.ktx}"
     val playCore = "com.google.android.play:core:${Versions.playCore}"
     val room = RoomDeps

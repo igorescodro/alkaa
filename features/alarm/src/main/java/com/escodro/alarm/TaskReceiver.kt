@@ -29,48 +29,19 @@ internal class TaskReceiver : BroadcastReceiver(), KoinComponent {
     override fun onReceive(context: Context?, intent: Intent?) {
         Timber.d("onReceive() - intent ${intent?.action}")
 
+        GlobalScope.launch {
+            handleIntent(intent)
+        }
+    }
+
+    private suspend fun handleIntent(intent: Intent?) =
         when (intent?.action) {
-            ALARM_ACTION -> onAlarm(intent)
-            COMPLETE_ACTION -> onCompleteTask(intent)
-            SNOOZE_ACTION -> onSnoozeTask(intent)
-            Intent.ACTION_BOOT_COMPLETED -> onBootCompleted()
+            ALARM_ACTION -> getTaskId(intent)?.let { showAlarmUseCase(it) }
+            COMPLETE_ACTION -> getTaskId(intent)?.let { completeTaskUseCase(it) }
+            SNOOZE_ACTION -> getTaskId(intent)?.let { snoozeTaskUseCase(it) }
+            Intent.ACTION_BOOT_COMPLETED -> rescheduleUseCase()
+            else -> Timber.e("Action not supported")
         }
-    }
-
-    private fun onAlarm(intent: Intent?) {
-        Timber.d("onAlarm")
-
-        val taskId = getTaskId(intent) ?: return
-        GlobalScope.launch {
-            showAlarmUseCase(taskId)
-        }
-    }
-
-    private fun onCompleteTask(intent: Intent?) {
-        Timber.d("onCompleteTask")
-
-        val taskId = getTaskId(intent) ?: return
-        GlobalScope.launch {
-            completeTaskUseCase(taskId)
-        }
-    }
-
-    private fun onSnoozeTask(intent: Intent?) {
-        Timber.d("onSnoozeTask")
-
-        val taskId = getTaskId(intent) ?: return
-        GlobalScope.launch {
-            snoozeTaskUseCase(taskId)
-        }
-    }
-
-    private fun onBootCompleted() {
-        Timber.d("onBootCompleted")
-
-        GlobalScope.launch {
-            rescheduleUseCase()
-        }
-    }
 
     private fun getTaskId(intent: Intent?) = intent?.getLongExtra(EXTRA_TASK, 0)
 

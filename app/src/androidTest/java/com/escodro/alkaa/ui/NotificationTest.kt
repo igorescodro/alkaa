@@ -69,8 +69,11 @@ class NotificationTest : AcceptanceTest<MainActivity>(MainActivity::class.java) 
     @Test
     fun validateDeletedTask() = runBlocking {
         val taskName = "Ops, I did it again..."
-        val task = insertTask(taskName)
-        daoProvider.getTaskDao().deleteTask(task)
+        insertTask(taskName)
+        events.longPressOnRecyclerItem(R.id.recyclerview_tasklist_list)
+        events.clickDialogOption(R.array.task_dialog_options, 0)
+        events.waitFor(1000)
+        checkThat.listNotContainsItem(R.id.recyclerview_tasklist_list, taskName)
 
         goToNotificationDrawer()
         validateNotificationNotShown(taskName)

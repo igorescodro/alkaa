@@ -2,6 +2,7 @@ package com.escodro.domain.usecase.task
 
 import com.escodro.domain.calendar.TaskCalendar
 import com.escodro.domain.interactor.AlarmInteractor
+import com.escodro.domain.interactor.NotificationInteractor
 import com.escodro.domain.model.Task
 import com.escodro.domain.repository.TaskRepository
 import io.mockk.coEvery
@@ -21,9 +22,12 @@ class CompleteTaskTest {
 
     private val mockAlarmInteractor = mockk<AlarmInteractor>(relaxed = true)
 
+    private val mockNotificationInteractor = mockk<NotificationInteractor>(relaxed = true)
+
     private val mockCalendar = mockk<TaskCalendar>(relaxed = true)
 
-    private val completeTask = CompleteTask(mockTaskRepo, mockAlarmInteractor, mockCalendar)
+    private val completeTask =
+        CompleteTask(mockTaskRepo, mockAlarmInteractor, mockNotificationInteractor, mockCalendar)
 
     @Test
     fun `check if task was completed`() = runBlockingTest {
@@ -45,5 +49,14 @@ class CompleteTaskTest {
 
         completeTask(mockTask.id)
         verify { mockAlarmInteractor.cancel(mockTask.id) }
+    }
+
+    @Test
+    fun `check if notification was dismissed`() = runBlockingTest {
+        every { mockCalendar.getCurrentCalendar() } returns Calendar.getInstance()
+        coEvery { mockTaskRepo.findTaskById(any()) } returns mockTask
+
+        completeTask(mockTask.id)
+        verify { mockNotificationInteractor.dismiss(mockTask.id) }
     }
 }

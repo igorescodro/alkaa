@@ -26,7 +26,6 @@ Currently, this project covers the following topics:
   - [Navigation](https://developer.android.com/topic/libraries/architecture/navigation)
   - [Room](https://developer.android.com/topic/libraries/architecture/room)
   - [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel)
-  - [WorkManager](https://developer.android.com/topic/libraries/architecture/workmanager)
 - [ListAdapter](https://developer.android.com/reference/android/support/v7/recyclerview/extensions/ListAdapter)  
 - [Data Binding](https://developer.android.com/topic/libraries/data-binding/)
 - [ConstraintLayout](https://developer.android.com/training/constraint-layout/)
@@ -58,6 +57,7 @@ Currently, this project covers the following topics:
 #### Tools covered but removed:
 - [Dagger 2](https://google.github.io/dagger/) (replaced by Koin)
 - [RxJava 2 and RxAndroid 2](https://github.com/ReactiveX/RxAndroid) (replaced by Coroutines)
+- [WorkManager](https://developer.android.com/topic/libraries/architecture/workmanager)
 
 ---
 ### Feel free to use the code the way you prefer - Enjoy your studies!

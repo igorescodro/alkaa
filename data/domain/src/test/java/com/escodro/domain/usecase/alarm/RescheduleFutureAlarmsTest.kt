@@ -1,6 +1,7 @@
 package com.escodro.domain.usecase.alarm
 
 import com.escodro.domain.interactor.AlarmInteractor
+import com.escodro.domain.model.AlarmInterval
 import com.escodro.domain.model.Task
 import com.escodro.domain.repository.TaskRepository
 import io.mockk.coEvery
@@ -81,5 +82,38 @@ class RescheduleFutureAlarmsTest {
         coEvery { mockRepo.findAllTasksWithDueDate() } returns listOf(task)
         rescheduleFutureAlarms()
         verify { mockAlarmInteractor.schedule(task.id, futureCalendar.time.time) }
+    }
+
+    @Test
+    fun `check if missed repeating alarms are rescheduled`() = runBlockingTest {
+        val pastCalendar = Calendar.getInstance().apply { add(Calendar.DAY_OF_MONTH, -1) }
+        val task = Task(
+            id = 1,
+            title = "lost",
+            dueDate = pastCalendar,
+            isRepeating = true,
+            alarmInterval = AlarmInterval.DAILY
+        )
+
+        coEvery { mockRepo.findAllTasksWithDueDate() } returns listOf(task)
+        rescheduleFutureAlarms()
+        verify { mockAlarmInteractor.schedule(task.id, any()) }
+    }
+
+    @Test
+    fun `check if completed missed repeating alarms are ignored`() = runBlockingTest {
+        val pastCalendar = Calendar.getInstance().apply { add(Calendar.DAY_OF_MONTH, -1) }
+        val task = Task(
+            id = 1,
+            title = "lost",
+            dueDate = pastCalendar,
+            completed = true,
+            isRepeating = true,
+            alarmInterval = AlarmInterval.DAILY
+        )
+
+        coEvery { mockRepo.findAllTasksWithDueDate() } returns listOf(task)
+        rescheduleFutureAlarms()
+        verify(exactly = 0) { mockAlarmInteractor.schedule(task.id, any()) }
     }
 }

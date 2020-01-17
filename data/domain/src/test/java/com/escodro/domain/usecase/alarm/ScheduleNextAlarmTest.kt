@@ -163,4 +163,25 @@ class ScheduleNextAlarmTest {
         scheduleNextAlarm(task)
         verify { mockAlarmInteractor.schedule(task.id, any()) }
     }
+
+    @Test
+    fun `check if missed repeating alarm is set on future`() = runBlockingTest {
+        val pastCalendar = Calendar.getInstance().apply { add(Calendar.HOUR, -5) }
+        val task = Task(
+            id = 1,
+            title = "lost",
+            dueDate = pastCalendar,
+            completed = true,
+            isRepeating = true,
+            alarmInterval = AlarmInterval.HOURLY
+        )
+
+        val calendarAssert = Calendar.getInstance().apply {
+            time = pastCalendar.time
+            add(Calendar.HOUR, 5)
+        }
+
+        scheduleNextAlarm(task)
+        verify { mockAlarmInteractor.schedule(task.id, calendarAssert.time.time) }
+    }
 }

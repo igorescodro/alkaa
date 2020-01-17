@@ -13,7 +13,7 @@ import java.util.Calendar
 import timber.log.Timber
 
 /**
- * Schedules the next alarm entry in a repeating alarm.
+ * Schedules the next alarm entry or the missing ones in a repeating alarm.
  */
 class ScheduleNextAlarm(
     private val taskRepository: TaskRepository,
@@ -30,7 +30,10 @@ class ScheduleNextAlarm(
         require(task.dueDate != null) { "Task has no due date" }
         require(task.alarmInterval != null) { "Task has no alarm interval" }
 
-        updatedAlarmTime(task.dueDate, task.alarmInterval)
+        val currentTime = Calendar.getInstance()
+        do {
+            updatedAlarmTime(task.dueDate, task.alarmInterval)
+        } while (currentTime.after(task.dueDate))
 
         taskRepository.updateTask(task)
         alarmInteractor.schedule(task.id, task.dueDate.time.time)

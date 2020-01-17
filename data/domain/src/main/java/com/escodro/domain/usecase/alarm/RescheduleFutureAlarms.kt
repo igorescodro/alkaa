@@ -2,6 +2,7 @@ package com.escodro.domain.usecase.alarm
 
 import com.escodro.domain.interactor.AlarmInteractor
 import com.escodro.domain.model.Task
+import com.escodro.domain.provider.CalendarProvider
 import com.escodro.domain.repository.TaskRepository
 import java.util.Calendar
 import timber.log.Timber
@@ -11,7 +12,8 @@ import timber.log.Timber
  */
 class RescheduleFutureAlarms(
     private val taskRepository: TaskRepository,
-    private val alarmInteractor: AlarmInteractor
+    private val alarmInteractor: AlarmInteractor,
+    private val calendarProvider: CalendarProvider
 ) {
 
     /**
@@ -26,12 +28,12 @@ class RescheduleFutureAlarms(
             .forEach { rescheduleTask(it) }
 
     private fun isInFuture(calendar: Calendar?): Boolean {
-        val currentTime = Calendar.getInstance()
+        val currentTime = calendarProvider.getCurrentCalendar()
         return calendar?.after(currentTime) ?: false
     }
 
     private fun isMissedRepeating(task: Task): Boolean {
-        val currentTime = Calendar.getInstance()
+        val currentTime = calendarProvider.getCurrentCalendar()
         return task.isRepeating && task.dueDate?.before(currentTime) ?: false
     }
 

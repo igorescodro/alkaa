@@ -3,13 +3,16 @@ package com.escodro.domain.usecase.alarm
 import com.escodro.domain.interactor.AlarmInteractor
 import com.escodro.domain.model.AlarmInterval
 import com.escodro.domain.model.Task
+import com.escodro.domain.provider.CalendarProvider
 import com.escodro.domain.repository.TaskRepository
 import io.mockk.coVerify
+import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import java.util.Calendar
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runBlockingTest
+import org.junit.Before
 import org.junit.Test
 
 class ScheduleNextAlarmTest {
@@ -18,9 +21,17 @@ class ScheduleNextAlarmTest {
 
     private val mockAlarmInteractor = mockk<AlarmInteractor>(relaxed = true)
 
-    private val scheduleNextAlarm = ScheduleNextAlarm(mockTaskRepo, mockAlarmInteractor)
+    private val mockCalendar = mockk<CalendarProvider>(relaxed = true)
+
+    private val scheduleNextAlarm =
+        ScheduleNextAlarm(mockTaskRepo, mockAlarmInteractor, mockCalendar)
 
     private val mockTask = Task(1, title = "alarm task")
+
+    @Before
+    fun setup() {
+        every { mockCalendar.getCurrentCalendar() } returns Calendar.getInstance()
+    }
 
     @Test(expected = IllegalArgumentException::class)
     fun `check if fails if not repeating`() = runBlockingTest {

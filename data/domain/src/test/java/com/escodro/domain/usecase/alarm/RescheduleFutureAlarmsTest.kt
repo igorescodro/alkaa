@@ -3,12 +3,15 @@ package com.escodro.domain.usecase.alarm
 import com.escodro.domain.interactor.AlarmInteractor
 import com.escodro.domain.model.AlarmInterval
 import com.escodro.domain.model.Task
+import com.escodro.domain.provider.CalendarProvider
 import com.escodro.domain.repository.TaskRepository
 import io.mockk.coEvery
+import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import java.util.Calendar
 import kotlinx.coroutines.test.runBlockingTest
+import org.junit.Before
 import org.junit.Test
 
 class RescheduleFutureAlarmsTest {
@@ -17,7 +20,15 @@ class RescheduleFutureAlarmsTest {
 
     private val mockAlarmInteractor = mockk<AlarmInteractor>(relaxed = true)
 
-    private val rescheduleFutureAlarms = RescheduleFutureAlarms(mockRepo, mockAlarmInteractor)
+    private val mockCalendar = mockk<CalendarProvider>(relaxed = true)
+
+    private val rescheduleFutureAlarms =
+        RescheduleFutureAlarms(mockRepo, mockAlarmInteractor, mockCalendar)
+
+    @Before
+    fun setup() {
+        every { mockCalendar.getCurrentCalendar() } returns Calendar.getInstance()
+    }
 
     @Test
     fun `check if only tasks in the future are shown`() = runBlockingTest {

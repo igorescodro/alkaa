@@ -8,6 +8,7 @@ import com.escodro.domain.model.AlarmInterval.MONTHLY
 import com.escodro.domain.model.AlarmInterval.WEEKLY
 import com.escodro.domain.model.AlarmInterval.YEARLY
 import com.escodro.domain.model.Task
+import com.escodro.domain.provider.CalendarProvider
 import com.escodro.domain.repository.TaskRepository
 import java.util.Calendar
 import timber.log.Timber
@@ -17,7 +18,8 @@ import timber.log.Timber
  */
 class ScheduleNextAlarm(
     private val taskRepository: TaskRepository,
-    private val alarmInteractor: AlarmInteractor
+    private val alarmInteractor: AlarmInteractor,
+    private val calendarProvider: CalendarProvider
 ) {
 
     /**
@@ -30,7 +32,7 @@ class ScheduleNextAlarm(
         require(task.dueDate != null) { "Task has no due date" }
         require(task.alarmInterval != null) { "Task has no alarm interval" }
 
-        val currentTime = Calendar.getInstance()
+        val currentTime = calendarProvider.getCurrentCalendar()
         do {
             updatedAlarmTime(task.dueDate, task.alarmInterval)
         } while (currentTime.after(task.dueDate))

@@ -1,6 +1,6 @@
 package com.escodro.domain.di
 
-import com.escodro.domain.calendar.TaskCalendar
+import com.escodro.domain.provider.CalendarProvider
 import com.escodro.domain.usecase.alarm.CancelAlarm
 import com.escodro.domain.usecase.alarm.RescheduleFutureAlarms
 import com.escodro.domain.usecase.alarm.ScheduleAlarm
@@ -59,5 +59,5 @@ val domainModule = module {
     factory { LoadCompletedTasksByPeriod(get()) }
 
     // Providers
-    factory { TaskCalendar() }
+    factory { CalendarProvider() }
 }

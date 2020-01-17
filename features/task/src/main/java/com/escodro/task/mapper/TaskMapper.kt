@@ -43,6 +43,8 @@ internal class TaskMapper {
             categoryId = localTask.categoryId,
             dueDate = localTask.dueDate,
             creationDate = localTask.creationDate,
-            completedDate = localTask.completedDate
+            completedDate = localTask.completedDate,
+            isRepeating = false, /* TODO update mapper*/
+            alarmInterval = null /* TODO update mapper*/
         )
 }

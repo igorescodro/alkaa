@@ -34,7 +34,9 @@ internal class TaskMapper {
             categoryId = repoTask.categoryId,
             dueDate = repoTask.dueDate,
             creationDate = repoTask.creationDate,
-            completedDate = repoTask.completedDate
+            completedDate = repoTask.completedDate,
+            isRepeating = false, /* TODO update mapper*/
+            alarmInterval = null /* TODO update mapper*/
         )
 
     /**

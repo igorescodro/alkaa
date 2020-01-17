@@ -31,6 +31,16 @@ internal class TaskNotification(
         context.getNotificationManager()?.notify(task.id.toInt(), notification)
     }
 
+    /**
+     * Dismiss the [TaskNotification] based on the given id.
+     *
+     * @param notificationId the notification id to be dismissed
+     */
+    fun dismiss(notificationId: Long) {
+        Timber.d("Dismissing notification id '$notificationId'")
+        context.getNotificationManager()?.cancel(notificationId.toInt())
+    }
+
     private fun buildNotification(task: Task) =
         NotificationCompat.Builder(context, channel.getChannelId()).apply {
             setSmallIcon(R.drawable.ic_bookmark_check)

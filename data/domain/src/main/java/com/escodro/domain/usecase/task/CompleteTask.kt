@@ -1,6 +1,8 @@
 package com.escodro.domain.usecase.task
 
 import com.escodro.domain.calendar.TaskCalendar
+import com.escodro.domain.interactor.AlarmInteractor
+import com.escodro.domain.interactor.NotificationInteractor
 import com.escodro.domain.model.Task
 import com.escodro.domain.repository.TaskRepository
 
@@ -9,8 +11,22 @@ import com.escodro.domain.repository.TaskRepository
  */
 class CompleteTask(
     private val taskRepository: TaskRepository,
+    private val alarmInteractor: AlarmInteractor,
+    private val notificationInteractor: NotificationInteractor,
     private val taskCalendar: TaskCalendar
 ) {
+
+    /**
+     * Completes the given task.
+     *
+     * @param taskId the task id
+     *
+     * @return observable to be subscribe
+     */
+    suspend operator fun invoke(taskId: Long) {
+        val task = taskRepository.findTaskById(taskId)
+        invoke(task)
+    }
 
     /**
      * Completes the given task.
@@ -22,19 +38,8 @@ class CompleteTask(
     suspend operator fun invoke(task: Task) {
         val updatedTask = updateTaskAsCompleted(task)
         taskRepository.updateTask(updatedTask)
-    }
-
-    /**
-     * Completes the given task.
-     *
-     * @param taskId the task id
-     *
-     * @return observable to be subscribe
-     */
-    suspend operator fun invoke(taskId: Long) {
-        val task = taskRepository.findTaskById(taskId)
-        val completedTask = updateTaskAsCompleted(task)
-        taskRepository.updateTask(completedTask)
+        alarmInteractor.cancel(task.id)
+        notificationInteractor.dismiss(task.id)
     }
 
     private fun updateTaskAsCompleted(task: Task) =

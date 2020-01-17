@@ -5,7 +5,6 @@ import com.escodro.alarm.model.Task
 import com.escodro.alarm.notification.TaskNotificationScheduler
 import com.escodro.core.extension.cancelAlarm
 import com.escodro.core.extension.setAlarm
-import io.mockk.every
 import io.mockk.mockk
 import io.mockk.mockkStatic
 import io.mockk.verify
@@ -25,16 +24,8 @@ class TaskNotificationSchedulerTest {
 
     @Test
     fun `check if alarm was scheduled with valid task`() {
-        scheduler.scheduleTaskAlarm(mockTask.id, mockTask.dueDate?.time?.time)
+        scheduler.scheduleTaskAlarm(mockTask.id, mockTask.dueDate!!.time.time)
         verify { mockContext.setAlarm(mockTask.dueDate!!.time.time, any()) }
-    }
-
-    @Test
-    fun `check if alarm is not scheduled with null calendar`() {
-        every { mockTask.dueDate } returns null
-
-        scheduler.scheduleTaskAlarm(mockTask.id, mockTask.dueDate?.time?.time)
-        verify(exactly = 0) { mockContext.setAlarm(any(), any()) }
     }
 
     @Test

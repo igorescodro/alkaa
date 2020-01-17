@@ -11,9 +11,9 @@ dependencies {
     implementation project(":libraries:navigation")
     implementation project(":data:domain")
 
-    implementation Deps.android.workManager
     implementation Deps.android.navigation.fragment
     implementation Deps.android.navigation.ui
+    implementation Deps.coroutines.core
 
     implementation Deps.koin.core
 

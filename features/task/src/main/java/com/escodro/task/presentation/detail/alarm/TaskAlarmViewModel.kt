@@ -34,9 +34,9 @@ internal class TaskAlarmViewModel(
     fun setAlarm(alarm: Calendar) {
         Timber.d("setAlarm()")
 
-        taskData.value?.copy(dueDate = alarm)?.let {
-            taskProvider.updateTask(it, viewModelScope)
-            scheduleAlarmUseCase(it.id, it.dueDate?.time?.time)
+        taskData.value?.copy(dueDate = alarm)?.let { task ->
+            taskProvider.updateTask(task, viewModelScope)
+            task.dueDate?.time?.time?.let { time -> scheduleAlarmUseCase(task.id, time) }
         }
     }
 

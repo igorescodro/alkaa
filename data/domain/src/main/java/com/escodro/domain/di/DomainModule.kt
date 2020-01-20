@@ -50,10 +50,11 @@ val domainModule = module {
     factory { LoadUncompletedTasks(get()) }
 
     // Alarm Use Cases
-    factory { ScheduleAlarm(get(), get()) }
-    factory { CancelAlarm(get(), get()) }
-    factory { ShowAlarm(get(), get()) }
-    factory { RescheduleFutureAlarms(get(), get()) }
+    factory { CancelAlarm(get()) }
+    factory { RescheduleFutureAlarms(get(), get(), get()) }
+    factory { ScheduleAlarm(get()) }
+    factory { ScheduleNextAlarm(get(), get(), get()) }
+    factory { ShowAlarm(get(), get(), get()) }
 
     // Tracker Use Cases
     factory { LoadCompletedTasksByPeriod(get()) }

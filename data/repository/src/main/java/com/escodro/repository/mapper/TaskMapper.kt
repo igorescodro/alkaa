@@ -6,7 +6,7 @@ import com.escodro.repository.model.Task as RepoTask
 /**
  * Maps Tasks between Repository and Domain.
  */
-internal class TaskMapper {
+internal class TaskMapper(private val alarmIntervalMapper: AlarmIntervalMapper) {
 
     /**
      * Maps Task from Repo to Domain.
@@ -35,36 +35,38 @@ internal class TaskMapper {
             dueDate = repoTask.dueDate,
             creationDate = repoTask.creationDate,
             completedDate = repoTask.completedDate,
-            isRepeating = false, /* TODO update mapper*/
-            alarmInterval = null /* TODO update mapper*/
+            isRepeating = repoTask.isRepeating,
+            alarmInterval = repoTask.alarmInterval?.let { alarmIntervalMapper.toDomain(it) }
         )
 
     /**
      * Maps Task from Domain to Repo.
      *
-     * @param localTaskList the list of Task to be converted.
+     * @param domainTaskList the list of Task to be converted.
      *
      * @return the converted list of Task
      */
-    fun toRepo(localTaskList: List<DomainTask>): List<RepoTask> =
-        localTaskList.map { toRepo(it) }
+    fun toRepo(domainTaskList: List<DomainTask>): List<RepoTask> =
+        domainTaskList.map { toRepo(it) }
 
     /**
      * Maps Task from Domain to Repo.
      *
-     * @param localTask the Task to be converted.
+     * @param domainTask the Task to be converted.
      *
      * @return the converted Task
      */
-    fun toRepo(localTask: DomainTask): RepoTask =
+    fun toRepo(domainTask: DomainTask): RepoTask =
         RepoTask(
-            id = localTask.id,
-            completed = localTask.completed,
-            title = localTask.title,
-            description = localTask.description,
-            categoryId = localTask.categoryId,
-            dueDate = localTask.dueDate,
-            creationDate = localTask.creationDate,
-            completedDate = localTask.completedDate
+            id = domainTask.id,
+            completed = domainTask.completed,
+            title = domainTask.title,
+            description = domainTask.description,
+            categoryId = domainTask.categoryId,
+            dueDate = domainTask.dueDate,
+            creationDate = domainTask.creationDate,
+            completedDate = domainTask.completedDate,
+            isRepeating = domainTask.isRepeating,
+            alarmInterval = domainTask.alarmInterval?.let { alarmIntervalMapper.toRepo(it) }
         )
 }

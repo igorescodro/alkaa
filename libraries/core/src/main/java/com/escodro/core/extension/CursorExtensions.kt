@@ -1,6 +1,9 @@
 package com.escodro.core.extension
 
 import android.database.Cursor
+import androidx.core.database.getIntOrNull
+import androidx.core.database.getLongOrNull
+import androidx.core.database.getStringOrNull
 
 /**
  * Gets the [Int] value from the [Cursor] from the column name.
@@ -8,7 +11,7 @@ import android.database.Cursor
  * @param columnName the column to get the cursor value
  */
 fun Cursor.getIntFromColumn(columnName: String): Int? =
-    this.getInt(this.getColumnIndex(columnName))
+    this.getIntOrNull(this.getColumnIndex(columnName))
 
 /**
  * Gets the [String] value from the [Cursor] from the column name.
@@ -16,7 +19,7 @@ fun Cursor.getIntFromColumn(columnName: String): Int? =
  * @param columnName the column to get the cursor value
  */
 fun Cursor.getStringFromColumn(columnName: String): String? =
-    this.getString(this.getColumnIndex(columnName))
+    this.getStringOrNull(this.getColumnIndex(columnName))
 
 /**
  * Gets the [Long] value from the [Cursor] from the column name.
@@ -24,4 +27,4 @@ fun Cursor.getStringFromColumn(columnName: String): String? =
  * @param columnName the column to get the cursor value
  */
 fun Cursor.getLongFromColumn(columnName: String): Long? =
-    this.getLong(this.getColumnIndex(columnName))
+    this.getLongOrNull(this.getColumnIndex(columnName))

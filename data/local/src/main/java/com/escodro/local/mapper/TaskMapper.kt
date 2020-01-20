@@ -6,7 +6,7 @@ import com.escodro.repository.model.Task as RepoTask
 /**
  * Maps Tasks between Repository and Local.
  */
-internal class TaskMapper {
+internal class TaskMapper(private val alarmIntervalMapper: AlarmIntervalMapper) {
 
     /**
      * Maps Task from Repo to Local.
@@ -15,7 +15,7 @@ internal class TaskMapper {
      *
      * @return the converted Task
      */
-    fun fromRepo(repoTask: RepoTask): LocalTask =
+    fun toLocal(repoTask: RepoTask): LocalTask =
         LocalTask(
             id = repoTask.id,
             completed = repoTask.completed,
@@ -24,7 +24,9 @@ internal class TaskMapper {
             categoryId = repoTask.categoryId,
             dueDate = repoTask.dueDate,
             creationDate = repoTask.creationDate,
-            completedDate = repoTask.completedDate
+            completedDate = repoTask.completedDate,
+            isRepeating = repoTask.isRepeating,
+            alarmInterval = repoTask.alarmInterval?.let { alarmIntervalMapper.toLocal(it) }
         )
 
     /**
@@ -43,7 +45,9 @@ internal class TaskMapper {
             categoryId = localTask.categoryId,
             dueDate = localTask.dueDate,
             creationDate = localTask.creationDate,
-            completedDate = localTask.completedDate
+            completedDate = localTask.completedDate,
+            isRepeating = localTask.isRepeating,
+            alarmInterval = localTask.alarmInterval?.let { alarmIntervalMapper.toRepo(it) }
         )
 
     /**

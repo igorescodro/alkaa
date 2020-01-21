@@ -13,7 +13,11 @@ internal class NotificationInteractorImpl(
 
     override fun show(task: Task) {
         Timber.d("show - alarmId = ${task.id}")
-        taskNotification.show(taskMapper.fromDomain(task))
+        if (task.isRepeating) {
+            taskNotification.showRepeating(taskMapper.fromDomain(task))
+        } else {
+            taskNotification.show(taskMapper.fromDomain(task))
+        }
     }
 
     override fun dismiss(notificationId: Long) {

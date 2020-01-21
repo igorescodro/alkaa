@@ -1,5 +1,6 @@
 package com.escodro.task.di
 
+import com.escodro.task.mapper.AlarmIntervalMapper
 import com.escodro.task.mapper.CategoryMapper
 import com.escodro.task.mapper.TaskMapper
 import com.escodro.task.mapper.TaskWithCategoryMapper
@@ -24,7 +25,8 @@ val taskModule = module {
     viewModel { TaskAlarmViewModel(get(), get(), get()) }
 
     // Mappers
-    factory { TaskMapper() }
+    factory { AlarmIntervalMapper() }
+    factory { TaskMapper(get()) }
     factory { CategoryMapper() }
     factory { TaskWithCategoryMapper(get(), get()) }
 }

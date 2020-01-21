@@ -114,15 +114,6 @@ class NotificationTest : AcceptanceTest<MainActivity>(MainActivity::class.java) 
         validateNotificationContent(taskName)
         val doneButton = byTextIgnoreCase(context.getString(R.string.notification_action_snooze))
         uiDevice.findObject(doneButton).click()
-        reopenApp()
-        checkThat.listContainsItem(R.id.recyclerview_tasklist_list, taskName)
-        events.clickOnRecyclerItem(R.id.recyclerview_tasklist_list)
-
-        val delayedCalendar = Calendar.getInstance()
-        delayedCalendar.add(Calendar.MINUTE, 15)
-        delayedCalendar.set(Calendar.SECOND, 0)
-        delayedCalendar.set(Calendar.MILLISECOND, 0)
-        checkThat.viewHasDate(R.id.chip_taskdetail_date, delayedCalendar)
     }
 
     private fun insertTask(taskName: String) = runBlocking {

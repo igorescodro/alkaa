@@ -1,8 +1,8 @@
 package com.escodro.domain.usecase.task
 
+import com.escodro.domain.interactor.AlarmInteractor
 import com.escodro.domain.interactor.NotificationInteractor
-import com.escodro.domain.model.Task
-import com.escodro.domain.repository.TaskRepository
+import com.escodro.domain.provider.CalendarProvider
 import java.util.Calendar
 import timber.log.Timber
 
@@ -10,8 +10,9 @@ import timber.log.Timber
  * Use case to snooze a task from the database.
  */
 class SnoozeTask(
-    private val taskRepository: TaskRepository,
-    private val notificationInteractor: NotificationInteractor
+    private val calendarProvider: CalendarProvider,
+    private val notificationInteractor: NotificationInteractor,
+    private val alarmInteractor: AlarmInteractor
 ) {
 
     /**
@@ -22,19 +23,18 @@ class SnoozeTask(
      *
      * @return observable to be subscribe
      */
-    suspend operator fun invoke(taskId: Long, minutes: Int = DEFAULT_SNOOZE) {
+    operator fun invoke(taskId: Long, minutes: Int = DEFAULT_SNOOZE) {
         require(minutes > 0) { "The delay minutes must be positive" }
-        Timber.d("Task snoozed in $minutes minutes")
 
-        val task = taskRepository.findTaskById(taskId)
-        val snoozedTask = getSnoozedTask(task, minutes)
-        taskRepository.updateTask(snoozedTask)
-        notificationInteractor.dismiss(task.id)
+        val snoozedTime = getSnoozedTask(calendarProvider.getCurrentCalendar(), minutes)
+        alarmInteractor.schedule(taskId, snoozedTime)
+        notificationInteractor.dismiss(taskId)
+        Timber.d("Task snoozed in $minutes minutes")
     }
 
-    private fun getSnoozedTask(task: Task, minutes: Int): Task {
-        val updatedCalendar = task.dueDate?.apply { add(Calendar.MINUTE, minutes) }
-        return task.copy(dueDate = updatedCalendar)
+    private fun getSnoozedTask(calendar: Calendar, minutes: Int): Long {
+        val updatedCalendar = calendar.apply { add(Calendar.MINUTE, minutes) }
+        return updatedCalendar.time.time
     }
 
     companion object {

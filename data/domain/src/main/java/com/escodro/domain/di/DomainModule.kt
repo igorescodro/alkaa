@@ -35,7 +35,7 @@ val domainModule = module {
     factory { UpdateTaskStatus(get(), get(), get()) }
     factory { DeleteTask(get(), get()) }
     factory { GetTask(get()) }
-    factory { SnoozeTask(get(), get()) }
+    factory { SnoozeTask(get(), get(), get()) }
     factory { UpdateTask(get()) }
 
     // Category Use Cases

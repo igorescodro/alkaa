@@ -42,6 +42,18 @@ internal class TaskAlarmViewModel(
         }
     }
 
+    fun setRepeating(alarmInterval: AlarmInterval) {
+        Timber.d("setRepeating - ${alarmInterval.name}")
+
+        val updatedTask = if (alarmInterval == AlarmInterval.NEVER) {
+            taskData.value?.copy(isRepeating = false, alarmInterval = null)
+        } else {
+            taskData.value?.copy(isRepeating = true, alarmInterval = alarmInterval)
+        }
+
+        updatedTask?.let { taskProvider.updateTask(it, viewModelScope) }
+    }
+
     /**
      * Removes the task alarm.
      */

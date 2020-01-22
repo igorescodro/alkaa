@@ -3,11 +3,12 @@ package com.escodro.task.model
 /**
  * Represents the interval between repeating intervals.
  */
-enum class AlarmInterval {
+enum class AlarmInterval(val index: Int?) {
 
-    HOURLY,
-    DAILY,
-    WEEKLY,
-    MONTHLY,
-    YEARLY
+    NEVER(0),
+    HOURLY(1),
+    DAILY(2),
+    WEEKLY(3),
+    MONTHLY(4),
+    YEARLY(5)
 }

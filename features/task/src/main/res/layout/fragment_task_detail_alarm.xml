@@ -16,13 +16,13 @@
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/btn_taskdetail_date"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_marginStart="16dp"
             android:background="@null"
             android:src="@drawable/ic_alarm"
+            app:layout_constraintBottom_toTopOf="@+id/img_taskdetail_repeating"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.chip.Chip
@@ -33,22 +33,47 @@
             android:text="@{viewModel.taskData.dueDate}"
             android:visibility="@{safeUnbox(viewModel.chipVisibility)}"
             app:closeIconVisible="true"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/btn_taskdetail_date"
             app:layout_constraintStart_toEndOf="@id/btn_taskdetail_date"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@id/btn_taskdetail_date" />
 
         <TextView
             android:id="@+id/textview_taskdetail_date"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:text="@string/task_details_alarm_hint"
             android:textColor="@color/gray_light"
             android:textSize="18sp"
             android:visibility="@{!safeUnbox(viewModel.chipVisibility)}"
             app:layout_constraintBottom_toBottomOf="@id/btn_taskdetail_date"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/btn_taskdetail_date"
             app:layout_constraintTop_toTopOf="@id/btn_taskdetail_date" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/img_taskdetail_repeating"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="16dp"
+            android:src="@drawable/ic_repeat"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_taskdetail_date" />
+
+        <TextView
+            android:id="@+id/textview_taskdetail_repeating"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:textColor="@color/gray_light"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@id/img_taskdetail_repeating"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/img_taskdetail_repeating"
+            app:layout_constraintTop_toTopOf="@id/img_taskdetail_repeating" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

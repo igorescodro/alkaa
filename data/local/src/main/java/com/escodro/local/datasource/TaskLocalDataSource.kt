@@ -4,8 +4,6 @@ import com.escodro.local.mapper.TaskMapper
 import com.escodro.local.provider.DaoProvider
 import com.escodro.repository.datasource.TaskDataSource
 import com.escodro.repository.model.Task
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 
 /**
  * Local implementation of [TaskDataSource].
@@ -32,10 +30,4 @@ internal class TaskLocalDataSource(daoProvider: DaoProvider, private val taskMap
 
     override suspend fun findTaskById(taskId: Long): Task =
         taskMapper.toRepo(taskDao.getTaskById(taskId))
-
-    override fun findAllTasks(): Flow<List<Task>> =
-        taskDao.findAllTasks().map { taskMapper.toRepo(it) }
-
-    override suspend fun findTaskByTitle(title: String): Task =
-        taskMapper.toRepo(taskDao.findTaskByTitle(title))
 }

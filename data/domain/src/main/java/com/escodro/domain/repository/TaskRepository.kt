@@ -1,8 +1,6 @@
 package com.escodro.domain.repository
 
 import com.escodro.domain.model.Task
-import kotlinx.coroutines.flow.Flow
-import org.jetbrains.annotations.TestOnly
 
 /**
  * Interface to represent the implementation of Task repository.
@@ -50,22 +48,4 @@ interface TaskRepository {
      * @return selected task
      */
     suspend fun findTaskById(taskId: Long): Task
-
-    /**
-     * Get all inserted tasks.
-     *
-     * @return all inserted tasks
-     */
-    @TestOnly
-    fun findAllTasks(): Flow<List<Task>>
-
-    /**
-     * Gets a specific task by title.
-     *
-     * @param title task title
-     *
-     * @return selected task
-     */
-    @TestOnly
-    suspend fun findTaskByTitle(title: String): Task
 }

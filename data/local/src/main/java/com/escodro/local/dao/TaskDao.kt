@@ -7,8 +7,6 @@ import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
 import androidx.room.Update
 import com.escodro.local.model.Task
-import kotlinx.coroutines.flow.Flow
-import org.jetbrains.annotations.TestOnly
 
 /**
  * DAO class to handle all [Task]-related database operations.
@@ -63,24 +61,4 @@ interface TaskDao {
      */
     @Query("SELECT * FROM task WHERE task_id = :taskId")
     suspend fun getTaskById(taskId: Long): Task
-
-    /**
-     * Get all inserted tasks.
-     *
-     * @return all inserted tasks
-     */
-    @TestOnly
-    @Query("SELECT * FROM task")
-    fun findAllTasks(): Flow<List<Task>>
-
-    /**
-     * Gets a specific task by title.
-     *
-     * @param title task title
-     *
-     * @return selected task
-     */
-    @TestOnly
-    @Query("SELECT * FROM task WHERE task_title = :title")
-    suspend fun findTaskByTitle(title: String): Task
 }

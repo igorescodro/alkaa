@@ -1,17 +1,26 @@
 package com.escodro.domain.usecase.alarm
 
 import com.escodro.domain.interactor.AlarmInteractor
+import com.escodro.domain.repository.TaskRepository
 
 /**
  * Use case to cancel an alarm.
  */
-class CancelAlarm(private val alarmInteractor: AlarmInteractor) {
+class CancelAlarm(
+    private val taskRepository: TaskRepository,
+    private val alarmInteractor: AlarmInteractor
+) {
 
     /**
      * Cancels an alarm.
      *
-     * @param alarmId the alarm id
+     * @param taskId the task id
      */
-    operator fun invoke(alarmId: Long) =
-        alarmInteractor.cancel(alarmId)
+    suspend operator fun invoke(taskId: Long) {
+        val task = taskRepository.findTaskById(taskId)
+        val updatedTask = task.copy(dueDate = null)
+
+        alarmInteractor.cancel(task.id)
+        taskRepository.updateTask(updatedTask)
+    }
 }

@@ -14,9 +14,9 @@ import com.escodro.local.model.Task
 import java.util.Calendar
 import java.util.regex.Pattern
 import kotlinx.coroutines.runBlocking
-import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
+import org.junit.Before
 import org.junit.Test
 import org.koin.test.inject
 
@@ -29,7 +29,7 @@ class NotificationTest : AcceptanceTest<MainActivity>(MainActivity::class.java) 
 
     private val appName by lazy { context.getString(R.string.app_name) }
 
-    @After
+    @Before
     fun clearTable() = runBlocking {
         daoProvider.getTaskDao().cleanTable()
     }

@@ -131,7 +131,7 @@ class NotificationTest : AcceptanceTest<MainActivity>(MainActivity::class.java) 
             calendar.add(Calendar.SECOND, 3)
             dueDate = calendar
             daoProvider.getTaskDao().insertTask(this)
-            scheduleAlarm(this.id, this.dueDate!!.time.time)
+            scheduleAlarm(this.id, this.dueDate!!)
             this
         }
     }

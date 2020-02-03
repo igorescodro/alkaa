@@ -2,10 +2,12 @@ package com.escodro.task.presentation.detail.alarm
 
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.escodro.domain.usecase.alarm.CancelAlarm
 import com.escodro.domain.usecase.alarm.ScheduleAlarm
 import com.escodro.task.presentation.detail.TaskDetailProvider
 import java.util.Calendar
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 /**
@@ -33,8 +35,10 @@ internal class TaskAlarmViewModel(
     fun setAlarm(alarm: Calendar) {
         Timber.d("setAlarm()")
 
-        taskData.value?.let { task ->
-            scheduleAlarmUseCase(task.id, alarm.time.time)
+        viewModelScope.launch {
+            taskData.value?.let { task ->
+                scheduleAlarmUseCase(task.id, alarm)
+            }
         }
     }
 
@@ -44,8 +48,10 @@ internal class TaskAlarmViewModel(
     fun removeAlarm() {
         Timber.d("removeAlarm()")
 
-        taskData.value?.let {
-            cancelAlarmUseCase(it.id)
+        viewModelScope.launch {
+            taskData.value?.let { task ->
+                cancelAlarmUseCase(task.id)
+            }
         }
     }
 }

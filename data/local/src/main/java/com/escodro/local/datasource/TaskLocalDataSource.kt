@@ -30,12 +30,6 @@ internal class TaskLocalDataSource(daoProvider: DaoProvider, private val taskMap
     override suspend fun findAllTasksWithDueDate(): List<Task> =
         taskDao.findAllTasksWithDueDate().map { taskMapper.toRepo(it) }
 
-    override suspend fun findTaskById(taskId: Long): Task =
-        taskMapper.toRepo(taskDao.getTaskById(taskId))
-
-    override fun findAllTasks(): Flow<List<Task>> =
-        taskDao.findAllTasks().map { taskMapper.toRepo(it) }
-
-    override suspend fun findTaskByTitle(title: String): Task =
-        taskMapper.toRepo(taskDao.findTaskByTitle(title))
+    override fun findTaskById(taskId: Long): Flow<Task> =
+        taskDao.getTaskById(taskId).map { taskMapper.toRepo(it) }
 }

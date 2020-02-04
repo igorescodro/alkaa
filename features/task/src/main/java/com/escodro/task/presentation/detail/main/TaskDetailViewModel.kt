@@ -2,14 +2,20 @@ package com.escodro.task.presentation.detail.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.escodro.domain.usecase.task.UpdateTask
+import com.escodro.task.mapper.TaskMapper
 import com.escodro.task.presentation.detail.TaskDetailProvider
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 /**
- * [ViewModel] responsible to provide information to [com.escodro.alkaa.databinding
- * .FragmentDetailBinding].
+ * [ViewModel] responsible to provide information to [TaskDetailFragment].
  */
-internal class TaskDetailViewModel(private val taskProvider: TaskDetailProvider) : ViewModel() {
+internal class TaskDetailViewModel(
+    private val taskProvider: TaskDetailProvider,
+    private val updateTaskUseCase: UpdateTask,
+    private val taskMapper: TaskMapper
+) : ViewModel() {
 
     val taskData = taskProvider.taskData
 
@@ -35,8 +41,10 @@ internal class TaskDetailViewModel(private val taskProvider: TaskDetailProvider)
             return
         }
 
-        taskData.value?.copy(title = title)?.let {
-            taskProvider.updateTask(it, viewModelScope)
+        viewModelScope.launch {
+            taskData.value?.copy(title = title)?.let { task ->
+                updateTaskUseCase(taskMapper.toDomain(task))
+            }
         }
     }
 
@@ -48,8 +56,10 @@ internal class TaskDetailViewModel(private val taskProvider: TaskDetailProvider)
     fun updateDescription(description: String) {
         Timber.d("updateDescription() - $description")
 
-        taskData.value?.copy(description = description)?.let {
-            taskProvider.updateTask(it, viewModelScope)
+        viewModelScope.launch {
+            taskData.value?.copy(description = description)?.let { task ->
+                updateTaskUseCase(taskMapper.toDomain(task))
+            }
         }
     }
 

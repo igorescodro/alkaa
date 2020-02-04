@@ -18,6 +18,6 @@ class GetTaskTest {
     @Test
     fun `check if repo function was called`() = runBlockingTest {
         getTask(mockTask.id)
-        coVerify { mockTaskRepo.findTaskById(mockTask.id) }
+        coVerify { mockTaskRepo.findTaskFlowById(mockTask.id) }
     }
 }

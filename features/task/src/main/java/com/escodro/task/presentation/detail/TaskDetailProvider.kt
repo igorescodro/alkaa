@@ -3,20 +3,19 @@ package com.escodro.task.presentation.detail
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.escodro.domain.usecase.task.GetTask
-import com.escodro.domain.usecase.task.UpdateTask
 import com.escodro.task.mapper.TaskMapper
 import com.escodro.task.model.Task
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
 /**
- * Provides the [MutableLiveData] of [ViewData.Task] to be used in all screens that needs to share
- * the same information reactivity.
+ * Provides the [MutableLiveData] of [Task] to be used in all screens that needs to share the same
+ * information reactivity.
  */
 internal class TaskDetailProvider(
     private val getTaskUseCase: GetTask,
-    private val updateTaskUseCase: UpdateTask,
     private val taskMapper: TaskMapper
 ) {
 
@@ -37,20 +36,10 @@ internal class TaskDetailProvider(
         }
 
         viewModelScope.launch {
-            val task = getTaskUseCase(taskId)
-            mutableTaskData.value = taskMapper.toView(task)
+            getTaskUseCase(taskId).collect {
+                mutableTaskData.value = taskMapper.toView(it)
+            }
         }
-    }
-
-    /**
-     * Updates the given task in database.
-     *
-     * @param task task to be updated
-     */
-    fun updateTask(task: Task, viewModelScope: CoroutineScope) = viewModelScope.launch {
-        Timber.d("updateTask() - $task")
-        updateTaskUseCase(taskMapper.toDomain(task))
-        mutableTaskData.value = task
     }
 
     /**

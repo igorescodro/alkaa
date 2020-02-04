@@ -7,13 +7,14 @@ import com.escodro.domain.usecase.alarm.CancelAlarm
 import com.escodro.domain.usecase.alarm.ScheduleAlarm
 import com.escodro.task.presentation.detail.TaskDetailProvider
 import java.util.Calendar
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 /**
  * [ViewModel] responsible to provide information to Task Alarm layout.
  */
 internal class TaskAlarmViewModel(
-    private val taskProvider: TaskDetailProvider,
+    taskProvider: TaskDetailProvider,
     private val scheduleAlarmUseCase: ScheduleAlarm,
     private val cancelAlarmUseCase: CancelAlarm
 ) : ViewModel() {
@@ -34,9 +35,10 @@ internal class TaskAlarmViewModel(
     fun setAlarm(alarm: Calendar) {
         Timber.d("setAlarm()")
 
-        taskData.value?.copy(dueDate = alarm)?.let { task ->
-            taskProvider.updateTask(task, viewModelScope)
-            task.dueDate?.time?.time?.let { time -> scheduleAlarmUseCase(task.id, time) }
+        viewModelScope.launch {
+            taskData.value?.let { task ->
+                scheduleAlarmUseCase(task.id, alarm)
+            }
         }
     }
 
@@ -46,9 +48,10 @@ internal class TaskAlarmViewModel(
     fun removeAlarm() {
         Timber.d("removeAlarm()")
 
-        taskData.value?.copy(dueDate = null)?.let {
-            cancelAlarmUseCase(it.id)
-            taskProvider.updateTask(it, viewModelScope)
+        viewModelScope.launch {
+            taskData.value?.let { task ->
+                cancelAlarmUseCase(task.id)
+            }
         }
     }
 }

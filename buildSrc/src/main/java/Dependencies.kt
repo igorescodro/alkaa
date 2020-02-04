@@ -80,7 +80,6 @@ object CoroutinesDeps {
 }
 
 object LifecycleDeps {
-    val extensions = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifecycle}"
     val viewmodel = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}"
     val runtime = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycle}"
 }

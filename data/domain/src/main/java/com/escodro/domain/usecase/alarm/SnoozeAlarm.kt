@@ -1,4 +1,4 @@
-package com.escodro.domain.usecase.task
+package com.escodro.domain.usecase.alarm
 
 import com.escodro.domain.interactor.AlarmInteractor
 import com.escodro.domain.interactor.NotificationInteractor
@@ -9,7 +9,7 @@ import timber.log.Timber
 /**
  * Use case to snooze a task from the database.
  */
-class SnoozeTask(
+class SnoozeAlarm(
     private val calendarProvider: CalendarProvider,
     private val notificationInteractor: NotificationInteractor,
     private val alarmInteractor: AlarmInteractor

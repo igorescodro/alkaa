@@ -5,8 +5,8 @@ import android.content.Context
 import android.content.Intent
 import com.escodro.domain.usecase.alarm.RescheduleFutureAlarms
 import com.escodro.domain.usecase.alarm.ShowAlarm
+import com.escodro.domain.usecase.alarm.SnoozeAlarm
 import com.escodro.domain.usecase.task.CompleteTask
-import com.escodro.domain.usecase.task.SnoozeTask
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
@@ -22,7 +22,7 @@ internal class TaskReceiver : BroadcastReceiver(), KoinComponent {
 
     private val showAlarmUseCase: ShowAlarm by inject()
 
-    private val snoozeTaskUseCase: SnoozeTask by inject()
+    private val snoozeAlarmUseCase: SnoozeAlarm by inject()
 
     private val rescheduleUseCase: RescheduleFutureAlarms by inject()
 
@@ -38,7 +38,7 @@ internal class TaskReceiver : BroadcastReceiver(), KoinComponent {
         when (intent?.action) {
             ALARM_ACTION -> getTaskId(intent)?.let { showAlarmUseCase(it) }
             COMPLETE_ACTION -> getTaskId(intent)?.let { completeTaskUseCase(it) }
-            SNOOZE_ACTION -> getTaskId(intent)?.let { snoozeTaskUseCase(it) }
+            SNOOZE_ACTION -> getTaskId(intent)?.let { snoozeAlarmUseCase(it) }
             Intent.ACTION_BOOT_COMPLETED -> rescheduleUseCase()
             else -> Timber.e("Action not supported")
         }

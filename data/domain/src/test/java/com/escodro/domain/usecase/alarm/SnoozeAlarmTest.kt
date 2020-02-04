@@ -1,4 +1,4 @@
-package com.escodro.domain.usecase.task
+package com.escodro.domain.usecase.alarm
 
 import com.escodro.domain.interactor.AlarmInteractor
 import com.escodro.domain.interactor.NotificationInteractor
@@ -11,7 +11,7 @@ import java.util.Calendar
 import org.junit.Before
 import org.junit.Test
 
-class SnoozeTaskTest {
+class SnoozeAlarmTest {
 
     private val mockTask = mockk<Task>(relaxed = true)
 
@@ -22,7 +22,11 @@ class SnoozeTaskTest {
     private val mockAlarmInteractor = mockk<AlarmInteractor>(relaxed = true)
 
     private val snoozeTask =
-        SnoozeTask(calendarProvider, mockNotificationInteractor, mockAlarmInteractor)
+        SnoozeAlarm(
+            calendarProvider,
+            mockNotificationInteractor,
+            mockAlarmInteractor
+        )
 
     @Before
     fun setup() {

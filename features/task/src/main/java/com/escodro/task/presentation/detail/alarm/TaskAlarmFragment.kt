@@ -57,7 +57,7 @@ internal class TaskAlarmFragment : Fragment() {
         textview_taskdetail_repeating.setOnClickListener { showIntervalDialog() }
 
         viewModel.taskData.observe(this, Observer {
-            val alarmIndex = it.alarmInterval?.index ?: return@Observer
+            val alarmIndex = it.alarmInterval?.index ?: 0
             val intervalString = resources.getStringArray(R.array.task_alarm_repeating)[alarmIndex]
             Timber.d("Current interval = $intervalString")
             textview_taskdetail_repeating.text = intervalString

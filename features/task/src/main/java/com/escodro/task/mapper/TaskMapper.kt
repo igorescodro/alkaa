@@ -47,6 +47,6 @@ internal class TaskMapper(private val alarmIntervalMapper: AlarmIntervalMapper) 
             creationDate = viewTask.creationDate,
             completedDate = viewTask.completedDate,
             isRepeating = viewTask.isRepeating,
-            alarmInterval = viewTask.alarmInterval?.let { alarmIntervalMapper.toRepo(it) }
+            alarmInterval = viewTask.alarmInterval?.let { alarmIntervalMapper.toDomain(it) }
         )
 }

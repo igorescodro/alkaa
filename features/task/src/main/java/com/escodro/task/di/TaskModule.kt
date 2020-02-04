@@ -22,7 +22,7 @@ val taskModule = module {
     viewModel { TaskListViewModel(get(), get(), get(), get(), get(), get(), get(), get()) }
     viewModel { TaskDetailViewModel(get(), get(), get()) }
     viewModel { TaskCategoryViewModel(get(), get(), get(), get(), get()) }
-    viewModel { TaskAlarmViewModel(get(), get(), get()) }
+    viewModel { TaskAlarmViewModel(get(), get(), get(), get(), get()) }
 
     // Mappers
     factory { AlarmIntervalMapper() }

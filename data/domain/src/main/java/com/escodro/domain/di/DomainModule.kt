@@ -4,7 +4,9 @@ import com.escodro.domain.provider.CalendarProvider
 import com.escodro.domain.usecase.alarm.CancelAlarm
 import com.escodro.domain.usecase.alarm.RescheduleFutureAlarms
 import com.escodro.domain.usecase.alarm.ScheduleAlarm
+import com.escodro.domain.usecase.alarm.ScheduleNextAlarm
 import com.escodro.domain.usecase.alarm.ShowAlarm
+import com.escodro.domain.usecase.alarm.UpdateTaskAsRepeating
 import com.escodro.domain.usecase.category.DeleteCategory
 import com.escodro.domain.usecase.category.LoadAllCategories
 import com.escodro.domain.usecase.category.LoadCategory
@@ -50,10 +52,11 @@ val domainModule = module {
     factory { LoadUncompletedTasks(get()) }
 
     // Alarm Use Cases
-    factory { CancelAlarm(get()) }
+    factory { CancelAlarm(get(), get()) }
     factory { RescheduleFutureAlarms(get(), get(), get()) }
-    factory { ScheduleAlarm(get()) }
+    factory { ScheduleAlarm(get(), get()) }
     factory { ScheduleNextAlarm(get(), get(), get()) }
+    factory { UpdateTaskAsRepeating(get()) }
     factory { ShowAlarm(get(), get(), get()) }
 
     // Tracker Use Cases

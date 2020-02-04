@@ -14,10 +14,10 @@ import com.escodro.core.extension.showToast
 import com.escodro.task.R
 import com.escodro.task.databinding.FragmentTaskDetailAlarmBinding
 import com.escodro.task.model.AlarmInterval
+import java.util.Calendar
 import kotlinx.android.synthetic.main.fragment_task_detail_alarm.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
-import java.util.Calendar
 
 /**
  * [Fragment] responsible to show the [com.escodro.domain.viewdata.ViewData.Task] alarm.
@@ -61,7 +61,6 @@ internal class TaskAlarmFragment : Fragment() {
             val intervalString = resources.getStringArray(R.array.task_alarm_repeating)[alarmIndex]
             Timber.d("Current interval = $intervalString")
             textview_taskdetail_repeating.text = intervalString
-
         })
     }
 

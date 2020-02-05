@@ -53,7 +53,7 @@ internal class TaskAlarmFragment : Fragment() {
         btn_taskdetail_date.setOnClickListener { showDateTimePicker(::updateTaskWithDueDate) }
         textview_taskdetail_date.setOnClickListener { showDateTimePicker(::updateTaskWithDueDate) }
         chip_taskdetail_date.setOnCloseIconClickListener { removeAlarm() }
-        img_taskdetail_repeating.setOnClickListener { showIntervalDialog() }
+        btn_taskdetail_repeating.setOnClickListener { showIntervalDialog() }
         textview_taskdetail_repeating.setOnClickListener { showIntervalDialog() }
 
         viewModel.taskData.observe(this, Observer {

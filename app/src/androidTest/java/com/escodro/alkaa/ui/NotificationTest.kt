@@ -10,11 +10,14 @@ import com.escodro.alkaa.framework.AcceptanceTest
 import com.escodro.alkaa.framework.extension.waitForLauncher
 import com.escodro.alkaa.presentation.MainActivity
 import com.escodro.domain.usecase.alarm.ScheduleAlarm
+import com.escodro.local.model.AlarmInterval
 import com.escodro.local.model.Task
 import java.util.Calendar
 import java.util.regex.Pattern
 import kotlinx.coroutines.runBlocking
+import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Before
 import org.junit.Test
@@ -32,6 +35,11 @@ class NotificationTest : AcceptanceTest<MainActivity>(MainActivity::class.java) 
     @Before
     fun clearTable() = runBlocking {
         daoProvider.getTaskDao().cleanTable()
+    }
+
+    @After
+    fun closeNotificationDrawer() {
+        uiDevice.pressHome()
     }
 
     @Test
@@ -116,11 +124,46 @@ class NotificationTest : AcceptanceTest<MainActivity>(MainActivity::class.java) 
         uiDevice.findObject(doneButton).click()
     }
 
+    @Test
+    fun checkIfRepeatingNotificationDoesNotHaveDoneButton() {
+        val taskName = "ROFO TEST"
+        insertRepeatingTask(taskName)
+        goToNotificationDrawer()
+        validateNotificationContent(taskName)
+        val doneButton = byTextIgnoreCase(context.getString(R.string.notification_action_completed))
+        assertNull(uiDevice.findObject(doneButton))
+        clearAllNotifications()
+    }
+
+    @Test
+    fun checkIfNonRepeatingNotificationDoesHaveDoneButton() {
+        val taskName = "ROFO TEST"
+        insertTask(taskName)
+        goToNotificationDrawer()
+        validateNotificationContent(taskName)
+        val doneButton = byTextIgnoreCase(context.getString(R.string.notification_action_completed))
+        assertNotNull(uiDevice.findObject(doneButton))
+        clearAllNotifications()
+    }
+
     private fun insertTask(taskName: String) = runBlocking {
         with(Task(id = 15, title = taskName)) {
             val calendar = Calendar.getInstance()
-            calendar.add(Calendar.SECOND, 3)
+            calendar.add(Calendar.SECOND, 2)
             dueDate = calendar
+            daoProvider.getTaskDao().insertTask(this)
+            scheduleAlarm(this.id, this.dueDate!!)
+            this
+        }
+    }
+
+    private fun insertRepeatingTask(taskName: String) = runBlocking {
+        with(Task(id = 1000, title = taskName)) {
+            val calendar = Calendar.getInstance()
+            calendar.add(Calendar.SECOND, 2)
+            dueDate = calendar
+            isRepeating = true
+            alarmInterval = AlarmInterval.HOURLY
             daoProvider.getTaskDao().insertTask(this)
             scheduleAlarm(this.id, this.dueDate!!)
             this

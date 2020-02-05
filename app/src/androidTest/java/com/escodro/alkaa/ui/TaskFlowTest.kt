@@ -217,6 +217,29 @@ class TaskFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
         checkThat.viewIsNotChecked(R.id.chipgrp_taskdetail_category, 0)
     }
 
+    @Test
+    fun checkIfRepeatOptionIsCorrectlyShown() {
+        addAndOpenTask("Kenji Boy")
+        checkThat.viewIsNotDisplayed(R.id.btn_taskdetail_repeating)
+        checkThat.viewIsNotDisplayed(R.id.textview_taskdetail_repeating)
+        scheduleTask(2020, 8, 1, 8, 0)
+        checkThat.viewIsCompletelyDisplayed(R.id.btn_taskdetail_repeating)
+        checkThat.viewIsCompletelyDisplayed(R.id.textview_taskdetail_repeating)
+    }
+
+    @Test
+    fun checkIfAllRepeatOptionsAreWorking() {
+        addAndOpenTask("Aquarium")
+        scheduleTask(2042, 8, 1, 14, 0)
+
+        val alarmArray = context.resources.getStringArray(R.array.task_alarm_repeating)
+        alarmArray.forEach { string ->
+            events.clickOnView(R.id.btn_taskdetail_repeating)
+            events.clickOnViewWithText(string)
+            checkThat.viewHasText(R.id.textview_taskdetail_repeating, string)
+        }
+    }
+
     private fun addTask(taskName: String) {
         events.clickOnView(R.id.edittext_itemadd_description)
         events.textOnView(R.id.edittext_itemadd_description, taskName)

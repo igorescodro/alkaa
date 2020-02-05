@@ -21,7 +21,7 @@
             android:layout_marginStart="8dp"
             android:background="@null"
             android:src="@drawable/ic_alarm"
-            app:layout_constraintBottom_toTopOf="@+id/img_taskdetail_repeating"
+            app:layout_constraintBottom_toTopOf="@+id/btn_taskdetail_repeating"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -53,7 +53,7 @@
             app:layout_constraintTop_toTopOf="@id/btn_taskdetail_date" />
 
         <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/img_taskdetail_repeating"
+            android:id="@+id/btn_taskdetail_repeating"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginStart="8dp"
@@ -73,10 +73,10 @@
             android:textColor="@color/gray_light"
             android:textSize="18sp"
             android:visibility="@{safeUnbox(viewModel.chipVisibility)}"
-            app:layout_constraintBottom_toBottomOf="@id/img_taskdetail_repeating"
+            app:layout_constraintBottom_toBottomOf="@id/btn_taskdetail_repeating"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/img_taskdetail_repeating"
-            app:layout_constraintTop_toTopOf="@id/img_taskdetail_repeating" />
+            app:layout_constraintStart_toEndOf="@id/btn_taskdetail_repeating"
+            app:layout_constraintTop_toTopOf="@id/btn_taskdetail_repeating" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

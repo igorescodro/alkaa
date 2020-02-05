@@ -3,6 +3,7 @@ package com.escodro.local
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.escodro.local.converter.AlarmIntervalConverter
 import com.escodro.local.converter.DateConverter
 import com.escodro.local.dao.CategoryDao
 import com.escodro.local.dao.TaskDao
@@ -13,8 +14,8 @@ import com.escodro.local.model.Task
 /**
  * [Task] Database class.
  */
-@Database(entities = [Task::class, Category::class], version = 2)
-@TypeConverters(DateConverter::class)
+@Database(entities = [Task::class, Category::class], version = 3)
+@TypeConverters(DateConverter::class, AlarmIntervalConverter::class)
 abstract class TaskDatabase : RoomDatabase() {
 
     /**

@@ -6,6 +6,7 @@ import com.escodro.domain.repository.TaskWithCategoryRepository
 import com.escodro.repository.CategoryRepositoryImpl
 import com.escodro.repository.TaskRepositoryImpl
 import com.escodro.repository.TaskWithCategoryRepositoryImpl
+import com.escodro.repository.mapper.AlarmIntervalMapper
 import com.escodro.repository.mapper.CategoryMapper
 import com.escodro.repository.mapper.TaskMapper
 import com.escodro.repository.mapper.TaskWithCategoryMapper
@@ -22,7 +23,8 @@ val repositoryModule = module {
     single<TaskWithCategoryRepository> { TaskWithCategoryRepositoryImpl(get(), get()) }
 
     // Mappers
-    factory { TaskMapper() }
+    factory { AlarmIntervalMapper() }
+    factory { TaskMapper(get()) }
     factory { CategoryMapper() }
     factory { TaskWithCategoryMapper(get(), get()) }
 }

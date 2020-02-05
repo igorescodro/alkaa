@@ -3,6 +3,7 @@ package com.escodro.local.di
 import com.escodro.local.datasource.CategoryLocalDataSource
 import com.escodro.local.datasource.TaskLocalDataSource
 import com.escodro.local.datasource.TaskWithCategoryLocalDataSource
+import com.escodro.local.mapper.AlarmIntervalMapper
 import com.escodro.local.mapper.CategoryMapper
 import com.escodro.local.mapper.TaskMapper
 import com.escodro.local.mapper.TaskWithCategoryMapper
@@ -24,7 +25,8 @@ val localModule = module {
     single<TaskWithCategoryDataSource> { TaskWithCategoryLocalDataSource(get(), get()) }
 
     // Mappers
-    factory { TaskMapper() }
+    factory { AlarmIntervalMapper() }
+    factory { TaskMapper(get()) }
     factory { CategoryMapper() }
     factory { TaskWithCategoryMapper(get(), get()) }
 

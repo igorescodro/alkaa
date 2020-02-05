@@ -1,9 +1,9 @@
 package com.escodro.domain.usecase.task
 
-import com.escodro.domain.calendar.TaskCalendar
 import com.escodro.domain.interactor.AlarmInteractor
 import com.escodro.domain.interactor.NotificationInteractor
 import com.escodro.domain.model.Task
+import com.escodro.domain.provider.CalendarProvider
 import com.escodro.domain.repository.TaskRepository
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -24,7 +24,7 @@ class CompleteTaskTest {
 
     private val mockNotificationInteractor = mockk<NotificationInteractor>(relaxed = true)
 
-    private val mockCalendar = mockk<TaskCalendar>(relaxed = true)
+    private val mockCalendar = mockk<CalendarProvider>(relaxed = true)
 
     private val completeTask =
         CompleteTask(mockTaskRepo, mockAlarmInteractor, mockNotificationInteractor, mockCalendar)

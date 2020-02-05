@@ -5,6 +5,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.escodro.domain.usecase.alarm.CancelAlarm
 import com.escodro.domain.usecase.alarm.ScheduleAlarm
+import com.escodro.domain.usecase.alarm.UpdateTaskAsRepeating
+import com.escodro.task.mapper.AlarmIntervalMapper
+import com.escodro.task.model.AlarmInterval
 import com.escodro.task.presentation.detail.TaskDetailProvider
 import java.util.Calendar
 import kotlinx.coroutines.launch
@@ -16,7 +19,9 @@ import timber.log.Timber
 internal class TaskAlarmViewModel(
     taskProvider: TaskDetailProvider,
     private val scheduleAlarmUseCase: ScheduleAlarm,
-    private val cancelAlarmUseCase: CancelAlarm
+    private val cancelAlarmUseCase: CancelAlarm,
+    private val scheduleRepeatingUseCase: UpdateTaskAsRepeating,
+    private val alarmIntervalMapper: AlarmIntervalMapper
 ) : ViewModel() {
 
     val taskData = taskProvider.taskData
@@ -38,6 +43,17 @@ internal class TaskAlarmViewModel(
         viewModelScope.launch {
             taskData.value?.let { task ->
                 scheduleAlarmUseCase(task.id, alarm)
+            }
+        }
+    }
+
+    fun setRepeating(alarmInterval: AlarmInterval) {
+        Timber.d("setRepeating - ${alarmInterval.name}")
+
+        viewModelScope.launch {
+            taskData.value?.let { task ->
+                val interval = alarmIntervalMapper.toDomain(alarmInterval)
+                scheduleRepeatingUseCase(task.id, interval)
             }
         }
     }

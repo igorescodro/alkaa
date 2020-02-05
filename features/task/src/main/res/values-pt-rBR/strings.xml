@@ -13,4 +13,5 @@
     <string name="task_snackbar_undo">Desfazer</string>
     <string name="task_list_empty">Sem tarefas</string>
     <string name="task_list_default_title">Todas as Tarefas</string>
+    <string name="task_alarm_dialog_title">Repetir alarme</string>
 </resources>

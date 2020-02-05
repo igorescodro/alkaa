@@ -27,8 +27,20 @@ internal class TaskNotification(
      */
     fun show(task: Task) {
         Timber.d("Showing notification for '${task.title}'")
-        val notification = buildNotification(task)
-        context.getNotificationManager()?.notify(task.id.toInt(), notification)
+        val builder = buildNotification(task)
+        builder.addAction(getCompleteAction(task))
+        context.getNotificationManager()?.notify(task.id.toInt(), builder.build())
+    }
+
+    /**
+     * Shows the repeating [TaskNotification] based on the given Task.
+     *
+     * @param task the task to be shown in the notification
+     */
+    fun showRepeating(task: Task) {
+        Timber.d("Showing repeating notification for '${task.title}'")
+        val builder = buildNotification(task)
+        context.getNotificationManager()?.notify(task.id.toInt(), builder.build())
     }
 
     /**
@@ -48,9 +60,8 @@ internal class TaskNotification(
             setContentText(task.title)
             setContentIntent(buildPendingIntent(task))
             setAutoCancel(true)
-            addAction(getCompleteAction(task))
             addAction(getSnoozeAction(task))
-        }.build()
+        }
 
     private fun buildPendingIntent(task: Task): PendingIntent {
         val arguments = Bundle()

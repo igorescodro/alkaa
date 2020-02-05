@@ -6,10 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import com.escodro.core.extension.itemDialog
+import com.escodro.core.extension.items
 import com.escodro.core.extension.showDateTimePicker
 import com.escodro.core.extension.showToast
 import com.escodro.task.R
 import com.escodro.task.databinding.FragmentTaskDetailAlarmBinding
+import com.escodro.task.model.AlarmInterval
 import java.util.Calendar
 import kotlinx.android.synthetic.main.fragment_task_detail_alarm.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -49,6 +53,24 @@ internal class TaskAlarmFragment : Fragment() {
         btn_taskdetail_date.setOnClickListener { showDateTimePicker(::updateTaskWithDueDate) }
         textview_taskdetail_date.setOnClickListener { showDateTimePicker(::updateTaskWithDueDate) }
         chip_taskdetail_date.setOnCloseIconClickListener { removeAlarm() }
+        btn_taskdetail_repeating.setOnClickListener { showIntervalDialog() }
+        textview_taskdetail_repeating.setOnClickListener { showIntervalDialog() }
+
+        viewModel.taskData.observe(this, Observer {
+            val alarmIndex = it.alarmInterval?.index ?: 0
+            val intervalString = resources.getStringArray(R.array.task_alarm_repeating)[alarmIndex]
+            Timber.d("Current interval = $intervalString")
+            textview_taskdetail_repeating.text = intervalString
+        })
+    }
+
+    private fun showIntervalDialog() {
+        itemDialog(R.string.task_alarm_dialog_title) {
+            items(R.array.task_alarm_repeating) { item ->
+                val interval = AlarmInterval.values().find { it.index == item }
+                interval?.let { viewModel.setRepeating(it) }
+            }
+        }?.show()
     }
 
     private fun updateTaskWithDueDate(calendar: Calendar) {

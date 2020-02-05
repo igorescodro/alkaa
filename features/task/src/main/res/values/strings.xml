@@ -9,6 +9,7 @@
     <string name="task_details_alarm_removed">Alarm removed</string>
     <string name="task_details_description_hint">Add a description</string>
     <string name="task_details_alarm_hint">Add an alarm</string>
+    <string name="task_alarm_dialog_title">Repeat alarm</string>
 
     <string-array name="task_dialog_options">
         <item>Remove</item>

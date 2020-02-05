@@ -9,7 +9,8 @@ import timber.log.Timber
  */
 class ShowAlarm(
     private val taskRepository: TaskRepository,
-    private val notificationInteractor: NotificationInteractor
+    private val notificationInteractor: NotificationInteractor,
+    private val scheduleNextAlarm: ScheduleNextAlarm
 ) {
 
     /**
@@ -22,9 +23,14 @@ class ShowAlarm(
 
         if (task.completed) {
             Timber.d("Task '${task.title}' is already completed. Will not notify")
+            return
         } else {
             Timber.d("Notifying task '${task.title}'")
             notificationInteractor.show(task)
+        }
+
+        if (task.isRepeating) {
+            scheduleNextAlarm(task)
         }
     }
 }

@@ -2,16 +2,18 @@ package com.escodro.domain.usecase.alarm
 
 import com.escodro.domain.interactor.AlarmInteractor
 import com.escodro.domain.model.Task
+import com.escodro.domain.provider.CalendarProvider
 import com.escodro.domain.repository.TaskRepository
 import java.util.Calendar
 import timber.log.Timber
 
 /**
- * Use case to get all tasks scheduled in the future that are not completed from the database.
+ * Use case to reschedule tasks scheduled in the future or missing repeating.
  */
 class RescheduleFutureAlarms(
     private val taskRepository: TaskRepository,
-    private val alarmInteractor: AlarmInteractor
+    private val alarmInteractor: AlarmInteractor,
+    private val calendarProvider: CalendarProvider
 ) {
 
     /**
@@ -21,13 +23,18 @@ class RescheduleFutureAlarms(
      */
     suspend operator fun invoke() =
         taskRepository.findAllTasksWithDueDate()
-            .filter { !it.completed }
-            .filter { isInFuture(it.dueDate) }
+            .filterNot { it.completed }
+            .filter { isInFuture(it.dueDate) || isMissedRepeating(it) }
             .forEach { rescheduleTask(it) }
 
     private fun isInFuture(calendar: Calendar?): Boolean {
-        val currentTime = Calendar.getInstance()
+        val currentTime = calendarProvider.getCurrentCalendar()
         return calendar?.after(currentTime) ?: false
+    }
+
+    private fun isMissedRepeating(task: Task): Boolean {
+        val currentTime = calendarProvider.getCurrentCalendar()
+        return task.isRepeating && task.dueDate?.before(currentTime) ?: false
     }
 
     private fun rescheduleTask(task: Task) {

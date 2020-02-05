@@ -6,43 +6,47 @@ import com.escodro.task.model.Task as ViewTask
 /**
  * Maps Tasks between Domain and View.
  */
-internal class TaskMapper {
+internal class TaskMapper(private val alarmIntervalMapper: AlarmIntervalMapper) {
 
     /**
      * Maps Task from Domain to View.
      *
-     * @param repoTask the Task to be converted.
+     * @param domainTask the Task to be converted.
      *
      * @return the converted Task
      */
-    fun toView(repoTask: DomainTask): ViewTask =
+    fun toView(domainTask: DomainTask): ViewTask =
         ViewTask(
-            id = repoTask.id,
-            completed = repoTask.completed,
-            title = repoTask.title,
-            description = repoTask.description,
-            dueDate = repoTask.dueDate,
-            categoryId = repoTask.categoryId,
-            creationDate = repoTask.creationDate,
-            completedDate = repoTask.completedDate
+            id = domainTask.id,
+            completed = domainTask.completed,
+            title = domainTask.title,
+            description = domainTask.description,
+            dueDate = domainTask.dueDate,
+            categoryId = domainTask.categoryId,
+            creationDate = domainTask.creationDate,
+            completedDate = domainTask.completedDate,
+            isRepeating = domainTask.isRepeating,
+            alarmInterval = alarmIntervalMapper.toViewData(domainTask.alarmInterval)
         )
 
     /**
      * Maps Task from View to Domain.
      *
-     * @param localTask the Task to be converted.
+     * @param viewTask the Task to be converted.
      *
      * @return the converted Task
      */
-    fun toDomain(localTask: ViewTask): DomainTask =
+    fun toDomain(viewTask: ViewTask): DomainTask =
         DomainTask(
-            id = localTask.id,
-            completed = localTask.completed,
-            title = localTask.title,
-            description = localTask.description,
-            categoryId = localTask.categoryId,
-            dueDate = localTask.dueDate,
-            creationDate = localTask.creationDate,
-            completedDate = localTask.completedDate
+            id = viewTask.id,
+            completed = viewTask.completed,
+            title = viewTask.title,
+            description = viewTask.description,
+            categoryId = viewTask.categoryId,
+            dueDate = viewTask.dueDate,
+            creationDate = viewTask.creationDate,
+            completedDate = viewTask.completedDate,
+            isRepeating = viewTask.isRepeating,
+            alarmInterval = viewTask.alarmInterval?.let { alarmIntervalMapper.toDomain(it) }
         )
 }

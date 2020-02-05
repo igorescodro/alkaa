@@ -40,6 +40,24 @@ fun Fragment.itemDialog(
 }
 
 /**
+ * Create an [AlertDialog].
+ *
+ * @param titleRes alert title
+ * @param builder expression to setup the itemDialog
+ *
+ * @return an instance of [AlertDialog]
+ */
+fun Fragment.itemDialog(
+    @StringRes titleRes: Int,
+    builder: AlertDialog.Builder.() -> Unit
+): AlertDialog.Builder? = context?.let {
+    AlertDialog.Builder(it).apply {
+        setTitle(titleRes)
+        builder()
+    }
+}
+
+/**
  * Add items in the [AlertDialog].
  *
  * @param resArray array with the items

@@ -1,10 +1,13 @@
 package com.escodro.domain.di
 
-import com.escodro.domain.calendar.TaskCalendar
+import com.escodro.domain.provider.CalendarProvider
 import com.escodro.domain.usecase.alarm.CancelAlarm
 import com.escodro.domain.usecase.alarm.RescheduleFutureAlarms
 import com.escodro.domain.usecase.alarm.ScheduleAlarm
+import com.escodro.domain.usecase.alarm.ScheduleNextAlarm
 import com.escodro.domain.usecase.alarm.ShowAlarm
+import com.escodro.domain.usecase.alarm.SnoozeAlarm
+import com.escodro.domain.usecase.alarm.UpdateTaskAsRepeating
 import com.escodro.domain.usecase.category.DeleteCategory
 import com.escodro.domain.usecase.category.LoadAllCategories
 import com.escodro.domain.usecase.category.LoadCategory
@@ -13,7 +16,6 @@ import com.escodro.domain.usecase.task.AddTask
 import com.escodro.domain.usecase.task.CompleteTask
 import com.escodro.domain.usecase.task.DeleteTask
 import com.escodro.domain.usecase.task.GetTask
-import com.escodro.domain.usecase.task.SnoozeTask
 import com.escodro.domain.usecase.task.UncompleteTask
 import com.escodro.domain.usecase.task.UpdateTask
 import com.escodro.domain.usecase.task.UpdateTaskStatus
@@ -35,7 +37,6 @@ val domainModule = module {
     factory { UpdateTaskStatus(get(), get(), get()) }
     factory { DeleteTask(get(), get()) }
     factory { GetTask(get()) }
-    factory { SnoozeTask(get(), get()) }
     factory { UpdateTask(get()) }
 
     // Category Use Cases
@@ -50,14 +51,17 @@ val domainModule = module {
     factory { LoadUncompletedTasks(get()) }
 
     // Alarm Use Cases
-    factory { ScheduleAlarm(get(), get()) }
     factory { CancelAlarm(get(), get()) }
-    factory { ShowAlarm(get(), get()) }
-    factory { RescheduleFutureAlarms(get(), get()) }
+    factory { RescheduleFutureAlarms(get(), get(), get()) }
+    factory { ScheduleAlarm(get(), get()) }
+    factory { ScheduleNextAlarm(get(), get(), get()) }
+    factory { ShowAlarm(get(), get(), get()) }
+    factory { SnoozeAlarm(get(), get(), get()) }
+    factory { UpdateTaskAsRepeating(get()) }
 
     // Tracker Use Cases
     factory { LoadCompletedTasksByPeriod(get()) }
 
     // Providers
-    factory { TaskCalendar() }
+    factory { CalendarProvider() }
 }

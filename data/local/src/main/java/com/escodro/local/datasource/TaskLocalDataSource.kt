@@ -16,13 +16,13 @@ internal class TaskLocalDataSource(daoProvider: DaoProvider, private val taskMap
     private val taskDao = daoProvider.getTaskDao()
 
     override suspend fun insertTask(task: Task) =
-        taskDao.insertTask(taskMapper.fromRepo(task))
+        taskDao.insertTask(taskMapper.toLocal(task))
 
     override suspend fun updateTask(task: Task) =
-        taskDao.updateTask(taskMapper.fromRepo(task))
+        taskDao.updateTask(taskMapper.toLocal(task))
 
     override suspend fun deleteTask(task: Task) =
-        taskDao.deleteTask(taskMapper.fromRepo(task))
+        taskDao.deleteTask(taskMapper.toLocal(task))
 
     override suspend fun cleanTable() =
         taskDao.cleanTable()

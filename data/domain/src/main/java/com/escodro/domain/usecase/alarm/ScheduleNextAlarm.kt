@@ -39,7 +39,7 @@ class ScheduleNextAlarm(
 
         taskRepository.updateTask(task)
         alarmInteractor.schedule(task.id, task.dueDate.time.time)
-        Timber.d("ScheduleNextAlarm = Task = '${task.title} at '${task.dueDate.time} ")
+        Timber.d("ScheduleNextAlarm = Task = '${task.title}' at ${task.dueDate.time} ")
     }
 
     private fun updatedAlarmTime(calendar: Calendar, alarmInterval: AlarmInterval) =

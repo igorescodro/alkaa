@@ -22,11 +22,7 @@ class SnoozeAlarmTest {
     private val mockAlarmInteractor = mockk<AlarmInteractor>(relaxed = true)
 
     private val snoozeTask =
-        SnoozeAlarm(
-            calendarProvider,
-            mockNotificationInteractor,
-            mockAlarmInteractor
-        )
+        SnoozeAlarm(calendarProvider, mockNotificationInteractor, mockAlarmInteractor)
 
     @Before
     fun setup() {

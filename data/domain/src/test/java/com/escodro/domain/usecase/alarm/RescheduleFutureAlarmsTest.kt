@@ -6,6 +6,7 @@ import com.escodro.domain.model.Task
 import com.escodro.domain.provider.CalendarProvider
 import com.escodro.domain.repository.TaskRepository
 import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
@@ -22,8 +23,10 @@ class RescheduleFutureAlarmsTest {
 
     private val mockCalendar = mockk<CalendarProvider>(relaxed = true)
 
+    private val mockNextAlarm = mockk<ScheduleNextAlarm>(relaxed = true)
+
     private val rescheduleFutureAlarms =
-        RescheduleFutureAlarms(mockRepo, mockAlarmInteractor, mockCalendar)
+        RescheduleFutureAlarms(mockRepo, mockAlarmInteractor, mockCalendar, mockNextAlarm)
 
     @Before
     fun setup() {
@@ -108,7 +111,7 @@ class RescheduleFutureAlarmsTest {
 
         coEvery { mockRepo.findAllTasksWithDueDate() } returns listOf(task)
         rescheduleFutureAlarms()
-        verify { mockAlarmInteractor.schedule(task.id, any()) }
+        coVerify { mockNextAlarm(task) }
     }
 
     @Test
@@ -125,6 +128,6 @@ class RescheduleFutureAlarmsTest {
 
         coEvery { mockRepo.findAllTasksWithDueDate() } returns listOf(task)
         rescheduleFutureAlarms()
-        verify(exactly = 0) { mockAlarmInteractor.schedule(task.id, any()) }
+        coVerify(exactly = 0) { mockNextAlarm(task) }
     }
 }

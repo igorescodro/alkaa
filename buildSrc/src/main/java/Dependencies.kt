@@ -9,7 +9,6 @@ object Versions {
     const val minSdk = 23
 
     const val kotlin = "1.3.61"
-    const val appCompat = "1.0.2"
     const val material = "1.1.0-beta02"
     const val recyclerView = "1.0.0"
     const val preference = "1.0.0"
@@ -61,7 +60,6 @@ object Deps {
 }
 
 object AndroidDeps {
-    val appCompat = "androidx.appcompat:appcompat:${Versions.appCompat}"
     val material = "com.google.android.material:material:${Versions.material}"
     val recyclerView = "androidx.recyclerview:recyclerview:${Versions.recyclerView}"
     val preference = "androidx.preference:preference:${Versions.preference}"

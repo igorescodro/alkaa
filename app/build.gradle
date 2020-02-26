@@ -61,7 +61,6 @@ dependencies {
     implementation project(":features:category")
     implementation project(":features:preference")
 
-    implementation Deps.android.appCompat
     implementation Deps.android.preference
     implementation Deps.android.constraintLayout
     implementation Deps.android.ktx

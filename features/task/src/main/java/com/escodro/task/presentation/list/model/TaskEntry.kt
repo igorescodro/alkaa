@@ -23,6 +23,7 @@ internal class TaskEntry(
             task = data.task
             color = data.category?.color ?: android.R.attr.colorBackground
             isAlarmVisible = data.task.dueDate != null
+            isRepeatingVisible = data.task.isRepeating
             cardviewItemtaskBackground.setOnClickListener { onItemClicked(data) }
             cardviewItemtaskBackground.setOnLongClickListener { onItemLongPressed(data) }
             checkboxItemtaskCompleted.setOnClickListener { view ->

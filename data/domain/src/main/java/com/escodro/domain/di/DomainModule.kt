@@ -52,7 +52,7 @@ val domainModule = module {
 
     // Alarm Use Cases
     factory { CancelAlarm(get(), get()) }
-    factory { RescheduleFutureAlarms(get(), get(), get()) }
+    factory { RescheduleFutureAlarms(get(), get(), get(), get()) }
     factory { ScheduleAlarm(get(), get()) }
     factory { ScheduleNextAlarm(get(), get(), get()) }
     factory { ShowAlarm(get(), get(), get()) }

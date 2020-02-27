@@ -13,19 +13,21 @@ import timber.log.Timber
 class RescheduleFutureAlarms(
     private val taskRepository: TaskRepository,
     private val alarmInteractor: AlarmInteractor,
-    private val calendarProvider: CalendarProvider
+    private val calendarProvider: CalendarProvider,
+    private val scheduleNextAlarm: ScheduleNextAlarm
 ) {
 
     /**
-     * Gets all the uncompleted tasks in the future.
-     *
-     * @return observable to be subscribe
+     * Reschedule scheduled and misses repeating tasks.
      */
-    suspend operator fun invoke() =
-        taskRepository.findAllTasksWithDueDate()
-            .filterNot { it.completed }
-            .filter { isInFuture(it.dueDate) || isMissedRepeating(it) }
-            .forEach { rescheduleTask(it) }
+    suspend operator fun invoke() {
+        val uncompletedAlarms = taskRepository.findAllTasksWithDueDate().filterNot { it.completed }
+        val futureAlarms = uncompletedAlarms.filter { isInFuture(it.dueDate) }
+        val missedRepeating = uncompletedAlarms.filter { isMissedRepeating(it) }
+
+        futureAlarms.forEach { rescheduleFutureTask(it) }
+        missedRepeating.forEach { rescheduleRepeatingTask(it) }
+    }
 
     private fun isInFuture(calendar: Calendar?): Boolean {
         val currentTime = calendarProvider.getCurrentCalendar()
@@ -37,9 +39,14 @@ class RescheduleFutureAlarms(
         return task.isRepeating && task.dueDate?.before(currentTime) ?: false
     }
 
-    private fun rescheduleTask(task: Task) {
+    private fun rescheduleFutureTask(task: Task) {
         val futureTime = task.dueDate?.time?.time ?: return
         alarmInteractor.schedule(task.id, futureTime)
         Timber.d("Task '${task.title} rescheduled to '${task.dueDate}")
+    }
+
+    private suspend fun rescheduleRepeatingTask(task: Task) {
+        scheduleNextAlarm(task)
+        Timber.d("Repeating task '${task.title} rescheduled to '${task.dueDate}")
     }
 }

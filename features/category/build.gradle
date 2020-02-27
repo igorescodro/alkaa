@@ -12,7 +12,6 @@ dependencies {
     implementation project(":data:domain")
     implementation project(":libraries:navigation")
 
-    implementation Deps.android.appCompat
     implementation Deps.android.constraintLayout
     implementation Deps.android.material
     implementation Deps.android.recyclerView

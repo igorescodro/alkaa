@@ -8,12 +8,10 @@ android {
 }
 
 dependencies {
-    implementation Deps.android.appCompat
     implementation Deps.android.recyclerView
     implementation Deps.android.material
     implementation Deps.android.ktx
     implementation Deps.android.navigation.fragment
-    implementation Deps.android.navigation.ui
 
     implementation Deps.coroutines.core
 

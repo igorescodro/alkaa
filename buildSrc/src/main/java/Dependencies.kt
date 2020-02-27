@@ -9,12 +9,11 @@ object Versions {
     const val minSdk = 23
 
     const val kotlin = "1.3.61"
-    const val appCompat = "1.0.2"
     const val material = "1.1.0-beta02"
     const val recyclerView = "1.0.0"
     const val preference = "1.0.0"
     const val cardView = "1.0.0"
-    const val constraintLayout = "2.0.0-beta1"
+    const val constraintLayout = "2.0.0-beta4"
     const val ktx = "1.0.2"
     const val lifecycle = "2.2.0"
     const val room = "2.2.3"
@@ -42,7 +41,7 @@ object Versions {
     const val testRoom = "2.1.0"
     const val testArch = "2.1.0"
 
-    const val buildGradle = "3.5.3"
+    const val buildGradle = "3.6.0"
 
     const val detekt = "1.2.2"
     const val ktlint = "0.36.0"
@@ -61,7 +60,6 @@ object Deps {
 }
 
 object AndroidDeps {
-    val appCompat = "androidx.appcompat:appcompat:${Versions.appCompat}"
     val material = "com.google.android.material:material:${Versions.material}"
     val recyclerView = "androidx.recyclerview:recyclerview:${Versions.recyclerView}"
     val preference = "androidx.preference:preference:${Versions.preference}"

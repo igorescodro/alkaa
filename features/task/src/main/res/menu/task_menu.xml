@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@id/key_action_open_preference"
-        android:icon="@drawable/ic_settings"
-        android:title="@string/task_menu_preferences"
+        android:id="@id/key_action_open_search"
+        android:icon="@drawable/ic_search"
+        android:title="@string/task_menu_search"
         app:showAsAction="always" />
 
 </menu>

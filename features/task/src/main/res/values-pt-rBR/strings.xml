@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="task_menu_preferences">Preferências</string>
+    <string name="task_menu_search">Buscar</string>
     <string name="task_add_new">Adicionar nova tarefa</string>
     <string name="task_details_alarm_removed">Alarme removido</string>
     <string name="task_details_description_hint">Adicionar uma descrição</string>

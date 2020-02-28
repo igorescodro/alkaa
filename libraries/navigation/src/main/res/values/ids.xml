@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <item name="key_action_open_preference" type="id" />
+    <item name="key_action_open_search" type="id" />
     <item name="key_action_open_category" type="id" />
     <item name="key_action_remove_category" type="id" />
     <item name="key_action_edit_category" type="id" />

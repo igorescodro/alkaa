@@ -1,5 +1,5 @@
 <resources>
-    <string name="task_menu_preferences">Preferences</string>
+    <string name="task_menu_search">Search</string>
     <string name="task_add_new">Add new task</string>
     <string name="task_snackbar_completed">Moved to \'Completed\'</string>
     <string name="task_snackbar_undo">Undo</string>

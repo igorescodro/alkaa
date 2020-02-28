@@ -240,6 +240,20 @@ class TaskFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
         }
     }
 
+    @Test
+    fun checkIfRepeatingIconIsCorrectlyShown() {
+        val taskName = "Let's migrate it all!"
+        addTask(taskName)
+        checkThat.viewIsNotDisplayed(R.id.imageview_itemtask_repeating)
+        events.clickOnViewWithText(taskName)
+        scheduleTask(2080, 8, 1, 14, 0)
+        val repeatingOption = context.resources.getStringArray(R.array.task_alarm_repeating)[1]
+        events.clickOnView(R.id.btn_taskdetail_repeating)
+        events.clickOnViewWithText(repeatingOption)
+        events.navigateUp()
+        checkThat.viewIsCompletelyDisplayed(R.id.imageview_itemtask_repeating)
+    }
+
     private fun addTask(taskName: String) {
         events.clickOnView(R.id.edittext_itemadd_description)
         events.textOnView(R.id.edittext_itemadd_description, taskName)

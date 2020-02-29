@@ -10,10 +10,20 @@
 
     <include app:graph="@navigation/nav_graph_tracker" />
 
+    <include app:graph="@navigation/nav_graph_search" />
+
     <fragment
         android:id="@+id/taskListFragment"
         android:name="com.escodro.task.presentation.list.TaskListFragment"
         tools:layout="@layout/fragment_task_list">
+
+        <action
+            android:id="@id/key_action_open_search"
+            app:destination="@id/nav_graph_search"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
 
         <action
             android:id="@+id/action_detail"

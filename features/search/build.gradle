@@ -1,1 +1,10 @@
 apply from: "$rootDir/config/dependencies/feature_dependencies.gradle"
+
+dependencies {
+    implementation project(":libraries:core")
+    implementation project(":libraries:navigation")
+    implementation project(":data:domain")
+
+    implementation Deps.android.constraintLayout
+    implementation Deps.android.navigation.fragment
+}

@@ -4,5 +4,6 @@
     <string name="about_detail_title">About</string>
     <string name="preference_title">Preferences</string>
     <string name="tracker_title">Task Tracker</string>
+    <string name="search_title">Search</string>
 
 </resources>

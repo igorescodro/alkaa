@@ -20,7 +20,9 @@ class PreferenceFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java
     }
 
     private fun navigateToPreference() {
-        events.clickOnView(R.id.key_action_open_preference)
+        events.openDrawer(R.id.drawer_layout_main_parent)
+        checkThat.drawerIsOpen(R.id.drawer_layout_main_parent)
+        events.clickOnViewWithText(R.string.drawer_menu_preferences)
         checkThat.viewHasText(R.id.toolbar_title, R.string.preference_title)
     }
 }

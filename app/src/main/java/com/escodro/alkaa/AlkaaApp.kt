@@ -9,6 +9,7 @@ import com.escodro.core.di.coreModule
 import com.escodro.domain.di.domainModule
 import com.escodro.local.di.localModule
 import com.escodro.repository.di.repositoryModule
+import com.escodro.search.di.searchModule
 import com.escodro.task.di.taskModule
 import com.google.android.play.core.splitcompat.SplitCompat
 import org.koin.android.ext.koin.androidContext
@@ -36,6 +37,7 @@ class AlkaaApp : Application() {
                     taskModule +
                     alarmModule +
                     categoryModule +
+                    searchModule +
                     domainModule +
                     repositoryModule +
                     localModule

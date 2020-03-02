@@ -6,5 +6,6 @@ dependencies {
     implementation project(":data:domain")
 
     implementation Deps.android.constraintLayout
+    implementation Deps.android.material
     implementation Deps.android.navigation.fragment
 }

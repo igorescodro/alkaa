@@ -5,7 +5,15 @@ dependencies {
     implementation project(":libraries:navigation")
     implementation project(":data:domain")
 
+    testImplementation project(':libraries:test')
+
     implementation Deps.android.constraintLayout
     implementation Deps.android.material
     implementation Deps.android.navigation.fragment
+    implementation Deps.android.lifecycle.viewmodel
+
+    testImplementation Deps.test.junit
+    testImplementation Deps.test.mockk
+    testImplementation Deps.coroutines.test
+    testImplementation Deps.test.arch
 }

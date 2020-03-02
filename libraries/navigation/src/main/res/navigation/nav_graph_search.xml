@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.escodro.search.SearchFragment"
+        android:name="com.escodro.search.presentation.SearchFragment"
         android:label="@string/search_title"
         tools:layout="@layout/fragment_search" />
 

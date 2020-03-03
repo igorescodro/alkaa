@@ -11,7 +11,11 @@ dependencies {
     implementation Deps.android.material
     implementation Deps.android.navigation.fragment
     implementation Deps.android.lifecycle.viewmodel
+    implementation Deps.android.lifecycle.runtime
     implementation Deps.koin.viewModel
+
+    implementation Deps.groupie.core
+    implementation Deps.groupie.ktx
 
     testImplementation Deps.test.junit
     testImplementation Deps.test.mockk

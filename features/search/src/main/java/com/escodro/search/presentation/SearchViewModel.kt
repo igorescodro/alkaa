@@ -28,7 +28,7 @@ internal class SearchViewModel(
      *
      * @param name the task name to be queried
      */
-    fun findTasksByName(name: String) {
+    fun findTasksByName(name: String = "") {
         viewModelScope.launch {
             val taskList = findTaskUseCase(name)
             _state.value = if (taskList.isNotEmpty()) {

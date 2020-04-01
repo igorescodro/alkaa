@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import com.escodro.core.extension.textChangedFlow
 import com.escodro.search.R
 import com.escodro.search.model.TaskSearch
@@ -26,6 +28,8 @@ internal class SearchFragment : Fragment() {
     private val viewModel: SearchViewModel by viewModel()
 
     private val adapter = GroupAdapter<GroupieViewHolder>()
+
+    private val navigator: NavController by lazy { NavHostFragment.findNavController(this) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -61,8 +65,14 @@ internal class SearchFragment : Fragment() {
         Timber.d("onListLoaded - Size = ${taskList.size}")
 
         recyclerview_search.visibility = View.VISIBLE
-        val items = taskList.map { TaskSearchItem(it) }
+        val items = taskList.map { TaskSearchItem(it, ::onItemClicked) }
         adapter.update(items)
+    }
+
+    private fun onItemClicked(itemId: Long) {
+        Timber.d("onListLoaded - itemId = $itemId")
+        val directions = SearchFragmentDirections.actionSearchDetail(itemId)
+        navigator.navigate(directions)
     }
 
     private fun onEmptyList() {

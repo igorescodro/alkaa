@@ -7,6 +7,6 @@ internal data class TaskSearch(
     val id: Long = 0,
     val completed: Boolean,
     val title: String,
-    val categoryColor: String?,
+    val categoryColor: Int?,
     val isRepeating: Boolean
 )

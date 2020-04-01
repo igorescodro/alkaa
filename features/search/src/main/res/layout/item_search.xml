@@ -4,6 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="64dp">
 
+    <ImageView
+        android:id="@+id/view_search_circle"
+        android:layout_width="16dp"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        android:src="@drawable/search_circle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/textview_search_name"
         android:layout_width="0dp"
@@ -13,7 +23,7 @@
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/view_search_circle"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

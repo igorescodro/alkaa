@@ -1,5 +1,6 @@
 package com.escodro.search.mapper
 
+import android.graphics.Color
 import com.escodro.domain.model.TaskWithCategory
 import com.escodro.search.model.TaskSearch
 
@@ -19,7 +20,7 @@ internal class TaskSearchMapper {
             id = taskWithCategory.task.id,
             completed = taskWithCategory.task.completed,
             title = taskWithCategory.task.title,
-            categoryColor = taskWithCategory.category?.color,
+            categoryColor = taskWithCategory.category?.color?.let { Color.parseColor(it) },
             isRepeating = taskWithCategory.task.isRepeating
         )
 }

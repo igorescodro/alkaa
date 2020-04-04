@@ -5,6 +5,7 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.escodro.domain.usecase.task.UpdateTask
+import com.escodro.domain.usecase.task.UpdateTaskStatus
 import com.escodro.task.mapper.TaskMapper
 import com.escodro.task.model.Task
 import com.escodro.task.presentation.detail.TaskDetailProvider
@@ -17,6 +18,7 @@ import timber.log.Timber
 internal class TaskDetailViewModel(
     private val taskProvider: TaskDetailProvider,
     private val updateTaskUseCase: UpdateTask,
+    private val updateTaskStatusUseCase: UpdateTaskStatus,
     private val taskMapper: TaskMapper
 ) : ViewModel() {
 
@@ -66,6 +68,15 @@ internal class TaskDetailViewModel(
             taskData.value?.copy(description = description)?.let { task ->
                 updateTaskUseCase(taskMapper.toDomain(task))
             }
+        }
+    }
+
+    /**
+     * Updates the task status between completed and uncompleted.
+     */
+    fun updateTaskStatus() {
+        viewModelScope.launch {
+            taskData.value?.id?.let { id -> updateTaskStatusUseCase(id) }
         }
     }
 

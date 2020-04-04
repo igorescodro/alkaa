@@ -2,6 +2,9 @@ package com.escodro.task.presentation.detail.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -11,6 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import com.escodro.core.extension.hideKeyboard
 import com.escodro.core.extension.setStyleDisabled
 import com.escodro.core.extension.setStyleEnabled
+import com.escodro.core.extension.showToast
 import com.escodro.core.extension.textChangedFlow
 import com.escodro.task.R
 import com.escodro.task.databinding.FragmentTaskDetailBinding
@@ -36,6 +40,7 @@ internal class TaskDetailFragment : Fragment() {
     ): View? {
         Timber.d("onCreateView()")
 
+        setHasOptionsMenu(true)
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_task_detail, container, false)
         return binding?.root
@@ -47,6 +52,28 @@ internal class TaskDetailFragment : Fragment() {
 
         initComponents()
         initListeners()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.detail_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.key_update_completed_status) {
+            showStateToast()
+            viewModel.updateTaskStatus()
+            return true
+        }
+        return false
+    }
+
+    private fun showStateToast() {
+        val resId = if (viewModel.state.value is TaskDetailUIState.Uncompleted) {
+            R.string.task_status_mark_completed
+        } else {
+            R.string.task_status_mark_uncompleted
+        }
+        context?.showToast(resId)
     }
 
     override fun onStop() {

@@ -25,4 +25,8 @@ dependencies {
     implementation Deps.android.playCore
 
     implementation Deps.koin.viewModel
+
+    testImplementation Deps.test.junit
+    testImplementation Deps.test.mockk
+    testImplementation Deps.test.arch
 }

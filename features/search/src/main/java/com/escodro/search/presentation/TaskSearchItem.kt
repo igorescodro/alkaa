@@ -3,7 +3,7 @@ package com.escodro.search.presentation
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
-import com.escodro.core.extension.setStyleDisable
+import com.escodro.core.extension.setStyleDisabled
 import com.escodro.search.R
 import com.escodro.search.model.TaskSearch
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
@@ -27,7 +27,7 @@ internal class TaskSearchItem(
 
             var circleColor = taskSearch.categoryColor
             if (taskSearch.completed) {
-                viewHolder.itemView.textview_search_name.setStyleDisable()
+                viewHolder.itemView.textview_search_name.setStyleDisabled()
                 circleColor = Color.GRAY
             }
 

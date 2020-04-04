@@ -6,8 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.escodro.core.extension.hideKeyboard
+import com.escodro.core.extension.setStyleDisabled
+import com.escodro.core.extension.setStyleEnabled
 import com.escodro.core.extension.textChangedFlow
 import com.escodro.task.R
 import com.escodro.task.databinding.FragmentTaskDetailBinding
@@ -68,6 +71,13 @@ internal class TaskDetailFragment : Fragment() {
 
         val taskId = arguments?.let { TaskDetailFragmentArgs.fromBundle(it).taskId }
         taskId?.let { viewModel.loadTask(it) }
+
+        viewModel.state.observe(this, Observer { uiState ->
+            when (uiState) {
+                is TaskDetailUIState.Uncompleted -> onTaskUncompleted()
+                is TaskDetailUIState.Completed -> onTaskCompleted()
+            }
+        })
     }
 
     private fun initListeners() = lifecycleScope.launch {
@@ -82,5 +92,13 @@ internal class TaskDetailFragment : Fragment() {
             edittext_taskdetail_description.textChangedFlow()
                 .collect { text -> viewModel.updateDescription(text) }
         }
+    }
+
+    private fun onTaskUncompleted() {
+        edittext_taskdetail_title.setStyleEnabled()
+    }
+
+    private fun onTaskCompleted() {
+        edittext_taskdetail_title.setStyleDisabled()
     }
 }

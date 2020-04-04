@@ -109,9 +109,17 @@ fun View.createSnackbar(@StringRes messageId: Int, duration: Int = Snackbar.LENG
 /**
  * Sets the [TextView] as strikethrough and disabled style.
  */
-fun TextView.setStyleDisable() {
+fun TextView.setStyleDisabled() {
     paintFlags = this.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
     isEnabled = false
+}
+
+/**
+ * Sets the [TextView] as enabled style.
+ */
+fun TextView.setStyleEnabled() {
+    paintFlags = 0
+    isEnabled = true
 }
 
 private fun TextView.stringText() = text.toString()

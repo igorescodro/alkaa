@@ -2,7 +2,7 @@ package com.escodro.task.presentation.list.model
 
 import android.widget.CheckBox
 import com.escodro.core.databinding.BindingHolder
-import com.escodro.core.extension.setStyleDisable
+import com.escodro.core.extension.setStyleDisabled
 import com.escodro.task.databinding.ItemTaskBinding
 import com.escodro.task.model.TaskWithCategory
 
@@ -32,8 +32,8 @@ internal class TaskEntry(
             }
 
             if (data.task.completed) {
-                textviewItemtaskDescription.setStyleDisable()
-                textviewItemtaskAlarm.setStyleDisable()
+                textviewItemtaskDescription.setStyleDisabled()
+                textviewItemtaskAlarm.setStyleDisabled()
             }
         }
     }

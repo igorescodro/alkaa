@@ -45,4 +45,11 @@ internal class SearchViewModel(
         val searchList = mapper.toTaskSearch(taskList)
         return SearchUIState.Loaded(searchList)
     }
+
+    /**
+     * Called when the view is destroyed.
+     */
+    fun onDestroyView() {
+        _state.value = null
+    }
 }

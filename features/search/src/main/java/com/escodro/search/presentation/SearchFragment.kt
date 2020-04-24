@@ -48,10 +48,10 @@ internal class SearchFragment : Fragment() {
     }
 
     private fun initListeners() {
-        viewModel.state.observe(this, Observer { state ->
+        viewModel.state.observe(viewLifecycleOwner, Observer { state ->
             when (state) {
                 is SearchUIState.Loaded -> onListLoaded(state.taskList)
-                is SearchUIState.Empty -> onEmptyList()
+                SearchUIState.Empty -> onEmptyList()
             }
         })
 
@@ -70,7 +70,7 @@ internal class SearchFragment : Fragment() {
     }
 
     private fun onItemClicked(itemId: Long) {
-        Timber.d("onListLoaded - itemId = $itemId")
+        Timber.d("onItemClicked - itemId = $itemId")
         val directions = SearchFragmentDirections.actionSearchDetail(itemId)
         navigator.navigate(directions)
     }
@@ -86,5 +86,7 @@ internal class SearchFragment : Fragment() {
         super.onDestroyView()
 
         layout_search.transitionToStart()
+        viewModel.onDestroyView()
+        adapter.clear()
     }
 }

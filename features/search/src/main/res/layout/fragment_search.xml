@@ -13,7 +13,7 @@
         android:src="@drawable/ic_search" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/textview_search_query"
+        android:id="@+id/edittext_search_query"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="text" />
@@ -26,6 +26,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textview_search_query" />
+        app:layout_constraintTop_toBottomOf="@id/edittext_search_query" />
 
 </androidx.constraintlayout.motion.widget.MotionLayout>

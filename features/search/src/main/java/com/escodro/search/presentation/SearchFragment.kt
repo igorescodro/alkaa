@@ -56,7 +56,7 @@ internal class SearchFragment : Fragment() {
         })
 
         lifecycleScope.launch {
-            textview_search_query.textChangedFlow()
+            edittext_search_query.textChangedFlow()
                 .collect { query -> viewModel.findTasksByName(query) }
         }
     }

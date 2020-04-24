@@ -89,6 +89,27 @@ class CompletedTaskTest : AcceptanceTest<MainActivity>(MainActivity::class.java)
         checkThat.listNotContainsHint(R.id.recyclerview_tasklist_list, R.string.task_add_new)
     }
 
+    @Test
+    fun checkIfUpdateTaskStatusIsWorking() {
+        val taskName = "totoooooooro"
+        addTask(taskName)
+        events.clickOnViewWithText(taskName)
+        events.clickOnView(R.id.key_update_completed_status)
+        events.navigateUp()
+        checkThat.listNotContainsItem(R.id.recyclerview_tasklist_list, taskName)
+    }
+
+    @Test
+    fun checkIfRevertingTaskStatusIsWorking() {
+        val taskName = "chihiroooooo"
+        addTask(taskName)
+        events.clickOnViewWithText(taskName)
+        events.clickOnView(R.id.key_update_completed_status)
+        events.clickOnView(R.id.key_update_completed_status)
+        events.navigateUp()
+        checkThat.listContainsItem(R.id.recyclerview_tasklist_list, taskName)
+    }
+
     private fun addTask(taskName: String) {
         events.clickOnView(R.id.edittext_itemadd_description)
         events.textOnView(R.id.edittext_itemadd_description, taskName)

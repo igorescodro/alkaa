@@ -36,4 +36,20 @@ interface TaskWithCategoryDao {
             AND task_is_completed = 0"""
     )
     fun findAllTasksWithCategoryId(categoryId: Long): Flow<List<TaskWithCategory>>
+
+    /**
+     * Gets tasks based on the given name.
+     *
+     * @param query the name to query
+     *
+     * @return the list of tasks that match the given query
+     */
+    @Query(
+        """SELECT * FROM task
+            LEFT JOIN category ON task_category_id = category_id
+            WHERE task_title LIKE :query
+            ORDER BY task_is_completed
+        """
+    )
+    suspend fun findTaskByName(query: String): List<TaskWithCategory>
 }

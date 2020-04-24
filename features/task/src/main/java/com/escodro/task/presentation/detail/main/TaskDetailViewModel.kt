@@ -1,9 +1,13 @@
 package com.escodro.task.presentation.detail.main
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.escodro.domain.usecase.task.UpdateTask
+import com.escodro.domain.usecase.task.UpdateTaskStatus
 import com.escodro.task.mapper.TaskMapper
+import com.escodro.task.model.Task
 import com.escodro.task.presentation.detail.TaskDetailProvider
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -14,10 +18,14 @@ import timber.log.Timber
 internal class TaskDetailViewModel(
     private val taskProvider: TaskDetailProvider,
     private val updateTaskUseCase: UpdateTask,
+    private val updateTaskStatusUseCase: UpdateTaskStatus,
     private val taskMapper: TaskMapper
 ) : ViewModel() {
 
-    val taskData = taskProvider.taskData
+    val state: LiveData<TaskDetailUIState> =
+        Transformations.map(taskProvider.taskData) { mapToUIState(it) }
+
+    val taskData: LiveData<Task> = taskProvider.taskData
 
     /**
      * Loads the Task to be handled by the [ViewModel]s.
@@ -62,6 +70,22 @@ internal class TaskDetailViewModel(
             }
         }
     }
+
+    /**
+     * Updates the task status between completed and uncompleted.
+     */
+    fun updateTaskStatus() {
+        viewModelScope.launch {
+            taskData.value?.id?.let { id -> updateTaskStatusUseCase(id) }
+        }
+    }
+
+    private fun mapToUIState(task: Task): TaskDetailUIState =
+        if (task.completed) {
+            TaskDetailUIState.Completed
+        } else {
+            TaskDetailUIState.Uncompleted
+        }
 
     /**
      * Clears the [ViewModel] when the [androidx.fragment.app.Fragment] is not visible to user.

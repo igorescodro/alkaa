@@ -1,0 +1,24 @@
+apply from: "$rootDir/config/dependencies/feature_dependencies.gradle"
+
+dependencies {
+    implementation project(":libraries:core")
+    implementation project(":libraries:navigation")
+    implementation project(":data:domain")
+
+    testImplementation project(':libraries:test')
+
+    implementation Deps.android.constraintLayout
+    implementation Deps.android.material
+    implementation Deps.android.navigation.fragment
+    implementation Deps.android.lifecycle.viewmodel
+    implementation Deps.android.lifecycle.runtime
+    implementation Deps.koin.viewModel
+
+    implementation Deps.groupie.core
+    implementation Deps.groupie.ktx
+
+    testImplementation Deps.test.junit
+    testImplementation Deps.test.mockk
+    testImplementation Deps.coroutines.test
+    testImplementation Deps.test.arch
+}

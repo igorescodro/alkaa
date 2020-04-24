@@ -118,6 +118,7 @@ class MainActivity : AppCompatActivity() {
         menu.add(GROUP_TASKS, COMPLETED_ITEM, Menu.NONE, R.string.drawer_menu_completed_tasks)
         menu.add(GROUP_SETTINGS, CATEGORY_ITEM, Menu.NONE, R.string.drawer_menu_manage_categories)
         menu.add(GROUP_SETTINGS, TRACKER_ITEM, Menu.NONE, R.string.drawer_menu_tracker)
+        menu.add(GROUP_SETTINGS, PREFERENCE_ITEM, Menu.NONE, R.string.drawer_menu_preferences)
 
         menu.setGroupCheckable(GROUP_TASKS, true, true)
         menu.setGroupCheckable(GROUP_SETTINGS, true, true)
@@ -137,6 +138,7 @@ class MainActivity : AppCompatActivity() {
         when (drawerSelectedItem) {
             CATEGORY_ITEM -> navController.navigateSingleTop(R.id.nav_graph_category)
             TRACKER_ITEM -> openDynamicFeature()
+            PREFERENCE_ITEM -> navController.navigateSingleTop(R.id.nav_graph_preference)
             else -> navigateToCategory(item)
         }
 
@@ -199,6 +201,8 @@ class MainActivity : AppCompatActivity() {
         private const val CATEGORY_ITEM = -2
 
         private const val TRACKER_ITEM = -3
+
+        private const val PREFERENCE_ITEM = -4
 
         // Drawer Menu Groups
 

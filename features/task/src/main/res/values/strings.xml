@@ -1,5 +1,6 @@
 <resources>
-    <string name="task_menu_preferences">Preferences</string>
+    <string name="task_menu_search">Search</string>
+    <string name="task_menu_completed">Update task status</string>
     <string name="task_add_new">Add new task</string>
     <string name="task_snackbar_completed">Moved to \'Completed\'</string>
     <string name="task_snackbar_undo">Undo</string>
@@ -10,6 +11,8 @@
     <string name="task_details_description_hint">Add a description</string>
     <string name="task_details_alarm_hint">Add an alarm</string>
     <string name="task_alarm_dialog_title">Repeat alarm</string>
+    <string name="task_status_mark_completed">Task marked as completed</string>
+    <string name="task_status_mark_uncompleted">Task marked as uncompleted</string>
 
     <string-array name="task_dialog_options">
         <item>Remove</item>

@@ -3,7 +3,7 @@ apply from: "$rootDir/config/dependencies/feature_dependencies.gradle"
 dependencies {
     implementation project(":libraries:core")
 
-    implementation Deps.test.junit
+    api Deps.test.junit
 
-    implementation Deps.coroutines.test
+    api Deps.coroutines.test
 }

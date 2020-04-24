@@ -4,4 +4,5 @@
     <string name="drawer_menu_manage_categories">Gerenciar categorias</string>
     <string name="drawer_menu_completed_tasks">Finalizadas</string>
     <string name="drawer_menu_tracker">Acompanhamento de Tarefas</string>
+    <string name="drawer_menu_preferences">Preferências</string>
 </resources>

@@ -60,6 +60,7 @@ dependencies {
     implementation project(":features:alarm")
     implementation project(":features:category")
     implementation project(":features:preference")
+    implementation project(":features:search")
 
     implementation Deps.android.preference
     implementation Deps.android.constraintLayout

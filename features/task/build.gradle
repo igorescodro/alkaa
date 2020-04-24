@@ -16,6 +16,8 @@ dependencies {
     implementation project(":libraries:navigation")
     implementation project(":data:domain")
 
+    testImplementation project(":libraries:test")
+
     implementation Deps.android.constraintLayout
     implementation Deps.android.material
     implementation Deps.android.navigation.fragment
@@ -25,4 +27,7 @@ dependencies {
     implementation Deps.android.playCore
 
     implementation Deps.koin.viewModel
+
+    testImplementation Deps.test.mockk
+    testImplementation Deps.test.arch
 }

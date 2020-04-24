@@ -27,6 +27,7 @@ object Versions {
     const val koin = "2.0.0"
 
     const val mpAndroidChart = "3.1.0"
+    const val groupie = "2.7.0"
 
     const val testJunit = "4.12"
     const val testRunner = "1.1.1"
@@ -54,6 +55,7 @@ object Deps {
     val android = AndroidDeps
     val coroutines = CoroutinesDeps
     val koin = KoinDeps
+    val groupie = GroupieDeps
     val test = TestDeps
     val quality = QualityDeps
     val gradle = GradleDeps
@@ -97,6 +99,11 @@ object KoinDeps {
     val core = "org.koin:koin-android:${Versions.koin}"
     val viewModel = "org.koin:koin-androidx-viewmodel:${Versions.koin}"
     val test = "org.koin:koin-test:${Versions.koin}"
+}
+
+object GroupieDeps {
+    val core = "com.xwray:groupie:${Versions.groupie}"
+    val ktx = "com.xwray:groupie-kotlin-android-extensions:${Versions.groupie}"
 }
 
 object TestDeps {

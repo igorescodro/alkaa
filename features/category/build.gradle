@@ -21,6 +21,9 @@ dependencies {
     implementation Deps.android.lifecycle.viewmodel
     implementation Deps.koin.viewModel
 
+    implementation Deps.groupie.core
+    implementation Deps.groupie.ktx
+
     testImplementation Deps.test.junit
     androidTestImplementation Deps.test.runner
     androidTestImplementation Deps.test.espresso.core

@@ -7,12 +7,6 @@ import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item
 import kotlinx.android.synthetic.main.item_category.view.*
 
-/**
- * Representation of a category list item.
- *
- * @param category the category to be shown on list item
- * @param onOptionMenuClicked HFO to handle option menu click
- */
 internal class CategoryListItem(
     private val category: Category,
     private val onOptionMenuClicked: (view: View, category: Category) -> Unit

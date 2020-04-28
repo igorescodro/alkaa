@@ -55,7 +55,7 @@ internal class CategoryListFragment : Fragment() {
 
         recyclerview_categorylist_list?.adapter = adapter
         recyclerview_categorylist_list?.layoutManager = getLayoutManager()
-        button_categorylist_add?.setOnClickListener { navigator?.navigate(R.id.action_new_category) }
+        button_categorylist_add?.setOnClickListener { addCategory() }
     }
 
     private fun getLayoutManager() =
@@ -104,8 +104,13 @@ internal class CategoryListFragment : Fragment() {
         }?.show()
     }
 
+    private fun addCategory() {
+        val action = CategoryListFragmentDirections.actionAddCategory()
+        navigator?.navigate(action)
+    }
+
     private fun editCategory(category: Category) {
-        val action = CategoryListFragmentDirections.actionNewCategory(category.id)
+        val action = CategoryListFragmentDirections.actionEditCategory(category.id)
         navigator?.navigate(action)
     }
 

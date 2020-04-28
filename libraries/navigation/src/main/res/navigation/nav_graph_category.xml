@@ -12,8 +12,16 @@
         tools:layout="@layout/fragment_category_list">
 
         <action
-            android:id="@+id/action_new_category"
-            app:destination="@id/newCategoryFragment"
+            android:id="@+id/action_add_category"
+            app:destination="@id/addCategoryFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+        <action
+            android:id="@+id/action_edit_category"
+            app:destination="@id/editCategoryFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
@@ -22,15 +30,21 @@
     </fragment>
 
     <fragment
-        android:id="@+id/newCategoryFragment"
-        android:name="com.escodro.category.presentation.detail.CategoryDetailFragment"
+        android:id="@+id/addCategoryFragment"
+        android:name="com.escodro.category.presentation.add.CategoryAddFragment"
+        android:label=""
+        tools:layout="@layout/fragment_category_detail" />
+
+    <fragment
+        android:id="@+id/editCategoryFragment"
+        android:name="com.escodro.category.presentation.edit.CategoryEditFragment"
         android:label=""
         tools:layout="@layout/fragment_category_detail">
 
         <argument
             android:name="categoryId"
-            app:argType="long"
-            android:defaultValue="0L"/>
+            android:defaultValue="0L"
+            app:argType="long" />
 
     </fragment>
 

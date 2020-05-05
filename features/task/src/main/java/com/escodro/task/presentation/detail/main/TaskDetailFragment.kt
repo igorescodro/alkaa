@@ -7,17 +7,16 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.escodro.core.extension.hideKeyboard
+import com.escodro.core.extension.observeOnce
 import com.escodro.core.extension.setStyleDisabled
 import com.escodro.core.extension.setStyleEnabled
 import com.escodro.core.extension.showToast
 import com.escodro.core.extension.textChangedFlow
 import com.escodro.task.R
-import com.escodro.task.databinding.FragmentTaskDetailBinding
 import kotlinx.android.synthetic.main.fragment_task_detail.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -31,8 +30,6 @@ internal class TaskDetailFragment : Fragment() {
 
     private val viewModel: TaskDetailViewModel by viewModel()
 
-    private var binding: FragmentTaskDetailBinding? = null
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -41,9 +38,7 @@ internal class TaskDetailFragment : Fragment() {
         Timber.d("onCreateView()")
 
         setHasOptionsMenu(true)
-        binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_task_detail, container, false)
-        return binding?.root
+        return inflater.inflate(R.layout.fragment_task_detail, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -93,17 +88,19 @@ internal class TaskDetailFragment : Fragment() {
     private fun initComponents() {
         Timber.d("initComponents()")
 
-        binding?.lifecycleOwner = this
-        binding?.viewModel = viewModel
-
         val taskId = arguments?.let { TaskDetailFragmentArgs.fromBundle(it).taskId }
         taskId?.let { viewModel.loadTask(it) }
 
-        viewModel.state.observe(this, Observer { uiState ->
+        viewModel.state.observe(viewLifecycleOwner, Observer { uiState ->
             when (uiState) {
                 is TaskDetailUIState.Uncompleted -> onTaskUncompleted()
                 is TaskDetailUIState.Completed -> onTaskCompleted()
             }
+        })
+
+        viewModel.taskData.observeOnce(viewLifecycleOwner, Observer { task ->
+            edittext_taskdetail_title.setText(task.title)
+            edittext_taskdetail_description.setText(task.description)
         })
     }
 

@@ -1,12 +1,6 @@
 apply from: "$rootDir/config/dependencies/feature_dependencies.gradle"
 apply plugin: 'kotlin-kapt'
 
-android {
-    dataBinding {
-        enabled = true
-    }
-}
-
 dependencies {
     implementation Deps.android.recyclerView
     implementation Deps.android.material

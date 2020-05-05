@@ -20,6 +20,9 @@ import com.escodro.core.extension.withDelay
 import com.escodro.core.viewmodel.ToolbarViewModel
 import com.escodro.task.R
 import com.escodro.task.model.TaskWithCategory
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
+import com.xwray.groupie.kotlinandroidextensions.Item
 import kotlinx.android.synthetic.main.fragment_task_list.*
 import kotlinx.android.synthetic.main.item_add_task.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -33,17 +36,11 @@ class TaskListFragment : Fragment() {
 
     private val viewModel: TaskListViewModel by viewModel()
 
+    private val adapter = GroupAdapter<GroupieViewHolder>()
+
     private val sharedViewModel: ToolbarViewModel by sharedViewModel()
 
     private var navigator: NavController? = null
-
-    private val adapter = TaskListAdapter(
-        onItemClicked = ::onItemClicked,
-        onItemLongPressed = ::onItemLongPressed,
-        onItemCheckedChanged = ::onItemCheckedChanged,
-        onInsertTask = ::onInsertTask,
-        onAddClicked = ::onAddClicked
-    )
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -105,7 +102,15 @@ class TaskListFragment : Fragment() {
     private fun onTaskLoaded(list: List<TaskWithCategory>, showAddButton: Boolean) {
         Timber.d("onTaskLoaded() - Size = ${list.size}")
 
-        adapter.updateList(list, showAddButton)
+        val items = list
+            .map { TaskItem(it, ::onItemClicked, ::onItemLongPressed, ::onItemCheckedChanged) }
+            .toMutableList<Item>()
+
+        if (showAddButton) {
+            items.add(TaskAddItem(::onAddClicked, ::onInsertTask))
+        }
+
+        adapter.update(items)
 
         if (list.isEmpty() && !showAddButton) {
             recyclerview_tasklist_list?.visibility = View.INVISIBLE

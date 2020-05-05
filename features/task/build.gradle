@@ -28,6 +28,9 @@ dependencies {
 
     implementation Deps.koin.viewModel
 
+    implementation Deps.groupie.core
+    implementation Deps.groupie.ktx
+
     testImplementation Deps.test.mockk
     testImplementation Deps.test.arch
 }

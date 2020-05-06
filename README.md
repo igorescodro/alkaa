@@ -28,8 +28,7 @@ Currently, this project covers the following topics:
   - [Navigation](https://developer.android.com/topic/libraries/architecture/navigation)
   - [Room](https://developer.android.com/topic/libraries/architecture/room)
   - [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel)
-- [ListAdapter](https://developer.android.com/reference/android/support/v7/recyclerview/extensions/ListAdapter)  
-- [Data Binding](https://developer.android.com/topic/libraries/data-binding/)
+- [ListAdapter](https://developer.android.com/reference/android/support/v7/recyclerview/extensions/ListAdapter)
 - [ConstraintLayout](https://developer.android.com/training/constraint-layout/)
 - [Android KTX](https://developer.android.com/kotlin/ktx)
 - [Modularization](https://www.youtube.com/watch?v=PZBg5DIzNww)
@@ -59,7 +58,9 @@ Currently, this project covers the following topics:
 
 #### Tools covered but removed:
 - [Dagger 2](https://google.github.io/dagger/) (replaced by Koin)
-- [RxJava 2 and RxAndroid 2](https://github.com/ReactiveX/RxAndroid) (replaced by Coroutines)
+- [RxJava 2 and RxAndroid 2](https://github.com/ReactiveX/RxAndroid)
+  (replaced by Coroutines)
+- [Data Binding](https://developer.android.com/topic/libraries/data-binding/)
 - [WorkManager](https://developer.android.com/topic/libraries/architecture/workmanager)
 
 ---
@@ -67,7 +68,7 @@ Currently, this project covers the following topics:
 ---
 
 ## License
-``` 
+```
 Copyright 2018 Igor Escodro
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -81,4 +82,4 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-``` 
+```

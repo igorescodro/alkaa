@@ -34,21 +34,28 @@ internal class TaskItem(
             textview_itemtask_alarm.text = getRelativeDate(context, task.dueDate)
             checkbox_itemtask_completed.isChecked = task.completed
 
-            cardview_itemtask_background.setOnClickListener { onItemClicked(data) }
-            cardview_itemtask_background.setOnLongClickListener { onItemLongPressed(data) }
-            checkbox_itemtask_completed.setOnClickListener { view ->
-                val isChecked = (view as? CheckBox)?.isChecked ?: false
-                onItemCheckedChanged(data, isChecked)
-            }
-
-            if (data.task.completed) {
-                textview_itemtask_description.setStyleDisabled()
-                textview_itemtask_alarm.setStyleDisabled()
-            }
+            initListeners(this)
+            updateCompletedStyle(this)
         }
     }
 
     override fun getLayout(): Int = R.layout.item_task
+
+    private fun initListeners(view: View) {
+        view.cardview_itemtask_background.setOnClickListener { onItemClicked(data) }
+        view.cardview_itemtask_background.setOnLongClickListener { onItemLongPressed(data) }
+        view.checkbox_itemtask_completed.setOnClickListener { checkbox ->
+            val isChecked = (checkbox as? CheckBox)?.isChecked ?: false
+            onItemCheckedChanged(data, isChecked)
+        }
+    }
+
+    private fun updateCompletedStyle(view: View) {
+        if (data.task.completed) {
+            view.textview_itemtask_description.setStyleDisabled()
+            view.textview_itemtask_alarm.setStyleDisabled()
+        }
+    }
 
     private fun getVisibilityFromBoolean(isVisible: Boolean): Int =
         if (isVisible) {

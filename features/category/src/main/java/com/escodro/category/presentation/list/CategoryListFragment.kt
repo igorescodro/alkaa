@@ -14,6 +14,8 @@ import com.escodro.category.model.Category
 import com.escodro.core.extension.dialog
 import com.escodro.core.extension.negativeButton
 import com.escodro.core.extension.positiveButton
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import kotlinx.android.synthetic.main.fragment_category_list.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
@@ -23,7 +25,7 @@ import timber.log.Timber
  */
 internal class CategoryListFragment : Fragment() {
 
-    private val adapter = CategoryListAdapter(onOptionMenuClicked = ::onOptionMenuClicked)
+    private val adapter = GroupAdapter<GroupieViewHolder>()
 
     private val viewModel: CategoryListViewModel by viewModel()
 
@@ -53,7 +55,7 @@ internal class CategoryListFragment : Fragment() {
 
         recyclerview_categorylist_list?.adapter = adapter
         recyclerview_categorylist_list?.layoutManager = getLayoutManager()
-        button_categorylist_add?.setOnClickListener { navigator?.navigate(R.id.action_new_category) }
+        button_categorylist_add?.setOnClickListener { addCategory() }
     }
 
     private fun getLayoutManager() =
@@ -70,7 +72,8 @@ internal class CategoryListFragment : Fragment() {
             textview_categorylist_empty?.visibility = View.INVISIBLE
         }
 
-        adapter.submitList(list)
+        val items = list.map { CategoryListItem(it, ::onOptionMenuClicked) }
+        adapter.update(items)
     }
 
     private fun onOptionMenuClicked(view: View, category: Category) {
@@ -101,8 +104,13 @@ internal class CategoryListFragment : Fragment() {
         }?.show()
     }
 
+    private fun addCategory() {
+        val action = CategoryListFragmentDirections.actionAddCategory()
+        navigator?.navigate(action)
+    }
+
     private fun editCategory(category: Category) {
-        val action = CategoryListFragmentDirections.actionNewCategory(category.id)
+        val action = CategoryListFragmentDirections.actionEditCategory(category.id)
         navigator?.navigate(action)
     }
 

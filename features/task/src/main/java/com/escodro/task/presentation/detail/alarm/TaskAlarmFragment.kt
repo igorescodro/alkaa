@@ -4,15 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import com.escodro.core.extension.format
 import com.escodro.core.extension.itemDialog
 import com.escodro.core.extension.items
 import com.escodro.core.extension.showDateTimePicker
 import com.escodro.core.extension.showToast
 import com.escodro.task.R
-import com.escodro.task.databinding.FragmentTaskDetailAlarmBinding
 import com.escodro.task.model.AlarmInterval
 import java.util.Calendar
 import kotlinx.android.synthetic.main.fragment_task_detail_alarm.*
@@ -26,8 +25,6 @@ internal class TaskAlarmFragment : Fragment() {
 
     private val viewModel: TaskAlarmViewModel by viewModel()
 
-    private var binding: FragmentTaskDetailAlarmBinding? = null
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -35,17 +32,13 @@ internal class TaskAlarmFragment : Fragment() {
     ): View? {
         Timber.d("onCreateView()")
 
-        binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_task_detail_alarm, container, false)
-        return binding?.root
+        return inflater.inflate(R.layout.fragment_task_detail_alarm, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Timber.d("onViewCreated()")
 
-        binding?.lifecycleOwner = this
-        binding?.viewModel = viewModel
         initListeners()
     }
 
@@ -56,11 +49,19 @@ internal class TaskAlarmFragment : Fragment() {
         btn_taskdetail_repeating.setOnClickListener { showIntervalDialog() }
         textview_taskdetail_repeating.setOnClickListener { showIntervalDialog() }
 
-        viewModel.taskData.observe(this, Observer {
-            val alarmIndex = it.alarmInterval?.index ?: 0
+        viewModel.taskData.observe(viewLifecycleOwner, Observer { task ->
+            chip_taskdetail_date.text = task.dueDate?.format()
+            val alarmIndex = task.alarmInterval?.index ?: 0
             val intervalString = resources.getStringArray(R.array.task_alarm_repeating)[alarmIndex]
             Timber.d("Current interval = $intervalString")
             textview_taskdetail_repeating.text = intervalString
+        })
+
+        viewModel.chipVisibility.observe(viewLifecycleOwner, Observer { isVisible ->
+            chip_taskdetail_date.visibility = getVisibilityFromBoolean(isVisible)
+            textview_taskdetail_date.visibility = getVisibilityFromBoolean(isVisible.not())
+            btn_taskdetail_repeating.visibility = getVisibilityFromBoolean(isVisible)
+            textview_taskdetail_repeating.visibility = getVisibilityFromBoolean(isVisible)
         })
     }
 
@@ -85,4 +86,11 @@ internal class TaskAlarmFragment : Fragment() {
         context?.showToast(R.string.task_details_alarm_removed)
         viewModel.removeAlarm()
     }
+
+    private fun getVisibilityFromBoolean(isVisible: Boolean): Int =
+        if (isVisible) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
 }

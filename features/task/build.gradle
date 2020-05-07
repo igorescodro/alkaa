@@ -2,10 +2,6 @@ apply from: "$rootDir/config/dependencies/feature_dependencies.gradle"
 apply plugin: "androidx.navigation.safeargs"
 
 android {
-    dataBinding {
-        enabled = true
-    }
-
     androidExtensions {
         experimental = true
     }
@@ -27,6 +23,9 @@ dependencies {
     implementation Deps.android.playCore
 
     implementation Deps.koin.viewModel
+
+    implementation Deps.groupie.core
+    implementation Deps.groupie.ktx
 
     testImplementation Deps.test.mockk
     testImplementation Deps.test.arch

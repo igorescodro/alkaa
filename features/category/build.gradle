@@ -1,16 +1,12 @@
 apply from: "$rootDir/config/dependencies/feature_dependencies.gradle"
 apply plugin: "androidx.navigation.safeargs"
 
-android {
-    dataBinding {
-        enabled = true
-    }
-}
-
 dependencies {
     implementation project(":libraries:core")
     implementation project(":data:domain")
     implementation project(":libraries:navigation")
+
+    testImplementation project(':libraries:test')
 
     implementation Deps.android.constraintLayout
     implementation Deps.android.material
@@ -19,9 +15,16 @@ dependencies {
     implementation Deps.android.navigation.ui
     implementation Deps.android.cardView
     implementation Deps.android.lifecycle.viewmodel
+    implementation Deps.android.lifecycle.runtime
     implementation Deps.koin.viewModel
 
+    implementation Deps.groupie.core
+    implementation Deps.groupie.ktx
+
     testImplementation Deps.test.junit
+    testImplementation Deps.test.mockk
+    testImplementation Deps.coroutines.test
+    testImplementation Deps.test.arch
     androidTestImplementation Deps.test.runner
     androidTestImplementation Deps.test.espresso.core
 }

@@ -45,7 +45,7 @@ internal class TaskDetailViewModel(
     fun updateTitle(title: String) {
         Timber.d("updateTitle() - $title")
 
-        if (title.isEmpty()) {
+        if (title.isEmpty() || title == taskData.value?.title) {
             return
         }
 
@@ -63,6 +63,10 @@ internal class TaskDetailViewModel(
      */
     fun updateDescription(description: String) {
         Timber.d("updateDescription() - $description")
+
+        if (description == taskData.value?.description) {
+            return
+        }
 
         viewModelScope.launch {
             taskData.value?.copy(description = description)?.let { task ->

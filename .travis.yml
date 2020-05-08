@@ -1,4 +1,5 @@
 language: android
+
 android:
   components:
     - tools
@@ -7,17 +8,34 @@ android:
     - android-29
     - extra-android-m2repository
     - extra-google-m2repository
+
 jdk:
   - oraclejdk8
+
 script:
-  - ./gradlew clean build
+  - ./gradlew check connectedCheck --stacktrace
+
 before_cache:
   - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+
 cache:
   directories:
     - $HOME/.m2
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
+
 before_install:
   - yes | sdkmanager "platforms;android-29"
-  - yes | sdkmanager "platforms;android-28"
+  - yes | sdkmanager tools
+  - yes | sdkmanager "system-images;android-25;google_apis;arm64-v8a"
+  - echo no | avdmanager create avd --force -n test -k "system-images;android-25;google_apis;arm64-v8a"
+  - $ANDROID_HOME/emulator/emulator -avd test -no-audio -no-window &
+
+before_script:
+  - android-wait-for-emulator
+  - adb shell input keyevent 82 &
+
+env:
+  global:
+    - ADB_INSTALL_TIMEOUT=10
+

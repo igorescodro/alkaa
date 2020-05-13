@@ -51,6 +51,7 @@ class CategoryFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) 
         events.clickOnView(R.id.imageview_itemcategory_options)
         events.clickOnViewWithText(R.string.category_list_menu_remove)
         events.clickOnViewWithText(R.string.category_list_dialog_remove_positive)
+        events.waitFor(300)
         checkThat.listNotContainsItem(R.id.recyclerview_categorylist_list, categoryName)
         checkThat.viewIsCompletelyDisplayed(R.id.textview_categorylist_empty)
     }

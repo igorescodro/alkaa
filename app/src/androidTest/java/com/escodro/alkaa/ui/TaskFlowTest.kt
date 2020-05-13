@@ -142,7 +142,8 @@ class TaskFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
         addAndOpenTask("cancel dinner")
         scheduleTask(2020, 2, 2, 22, 15)
         events.clickOnCloseChip(R.id.chip_taskdetail_date)
-        checkThat.viewHasText(R.id.chip_taskdetail_date, "")
+        events.waitFor(300)
+        checkThat.viewIsNotDisplayed(R.id.chip_taskdetail_date)
     }
 
     @Test

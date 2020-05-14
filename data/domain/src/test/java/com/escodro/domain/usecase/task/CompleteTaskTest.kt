@@ -1,62 +1,110 @@
 package com.escodro.domain.usecase.task
 
-import com.escodro.domain.interactor.AlarmInteractor
-import com.escodro.domain.interactor.NotificationInteractor
 import com.escodro.domain.model.Task
 import com.escodro.domain.provider.CalendarProvider
-import com.escodro.domain.repository.TaskRepository
-import io.mockk.coEvery
-import io.mockk.coVerify
-import io.mockk.every
-import io.mockk.mockk
-import io.mockk.verify
-import java.util.Calendar
+import com.escodro.domain.usecase.fake.AlarmInteractorFake
+import com.escodro.domain.usecase.fake.NotificationInteractorFake
+import com.escodro.domain.usecase.fake.TaskRepositoryFake
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runBlockingTest
+import org.junit.Assert
+import org.junit.Before
 import org.junit.Test
 
-class CompleteTaskTest {
+@ExperimentalCoroutinesApi
+internal class CompleteTaskTest {
 
-    private val mockTask = mockk<Task>(relaxed = true)
+    private val taskRepository = TaskRepositoryFake()
 
-    private val mockTaskRepo = mockk<TaskRepository>(relaxed = true)
+    private val alarmInteractor = AlarmInteractorFake()
 
-    private val mockAlarmInteractor = mockk<AlarmInteractor>(relaxed = true)
+    private val notificationInteractor = NotificationInteractorFake()
 
-    private val mockNotificationInteractor = mockk<NotificationInteractor>(relaxed = true)
+    private val calendarProvider = CalendarProvider()
 
-    private val mockCalendar = mockk<CalendarProvider>(relaxed = true)
+    private val addTaskUseCase = AddTask(taskRepository)
 
-    private val completeTask =
-        CompleteTask(mockTaskRepo, mockAlarmInteractor, mockNotificationInteractor, mockCalendar)
+    private val completeTaskUseCase =
+        CompleteTask(taskRepository, alarmInteractor, notificationInteractor, calendarProvider)
 
-    @Test
-    fun `check if task was completed`() = runBlockingTest {
-        val currentTime = Calendar.getInstance()
+    private val uncompleteTaskUseCase = UncompleteTask(taskRepository)
 
-        every { mockCalendar.getCurrentCalendar() } returns currentTime
-        coEvery { mockTaskRepo.findTaskById(any()) } returns mockTask
+    private val updateTaskStatusUseCase =
+        UpdateTaskStatus(taskRepository, completeTaskUseCase, uncompleteTaskUseCase)
 
-        completeTask(mockTask.id)
+    private val getTaskUseCase = GetTask(taskRepository)
 
-        val updatedTask = mockTask.copy(completed = true, completedDate = currentTime)
-        coVerify { mockTaskRepo.updateTask(updatedTask) }
+    @Before
+    fun setup() = runBlockingTest {
+        taskRepository.cleanTable()
+        alarmInteractor.clear()
+        notificationInteractor.clear()
     }
 
     @Test
-    fun `check if alarm was canceled`() = runBlockingTest {
-        every { mockCalendar.getCurrentCalendar() } returns Calendar.getInstance()
-        coEvery { mockTaskRepo.findTaskById(any()) } returns mockTask
+    fun `test if a task is updated as completed`() = runBlockingTest {
+        val task = Task(id = 18, title = "buy soy milk", completed = false)
+        addTaskUseCase(task)
+        completeTaskUseCase(task)
 
-        completeTask(mockTask.id)
-        verify { mockAlarmInteractor.cancel(mockTask.id) }
+        val result = getTaskUseCase(task.id).first()
+        Assert.assertTrue(result.completed)
     }
 
     @Test
-    fun `check if notification was dismissed`() = runBlockingTest {
-        every { mockCalendar.getCurrentCalendar() } returns Calendar.getInstance()
-        coEvery { mockTaskRepo.findTaskById(any()) } returns mockTask
+    fun `test if a task is updated as completed by id`() = runBlockingTest {
+        val task = Task(id = 17, title = "change smartphone", completed = false)
+        addTaskUseCase(task)
+        completeTaskUseCase(task.id)
 
-        completeTask(mockTask.id)
-        verify { mockNotificationInteractor.dismiss(mockTask.id) }
+        val result = getTaskUseCase(task.id).first()
+        Assert.assertTrue(result.completed)
+    }
+
+    @Test
+    fun `test if a task is updated as uncompleted`() = runBlockingTest {
+        val task = Task(id = 18, title = "buy soy milk", completed = false)
+        addTaskUseCase(task)
+        uncompleteTaskUseCase(task)
+
+        val result = getTaskUseCase(task.id).first()
+        Assert.assertFalse(result.completed)
+    }
+
+    @Test
+    fun `test if the completed status is inverted`() = runBlockingTest {
+        val task1 = Task(id = 99, title = "watch tech talk", completed = true)
+        val task2 = Task(id = 88, title = "write paper", completed = false)
+
+        addTaskUseCase(task1)
+        addTaskUseCase(task2)
+
+        updateTaskStatusUseCase(task1.id)
+        updateTaskStatusUseCase(task2.id)
+
+        val result1 = getTaskUseCase(task1.id).first()
+        val result2 = getTaskUseCase(task2.id).first()
+
+        Assert.assertFalse(result1.completed)
+        Assert.assertTrue(result2.completed)
+    }
+
+    @Test
+    fun `test if the alarm is canceled when the task is completed`() = runBlockingTest {
+        val task = Task(id = 19, title = "sato's meeting", completed = false)
+        addTaskUseCase(task)
+        completeTaskUseCase(task)
+
+        Assert.assertFalse(alarmInteractor.isAlarmScheduled(task.id))
+    }
+
+    @Test
+    fun `test if the notification is dismissed when the task is completed`() = runBlockingTest {
+        val task = Task(id = 20, title = "scrum master dog", completed = false)
+        addTaskUseCase(task)
+        completeTaskUseCase(task)
+
+        Assert.assertFalse(notificationInteractor.isNotificationShown(task.id))
     }
 }

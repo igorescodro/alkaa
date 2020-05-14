@@ -1,33 +1,52 @@
 package com.escodro.domain.usecase.task
 
-import com.escodro.domain.interactor.AlarmInteractor
 import com.escodro.domain.model.Task
-import com.escodro.domain.repository.TaskRepository
-import io.mockk.coVerify
-import io.mockk.mockk
-import io.mockk.verify
+import com.escodro.domain.usecase.fake.AlarmInteractorFake
+import com.escodro.domain.usecase.fake.TaskRepositoryFake
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.test.runBlockingTest
+import org.junit.Assert
+import org.junit.Before
 import org.junit.Test
 
-class DeleteTaskTest {
+@ExperimentalCoroutinesApi
+internal class DeleteTaskTest {
 
-    private val mockTask = mockk<Task>(relaxed = true)
+    private val taskRepository = TaskRepositoryFake()
 
-    private val mockTaskRepo = mockk<TaskRepository>(relaxed = true)
+    private val alarmInteractor = AlarmInteractorFake()
 
-    private val mockAlarmInteractor = mockk<AlarmInteractor>(relaxed = true)
+    private val deleteTaskUseCase = DeleteTask(taskRepository, alarmInteractor)
 
-    private val deleteTask = DeleteTask(mockTaskRepo, mockAlarmInteractor)
+    private val getTaskUseCase = GetTask(taskRepository)
 
-    @Test
-    fun `check if repo function was called`() = runBlockingTest {
-        deleteTask(mockTask)
-        coVerify { mockTaskRepo.deleteTask(mockTask) }
+    private val addTaskUseCase = AddTask(taskRepository)
+
+    @Before
+    fun setup() = runBlockingTest {
+        taskRepository.cleanTable()
+        alarmInteractor.clear()
     }
 
     @Test
-    fun `check if alarm was canceled`() = runBlockingTest {
-        deleteTask(mockTask)
-        verify { mockAlarmInteractor.cancel(mockTask.id) }
+    fun `test if task is deleted`() = runBlockingTest {
+        val task = Task(id = 18, title = "coffee time")
+        addTaskUseCase(task)
+        deleteTaskUseCase(task)
+
+        val resultList = mutableListOf<Task>()
+        getTaskUseCase(task.id).collect { resultList.add(it) }
+
+        Assert.assertEquals(0, resultList.size)
+    }
+
+    @Test
+    fun `test if the alarm is canceled when the task is completed`() = runBlockingTest {
+        val task = Task(id = 19, title = "SOLID basics")
+        addTaskUseCase(task)
+        deleteTaskUseCase(task)
+
+        Assert.assertFalse(alarmInteractor.isAlarmScheduled(task.id))
     }
 }

@@ -127,6 +127,7 @@ class CategoryFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) 
         events.clickOnView(R.id.button_categorylist_add)
         events.textOnView(R.id.edittext_categorynew_description, categoryName)
         events.clickOnView(R.id.button_categorynew_add)
+        events.waitFor(1000)
         checkThat.listContainsItem(R.id.recyclerview_categorylist_list, categoryName)
     }
 

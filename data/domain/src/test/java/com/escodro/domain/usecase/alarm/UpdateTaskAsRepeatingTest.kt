@@ -2,42 +2,61 @@ package com.escodro.domain.usecase.alarm
 
 import com.escodro.domain.model.AlarmInterval
 import com.escodro.domain.model.Task
-import com.escodro.domain.repository.TaskRepository
-import io.mockk.coEvery
-import io.mockk.coVerify
-import io.mockk.mockk
+import com.escodro.domain.usecase.fake.TaskRepositoryFake
+import com.escodro.domain.usecase.task.AddTask
+import com.escodro.domain.usecase.task.GetTask
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runBlockingTest
+import org.junit.Assert
+import org.junit.Before
 import org.junit.Test
 
-class UpdateTaskAsRepeatingTest {
+@ExperimentalCoroutinesApi
+internal class UpdateTaskAsRepeatingTest {
 
-    private val mockTaskRepo = mockk<TaskRepository>(relaxed = true)
+    private val taskRepository = TaskRepositoryFake()
 
-    private val scheduleRepeating = UpdateTaskAsRepeating(mockTaskRepo)
+    private val addTaskUseCase = AddTask(taskRepository)
 
-    @Test
-    fun `check if task is updated with new alarm interval`() = runBlockingTest {
-        val interval = AlarmInterval.DAILY
-        val task = mockk<Task>(relaxed = true)
+    private val getTaskUseCase = GetTask(taskRepository)
 
-        coEvery { mockTaskRepo.findTaskById(task.id) } returns task
+    private val scheduleRepeatingUseCase = UpdateTaskAsRepeating(taskRepository)
 
-        scheduleRepeating(task.id, interval)
-
-        val assertTask = task.copy(alarmInterval = interval, isRepeating = true)
-        coVerify { mockTaskRepo.updateTask(assertTask) }
+    @Before
+    fun setup() = runBlockingTest {
+        taskRepository.cleanTable()
     }
 
     @Test
-    fun `check if repeating is cleared if alarm interval is never`() = runBlockingTest {
-        val interval = null
-        val task = mockk<Task>(relaxed = true)
+    fun `test if task is updated with new interval`() = runBlockingTest {
+        val task = Task(id = 984L, title = "I'll be there for you")
+        addTaskUseCase(task)
+        val interval = AlarmInterval.WEEKLY
 
-        coEvery { mockTaskRepo.findTaskById(task.id) } returns task
+        scheduleRepeatingUseCase(task.id, interval)
 
-        scheduleRepeating(task.id, interval)
-
-        val assertTask = task.copy(alarmInterval = null, isRepeating = false)
-        coVerify { mockTaskRepo.updateTask(assertTask) }
+        val result = getTaskUseCase(task.id).first()
+        Assert.assertEquals(interval, result.alarmInterval)
+        Assert.assertTrue(result.isRepeating)
     }
+
+    @Test
+    fun `test if repeating state is cleared when update alarm interval to never`() =
+        runBlockingTest {
+            val task = Task(
+                id = 984L,
+                title = "nanana",
+                alarmInterval = AlarmInterval.YEARLY,
+                isRepeating = true
+            )
+
+            addTaskUseCase(task)
+
+            scheduleRepeatingUseCase(task.id, null)
+
+            val result = getTaskUseCase(task.id).first()
+            Assert.assertEquals(null, result.alarmInterval)
+            Assert.assertFalse(result.isRepeating)
+        }
 }

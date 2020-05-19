@@ -17,6 +17,9 @@ internal class AlarmInteractorFake : AlarmInteractor {
     fun isAlarmScheduled(alarmId: Long): Boolean =
         alarmMap.contains(alarmId)
 
+    fun getAlarmTime(alarmId: Long): Long? =
+        alarmMap[alarmId]
+
     fun clear() {
         alarmMap.clear()
     }

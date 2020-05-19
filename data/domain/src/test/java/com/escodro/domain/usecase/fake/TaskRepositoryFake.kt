@@ -33,7 +33,7 @@ internal class TaskRepositoryFake : TaskRepository {
     }
 
     override suspend fun findAllTasksWithDueDate(): List<Task> =
-        taskMap.filter { entry -> entry.value.creationDate != null }.values.toMutableList()
+        taskMap.filter { entry -> entry.value.dueDate != null }.values.toMutableList()
 
     @Suppress("LabeledExpression")
     override fun findTaskFlowById(taskId: Long): Flow<Task> =

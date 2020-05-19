@@ -1,55 +1,47 @@
 package com.escodro.domain.usecase.alarm
 
-import com.escodro.domain.interactor.AlarmInteractor
 import com.escodro.domain.model.Task
-import com.escodro.domain.repository.TaskRepository
-import io.mockk.coEvery
-import io.mockk.coVerify
-import io.mockk.mockk
-import io.mockk.verify
+import com.escodro.domain.usecase.fake.AlarmInteractorFake
+import com.escodro.domain.usecase.fake.TaskRepositoryFake
+import com.escodro.domain.usecase.task.AddTask
+import com.escodro.domain.usecase.task.GetTask
 import java.util.Calendar
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runBlockingTest
+import org.junit.Assert
+import org.junit.Before
 import org.junit.Test
 
-class ScheduleAlarmTest {
+@ExperimentalCoroutinesApi
+internal class ScheduleAlarmTest {
 
-    private val mockInteractor = mockk<AlarmInteractor>(relaxed = true)
+    private val taskRepository = TaskRepositoryFake()
 
-    private val mockTaskRepo = mockk<TaskRepository>(relaxed = true)
+    private val alarmInteractor = AlarmInteractorFake()
 
-    private val scheduleAlarm = ScheduleAlarm(mockTaskRepo, mockInteractor)
+    private val addTaskUseCase = AddTask(taskRepository)
 
-    @Test
-    fun `check if interactor function was called`() = runBlockingTest {
-        val task = mockk<Task>(relaxed = true)
-        val time = Calendar.getInstance()
+    private val getTaskUseCase = GetTask(taskRepository)
 
-        coEvery { mockTaskRepo.findTaskById(task.id) } returns task
-        scheduleAlarm(task.id, time)
+    private val scheduleAlarmUseCase = ScheduleAlarm(taskRepository, alarmInteractor)
 
-        verify { mockInteractor.schedule(task.id, time.time.time) }
+    @Before
+    fun setup() = runBlockingTest {
+        taskRepository.cleanTable()
+        alarmInteractor.clear()
     }
 
     @Test
-    fun `check if repo function was called`() = runBlockingTest {
-        val task = mockk<Task>(relaxed = true)
-        val time = Calendar.getInstance()
+    fun `test if alarm is scheduled`() = runBlockingTest {
+        val task = Task(id = 1, title = "I need a alarm here")
+        val alarm = Calendar.getInstance()
+        addTaskUseCase(task)
 
-        coEvery { mockTaskRepo.findTaskById(task.id) } returns task
-        scheduleAlarm(task.id, time)
+        scheduleAlarmUseCase(task.id, alarm)
+        val result = getTaskUseCase(task.id).first()
+        val assertTask = task.copy(dueDate = alarm)
 
-        coVerify { mockTaskRepo.findTaskById(task.id) }
-    }
-
-    @Test
-    fun `check if task was updated with new alarm`() = runBlockingTest {
-        val task = mockk<Task>(relaxed = true)
-        val time = Calendar.getInstance()
-
-        coEvery { mockTaskRepo.findTaskById(task.id) } returns task
-        scheduleAlarm(task.id, time)
-
-        val assertTask = task.copy(dueDate = time)
-        coVerify { mockTaskRepo.updateTask(assertTask) }
+        Assert.assertEquals(assertTask, result)
     }
 }

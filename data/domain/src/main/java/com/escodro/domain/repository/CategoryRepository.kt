@@ -18,9 +18,9 @@ interface CategoryRepository {
     /**
      * Inserts a new category list.
      *
-     * @param category list of category to be added
+     * @param categoryList list of category to be added
      */
-    suspend fun insertCategory(category: List<Category>)
+    suspend fun insertCategory(categoryList: List<Category>)
 
     /**
      * Updates the given category.
@@ -47,13 +47,6 @@ interface CategoryRepository {
      * @return all inserted categories.
      */
     fun findAllCategories(): Flow<List<Category>>
-
-    /**
-     * Gets a specific category by name.
-     *
-     * @param name category name
-     */
-    suspend fun findCategoryByName(name: String): Category
 
     /**
      * Gets a specific category by id.

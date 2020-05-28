@@ -44,4 +44,7 @@ internal class TaskRepositoryFake : TaskRepository {
 
     override suspend fun findTaskById(taskId: Long): Task =
         taskMap[taskId] ?: throw IllegalArgumentException("Task does not exist")
+
+    fun findAllTasks(): List<Task> =
+        taskMap.values.toList()
 }

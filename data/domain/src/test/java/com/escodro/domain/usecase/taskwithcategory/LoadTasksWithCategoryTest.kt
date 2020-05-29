@@ -32,10 +32,8 @@ internal class LoadTasksWithCategoryTest {
         val task2 = Task(2, title = "Task 2", completed = true)
         val task3 = Task(3, title = "Task 3", completed = true)
         val task4 = Task(4, title = "Task 4", completed = false)
-        taskRepository.insertTask(task1)
-        taskRepository.insertTask(task2)
-        taskRepository.insertTask(task3)
-        taskRepository.insertTask(task4)
+        val taskList = listOf(task1, task2, task3, task4)
+        taskList.forEach { task -> taskRepository.insertTask(task) }
     }
 
     @After

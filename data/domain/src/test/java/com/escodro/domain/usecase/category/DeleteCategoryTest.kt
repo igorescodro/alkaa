@@ -1,23 +1,36 @@
 package com.escodro.domain.usecase.category
 
 import com.escodro.domain.model.Category
-import com.escodro.domain.repository.CategoryRepository
-import io.mockk.coVerify
-import io.mockk.mockk
+import com.escodro.domain.usecase.fake.CategoryRepositoryFake
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
+import org.junit.Assert
+import org.junit.Before
 import org.junit.Test
 
+@ExperimentalCoroutinesApi
 class DeleteCategoryTest {
 
-    private val mockTask = mockk<Category>(relaxed = true)
+    private val categoryRepository = CategoryRepositoryFake()
 
-    private val mockCategoryRepo = mockk<CategoryRepository>(relaxed = true)
+    private val addCategory = InsertCategory(categoryRepository)
 
-    private val deleteCategory = DeleteCategory(mockCategoryRepo)
+    private val deleteCategory = DeleteCategory(categoryRepository)
+
+    private val loadCategory = LoadCategory(categoryRepository)
+
+    @Before
+    fun setup() = runBlockingTest {
+        categoryRepository.cleanTable()
+    }
 
     @Test
-    fun `check if repo function was called`() = runBlockingTest {
-        deleteCategory(mockTask)
-        coVerify { mockCategoryRepo.deleteCategory(mockTask) }
+    fun `test if category is deleted`() = runBlockingTest {
+        val category = Category(id = 13, name = "books to read", color = "#FFAA00")
+        addCategory(category)
+        deleteCategory(category)
+
+        val result = loadCategory(category.id)
+        Assert.assertNull(result)
     }
 }

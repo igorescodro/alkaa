@@ -49,13 +49,6 @@ interface CategoryDataSource {
     fun findAllCategories(): Flow<List<Category>>
 
     /**
-     * Gets a specific category by name.
-     *
-     * @param name category name
-     */
-    suspend fun findCategoryByName(name: String): Category
-
-    /**
      * Gets a specific category by id.
      *
      * @param categoryId category id

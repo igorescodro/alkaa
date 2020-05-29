@@ -1,198 +1,208 @@
 package com.escodro.domain.usecase.alarm
 
-import com.escodro.domain.interactor.AlarmInteractor
 import com.escodro.domain.model.AlarmInterval
 import com.escodro.domain.model.Task
-import com.escodro.domain.provider.CalendarProvider
-import com.escodro.domain.repository.TaskRepository
-import io.mockk.coVerify
-import io.mockk.every
-import io.mockk.mockk
-import io.mockk.verify
+import com.escodro.domain.provider.CalendarProviderImpl
+import com.escodro.domain.usecase.fake.AlarmInteractorFake
+import com.escodro.domain.usecase.fake.TaskRepositoryFake
+import com.escodro.domain.usecase.task.AddTask
+import com.escodro.domain.usecase.task.GetTask
 import java.util.Calendar
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runBlockingTest
+import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 
-class ScheduleNextAlarmTest {
+@ExperimentalCoroutinesApi
+internal class ScheduleNextAlarmTest {
 
-    private val mockTaskRepo = mockk<TaskRepository>(relaxed = true)
+    private val taskRepository = TaskRepositoryFake()
 
-    private val mockAlarmInteractor = mockk<AlarmInteractor>(relaxed = true)
+    private val alarmInteractor = AlarmInteractorFake()
 
-    private val mockCalendar = mockk<CalendarProvider>(relaxed = true)
+    private val calendarProvider = CalendarProviderImpl()
 
-    private val scheduleNextAlarm =
-        ScheduleNextAlarm(mockTaskRepo, mockAlarmInteractor, mockCalendar)
+    private val addTaskUseCase = AddTask(taskRepository)
 
-    private val mockTask = Task(1, title = "alarm task")
+    private val getTaskUseCase = GetTask(taskRepository)
+
+    private val scheduleNextAlarmUseCase =
+        ScheduleNextAlarm(taskRepository, alarmInteractor, calendarProvider)
+
+    private val baseTask = Task(1, title = "alarm task")
 
     @Before
-    fun setup() {
-        every { mockCalendar.getCurrentCalendar() } returns Calendar.getInstance()
+    fun setup() = runBlockingTest {
+        taskRepository.cleanTable()
+        alarmInteractor.clear()
     }
 
     @Test(expected = IllegalArgumentException::class)
-    fun `check if fails if not repeating`() = runBlockingTest {
-        val task = mockTask.copy(isRepeating = false)
-        scheduleNextAlarm(task)
+    fun `test if fails if not repeating`() = runBlockingTest {
+        val task = baseTask.copy(isRepeating = false)
+        scheduleNextAlarmUseCase(task)
     }
 
     @Test(expected = IllegalArgumentException::class)
-    fun `check if fails if not repeating with valid due date`() = runBlockingTest {
-        val task = mockTask.copy(isRepeating = false, dueDate = Calendar.getInstance())
-        scheduleNextAlarm(task)
+    fun `test if fails if not repeating with valid due date`() = runBlockingTest {
+        val task = baseTask.copy(isRepeating = false, dueDate = Calendar.getInstance())
+        scheduleNextAlarmUseCase(task)
     }
 
     @Test(expected = IllegalArgumentException::class)
-    fun `check if fails if no due date`() = runBlocking {
-        val task = mockTask.copy(dueDate = null)
-        scheduleNextAlarm(task)
+    fun `test if fails if no due date`() = runBlocking {
+        val task = baseTask.copy(dueDate = null)
+        scheduleNextAlarmUseCase(task)
     }
 
     @Test(expected = IllegalArgumentException::class)
-    fun `check if fails if no due date but it is repeating`() = runBlocking {
-        val task = mockTask.copy(isRepeating = true, dueDate = null)
-        scheduleNextAlarm(task)
+    fun `test if fails if no due date but it is repeating`() = runBlocking {
+        val task = baseTask.copy(isRepeating = true, dueDate = null)
+        scheduleNextAlarmUseCase(task)
     }
 
     @Test(expected = IllegalArgumentException::class)
-    fun `check if fails if no alarm interval`() = runBlocking {
-        val task = mockTask.copy(dueDate = null, alarmInterval = null)
-        scheduleNextAlarm(task)
+    fun `test if fails if no alarm interval`() = runBlocking {
+        val task = baseTask.copy(dueDate = null, alarmInterval = null)
+        scheduleNextAlarmUseCase(task)
     }
 
     @Test
-    fun `check if alarm is updated to next hour`() = runBlockingTest {
-        val calendar = Calendar.getInstance()
-        val calendarAssert = Calendar.getInstance().apply {
+    fun `test if alarm is updated to next hour`() = runBlockingTest {
+        val calendar = calendarProvider.getCurrentCalendar()
+        val task = baseTask.copy(
+            dueDate = calendar,
+            isRepeating = true,
+            alarmInterval = AlarmInterval.HOURLY
+        )
+        addTaskUseCase(task)
+        scheduleNextAlarmUseCase(task)
+        val result = getTaskUseCase(task.id).first()
+
+        val assertCalendar = calendar.apply {
             time = calendar.time
             add(Calendar.HOUR, 1)
         }
 
-        val task = mockTask.copy(
-            isRepeating = true,
-            dueDate = calendar,
-            alarmInterval = AlarmInterval.HOURLY
-        )
-
-        val taskAssert = task.copy(dueDate = calendarAssert)
-
-        scheduleNextAlarm(task)
-        coVerify { mockTaskRepo.updateTask(taskAssert) }
+        Assert.assertEquals(assertCalendar, result.dueDate)
     }
 
     @Test
-    fun `check if alarm is updated to next day`() = runBlockingTest {
-        val calendar = Calendar.getInstance()
-        val calendarAssert = Calendar.getInstance().apply {
+    fun `test if alarm is updated to next day`() = runBlockingTest {
+        val calendar = calendarProvider.getCurrentCalendar()
+        val task = baseTask.copy(
+            dueDate = calendar,
+            isRepeating = true,
+            alarmInterval = AlarmInterval.DAILY
+        )
+        addTaskUseCase(task)
+        scheduleNextAlarmUseCase(task)
+        val result = getTaskUseCase(task.id).first()
+
+        val assertCalendar = calendar.apply {
             time = calendar.time
             add(Calendar.DAY_OF_MONTH, 1)
         }
 
-        val task = mockTask.copy(
-            isRepeating = true,
-            dueDate = calendar,
-            alarmInterval = AlarmInterval.DAILY
-        )
-
-        val taskAssert = task.copy(dueDate = calendarAssert)
-
-        scheduleNextAlarm(task)
-        coVerify { mockTaskRepo.updateTask(taskAssert) }
+        Assert.assertEquals(assertCalendar, result.dueDate)
     }
 
     @Test
-    fun `check if alarm is updated to next week`() = runBlockingTest {
-        val calendar = Calendar.getInstance()
-        val calendarAssert = Calendar.getInstance().apply {
-            time = calendar.time
-            add(Calendar.WEEK_OF_MONTH, 1)
-        }
-
-        val task = mockTask.copy(
-            isRepeating = true,
+    fun `test if alarm is updated to next week`() = runBlockingTest {
+        val calendar = calendarProvider.getCurrentCalendar()
+        val task = baseTask.copy(
             dueDate = calendar,
+            isRepeating = true,
             alarmInterval = AlarmInterval.WEEKLY
         )
+        addTaskUseCase(task)
+        scheduleNextAlarmUseCase(task)
+        val result = getTaskUseCase(task.id).first()
 
-        val taskAssert = task.copy(dueDate = calendarAssert)
+        val assertCalendar = calendar.apply {
+            time = calendar.time
+            add(Calendar.DAY_OF_MONTH, 1)
+        }
 
-        scheduleNextAlarm(task)
-        coVerify { mockTaskRepo.updateTask(taskAssert) }
+        Assert.assertEquals(assertCalendar, result.dueDate)
     }
 
     @Test
-    fun `check if alarm is updated to next month`() = runBlockingTest {
-        val calendar = Calendar.getInstance()
-        val calendarAssert = Calendar.getInstance().apply {
+    fun `test if alarm is updated to next month`() = runBlockingTest {
+        val calendar = calendarProvider.getCurrentCalendar()
+        val task = baseTask.copy(
+            dueDate = calendar,
+            isRepeating = true,
+            alarmInterval = AlarmInterval.MONTHLY
+        )
+        addTaskUseCase(task)
+        scheduleNextAlarmUseCase(task)
+        val result = getTaskUseCase(task.id).first()
+
+        val assertCalendar = calendar.apply {
             time = calendar.time
             add(Calendar.MONTH, 1)
         }
 
-        val task = mockTask.copy(
-            isRepeating = true,
-            dueDate = calendar,
-            alarmInterval = AlarmInterval.MONTHLY
-        )
-
-        val taskAssert = task.copy(dueDate = calendarAssert)
-
-        scheduleNextAlarm(task)
-        coVerify { mockTaskRepo.updateTask(taskAssert) }
+        Assert.assertEquals(assertCalendar, result.dueDate)
     }
 
     @Test
-    fun `check if alarm is updated to next year`() = runBlockingTest {
-        val calendar = Calendar.getInstance()
-        val calendarAssert = Calendar.getInstance().apply {
+    fun `test if alarm is updated to next year`() = runBlockingTest {
+        val calendar = calendarProvider.getCurrentCalendar()
+        val task = baseTask.copy(
+            dueDate = calendar,
+            isRepeating = true,
+            alarmInterval = AlarmInterval.YEARLY
+        )
+        addTaskUseCase(task)
+        scheduleNextAlarmUseCase(task)
+        val result = getTaskUseCase(task.id).first()
+
+        val assertCalendar = calendar.apply {
             time = calendar.time
             add(Calendar.YEAR, 1)
         }
 
-        val task = mockTask.copy(
-            isRepeating = true,
-            dueDate = calendar,
-            alarmInterval = AlarmInterval.YEARLY
-        )
-
-        val taskAssert = task.copy(dueDate = calendarAssert)
-
-        scheduleNextAlarm(task)
-        coVerify { mockTaskRepo.updateTask(taskAssert) }
+        Assert.assertEquals(assertCalendar, result.dueDate)
     }
 
     @Test
-    fun `check if new alarm is scheduled`() = runBlockingTest {
-        val task = mockTask.copy(
+    fun `test if new alarm is scheduled`() = runBlockingTest {
+        val task = baseTask.copy(
             isRepeating = true,
             dueDate = Calendar.getInstance(),
             alarmInterval = AlarmInterval.DAILY
         )
 
-        scheduleNextAlarm(task)
-        verify { mockAlarmInteractor.schedule(task.id, any()) }
+        addTaskUseCase(task)
+        scheduleNextAlarmUseCase(task)
+
+        Assert.assertTrue(alarmInteractor.isAlarmScheduled(task.id))
     }
 
     @Test
-    fun `check if missed repeating alarm is set on future`() = runBlockingTest {
+    fun `test if missed repeating alarm is set on future`() = runBlockingTest {
         val pastCalendar = Calendar.getInstance().apply { add(Calendar.HOUR, -5) }
-        val task = Task(
-            id = 1,
-            title = "lost",
+        val task = baseTask.copy(
             dueDate = pastCalendar,
             completed = true,
             isRepeating = true,
             alarmInterval = AlarmInterval.HOURLY
         )
 
-        val calendarAssert = Calendar.getInstance().apply {
+        addTaskUseCase(task)
+        scheduleNextAlarmUseCase(task)
+        val result = getTaskUseCase(task.id).first()
+
+        val assertCalendar = pastCalendar.apply {
             time = pastCalendar.time
             add(Calendar.HOUR, 5)
         }
 
-        scheduleNextAlarm(task)
-        verify { mockAlarmInteractor.schedule(task.id, calendarAssert.time.time) }
+        Assert.assertEquals(assertCalendar, result.dueDate)
     }
 }

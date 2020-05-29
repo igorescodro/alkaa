@@ -35,9 +35,6 @@ internal class CategoryLocalDataSource(
     override fun findAllCategories(): Flow<List<Category>> =
         categoryDao.findAllCategories().map { categoryMapper.toRepo(it) }
 
-    override suspend fun findCategoryByName(name: String): Category =
-        categoryMapper.toRepo(categoryDao.findCategoryByName(name))
-
     override suspend fun findCategoryById(categoryId: Long): Category? =
         categoryDao.findCategoryById(categoryId)?.let { categoryMapper.toRepo(it) }
 }

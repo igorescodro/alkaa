@@ -15,8 +15,8 @@ internal class CategoryRepositoryImpl(
     override suspend fun insertCategory(category: Category) =
         categoryDataSource.insertCategory(categoryMapper.toRepo(category))
 
-    override suspend fun insertCategory(category: List<Category>) =
-        categoryDataSource.insertCategory(categoryMapper.toRepo(category))
+    override suspend fun insertCategory(categoryList: List<Category>) =
+        categoryDataSource.insertCategory(categoryMapper.toRepo(categoryList))
 
     override suspend fun updateCategory(category: Category) =
         categoryDataSource.updateCategory(categoryMapper.toRepo(category))
@@ -29,9 +29,6 @@ internal class CategoryRepositoryImpl(
 
     override fun findAllCategories(): Flow<List<Category>> =
         categoryDataSource.findAllCategories().map { categoryMapper.toDomain(it) }
-
-    override suspend fun findCategoryByName(name: String): Category =
-        categoryMapper.toDomain(categoryDataSource.findCategoryByName(name))
 
     override suspend fun findCategoryById(categoryId: Long): Category? =
         categoryDataSource.findCategoryById(categoryId)?.let { categoryMapper.toDomain(it) }

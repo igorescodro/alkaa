@@ -1,59 +1,61 @@
 package com.escodro.domain.usecase.alarm
 
-import com.escodro.domain.interactor.AlarmInteractor
-import com.escodro.domain.interactor.NotificationInteractor
 import com.escodro.domain.model.Task
-import com.escodro.domain.provider.CalendarProvider
-import io.mockk.every
-import io.mockk.mockk
-import io.mockk.verify
+import com.escodro.domain.usecase.fake.AlarmInteractorFake
+import com.escodro.domain.usecase.fake.CalendarProviderFake
+import com.escodro.domain.usecase.fake.NotificationInteractorFake
 import java.util.Calendar
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runBlockingTest
+import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 
-class SnoozeAlarmTest {
+@ExperimentalCoroutinesApi
+internal class SnoozeAlarmTest {
 
-    private val mockTask = mockk<Task>(relaxed = true)
+    private val calendarProvider = CalendarProviderFake()
 
-    private val calendarProvider = mockk<CalendarProvider>(relaxed = true)
+    private val notificationInteractor = NotificationInteractorFake()
 
-    private val mockNotificationInteractor = mockk<NotificationInteractor>(relaxed = true)
+    private val alarmInteractor = AlarmInteractorFake()
 
-    private val mockAlarmInteractor = mockk<AlarmInteractor>(relaxed = true)
+    private val snoozeAlarmUseCase =
+        SnoozeAlarm(calendarProvider, notificationInteractor, alarmInteractor)
 
-    private val snoozeTask =
-        SnoozeAlarm(calendarProvider, mockNotificationInteractor, mockAlarmInteractor)
+    private val baseTask = Task(id = 2345L, title = "it's time")
 
     @Before
-    fun setup() {
-        every { calendarProvider.getCurrentCalendar() } returns Calendar.getInstance()
+    fun setup() = runBlockingTest {
+        alarmInteractor.clear()
+        notificationInteractor.clear()
     }
 
     @Test
-    fun `check if task was snooze with positive number`() {
+    fun `test if task is snoozed`() = runBlockingTest {
         val snoozeTime = 15
+
+        snoozeAlarmUseCase(baseTask.id, snoozeTime)
 
         val calendarAssert = Calendar.getInstance().apply {
             time = calendarProvider.getCurrentCalendar().time
             add(Calendar.MINUTE, snoozeTime)
         }
-
-        snoozeTask(mockTask.id, snoozeTime)
-
-        verify { mockAlarmInteractor.schedule(mockTask.id, calendarAssert.time.time) }
+        val result = alarmInteractor.getAlarmTime(baseTask.id)
+        Assert.assertEquals(calendarAssert.time.time, result)
     }
 
     @Test(expected = IllegalArgumentException::class)
-    fun `check if task was not snooze with negative number`() {
-        val snoozeTime = -15
-
-        snoozeTask(mockTask.id, snoozeTime)
-        verify(exactly = 0) { mockAlarmInteractor.schedule(any(), any()) }
+    fun `test if error is shown when snoozing with negative number`() = runBlockingTest {
+        snoozeAlarmUseCase(baseTask.id, -15)
     }
 
     @Test
-    fun `check if notification is dismissed`() {
-        snoozeTask(mockTask.id)
-        verify { mockNotificationInteractor.dismiss(mockTask.id) }
+    fun `test if notification is dismissed`() {
+        notificationInteractor.show(baseTask)
+
+        snoozeAlarmUseCase(baseTask.id, 15)
+
+        notificationInteractor.isNotificationShown(baseTask.id)
     }
 }

@@ -172,6 +172,7 @@ class TaskFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
         uiDevice.findObject(UiSelector().descriptionContains(context.getString(R.string.app_name)))
             .click()
 
+        events.waitFor(300)
         addTask("It must reflect on UI")
     }
 
@@ -259,7 +260,7 @@ class TaskFlowTest : AcceptanceTest<MainActivity>(MainActivity::class.java) {
         events.clickOnView(R.id.edittext_itemadd_description)
         events.textOnView(R.id.edittext_itemadd_description, taskName)
         events.pressImeActionButton(R.id.edittext_itemadd_description)
-        events.waitFor(1000)
+        events.waitFor(3000)
         checkThat.listContainsItem(R.id.recyclerview_tasklist_list, taskName)
     }
 

@@ -10,6 +10,7 @@ import com.escodro.task.model.TaskWithCategory
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item
 import java.util.Calendar
+import java.util.Objects
 import kotlinx.android.synthetic.main.item_task.view.*
 
 /**
@@ -63,6 +64,15 @@ internal class TaskItem(
         } else {
             View.GONE
         }
+
+    override fun getId(): Long = data.task.id
+
+    override fun equals(other: Any?): Boolean {
+        val otherItem = other as? TaskItem ?: return super.equals(other)
+        return otherItem.data == data
+    }
+
+    override fun hashCode(): Int = Objects.hashCode(data)
 
     private fun getRelativeDate(context: Context, calendar: Calendar?): String =
         context.formatRelativeDate(calendar?.timeInMillis)

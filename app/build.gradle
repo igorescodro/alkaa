@@ -34,6 +34,20 @@ android {
         experimental = true
     }
 
+    kotlinOptions {
+        jvmTarget = '1.8'
+        useIR = true
+    }
+
+    buildFeatures {
+        compose true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion "1.0.0-alpha02"
+        kotlinCompilerVersion "1.4.0"
+    }
+
     kapt {
         javacOptions {
             option("-Xmaxerrs", 1000)
@@ -42,6 +56,15 @@ android {
     }
 
     dynamicFeatures = [":features:tracker"]
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    packagingOptions {
+        exclude 'META-INF/AL2.0'
+        exclude 'META-INF/LGPL2.1'
+    }
 
 }
 
@@ -66,6 +89,10 @@ dependencies {
     implementation Deps.android.navigation.ui
     implementation Deps.android.lifecycle.viewmodel
     implementation Deps.android.playCore
+
+    implementation Deps.compose.ui
+    implementation Deps.compose.material
+    implementation Deps.compose.tooling
 
     implementation Deps.timber
 

@@ -1,0 +1,16 @@
+android {
+    buildFeatures {
+        compose true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion Versions.compose
+        kotlinCompilerVersion Versions.kotlin
+    }
+}
+
+dependencies {
+    implementation Deps.compose.ui
+    implementation Deps.compose.material
+    implementation Deps.compose.tooling
+}

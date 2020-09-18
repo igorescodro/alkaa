@@ -19,9 +19,6 @@ import androidx.compose.ui.unit.dp
 import androidx.ui.tooling.preview.Preview
 import com.escodro.alkaa.model.HomeSection
 import com.escodro.theme.AlkaaTheme
-import com.escodro.theme.blue700
-import com.escodro.theme.gray500
-import com.escodro.theme.typography
 
 @Composable
 fun Home() {
@@ -46,7 +43,7 @@ private fun AlkaaTopBar(currentSection: HomeSection) {
         Stack(modifier = Modifier.fillMaxSize()) {
             Text(
                 modifier = Modifier.gravity(Alignment.Center),
-                style = typography.h5,
+                style = MaterialTheme.typography.h5,
                 text = stringResource(currentSection.title)
             )
         }
@@ -62,7 +59,13 @@ private fun AlkaaBottomNav(
     BottomAppBar(backgroundColor = MaterialTheme.colors.background) {
         items.forEach { section ->
             val selected = section == currentSection
-            val tint = animate(if (selected) blue700 else gray500)
+            val tint = animate(
+                if (selected) {
+                    MaterialTheme.colors.primary
+                } else {
+                    MaterialTheme.colors.onSecondary
+                }
+            )
 
             IconButton(onClick = { onSectionSelected(section) }, modifier = Modifier.weight(1f)) {
                 Icon(section.icon, tint = tint)

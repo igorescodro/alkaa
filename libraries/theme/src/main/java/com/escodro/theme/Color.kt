@@ -2,8 +2,9 @@ package com.escodro.theme
 
 import androidx.compose.ui.graphics.Color
 
-val purple200 = Color(0xFFBB86FC)
-val purple500 = Color(0xFF6200EE)
-val purple700 = Color(0xFF3700B3)
 val blue700 = Color(0xFF1976D2)
-val gray500 = Color(0xFF9E9E9E)
+val blue900 = Color(0xFF0D47A1)
+
+val blueGray400 = Color(0xFF78909C)
+
+val pink300 = Color(0xFFF06292)

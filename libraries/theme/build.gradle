@@ -1,0 +1,7 @@
+apply from: "$rootDir/config/dependencies/feature_dependencies.gradle"
+
+dependencies{
+    api Deps.compose.ui
+    api Deps.compose.material
+    api Deps.compose.tooling
+}

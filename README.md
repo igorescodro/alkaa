@@ -5,6 +5,17 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/igorescodro/alkaa/badge/master)](https://www.codefactor.io/repository/github/igorescodro/alkaa/overview/master)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/d88ab7250f1a4e9fb0a96dec11a0c2cd)](https://www.codacy.com/manual/igorescodro/alkaa?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=igorescodro/alkaa&amp;utm_campaign=Badge_Grade)
 
+----
+
+# :construction_worker: Alkaa 2.0 is under development! 
+The current version of Alkaa is now under maintenance mode and only critical bugs will be merged and released in Google Play. Then is unlikely that you will see a lot of changes here.
+
+Alkaa 2.0 will have a new UI developed using [Jetpack Compose](https://developer.android.com/jetpack/compose) and will have some new cool features. Stay tuned!
+
+Do you want to take a peek in the new code? Follow the [Alkaa 2.0](https://github.com/igorescodro/alkaa/tree/alkaa-2.0) branch.
+
+----
+
 # Alkaa
 
 Alkaa (_begin_, _start_ in Finnish) is a simple to-do list project to study the latest components, architecture, tools, and APIs released in Android Platform. The project evolved a lot in the last year and now is available on Google Play! :heart:

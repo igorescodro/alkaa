@@ -18,10 +18,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.ui.tooling.preview.Preview
 import com.escodro.alkaa.model.HomeSection
-import com.escodro.alkaa.presentation.theme.AlkaaTheme
-import com.escodro.alkaa.presentation.theme.blue700
-import com.escodro.alkaa.presentation.theme.gray500
-import com.escodro.alkaa.presentation.theme.typography
+import com.escodro.theme.AlkaaTheme
+import com.escodro.theme.blue700
+import com.escodro.theme.gray500
+import com.escodro.theme.typography
 
 @Composable
 fun Home() {

@@ -1,4 +1,4 @@
-package com.escodro.alkaa.presentation.theme
+package com.escodro.theme
 
 import androidx.compose.ui.graphics.Color
 

@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.ui.platform.setContent
 import com.escodro.alkaa.presentation.home.Home
-import com.escodro.alkaa.presentation.theme.AlkaaTheme
+import com.escodro.theme.AlkaaTheme
 
 /**
  * Main Alkaa Activity.

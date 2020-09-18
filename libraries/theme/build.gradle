@@ -1,6 +1,25 @@
 apply from: "$rootDir/config/dependencies/feature_dependencies.gradle"
 
-dependencies{
+android {
+    buildFeatures {
+        compose true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion Versions.compose
+        kotlinCompilerVersion Versions.kotlin
+    }
+
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+        kotlinOptions {
+            jvmTarget = "1.8"
+            freeCompilerArgs += ["-Xallow-jvm-ir-dependencies", "-Xskip-prerelease-check"]
+        }
+    }
+
+}
+
+dependencies {
     api Deps.compose.ui
     api Deps.compose.material
     api Deps.compose.tooling

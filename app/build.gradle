@@ -72,6 +72,7 @@ dependencies {
     implementation project(":libraries:core")
     implementation project(":libraries:navigation")
     implementation project(":libraries:splitInstall")
+    implementation project(":libraries:theme")
     implementation project(":data:local")
     implementation project(":data:repository")
     implementation project(":data:domain")
@@ -89,10 +90,6 @@ dependencies {
     implementation Deps.android.navigation.ui
     implementation Deps.android.lifecycle.viewmodel
     implementation Deps.android.playCore
-
-    implementation Deps.compose.ui
-    implementation Deps.compose.material
-    implementation Deps.compose.tooling
 
     implementation Deps.timber
 

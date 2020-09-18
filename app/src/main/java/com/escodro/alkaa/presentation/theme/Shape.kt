@@ -1,4 +1,4 @@
-package com.escodro.alkaa.presentation.ui
+package com.escodro.alkaa.presentation.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes

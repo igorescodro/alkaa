@@ -113,6 +113,7 @@ object ComposeDeps {
     val ui = "androidx.compose.ui:ui:${Versions.compose}"
     val material = "androidx.compose.material:material:${Versions.compose}"
     val tooling = "androidx.ui:ui-tooling:${Versions.compose}"
+    val uiTest = "androidx.ui:ui-test:${Versions.compose}"
 }
 
 object TestDeps {

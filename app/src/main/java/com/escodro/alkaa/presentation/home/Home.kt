@@ -3,6 +3,7 @@ package com.escodro.alkaa.presentation.home
 import androidx.compose.animation.animate
 import androidx.compose.foundation.Icon
 import androidx.compose.foundation.Text
+import androidx.compose.foundation.layout.RowScope.weight
 import androidx.compose.foundation.layout.Stack
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.BottomAppBar
@@ -14,7 +15,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.savedinstancestate.savedInstanceState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.accessibilityLabel
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.ui.tooling.preview.Preview
 import com.escodro.alkaa.model.HomeSection
@@ -66,11 +70,25 @@ private fun AlkaaBottomNav(
                     MaterialTheme.colors.onSecondary
                 }
             )
-
-            IconButton(onClick = { onSectionSelected(section) }, modifier = Modifier.weight(1f)) {
-                Icon(section.icon, tint = tint)
-            }
+            AlkaaBottomIcon(section = section, tint = tint, onSectionSelected = onSectionSelected)
         }
+    }
+}
+
+@Composable
+private fun AlkaaBottomIcon(
+    section: HomeSection,
+    tint: Color,
+    onSectionSelected: (HomeSection) -> Unit
+) {
+    val title = stringResource(section.title)
+    IconButton(
+        onClick = { onSectionSelected(section) },
+        modifier = Modifier
+            .weight(1f)
+            .semantics { accessibilityLabel = title }
+    ) {
+        Icon(section.icon, tint = tint)
     }
 }
 

@@ -47,7 +47,7 @@ class TrackerFragment : Fragment() {
         Timber.d("onViewCreated()")
 
         trackerViewModel.loadData()
-        trackerViewModel.viewState.observe(this, Observer(::renderViewState))
+        trackerViewModel.viewState.observe(viewLifecycleOwner, Observer(::renderViewState))
     }
 
     private fun renderViewState(state: TrackerUIState) {

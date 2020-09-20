@@ -12,12 +12,12 @@ import androidx.appcompat.widget.AppCompatImageView
  */
 internal class ShapeView : AppCompatImageView {
 
-    constructor(context: Context?) : super(context)
+    constructor(context: Context) : super(context)
 
-    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
+    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
 
-    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) :
-            super(context, attrs, defStyleAttr)
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
+        super(context, attrs, defStyleAttr)
 
     /**
      * Sets the shape color.
@@ -27,6 +27,6 @@ internal class ShapeView : AppCompatImageView {
     fun setShapeColor(hexCode: String) {
         val drawable = drawable.mutate()
         drawable.colorFilter =
-                PorterDuffColorFilter(Color.parseColor(hexCode), PorterDuff.Mode.MULTIPLY)
+            PorterDuffColorFilter(Color.parseColor(hexCode), PorterDuff.Mode.MULTIPLY)
     }
 }

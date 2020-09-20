@@ -41,8 +41,8 @@ internal class TrackerViewModel(
 
         _viewState.value = if (trackerInfo.categoryList.isEmpty()) {
             TrackerUIState.EmptyChartState
-        } else TrackerUIState.ShowDataState(
-            trackerInfo
-        )
+        } else {
+            TrackerUIState.ShowDataState(trackerInfo)
+        }
     }
 }

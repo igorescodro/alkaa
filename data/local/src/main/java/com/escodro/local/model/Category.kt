@@ -6,6 +6,10 @@ import androidx.room.PrimaryKey
 
 /**
  * [Entity] to represent a category.
+ *
+ * @param id category id
+ * @param name category name
+ * @param color category color
  */
 @Entity
 data class Category(

@@ -8,7 +8,18 @@ import androidx.room.PrimaryKey
 import java.util.Calendar
 
 /**
- * [Entity] to represent a task.
+ * Entity to represent a task.
+ *
+ * @param id unique task id
+ * @param completed indicates if the task is completed
+ * @param title the task title
+ * @param description the task description
+ * @param categoryId the associated category id
+ * @param dueDate the due date to the task be notified
+ * @param creationDate the date of creation of the task
+ * @param completedDate the date of completion of the task
+ * @param isRepeating indicates if the task is repeating
+ * @param alarmInterval the interval between the repeating
  */
 @Entity(
     foreignKeys = [ForeignKey(
@@ -18,7 +29,6 @@ import java.util.Calendar
         onDelete = ForeignKey.CASCADE
     )],
     indices = [Index(value = ["task_category_id"])]
-
 )
 data class Task(
     @ColumnInfo(name = "task_id") @PrimaryKey(autoGenerate = true) var id: Long = 0,

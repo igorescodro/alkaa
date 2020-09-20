@@ -36,6 +36,7 @@ class DatabaseProvider(private val context: Context) {
             .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
             .build()
 
+    @Suppress("GlobalCoroutineUsage")
     private fun onCreateDatabase() =
         object : RoomDatabase.Callback() {
             override fun onCreate(db: SupportSQLiteDatabase) {

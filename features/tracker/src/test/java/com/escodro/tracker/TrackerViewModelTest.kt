@@ -39,7 +39,7 @@ class TrackerViewModelTest {
 
     @Test
     fun `check if empty state was called`() {
-        every { mockUseCase.invoke() } returns flow { emit(listOf()) }
+        every { mockUseCase.invoke() } returns flow { emit(listOf<TaskWithCategory>()) }
         viewModel.loadData()
 
         assert(viewModel.viewState.value is TrackerUIState.EmptyChartState)

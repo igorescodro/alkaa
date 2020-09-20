@@ -26,7 +26,7 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Buy organic milk?" />
 
-        <fragment
+        <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragment_taskdetail_category"
             android:name="com.escodro.task.presentation.detail.category.TaskCategoryFragment"
             android:layout_width="0dp"
@@ -62,7 +62,7 @@
             app:layout_constraintStart_toEndOf="@id/imageview_taskdetail_description"
             app:layout_constraintTop_toTopOf="@id/imageview_taskdetail_description" />
 
-        <fragment
+        <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragment_taskdetail_alarm"
             android:name="com.escodro.task.presentation.detail.alarm.TaskAlarmFragment"
             android:layout_width="0dp"

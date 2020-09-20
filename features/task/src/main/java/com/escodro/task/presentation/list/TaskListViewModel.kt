@@ -22,6 +22,7 @@ import timber.log.Timber
 /**
  * [ViewModel] responsible to provide information to [TaskListFragment].
  */
+@Suppress("LongParameterList")
 internal class TaskListViewModel(
     private val loadAllTasksUseCase: LoadUncompletedTasks,
     private val loadAllCompletedTasksUseCase: LoadCompletedTasks,

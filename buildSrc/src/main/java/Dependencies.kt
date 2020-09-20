@@ -8,7 +8,7 @@ object Versions {
     const val targetSdk = 29
     const val minSdk = 23
 
-    const val kotlin = "1.3.61"
+    const val kotlin = "1.4.0"
     const val material = "1.1.0-beta02"
     const val recyclerView = "1.0.0"
     const val preference = "1.0.0"
@@ -17,7 +17,7 @@ object Versions {
     const val ktx = "1.0.2"
     const val lifecycle = "2.2.0"
     const val room = "2.2.3"
-    const val navigation = "2.1.0"
+    const val navigation = "2.3.0"
     const val playCore = "1.6.1"
 
     const val coroutines = "1.3.3"
@@ -44,7 +44,7 @@ object Versions {
 
     const val buildGradle = "3.6.0"
 
-    const val detekt = "1.2.2"
+    const val detekt = "1.13.1"
     const val ktlint = "0.36.0"
 }
 

@@ -13,4 +13,5 @@ dependencies {
     implementation Deps.compose.ui
     implementation Deps.compose.material
     implementation Deps.compose.tooling
+    androidTestImplementation Deps.compose.uiTest
 }

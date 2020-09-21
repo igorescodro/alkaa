@@ -12,11 +12,11 @@ import com.escodro.core.extension.getLongFromColumn
 import com.escodro.core.extension.getStringFromColumn
 import com.escodro.local.migration.MIGRATION_1_2
 import com.escodro.local.migration.MIGRATION_2_3
-import java.io.IOException
 import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.io.IOException
 
 @RunWith(AndroidJUnit4ClassRunner::class)
 class MigrationTest {

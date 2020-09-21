@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -48,12 +47,15 @@ internal class SearchFragment : Fragment() {
     }
 
     private fun initListeners() {
-        viewModel.state.observe(viewLifecycleOwner, Observer { state ->
-            when (state) {
-                is SearchUIState.Loaded -> onListLoaded(state.taskList)
-                SearchUIState.Empty -> onEmptyList()
+        viewModel.state.observe(
+            viewLifecycleOwner,
+            { state ->
+                when (state) {
+                    is SearchUIState.Loaded -> onListLoaded(state.taskList)
+                    SearchUIState.Empty -> onEmptyList()
+                }
             }
-        })
+        )
 
         lifecycleScope.launch {
             edittext_search_query.textChangedFlow()

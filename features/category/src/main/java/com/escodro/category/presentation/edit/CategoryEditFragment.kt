@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment
 import com.escodro.category.R
 import com.escodro.category.model.Category
@@ -60,14 +59,17 @@ internal class CategoryEditFragment : Fragment() {
     private fun initListeners() {
         button_categorynew_add.setOnClickListener { saveCategory() }
 
-        viewModel.uiState.observe(viewLifecycleOwner, Observer { viewState ->
-            when (viewState) {
-                CategoryEditUIState.Saved -> onCategorySaved()
-                CategoryEditUIState.EmptyName -> onEmptyField()
-                is CategoryEditUIState.Loaded -> onCategoryLoaded(viewState.category)
-                CategoryEditUIState.Error -> onError()
+        viewModel.uiState.observe(
+            viewLifecycleOwner,
+            { viewState ->
+                when (viewState) {
+                    CategoryEditUIState.Saved -> onCategorySaved()
+                    CategoryEditUIState.EmptyName -> onEmptyField()
+                    is CategoryEditUIState.Loaded -> onCategoryLoaded(viewState.category)
+                    CategoryEditUIState.Error -> onError()
+                }
             }
-        })
+        )
 
         radiogroup_categorynew_label.setOnCheckedChangeListener { _, _ -> animateColorTransition() }
     }

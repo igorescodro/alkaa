@@ -26,6 +26,7 @@ internal class TaskReceiver : BroadcastReceiver(), KoinComponent {
 
     private val rescheduleUseCase: RescheduleFutureAlarms by inject()
 
+    @Suppress("GlobalCoroutineUsage")
     override fun onReceive(context: Context?, intent: Intent?) {
         Timber.d("onReceive() - intent ${intent?.action}")
 

@@ -4,12 +4,12 @@ import com.escodro.domain.model.Task
 import com.escodro.domain.usecase.fake.AlarmInteractorFake
 import com.escodro.domain.usecase.fake.CalendarProviderFake
 import com.escodro.domain.usecase.fake.NotificationInteractorFake
-import java.util.Calendar
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
+import java.util.Calendar
 
 @ExperimentalCoroutinesApi
 internal class SnoozeAlarmTest {

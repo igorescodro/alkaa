@@ -9,9 +9,9 @@ import com.escodro.task.R
 import com.escodro.task.model.TaskWithCategory
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item
+import kotlinx.android.synthetic.main.item_task.view.*
 import java.util.Calendar
 import java.util.Objects
-import kotlinx.android.synthetic.main.item_task.view.*
 
 /**
  * Entry representing an item with task information.

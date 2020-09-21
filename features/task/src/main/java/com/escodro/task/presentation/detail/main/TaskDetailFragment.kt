@@ -8,7 +8,6 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.escodro.core.extension.hideKeyboard
 import com.escodro.core.extension.observeOnce
@@ -91,17 +90,23 @@ internal class TaskDetailFragment : Fragment() {
         val taskId = arguments?.let { TaskDetailFragmentArgs.fromBundle(it).taskId }
         taskId?.let { viewModel.loadTask(it) }
 
-        viewModel.state.observe(viewLifecycleOwner, Observer { uiState ->
-            when (uiState) {
-                is TaskDetailUIState.Uncompleted -> onTaskUncompleted()
-                is TaskDetailUIState.Completed -> onTaskCompleted()
+        viewModel.state.observe(
+            viewLifecycleOwner,
+            { uiState ->
+                when (uiState) {
+                    is TaskDetailUIState.Uncompleted -> onTaskUncompleted()
+                    is TaskDetailUIState.Completed -> onTaskCompleted()
+                }
             }
-        })
+        )
 
-        viewModel.taskData.observeOnce(viewLifecycleOwner, Observer { task ->
-            edittext_taskdetail_title.setText(task.title)
-            edittext_taskdetail_description.setText(task.description)
-        })
+        viewModel.taskData.observeOnce(
+            viewLifecycleOwner,
+            { task ->
+                edittext_taskdetail_title.setText(task.title)
+                edittext_taskdetail_description.setText(task.description)
+            }
+        )
     }
 
     private fun initListeners() = lifecycleScope.launch {

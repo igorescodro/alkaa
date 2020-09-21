@@ -26,8 +26,7 @@ internal class TrackerMapper {
 
     private fun toCategory(map: Map.Entry<Long?, List<TaskWithCategory>>):
         Tracker.Category {
-
-        val first = map.value.first()
-        return Tracker.Category(first.category?.name, first.category?.color, map.value.size)
-    }
+            val first = map.value.first()
+            return Tracker.Category(first.category?.name, first.category?.color, map.value.size)
+        }
 }

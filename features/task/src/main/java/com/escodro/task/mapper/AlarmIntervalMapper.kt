@@ -1,13 +1,13 @@
 package com.escodro.task.mapper
 
-import com.escodro.domain.model.AlarmInterval as DomainInterval
-import com.escodro.task.model.AlarmInterval as ViewDataInterval
 import com.escodro.task.model.AlarmInterval.DAILY
 import com.escodro.task.model.AlarmInterval.HOURLY
 import com.escodro.task.model.AlarmInterval.MONTHLY
 import com.escodro.task.model.AlarmInterval.NEVER
 import com.escodro.task.model.AlarmInterval.WEEKLY
 import com.escodro.task.model.AlarmInterval.YEARLY
+import com.escodro.domain.model.AlarmInterval as DomainInterval
+import com.escodro.task.model.AlarmInterval as ViewDataInterval
 
 /**
  * Maps Alarm Interval between Domain and View.

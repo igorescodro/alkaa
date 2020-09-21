@@ -28,7 +28,7 @@
 
         </androidx.appcompat.widget.Toolbar>
 
-        <fragment
+        <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragment_main_navigation"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"

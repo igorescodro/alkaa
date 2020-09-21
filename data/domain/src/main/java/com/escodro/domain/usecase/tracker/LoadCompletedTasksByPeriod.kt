@@ -2,9 +2,9 @@ package com.escodro.domain.usecase.tracker
 
 import com.escodro.domain.model.TaskWithCategory
 import com.escodro.domain.repository.TaskWithCategoryRepository
-import java.util.Calendar
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import java.util.Calendar
 
 /**
  * Use case to get completed tasks in Tracker format for the last month from the database.

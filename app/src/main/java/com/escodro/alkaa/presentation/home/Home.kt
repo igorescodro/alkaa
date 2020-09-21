@@ -24,6 +24,9 @@ import androidx.ui.tooling.preview.Preview
 import com.escodro.alkaa.model.HomeSection
 import com.escodro.theme.AlkaaTheme
 
+/**
+ * Alkaa Home screen.
+ */
 @Composable
 fun Home() {
     val (currentSection, setCurrentSection) = savedInstanceState { HomeSection.Tasks }
@@ -38,7 +41,8 @@ fun Home() {
                 onSectionSelected = setCurrentSection,
                 items = navItems
             )
-        }) {}
+        }
+    ) {}
 }
 
 @Composable
@@ -92,6 +96,7 @@ private fun AlkaaBottomIcon(
     }
 }
 
+@Suppress("UndocumentedPublicFunction")
 @Preview(showBackground = true)
 @Composable
 fun AlkaaTopBarPreview() {
@@ -100,6 +105,7 @@ fun AlkaaTopBarPreview() {
     }
 }
 
+@Suppress("UndocumentedPublicFunction")
 @Preview(showBackground = true)
 @Composable
 fun AlkaaBottomNavPreview() {

@@ -4,8 +4,8 @@ import com.escodro.core.extension.onActionDone
 import com.escodro.task.R
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item
-import java.util.Objects
 import kotlinx.android.synthetic.main.item_add_task.view.*
+import java.util.Objects
 
 /**
  * Entry representing an item to add a new task.

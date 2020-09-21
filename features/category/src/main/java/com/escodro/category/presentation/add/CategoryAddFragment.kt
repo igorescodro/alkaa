@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment
 import com.escodro.category.R
 import com.escodro.category.presentation.CategoryDetailViewController
@@ -48,12 +47,15 @@ internal class CategoryAddFragment : Fragment() {
             viewModel.saveCategory(name = name, color = getCategoryColor().toStringColor())
         }
 
-        viewModel.uiState.observe(viewLifecycleOwner, Observer { viewState ->
-            when (viewState) {
-                CategoryAddUIState.Saved -> onCategorySaved()
-                CategoryAddUIState.EmptyName -> onEmptyField()
+        viewModel.uiState.observe(
+            viewLifecycleOwner,
+            { viewState ->
+                when (viewState) {
+                    CategoryAddUIState.Saved -> onCategorySaved()
+                    CategoryAddUIState.EmptyName -> onEmptyField()
+                }
             }
-        })
+        )
 
         viewModel.currentColor = getCategoryColor().toStringColor()
         radiogroup_categorynew_label.setOnCheckedChangeListener { _, _ -> animateColorTransition() }

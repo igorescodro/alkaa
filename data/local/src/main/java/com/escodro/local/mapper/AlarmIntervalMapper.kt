@@ -1,11 +1,11 @@
 package com.escodro.local.mapper
 
-import com.escodro.local.model.AlarmInterval as LocalInterval
 import com.escodro.local.model.AlarmInterval.DAILY
 import com.escodro.local.model.AlarmInterval.HOURLY
 import com.escodro.local.model.AlarmInterval.MONTHLY
 import com.escodro.local.model.AlarmInterval.WEEKLY
 import com.escodro.local.model.AlarmInterval.YEARLY
+import com.escodro.local.model.AlarmInterval as LocalInterval
 import com.escodro.repository.model.AlarmInterval as RepoInterval
 
 /**

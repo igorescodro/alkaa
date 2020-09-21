@@ -2,9 +2,9 @@ package com.escodro.domain.usecase.fake
 
 import com.escodro.domain.model.Task
 import com.escodro.domain.repository.TaskRepository
-import java.util.TreeMap
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import java.util.TreeMap
 
 internal class TaskRepositoryFake : TaskRepository {
 

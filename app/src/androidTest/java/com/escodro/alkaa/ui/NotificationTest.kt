@@ -12,8 +12,6 @@ import com.escodro.alkaa.presentation.MainActivity
 import com.escodro.domain.usecase.alarm.ScheduleAlarm
 import com.escodro.local.model.AlarmInterval
 import com.escodro.local.model.Task
-import java.util.Calendar
-import java.util.regex.Pattern
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertEquals
@@ -22,6 +20,8 @@ import org.junit.Assert.assertNull
 import org.junit.Before
 import org.junit.Test
 import org.koin.test.inject
+import java.util.Calendar
+import java.util.regex.Pattern
 
 /**
  * Test class to validate the notification flow.

@@ -3,8 +3,8 @@ package com.escodro.domain.usecase.alarm
 import com.escodro.domain.interactor.AlarmInteractor
 import com.escodro.domain.interactor.NotificationInteractor
 import com.escodro.domain.provider.CalendarProvider
-import java.util.Calendar
 import timber.log.Timber
+import java.util.Calendar
 
 /**
  * Use case to snooze a task from the database.

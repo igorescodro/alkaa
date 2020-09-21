@@ -4,8 +4,8 @@ import com.escodro.domain.interactor.AlarmInteractor
 import com.escodro.domain.model.Task
 import com.escodro.domain.provider.CalendarProvider
 import com.escodro.domain.repository.TaskRepository
-import java.util.Calendar
 import timber.log.Timber
+import java.util.Calendar
 
 /**
  * Use case to reschedule tasks scheduled in the future or missing repeating.

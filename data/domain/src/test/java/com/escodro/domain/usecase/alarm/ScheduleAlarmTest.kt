@@ -5,13 +5,13 @@ import com.escodro.domain.usecase.fake.AlarmInteractorFake
 import com.escodro.domain.usecase.fake.TaskRepositoryFake
 import com.escodro.domain.usecase.task.AddTask
 import com.escodro.domain.usecase.task.GetTask
-import java.util.Calendar
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
+import java.util.Calendar
 
 @ExperimentalCoroutinesApi
 internal class ScheduleAlarmTest {

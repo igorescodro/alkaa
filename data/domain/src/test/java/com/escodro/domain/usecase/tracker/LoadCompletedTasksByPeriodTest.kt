@@ -6,12 +6,12 @@ import com.escodro.domain.model.TaskWithCategory
 import com.escodro.domain.usecase.fake.CategoryRepositoryFake
 import com.escodro.domain.usecase.fake.TaskRepositoryFake
 import com.escodro.domain.usecase.fake.TaskWithCategoryRepositoryFake
-import java.util.Calendar
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert
 import org.junit.Test
+import java.util.Calendar
 
 @ExperimentalCoroutinesApi
 internal class LoadCompletedTasksByPeriodTest {

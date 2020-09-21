@@ -10,8 +10,8 @@ import com.escodro.domain.model.AlarmInterval.YEARLY
 import com.escodro.domain.model.Task
 import com.escodro.domain.provider.CalendarProvider
 import com.escodro.domain.repository.TaskRepository
-import java.util.Calendar
 import timber.log.Timber
+import java.util.Calendar
 
 /**
  * Schedules the next alarm entry or the missing ones in a repeating alarm.

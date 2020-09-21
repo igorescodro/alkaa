@@ -9,9 +9,9 @@ import com.escodro.domain.usecase.alarm.UpdateTaskAsRepeating
 import com.escodro.task.mapper.AlarmIntervalMapper
 import com.escodro.task.model.AlarmInterval
 import com.escodro.task.presentation.detail.TaskDetailProvider
-import java.util.Calendar
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import java.util.Calendar
 
 /**
  * [ViewModel] responsible to provide information to Task Alarm layout.

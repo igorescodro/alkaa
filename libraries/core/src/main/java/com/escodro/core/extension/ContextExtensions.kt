@@ -14,8 +14,8 @@ import androidx.annotation.ColorRes
 import androidx.annotation.StringRes
 import androidx.core.app.AlarmManagerCompat
 import androidx.core.net.toUri
-import java.util.Calendar
 import timber.log.Timber
+import java.util.Calendar
 
 private const val INVALID_VERSION = "x.x.x"
 

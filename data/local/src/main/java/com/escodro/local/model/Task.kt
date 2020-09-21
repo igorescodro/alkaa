@@ -22,12 +22,14 @@ import java.util.Calendar
  * @param alarmInterval the interval between the repeating
  */
 @Entity(
-    foreignKeys = [ForeignKey(
-        entity = Category::class,
-        parentColumns = ["category_id"],
-        childColumns = ["task_category_id"],
-        onDelete = ForeignKey.CASCADE
-    )],
+    foreignKeys = [
+        ForeignKey(
+            entity = Category::class,
+            parentColumns = ["category_id"],
+            childColumns = ["task_category_id"],
+            onDelete = ForeignKey.CASCADE
+        )
+    ],
     indices = [Index(value = ["task_category_id"])]
 )
 data class Task(

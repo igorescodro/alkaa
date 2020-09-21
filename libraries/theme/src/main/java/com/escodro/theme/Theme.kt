@@ -20,6 +20,12 @@ private val LightColorPalette = lightColors(
     onSecondary = blueGray400
 )
 
+/**
+ * Alkaa main theme.
+ *
+ * @param darkTheme indicates if the application is in dark theme mode.
+ * @param content composable function
+ */
 @Composable
 fun AlkaaTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable() () -> Unit) {
     val colors = if (darkTheme) DarkColorPalette else LightColorPalette

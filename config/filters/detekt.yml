@@ -12,6 +12,8 @@ comments:
 style:
   DataClassShouldBeImmutable:
     active: false
+  MagicNumber:
+    excludes: ['**/theme/*.kt', '**/test/**','**/androidTest/**']
 
 potential-bugs:
   UnsafeCallOnNullableType:

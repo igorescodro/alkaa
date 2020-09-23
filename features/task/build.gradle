@@ -1,9 +1,17 @@
 apply from: "$rootDir/config/dependencies/feature_dependencies.gradle"
+apply from: "$rootDir/config/dependencies/compose_dependencies.gradle"
 apply plugin: "androidx.navigation.safeargs"
 
 android {
     androidExtensions {
         experimental = true
+    }
+
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+        kotlinOptions {
+            jvmTarget = "1.8"
+            freeCompilerArgs += ["-Xallow-jvm-ir-dependencies", "-Xskip-prerelease-check"]
+        }
     }
 }
 

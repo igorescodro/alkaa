@@ -1,6 +1,7 @@
 apply plugin: "com.android.application"
 
 apply from: "$rootDir/config/dependencies/android_dependencies.gradle"
+apply from: "$rootDir/config/dependencies/compose_dependencies.gradle"
 apply from: "$rootDir/config/artifacts.gradle"
 
 apply plugin: "kotlin-kapt"
@@ -34,6 +35,20 @@ android {
         experimental = true
     }
 
+    kotlinOptions {
+        jvmTarget = '1.8'
+        useIR = true
+    }
+
+    buildFeatures {
+        compose true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion Versions.compose
+        kotlinCompilerVersion Versions.kotlin
+    }
+
     kapt {
         javacOptions {
             option("-Xmaxerrs", 1000)
@@ -42,6 +57,15 @@ android {
     }
 
     dynamicFeatures = [":features:tracker"]
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    packagingOptions {
+        exclude 'META-INF/AL2.0'
+        exclude 'META-INF/LGPL2.1'
+    }
 
 }
 
@@ -49,6 +73,7 @@ dependencies {
     implementation project(":libraries:core")
     implementation project(":libraries:navigation")
     implementation project(":libraries:splitInstall")
+    implementation project(":libraries:theme")
     implementation project(":data:local")
     implementation project(":data:repository")
     implementation project(":data:domain")

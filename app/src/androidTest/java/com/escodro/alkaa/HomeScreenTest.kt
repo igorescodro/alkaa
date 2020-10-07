@@ -31,8 +31,8 @@ internal class HomeScreenTest {
     @Test
     fun test_assertIfTitleChangesWhenBottomIconIsSelected() {
         HomeSection.values().forEach { section ->
-            onNodeWithLabel(context.getString(section.title)).performClick()
-            onNodeWithText(context.getString(section.title)).assertExists()
+            composeTestRule.onNodeWithLabel(context.getString(section.title)).performClick()
+            composeTestRule.onNodeWithText(context.getString(section.title)).assertExists()
         }
     }
 }

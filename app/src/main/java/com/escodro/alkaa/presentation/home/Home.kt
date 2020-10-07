@@ -1,15 +1,14 @@
 package com.escodro.alkaa.presentation.home
 
 import androidx.compose.animation.animate
-import androidx.compose.foundation.Icon
-import androidx.compose.foundation.Text
-import androidx.compose.foundation.layout.RowScope.weight
-import androidx.compose.foundation.layout.Stack
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.BottomAppBar
+import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.savedinstancestate.savedInstanceState
@@ -48,9 +47,9 @@ fun Home() {
 @Composable
 private fun AlkaaTopBar(currentSection: HomeSection) {
     TopAppBar(backgroundColor = MaterialTheme.colors.background, elevation = 0.dp) {
-        Stack(modifier = Modifier.fillMaxSize()) {
+        Box(modifier = Modifier.fillMaxSize()) {
             Text(
-                modifier = Modifier.gravity(Alignment.Center),
+                modifier = Modifier.align(Alignment.Center),
                 style = MaterialTheme.typography.h5,
                 text = stringResource(currentSection.title)
             )
@@ -74,7 +73,12 @@ private fun AlkaaBottomNav(
                     MaterialTheme.colors.onSecondary
                 }
             )
-            AlkaaBottomIcon(section = section, tint = tint, onSectionSelected = onSectionSelected)
+            AlkaaBottomIcon(
+                section = section,
+                tint = tint,
+                onSectionSelected = onSectionSelected,
+                modifier = Modifier.weight(1f)
+            )
         }
     }
 }
@@ -83,14 +87,13 @@ private fun AlkaaBottomNav(
 private fun AlkaaBottomIcon(
     section: HomeSection,
     tint: Color,
-    onSectionSelected: (HomeSection) -> Unit
+    onSectionSelected: (HomeSection) -> Unit,
+    modifier: Modifier
 ) {
     val title = stringResource(section.title)
     IconButton(
         onClick = { onSectionSelected(section) },
-        modifier = Modifier
-            .weight(1f)
-            .semantics { accessibilityLabel = title }
+        modifier = modifier.semantics { accessibilityLabel = title }
     ) {
         Icon(section.icon, tint = tint)
     }

@@ -54,8 +54,15 @@ fun TaskSection(
     }
 }
 
+/**
+ * Alkaa Task Item.
+ *
+ * @param modifier the decorator
+ * @param item the task item to be rendered
+ * @param onItemClicked the action to be done when the item is clicked
+ */
 @Composable
-private fun TaskItem(
+fun TaskItem(
     modifier: Modifier = Modifier,
     item: TaskWithCategory,
     onItemClicked: (TaskWithCategory) -> Unit

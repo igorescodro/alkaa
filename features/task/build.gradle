@@ -19,6 +19,7 @@ dependencies {
     implementation project(":libraries:core")
     implementation project(":libraries:navigation")
     implementation project(":data:domain")
+    implementation project(":libraries:theme")
 
     testImplementation project(":libraries:test")
 

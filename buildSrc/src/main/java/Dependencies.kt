@@ -24,7 +24,7 @@ object Versions {
 
     const val timber = "4.7.1"
 
-    const val koin = "2.2.0-beta-1"
+    const val koin = "2.2.0"
 
     const val mpAndroidChart = "3.1.0"
     const val groupie = "2.7.0"
@@ -101,6 +101,7 @@ object NavigationDeps {
 object KoinDeps {
     val core = "org.koin:koin-android:${Versions.koin}"
     val viewModel = "org.koin:koin-androidx-viewmodel:${Versions.koin}"
+    val compose = "org.koin:koin-androidx-compose:${Versions.koin}"
     val test = "org.koin:koin-test:${Versions.koin}"
 }
 

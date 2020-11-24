@@ -1,10 +1,10 @@
 package com.escodro.alkaa
 
+import androidx.compose.ui.test.onNodeWithLabel
+import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.performClick
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.ui.test.createComposeRule
-import androidx.ui.test.onNodeWithLabel
-import androidx.ui.test.onNodeWithText
-import androidx.ui.test.performClick
 import com.escodro.alkaa.model.HomeSection
 import com.escodro.alkaa.presentation.home.Home
 import com.escodro.theme.AlkaaTheme

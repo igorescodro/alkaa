@@ -21,6 +21,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.ui.tooling.preview.Preview
 import com.escodro.alkaa.model.HomeSection
+import com.escodro.task.presentation.TaskSection
 import com.escodro.theme.AlkaaTheme
 
 /**
@@ -34,6 +35,17 @@ fun Home() {
         topBar = {
             AlkaaTopBar(currentSection = currentSection)
         },
+        bodyContent = {
+            when (currentSection) {
+                HomeSection.Tasks -> TaskSection()
+                HomeSection.Search -> { /* TODO create new section */
+                }
+                HomeSection.Categories -> { /* TODO create new section */
+                }
+                HomeSection.Settings -> { /* TODO create new section */
+                }
+            }
+        },
         bottomBar = {
             AlkaaBottomNav(
                 currentSection = currentSection,
@@ -41,7 +53,7 @@ fun Home() {
                 items = navItems
             )
         }
-    ) {}
+    )
 }
 
 @Composable

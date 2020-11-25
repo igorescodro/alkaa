@@ -37,6 +37,7 @@ dependencies {
     implementation Deps.android.playCore
 
     implementation Deps.koin.viewModel
+    implementation Deps.koin.compose
 
     implementation Deps.groupie.core
     implementation Deps.groupie.ktx

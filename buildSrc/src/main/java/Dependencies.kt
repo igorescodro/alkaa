@@ -20,7 +20,7 @@ object Versions {
     const val navigation = "2.3.0"
     const val playCore = "1.6.1"
 
-    const val coroutines = "1.3.6"
+    const val coroutines = "1.4.0"
 
     const val timber = "4.7.1"
 

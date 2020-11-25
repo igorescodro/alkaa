@@ -20,11 +20,14 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ContextAmbient
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.viewModel
 import androidx.ui.tooling.preview.Preview
 import com.escodro.task.model.Category
 import com.escodro.task.model.Task
@@ -36,19 +39,29 @@ import java.util.Calendar
  * Alkaa Task Section.
  *
  * @param modifier the decorator
- * @param taskList the list of tasks to be rendered
- * @param onItemClicked the action to be done when the item is clicked
  */
 @Composable
-fun TaskSection(
-    modifier: Modifier = Modifier,
-    taskList: List<TaskWithCategory>,
-    onItemClicked: (TaskWithCategory) -> Unit
+fun TaskSection(modifier: Modifier = Modifier) {
+    TaskSectionLoader(modifier = modifier)
+}
+
+@Composable
+private fun TaskSectionLoader(
+    viewModel: TaskSectionViewModel = viewModel(),
+    modifier: Modifier = Modifier
 ) {
+    viewModel.loadTasks()
+    val viewState by viewModel.state.collectAsState()
+    val taskList = viewState.items
+    TaskSectionContent(taskList, modifier)
+}
+
+@Composable
+private fun TaskSectionContent(taskList: List<TaskWithCategory>, modifier: Modifier = Modifier) {
     Surface(modifier = modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
         Column(modifier = Modifier.padding(start = 8.dp, end = 8.dp)) {
             LazyColumnFor(items = taskList) { item ->
-                TaskItem(item = item, onItemClicked = onItemClicked)
+                TaskItem(item = item, onItemClicked = { })
             }
         }
     }
@@ -85,7 +98,7 @@ fun TaskItem(
             Column(modifier = modifier.fillMaxHeight(), verticalArrangement = Arrangement.Center) {
                 Text(
                     text = item.task.title,
-                    style = MaterialTheme.typography.h6,
+                    style = MaterialTheme.typography.body1,
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 1
                 )
@@ -145,6 +158,6 @@ fun AlkaaBottomNavPreview() {
     )
 
     AlkaaTheme {
-        TaskSection(taskList = taskList, onItemClicked = {})
+        TaskSectionContent(taskList = taskList)
     }
 }

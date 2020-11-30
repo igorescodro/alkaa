@@ -1,4 +1,4 @@
-package com.escodro.task.presentation
+package com.escodro.task.presentation.list
 
 import android.text.format.DateUtils
 import androidx.compose.foundation.background
@@ -41,23 +41,23 @@ import java.util.Calendar
  * @param modifier the decorator
  */
 @Composable
-fun TaskSection(modifier: Modifier = Modifier) {
-    TaskSectionLoader(modifier = modifier)
+fun TaskListSection(modifier: Modifier = Modifier) {
+    TaskListLoader(modifier = modifier)
 }
 
 @Composable
-private fun TaskSectionLoader(
-    viewModel: TaskSectionViewModel = viewModel(),
+private fun TaskListLoader(
+    viewModel: TaskListViewModel = viewModel(),
     modifier: Modifier = Modifier
 ) {
     viewModel.loadTasks()
     val viewState by viewModel.state.collectAsState()
     val taskList = viewState.items
-    TaskSectionContent(taskList, modifier)
+    TaskListContent(taskList, modifier)
 }
 
 @Composable
-private fun TaskSectionContent(taskList: List<TaskWithCategory>, modifier: Modifier = Modifier) {
+private fun TaskListContent(taskList: List<TaskWithCategory>, modifier: Modifier = Modifier) {
     Surface(modifier = modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
         Column(modifier = Modifier.padding(start = 8.dp, end = 8.dp)) {
             LazyColumnFor(items = taskList) { item ->
@@ -158,6 +158,6 @@ fun AlkaaBottomNavPreview() {
     )
 
     AlkaaTheme {
-        TaskSectionContent(taskList = taskList)
+        TaskListContent(taskList = taskList)
     }
 }

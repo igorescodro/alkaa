@@ -21,7 +21,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.ui.tooling.preview.Preview
 import com.escodro.alkaa.model.HomeSection
-import com.escodro.task.presentation.TaskSection
+import com.escodro.task.presentation.list.TaskListSection
 import com.escodro.theme.AlkaaTheme
 
 /**
@@ -37,7 +37,7 @@ fun Home() {
         },
         bodyContent = {
             when (currentSection) {
-                HomeSection.Tasks -> TaskSection()
+                HomeSection.Tasks -> TaskListSection()
                 HomeSection.Search -> { /* TODO create new section */
                 }
                 HomeSection.Categories -> { /* TODO create new section */

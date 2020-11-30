@@ -1,4 +1,4 @@
-package com.escodro.task.presentation
+package com.escodro.task.presentation.list
 
 import com.escodro.task.model.TaskWithCategory
 

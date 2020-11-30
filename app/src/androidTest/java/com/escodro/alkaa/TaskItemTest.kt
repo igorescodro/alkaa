@@ -6,7 +6,7 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.ui.test.createComposeRule
 import com.escodro.task.model.Task
 import com.escodro.task.model.TaskWithCategory
-import com.escodro.task.presentation.TaskItem
+import com.escodro.task.presentation.list.TaskItem
 import com.escodro.theme.AlkaaTheme
 import org.junit.Rule
 import org.junit.Test
@@ -35,7 +35,7 @@ internal class TaskItemTest {
     fun test_assertIfDueDateIsShown() {
         // Given a task wit due date to 1993-04-15
         val taskName = "Watch movies"
-        val calendar = Calendar.getInstance().apply { timeInMillis = 734904000000 }
+        val calendar = Calendar.getInstance().apply { timeInMillis = 734_904_000_000 }
         val task = Task(title = taskName, dueDate = calendar)
         val taskWithCategory = TaskWithCategory(task)
 

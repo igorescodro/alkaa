@@ -1,4 +1,4 @@
-package com.escodro.task.presentation
+package com.escodro.task.presentation.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -15,7 +15,7 @@ import org.koin.core.context.GlobalContext
  * ViewModel responsible to handle the interaction between the presentation and business logic from
  * Task Section.
  */
-internal class TaskSectionViewModel : ViewModel() {
+internal class TaskListViewModel : ViewModel() {
 
     /*
      * TODO Remove this lazy injection when updating to Koin 2.2.1.

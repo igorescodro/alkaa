@@ -20,11 +20,11 @@ object Versions {
     const val navigation = "2.3.0"
     const val playCore = "1.6.1"
 
-    const val coroutines = "1.3.6"
+    const val coroutines = "1.4.0"
 
     const val timber = "4.7.1"
 
-    const val koin = "2.2.0-beta-1"
+    const val koin = "2.2.0"
 
     const val mpAndroidChart = "3.1.0"
     const val groupie = "2.7.0"
@@ -42,9 +42,9 @@ object Versions {
     const val testRoom = "2.1.0"
     const val testArch = "2.1.0"
 
-    const val compose = "1.0.0-alpha02"
+    const val compose = "1.0.0-alpha07"
 
-    const val buildGradle = "4.2.0-alpha10"
+    const val buildGradle = "4.2.0-alpha16"
 
     const val detekt = "1.13.1"
     const val ktlint = "0.39.0"
@@ -101,6 +101,7 @@ object NavigationDeps {
 object KoinDeps {
     val core = "org.koin:koin-android:${Versions.koin}"
     val viewModel = "org.koin:koin-androidx-viewmodel:${Versions.koin}"
+    val compose = "org.koin:koin-androidx-compose:${Versions.koin}"
     val test = "org.koin:koin-test:${Versions.koin}"
 }
 

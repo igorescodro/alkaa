@@ -1,9 +1,22 @@
 apply from: "$rootDir/config/dependencies/feature_dependencies.gradle"
+apply from: "$rootDir/config/dependencies/compose_dependencies.gradle"
 apply plugin: "androidx.navigation.safeargs"
 
 android {
     androidExtensions {
         experimental = true
+    }
+
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+        kotlinOptions {
+            jvmTarget = "1.8"
+            freeCompilerArgs += ["-Xallow-jvm-ir-dependencies", "-Xskip-prerelease-check"]
+        }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/AL2.0'
+        exclude 'META-INF/LGPL2.1'
     }
 }
 
@@ -11,6 +24,7 @@ dependencies {
     implementation project(":libraries:core")
     implementation project(":libraries:navigation")
     implementation project(":data:domain")
+    implementation project(":libraries:theme")
 
     testImplementation project(":libraries:test")
 
@@ -23,6 +37,7 @@ dependencies {
     implementation Deps.android.playCore
 
     implementation Deps.koin.viewModel
+    implementation Deps.koin.compose
 
     implementation Deps.groupie.core
     implementation Deps.groupie.ktx

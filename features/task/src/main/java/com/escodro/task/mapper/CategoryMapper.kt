@@ -1,6 +1,6 @@
 package com.escodro.task.mapper
 
-import android.graphics.Color
+import androidx.compose.ui.graphics.Color
 import com.escodro.domain.model.Category as DomainCategory
 import com.escodro.task.model.Category as ViewCategory
 
@@ -30,6 +30,6 @@ internal class CategoryMapper {
         ViewCategory(
             id = domainCategory.id,
             name = domainCategory.name,
-            color = Color.parseColor(domainCategory.color)
+            color = Color(android.graphics.Color.parseColor(domainCategory.color))
         )
 }

@@ -9,13 +9,15 @@ import com.escodro.domain.usecase.alarm.SnoozeAlarm
 import com.escodro.domain.usecase.task.CompleteTask
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import org.koin.core.component.KoinApiExtension
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import timber.log.Timber
 
 /**
  * [BroadcastReceiver] to be notified by the [android.app.AlarmManager].
  */
+@OptIn(KoinApiExtension::class)
 internal class TaskReceiver : BroadcastReceiver(), KoinComponent {
 
     private val completeTaskUseCase: CompleteTask by inject()

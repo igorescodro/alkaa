@@ -22,9 +22,11 @@ import com.escodro.domain.usecase.task.GetTask
 import com.escodro.domain.usecase.task.UncompleteTask
 import com.escodro.domain.usecase.task.UpdateTask
 import com.escodro.domain.usecase.task.UpdateTaskStatus
+import com.escodro.domain.usecase.task.implementation.UpdateTaskStatusImpl
 import com.escodro.domain.usecase.taskwithcategory.LoadCompletedTasks
 import com.escodro.domain.usecase.taskwithcategory.LoadTasksByCategory
 import com.escodro.domain.usecase.taskwithcategory.LoadUncompletedTasks
+import com.escodro.domain.usecase.taskwithcategory.implementation.LoadUncompletedTasksImpl
 import com.escodro.domain.usecase.tracker.LoadCompletedTasksByPeriod
 import org.koin.dsl.module
 
@@ -37,7 +39,7 @@ val domainModule = module {
     factory { AddTask(get()) }
     factory { CompleteTask(get(), get(), get(), get()) }
     factory { UncompleteTask(get()) }
-    factory { UpdateTaskStatus(get(), get(), get()) }
+    factory<UpdateTaskStatus> { UpdateTaskStatusImpl(get(), get(), get()) }
     factory { DeleteTask(get(), get()) }
     factory { GetTask(get()) }
     factory { UpdateTask(get()) }
@@ -55,7 +57,7 @@ val domainModule = module {
     // Task With Category Use Cases
     factory { LoadTasksByCategory(get(), get()) }
     factory { LoadCompletedTasks(get()) }
-    factory { LoadUncompletedTasks(get()) }
+    factory<LoadUncompletedTasks> { LoadUncompletedTasksImpl(get()) }
 
     // Alarm Use Cases
     factory { CancelAlarm(get(), get()) }

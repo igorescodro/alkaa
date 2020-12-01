@@ -11,22 +11,16 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import org.koin.core.context.GlobalContext
 
 /**
  * ViewModel responsible to handle the interaction between the presentation and business logic from
  * Task Section.
  */
-internal class TaskListViewModel : ViewModel() {
-
-    /*
-     * TODO Remove this lazy injection when updating to Koin 2.2.1.
-     *  This is a workaround due to Koin crashes
-     */
-    private val koin = GlobalContext.get()
-    private val loadAllTasksUseCase: LoadUncompletedTasks = koin.get()
-    private val updateTaskStatusUseCase: UpdateTaskStatus = koin.get()
-    private val taskWithCategoryMapper: TaskWithCategoryMapper = koin.get()
+internal class TaskListViewModel(
+    private val loadAllTasksUseCase: LoadUncompletedTasks,
+    private val updateTaskStatusUseCase: UpdateTaskStatus,
+    private val taskWithCategoryMapper: TaskWithCategoryMapper
+) : ViewModel() {
 
     private val _state = MutableStateFlow(TaskListViewState(listOf()))
 

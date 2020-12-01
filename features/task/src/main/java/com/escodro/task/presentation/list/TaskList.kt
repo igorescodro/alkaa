@@ -27,12 +27,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ContextAmbient
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.viewinterop.viewModel
 import androidx.ui.tooling.preview.Preview
 import com.escodro.task.model.Category
 import com.escodro.task.model.Task
 import com.escodro.task.model.TaskWithCategory
 import com.escodro.theme.AlkaaTheme
+import org.koin.androidx.compose.getViewModel
 import java.util.Calendar
 
 /**
@@ -47,7 +47,7 @@ fun TaskListSection(modifier: Modifier = Modifier) {
 
 @Composable
 private fun TaskListLoader(
-    viewModel: TaskListViewModel = viewModel(),
+    viewModel: TaskListViewModel = getViewModel(),
     modifier: Modifier = Modifier
 ) {
     viewModel.loadTasks()

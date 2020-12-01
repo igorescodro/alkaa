@@ -24,7 +24,7 @@ object Versions {
 
     const val timber = "4.7.1"
 
-    const val koin = "2.2.0"
+    const val koin = "2.2.1"
 
     const val mpAndroidChart = "3.1.0"
     const val groupie = "2.7.0"

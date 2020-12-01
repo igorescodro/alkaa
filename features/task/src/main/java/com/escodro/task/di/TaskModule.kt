@@ -14,7 +14,7 @@ import org.koin.dsl.module
 val taskModule = module {
 
     // Presentation
-    viewModel { TaskListViewModel(/*get(), get()*/) }
+    viewModel { TaskListViewModel(get(), get(), get()) }
 
     // Mappers
     factory { AlarmIntervalMapper() }

@@ -53,15 +53,25 @@ private fun TaskListLoader(
     viewModel.loadTasks()
     val viewState by viewModel.state.collectAsState()
     val taskList = viewState.items
-    TaskListContent(taskList, modifier)
+    TaskListContent(
+        taskList = taskList,
+        modifier = modifier,
+        onCheckedChanged = { item: TaskWithCategory ->
+            viewModel.updateTaskStatus(item)
+        }
+    )
 }
 
 @Composable
-private fun TaskListContent(taskList: List<TaskWithCategory>, modifier: Modifier = Modifier) {
+private fun TaskListContent(
+    taskList: List<TaskWithCategory>,
+    modifier: Modifier = Modifier,
+    onCheckedChanged: (TaskWithCategory) -> Unit
+) {
     Surface(modifier = modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
         Column(modifier = Modifier.padding(start = 8.dp, end = 8.dp)) {
-            LazyColumnFor(items = taskList) { item ->
-                TaskItem(item = item, onItemClicked = { })
+            LazyColumnFor(items = taskList) { task ->
+                TaskItem(task = task, onItemClicked = { }, onCheckedChanged = onCheckedChanged)
             }
         }
     }
@@ -71,38 +81,39 @@ private fun TaskListContent(taskList: List<TaskWithCategory>, modifier: Modifier
  * Alkaa Task Item.
  *
  * @param modifier the decorator
- * @param item the task item to be rendered
+ * @param task the task item to be rendered
  * @param onItemClicked the action to be done when the item is clicked
  */
 @Composable
 fun TaskItem(
     modifier: Modifier = Modifier,
-    item: TaskWithCategory,
-    onItemClicked: (TaskWithCategory) -> Unit
+    task: TaskWithCategory,
+    onItemClicked: (TaskWithCategory) -> Unit,
+    onCheckedChanged: (TaskWithCategory) -> Unit
 ) {
     Card(
         elevation = 4.dp,
         modifier = modifier.fillMaxWidth()
             .padding(all = 8.dp)
             .preferredHeight(74.dp)
-            .clickable { onItemClicked(item) }
+            .clickable { onItemClicked(task) }
     ) {
         Row {
-            CardRibbon(color = item.category?.color)
+            CardRibbon(color = task.category?.color)
             Checkbox(
                 modifier = modifier.fillMaxHeight(),
-                checked = item.task.completed,
-                onCheckedChange = {}
+                checked = task.task.completed,
+                onCheckedChange = { onCheckedChanged(task) }
             )
             Spacer(Modifier.preferredWidth(8.dp))
             Column(modifier = modifier.fillMaxHeight(), verticalArrangement = Arrangement.Center) {
                 Text(
-                    text = item.task.title,
+                    text = task.task.title,
                     style = MaterialTheme.typography.body1,
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 1
                 )
-                RelativeDateText(calendar = item.task.dueDate)
+                RelativeDateText(calendar = task.task.dueDate)
             }
         }
     }
@@ -158,6 +169,6 @@ fun AlkaaBottomNavPreview() {
     )
 
     AlkaaTheme {
-        TaskListContent(taskList = taskList)
+        TaskListContent(taskList = taskList, modifier = Modifier, onCheckedChanged = {})
     }
 }

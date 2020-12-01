@@ -52,7 +52,7 @@ internal class TaskItemTest {
     private fun loadItemView(item: TaskWithCategory, onItemClicked: (TaskWithCategory) -> Unit) {
         composeTestRule.setContent {
             AlkaaTheme {
-                TaskItem(Modifier, item, onItemClicked)
+                TaskItem(Modifier, item, onItemClicked, onCheckedChanged = {})
             }
         }
     }

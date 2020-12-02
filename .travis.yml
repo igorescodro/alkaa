@@ -1,4 +1,5 @@
 language: android
+dist: focal
 android:
   components:
     - tools
@@ -8,7 +9,8 @@ android:
     - extra-android-m2repository
     - extra-google-m2repository
 jdk:
-  - oraclejdk8
+  - openjdk11
+  - oraclejdk11
 script:
   - ./gradlew clean build
 before_cache:

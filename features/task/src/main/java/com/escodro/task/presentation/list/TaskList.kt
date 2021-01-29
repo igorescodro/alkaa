@@ -13,7 +13,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.preferredHeight
 import androidx.compose.foundation.layout.preferredWidth
-import androidx.compose.foundation.lazy.LazyColumnFor
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Card
 import androidx.compose.material.Checkbox
 import androidx.compose.material.MaterialTheme
@@ -24,10 +25,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.ContextAmbient
+import androidx.compose.ui.platform.AmbientContext
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.ui.tooling.preview.Preview
 import com.escodro.task.model.Category
 import com.escodro.task.model.Task
 import com.escodro.task.model.TaskWithCategory
@@ -47,8 +48,8 @@ fun TaskListSection(modifier: Modifier = Modifier) {
 
 @Composable
 private fun TaskListLoader(
-    viewModel: TaskListViewModel = getViewModel(),
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: TaskListViewModel = getViewModel()
 ) {
     viewModel.loadTasks()
     val viewState by viewModel.state.collectAsState()
@@ -70,8 +71,10 @@ private fun TaskListContent(
 ) {
     Surface(modifier = modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
         Column(modifier = Modifier.padding(start = 8.dp, end = 8.dp)) {
-            LazyColumnFor(items = taskList) { task ->
-                TaskItem(task = task, onItemClicked = { }, onCheckedChanged = onCheckedChanged)
+            LazyColumn {
+                items(items = taskList, itemContent = { task ->
+                    TaskItem(task = task, onItemClicked = { }, onCheckedChanged = onCheckedChanged)
+                })
             }
         }
     }
@@ -93,7 +96,8 @@ fun TaskItem(
 ) {
     Card(
         elevation = 4.dp,
-        modifier = modifier.fillMaxWidth()
+        modifier = modifier
+            .fillMaxWidth()
             .padding(all = 8.dp)
             .preferredHeight(74.dp)
             .clickable { onItemClicked(task) }
@@ -124,7 +128,8 @@ private fun CardRibbon(color: Color?, modifier: Modifier = Modifier) {
     val ribbonColor = color ?: MaterialTheme.colors.background
 
     Spacer(
-        modifier.preferredWidth(18.dp)
+        modifier
+            .preferredWidth(18.dp)
             .fillMaxHeight()
             .padding(end = 8.dp)
             .background(ribbonColor)
@@ -137,7 +142,7 @@ private fun RelativeDateText(calendar: Calendar?) {
         return
     }
 
-    val context = ContextAmbient.current
+    val context = AmbientContext.current
     val time = calendar.time.time
     val stringTime = DateUtils.getRelativeDateTimeString(
         context, time, DateUtils.DAY_IN_MILLIS, DateUtils.DAY_IN_MILLIS, 0

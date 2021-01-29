@@ -6,7 +6,7 @@ import androidx.compose.material.icons.outlined.Check
 import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.icons.outlined.Settings
-import androidx.compose.ui.graphics.vector.VectorAsset
+import androidx.compose.ui.graphics.vector.ImageVector
 import com.escodro.alkaa.R
 
 /**
@@ -17,7 +17,7 @@ import com.escodro.alkaa.R
  */
 enum class HomeSection(
     @StringRes val title: Int,
-    val icon: VectorAsset
+    val icon: ImageVector
 ) {
     Tasks(R.string.home_title_tasks, Icons.Outlined.Check),
     Search(R.string.home_title_search, Icons.Outlined.Search),

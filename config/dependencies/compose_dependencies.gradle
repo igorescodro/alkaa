@@ -3,6 +3,20 @@ android {
         compose true
     }
 
+    kotlinOptions {
+        // Treat all Kotlin warnings as errors
+        // allWarningsAsErrors = true
+        freeCompilerArgs += '-Xopt-in=kotlin.RequiresOptIn'
+        // Enable experimental coroutines APIs, including Flow
+        freeCompilerArgs += '-Xopt-in=kotlin.Experimental'
+        freeCompilerArgs += '-Xallow-jvm-ir-dependencies'
+
+        // Set JVM target to 1.8
+        jvmTarget = "1.8"
+
+        useIR = true
+    }
+
     composeOptions {
         kotlinCompilerExtensionVersion Versions.compose
         kotlinCompilerVersion Versions.kotlin
@@ -13,5 +27,4 @@ dependencies {
     implementation Deps.compose.ui
     implementation Deps.compose.material
     implementation Deps.compose.tooling
-    androidTestImplementation Deps.compose.uiTest
 }

@@ -1,10 +1,10 @@
 package com.escodro.alkaa
 
-import androidx.compose.ui.test.onNodeWithLabel
+import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.test.platform.app.InstrumentationRegistry
-import androidx.ui.test.createComposeRule
 import com.escodro.alkaa.model.HomeSection
 import com.escodro.alkaa.presentation.home.Home
 import com.escodro.theme.AlkaaTheme
@@ -31,7 +31,8 @@ internal class HomeScreenTest {
     @Test
     fun test_assertIfTitleChangesWhenBottomIconIsSelected() {
         HomeSection.values().forEach { section ->
-            composeTestRule.onNodeWithLabel(context.getString(section.title)).performClick()
+            composeTestRule.onNodeWithContentDescription(context.getString(section.title))
+                .performClick()
             composeTestRule.onNodeWithText(context.getString(section.title)).assertExists()
         }
     }

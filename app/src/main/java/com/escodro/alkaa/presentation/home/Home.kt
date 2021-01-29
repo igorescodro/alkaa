@@ -3,6 +3,7 @@ package com.escodro.alkaa.presentation.home
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.BottomAppBar
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -29,13 +30,15 @@ import com.escodro.theme.AlkaaTheme
 fun Home() {
     val (currentSection, setCurrentSection) = savedInstanceState { HomeSection.Tasks }
     val navItems = HomeSection.values().toList()
+    val homeModifier =  Modifier.padding(bottom = 56.dp)
+
     Scaffold(
         topBar = {
             AlkaaTopBar(currentSection = currentSection)
         },
         bodyContent = {
             when (currentSection) {
-                HomeSection.Tasks -> TaskListSection()
+                HomeSection.Tasks -> TaskListSection(modifier = homeModifier)
                 HomeSection.Search -> { /* TODO create new section */
                 }
                 HomeSection.Categories -> { /* TODO create new section */

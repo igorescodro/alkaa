@@ -1,6 +1,6 @@
 package com.escodro.alkaa.presentation.home
 
-import androidx.compose.animation.animate
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.BottomAppBar
@@ -16,10 +16,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.accessibilityLabel
-import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.ui.tooling.preview.Preview
 import com.escodro.alkaa.model.HomeSection
 import com.escodro.task.presentation.list.TaskListSection
 import com.escodro.theme.AlkaaTheme
@@ -78,7 +76,7 @@ private fun AlkaaBottomNav(
     BottomAppBar(backgroundColor = MaterialTheme.colors.background) {
         items.forEach { section ->
             val selected = section == currentSection
-            val tint = animate(
+            val colorState = animateColorAsState(
                 if (selected) {
                     MaterialTheme.colors.primary
                 } else {
@@ -87,7 +85,7 @@ private fun AlkaaBottomNav(
             )
             AlkaaBottomIcon(
                 section = section,
-                tint = tint,
+                tint = colorState.value,
                 onSectionSelected = onSectionSelected,
                 modifier = Modifier.weight(1f)
             )
@@ -105,9 +103,9 @@ private fun AlkaaBottomIcon(
     val title = stringResource(section.title)
     IconButton(
         onClick = { onSectionSelected(section) },
-        modifier = modifier.semantics { accessibilityLabel = title }
+        modifier = modifier
     ) {
-        Icon(section.icon, tint = tint)
+        Icon(imageVector = section.icon, tint = tint, contentDescription = title)
     }
 }
 

@@ -69,10 +69,6 @@ android {
 
 }
 
-tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
-    kotlinOptions.freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
-}
-
 dependencies {
     implementation project(":libraries:core")
     implementation project(":libraries:navigation")
@@ -112,4 +108,6 @@ dependencies {
     androidTestImplementation Deps.test.espresso.contrib
     androidTestImplementation Deps.test.junitExt
     androidTestImplementation Deps.test.uiAutomator
+    androidTestImplementation Deps.compose.uiTest
+    androidTestImplementation Deps.compose.junit4
 }

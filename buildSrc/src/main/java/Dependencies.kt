@@ -8,7 +8,7 @@ object Versions {
     const val targetSdk = 29
     const val minSdk = 23
 
-    const val kotlin = "1.4.0"
+    const val kotlin = "1.4.21-2"
     const val material = "1.1.0-beta02"
     const val recyclerView = "1.0.0"
     const val preference = "1.0.0"
@@ -42,9 +42,9 @@ object Versions {
     const val testRoom = "2.1.0"
     const val testArch = "2.1.0"
 
-    const val compose = "1.0.0-alpha07"
+    const val compose = "1.0.0-alpha11"
 
-    const val buildGradle = "7.0.0-alpha03"
+    const val buildGradle = "7.0.0-alpha05"
 
     const val detekt = "1.13.1"
     const val ktlint = "0.39.0"
@@ -113,8 +113,9 @@ object GroupieDeps {
 object ComposeDeps {
     val ui = "androidx.compose.ui:ui:${Versions.compose}"
     val material = "androidx.compose.material:material:${Versions.compose}"
-    val tooling = "androidx.ui:ui-tooling:${Versions.compose}"
-    val uiTest = "androidx.ui:ui-test:${Versions.compose}"
+    val tooling = "androidx.compose.ui:ui-tooling:${Versions.compose}"
+    val uiTest = "androidx.compose.ui:ui-test:${Versions.compose}"
+    val junit4 = "androidx.compose.ui:ui-test-junit4:${Versions.compose}"
 }
 
 object TestDeps {

@@ -2,8 +2,8 @@ package com.escodro.alkaa
 
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.test.hasSubstring
+import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
-import androidx.ui.test.createComposeRule
 import com.escodro.task.model.Task
 import com.escodro.task.model.TaskWithCategory
 import com.escodro.task.presentation.list.TaskItem

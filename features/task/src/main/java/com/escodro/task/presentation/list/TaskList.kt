@@ -17,18 +17,25 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Card
 import androidx.compose.material.Checkbox
+import androidx.compose.material.FabPosition
+import androidx.compose.material.FloatingActionButton
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.AmbientContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.escodro.task.R
 import com.escodro.task.model.Category
 import com.escodro.task.model.Task
 import com.escodro.task.model.TaskWithCategory
@@ -69,7 +76,12 @@ private fun TaskListContent(
     modifier: Modifier = Modifier,
     onCheckedChanged: (TaskWithCategory) -> Unit
 ) {
-    Surface(modifier = modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
+    Scaffold(
+        modifier = modifier.fillMaxSize(),
+        backgroundColor = MaterialTheme.colors.background,
+        floatingActionButton = { FloatingButton() },
+        floatingActionButtonPosition = FabPosition.Center
+    ) {
         Column(modifier = Modifier.padding(start = 8.dp, end = 8.dp)) {
             LazyColumn {
                 items(items = taskList, itemContent = { task ->
@@ -120,6 +132,16 @@ fun TaskItem(
                 RelativeDateText(calendar = task.task.dueDate)
             }
         }
+    }
+}
+
+@Composable
+private fun FloatingButton() {
+    FloatingActionButton(backgroundColor = MaterialTheme.colors.primary, onClick = { /*TODO*/ }) {
+        Icon(
+            imageVector = Icons.Outlined.Add,
+            contentDescription = stringResource(id = R.string.task_content_description_add_task)
+        )
     }
 }
 

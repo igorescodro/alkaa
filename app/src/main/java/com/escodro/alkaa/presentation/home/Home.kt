@@ -27,10 +27,10 @@ import com.escodro.theme.AlkaaTheme
  * Alkaa Home screen.
  */
 @Composable
-fun Home() {
+fun Home(onTaskClicked: (Long) -> Unit) {
     val (currentSection, setCurrentSection) = savedInstanceState { HomeSection.Tasks }
     val navItems = HomeSection.values().toList()
-    val homeModifier =  Modifier.padding(bottom = 56.dp)
+    val homeModifier = Modifier.padding(bottom = 56.dp)
 
     Scaffold(
         topBar = {
@@ -38,7 +38,10 @@ fun Home() {
         },
         bodyContent = {
             when (currentSection) {
-                HomeSection.Tasks -> TaskListSection(modifier = homeModifier)
+                HomeSection.Tasks -> TaskListSection(
+                    modifier = homeModifier,
+                    onItemClicked = onTaskClicked
+                )
                 HomeSection.Search -> { /* TODO create new section */
                 }
                 HomeSection.Categories -> { /* TODO create new section */

@@ -91,6 +91,7 @@ dependencies {
     implementation Deps.android.navigation.ui
     implementation Deps.android.lifecycle.viewmodel
     implementation Deps.android.playCore
+    implementation Deps.compose.navigation
 
     implementation Deps.timber
 

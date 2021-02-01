@@ -49,13 +49,14 @@ import java.util.Calendar
  * @param modifier the decorator
  */
 @Composable
-fun TaskListSection(modifier: Modifier = Modifier) {
-    TaskListLoader(modifier = modifier)
+fun TaskListSection(modifier: Modifier = Modifier, onItemClicked: (Long) -> Unit) {
+    TaskListLoader(modifier = modifier, onItemClicked = onItemClicked)
 }
 
 @Composable
 private fun TaskListLoader(
     modifier: Modifier = Modifier,
+    onItemClicked: (Long) -> Unit,
     viewModel: TaskListViewModel = getViewModel()
 ) {
     viewModel.loadTasks()
@@ -66,7 +67,8 @@ private fun TaskListLoader(
         modifier = modifier,
         onCheckedChanged = { item: TaskWithCategory ->
             viewModel.updateTaskStatus(item)
-        }
+        },
+        onItemClicked = onItemClicked
     )
 }
 
@@ -74,7 +76,8 @@ private fun TaskListLoader(
 private fun TaskListContent(
     taskList: List<TaskWithCategory>,
     modifier: Modifier = Modifier,
-    onCheckedChanged: (TaskWithCategory) -> Unit
+    onCheckedChanged: (TaskWithCategory) -> Unit,
+    onItemClicked: (Long) -> Unit
 ) {
     Scaffold(
         modifier = modifier.fillMaxSize(),
@@ -85,7 +88,11 @@ private fun TaskListContent(
         Column(modifier = Modifier.padding(start = 8.dp, end = 8.dp)) {
             LazyColumn {
                 items(items = taskList, itemContent = { task ->
-                    TaskItem(task = task, onItemClicked = { }, onCheckedChanged = onCheckedChanged)
+                    TaskItem(
+                        task = task,
+                        onItemClicked = onItemClicked,
+                        onCheckedChanged = onCheckedChanged
+                    )
                 })
             }
         }
@@ -103,7 +110,7 @@ private fun TaskListContent(
 fun TaskItem(
     modifier: Modifier = Modifier,
     task: TaskWithCategory,
-    onItemClicked: (TaskWithCategory) -> Unit,
+    onItemClicked: (Long) -> Unit,
     onCheckedChanged: (TaskWithCategory) -> Unit
 ) {
     Card(
@@ -112,7 +119,7 @@ fun TaskItem(
             .fillMaxWidth()
             .padding(all = 8.dp)
             .preferredHeight(74.dp)
-            .clickable { onItemClicked(task) }
+            .clickable { onItemClicked(task.task.id) }
     ) {
         Row {
             CardRibbon(color = task.category?.color)
@@ -196,6 +203,10 @@ fun AlkaaBottomNavPreview() {
     )
 
     AlkaaTheme {
-        TaskListContent(taskList = taskList, modifier = Modifier, onCheckedChanged = {})
+        TaskListContent(
+            taskList = taskList,
+            modifier = Modifier,
+            onCheckedChanged = {},
+            onItemClicked = {})
     }
 }

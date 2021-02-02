@@ -7,6 +7,10 @@ android {
         experimental = true
     }
 
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+
     packagingOptions {
         exclude 'META-INF/AL2.0'
         exclude 'META-INF/LGPL2.1'

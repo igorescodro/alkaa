@@ -2,8 +2,11 @@ package com.escodro.task.presentation.detail
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.TextField
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
@@ -34,7 +37,11 @@ private fun TaskDetailLoader(
         }
         is TaskDetailState.Loaded -> {
             val task = (state.value as TaskDetailState.Loaded).task
-            TaskDetailContent(task = task, onTitleChanged = viewModel::updateTitle)
+            TaskDetailContent(
+                task = task,
+                onTitleChanged = viewModel::updateTitle,
+                onDescriptionChanged = viewModel::updateDescription
+            )
         }
     }
 }
@@ -42,18 +49,20 @@ private fun TaskDetailLoader(
 @Composable
 private fun TaskDetailContent(
     task: Task,
-    onTitleChanged: (String) -> Unit
+    onTitleChanged: (String) -> Unit,
+    onDescriptionChanged: (String) -> Unit
 ) {
     Column {
         TaskTitleTextField(text = task.title, onTitleChanged = onTitleChanged)
+        TaskDescriptionTextField(
+            text = task.description,
+            onDescriptionChanged = onDescriptionChanged
+        )
     }
 }
 
 @Composable
-private fun TaskTitleTextField(
-    text: String,
-    onTitleChanged: (String) -> Unit
-) {
+private fun TaskTitleTextField(text: String, onTitleChanged: (String) -> Unit) {
     val textState = remember(key1 = text) { mutableStateOf(TextFieldValue(text)) }
     TextField(
         modifier = Modifier.fillMaxWidth(),
@@ -67,13 +76,35 @@ private fun TaskTitleTextField(
     )
 }
 
+@Composable
+private fun TaskDescriptionTextField(text: String?, onDescriptionChanged: (String) -> Unit) {
+    val textState = remember(key1 = text) { mutableStateOf(TextFieldValue(text ?: "")) }
+
+    TextField(
+        modifier = Modifier.fillMaxWidth(),
+        leadingIcon = {
+            Icon(
+                imageVector = Icons.Default.Menu,
+                contentDescription = "menu"
+            )
+        },
+        value = textState.value,
+        onValueChange = {
+            onDescriptionChanged(it.text)
+            textState.value = it
+        },
+        textStyle = MaterialTheme.typography.body1,
+        backgroundColor = MaterialTheme.colors.background,
+    )
+}
+
 @Suppress("UndocumentedPublicFunction")
 @Preview
 @Composable
 fun TaskDetailPreview() {
-    val task = Task(title = "Buy milk", dueDate = null)
+    val task = Task(title = "Buy milk", description = "This is a amazing task!", dueDate = null)
 
     AlkaaTheme {
-        TaskDetailContent(task = task) {}
+        TaskDetailContent(task = task, {}, {})
     }
 }

@@ -42,4 +42,16 @@ internal class TaskDetailViewModel(
             }
         }
     }
+
+    fun updateDescription(description: String) {
+        coroutineDebouncer(coroutineScope = viewModelScope) {
+            _state.value.run {
+                if (this is TaskDetailState.Loaded) {
+                    val updatedTask = this.task.copy(description = description)
+                    val mappedTask = taskMapper.toDomain(updatedTask)
+                    updateTaskUseCase(mappedTask)
+                }
+            }
+        }
+    }
 }

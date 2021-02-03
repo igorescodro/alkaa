@@ -18,6 +18,11 @@ import com.escodro.task.model.Task
 import com.escodro.theme.AlkaaTheme
 import org.koin.androidx.compose.getViewModel
 
+/**
+ * Alkaa Task Detail Section.
+ *
+ * @param taskId the id from the task to be shown
+ */
 @Composable
 fun TaskDetailSection(taskId: Long) {
     TaskDetailLoader(taskId = taskId)

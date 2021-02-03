@@ -21,6 +21,11 @@ internal object DestinationArgs {
     const val TaskId = "taskId"
 }
 
+/**
+ * Navigation Graph to control the Alkaa navigation.
+ *
+ * @param startDestination the start destination of the graph
+ */
 @Composable
 fun NavGraph(startDestination: String = Destinations.Home) {
     val navController = rememberNavController()
@@ -42,7 +47,7 @@ fun NavGraph(startDestination: String = Destinations.Home) {
     }
 }
 
-internal class Actions(navController: NavHostController) {
+internal data class Actions(val navController: NavHostController) {
 
     val openTaskDetail: (Long) -> Unit = { taskId ->
         navController.navigate("${Destinations.TaskDetail}/$taskId")

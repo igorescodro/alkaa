@@ -63,7 +63,7 @@ private fun TaskListLoader(
     val viewState by viewModel.state.collectAsState()
 
     when (viewState) {
-        is TaskListViewState.Error -> {/* TODO */
+        is TaskListViewState.Error -> { /* TODO */
         }
         is TaskListViewState.Loaded -> {
             val taskList = (viewState as TaskListViewState.Loaded).items
@@ -76,7 +76,7 @@ private fun TaskListLoader(
                 onItemClicked = onItemClicked
             )
         }
-        TaskListViewState.Empty -> {/* TODO */
+        TaskListViewState.Empty -> { /* TODO */
         }
     }
 }
@@ -96,13 +96,16 @@ private fun TaskListContent(
     ) {
         Column(modifier = Modifier.padding(start = 8.dp, end = 8.dp)) {
             LazyColumn {
-                items(items = taskList, itemContent = { task ->
-                    TaskItem(
-                        task = task,
-                        onItemClicked = onItemClicked,
-                        onCheckedChanged = onCheckedChanged
-                    )
-                })
+                items(
+                    items = taskList,
+                    itemContent = { task ->
+                        TaskItem(
+                            task = task,
+                            onItemClicked = onItemClicked,
+                            onCheckedChanged = onCheckedChanged
+                        )
+                    }
+                )
             }
         }
     }
@@ -216,6 +219,7 @@ fun AlkaaBottomNavPreview() {
             taskList = taskList,
             modifier = Modifier,
             onCheckedChanged = {},
-            onItemClicked = {})
+            onItemClicked = {}
+        )
     }
 }

@@ -6,11 +6,14 @@ import com.escodro.domain.model.TaskWithCategory
 import com.escodro.domain.usecase.taskwithcategory.LoadUncompletedTasks
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.map
 import java.util.Calendar
 
 internal class LoadUncompletedTasksFake : LoadUncompletedTasks {
 
     var list: List<TaskWithCategory> = listOf()
+
+    var throwError: Boolean = false
 
     fun returnDefaultValues() {
         val task1 = Task(title = "Buy milk", dueDate = null)
@@ -33,6 +36,11 @@ internal class LoadUncompletedTasksFake : LoadUncompletedTasks {
         list = listOf()
     }
 
-    override fun invoke(): Flow<List<TaskWithCategory>> =
-        flowOf(list)
+    override fun invoke(): Flow<List<TaskWithCategory>> {
+        return if (throwError.not()) {
+            flowOf(list)
+        } else {
+            flowOf(list).map { throw IllegalStateException() }
+        }
+    }
 }

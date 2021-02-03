@@ -61,15 +61,24 @@ private fun TaskListLoader(
 ) {
     viewModel.loadTasks()
     val viewState by viewModel.state.collectAsState()
-    val taskList = viewState.items
-    TaskListContent(
-        taskList = taskList,
-        modifier = modifier,
-        onCheckedChanged = { item: TaskWithCategory ->
-            viewModel.updateTaskStatus(item)
-        },
-        onItemClicked = onItemClicked
-    )
+
+    when (viewState) {
+        is TaskListViewState.Error -> {/* TODO */
+        }
+        is TaskListViewState.Loaded -> {
+            val taskList = (viewState as TaskListViewState.Loaded).items
+            TaskListContent(
+                taskList = taskList,
+                modifier = modifier,
+                onCheckedChanged = { item: TaskWithCategory ->
+                    viewModel.updateTaskStatus(item)
+                },
+                onItemClicked = onItemClicked
+            )
+        }
+        TaskListViewState.Empty -> {/* TODO */
+        }
+    }
 }
 
 @Composable

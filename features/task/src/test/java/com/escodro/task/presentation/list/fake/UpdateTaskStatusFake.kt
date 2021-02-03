@@ -4,7 +4,7 @@ import com.escodro.domain.usecase.task.UpdateTaskStatus
 
 internal class UpdateTaskStatusFake : UpdateTaskStatus {
 
-    val updatedList: MutableList<Long> = mutableListOf()
+    private val updatedList: MutableList<Long> = mutableListOf()
 
     override suspend fun invoke(taskId: Long) {
         updatedList.add(taskId)

@@ -4,6 +4,7 @@ import com.escodro.task.mapper.AlarmIntervalMapper
 import com.escodro.task.mapper.CategoryMapper
 import com.escodro.task.mapper.TaskMapper
 import com.escodro.task.mapper.TaskWithCategoryMapper
+import com.escodro.task.presentation.list.fake.FAKE_TASK_WITH_CATEGORY
 import com.escodro.task.presentation.list.fake.LoadUncompletedTasksFake
 import com.escodro.task.presentation.list.fake.UpdateTaskStatusFake
 import kotlinx.coroutines.flow.toList
@@ -44,7 +45,9 @@ internal class TaskListViewModelTest {
         val job = launch { viewModel.state.toList(result) }
 
         // Then that state contains the list with uncompleted tasks
-        Assert.assertTrue(result.first().items.isNotEmpty())
+        Assert.assertTrue(result.first() is TaskListViewState.Loaded)
+        val loadedState = result.first() as TaskListViewState.Loaded
+        Assert.assertTrue(loadedState.items.isNotEmpty())
 
         job.cancel()
     }
@@ -62,13 +65,13 @@ internal class TaskListViewModelTest {
             val job = launch { viewModel.state.toList(result) }
 
             // Then that state contains the empty list
-            Assert.assertTrue(result.first().items.isEmpty())
+            Assert.assertTrue(result.first() is TaskListViewState.Empty)
 
             job.cancel()
         }
 
     @Test
-    fun `test if state is re-triggered when list changes`() = runBlockingTest {
+    fun `test if when list changes, the state is re-triggered`() = runBlockingTest {
 
         // Given collecting multiple states
         val result = arrayListOf<TaskListViewState>()
@@ -78,13 +81,42 @@ internal class TaskListViewModelTest {
         loadUncompletedTasks.clean()
         viewModel.loadTasks()
         loadUncompletedTasks.returnDefaultValues()
-        viewModel.loadTasks()
+        viewModel.loadTasks() /* Simulate the re-trigger by flow */
 
         // Then multiple states are collected
         Assert.assertTrue(result.size == 2)
-        Assert.assertTrue(result[0].items.isEmpty())
-        Assert.assertTrue(result[1].items.isNotEmpty())
+        Assert.assertTrue(result[0] is TaskListViewState.Empty)
+        Assert.assertTrue(result[1] is TaskListViewState.Loaded)
 
         job.cancel()
+    }
+
+    @Test
+    fun `test if when load tasks fails, the error state is returned`() = runBlockingTest {
+
+        // Given the use case returns error
+        loadUncompletedTasks.throwError = true
+        viewModel.loadTasks()
+
+        // When the latest event is collected
+        val result = arrayListOf<TaskListViewState>()
+        val job = launch { viewModel.state.toList(result) }
+
+        // Then that state contains the empty list
+        Assert.assertTrue(result.first() is TaskListViewState.Error)
+
+        job.cancel()
+    }
+
+    @Test
+    fun `test if task is updated`() {
+        // Given a task
+        val fakeTask = FAKE_TASK_WITH_CATEGORY
+
+        // When it calls to update the task
+        viewModel.updateTaskStatus(fakeTask)
+
+        // Then the task is updated
+        Assert.assertTrue(updateTaskStatus.isTaskUpdated(fakeTask.task.id))
     }
 }

@@ -7,7 +7,6 @@ import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
 import androidx.room.Update
 import com.escodro.local.model.Task
-import kotlinx.coroutines.flow.Flow
 
 /**
  * DAO class to handle all [Task]-related database operations.

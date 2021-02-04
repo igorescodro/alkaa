@@ -1,7 +1,6 @@
 package com.escodro.domain.repository
 
 import com.escodro.domain.model.Task
-import kotlinx.coroutines.flow.Flow
 
 /**
  * Interface to represent the implementation of Task repository.

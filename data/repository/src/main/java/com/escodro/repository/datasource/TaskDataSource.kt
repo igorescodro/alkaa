@@ -1,7 +1,6 @@
 package com.escodro.repository.datasource
 
 import com.escodro.repository.model.Task
-import kotlinx.coroutines.flow.Flow
 
 /**
  * Interface to represent the implementation of Task data source.

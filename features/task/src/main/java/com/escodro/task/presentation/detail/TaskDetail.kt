@@ -68,7 +68,8 @@ private fun TaskDetailContent(
 
 @Composable
 private fun TaskTitleTextField(text: String, onTitleChanged: (String) -> Unit) {
-    val textState = remember(key1 = text) { mutableStateOf(TextFieldValue(text)) }
+    val textState = remember { mutableStateOf(TextFieldValue(text)) }
+
     TextField(
         modifier = Modifier.fillMaxWidth(),
         value = textState.value,
@@ -83,7 +84,7 @@ private fun TaskTitleTextField(text: String, onTitleChanged: (String) -> Unit) {
 
 @Composable
 private fun TaskDescriptionTextField(text: String?, onDescriptionChanged: (String) -> Unit) {
-    val textState = remember(key1 = text) { mutableStateOf(TextFieldValue(text ?: "")) }
+    val textState = remember { mutableStateOf(TextFieldValue(text ?: "")) }
 
     TextField(
         modifier = Modifier.fillMaxWidth(),

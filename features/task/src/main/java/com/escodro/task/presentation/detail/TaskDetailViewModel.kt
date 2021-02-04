@@ -8,7 +8,6 @@ import com.escodro.domain.usecase.task.UpdateTask
 import com.escodro.task.mapper.TaskMapper
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 internal class TaskDetailViewModel(
@@ -25,10 +24,9 @@ internal class TaskDetailViewModel(
     private val coroutineDebouncer = CoroutineDebouncer()
 
     fun setTaskInfo(taskId: Long) = viewModelScope.launch {
-        getTaskUseCase(taskId = taskId).collect { task ->
-            val viewTask = taskMapper.toView(task)
-            _state.value = TaskDetailState.Loaded(viewTask)
-        }
+        val task = getTaskUseCase(taskId = taskId)
+        val viewTask = taskMapper.toView(task)
+        _state.value = TaskDetailState.Loaded(viewTask)
     }
 
     fun updateTitle(title: String) {

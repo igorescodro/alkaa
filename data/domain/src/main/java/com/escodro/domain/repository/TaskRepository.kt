@@ -42,15 +42,6 @@ interface TaskRepository {
     suspend fun findAllTasksWithDueDate(): List<Task>
 
     /**
-     * Get flow task by id.
-     *
-     * @param taskId task id
-     *
-     * @return flow of selected task
-     */
-    fun findTaskFlowById(taskId: Long): Flow<Task>
-
-    /**
      * Get task by id.
      *
      * @param taskId task id

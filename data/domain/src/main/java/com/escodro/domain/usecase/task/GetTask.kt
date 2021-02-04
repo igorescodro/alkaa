@@ -2,7 +2,6 @@ package com.escodro.domain.usecase.task
 
 import com.escodro.domain.model.Task
 import com.escodro.domain.repository.TaskRepository
-import kotlinx.coroutines.flow.Flow
 
 /**
  * Use case to get a task from the database.

@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="task_content_description_add_task">Adicionar tarefa</string>
+    <string name="task_header_empty_list">Uau! Todas as tarefas estão cumpridas!</string>
+    <string name="task_content_description_empty_list">Sem tarefas</string>
 </resources>

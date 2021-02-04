@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.preferredHeight
+import androidx.compose.foundation.layout.preferredSize
 import androidx.compose.foundation.layout.preferredWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -25,13 +26,16 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Add
+import androidx.compose.material.icons.outlined.ThumbUp
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.AmbientContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -62,28 +66,17 @@ private fun TaskListLoader(
     viewModel.loadTasks()
     val viewState by viewModel.state.collectAsState()
 
-    when (viewState) {
-        is TaskListViewState.Error -> { /* TODO */
-        }
-        is TaskListViewState.Loaded -> {
-            val taskList = (viewState as TaskListViewState.Loaded).items
-            TaskListContent(
-                taskList = taskList,
-                modifier = modifier,
-                onCheckedChanged = { item: TaskWithCategory ->
-                    viewModel.updateTaskStatus(item)
-                },
-                onItemClicked = onItemClicked
-            )
-        }
-        TaskListViewState.Empty -> { /* TODO */
-        }
-    }
+    TaskListScaffold(
+        viewState = viewState,
+        modifier = modifier,
+        onCheckedChanged = { item -> viewModel.updateTaskStatus(item) },
+        onItemClicked = onItemClicked
+    )
 }
 
 @Composable
-private fun TaskListContent(
-    taskList: List<TaskWithCategory>,
+private fun TaskListScaffold(
+    viewState: TaskListViewState,
     modifier: Modifier = Modifier,
     onCheckedChanged: (TaskWithCategory) -> Unit,
     onItemClicked: (Long) -> Unit
@@ -94,19 +87,39 @@ private fun TaskListContent(
         floatingActionButton = { FloatingButton() },
         floatingActionButtonPosition = FabPosition.Center
     ) {
-        Column(modifier = Modifier.padding(start = 8.dp, end = 8.dp)) {
-            LazyColumn {
-                items(
-                    items = taskList,
-                    itemContent = { task ->
-                        TaskItem(
-                            task = task,
-                            onItemClicked = onItemClicked,
-                            onCheckedChanged = onCheckedChanged
-                        )
-                    }
-                )
+        when (viewState) {
+            is TaskListViewState.Error -> {
+                /** TODO **/
             }
+            is TaskListViewState.Loaded -> {
+                val taskList = viewState.items
+                TaskListContent(taskList, onItemClicked, onCheckedChanged)
+            }
+            TaskListViewState.Empty -> {
+                TaskListEmpty()
+            }
+        }
+    }
+}
+
+@Composable
+private fun TaskListContent(
+    taskList: List<TaskWithCategory>,
+    onItemClicked: (Long) -> Unit,
+    onCheckedChanged: (TaskWithCategory) -> Unit
+) {
+    Column(modifier = Modifier.padding(start = 8.dp, end = 8.dp)) {
+        LazyColumn {
+            items(
+                items = taskList,
+                itemContent = { task ->
+                    TaskItem(
+                        task = task,
+                        onItemClicked = onItemClicked,
+                        onCheckedChanged = onCheckedChanged
+                    )
+                }
+            )
         }
     }
 }
@@ -197,10 +210,30 @@ private fun RelativeDateText(calendar: Calendar?) {
     )
 }
 
+@Composable
+private fun TaskListEmpty() {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Icon(
+            imageVector = Icons.Outlined.ThumbUp,
+            contentDescription = stringResource(id = R.string.task_content_description_empty_list),
+            modifier = Modifier.preferredSize(128.dp)
+        )
+        Text(
+            text = stringResource(id = R.string.task_header_empty_list),
+            style = MaterialTheme.typography.h6,
+            textAlign = TextAlign.Center
+        )
+    }
+}
+
 @Suppress("UndocumentedPublicFunction")
 @Preview
 @Composable
-fun AlkaaBottomNavPreview() {
+fun TaskListScaffoldLoaded() {
     val task1 = Task(title = "Buy milk", dueDate = null)
     val task2 = Task(title = "Call Mark", dueDate = Calendar.getInstance())
     val task3 = Task(title = "Watch Moonlight", dueDate = Calendar.getInstance())
@@ -214,9 +247,27 @@ fun AlkaaBottomNavPreview() {
         TaskWithCategory(task = task3, category = null)
     )
 
+    val state = TaskListViewState.Loaded(items = taskList)
+
     AlkaaTheme {
-        TaskListContent(
-            taskList = taskList,
+        TaskListScaffold(
+            viewState = state,
+            modifier = Modifier,
+            onCheckedChanged = {},
+            onItemClicked = {}
+        )
+    }
+}
+
+@Suppress("UndocumentedPublicFunction")
+@Preview
+@Composable
+fun TaskListScaffoldEmpty() {
+    val state = TaskListViewState.Empty
+
+    AlkaaTheme {
+        TaskListScaffold(
+            viewState = state,
             modifier = Modifier,
             onCheckedChanged = {},
             onItemClicked = {}

@@ -48,5 +48,5 @@ interface TaskDataSource {
      *
      * @return selected task
      */
-    fun findTaskById(taskId: Long): Flow<Task>
+    suspend fun findTaskById(taskId: Long): Task
 }

@@ -61,5 +61,5 @@ interface TaskDao {
      * @return selected task
      */
     @Query("SELECT * FROM task WHERE task_id = :taskId")
-    fun getTaskById(taskId: Long): Flow<Task>
+    suspend fun getTaskById(taskId: Long): Task
 }

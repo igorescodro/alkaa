@@ -16,6 +16,6 @@ class GetTask(private val taskRepository: TaskRepository) {
      *
      * @return observable to be subscribe
      */
-    operator fun invoke(taskId: Long): Flow<Task> =
-        taskRepository.findTaskFlowById(taskId)
+    suspend operator fun invoke(taskId: Long): Task =
+        taskRepository.findTaskById(taskId)
 }

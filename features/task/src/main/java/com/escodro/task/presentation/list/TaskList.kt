@@ -1,27 +1,21 @@
 package com.escodro.task.presentation.list
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.preferredSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.FabPosition
-import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material.icons.outlined.ThumbUp
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.escodro.task.R
@@ -73,9 +67,7 @@ private fun TaskListScaffold(
         floatingActionButtonPosition = FabPosition.Center
     ) {
         when (viewState) {
-            is TaskListViewState.Error -> {
-                /** TODO **/
-            }
+            is TaskListViewState.Error -> TaskListError()
             is TaskListViewState.Loaded -> {
                 val taskList = viewState.items
                 TaskListContent(taskList, onItemClicked, onCheckedChanged)
@@ -109,22 +101,20 @@ private fun TaskListContent(
 
 @Composable
 private fun TaskListEmpty() {
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Icon(
-            imageVector = Icons.Outlined.ThumbUp,
-            contentDescription = stringResource(id = R.string.task_content_description_empty_list),
-            modifier = Modifier.preferredSize(128.dp)
-        )
-        Text(
-            text = stringResource(id = R.string.task_header_empty_list),
-            style = MaterialTheme.typography.h6,
-            textAlign = TextAlign.Center
-        )
-    }
+    TaskListDefaultContent(
+        icon = Icons.Outlined.ThumbUp,
+        iconContentDescription = R.string.task_content_description_empty_list,
+        header = R.string.task_header_empty_list
+    )
+}
+
+@Composable
+private fun TaskListError() {
+    TaskListDefaultContent(
+        icon = Icons.Outlined.Close,
+        iconContentDescription = R.string.task_content_description_error,
+        header = R.string.task_header_error
+    )
 }
 
 @Suppress("UndocumentedPublicFunction")
@@ -161,6 +151,22 @@ fun TaskListScaffoldLoaded() {
 @Composable
 fun TaskListScaffoldEmpty() {
     val state = TaskListViewState.Empty
+
+    AlkaaTheme {
+        TaskListScaffold(
+            viewState = state,
+            modifier = Modifier,
+            onCheckedChanged = {},
+            onItemClicked = {}
+        )
+    }
+}
+
+@Suppress("UndocumentedPublicFunction")
+@Preview
+@Composable
+fun TaskListScaffoldError() {
+    val state = TaskListViewState.Error(cause = IllegalAccessException())
 
     AlkaaTheme {
         TaskListScaffold(

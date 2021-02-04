@@ -3,4 +3,6 @@
     <string name="task_content_description_add_task">Add task</string>
     <string name="task_header_empty_list">Wow! All tasks are completed!</string>
     <string name="task_content_description_empty_list">That\'s all clear</string>
+    <string name="task_header_error">Ops… That\'s embarrassing…</string>
+    <string name="task_content_description_error">Something went wrong</string>
 </resources>

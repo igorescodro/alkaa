@@ -49,7 +49,7 @@ internal class TaskItemTest {
         composeTestRule.onNode(hasSubstring(minute)).assertExists()
     }
 
-    private fun loadItemView(item: TaskWithCategory, onItemClicked: (TaskWithCategory) -> Unit) {
+    private fun loadItemView(item: TaskWithCategory, onItemClicked: (Long) -> Unit) {
         composeTestRule.setContent {
             AlkaaTheme {
                 TaskItem(Modifier, item, onItemClicked, onCheckedChanged = {})

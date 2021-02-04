@@ -17,18 +17,25 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Card
 import androidx.compose.material.Checkbox
+import androidx.compose.material.FabPosition
+import androidx.compose.material.FloatingActionButton
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.AmbientContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.escodro.task.R
 import com.escodro.task.model.Category
 import com.escodro.task.model.Task
 import com.escodro.task.model.TaskWithCategory
@@ -42,39 +49,63 @@ import java.util.Calendar
  * @param modifier the decorator
  */
 @Composable
-fun TaskListSection(modifier: Modifier = Modifier) {
-    TaskListLoader(modifier = modifier)
+fun TaskListSection(modifier: Modifier = Modifier, onItemClicked: (Long) -> Unit) {
+    TaskListLoader(modifier = modifier, onItemClicked = onItemClicked)
 }
 
 @Composable
 private fun TaskListLoader(
     modifier: Modifier = Modifier,
+    onItemClicked: (Long) -> Unit,
     viewModel: TaskListViewModel = getViewModel()
 ) {
     viewModel.loadTasks()
     val viewState by viewModel.state.collectAsState()
-    val taskList = viewState.items
-    TaskListContent(
-        taskList = taskList,
-        modifier = modifier,
-        onCheckedChanged = { item: TaskWithCategory ->
-            viewModel.updateTaskStatus(item)
+
+    when (viewState) {
+        is TaskListViewState.Error -> { /* TODO */
         }
-    )
+        is TaskListViewState.Loaded -> {
+            val taskList = (viewState as TaskListViewState.Loaded).items
+            TaskListContent(
+                taskList = taskList,
+                modifier = modifier,
+                onCheckedChanged = { item: TaskWithCategory ->
+                    viewModel.updateTaskStatus(item)
+                },
+                onItemClicked = onItemClicked
+            )
+        }
+        TaskListViewState.Empty -> { /* TODO */
+        }
+    }
 }
 
 @Composable
 private fun TaskListContent(
     taskList: List<TaskWithCategory>,
     modifier: Modifier = Modifier,
-    onCheckedChanged: (TaskWithCategory) -> Unit
+    onCheckedChanged: (TaskWithCategory) -> Unit,
+    onItemClicked: (Long) -> Unit
 ) {
-    Surface(modifier = modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
+    Scaffold(
+        modifier = modifier.fillMaxSize(),
+        backgroundColor = MaterialTheme.colors.background,
+        floatingActionButton = { FloatingButton() },
+        floatingActionButtonPosition = FabPosition.Center
+    ) {
         Column(modifier = Modifier.padding(start = 8.dp, end = 8.dp)) {
             LazyColumn {
-                items(items = taskList, itemContent = { task ->
-                    TaskItem(task = task, onItemClicked = { }, onCheckedChanged = onCheckedChanged)
-                })
+                items(
+                    items = taskList,
+                    itemContent = { task ->
+                        TaskItem(
+                            task = task,
+                            onItemClicked = onItemClicked,
+                            onCheckedChanged = onCheckedChanged
+                        )
+                    }
+                )
             }
         }
     }
@@ -91,7 +122,7 @@ private fun TaskListContent(
 fun TaskItem(
     modifier: Modifier = Modifier,
     task: TaskWithCategory,
-    onItemClicked: (TaskWithCategory) -> Unit,
+    onItemClicked: (Long) -> Unit,
     onCheckedChanged: (TaskWithCategory) -> Unit
 ) {
     Card(
@@ -100,7 +131,7 @@ fun TaskItem(
             .fillMaxWidth()
             .padding(all = 8.dp)
             .preferredHeight(74.dp)
-            .clickable { onItemClicked(task) }
+            .clickable { onItemClicked(task.task.id) }
     ) {
         Row {
             CardRibbon(color = task.category?.color)
@@ -120,6 +151,16 @@ fun TaskItem(
                 RelativeDateText(calendar = task.task.dueDate)
             }
         }
+    }
+}
+
+@Composable
+private fun FloatingButton() {
+    FloatingActionButton(backgroundColor = MaterialTheme.colors.primary, onClick = { /*TODO*/ }) {
+        Icon(
+            imageVector = Icons.Outlined.Add,
+            contentDescription = stringResource(id = R.string.task_content_description_add_task)
+        )
     }
 }
 
@@ -174,6 +215,11 @@ fun AlkaaBottomNavPreview() {
     )
 
     AlkaaTheme {
-        TaskListContent(taskList = taskList, modifier = Modifier, onCheckedChanged = {})
+        TaskListContent(
+            taskList = taskList,
+            modifier = Modifier,
+            onCheckedChanged = {},
+            onItemClicked = {}
+        )
     }
 }

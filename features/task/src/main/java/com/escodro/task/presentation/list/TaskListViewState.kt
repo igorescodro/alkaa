@@ -4,7 +4,12 @@ import com.escodro.task.model.TaskWithCategory
 
 /**
  * Presentation entity to represent the view states of Task Section.
- *
- * @param items the list of tasks
  */
-data class TaskListViewState(val items: List<TaskWithCategory>)
+internal sealed class TaskListViewState {
+
+    data class Error(val cause: Throwable) : TaskListViewState()
+
+    data class Loaded(val items: List<TaskWithCategory>) : TaskListViewState()
+
+    object Empty : TaskListViewState()
+}

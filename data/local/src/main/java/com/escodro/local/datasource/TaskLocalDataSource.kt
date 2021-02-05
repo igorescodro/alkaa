@@ -29,5 +29,5 @@ internal class TaskLocalDataSource(daoProvider: DaoProvider, private val taskMap
         taskDao.findAllTasksWithDueDate().map { taskMapper.toRepo(it) }
 
     override suspend fun findTaskById(taskId: Long): Task? =
-        taskDao.getTaskById(taskId)?.let {taskMapper.toRepo(it)}
+        taskDao.getTaskById(taskId)?.let { taskMapper.toRepo(it) }
 }

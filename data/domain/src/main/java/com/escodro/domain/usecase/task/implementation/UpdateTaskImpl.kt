@@ -7,7 +7,7 @@ import com.escodro.domain.usecase.task.UpdateTask
 /**
  * Use case to update a task from the database.
  */
-class UpdateTaskImpl(private val taskRepository: TaskRepository) : UpdateTask {
+internal class UpdateTaskImpl(private val taskRepository: TaskRepository) : UpdateTask {
 
     override suspend operator fun invoke(task: Task) =
         taskRepository.updateTask(task)

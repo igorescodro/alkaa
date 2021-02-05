@@ -5,9 +5,9 @@ import com.escodro.domain.usecase.fake.AlarmInteractorFake
 import com.escodro.domain.usecase.fake.CalendarProviderFake
 import com.escodro.domain.usecase.fake.NotificationInteractorFake
 import com.escodro.domain.usecase.fake.TaskRepositoryFake
+import com.escodro.domain.usecase.task.implementation.LoadTaskImpl
 import com.escodro.domain.usecase.task.implementation.UpdateTaskStatusImpl
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert
 import org.junit.Before
@@ -34,7 +34,7 @@ internal class CompleteTaskTest {
     private val updateTaskStatusUseCase =
         UpdateTaskStatusImpl(taskRepository, completeTaskUseCase, uncompleteTaskUseCase)
 
-    private val getTaskUseCase = GetTask(taskRepository)
+    private val getTaskUseCase = LoadTaskImpl(taskRepository)
 
     @Before
     fun setup() = runBlockingTest {

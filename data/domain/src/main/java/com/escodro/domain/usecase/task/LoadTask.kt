@@ -2,13 +2,13 @@ package com.escodro.domain.usecase.task
 
 import com.escodro.domain.model.Task
 
-interface UpdateTask {
+interface LoadTask {
     /**
-     * Updates a task.
+     * Gets a task.
      *
-     * @param task the task to be updated
+     * @param taskId the task id
      *
      * @return observable to be subscribe
      */
-    suspend operator fun invoke(task: Task)
+    suspend operator fun invoke(taskId: Long): Task
 }

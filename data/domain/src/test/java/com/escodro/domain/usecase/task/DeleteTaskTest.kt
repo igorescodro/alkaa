@@ -3,8 +3,8 @@ package com.escodro.domain.usecase.task
 import com.escodro.domain.model.Task
 import com.escodro.domain.usecase.fake.AlarmInteractorFake
 import com.escodro.domain.usecase.fake.TaskRepositoryFake
+import com.escodro.domain.usecase.task.implementation.LoadTaskImpl
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert
 import org.junit.Before
@@ -19,7 +19,7 @@ internal class DeleteTaskTest {
 
     private val deleteTaskUseCase = DeleteTask(taskRepository, alarmInteractor)
 
-    private val getTaskUseCase = GetTask(taskRepository)
+    private val getTaskUseCase = LoadTaskImpl(taskRepository)
 
     private val addTaskUseCase = AddTask(taskRepository)
 

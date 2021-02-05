@@ -3,7 +3,7 @@ package com.escodro.task.presentation.detail
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.escodro.core.coroutines.CoroutineDebouncer
-import com.escodro.domain.usecase.task.GetTask
+import com.escodro.domain.usecase.task.LoadTask
 import com.escodro.domain.usecase.task.UpdateTask
 import com.escodro.task.mapper.TaskMapper
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 internal class TaskDetailViewModel(
-    private val getTaskUseCase: GetTask,
+    private val loadTaskUseCase: LoadTask,
     private val updateTaskUseCase: UpdateTask,
     private val taskMapper: TaskMapper
 ) : ViewModel() {
@@ -24,7 +24,7 @@ internal class TaskDetailViewModel(
     private val coroutineDebouncer = CoroutineDebouncer()
 
     fun setTaskInfo(taskId: Long) = viewModelScope.launch {
-        val task = getTaskUseCase(taskId = taskId)
+        val task = loadTaskUseCase(taskId = taskId)
         val viewTask = taskMapper.toView(task)
         _state.value = TaskDetailState.Loaded(viewTask)
     }

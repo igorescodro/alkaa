@@ -2,9 +2,8 @@ package com.escodro.domain.usecase.task
 
 import com.escodro.domain.model.Task
 import com.escodro.domain.usecase.fake.TaskRepositoryFake
+import com.escodro.domain.usecase.task.implementation.LoadTaskImpl
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert
 import org.junit.Before
@@ -17,7 +16,7 @@ internal class AddTaskTest {
 
     private val addTaskUseCase = AddTask(taskRepository)
 
-    private val getTaskUseCase = GetTask(taskRepository)
+    private val getTaskUseCase = LoadTaskImpl(taskRepository)
 
     @Before
     fun setup() = runBlockingTest {

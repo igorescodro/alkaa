@@ -16,7 +16,7 @@ class UpdateTaskAsRepeating(private val taskRepository: TaskRepository) {
      * @param interval repeating alarm interval
      */
     suspend operator fun invoke(taskId: Long, interval: AlarmInterval?) {
-        val task = taskRepository.findTaskById(taskId)
+        val task = taskRepository.findTaskById(taskId) ?: return
         Timber.d("UpdateTaskAsRepeating = Task = '${task.title} as '$interval")
 
         val updatedTask = if (interval == null) {

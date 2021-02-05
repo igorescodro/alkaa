@@ -47,5 +47,5 @@ interface TaskDataSource {
      *
      * @return selected task
      */
-    suspend fun findTaskById(taskId: Long): Task
+    suspend fun findTaskById(taskId: Long): Task?
 }

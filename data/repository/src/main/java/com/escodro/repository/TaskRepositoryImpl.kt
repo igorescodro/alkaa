@@ -24,6 +24,6 @@ internal class TaskRepositoryImpl(
     override suspend fun findAllTasksWithDueDate(): List<Task> =
         taskDataSource.findAllTasksWithDueDate().map { taskMapper.toDomain(it) }
 
-    override suspend fun findTaskById(taskId: Long): Task =
-        taskMapper.toDomain(taskDataSource.findTaskById(taskId))
+    override suspend fun findTaskById(taskId: Long): Task? =
+        taskDataSource.findTaskById(taskId)?.let {  taskMapper.toDomain(it)}
 }

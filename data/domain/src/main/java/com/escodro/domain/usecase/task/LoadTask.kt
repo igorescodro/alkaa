@@ -2,6 +2,9 @@ package com.escodro.domain.usecase.task
 
 import com.escodro.domain.model.Task
 
+/**
+ * Use case to get a task from the database.
+ */
 interface LoadTask {
     /**
      * Gets a task.

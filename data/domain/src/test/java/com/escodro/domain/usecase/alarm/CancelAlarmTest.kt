@@ -45,8 +45,9 @@ class CancelAlarmTest {
         addTaskUseCase(task)
         cancelAlarmUseCase(task.id)
 
-        val resultTask = getTaskUseCase(task.id).first()
+        val result = getTaskUseCase(task.id)
 
-        Assert.assertNull(resultTask.dueDate)
+        require(result != null)
+        Assert.assertNull(result.dueDate)
     }
 }

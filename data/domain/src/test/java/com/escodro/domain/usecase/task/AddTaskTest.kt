@@ -28,7 +28,9 @@ internal class AddTaskTest {
         val task = Task(id = 15, title = "this title", description = "this desc")
         addTaskUseCase(task)
 
-        val result = getTaskUseCase(task.id).first()
+        val result = getTaskUseCase(task.id)
+
+        require(result != null)
         Assert.assertEquals(task, result)
     }
 
@@ -37,9 +39,8 @@ internal class AddTaskTest {
         val task = Task(id = 15, title = " ", description = "this desc")
         addTaskUseCase(task)
 
-        val resultList = mutableListOf<Task>()
-        getTaskUseCase(task.id).collect { resultList.add(it) }
+        val result = getTaskUseCase(task.id)
 
-        Assert.assertEquals(0, resultList.size)
+        Assert.assertNull(result)
     }
 }

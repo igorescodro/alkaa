@@ -35,7 +35,8 @@ internal class UpdateTaskAsRepeatingTest {
 
         scheduleRepeatingUseCase(task.id, interval)
 
-        val result = getTaskUseCase(task.id).first()
+        val result = getTaskUseCase(task.id)
+        require(result != null)
         Assert.assertEquals(interval, result.alarmInterval)
         Assert.assertTrue(result.isRepeating)
     }
@@ -54,7 +55,8 @@ internal class UpdateTaskAsRepeatingTest {
 
             scheduleRepeatingUseCase(task.id, null)
 
-            val result = getTaskUseCase(task.id).first()
+            val result = getTaskUseCase(task.id)
+            require(result != null)
             Assert.assertEquals(null, result.alarmInterval)
             Assert.assertFalse(result.isRepeating)
         }

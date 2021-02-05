@@ -19,7 +19,7 @@ internal class DeleteTaskTest {
 
     private val deleteTaskUseCase = DeleteTask(taskRepository, alarmInteractor)
 
-    private val getTaskUseCase = LoadTaskImpl(taskRepository)
+    private val loadTaskUseCase = LoadTaskImpl(taskRepository)
 
     private val addTaskUseCase = AddTask(taskRepository)
 
@@ -35,10 +35,9 @@ internal class DeleteTaskTest {
         addTaskUseCase(task)
         deleteTaskUseCase(task)
 
-        val resultList = mutableListOf<Task>()
-        getTaskUseCase(task.id).collect { resultList.add(it) }
+        val loadedTask = loadTaskUseCase(task.id)
 
-        Assert.assertEquals(0, resultList.size)
+        Assert.assertNull(loadedTask)
     }
 
     @Test

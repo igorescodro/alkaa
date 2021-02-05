@@ -79,7 +79,9 @@ internal class ScheduleNextAlarmTest {
         )
         addTaskUseCase(task)
         scheduleNextAlarmUseCase(task)
-        val result = getTaskUseCase(task.id).first()
+        val result = getTaskUseCase(task.id)
+
+        require(result != null)
 
         val assertCalendar = calendar.apply {
             time = calendar.time
@@ -99,7 +101,9 @@ internal class ScheduleNextAlarmTest {
         )
         addTaskUseCase(task)
         scheduleNextAlarmUseCase(task)
-        val result = getTaskUseCase(task.id).first()
+        val result = getTaskUseCase(task.id)
+
+        require(result != null)
 
         val assertCalendar = calendar.apply {
             time = calendar.time
@@ -119,7 +123,9 @@ internal class ScheduleNextAlarmTest {
         )
         addTaskUseCase(task)
         scheduleNextAlarmUseCase(task)
-        val result = getTaskUseCase(task.id).first()
+        val result = getTaskUseCase(task.id)
+
+        require(result != null)
 
         val assertCalendar = calendar.apply {
             time = calendar.time
@@ -139,7 +145,9 @@ internal class ScheduleNextAlarmTest {
         )
         addTaskUseCase(task)
         scheduleNextAlarmUseCase(task)
-        val result = getTaskUseCase(task.id).first()
+        val result = getTaskUseCase(task.id)
+
+        require(result != null)
 
         val assertCalendar = calendar.apply {
             time = calendar.time
@@ -159,7 +167,9 @@ internal class ScheduleNextAlarmTest {
         )
         addTaskUseCase(task)
         scheduleNextAlarmUseCase(task)
-        val result = getTaskUseCase(task.id).first()
+        val result = getTaskUseCase(task.id)
+
+        require(result != null)
 
         val assertCalendar = calendar.apply {
             time = calendar.time
@@ -195,7 +205,9 @@ internal class ScheduleNextAlarmTest {
 
         addTaskUseCase(task)
         scheduleNextAlarmUseCase(task)
-        val result = getTaskUseCase(task.id).first()
+        val result = getTaskUseCase(task.id)
+
+        require(result != null)
 
         val assertCalendar = pastCalendar.apply {
             time = pastCalendar.time

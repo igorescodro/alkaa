@@ -23,7 +23,7 @@ internal class SearchLocalDataSourceTest {
     }
 
     @Test
-    fun `check if the query is enclosed with %`() = runBlockingTest {
+    fun `check if the query is enclosed with percent char`() = runBlockingTest {
         val query = "name"
         dataSource.findTaskByName(query)
         coVerify { mockDaoProvider.getTaskWithCategoryDao().findTaskByName("%$query%") }

@@ -28,7 +28,7 @@ internal class UpdateTaskTest {
         val updatedTask = task.copy(title = "it's funny", description = "my mistake!")
         updateTaskUseCase(updatedTask)
 
-        val result = getTaskUseCase(task.id).first()
-        Assert.assertEquals(updatedTask, result)
+        val loadedTask = getTaskUseCase(task.id)
+        Assert.assertEquals(updatedTask, loadedTask)
     }
 }

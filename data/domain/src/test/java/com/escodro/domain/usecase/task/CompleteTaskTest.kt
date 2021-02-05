@@ -49,8 +49,10 @@ internal class CompleteTaskTest {
         addTaskUseCase(task)
         completeTaskUseCase(task)
 
-        val result = getTaskUseCase(task.id).first()
-        Assert.assertTrue(result.completed)
+        val result = getTaskUseCase(task.id)
+
+        Assert.assertNotNull(result)
+        Assert.assertTrue(result?.completed == true)
     }
 
     @Test
@@ -59,7 +61,9 @@ internal class CompleteTaskTest {
         addTaskUseCase(task)
         completeTaskUseCase(task.id)
 
-        val result = getTaskUseCase(task.id).first()
+        val result = getTaskUseCase(task.id)
+
+        require(result != null)
         Assert.assertTrue(result.completed)
     }
 
@@ -69,7 +73,9 @@ internal class CompleteTaskTest {
         addTaskUseCase(task)
         uncompleteTaskUseCase(task)
 
-        val result = getTaskUseCase(task.id).first()
+        val result = getTaskUseCase(task.id)
+
+        require(result != null)
         Assert.assertFalse(result.completed)
     }
 
@@ -84,11 +90,13 @@ internal class CompleteTaskTest {
         updateTaskStatusUseCase(task1.id)
         updateTaskStatusUseCase(task2.id)
 
-        val result1 = getTaskUseCase(task1.id).first()
-        val result2 = getTaskUseCase(task2.id).first()
+        val loadedTask1 = getTaskUseCase(task1.id)
+        val loadedTask2 = getTaskUseCase(task2.id)
 
-        Assert.assertFalse(result1.completed)
-        Assert.assertTrue(result2.completed)
+        require(loadedTask1 != null)
+        require(loadedTask2 != null)
+        Assert.assertFalse(loadedTask1.completed)
+        Assert.assertTrue(loadedTask2.completed)
     }
 
     @Test

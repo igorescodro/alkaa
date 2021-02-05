@@ -17,7 +17,8 @@ class CancelAlarm(
      * @param taskId the task id
      */
     suspend operator fun invoke(taskId: Long) {
-        val task = taskRepository.findTaskById(taskId)
+        val task = taskRepository.findTaskById(taskId) ?: return
+
         val updatedTask = task.copy(dueDate = null)
 
         alarmInteractor.cancel(task.id)

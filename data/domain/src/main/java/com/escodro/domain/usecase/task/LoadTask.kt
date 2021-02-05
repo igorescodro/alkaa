@@ -10,5 +10,5 @@ interface LoadTask {
      *
      * @return observable to be subscribe
      */
-    suspend operator fun invoke(taskId: Long): Task
+    suspend operator fun invoke(taskId: Long): Task?
 }

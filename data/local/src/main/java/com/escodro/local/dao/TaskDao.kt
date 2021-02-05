@@ -60,5 +60,5 @@ interface TaskDao {
      * @return selected task
      */
     @Query("SELECT * FROM task WHERE task_id = :taskId")
-    suspend fun getTaskById(taskId: Long): Task
+    suspend fun getTaskById(taskId: Long): Task?
 }

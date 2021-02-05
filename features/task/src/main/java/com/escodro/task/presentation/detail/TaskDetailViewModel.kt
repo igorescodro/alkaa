@@ -25,8 +25,11 @@ internal class TaskDetailViewModel(
 
     fun setTaskInfo(taskId: Long) = viewModelScope.launch {
         val task = loadTaskUseCase(taskId = taskId)
-        val viewTask = taskMapper.toView(task)
-        _state.value = TaskDetailState.Loaded(viewTask)
+
+        if (task != null) {
+            val viewTask = taskMapper.toView(task)
+            _state.value = TaskDetailState.Loaded(viewTask)
+        }
     }
 
     fun updateTitle(title: String) {

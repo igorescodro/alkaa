@@ -47,5 +47,5 @@ interface TaskRepository {
      *
      * @return selected task
      */
-    suspend fun findTaskById(taskId: Long): Task
+    suspend fun findTaskById(taskId: Long): Task?
 }

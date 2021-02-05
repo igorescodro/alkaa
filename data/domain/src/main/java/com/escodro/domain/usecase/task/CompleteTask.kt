@@ -24,7 +24,7 @@ class CompleteTask(
      * @return observable to be subscribe
      */
     suspend operator fun invoke(taskId: Long) {
-        val task = taskRepository.findTaskById(taskId)
+        val task = taskRepository.findTaskById(taskId) ?: return
         invoke(task)
     }
 

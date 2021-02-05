@@ -6,6 +6,6 @@ import com.escodro.domain.usecase.task.LoadTask
 
 class LoadTaskImpl(private val taskRepository: TaskRepository) : LoadTask {
 
-    override suspend operator fun invoke(taskId: Long): Task =
+    override suspend operator fun invoke(taskId: Long): Task? =
         taskRepository.findTaskById(taskId)
 }

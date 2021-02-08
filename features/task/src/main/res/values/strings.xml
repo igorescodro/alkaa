@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="task_content_description_add_task">Add task</string>
+    <string name="task_list_header_empty">Wow! All tasks are completed!</string>
+    <string name="task_list_content_description_empty_list">That\'s all clear</string>
+    <string name="task_list_header_error">Ops… That\'s embarrassing…</string>
+    <string name="task_list_content_description_error">Something went wrong</string>
+    <string name="task_detail_header_error">This task is no longer available</string>
+    <string name="task_detail_content_description_error">Task not found</string>
 </resources>

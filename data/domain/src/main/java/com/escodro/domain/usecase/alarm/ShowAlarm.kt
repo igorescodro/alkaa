@@ -19,7 +19,7 @@ class ShowAlarm(
      * @param taskId the alarm id to be shown
      */
     suspend operator fun invoke(taskId: Long) {
-        val task = taskRepository.findTaskById(taskId)
+        val task = taskRepository.findTaskById(taskId) ?: return
 
         if (task.completed) {
             Timber.d("Task '${task.title}' is already completed. Will not notify")

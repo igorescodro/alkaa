@@ -1,5 +1,6 @@
 package com.escodro.alkaa.presentation.home
 
+import androidx.compose.animation.Crossfade
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -32,14 +33,33 @@ fun Home(onTaskClicked: (Long) -> Unit) {
     val navItems = HomeSection.values().toList()
     val homeModifier = Modifier.padding(bottom = 56.dp)
 
+    Crossfade(current = currentSection) { homeSection ->
+        AlkaaHomeScaffold(
+            homeSection = homeSection,
+            modifier = homeModifier,
+            onTaskClicked = onTaskClicked,
+            setCurrentSection = setCurrentSection,
+            navItems = navItems
+        )
+    }
+}
+
+@Composable
+private fun AlkaaHomeScaffold(
+    homeSection: HomeSection,
+    modifier: Modifier,
+    onTaskClicked: (Long) -> Unit,
+    setCurrentSection: (HomeSection) -> Unit,
+    navItems: List<HomeSection>
+) {
     Scaffold(
         topBar = {
-            AlkaaTopBar(currentSection = currentSection)
+            AlkaaTopBar(currentSection = homeSection)
         },
         bodyContent = {
-            when (currentSection) {
+            when (homeSection) {
                 HomeSection.Tasks -> TaskListSection(
-                    modifier = homeModifier,
+                    modifier = modifier,
                     onItemClicked = onTaskClicked
                 )
                 HomeSection.Search -> { /* TODO create new section */
@@ -52,7 +72,7 @@ fun Home(onTaskClicked: (Long) -> Unit) {
         },
         bottomBar = {
             AlkaaBottomNav(
-                currentSection = currentSection,
+                currentSection = homeSection,
                 onSectionSelected = setCurrentSection,
                 items = navItems
             )

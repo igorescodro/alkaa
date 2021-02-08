@@ -6,9 +6,8 @@ import com.escodro.domain.provider.CalendarProviderImpl
 import com.escodro.domain.usecase.fake.AlarmInteractorFake
 import com.escodro.domain.usecase.fake.TaskRepositoryFake
 import com.escodro.domain.usecase.task.AddTask
-import com.escodro.domain.usecase.task.GetTask
+import com.escodro.domain.usecase.task.implementation.LoadTaskImpl
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert
@@ -27,7 +26,7 @@ internal class ScheduleNextAlarmTest {
 
     private val addTaskUseCase = AddTask(taskRepository)
 
-    private val getTaskUseCase = GetTask(taskRepository)
+    private val getTaskUseCase = LoadTaskImpl(taskRepository)
 
     private val scheduleNextAlarmUseCase =
         ScheduleNextAlarm(taskRepository, alarmInteractor, calendarProvider)
@@ -80,7 +79,9 @@ internal class ScheduleNextAlarmTest {
         )
         addTaskUseCase(task)
         scheduleNextAlarmUseCase(task)
-        val result = getTaskUseCase(task.id).first()
+        val result = getTaskUseCase(task.id)
+
+        require(result != null)
 
         val assertCalendar = calendar.apply {
             time = calendar.time
@@ -100,7 +101,9 @@ internal class ScheduleNextAlarmTest {
         )
         addTaskUseCase(task)
         scheduleNextAlarmUseCase(task)
-        val result = getTaskUseCase(task.id).first()
+        val result = getTaskUseCase(task.id)
+
+        require(result != null)
 
         val assertCalendar = calendar.apply {
             time = calendar.time
@@ -120,7 +123,9 @@ internal class ScheduleNextAlarmTest {
         )
         addTaskUseCase(task)
         scheduleNextAlarmUseCase(task)
-        val result = getTaskUseCase(task.id).first()
+        val result = getTaskUseCase(task.id)
+
+        require(result != null)
 
         val assertCalendar = calendar.apply {
             time = calendar.time
@@ -140,7 +145,9 @@ internal class ScheduleNextAlarmTest {
         )
         addTaskUseCase(task)
         scheduleNextAlarmUseCase(task)
-        val result = getTaskUseCase(task.id).first()
+        val result = getTaskUseCase(task.id)
+
+        require(result != null)
 
         val assertCalendar = calendar.apply {
             time = calendar.time
@@ -160,7 +167,9 @@ internal class ScheduleNextAlarmTest {
         )
         addTaskUseCase(task)
         scheduleNextAlarmUseCase(task)
-        val result = getTaskUseCase(task.id).first()
+        val result = getTaskUseCase(task.id)
+
+        require(result != null)
 
         val assertCalendar = calendar.apply {
             time = calendar.time
@@ -196,7 +205,9 @@ internal class ScheduleNextAlarmTest {
 
         addTaskUseCase(task)
         scheduleNextAlarmUseCase(task)
-        val result = getTaskUseCase(task.id).first()
+        val result = getTaskUseCase(task.id)
+
+        require(result != null)
 
         val assertCalendar = pastCalendar.apply {
             time = pastCalendar.time

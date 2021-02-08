@@ -2,8 +2,9 @@ package com.escodro.domain.usecase.task
 
 import com.escodro.domain.model.Task
 import com.escodro.domain.usecase.fake.TaskRepositoryFake
+import com.escodro.domain.usecase.task.implementation.LoadTaskImpl
+import com.escodro.domain.usecase.task.implementation.UpdateTaskImpl
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert
 import org.junit.Test
@@ -15,9 +16,9 @@ internal class UpdateTaskTest {
 
     private val addTaskUseCase = AddTask(taskRepository)
 
-    private val updateTaskUseCase = UpdateTask(taskRepository)
+    private val updateTaskUseCase = UpdateTaskImpl(taskRepository)
 
-    private val getTaskUseCase = GetTask(taskRepository)
+    private val getTaskUseCase = LoadTaskImpl(taskRepository)
 
     @Test
     fun `test if task is updated`() = runBlockingTest {
@@ -27,7 +28,7 @@ internal class UpdateTaskTest {
         val updatedTask = task.copy(title = "it's funny", description = "my mistake!")
         updateTaskUseCase(updatedTask)
 
-        val result = getTaskUseCase(task.id).first()
-        Assert.assertEquals(updatedTask, result)
+        val loadedTask = getTaskUseCase(task.id)
+        Assert.assertEquals(updatedTask, loadedTask)
     }
 }

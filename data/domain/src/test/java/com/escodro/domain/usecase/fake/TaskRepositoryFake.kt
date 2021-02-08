@@ -2,8 +2,6 @@ package com.escodro.domain.usecase.fake
 
 import com.escodro.domain.model.Task
 import com.escodro.domain.repository.TaskRepository
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import java.util.TreeMap
 
 internal class TaskRepositoryFake : TaskRepository {
@@ -35,15 +33,8 @@ internal class TaskRepositoryFake : TaskRepository {
     override suspend fun findAllTasksWithDueDate(): List<Task> =
         taskMap.filter { entry -> entry.value.dueDate != null }.values.toMutableList()
 
-    @Suppress("LabeledExpression")
-    override fun findTaskFlowById(taskId: Long): Flow<Task> =
-        flow {
-            val task = taskMap[taskId] ?: return@flow
-            emit(task)
-        }
-
-    override suspend fun findTaskById(taskId: Long): Task =
-        taskMap[taskId] ?: throw IllegalArgumentException("Task does not exist")
+    override suspend fun findTaskById(taskId: Long): Task? =
+        taskMap[taskId]
 
     fun findAllTasks(): List<Task> =
         taskMap.values.toList()

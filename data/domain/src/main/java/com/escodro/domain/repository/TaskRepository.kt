@@ -1,7 +1,6 @@
 package com.escodro.domain.repository
 
 import com.escodro.domain.model.Task
-import kotlinx.coroutines.flow.Flow
 
 /**
  * Interface to represent the implementation of Task repository.
@@ -42,20 +41,11 @@ interface TaskRepository {
     suspend fun findAllTasksWithDueDate(): List<Task>
 
     /**
-     * Get flow task by id.
-     *
-     * @param taskId task id
-     *
-     * @return flow of selected task
-     */
-    fun findTaskFlowById(taskId: Long): Flow<Task>
-
-    /**
      * Get task by id.
      *
      * @param taskId task id
      *
      * @return selected task
      */
-    suspend fun findTaskById(taskId: Long): Task
+    suspend fun findTaskById(taskId: Long): Task?
 }

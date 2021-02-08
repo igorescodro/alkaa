@@ -19,7 +19,7 @@ class ScheduleAlarm(
      * @param calendar the time to the alarm be scheduled
      */
     suspend operator fun invoke(taskId: Long, calendar: Calendar) {
-        val task = taskRepository.findTaskById(taskId)
+        val task = taskRepository.findTaskById(taskId) ?: return
         val updatedTask = task.copy(dueDate = calendar)
         taskRepository.updateTask(updatedTask)
 

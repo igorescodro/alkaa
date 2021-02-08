@@ -5,7 +5,6 @@ apply from: "$rootDir/config/dependencies/compose_dependencies.gradle"
 apply from: "$rootDir/config/artifacts.gradle"
 
 apply plugin: "kotlin-kapt"
-apply plugin: "androidx.navigation.safeargs"
 
 android {
     defaultConfig {
@@ -29,24 +28,6 @@ android {
 
         lintConfig file("${rootDir}/config/filters/lint.xml")
         htmlOutput file("${buildDir}/reports/lint.html")
-    }
-
-    androidExtensions {
-        experimental = true
-    }
-
-    kotlinOptions {
-        jvmTarget = '1.8'
-        useIR = true
-    }
-
-    buildFeatures {
-        compose true
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion Versions.compose
-        kotlinCompilerVersion Versions.kotlin
     }
 
     kapt {
@@ -83,32 +64,11 @@ dependencies {
     implementation project(":features:preference")
     implementation project(":features:search")
 
-    implementation Deps.android.preference
-    implementation Deps.android.constraintLayout
-    implementation Deps.android.ktx
-    implementation Deps.android.room.runtime
-    implementation Deps.android.navigation.fragment
-    implementation Deps.android.navigation.ui
-    implementation Deps.android.lifecycle.viewmodel
-    implementation Deps.android.playCore
     implementation Deps.compose.navigation
-
+    implementation Deps.android.playCore
+    implementation Deps.koin.core
     implementation Deps.timber
 
-    implementation Deps.koin.viewModel
-    androidTestImplementation Deps.koin.test
-
-    implementation Deps.coroutines.test
-
-    testImplementation Deps.test.junit
-    androidTestImplementation Deps.test.runner
-    androidTestImplementation Deps.test.rules
-    androidTestImplementation Deps.test.core
-    androidTestImplementation Deps.test.espresso.core
-    androidTestImplementation Deps.test.espresso.intents
-    androidTestImplementation Deps.test.espresso.contrib
-    androidTestImplementation Deps.test.junitExt
-    androidTestImplementation Deps.test.uiAutomator
     androidTestImplementation Deps.compose.uiTest
     androidTestImplementation Deps.compose.junit4
 }

@@ -5,4 +5,6 @@
     <string name="task_content_description_empty_list">That\'s all clear</string>
     <string name="task_header_error">Ops… That\'s embarrassing…</string>
     <string name="task_content_description_error">Something went wrong</string>
+    <string name="task__detail_header_error">This task is no longer available</string>
+    <string name="task__detail_content_description_error">Task not found</string>
 </resources>

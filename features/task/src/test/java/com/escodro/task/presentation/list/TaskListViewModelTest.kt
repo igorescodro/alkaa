@@ -4,9 +4,9 @@ import com.escodro.task.mapper.AlarmIntervalMapper
 import com.escodro.task.mapper.CategoryMapper
 import com.escodro.task.mapper.TaskMapper
 import com.escodro.task.mapper.TaskWithCategoryMapper
-import com.escodro.task.presentation.list.fake.FAKE_VIEW_TASK_WITH_CATEGORY
-import com.escodro.task.presentation.list.fake.LoadUncompletedTasksFake
-import com.escodro.task.presentation.list.fake.UpdateTaskStatusFake
+import com.escodro.task.presentation.fake.FAKE_VIEW_TASK_WITH_CATEGORY
+import com.escodro.task.presentation.fake.LoadUncompletedTasksFake
+import com.escodro.task.presentation.fake.UpdateTaskStatusFake
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch

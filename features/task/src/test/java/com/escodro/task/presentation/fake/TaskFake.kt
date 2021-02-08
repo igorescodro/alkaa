@@ -1,4 +1,4 @@
-package com.escodro.task.presentation.list.fake
+package com.escodro.task.presentation.fake
 
 import androidx.compose.ui.graphics.Color
 import com.escodro.domain.model.Category as DomainCategory

@@ -1,12 +1,10 @@
-package com.escodro.task.presentation.list
+package com.escodro.task.presentation.detail
 
 import com.escodro.task.mapper.AlarmIntervalMapper
 import com.escodro.task.mapper.TaskMapper
-import com.escodro.task.presentation.detail.TaskDetailState
-import com.escodro.task.presentation.detail.TaskDetailViewModel
-import com.escodro.task.presentation.list.fake.FAKE_DOMAIN_TASK
-import com.escodro.task.presentation.list.fake.LoadTaskFake
-import com.escodro.task.presentation.list.fake.UpdateTaskFake
+import com.escodro.task.presentation.fake.FAKE_DOMAIN_TASK
+import com.escodro.task.presentation.fake.LoadTaskFake
+import com.escodro.task.presentation.fake.UpdateTaskFake
 import com.escodro.test.CoroutineTestRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.toList

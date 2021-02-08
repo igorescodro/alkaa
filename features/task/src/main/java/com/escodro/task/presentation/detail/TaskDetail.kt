@@ -71,8 +71,8 @@ private fun TaskDetailContent(
 private fun TaskDetailError() {
     DefaultIconTextContent(
         icon = Icons.Outlined.Close,
-        iconContentDescription = R.string.task__detail_header_error,
-        header = R.string.task__detail_content_description_error
+        iconContentDescription = R.string.task_detail_header_error,
+        header = R.string.task_detail_content_description_error
     )
 }
 

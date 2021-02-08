@@ -52,7 +52,6 @@ android {
 
 dependencies {
     implementation project(":libraries:core")
-    implementation project(":libraries:navigation")
     implementation project(":libraries:splitInstall")
     implementation project(":libraries:theme")
     implementation project(":data:local")

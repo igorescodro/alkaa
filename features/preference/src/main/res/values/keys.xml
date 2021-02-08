@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-
-    <string name="key_pref_about" translatable="false">key_pref_about</string>
-    <string name="key_pref_version" translatable="false">key_pref_version</string>
-
-</resources>

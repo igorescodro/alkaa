@@ -1,12 +1,7 @@
 apply from: "$rootDir/config/dependencies/feature_dependencies.gradle"
 apply from: "$rootDir/config/dependencies/compose_dependencies.gradle"
-apply plugin: "androidx.navigation.safeargs"
 
 android {
-    androidExtensions {
-        experimental = true
-    }
-
     testOptions {
         unitTests.returnDefaultValues = true
     }
@@ -25,20 +20,9 @@ dependencies {
 
     testImplementation project(":libraries:test")
 
-    implementation Deps.android.constraintLayout
-    implementation Deps.android.material
-    implementation Deps.android.navigation.fragment
-    implementation Deps.android.navigation.ui
-    implementation Deps.android.lifecycle.viewmodel
-    implementation Deps.android.lifecycle.runtime
     implementation Deps.android.playCore
 
     implementation Deps.koin.viewModel
     implementation Deps.koin.compose
 
-    implementation Deps.groupie.core
-    implementation Deps.groupie.ktx
-
-    testImplementation Deps.test.mockk
-    testImplementation Deps.test.arch
 }

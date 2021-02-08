@@ -1,5 +1,4 @@
 apply from: "$rootDir/config/dependencies/feature_dependencies.gradle"
-apply plugin: 'kotlin-kapt'
 
 dependencies {
     implementation Deps.android.recyclerView

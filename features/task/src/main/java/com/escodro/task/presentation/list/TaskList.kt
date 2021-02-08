@@ -23,6 +23,7 @@ import com.escodro.task.model.Category
 import com.escodro.task.model.Task
 import com.escodro.task.model.TaskWithCategory
 import com.escodro.theme.AlkaaTheme
+import com.escodro.theme.components.DefaultIconTextContent
 import org.koin.androidx.compose.getViewModel
 import java.util.Calendar
 
@@ -101,7 +102,7 @@ private fun TaskListContent(
 
 @Composable
 private fun TaskListEmpty() {
-    TaskListDefaultContent(
+    DefaultIconTextContent(
         icon = Icons.Outlined.ThumbUp,
         iconContentDescription = R.string.task_content_description_empty_list,
         header = R.string.task_header_empty_list
@@ -110,7 +111,7 @@ private fun TaskListEmpty() {
 
 @Composable
 private fun TaskListError() {
-    TaskListDefaultContent(
+    DefaultIconTextContent(
         icon = Icons.Outlined.Close,
         iconContentDescription = R.string.task_content_description_error,
         header = R.string.task_header_error

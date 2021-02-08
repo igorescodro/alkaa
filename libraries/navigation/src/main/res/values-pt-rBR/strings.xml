@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="category_list_label">Categorias</string>
-    <string name="preference_title">Preferências</string>
-    <string name="about_detail_title">Sobre</string>
-    <string name="tracker_title">Acompanhamento de Tarefas</string>
-    <string name="search_title">Busca</string>
-</resources>

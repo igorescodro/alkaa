@@ -104,8 +104,8 @@ private fun TaskListContent(
 private fun TaskListEmpty() {
     DefaultIconTextContent(
         icon = Icons.Outlined.ThumbUp,
-        iconContentDescription = R.string.task_content_description_empty_list,
-        header = R.string.task_header_empty_list
+        iconContentDescription = R.string.task_list_content_description_empty_list,
+        header = R.string.task_list_header_empty
     )
 }
 
@@ -113,8 +113,8 @@ private fun TaskListEmpty() {
 private fun TaskListError() {
     DefaultIconTextContent(
         icon = Icons.Outlined.Close,
-        iconContentDescription = R.string.task_content_description_error,
-        header = R.string.task_header_error
+        iconContentDescription = R.string.task_list_content_description_error,
+        header = R.string.task_list_header_error
     )
 }
 

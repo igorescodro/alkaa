@@ -1,4 +1,4 @@
-package com.escodro.task.presentation.list.fake
+package com.escodro.task.presentation.fake
 
 import com.escodro.domain.model.Task
 import com.escodro.domain.usecase.task.LoadTask

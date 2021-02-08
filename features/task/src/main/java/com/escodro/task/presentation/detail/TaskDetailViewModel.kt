@@ -29,6 +29,8 @@ internal class TaskDetailViewModel(
         if (task != null) {
             val viewTask = taskMapper.toView(task)
             _state.value = TaskDetailState.Loaded(viewTask)
+        } else {
+            _state.value = TaskDetailState.Error
         }
     }
 

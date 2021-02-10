@@ -4,7 +4,6 @@ import com.escodro.domain.model.Category
 import com.escodro.domain.usecase.category.implementation.LoadAllCategoriesImpl
 import com.escodro.domain.usecase.fake.CategoryRepositoryFake
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert
 import org.junit.Before
@@ -53,7 +52,7 @@ internal class AddCategoryTest {
             assertList.add(category)
         }
 
-        val resultList = loadAllCategoriesUseCase().first()
+        val resultList = loadAllCategoriesUseCase()
 
         Assert.assertArrayEquals(assertList.toTypedArray(), resultList.toTypedArray())
     }

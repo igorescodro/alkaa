@@ -12,9 +12,9 @@ import com.escodro.domain.usecase.alarm.UpdateTaskAsRepeating
 import com.escodro.domain.usecase.category.DeleteCategory
 import com.escodro.domain.usecase.category.InsertCategory
 import com.escodro.domain.usecase.category.LoadAllCategories
-import com.escodro.domain.usecase.category.implementation.LoadAllCategoriesImpl
 import com.escodro.domain.usecase.category.LoadCategory
 import com.escodro.domain.usecase.category.UpdateCategory
+import com.escodro.domain.usecase.category.implementation.LoadAllCategoriesImpl
 import com.escodro.domain.usecase.search.SearchTasksByName
 import com.escodro.domain.usecase.task.AddTask
 import com.escodro.domain.usecase.task.CompleteTask

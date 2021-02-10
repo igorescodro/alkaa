@@ -38,7 +38,7 @@ internal class LoadUncompletedTasksFake : LoadUncompletedTasks {
 
         val taskList = mutableListOf<TaskWithCategory>()
         for (i in 1..numberOfValues) {
-            taskList.add(TaskWithCategory(task = task, category = category))
+            taskList.add(TaskWithCategory(task = task.copy(id = i.toLong()), category = category))
         }
 
         list = taskList

@@ -4,8 +4,6 @@ import com.escodro.local.mapper.CategoryMapper
 import com.escodro.local.provider.DaoProvider
 import com.escodro.repository.datasource.CategoryDataSource
 import com.escodro.repository.model.Category
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 
 /**
  * Local implementation of [CategoryDataSource].
@@ -32,7 +30,7 @@ internal class CategoryLocalDataSource(
     override suspend fun cleanTable() =
         categoryDao.cleanTable()
 
-    override fun findAllCategories(): Flow<List<Category>> =
+    override suspend fun findAllCategories(): List<Category> =
         categoryDao.findAllCategories().map { categoryMapper.toRepo(it) }
 
     override suspend fun findCategoryById(categoryId: Long): Category? =

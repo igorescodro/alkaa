@@ -19,5 +19,7 @@ cache:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
 before_install:
+  - openssl aes-256-cbc -K $encrypted_9790a63eff39_key -iv $encrypted_9790a63eff39_iv
+    -in app/google-services.json.enc -out app/google-services.json -d
   - yes | sdkmanager "platforms;android-29"
   - yes | sdkmanager "platforms;android-28"

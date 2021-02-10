@@ -8,6 +8,7 @@ import com.escodro.domain.usecase.task.LoadTask
 import com.escodro.domain.usecase.task.UpdateTask
 import com.escodro.task.mapper.CategoryMapper
 import com.escodro.task.mapper.TaskMapper
+import com.escodro.task.model.Task
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -45,8 +46,7 @@ internal class TaskDetailViewModel(
             _state.value.run {
                 if (this is TaskDetailState.Loaded) {
                     val updatedTask = this.task.copy(title = title)
-                    val mappedTask = taskMapper.toDomain(updatedTask)
-                    updateTaskUseCase(mappedTask)
+                    updateTask(updatedTask)
                 }
             }
         }
@@ -57,10 +57,23 @@ internal class TaskDetailViewModel(
             _state.value.run {
                 if (this is TaskDetailState.Loaded) {
                     val updatedTask = this.task.copy(description = description)
-                    val mappedTask = taskMapper.toDomain(updatedTask)
-                    updateTaskUseCase(mappedTask)
+                    updateTask(updatedTask)
                 }
             }
         }
+    }
+
+    fun updateCategory(categoryId: Long?) = viewModelScope.launch {
+        _state.value.run {
+            if (this is TaskDetailState.Loaded) {
+                val updatedTask = this.task.copy(categoryId = categoryId)
+                updateTask(updatedTask)
+            }
+        }
+    }
+
+    private suspend fun updateTask(task: Task) {
+        val mappedTask = taskMapper.toDomain(task)
+        updateTaskUseCase(mappedTask)
     }
 }

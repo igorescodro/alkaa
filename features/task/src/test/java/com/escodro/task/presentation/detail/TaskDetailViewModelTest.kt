@@ -150,4 +150,39 @@ internal class TaskDetailViewModelTest {
             require(updatedTask != null)
             Assert.assertEquals(newDescription, updatedTask.description)
         }
+
+    @Test
+    fun `test if when update category is called, the category is updated`() = runBlockingTest {
+        // Given the viewModel is called to load the task info
+        loadTask.taskToBeReturned = FAKE_DOMAIN_TASK
+        viewModel.setTaskInfo(FAKE_DOMAIN_TASK.id)
+
+        // When the category id is updated
+        val newCategoryId = 4L
+        viewModel.updateCategory(categoryId = newCategoryId)
+
+        // Then the task will be updated with given category id
+        Assert.assertTrue(updateTask.isTaskUpdated(FAKE_DOMAIN_TASK.id))
+        val updatedTask = updateTask.getUpdatedTask(FAKE_DOMAIN_TASK.id)
+        require(updatedTask != null)
+        Assert.assertEquals(newCategoryId, updatedTask.categoryId)
+    }
+
+    @Test
+    fun `test if when update category is called with null, the category is updated`() =
+        runBlockingTest {
+
+            // Given the viewModel is called to load the task info
+            loadTask.taskToBeReturned = FAKE_DOMAIN_TASK
+            viewModel.setTaskInfo(FAKE_DOMAIN_TASK.id)
+
+            // When the category id is updated
+            viewModel.updateCategory(categoryId = null)
+
+            // Then the task will be updated with given category id
+            Assert.assertTrue(updateTask.isTaskUpdated(FAKE_DOMAIN_TASK.id))
+            val updatedTask = updateTask.getUpdatedTask(FAKE_DOMAIN_TASK.id)
+            require(updatedTask != null)
+            Assert.assertNull(updatedTask.categoryId)
+        }
 }

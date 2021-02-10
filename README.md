@@ -2,7 +2,7 @@
 <a href="https://ktlint.github.io/"><img src="https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg" alt="ktlint"></a>
 
 <a href="https://codebeat.co/projects/github-com-igorescodro-alkaa-master"><img alt="codebeat badge" src="https://codebeat.co/badges/e742f8bf-2047-4a59-bdb4-14ed2b1d9d28" /></a>
-[![CodeFactor](https://www.codefactor.io/repository/github/igorescodro/alkaa/badge/master)](https://www.codefactor.io/repository/github/igorescodro/alkaa/overview/master)
+[![CodeFactor](https://www.codefactor.io/repository/github/igorescodro/alkaa/badge/main)](https://www.codefactor.io/repository/github/igorescodro/alkaa/overview/main)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/d88ab7250f1a4e9fb0a96dec11a0c2cd)](https://www.codacy.com/manual/igorescodro/alkaa?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=igorescodro/alkaa&amp;utm_campaign=Badge_Grade)
 
 ----

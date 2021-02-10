@@ -3,8 +3,10 @@ package com.escodro.task.presentation.detail
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.escodro.core.coroutines.CoroutineDebouncer
+import com.escodro.domain.usecase.category.LoadAllCategories
 import com.escodro.domain.usecase.task.LoadTask
 import com.escodro.domain.usecase.task.UpdateTask
+import com.escodro.task.mapper.CategoryMapper
 import com.escodro.task.mapper.TaskMapper
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -13,7 +15,9 @@ import kotlinx.coroutines.launch
 internal class TaskDetailViewModel(
     private val loadTaskUseCase: LoadTask,
     private val updateTaskUseCase: UpdateTask,
-    private val taskMapper: TaskMapper
+    private val loadAllCategories: LoadAllCategories,
+    private val taskMapper: TaskMapper,
+    private val categoryMapper: CategoryMapper
 ) : ViewModel() {
 
     private val _state: MutableStateFlow<TaskDetailState> = MutableStateFlow(TaskDetailState.Error)
@@ -25,10 +29,12 @@ internal class TaskDetailViewModel(
 
     fun setTaskInfo(taskId: Long) = viewModelScope.launch {
         val task = loadTaskUseCase(taskId = taskId)
+        val categories = loadAllCategories()
+        val viewCategories = categoryMapper.toView(categories)
 
         if (task != null) {
             val viewTask = taskMapper.toView(task)
-            _state.value = TaskDetailState.Loaded(viewTask)
+            _state.value = TaskDetailState.Loaded(viewTask, viewCategories)
         } else {
             _state.value = TaskDetailState.Error
         }

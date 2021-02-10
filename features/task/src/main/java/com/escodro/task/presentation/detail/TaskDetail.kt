@@ -1,6 +1,5 @@
 package com.escodro.task.presentation.detail
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -8,24 +7,20 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.preferredSize
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.selection.toggleable
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.outlined.Close
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -168,47 +163,6 @@ private fun CategorySelection(
                         onCategoryChanged = onCategoryChanged
                     )
                 }
-            )
-        }
-    }
-}
-
-@Composable
-private fun CategoryItemChip(
-    category: Category,
-    isSelected: Boolean = false,
-    selectedState: MutableState<Category?>,
-    onCategoryChanged: (Long?) -> Unit
-) {
-    Surface(
-        modifier = Modifier.padding(end = 8.dp),
-        shape = MaterialTheme.shapes.small,
-        color = if (isSelected) category.color else Color.White,
-        border = if (isSelected) {
-            BorderStroke(1.dp, Color.Transparent)
-        } else {
-            BorderStroke(1.dp, SolidColor(MaterialTheme.colors.onSecondary))
-        }
-    ) {
-        Row(
-            modifier = Modifier.toggleable(
-                value = isSelected,
-                onValueChange = {
-                    val newCategory = if (selectedState.value == category) {
-                        null
-                    } else {
-                        category
-                    }
-
-                    selectedState.value = newCategory
-                    onCategoryChanged(newCategory?.id)
-                }
-            )
-        ) {
-            Text(
-                modifier = Modifier.padding(8.dp),
-                color = if (isSelected) Color.White else MaterialTheme.colors.onSecondary,
-                text = category.name ?: ""
             )
         }
     }

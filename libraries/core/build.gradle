@@ -1,13 +1,8 @@
 apply from: "$rootDir/config/dependencies/feature_dependencies.gradle"
-apply plugin: 'kotlin-kapt'
 
 dependencies {
-    implementation Deps.android.recyclerView
-    implementation Deps.android.material
     implementation Deps.android.ktx
-    implementation Deps.android.navigation.fragment
-
+    implementation Deps.android.material
     implementation Deps.coroutines.core
-
-    implementation Deps.koin.viewModel
+    implementation Deps.koin.core
 }

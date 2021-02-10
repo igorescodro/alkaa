@@ -1,9 +1,0 @@
-<resources>
-    <string name="app_name_lowercase" translatable="false">alkaa</string>
-
-    <string name="preference_item_about">About</string>
-    <string name="preference_item_version">Version</string>
-
-    <string name="about_description">Alkaa (to begin, to start in Finnish) is a simple to-do list to make your life easier.\n\nIt all started when I created a project to learn and keep me updated about the latest Android components and libraries. If you\'re a developer or an enthusiast feel free to access, copy and updated the open-source code.\n\nThanks a lot for using my app! </string>
-    <string name="about_button_project">Visit project on GitHub</string>
-</resources>

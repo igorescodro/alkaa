@@ -1,24 +1,7 @@
 apply from: "$rootDir/config/dependencies/dynamic_dependencies.gradle"
 
 dependencies {
-    implementation project(":libraries:core")
     implementation project(":data:domain")
 
-    testImplementation project(':libraries:test')
-
-    implementation Deps.android.constraintLayout
-    implementation Deps.android.material
-    implementation Deps.android.lifecycle.viewmodel
-
-    implementation Deps.coroutines.core
-
     implementation Deps.koin.viewModel
-
-    implementation Deps.mpAndroidChart
-
-    testImplementation Deps.test.junit
-    testImplementation Deps.test.mockk
-    testImplementation Deps.test.arch
-    testImplementation Deps.coroutines.test
-    testImplementation Deps.test.lifecycle
 }

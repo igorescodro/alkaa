@@ -1,19 +1,16 @@
 package com.escodro.domain.usecase.category
 
 import com.escodro.domain.model.Category
-import com.escodro.domain.repository.CategoryRepository
 import kotlinx.coroutines.flow.Flow
 
 /**
  * Use case to load all categories from the database.
  */
-class LoadAllCategories(private val categoryRepository: CategoryRepository) {
-
+interface LoadAllCategories {
     /**
      * Loads all categories.
      *
      * @return a mutable list of all categories
      */
-    operator fun invoke(): Flow<List<Category>> =
-        categoryRepository.findAllCategories()
+    operator fun invoke(): Flow<List<Category>>
 }

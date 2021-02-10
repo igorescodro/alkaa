@@ -24,10 +24,12 @@ internal class TaskDetailViewModelTest {
 
     private val updateTask = UpdateTaskFake()
 
+    private val mapper = TaskMapper(AlarmIntervalMapper())
+
     private val viewModel = TaskDetailViewModel(
         loadTask,
         updateTask,
-        TaskMapper(AlarmIntervalMapper())
+        mapper
     )
 
     @Test
@@ -41,7 +43,10 @@ internal class TaskDetailViewModelTest {
         val job = launch { viewModel.state.toList(result) }
 
         // Then the state contain the loaded task
-        Assert.assertTrue(result.first() is TaskDetailState.Loaded)
+        val state = result.first()
+        require(state is TaskDetailState.Loaded)
+        val assertViewTask = mapper.toView(FAKE_DOMAIN_TASK)
+        Assert.assertEquals(assertViewTask, state.task)
         job.cancel()
     }
 

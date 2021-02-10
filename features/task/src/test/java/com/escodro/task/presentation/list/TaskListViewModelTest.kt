@@ -37,7 +37,8 @@ internal class TaskListViewModelTest {
     fun `test if when there are uncompleted items, they are returned`() = runBlockingTest {
 
         // Given the use case returns the list with uncompleted tasks
-        loadUncompletedTasks.returnDefaultValues()
+        val numberOfEntries = 14
+        loadUncompletedTasks.returnValues(numberOfEntries)
         viewModel.loadTasks()
 
         // When the latest event is collected
@@ -45,9 +46,9 @@ internal class TaskListViewModelTest {
         val job = launch { viewModel.state.toList(result) }
 
         // Then that state contains the list with uncompleted tasks
-        Assert.assertTrue(result.first() is TaskListViewState.Loaded)
-        val loadedState = result.first() as TaskListViewState.Loaded
-        Assert.assertTrue(loadedState.items.isNotEmpty())
+        val state = result.first()
+        require(state is TaskListViewState.Loaded)
+        Assert.assertEquals(numberOfEntries, state.items.size)
 
         job.cancel()
     }

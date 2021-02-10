@@ -1,8 +1,11 @@
 package com.escodro.task.presentation.detail
 
 import com.escodro.task.mapper.AlarmIntervalMapper
+import com.escodro.task.mapper.CategoryMapper
 import com.escodro.task.mapper.TaskMapper
+import com.escodro.task.presentation.fake.FAKE_DOMAIN_CATEGORY_LIST
 import com.escodro.task.presentation.fake.FAKE_DOMAIN_TASK
+import com.escodro.task.presentation.fake.LoadAllCategoriesFake
 import com.escodro.task.presentation.fake.LoadTaskFake
 import com.escodro.task.presentation.fake.UpdateTaskFake
 import com.escodro.test.CoroutineTestRule
@@ -24,10 +27,18 @@ internal class TaskDetailViewModelTest {
 
     private val updateTask = UpdateTaskFake()
 
+    private val loadAllCategories = LoadAllCategoriesFake()
+
+    private val categoryMapper = CategoryMapper()
+
+    private val taskMapper = TaskMapper(AlarmIntervalMapper())
+
     private val viewModel = TaskDetailViewModel(
-        loadTask,
-        updateTask,
-        TaskMapper(AlarmIntervalMapper())
+        loadTaskUseCase = loadTask,
+        updateTaskUseCase = updateTask,
+        loadAllCategories = loadAllCategories,
+        taskMapper = taskMapper,
+        categoryMapper = categoryMapper
     )
 
     @Test
@@ -41,9 +52,49 @@ internal class TaskDetailViewModelTest {
         val job = launch { viewModel.state.toList(result) }
 
         // Then the state contain the loaded task
-        Assert.assertTrue(result.first() is TaskDetailState.Loaded)
+        val state = result.first()
+        require(state is TaskDetailState.Loaded)
+        val assertViewTask = taskMapper.toView(FAKE_DOMAIN_TASK)
+        Assert.assertEquals(assertViewTask, state.task)
         job.cancel()
     }
+
+    @Test
+    fun `test if when there is categories created than it returns the success state with them`() =
+        runBlockingTest {
+            // Given the viewModel is called to load the task info
+            loadTask.taskToBeReturned = FAKE_DOMAIN_TASK
+            loadAllCategories.categoriesToBeReturned = FAKE_DOMAIN_CATEGORY_LIST
+            viewModel.setTaskInfo(FAKE_DOMAIN_TASK.id)
+
+            // When the latest event is collected
+            val result = arrayListOf<TaskDetailState>()
+            val job = launch { viewModel.state.toList(result) }
+
+            val state = result.first()
+            require(state is TaskDetailState.Loaded)
+            val assertCategoryList = categoryMapper.toView(FAKE_DOMAIN_CATEGORY_LIST)
+            Assert.assertEquals(assertCategoryList, state.categoryList)
+            job.cancel()
+        }
+
+    @Test
+    fun `test if when there is no categories created than it returns the success state with empty list`() =
+        runBlockingTest {
+            // Given the viewModel is called to load the task info
+            loadTask.taskToBeReturned = FAKE_DOMAIN_TASK
+            loadAllCategories.categoriesToBeReturned = listOf()
+            viewModel.setTaskInfo(FAKE_DOMAIN_TASK.id)
+
+            // When the latest event is collected
+            val result = arrayListOf<TaskDetailState>()
+            val job = launch { viewModel.state.toList(result) }
+
+            val state = result.first()
+            require(state is TaskDetailState.Loaded)
+            Assert.assertTrue(state.categoryList.isEmpty())
+            job.cancel()
+        }
 
     @Test
     fun `test if when a task does not exist it returns the error state`() = runBlockingTest {
@@ -98,5 +149,40 @@ internal class TaskDetailViewModelTest {
             val updatedTask = updateTask.getUpdatedTask(FAKE_DOMAIN_TASK.id)
             require(updatedTask != null)
             Assert.assertEquals(newDescription, updatedTask.description)
+        }
+
+    @Test
+    fun `test if when update category is called, the category is updated`() = runBlockingTest {
+        // Given the viewModel is called to load the task info
+        loadTask.taskToBeReturned = FAKE_DOMAIN_TASK
+        viewModel.setTaskInfo(FAKE_DOMAIN_TASK.id)
+
+        // When the category id is updated
+        val newCategoryId = 4L
+        viewModel.updateCategory(categoryId = newCategoryId)
+
+        // Then the task will be updated with given category id
+        Assert.assertTrue(updateTask.isTaskUpdated(FAKE_DOMAIN_TASK.id))
+        val updatedTask = updateTask.getUpdatedTask(FAKE_DOMAIN_TASK.id)
+        require(updatedTask != null)
+        Assert.assertEquals(newCategoryId, updatedTask.categoryId)
+    }
+
+    @Test
+    fun `test if when update category is called with null, the category is updated`() =
+        runBlockingTest {
+
+            // Given the viewModel is called to load the task info
+            loadTask.taskToBeReturned = FAKE_DOMAIN_TASK
+            viewModel.setTaskInfo(FAKE_DOMAIN_TASK.id)
+
+            // When the category id is updated
+            viewModel.updateCategory(categoryId = null)
+
+            // Then the task will be updated with given category id
+            Assert.assertTrue(updateTask.isTaskUpdated(FAKE_DOMAIN_TASK.id))
+            val updatedTask = updateTask.getUpdatedTask(FAKE_DOMAIN_TASK.id)
+            require(updatedTask != null)
+            Assert.assertNull(updatedTask.categoryId)
         }
 }

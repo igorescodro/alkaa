@@ -21,3 +21,9 @@ val FAKE_DOMAIN_CATEGORY = DomainCategory(name = "Books", color = "#444444")
 
 val FAKE_DOMAIN_TASK_WITH_CATEGORY =
     DomainTaskWithCategory(task = FAKE_DOMAIN_TASK, category = FAKE_DOMAIN_CATEGORY)
+
+val FAKE_DOMAIN_CATEGORY_LIST = listOf(
+    FAKE_DOMAIN_CATEGORY,
+    FAKE_DOMAIN_CATEGORY.copy(name = "Movies"),
+    FAKE_DOMAIN_CATEGORY.copy(name = "Groceries")
+)

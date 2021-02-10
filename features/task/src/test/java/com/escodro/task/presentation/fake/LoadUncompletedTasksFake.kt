@@ -32,6 +32,18 @@ internal class LoadUncompletedTasksFake : LoadUncompletedTasks {
         list = taskList
     }
 
+    fun returnValues(numberOfValues: Int) {
+        val task = Task(title = "Buy milk", dueDate = null)
+        val category = Category(name = "Books", color = "#FF0000")
+
+        val taskList = mutableListOf<TaskWithCategory>()
+        for (i in 1..numberOfValues) {
+            taskList.add(TaskWithCategory(task = task.copy(id = i.toLong()), category = category))
+        }
+
+        list = taskList
+    }
+
     fun clean() {
         list = listOf()
     }

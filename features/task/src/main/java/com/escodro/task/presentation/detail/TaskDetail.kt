@@ -63,7 +63,8 @@ private fun TaskDetailLoader(
                 task = task,
                 categories = categories,
                 onTitleChanged = viewModel::updateTitle,
-                onDescriptionChanged = viewModel::updateDescription
+                onDescriptionChanged = viewModel::updateDescription,
+                onCategoryChanged = viewModel::updateCategory
             )
         }
     }
@@ -74,7 +75,8 @@ private fun TaskDetailContent(
     task: Task,
     categories: List<Category>,
     onTitleChanged: (String) -> Unit,
-    onDescriptionChanged: (String) -> Unit
+    onDescriptionChanged: (String) -> Unit,
+    onCategoryChanged: (Long?) -> Unit
 ) {
     Surface(color = MaterialTheme.colors.background) {
         Column {
@@ -83,7 +85,11 @@ private fun TaskDetailContent(
                 text = task.description,
                 onDescriptionChanged = onDescriptionChanged
             )
-            CategorySelection(categories = categories, currentCategory = task.categoryId)
+            CategorySelection(
+                categories = categories,
+                currentCategory = task.categoryId,
+                onCategoryChanged = onCategoryChanged
+            )
         }
     }
 }
@@ -136,7 +142,11 @@ private fun TaskDescriptionTextField(text: String?, onDescriptionChanged: (Strin
 }
 
 @Composable
-private fun CategorySelection(categories: List<Category>, currentCategory: Long?) {
+private fun CategorySelection(
+    categories: List<Category>,
+    currentCategory: Long?,
+    onCategoryChanged: (Long?) -> Unit
+) {
     val currentItem = categories.find { category -> category.id == currentCategory }
     val selectedState = remember { mutableStateOf(currentItem) }
     Row(
@@ -151,7 +161,12 @@ private fun CategorySelection(categories: List<Category>, currentCategory: Long?
                 items = categories,
                 itemContent = { category ->
                     val isSelected = category == selectedState.value
-                    CategoryItemChip(category = category, isSelected = isSelected, selectedState)
+                    CategoryItemChip(
+                        category = category,
+                        isSelected = isSelected,
+                        selectedState,
+                        onCategoryChanged = onCategoryChanged
+                    )
                 }
             )
         }
@@ -162,7 +177,8 @@ private fun CategorySelection(categories: List<Category>, currentCategory: Long?
 private fun CategoryItemChip(
     category: Category,
     isSelected: Boolean = false,
-    selectedState: MutableState<Category?>
+    selectedState: MutableState<Category?>,
+    onCategoryChanged: (Long?) -> Unit
 ) {
     Surface(
         modifier = Modifier.padding(end = 8.dp),
@@ -178,11 +194,14 @@ private fun CategoryItemChip(
             modifier = Modifier.toggleable(
                 value = isSelected,
                 onValueChange = {
-                    if (selectedState.value == category) {
-                        selectedState.value = null
+                    val newCategory = if (selectedState.value == category) {
+                        null
                     } else {
-                        selectedState.value = category
+                        category
                     }
+
+                    selectedState.value = newCategory
+                    onCategoryChanged(newCategory?.id)
                 }
             )
         ) {
@@ -207,6 +226,12 @@ fun TaskDetailPreview() {
     val categories = listOf(category1, category2, category3)
 
     AlkaaTheme {
-        TaskDetailContent(task = task, categories = categories, onTitleChanged = {}) {}
+        TaskDetailContent(
+            task = task,
+            categories = categories,
+            onTitleChanged = {},
+            onDescriptionChanged = {},
+            onCategoryChanged = {}
+        )
     }
 }

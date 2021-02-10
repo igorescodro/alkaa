@@ -1,21 +1,36 @@
 package com.escodro.task.presentation.detail
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.preferredSize
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.outlined.Close
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.escodro.task.R
+import com.escodro.task.model.Category
 import com.escodro.task.model.Task
 import com.escodro.theme.AlkaaTheme
 import com.escodro.theme.components.DefaultIconTextContent
@@ -43,8 +58,10 @@ private fun TaskDetailLoader(
         TaskDetailState.Error -> TaskDetailError()
         is TaskDetailState.Loaded -> {
             val task = (state.value as TaskDetailState.Loaded).task
+            val categories = (state.value as TaskDetailState.Loaded).categoryList
             TaskDetailContent(
                 task = task,
+                categories = categories,
                 onTitleChanged = viewModel::updateTitle,
                 onDescriptionChanged = viewModel::updateDescription
             )
@@ -55,15 +72,19 @@ private fun TaskDetailLoader(
 @Composable
 private fun TaskDetailContent(
     task: Task,
+    categories: List<Category>,
     onTitleChanged: (String) -> Unit,
     onDescriptionChanged: (String) -> Unit
 ) {
-    Column {
-        TaskTitleTextField(text = task.title, onTitleChanged = onTitleChanged)
-        TaskDescriptionTextField(
-            text = task.description,
-            onDescriptionChanged = onDescriptionChanged
-        )
+    Surface(color = MaterialTheme.colors.background) {
+        Column {
+            TaskTitleTextField(text = task.title, onTitleChanged = onTitleChanged)
+            TaskDescriptionTextField(
+                text = task.description,
+                onDescriptionChanged = onDescriptionChanged
+            )
+            CategorySelection(categories = categories, currentCategory = task.categoryId)
+        }
     }
 }
 
@@ -114,13 +135,78 @@ private fun TaskDescriptionTextField(text: String?, onDescriptionChanged: (Strin
     )
 }
 
+@Composable
+private fun CategorySelection(categories: List<Category>, currentCategory: Long?) {
+    val currentItem = categories.find { category -> category.id == currentCategory }
+    val selectedState = remember { mutableStateOf(currentItem) }
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .preferredSize(56.dp)
+            .padding(start = 8.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        LazyRow {
+            items(
+                items = categories,
+                itemContent = { category ->
+                    val isSelected = category == selectedState.value
+                    CategoryItemChip(category = category, isSelected = isSelected, selectedState)
+                }
+            )
+        }
+    }
+}
+
+@Composable
+private fun CategoryItemChip(
+    category: Category,
+    isSelected: Boolean = false,
+    selectedState: MutableState<Category?>
+) {
+    Surface(
+        modifier = Modifier.padding(end = 8.dp),
+        shape = MaterialTheme.shapes.small,
+        color = if (isSelected) category.color else Color.White,
+        border = if (isSelected) {
+            BorderStroke(1.dp, Color.Transparent)
+        } else {
+            BorderStroke(1.dp, SolidColor(MaterialTheme.colors.onSecondary))
+        }
+    ) {
+        Row(
+            modifier = Modifier.toggleable(
+                value = isSelected,
+                onValueChange = {
+                    if (selectedState.value == category) {
+                        selectedState.value = null
+                    } else {
+                        selectedState.value = category
+                    }
+                }
+            )
+        ) {
+            Text(
+                modifier = Modifier.padding(8.dp),
+                color = if (isSelected) Color.White else MaterialTheme.colors.onSecondary,
+                text = category.name ?: ""
+            )
+        }
+    }
+}
+
 @Suppress("UndocumentedPublicFunction")
 @Preview
 @Composable
 fun TaskDetailPreview() {
     val task = Task(title = "Buy milk", description = "This is a amazing task!", dueDate = null)
+    val category1 = Category(name = "Groceries", color = Color.Magenta)
+    val category2 = Category(name = "Books", color = Color.Cyan)
+    val category3 = Category(name = "Movies", color = Color.Red)
+
+    val categories = listOf(category1, category2, category3)
 
     AlkaaTheme {
-        TaskDetailContent(task = task, {}, {})
+        TaskDetailContent(task = task, categories = categories, onTitleChanged = {}) {}
     }
 }

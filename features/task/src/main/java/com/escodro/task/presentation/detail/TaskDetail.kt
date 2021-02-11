@@ -7,11 +7,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.preferredSize
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.TextField
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.outlined.Close
 import androidx.compose.runtime.Composable
@@ -21,6 +21,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -76,14 +77,14 @@ private fun TaskDetailContent(
     Surface(color = MaterialTheme.colors.background) {
         Column {
             TaskTitleTextField(text = task.title, onTitleChanged = onTitleChanged)
-            TaskDescriptionTextField(
-                text = task.description,
-                onDescriptionChanged = onDescriptionChanged
-            )
             CategorySelection(
                 categories = categories,
                 currentCategory = task.categoryId,
                 onCategoryChanged = onCategoryChanged
+            )
+            TaskDescriptionTextField(
+                text = task.description,
+                onDescriptionChanged = onDescriptionChanged
             )
         }
     }
@@ -94,7 +95,7 @@ private fun TaskDetailError() {
     DefaultIconTextContent(
         icon = Icons.Outlined.Close,
         iconContentDescription = R.string.task_detail_header_error,
-        header = R.string.task_detail_content_description_error
+        header = R.string.task_detail_cd_error
     )
 }
 
@@ -121,9 +122,9 @@ private fun TaskDescriptionTextField(text: String?, onDescriptionChanged: (Strin
     TextField(
         modifier = Modifier.fillMaxWidth(),
         leadingIcon = {
-            Icon(
+            LeadingIcon(
                 imageVector = Icons.Default.Menu,
-                contentDescription = "menu"
+                contentDescription = R.string.task_detail_cd_icon_description
             )
         },
         value = textState.value,
@@ -148,10 +149,14 @@ private fun CategorySelection(
         modifier = Modifier
             .fillMaxWidth()
             .preferredSize(56.dp)
-            .padding(start = 8.dp),
+            .padding(start = 12.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        LazyRow {
+        LeadingIcon(
+            imageVector = Icons.Default.Create,
+            contentDescription = R.string.task_detail_cd_icon_category
+        )
+        LazyRow(modifier = Modifier.padding(start = 16.dp)) {
             items(
                 items = categories,
                 itemContent = { category ->

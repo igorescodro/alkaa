@@ -20,3 +20,7 @@ potential-bugs:
     excludes: ['**/test/**','**/androidTest/**','**/*.Test.kt','**/*.Spec.kt','**/*.Spek.kt']
   UnsafeCast:
     excludes: ['**/test/**','**/androidTest/**','**/*.Test.kt','**/*.Spec.kt','**/*.Spek.kt']
+
+naming:
+  TopLevelPropertyNaming:
+    excludes: ['**/theme/**', '**/test/**','**/androidTest/**', '**/presentation/**']

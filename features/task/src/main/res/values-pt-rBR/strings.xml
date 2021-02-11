@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="task_content_description_add_task">Adicionar tarefa</string>
+    <string name="task_cd_add_task">Adicionar tarefa</string>
     <string name="task_list_header_empty">Uau! Todas as tarefas estão cumpridas!</string>
-    <string name="task_list_content_description_empty_list">Sem tarefas</string>
+    <string name="task_list_cd_empty_list">Sem tarefas</string>
     <string name="task_list_header_error">Ops… Isso é embaraçoso…</string>
-    <string name="task_list_content_description_error">Algo deu errado</string>
+    <string name="task_list_cd_error">Algo deu errado</string>
     <string name="task_detail_header_error">A tarefa não está mais disponível</string>
-    <string name="task_detail_content_description_error">Tarefa não encontrada</string>
+    <string name="task_detail_cd_error">Tarefa não encontrada</string>
+    <string name="task_detail_cd_icon_category">Categorias</string>
+    <string name="task_detail_cd_icon_description">Descrição</string>
 </resources>

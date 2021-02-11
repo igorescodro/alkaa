@@ -79,7 +79,7 @@ internal fun FloatingButton() {
     FloatingActionButton(backgroundColor = MaterialTheme.colors.primary, onClick = { /*TODO*/ }) {
         Icon(
             imageVector = Icons.Outlined.Add,
-            contentDescription = stringResource(id = R.string.task_content_description_add_task)
+            contentDescription = stringResource(id = R.string.task_cd_add_task)
         )
     }
 }

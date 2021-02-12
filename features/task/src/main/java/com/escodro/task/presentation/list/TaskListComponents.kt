@@ -42,7 +42,7 @@ import java.util.Calendar
  * @param onItemClicked the action to be done when the item is clicked
  */
 @Composable
-fun TaskItem(
+internal fun TaskItem(
     modifier: Modifier = Modifier,
     task: TaskWithCategory,
     onItemClicked: (Long) -> Unit,

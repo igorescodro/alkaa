@@ -67,19 +67,4 @@ dependencies {
     implementation Deps.android.playCore
     implementation Deps.koin.core
     implementation Deps.timber
-
-    androidTestImplementation(Deps.compose.uiTest) {
-        exclude group: "androidx.core", module: "core-ktx"
-        exclude group: "androidx.fragment", module: "fragment"
-        exclude group: "androidx.customview", module: "customview"
-        exclude group: "androidx.activity", module: "activity"
-        exclude group: "androidx.lifecycle", module: "lifecycle-runtime"
-    }
-    androidTestImplementation(Deps.compose.junit4) {
-        exclude group: "androidx.core", module: "core-ktx"
-        exclude group: "androidx.fragment", module: "fragment"
-        exclude group: "androidx.customview", module: "customview"
-        exclude group: "androidx.activity", module: "activity"
-        exclude group: "androidx.lifecycle", module: "lifecycle-runtime"
-    }
 }

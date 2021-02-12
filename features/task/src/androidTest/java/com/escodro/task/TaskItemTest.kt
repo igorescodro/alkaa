@@ -1,4 +1,4 @@
-package com.escodro.alkaa
+package com.escodro.task
 
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.test.hasSubstring

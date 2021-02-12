@@ -26,8 +26,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.AmbientContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.escodro.task.R
+import com.escodro.task.model.Category
+import com.escodro.task.model.Task
 import com.escodro.task.model.TaskWithCategory
 import java.util.Calendar
 
@@ -114,5 +117,21 @@ internal fun RelativeDateText(calendar: Calendar?) {
         style = MaterialTheme.typography.body2,
         overflow = TextOverflow.Ellipsis,
         maxLines = 1
+    )
+}
+
+@Suppress("UndocumentedPublicFunction")
+@Preview
+@Composable
+fun TaskItemPreview() {
+    val task1 = Task(title = "Buy milk", dueDate = null)
+    val category1 = Category(name = "Books", color = Color.Green)
+    val taskWithCategory = TaskWithCategory(task = task1, category = category1)
+
+    TaskItem(
+        modifier = Modifier,
+        task = taskWithCategory,
+        onCheckedChanged = {},
+        onItemClicked = {}
     )
 }

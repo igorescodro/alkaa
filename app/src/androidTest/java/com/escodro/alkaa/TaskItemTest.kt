@@ -28,7 +28,7 @@ internal class TaskItemTest {
         loadItemView(taskWithCategory) {}
 
         // Assert that the text is shown
-        composeTestRule.onNodeWithText(taskName).assertExists()
+        composeTestRule.onNodeWithText(text = taskName, useUnmergedTree = true).assertExists()
     }
 
     @Test
@@ -45,8 +45,8 @@ internal class TaskItemTest {
         // Assert that the due date time is shown
         val hour = calendar.get(Calendar.HOUR).toString()
         val minute = calendar.get(Calendar.MINUTE).toString()
-        composeTestRule.onNode(hasSubstring(hour)).assertExists()
-        composeTestRule.onNode(hasSubstring(minute)).assertExists()
+        composeTestRule.onNode(hasSubstring(hour), useUnmergedTree = true).assertExists()
+        composeTestRule.onNode(hasSubstring(minute), useUnmergedTree = true).assertExists()
     }
 
     private fun loadItemView(item: TaskWithCategory, onItemClicked: (Long) -> Unit) {

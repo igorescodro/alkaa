@@ -9,8 +9,8 @@ object Versions {
     const val minSdk = 23
 
     const val kotlin = "1.4.21-2"
-    const val material = "1.1.0-beta02"
-    const val constraintLayout = "2.0.0-beta4"
+    const val material = "1.3.0"
+    const val constraintLayout = "2.0.4"
     const val ktx = "1.0.2"
     const val room = "2.2.3"
     const val navigation = "2.3.0"
@@ -31,9 +31,9 @@ object Versions {
     const val testRoom = "2.1.0"
 
     const val compose = "1.0.0-alpha11"
-    const val composeNav = "1.0.0-alpha05"
+    const val composeNav = "1.0.0-alpha06"
 
-    const val buildGradle = "7.0.0-alpha05"
+    const val buildGradle = "7.0.0-alpha06"
 
     const val detekt = "1.13.1"
     const val ktlint = "0.39.0"

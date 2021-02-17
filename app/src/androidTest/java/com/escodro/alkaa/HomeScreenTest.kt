@@ -29,7 +29,7 @@ internal class HomeScreenTest {
     }
 
     @Test
-    fun test_assertIfTitleChangesWhenBottomIconIsSelected() {
+    fun test_titleChangesWhenBottomIconIsSelected() {
         HomeSection.values().forEach { section ->
             composeTestRule.onNodeWithContentDescription(context.getString(section.title))
                 .performClick()

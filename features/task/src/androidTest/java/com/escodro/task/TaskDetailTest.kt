@@ -21,7 +21,7 @@ internal class TaskDetailTest {
     private val context = InstrumentationRegistry.getInstrumentation().targetContext
 
     @Test
-    fun test_assertErrorViewIsShown() {
+    fun test_errorViewIsShown() {
         // Given an error state
         val state = TaskDetailState.Error
 
@@ -36,7 +36,7 @@ internal class TaskDetailTest {
     }
 
     @Test
-    fun test_AssertDetailContentIsShown() {
+    fun test_detailContentIsShown() {
         // Given a success state
         val task = Task(
             title = "Call John",

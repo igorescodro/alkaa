@@ -55,7 +55,7 @@ private fun TaskListLoader(
 }
 
 @Composable
-private fun TaskListScaffold(
+internal fun TaskListScaffold(
     viewState: TaskListViewState,
     modifier: Modifier = Modifier,
     onCheckedChanged: (TaskWithCategory) -> Unit,

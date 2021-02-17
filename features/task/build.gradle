@@ -18,6 +18,7 @@ dependencies {
     implementation project(":libraries:theme")
 
     testImplementation project(":libraries:test")
+    androidTestImplementation project(":libraries:test")
 
     implementation Deps.android.playCore
 

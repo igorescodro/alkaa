@@ -16,6 +16,7 @@ import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.outlined.Close
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -47,21 +48,33 @@ private fun TaskDetailLoader(
     viewModel: TaskDetailViewModel = getViewModel()
 ) {
     viewModel.setTaskInfo(taskId = taskId)
-    val state = viewModel.state.collectAsState()
+    val viewState by viewModel.state.collectAsState()
 
-    when (state.value) {
+    TaskDetailRouter(
+        viewState = viewState,
+        onTitleChanged = viewModel::updateTitle,
+        onDescriptionChanged = viewModel::updateDescription,
+        onCategoryChanged = viewModel::updateCategory
+    )
+}
+
+@Composable
+internal fun TaskDetailRouter(
+    viewState: TaskDetailState,
+    onTitleChanged: (String) -> Unit,
+    onDescriptionChanged: (String) -> Unit,
+    onCategoryChanged: (Long?) -> Unit
+) {
+    when (viewState) {
         TaskDetailState.Error -> TaskDetailError()
-        is TaskDetailState.Loaded -> {
-            val task = (state.value as TaskDetailState.Loaded).task
-            val categories = (state.value as TaskDetailState.Loaded).categoryList
+        is TaskDetailState.Loaded ->
             TaskDetailContent(
-                task = task,
-                categories = categories,
-                onTitleChanged = viewModel::updateTitle,
-                onDescriptionChanged = viewModel::updateDescription,
-                onCategoryChanged = viewModel::updateCategory
+                task = viewState.task,
+                categories = viewState.categoryList,
+                onTitleChanged = onTitleChanged,
+                onDescriptionChanged = onDescriptionChanged,
+                onCategoryChanged = onCategoryChanged
             )
-        }
     }
 }
 
@@ -93,8 +106,8 @@ private fun TaskDetailContent(
 private fun TaskDetailError() {
     DefaultIconTextContent(
         icon = Icons.Outlined.Close,
-        iconContentDescription = R.string.task_detail_header_error,
-        header = R.string.task_detail_cd_error
+        iconContentDescription = R.string.task_detail_cd_error,
+        header = R.string.task_detail_header_error
     )
 }
 
@@ -137,7 +150,7 @@ private fun TaskDescriptionTextField(text: String?, onDescriptionChanged: (Strin
 }
 
 @Composable
-private fun CategorySelection(
+internal fun CategorySelection(
     categories: List<Category>,
     currentCategory: Long?,
     onCategoryChanged: (Long?) -> Unit

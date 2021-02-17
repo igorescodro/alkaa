@@ -150,7 +150,7 @@ private fun TaskDescriptionTextField(text: String?, onDescriptionChanged: (Strin
 }
 
 @Composable
-private fun CategorySelection(
+internal fun CategorySelection(
     categories: List<Category>,
     currentCategory: Long?,
     onCategoryChanged: (Long?) -> Unit

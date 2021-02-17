@@ -16,6 +16,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.SemanticsPropertyKey
+import androidx.compose.ui.semantics.SemanticsPropertyReceiver
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.escodro.task.model.Category
 
@@ -47,14 +51,17 @@ internal fun CategoryItemChip(
         border = chipBorder(isSelected)
     ) {
         Row(
-            modifier = Modifier.toggleable(
-                value = isSelected,
-                onValueChange = {
-                    val newCategory = toggleChip(selectedState, category)
-                    selectedState.value = newCategory
-                    onCategoryChanged(newCategory?.id)
-                }
-            )
+            modifier = Modifier
+                .semantics { chipName = category.name ?: "" }
+                .toggleable(
+                    value = isSelected,
+                    role = Role.RadioButton,
+                    onValueChange = {
+                        val newCategory = toggleChip(selectedState, category)
+                        selectedState.value = newCategory
+                        onCategoryChanged(newCategory?.id)
+                    }
+                )
         ) {
             Text(
                 modifier = Modifier.padding(8.dp),
@@ -82,5 +89,8 @@ internal fun toggleChip(
     } else {
         category
     }
+
+internal val ChipNameKey = SemanticsPropertyKey<String>("ChipNameKey")
+private var SemanticsPropertyReceiver.chipName by ChipNameKey
 
 private const val TrailingLeadingAlpha = 0.54f

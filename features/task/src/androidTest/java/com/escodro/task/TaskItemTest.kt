@@ -19,7 +19,7 @@ internal class TaskItemTest {
     val composeTestRule = createComposeRule()
 
     @Test
-    fun test_assertBasicTaskIsShown() {
+    fun test_basicTaskIsShown() {
         // Given a simple task
         val taskName = "Buy milk"
         val task = Task(title = taskName, dueDate = null)
@@ -33,7 +33,7 @@ internal class TaskItemTest {
     }
 
     @Test
-    fun test_assertDueDateIsShown() {
+    fun test_dueDateIsShown() {
         // Given a task wit due date to 1993-04-15
         val taskName = "Watch movies"
         val calendar = Calendar.getInstance().apply { timeInMillis = 734_904_000_000 }
@@ -51,7 +51,7 @@ internal class TaskItemTest {
     }
 
     @Test
-    fun assertTaskTitleIsSingleLine() {
+    fun test_taskTitleIsSingleLine() {
         // Given a task with long title
         val taskName = "This is a very long task title and should only fit one line. Nothing more.."
         val task = Task(title = taskName, dueDate = null)

@@ -22,7 +22,7 @@ internal class CategorySelectionTest {
     val composeTestRule = createComposeRule()
 
     @Test
-    fun assert_ChipClickedIsTheChipSelected() {
+    fun test_chipClickedIsTheChipSelected() {
         // Given a list of category
         val category1 = Category(id = 1, name = "Movies", color = Color.Green)
         val category2 = Category(id = 2, name = "Books", color = Color.Magenta)
@@ -40,7 +40,7 @@ internal class CategorySelectionTest {
     }
 
     @Test
-    fun assert_LatestChipClickedIsTheChipSelected() {
+    fun test_latestChipClickedIsTheChipSelected() {
         // Given a list of category
         val category1 = Category(id = 1, name = "Movies", color = Color.Green)
         val category2 = Category(id = 2, name = "Books", color = Color.Magenta)
@@ -60,7 +60,7 @@ internal class CategorySelectionTest {
     }
 
     @Test
-    fun assert_CategoryPassedViaParamIsTheCurrentCategory() {
+    fun test_categoryPassedViaParamIsTheCurrentCategory() {
         // Given a list of category
         val category1 = Category(id = 1, name = "Movies", color = Color.Green)
         val category2 = Category(id = 2, name = "Books", color = Color.Magenta)
@@ -77,7 +77,7 @@ internal class CategorySelectionTest {
     }
 
     @Test
-    fun assert_CategoryIsUncheckedWhenClickedTwice() {
+    fun test_categoryIsUncheckedWhenClickedTwice() {
         // Given a list of category
         val category1 = Category(id = 1, name = "Movies", color = Color.Green)
         val category2 = Category(id = 2, name = "Books", color = Color.Magenta)

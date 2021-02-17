@@ -23,7 +23,7 @@ internal class TaskListTest {
     private val context = InstrumentationRegistry.getInstrumentation().targetContext
 
     @Test
-    fun test_AssertErrorViewIsShown() {
+    fun test_errorViewIsShown() {
         // Given an error state
         val state = TaskListViewState.Error(IllegalAccessException())
 
@@ -38,7 +38,7 @@ internal class TaskListTest {
     }
 
     @Test
-    fun test_AssertEmptyViewIsShown() {
+    fun test_emptyViewIsShown() {
         // Given an empty state
         val state = TaskListViewState.Empty
 
@@ -53,7 +53,7 @@ internal class TaskListTest {
     }
 
     @Test
-    fun test_AssertListViewIsShown() {
+    fun test_listViewIsShown() {
         // Given a success state
         val task = Task(title = "Buy milk", dueDate = null)
         val category = Category(name = "Books", color = Color.Green)

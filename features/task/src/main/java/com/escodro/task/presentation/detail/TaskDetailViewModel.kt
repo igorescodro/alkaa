@@ -6,6 +6,7 @@ import com.escodro.core.coroutines.CoroutineDebouncer
 import com.escodro.domain.usecase.category.LoadAllCategories
 import com.escodro.domain.usecase.task.LoadTask
 import com.escodro.domain.usecase.task.UpdateTask
+import com.escodro.domain.usecase.task.UpdateTaskTitle
 import com.escodro.task.mapper.CategoryMapper
 import com.escodro.task.mapper.TaskMapper
 import com.escodro.task.model.Task
@@ -17,6 +18,7 @@ internal class TaskDetailViewModel(
     private val loadTaskUseCase: LoadTask,
     private val updateTaskUseCase: UpdateTask,
     private val loadAllCategories: LoadAllCategories,
+    private val updateTaskTitle: UpdateTaskTitle,
     private val taskMapper: TaskMapper,
     private val categoryMapper: CategoryMapper
 ) : ViewModel() {
@@ -45,8 +47,7 @@ internal class TaskDetailViewModel(
         coroutineDebouncer(coroutineScope = viewModelScope) {
             _state.value.run {
                 if (this is TaskDetailState.Loaded) {
-                    val updatedTask = this.task.copy(title = title)
-                    updateTask(updatedTask)
+                    updateTaskTitle(this.task.id, title)
                 }
             }
         }

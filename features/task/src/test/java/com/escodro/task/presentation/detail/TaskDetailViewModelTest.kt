@@ -8,6 +8,7 @@ import com.escodro.task.presentation.fake.FAKE_DOMAIN_TASK
 import com.escodro.task.presentation.fake.LoadAllCategoriesFake
 import com.escodro.task.presentation.fake.LoadTaskFake
 import com.escodro.task.presentation.fake.UpdateTaskFake
+import com.escodro.task.presentation.fake.UpdateTaskTitleFake
 import com.escodro.test.CoroutineTestRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.toList
@@ -29,6 +30,8 @@ internal class TaskDetailViewModelTest {
 
     private val loadAllCategories = LoadAllCategoriesFake()
 
+    private val updateTaskTitle = UpdateTaskTitleFake()
+
     private val categoryMapper = CategoryMapper()
 
     private val taskMapper = TaskMapper(AlarmIntervalMapper())
@@ -37,6 +40,7 @@ internal class TaskDetailViewModelTest {
         loadTaskUseCase = loadTask,
         updateTaskUseCase = updateTask,
         loadAllCategories = loadAllCategories,
+        updateTaskTitle = updateTaskTitle,
         taskMapper = taskMapper,
         categoryMapper = categoryMapper
     )
@@ -125,10 +129,9 @@ internal class TaskDetailViewModelTest {
             coroutineTestRule.testDispatcher.advanceUntilIdle() /* Advance typing debounce */
 
             // Then the task will be updated with given title
-            Assert.assertTrue(updateTask.isTaskUpdated(FAKE_DOMAIN_TASK.id))
-            val updatedTask = updateTask.getUpdatedTask(FAKE_DOMAIN_TASK.id)
-            require(updatedTask != null)
-            Assert.assertEquals(newTitle, updatedTask.title)
+            Assert.assertTrue(updateTaskTitle.isTitleUpdated(FAKE_DOMAIN_TASK.id))
+            val updatedTitle = updateTaskTitle.getUpdatedTitle(FAKE_DOMAIN_TASK.id)
+            Assert.assertEquals(newTitle, updatedTitle)
         }
 
     @Test

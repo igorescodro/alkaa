@@ -46,7 +46,7 @@ private fun TaskDetailLoader(
         viewState = viewState,
         onTitleChanged = viewModel::updateTitle,
         onDescriptionChanged = viewModel::updateDescription,
-        onCategoryChanged = viewModel::updateCategory
+        onCategoryChanged = { } // TODO update with new ViewModel
     )
 }
 
@@ -62,7 +62,7 @@ internal fun TaskDetailRouter(
         is TaskDetailState.Loaded ->
             TaskDetailContent(
                 task = viewState.task,
-                categories = viewState.categoryList,
+                categories = listOf(), // TODO update with new ViewModel
                 onTitleChanged = onTitleChanged,
                 onDescriptionChanged = onDescriptionChanged,
                 onCategoryChanged = onCategoryChanged

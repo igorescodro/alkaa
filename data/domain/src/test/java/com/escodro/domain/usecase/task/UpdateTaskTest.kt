@@ -3,6 +3,7 @@ package com.escodro.domain.usecase.task
 import com.escodro.domain.model.Task
 import com.escodro.domain.usecase.fake.TaskRepositoryFake
 import com.escodro.domain.usecase.task.implementation.LoadTaskImpl
+import com.escodro.domain.usecase.task.implementation.UpdateTaskCategoryImpl
 import com.escodro.domain.usecase.task.implementation.UpdateTaskDescriptionImpl
 import com.escodro.domain.usecase.task.implementation.UpdateTaskImpl
 import com.escodro.domain.usecase.task.implementation.UpdateTaskTitleImpl
@@ -26,6 +27,9 @@ internal class UpdateTaskTest {
 
     private val updateDescriptionUseCase =
         UpdateTaskDescriptionImpl(loadTaskUseCase, updateTaskUseCase)
+
+    private val updateTaskCategoryUseCase =
+        UpdateTaskCategoryImpl(loadTaskUseCase, updateTaskUseCase)
 
     @Test
     fun `test if task is updated`() = runBlockingTest {
@@ -61,5 +65,17 @@ internal class UpdateTaskTest {
 
         val loadedTask = loadTaskUseCase(task.id)
         Assert.assertEquals(newDescription, loadedTask!!.description)
+    }
+
+    @Test
+    fun `test if task category is updated`() = runBlockingTest {
+        val task = Task(id = 15, title = "its funny", categoryId = null)
+        addTaskUseCase(task)
+
+        val newCategory = 10L
+        updateTaskCategoryUseCase(task.id, newCategory)
+
+        val loadedTask = loadTaskUseCase(task.id)
+        Assert.assertEquals(newCategory, loadedTask!!.categoryId)
     }
 }

@@ -22,10 +22,12 @@ import com.escodro.domain.usecase.task.DeleteTask
 import com.escodro.domain.usecase.task.LoadTask
 import com.escodro.domain.usecase.task.UncompleteTask
 import com.escodro.domain.usecase.task.UpdateTask
+import com.escodro.domain.usecase.task.UpdateTaskCategory
 import com.escodro.domain.usecase.task.UpdateTaskDescription
 import com.escodro.domain.usecase.task.UpdateTaskStatus
 import com.escodro.domain.usecase.task.UpdateTaskTitle
 import com.escodro.domain.usecase.task.implementation.LoadTaskImpl
+import com.escodro.domain.usecase.task.implementation.UpdateTaskCategoryImpl
 import com.escodro.domain.usecase.task.implementation.UpdateTaskDescriptionImpl
 import com.escodro.domain.usecase.task.implementation.UpdateTaskImpl
 import com.escodro.domain.usecase.task.implementation.UpdateTaskStatusImpl
@@ -52,6 +54,7 @@ val domainModule = module {
     factory<UpdateTask> { UpdateTaskImpl(get()) }
     factory<UpdateTaskTitle> { UpdateTaskTitleImpl(get(), get()) }
     factory<UpdateTaskDescription> { UpdateTaskDescriptionImpl(get(), get()) }
+    factory<UpdateTaskCategory> { UpdateTaskCategoryImpl(get(), get()) }
 
     // Category Use Cases
     factory { DeleteCategory(get()) }

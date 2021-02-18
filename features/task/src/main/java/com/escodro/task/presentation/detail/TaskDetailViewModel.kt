@@ -55,18 +55,4 @@ internal class TaskDetailViewModel(
             }
         }
     }
-
-    // fun updateCategory(categoryId: Long?) = viewModelScope.launch {
-    //     _state.value.run {
-    //         if (this is TaskDetailState.Loaded) {
-    //             val updatedTask = this.task.copy(categoryId = categoryId)
-    //             updateTask(updatedTask)
-    //         }
-    //     }
-    // }
-    //
-    // private suspend fun updateTask(task: Task) {
-    //     val mappedTask = taskMapper.toDomain(task)
-    //     updateTaskUseCase(mappedTask)
-    // }
 }

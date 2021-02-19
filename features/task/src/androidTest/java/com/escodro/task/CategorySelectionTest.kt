@@ -9,6 +9,7 @@ import androidx.compose.ui.test.junit4.ComposeTestRule
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.test.platform.app.InstrumentationRegistry
 import com.escodro.task.model.Category
 import com.escodro.task.presentation.detail.CategorySelection
 import com.escodro.task.presentation.detail.ChipNameKey
@@ -21,6 +22,8 @@ internal class CategorySelectionTest {
 
     @get:Rule
     val composeTestRule = createComposeRule()
+
+    private val context = InstrumentationRegistry.getInstrumentation().targetContext
 
     @Test
     fun test_chipClickedIsTheChipSelected() {
@@ -94,6 +97,24 @@ internal class CategorySelectionTest {
         composeTestRule.onChip(category1.name!!).assertIsUnchecked()
         composeTestRule.onChip(category2.name!!).assertIsUnchecked()
         composeTestRule.onChip(category3.name!!).assertIsUnchecked()
+    }
+
+    @Test
+    fun test_emptyCategoryListShowInfo() {
+        // When the view is loaded with a empty category list
+        composeTestRule.setContent {
+            AlkaaTheme {
+                CategorySelection(
+                    state = TaskCategoryState.Empty,
+                    currentCategory = null,
+                    onCategoryChanged = { }
+                )
+            }
+        }
+
+        // Then text informing there are no categories is shown
+        val emptyTextInfo = context.getString(R.string.task_detail_category_empty_list)
+        composeTestRule.onNodeWithText(emptyTextInfo).assertExists()
     }
 
     private fun loadCategorySelection(categories: List<Category>, currentCategory: Long?) {

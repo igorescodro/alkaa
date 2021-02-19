@@ -2,6 +2,7 @@ package com.escodro.domain.usecase.alarm
 
 import com.escodro.domain.model.AlarmInterval
 import com.escodro.domain.model.Task
+import com.escodro.domain.usecase.alarm.implementation.UpdateTaskAsRepeatingImpl
 import com.escodro.domain.usecase.fake.TaskRepositoryFake
 import com.escodro.domain.usecase.task.AddTask
 import com.escodro.domain.usecase.task.implementation.LoadTaskImpl
@@ -20,7 +21,7 @@ internal class UpdateTaskAsRepeatingTest {
 
     private val getTaskUseCase = LoadTaskImpl(taskRepository)
 
-    private val scheduleRepeatingUseCase = UpdateTaskAsRepeating(taskRepository)
+    private val scheduleRepeatingUseCase = UpdateTaskAsRepeatingImpl(taskRepository)
 
     @Before
     fun setup() = runBlockingTest {

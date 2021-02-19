@@ -63,7 +63,7 @@ internal class TaskCategoryViewModelTest {
         // When the category id is updated
         val taskId = 15L
         val newCategoryId = 4L
-        viewModel.updateCategory(taskId = taskId, categoryId = newCategoryId)
+        viewModel.updateCategory(taskId = TaskId(taskId), categoryId = CategoryId(newCategoryId))
 
         // Then the task will be updated with given category id
         Assert.assertTrue(updateTaskCategory.isCategoryUpdated(taskId))
@@ -81,7 +81,7 @@ internal class TaskCategoryViewModelTest {
 
             // When the category id is updated
             val taskId = 15L
-            viewModel.updateCategory(taskId = taskId, categoryId = null)
+            viewModel.updateCategory(taskId = TaskId(taskId), categoryId = CategoryId(null))
 
             // Then the task will be updated with given category id
             Assert.assertTrue(updateTaskCategory.isCategoryUpdated(taskId))

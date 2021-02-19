@@ -32,10 +32,10 @@ internal class TaskCategoryViewModel(
         }
     }
 
-    fun updateCategory(taskId: Long, categoryId: Long?) = viewModelScope.launch {
+    fun updateCategory(taskId: TaskId, categoryId: CategoryId) = viewModelScope.launch {
         _state.value.run {
             if (this is TaskCategoryState.Loaded) {
-                updateTaskCategory(taskId = taskId, categoryId = categoryId)
+                updateTaskCategory(taskId = taskId.value, categoryId = categoryId.value)
             }
         }
     }

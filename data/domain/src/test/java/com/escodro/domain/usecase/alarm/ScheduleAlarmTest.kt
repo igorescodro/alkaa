@@ -1,6 +1,7 @@
 package com.escodro.domain.usecase.alarm
 
 import com.escodro.domain.model.Task
+import com.escodro.domain.usecase.alarm.implementation.ScheduleAlarmImpl
 import com.escodro.domain.usecase.fake.AlarmInteractorFake
 import com.escodro.domain.usecase.fake.TaskRepositoryFake
 import com.escodro.domain.usecase.task.AddTask
@@ -23,7 +24,7 @@ internal class ScheduleAlarmTest {
 
     private val getTaskUseCase = LoadTaskImpl(taskRepository)
 
-    private val scheduleAlarmUseCase = ScheduleAlarm(taskRepository, alarmInteractor)
+    private val scheduleAlarmUseCase = ScheduleAlarmImpl(taskRepository, alarmInteractor)
 
     @Before
     fun setup() = runBlockingTest {

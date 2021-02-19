@@ -1,12 +1,9 @@
 package com.escodro.task.presentation.detail
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.preferredSize
+import androidx.compose.foundation.layout.preferredHeight
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.selection.toggleable
@@ -14,12 +11,11 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Create
+import androidx.compose.material.icons.outlined.Create
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
@@ -58,7 +54,11 @@ private fun LoadedCategoryList(
 ) {
     val currentItem = categoryList.find { category -> category.id == currentCategory }
     val selectedState = remember { mutableStateOf(currentItem) }
-    CategoryListContent {
+    TaskDetailSectionContent(
+        imageVector = Icons.Outlined.Create,
+        contentDescription = R.string.task_detail_cd_icon_category,
+        modifier = Modifier.preferredHeight(56.dp)
+    ) {
         LazyRow {
             items(
                 items = categoryList,
@@ -78,33 +78,15 @@ private fun LoadedCategoryList(
 
 @Composable
 private fun EmptyCategoryList() {
-    CategoryListContent {
+    TaskDetailSectionContent(
+        imageVector = Icons.Outlined.Create,
+        contentDescription = R.string.task_detail_cd_icon_category,
+        modifier = Modifier.preferredHeight(56.dp)
+    ) {
         Text(
             text = stringResource(id = R.string.task_detail_category_empty_list),
             color = MaterialTheme.colors.onSecondary
         )
-    }
-}
-
-@Composable
-private fun CategoryListContent(
-    modifier: Modifier = Modifier,
-    content: @Composable BoxScope.() -> Unit
-) {
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .preferredSize(56.dp)
-            .padding(start = 12.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        LeadingIcon(
-            imageVector = Icons.Default.Create,
-            contentDescription = R.string.task_detail_cd_icon_category
-        )
-        Box(modifier = Modifier.padding(start = 16.dp)) {
-            content()
-        }
     }
 }
 

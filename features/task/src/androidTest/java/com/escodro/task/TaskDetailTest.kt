@@ -5,9 +5,11 @@ import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.test.platform.app.InstrumentationRegistry
 import com.escodro.task.model.Task
+import com.escodro.task.presentation.detail.CategoryId
 import com.escodro.task.presentation.detail.TaskCategoryState
 import com.escodro.task.presentation.detail.TaskDetailRouter
 import com.escodro.task.presentation.detail.TaskDetailState
+import com.escodro.task.presentation.detail.TaskId
 import com.escodro.theme.AlkaaTheme
 import org.junit.Rule
 import org.junit.Test
@@ -61,7 +63,7 @@ internal class TaskDetailTest {
                     categoryViewState = TaskCategoryState.Loaded(listOf()),
                     onTitleChanged = {},
                     onDescriptionChanged = {},
-                    onCategoryChanged = { _: Long, _: Long? -> }
+                    onCategoryChanged = { _: TaskId, _: CategoryId -> }
                 )
             }
         }

@@ -38,7 +38,7 @@ import com.escodro.theme.AlkaaTheme
 internal fun CategorySelection(
     state: TaskCategoryState,
     currentCategory: Long?,
-    onCategoryChanged: (Long?) -> Unit
+    onCategoryChanged: (CategoryId) -> Unit
 ) {
     when (state) {
         is TaskCategoryState.Loaded -> LoadedCategoryList(
@@ -54,7 +54,7 @@ internal fun CategorySelection(
 private fun LoadedCategoryList(
     categoryList: List<Category>,
     currentCategory: Long?,
-    onCategoryChanged: (Long?) -> Unit
+    onCategoryChanged: (CategoryId) -> Unit
 ) {
     val currentItem = categoryList.find { category -> category.id == currentCategory }
     val selectedState = remember { mutableStateOf(currentItem) }
@@ -68,7 +68,7 @@ private fun LoadedCategoryList(
                         category = category,
                         isSelected = isSelected,
                         selectedState,
-                        onCategoryChanged = onCategoryChanged
+                        onCategoryChanged = { id -> onCategoryChanged(CategoryId(id)) }
                     )
                 }
             )

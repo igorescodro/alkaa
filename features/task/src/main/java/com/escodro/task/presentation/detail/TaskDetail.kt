@@ -60,7 +60,7 @@ internal fun TaskDetailRouter(
     categoryViewState: TaskCategoryState,
     onTitleChanged: (String) -> Unit,
     onDescriptionChanged: (String) -> Unit,
-    onCategoryChanged: (Long, Long?) -> Unit
+    onCategoryChanged: (TaskId, CategoryId) -> Unit
 ) {
     when (detailViewState) {
         TaskDetailState.Error -> TaskDetailError()
@@ -81,7 +81,7 @@ private fun TaskDetailContent(
     categoryViewState: TaskCategoryState,
     onTitleChanged: (String) -> Unit,
     onDescriptionChanged: (String) -> Unit,
-    onCategoryChanged: (Long, Long?) -> Unit
+    onCategoryChanged: (TaskId, CategoryId) -> Unit
 ) {
     Surface(color = MaterialTheme.colors.background) {
         Column {
@@ -89,7 +89,7 @@ private fun TaskDetailContent(
             CategorySelection(
                 state = categoryViewState,
                 currentCategory = task.categoryId,
-                onCategoryChanged = { categoryId -> onCategoryChanged(task.id, categoryId) }
+                onCategoryChanged = { categoryId -> onCategoryChanged(TaskId(task.id), categoryId) }
             )
             TaskDescriptionTextField(
                 text = task.description,
@@ -146,6 +146,10 @@ private fun TaskDescriptionTextField(text: String?, onDescriptionChanged: (Strin
     )
 }
 
+internal inline class TaskId(val value: Long)
+
+internal inline class CategoryId(val value: Long?)
+
 @Suppress("UndocumentedPublicFunction")
 @Preview
 @Composable
@@ -163,7 +167,7 @@ fun TaskDetailPreview() {
             categoryViewState = TaskCategoryState.Loaded(categories),
             onTitleChanged = {},
             onDescriptionChanged = {},
-            onCategoryChanged = { _: Long, _: Long? -> }
+            onCategoryChanged = { _: TaskId, _: CategoryId -> }
         )
     }
 }

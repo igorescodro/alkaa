@@ -1,6 +1,8 @@
 package com.escodro.task.presentation.detail
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -21,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.SemanticsPropertyKey
 import androidx.compose.ui.semantics.SemanticsPropertyReceiver
@@ -33,26 +36,32 @@ import com.escodro.theme.AlkaaTheme
 
 @Composable
 internal fun CategorySelection(
-    categories: List<Category>,
+    state: TaskCategoryState,
     currentCategory: Long?,
     onCategoryChanged: (Long?) -> Unit
 ) {
-    val currentItem = categories.find { category -> category.id == currentCategory }
-    val selectedState = remember { mutableStateOf(currentItem) }
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .preferredSize(56.dp)
-            .padding(start = 12.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        LeadingIcon(
-            imageVector = Icons.Default.Create,
-            contentDescription = R.string.task_detail_cd_icon_category
+    when (state) {
+        is TaskCategoryState.Loaded -> LoadedCategoryList(
+            categoryList = state.categoryList,
+            currentCategory = currentCategory,
+            onCategoryChanged = onCategoryChanged
         )
-        LazyRow(modifier = Modifier.padding(start = 16.dp)) {
+        TaskCategoryState.Empty -> EmptyCategoryList()
+    }
+}
+
+@Composable
+private fun LoadedCategoryList(
+    categoryList: List<Category>,
+    currentCategory: Long?,
+    onCategoryChanged: (Long?) -> Unit
+) {
+    val currentItem = categoryList.find { category -> category.id == currentCategory }
+    val selectedState = remember { mutableStateOf(currentItem) }
+    CategoryListContent {
+        LazyRow {
             items(
-                items = categories,
+                items = categoryList,
                 itemContent = { category ->
                     val isSelected = category == selectedState.value
                     CategoryItemChip(
@@ -68,7 +77,39 @@ internal fun CategorySelection(
 }
 
 @Composable
-internal fun CategoryItemChip(
+private fun EmptyCategoryList() {
+    CategoryListContent {
+        Text(
+            text = stringResource(id = R.string.task_detail_category_empty_list),
+            color = MaterialTheme.colors.onSecondary
+        )
+    }
+}
+
+@Composable
+private fun CategoryListContent(
+    modifier: Modifier = Modifier,
+    content: @Composable BoxScope.() -> Unit
+) {
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .preferredSize(56.dp)
+            .padding(start = 12.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        LeadingIcon(
+            imageVector = Icons.Default.Create,
+            contentDescription = R.string.task_detail_cd_icon_category
+        )
+        Box(modifier = Modifier.padding(start = 16.dp)) {
+            content()
+        }
+    }
+}
+
+@Composable
+private fun CategoryItemChip(
     category: Category,
     isSelected: Boolean = false,
     selectedState: MutableState<Category?>,
@@ -103,14 +144,14 @@ internal fun CategoryItemChip(
 }
 
 @Composable
-internal fun chipBorder(isChipSelected: Boolean): BorderStroke =
+private fun chipBorder(isChipSelected: Boolean): BorderStroke =
     if (isChipSelected) {
         BorderStroke(1.dp, Color.Transparent)
     } else {
         BorderStroke(1.dp, SolidColor(MaterialTheme.colors.onSecondary))
     }
 
-internal fun toggleChip(
+private fun toggleChip(
     selectedState: MutableState<Category?>,
     category: Category
 ): Category? =
@@ -126,7 +167,7 @@ private var SemanticsPropertyReceiver.chipName by ChipNameKey
 @Suppress("UndocumentedPublicFunction")
 @Preview
 @Composable
-fun CategorySelectionPreview() {
+fun CategorySelectionListPreview() {
     val category1 = Category(name = "Groceries", color = Color.Magenta)
     val category2 = Category(name = "Books", color = Color.Cyan)
     val category3 = Category(name = "Movies", color = Color.Red)
@@ -135,8 +176,23 @@ fun CategorySelectionPreview() {
     AlkaaTheme {
         Surface(color = MaterialTheme.colors.background) {
             CategorySelection(
-                categories = categories,
+                state = TaskCategoryState.Loaded(categories),
                 currentCategory = category2.id,
+                onCategoryChanged = {}
+            )
+        }
+    }
+}
+
+@Suppress("UndocumentedPublicFunction")
+@Preview
+@Composable
+fun CategorySelectionEmptyPreview() {
+    AlkaaTheme {
+        Surface(color = MaterialTheme.colors.background) {
+            CategorySelection(
+                state = TaskCategoryState.Empty,
+                currentCategory = null,
                 onCategoryChanged = {}
             )
         }

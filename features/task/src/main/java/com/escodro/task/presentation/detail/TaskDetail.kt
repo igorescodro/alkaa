@@ -9,7 +9,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.outlined.Close
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -37,32 +36,38 @@ fun TaskDetailSection(taskId: Long) {
 @Composable
 private fun TaskDetailLoader(
     taskId: Long,
-    viewModel: TaskDetailViewModel = getViewModel()
+    detailViewModel: TaskDetailViewModel = getViewModel(),
+    categoryViewModel: TaskCategoryViewModel = getViewModel()
 ) {
-    viewModel.setTaskInfo(taskId = taskId)
-    val viewState by viewModel.state.collectAsState()
+    detailViewModel.setTaskInfo(taskId = taskId)
+    val detailViewState by detailViewModel.state
+
+    categoryViewModel.loadCategories()
+    val categoryViewState by categoryViewModel.state
 
     TaskDetailRouter(
-        viewState = viewState,
-        onTitleChanged = viewModel::updateTitle,
-        onDescriptionChanged = viewModel::updateDescription,
-        onCategoryChanged = { } // TODO update with new ViewModel
+        detailViewState = detailViewState,
+        categoryViewState = categoryViewState,
+        onTitleChanged = detailViewModel::updateTitle,
+        onDescriptionChanged = detailViewModel::updateDescription,
+        onCategoryChanged = categoryViewModel::updateCategory
     )
 }
 
 @Composable
 internal fun TaskDetailRouter(
-    viewState: TaskDetailState,
+    detailViewState: TaskDetailState,
+    categoryViewState: TaskCategoryState,
     onTitleChanged: (String) -> Unit,
     onDescriptionChanged: (String) -> Unit,
-    onCategoryChanged: (Long?) -> Unit
+    onCategoryChanged: (Long, Long?) -> Unit
 ) {
-    when (viewState) {
+    when (detailViewState) {
         TaskDetailState.Error -> TaskDetailError()
         is TaskDetailState.Loaded ->
             TaskDetailContent(
-                task = viewState.task,
-                categories = listOf(), // TODO update with new ViewModel
+                task = detailViewState.task,
+                categoryViewState = categoryViewState,
                 onTitleChanged = onTitleChanged,
                 onDescriptionChanged = onDescriptionChanged,
                 onCategoryChanged = onCategoryChanged
@@ -73,18 +78,18 @@ internal fun TaskDetailRouter(
 @Composable
 private fun TaskDetailContent(
     task: Task,
-    categories: List<Category>,
+    categoryViewState: TaskCategoryState,
     onTitleChanged: (String) -> Unit,
     onDescriptionChanged: (String) -> Unit,
-    onCategoryChanged: (Long?) -> Unit
+    onCategoryChanged: (Long, Long?) -> Unit
 ) {
     Surface(color = MaterialTheme.colors.background) {
         Column {
             TaskTitleTextField(text = task.title, onTitleChanged = onTitleChanged)
             CategorySelection(
-                categories = categories,
+                state = categoryViewState,
                 currentCategory = task.categoryId,
-                onCategoryChanged = onCategoryChanged
+                onCategoryChanged = { categoryId -> onCategoryChanged(task.id, categoryId) }
             )
             TaskDescriptionTextField(
                 text = task.description,
@@ -155,10 +160,10 @@ fun TaskDetailPreview() {
     AlkaaTheme {
         TaskDetailContent(
             task = task,
-            categories = categories,
+            categoryViewState = TaskCategoryState.Loaded(categories),
             onTitleChanged = {},
             onDescriptionChanged = {},
-            onCategoryChanged = {}
+            onCategoryChanged = { _: Long, _: Long? -> }
         )
     }
 }

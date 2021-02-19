@@ -4,6 +4,7 @@ import com.escodro.task.mapper.AlarmIntervalMapper
 import com.escodro.task.mapper.CategoryMapper
 import com.escodro.task.mapper.TaskMapper
 import com.escodro.task.mapper.TaskWithCategoryMapper
+import com.escodro.task.presentation.detail.TaskCategoryViewModel
 import com.escodro.task.presentation.detail.TaskDetailViewModel
 import com.escodro.task.presentation.list.TaskListViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -17,6 +18,7 @@ val taskModule = module {
     // Presentation
     viewModel { TaskListViewModel(get(), get(), get()) }
     viewModel { TaskDetailViewModel(get(), get(), get(), get()) }
+    viewModel { TaskCategoryViewModel(get(), get(), get()) }
 
     // Mappers
     factory { AlarmIntervalMapper() }

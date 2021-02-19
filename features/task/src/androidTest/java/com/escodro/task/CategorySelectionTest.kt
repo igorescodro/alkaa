@@ -12,6 +12,7 @@ import androidx.compose.ui.test.performClick
 import com.escodro.task.model.Category
 import com.escodro.task.presentation.detail.CategorySelection
 import com.escodro.task.presentation.detail.ChipNameKey
+import com.escodro.task.presentation.detail.TaskCategoryState
 import com.escodro.theme.AlkaaTheme
 import org.junit.Rule
 import org.junit.Test
@@ -99,7 +100,7 @@ internal class CategorySelectionTest {
         composeTestRule.setContent {
             AlkaaTheme {
                 CategorySelection(
-                    categories = categories,
+                    state = TaskCategoryState.Loaded(categories),
                     currentCategory = currentCategory,
                     onCategoryChanged = { }
                 )

@@ -1,12 +1,13 @@
 package com.escodro.task.presentation.detail
 
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.escodro.domain.usecase.category.LoadAllCategories
 import com.escodro.domain.usecase.task.UpdateTaskCategory
 import com.escodro.task.mapper.CategoryMapper
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 internal class TaskCategoryViewModel(
@@ -15,10 +16,9 @@ internal class TaskCategoryViewModel(
     private val categoryMapper: CategoryMapper
 ) : ViewModel() {
 
-    private val _state: MutableStateFlow<TaskCategoryState> =
-        MutableStateFlow(TaskCategoryState.Empty)
+    private val _state: MutableState<TaskCategoryState> = mutableStateOf(TaskCategoryState.Empty)
 
-    val state: StateFlow<TaskCategoryState>
+    val state: State<TaskCategoryState>
         get() = _state
 
     fun loadCategories() = viewModelScope.launch {

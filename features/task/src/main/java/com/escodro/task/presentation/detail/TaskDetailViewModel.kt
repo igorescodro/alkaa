@@ -1,5 +1,8 @@
 package com.escodro.task.presentation.detail
 
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.escodro.core.coroutines.CoroutineDebouncer
@@ -7,8 +10,6 @@ import com.escodro.domain.usecase.task.LoadTask
 import com.escodro.domain.usecase.task.UpdateTaskDescription
 import com.escodro.domain.usecase.task.UpdateTaskTitle
 import com.escodro.task.mapper.TaskMapper
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 internal class TaskDetailViewModel(
@@ -18,9 +19,9 @@ internal class TaskDetailViewModel(
     private val taskMapper: TaskMapper
 ) : ViewModel() {
 
-    private val _state: MutableStateFlow<TaskDetailState> = MutableStateFlow(TaskDetailState.Error)
+    private val _state: MutableState<TaskDetailState> = mutableStateOf(TaskDetailState.Error)
 
-    val state: StateFlow<TaskDetailState>
+    val state: State<TaskDetailState>
         get() = _state
 
     private val coroutineDebouncer = CoroutineDebouncer()

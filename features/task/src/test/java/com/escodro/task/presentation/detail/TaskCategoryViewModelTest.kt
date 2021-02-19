@@ -5,8 +5,6 @@ import com.escodro.task.presentation.fake.FAKE_DOMAIN_CATEGORY_LIST
 import com.escodro.task.presentation.fake.LoadAllCategoriesFake
 import com.escodro.task.presentation.fake.UpdateTaskCategoryFake
 import com.escodro.test.CoroutineTestRule
-import kotlinx.coroutines.flow.toList
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert
 import org.junit.Rule
@@ -35,15 +33,12 @@ internal class TaskCategoryViewModelTest {
             viewModel.loadCategories()
 
             // When the latest event is collected
-            val result = arrayListOf<TaskCategoryState>()
-            val job = launch { viewModel.state.toList(result) }
+            val state = viewModel.state.value
 
             // Then the category list is returned
-            val state = result.first()
             require(state is TaskCategoryState.Loaded)
             val assertCategoryList = categoryMapper.toView(FAKE_DOMAIN_CATEGORY_LIST)
             Assert.assertEquals(assertCategoryList, state.categoryList)
-            job.cancel()
         }
 
     @Test
@@ -54,12 +49,9 @@ internal class TaskCategoryViewModelTest {
             viewModel.loadCategories()
 
             // When the latest event is collected
-            val result = arrayListOf<TaskCategoryState>()
-            val job = launch { viewModel.state.toList(result) }
+            val state = viewModel.state.value
 
-            val state = result.first()
             require(state is TaskCategoryState.Empty)
-            job.cancel()
         }
 
     @Test

@@ -8,8 +8,6 @@ import com.escodro.task.presentation.fake.UpdateTaskDescriptionFake
 import com.escodro.task.presentation.fake.UpdateTaskTitleFake
 import com.escodro.test.CoroutineTestRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.toList
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert
 import org.junit.Rule
@@ -43,15 +41,12 @@ internal class TaskDetailViewModelTest {
         viewModel.setTaskInfo(FAKE_DOMAIN_TASK.id)
 
         // When the latest event is collected
-        val result = arrayListOf<TaskDetailState>()
-        val job = launch { viewModel.state.toList(result) }
+        val state = viewModel.state.value
 
         // Then the state contain the loaded task
-        val state = result.first()
         require(state is TaskDetailState.Loaded)
         val assertViewTask = taskMapper.toView(FAKE_DOMAIN_TASK)
         Assert.assertEquals(assertViewTask, state.task)
-        job.cancel()
     }
 
     @Test
@@ -61,12 +56,10 @@ internal class TaskDetailViewModelTest {
         viewModel.setTaskInfo(FAKE_DOMAIN_TASK.id)
 
         // When the latest event is collected
-        val result = arrayListOf<TaskDetailState>()
-        val job = launch { viewModel.state.toList(result) }
+        val state = viewModel.state.value
 
         // Then the state contain the loaded task
-        Assert.assertTrue(result.first() is TaskDetailState.Error)
-        job.cancel()
+        Assert.assertTrue(state is TaskDetailState.Error)
     }
 
     @Test

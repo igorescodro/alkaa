@@ -5,6 +5,7 @@ import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.test.platform.app.InstrumentationRegistry
 import com.escodro.task.model.Task
+import com.escodro.task.presentation.detail.TaskCategoryState
 import com.escodro.task.presentation.detail.TaskDetailRouter
 import com.escodro.task.presentation.detail.TaskDetailState
 import com.escodro.theme.AlkaaTheme
@@ -56,10 +57,11 @@ internal class TaskDetailTest {
         composeTestRule.setContent {
             AlkaaTheme {
                 TaskDetailRouter(
-                    viewState = state,
+                    detailViewState = state,
+                    categoryViewState = TaskCategoryState.Loaded(listOf()),
                     onTitleChanged = {},
                     onDescriptionChanged = {},
-                    onCategoryChanged = {}
+                    onCategoryChanged = { _: Long, _: Long? -> }
                 )
             }
         }

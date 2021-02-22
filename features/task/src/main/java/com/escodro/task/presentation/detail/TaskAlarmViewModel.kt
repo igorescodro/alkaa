@@ -17,16 +17,16 @@ internal class TaskAlarmViewModel(
     private val alarmIntervalMapper: AlarmIntervalMapper
 ) : ViewModel() {
 
-    fun setAlarm(taskId: Long, alarm: Calendar) = viewModelScope.launch {
-        scheduleAlarmUseCase(taskId, alarm)
+    fun updateAlarm(taskId: Long, alarm: Calendar?) = viewModelScope.launch {
+        if (alarm != null) {
+            scheduleAlarmUseCase(taskId, alarm)
+        } else {
+            cancelAlarmUseCase(taskId)
+        }
     }
 
     fun setRepeating(taskId: Long, alarmInterval: AlarmInterval) = viewModelScope.launch {
         val interval = alarmIntervalMapper.toDomain(alarmInterval)
         updateTaskAsRepeatingUseCase(taskId, interval)
-    }
-
-    fun removeAlarm(taskId: Long) = viewModelScope.launch {
-        cancelAlarmUseCase(taskId)
     }
 }

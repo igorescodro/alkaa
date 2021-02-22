@@ -41,7 +41,7 @@ import java.util.Calendar
 @Composable
 internal fun AlarmSelection(
     calendar: Calendar?,
-    interval: AlarmInterval,
+    interval: AlarmInterval?,
     onAlarmUpdated: (Calendar?) -> Unit,
     onIntervalSelected: (AlarmInterval) -> Unit
 ) {
@@ -87,7 +87,7 @@ internal fun AlarmSelection(
                 imageVector = Icons.Outlined.Warning,
                 contentDescription = R.string.task_detail_cd_icon_repeat_alarm
             ) {
-                val index = alarmInterval.index ?: 0
+                val index = alarmInterval?.index ?: 0
                 Text(
                     text = stringArrayResource(id = R.array.task_alarm_repeating)[index],
                     color = MaterialTheme.colors.onSecondary

@@ -35,7 +35,7 @@ internal class TaskAlarmViewModelTest {
         val alarm = Calendar.getInstance()
 
         // When the function to set the alarm is called
-        viewModel.setAlarm(taskId, alarm)
+        viewModel.updateAlarm(taskId, alarm)
 
         // Then the alarm is set
         Assert.assertTrue(scheduleAlarm.isAlarmScheduled(taskId))
@@ -63,7 +63,7 @@ internal class TaskAlarmViewModelTest {
         val taskId = 123L
 
         // When the function to cancel the alarm is called
-        viewModel.removeAlarm(taskId)
+        viewModel.updateAlarm(taskId, null)
 
         // Then the alarm is removed
         Assert.assertTrue(cancelAlarm.isAlarmCancelled(taskId))

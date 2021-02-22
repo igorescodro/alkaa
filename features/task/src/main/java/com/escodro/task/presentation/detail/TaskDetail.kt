@@ -17,11 +17,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import com.escodro.task.R
+import com.escodro.task.model.AlarmInterval
 import com.escodro.task.model.Category
 import com.escodro.task.model.Task
 import com.escodro.theme.AlkaaTheme
 import com.escodro.theme.components.DefaultIconTextContent
 import org.koin.androidx.compose.getViewModel
+import java.util.Calendar
 
 /**
  * Alkaa Task Detail Section.
@@ -37,7 +39,8 @@ fun TaskDetailSection(taskId: Long) {
 private fun TaskDetailLoader(
     taskId: Long,
     detailViewModel: TaskDetailViewModel = getViewModel(),
-    categoryViewModel: TaskCategoryViewModel = getViewModel()
+    categoryViewModel: TaskCategoryViewModel = getViewModel(),
+    alarmViewModel: TaskAlarmViewModel = getViewModel()
 ) {
     detailViewModel.setTaskInfo(taskId = taskId)
     val detailViewState by detailViewModel.state
@@ -50,7 +53,9 @@ private fun TaskDetailLoader(
         categoryViewState = categoryViewState,
         onTitleChanged = detailViewModel::updateTitle,
         onDescriptionChanged = detailViewModel::updateDescription,
-        onCategoryChanged = categoryViewModel::updateCategory
+        onCategoryChanged = categoryViewModel::updateCategory,
+        onAlarmUpdated = { calendar -> alarmViewModel.updateAlarm(taskId, calendar) },
+        onIntervalSelected = { interval -> alarmViewModel.setRepeating(taskId, interval) }
     )
 }
 
@@ -60,7 +65,9 @@ internal fun TaskDetailRouter(
     categoryViewState: TaskCategoryState,
     onTitleChanged: (String) -> Unit,
     onDescriptionChanged: (String) -> Unit,
-    onCategoryChanged: (TaskId, CategoryId) -> Unit
+    onCategoryChanged: (TaskId, CategoryId) -> Unit,
+    onAlarmUpdated: (Calendar?) -> Unit,
+    onIntervalSelected: (AlarmInterval) -> Unit
 ) {
     when (detailViewState) {
         TaskDetailState.Error -> TaskDetailError()
@@ -70,7 +77,9 @@ internal fun TaskDetailRouter(
                 categoryViewState = categoryViewState,
                 onTitleChanged = onTitleChanged,
                 onDescriptionChanged = onDescriptionChanged,
-                onCategoryChanged = onCategoryChanged
+                onCategoryChanged = onCategoryChanged,
+                onAlarmUpdated = onAlarmUpdated,
+                onIntervalSelected = onIntervalSelected
             )
     }
 }
@@ -81,7 +90,9 @@ private fun TaskDetailContent(
     categoryViewState: TaskCategoryState,
     onTitleChanged: (String) -> Unit,
     onDescriptionChanged: (String) -> Unit,
-    onCategoryChanged: (TaskId, CategoryId) -> Unit
+    onCategoryChanged: (TaskId, CategoryId) -> Unit,
+    onAlarmUpdated: (Calendar?) -> Unit,
+    onIntervalSelected: (AlarmInterval) -> Unit
 ) {
     Surface(color = MaterialTheme.colors.background) {
         Column {
@@ -94,6 +105,12 @@ private fun TaskDetailContent(
             TaskDescriptionTextField(
                 text = task.description,
                 onDescriptionChanged = onDescriptionChanged
+            )
+            AlarmSelection(
+                calendar = task.dueDate,
+                interval = task.alarmInterval,
+                onAlarmUpdated = onAlarmUpdated,
+                onIntervalSelected = onIntervalSelected
             )
         }
     }
@@ -167,7 +184,9 @@ fun TaskDetailPreview() {
             categoryViewState = TaskCategoryState.Loaded(categories),
             onTitleChanged = {},
             onDescriptionChanged = {},
-            onCategoryChanged = { _: TaskId, _: CategoryId -> }
+            onCategoryChanged = { _: TaskId, _: CategoryId -> },
+            onAlarmUpdated = {},
+            onIntervalSelected = {}
         )
     }
 }

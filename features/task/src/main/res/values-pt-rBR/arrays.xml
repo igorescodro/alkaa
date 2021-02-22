@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="task_alarm_repeating">
+        <item>Nunca</item>
+        <item>A cada hora</item>
+        <item>Diariamente</item>
+        <item>Semanalmente</item>
+        <item>Mensalmente</item>
+        <item>Anualmente</item>
+    </string-array>
+</resources>

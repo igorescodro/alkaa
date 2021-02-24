@@ -29,6 +29,7 @@ object Versions {
     const val testUiAutomator = "2.2.0"
     const val testJunitExt = "1.1.0"
     const val testRoom = "2.1.0"
+    const val barista = "3.7.0"
 
     const val espresso = "3.3.0"
 
@@ -49,7 +50,6 @@ object Deps {
     val koin = KoinDeps
     val compose = ComposeDeps
     val test = TestDeps
-    val espresso = EspressoDeps
     val quality = QualityDeps
     val gradle = GradleDeps
 }
@@ -98,15 +98,12 @@ object TestDeps {
     val junit = "junit:junit:${Versions.testJunit}"
     val runner = "androidx.test:runner:${Versions.testRunner}"
     val core = "androidx.test:core:${Versions.testCore}"
+    val coreKtx = "androidx.test:core-ktx:${Versions.testCore}"
     val uiAutomator = "androidx.test.uiautomator:uiautomator:${Versions.testUiAutomator}"
     val junitExt = "androidx.test.ext:junit:${Versions.testJunitExt}"
     val mockk = "io.mockk:mockk:${Versions.testMockk}"
     val room = "androidx.room:room-testing:${Versions.testRoom}"
-}
-
-object EspressoDeps {
-    val core = "androidx.test.espresso:espresso-core:${Versions.espresso}"
-    val contrib = "androidx.test.espresso:espresso-contrib:${Versions.espresso}"
+    val barista = "com.schibsted.spain:barista:${Versions.espresso}"
 }
 
 object QualityDeps {

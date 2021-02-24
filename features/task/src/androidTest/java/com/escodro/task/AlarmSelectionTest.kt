@@ -1,17 +1,23 @@
 package com.escodro.task
 
+import androidx.activity.ComponentActivity
+import androidx.compose.ui.platform.setContent
 import androidx.compose.ui.test.assertIsDisplayed
-import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.junit4.createEmptyComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithSubstring
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
 import com.escodro.task.espresso.setDateTime
 import com.escodro.task.model.AlarmInterval
 import com.escodro.task.presentation.detail.alarm.AlarmSelection
 import com.escodro.theme.AlkaaTheme
+import com.schibsted.spain.barista.rule.flaky.FlakyTestRule
+import org.junit.After
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import java.util.Calendar
@@ -19,9 +25,26 @@ import java.util.Calendar
 internal class AlarmSelectionTest {
 
     @get:Rule
-    val composeTestRule = createComposeRule()
+    val composeTestRule = createEmptyComposeRule()
+
+    // Unfortunately due to integration between Compose and Android View System, the test
+    // sometime fails due to delay in opening Date and TimePicker.
+    @get:Rule
+    val flakyRule = FlakyTestRule().allowFlakyAttemptsByDefault(defaultAttempts = 10)
 
     private val context = InstrumentationRegistry.getInstrumentation().targetContext
+
+    private lateinit var scenario: ActivityScenario<ComponentActivity>
+
+    @Before
+    fun setup() {
+        scenario = ActivityScenario.launch(ComponentActivity::class.java)
+    }
+
+    @After
+    fun tearDown() {
+        scenario.close()
+    }
 
     @Test
     fun test_addAlarm() {
@@ -115,27 +138,31 @@ internal class AlarmSelectionTest {
     }
 
     private fun loadAlarmSelection() {
-        composeTestRule.setContent {
-            AlkaaTheme {
-                AlarmSelection(
-                    calendar = null,
-                    interval = AlarmInterval.NEVER,
-                    onAlarmUpdated = {},
-                    onIntervalSelected = {}
-                )
+        scenario.onActivity {
+            it.setContent {
+                AlkaaTheme {
+                    AlarmSelection(
+                        calendar = null,
+                        interval = AlarmInterval.NEVER,
+                        onAlarmUpdated = {},
+                        onIntervalSelected = {}
+                    )
+                }
             }
         }
     }
 
     private fun loadAlarmSelection(calendar: Calendar, alarmInterval: AlarmInterval) {
-        composeTestRule.setContent {
-            AlkaaTheme {
-                AlarmSelection(
-                    calendar = calendar,
-                    interval = alarmInterval,
-                    onAlarmUpdated = {},
-                    onIntervalSelected = {}
-                )
+        scenario.onActivity {
+            it.setContent {
+                AlkaaTheme {
+                    AlarmSelection(
+                        calendar = calendar,
+                        interval = alarmInterval,
+                        onAlarmUpdated = {},
+                        onIntervalSelected = {}
+                    )
+                }
             }
         }
     }

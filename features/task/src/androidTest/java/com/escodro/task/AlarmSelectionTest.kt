@@ -10,7 +10,7 @@ import androidx.compose.ui.test.performClick
 import androidx.test.platform.app.InstrumentationRegistry
 import com.escodro.task.espresso.setDateTime
 import com.escodro.task.model.AlarmInterval
-import com.escodro.task.presentation.detail.AlarmSelection
+import com.escodro.task.presentation.detail.alarm.AlarmSelection
 import com.escodro.theme.AlkaaTheme
 import org.junit.Rule
 import org.junit.Test

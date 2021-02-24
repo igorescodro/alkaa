@@ -1,4 +1,4 @@
-package com.escodro.task.presentation.detail
+package com.escodro.task.presentation.detail.main
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -19,6 +19,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.escodro.task.R
 import com.escodro.task.model.Category
 import com.escodro.task.model.Task
+import com.escodro.task.presentation.detail.LeadingIcon
+import com.escodro.task.presentation.detail.TaskDetailActions
+import com.escodro.task.presentation.detail.alarm.AlarmSelection
+import com.escodro.task.presentation.detail.alarm.TaskAlarmViewModel
+import com.escodro.task.presentation.detail.category.CategorySelection
+import com.escodro.task.presentation.detail.category.TaskCategoryState
+import com.escodro.task.presentation.detail.category.TaskCategoryViewModel
 import com.escodro.theme.AlkaaTheme
 import com.escodro.theme.components.DefaultIconTextContent
 import org.koin.androidx.compose.getViewModel

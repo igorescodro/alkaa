@@ -4,9 +4,9 @@ import com.escodro.task.mapper.AlarmIntervalMapper
 import com.escodro.task.mapper.CategoryMapper
 import com.escodro.task.mapper.TaskMapper
 import com.escodro.task.mapper.TaskWithCategoryMapper
-import com.escodro.task.presentation.detail.TaskAlarmViewModel
-import com.escodro.task.presentation.detail.TaskCategoryViewModel
-import com.escodro.task.presentation.detail.TaskDetailViewModel
+import com.escodro.task.presentation.detail.alarm.TaskAlarmViewModel
+import com.escodro.task.presentation.detail.category.TaskCategoryViewModel
+import com.escodro.task.presentation.detail.main.TaskDetailViewModel
 import com.escodro.task.presentation.list.TaskListViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module

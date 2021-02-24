@@ -1,4 +1,4 @@
-package com.escodro.task.presentation.detail
+package com.escodro.task.presentation.detail.alarm
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

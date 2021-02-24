@@ -10,7 +10,7 @@ import androidx.navigation.compose.navArgument
 import androidx.navigation.compose.navigate
 import androidx.navigation.compose.rememberNavController
 import com.escodro.alkaa.presentation.home.Home
-import com.escodro.task.presentation.detail.TaskDetailSection
+import com.escodro.task.presentation.detail.main.TaskDetailSection
 
 internal object Destinations {
     const val Home = "home"

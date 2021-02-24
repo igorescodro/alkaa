@@ -11,9 +11,9 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.test.platform.app.InstrumentationRegistry
 import com.escodro.task.model.Category
-import com.escodro.task.presentation.detail.CategorySelection
-import com.escodro.task.presentation.detail.ChipNameKey
-import com.escodro.task.presentation.detail.TaskCategoryState
+import com.escodro.task.presentation.detail.category.CategorySelection
+import com.escodro.task.presentation.detail.category.ChipNameKey
+import com.escodro.task.presentation.detail.category.TaskCategoryState
 import com.escodro.theme.AlkaaTheme
 import org.junit.Rule
 import org.junit.Test

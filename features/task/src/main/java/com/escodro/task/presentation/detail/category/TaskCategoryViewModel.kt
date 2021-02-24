@@ -1,4 +1,4 @@
-package com.escodro.task.presentation.detail
+package com.escodro.task.presentation.detail.category
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
@@ -8,6 +8,8 @@ import androidx.lifecycle.viewModelScope
 import com.escodro.domain.usecase.category.LoadAllCategories
 import com.escodro.domain.usecase.task.UpdateTaskCategory
 import com.escodro.task.mapper.CategoryMapper
+import com.escodro.task.presentation.detail.main.CategoryId
+import com.escodro.task.presentation.detail.main.TaskId
 import kotlinx.coroutines.launch
 
 internal class TaskCategoryViewModel(

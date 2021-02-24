@@ -1,4 +1,4 @@
-package com.escodro.task.presentation.detail
+package com.escodro.task.presentation.detail.alarm
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -35,6 +35,7 @@ import com.escodro.core.extension.format
 import com.escodro.core.view.DateTimePickerDialog
 import com.escodro.task.R
 import com.escodro.task.model.AlarmInterval
+import com.escodro.task.presentation.detail.TaskDetailSectionContent
 import com.escodro.theme.AlkaaTheme
 import java.util.Calendar
 

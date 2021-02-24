@@ -1,4 +1,4 @@
-package com.escodro.task.presentation.detail
+package com.escodro.task.presentation.detail.main
 
 import com.escodro.task.model.Task
 

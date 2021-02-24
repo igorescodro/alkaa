@@ -1,6 +1,10 @@
 package com.escodro.task.presentation.detail
 
 import com.escodro.task.mapper.CategoryMapper
+import com.escodro.task.presentation.detail.category.TaskCategoryState
+import com.escodro.task.presentation.detail.category.TaskCategoryViewModel
+import com.escodro.task.presentation.detail.main.CategoryId
+import com.escodro.task.presentation.detail.main.TaskId
 import com.escodro.task.presentation.fake.FAKE_DOMAIN_CATEGORY_LIST
 import com.escodro.task.presentation.fake.LoadAllCategoriesFake
 import com.escodro.task.presentation.fake.UpdateTaskCategoryFake

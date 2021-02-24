@@ -21,6 +21,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.escodro.alkaa.model.HomeSection
+import com.escodro.search.presentation.SearchSection
 import com.escodro.task.presentation.list.TaskListSection
 import com.escodro.theme.AlkaaTheme
 
@@ -58,12 +59,10 @@ private fun AlkaaHomeScaffold(
         },
         bodyContent = {
             when (homeSection) {
-                HomeSection.Tasks -> TaskListSection(
-                    modifier = modifier,
-                    onItemClicked = onTaskClicked
-                )
-                HomeSection.Search -> { /* TODO create new section */
-                }
+                HomeSection.Tasks ->
+                    TaskListSection(modifier = modifier, onItemClicked = onTaskClicked)
+                HomeSection.Search ->
+                    SearchSection(modifier = modifier)
                 HomeSection.Categories -> { /* TODO create new section */
                 }
                 HomeSection.Settings -> { /* TODO create new section */

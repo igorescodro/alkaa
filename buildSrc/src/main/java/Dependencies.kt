@@ -30,6 +30,8 @@ object Versions {
     const val testJunitExt = "1.1.0"
     const val testRoom = "2.1.0"
 
+    const val espresso = "3.3.0"
+
     const val compose = "1.0.0-alpha11"
     const val composeNav = "1.0.0-alpha06"
 
@@ -47,6 +49,7 @@ object Deps {
     val koin = KoinDeps
     val compose = ComposeDeps
     val test = TestDeps
+    val espresso = EspressoDeps
     val quality = QualityDeps
     val gradle = GradleDeps
 }
@@ -99,6 +102,11 @@ object TestDeps {
     val junitExt = "androidx.test.ext:junit:${Versions.testJunitExt}"
     val mockk = "io.mockk:mockk:${Versions.testMockk}"
     val room = "androidx.room:room-testing:${Versions.testRoom}"
+}
+
+object EspressoDeps {
+    val core = "androidx.test.espresso:espresso-core:${Versions.espresso}"
+    val contrib = "androidx.test.espresso:espresso-contrib:${Versions.espresso}"
 }
 
 object QualityDeps {

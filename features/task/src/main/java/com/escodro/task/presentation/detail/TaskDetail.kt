@@ -1,30 +1,21 @@
 package com.escodro.task.presentation.detail
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.preferredSize
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.TextField
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.outlined.Close
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.escodro.task.R
 import com.escodro.task.model.Category
 import com.escodro.task.model.Task
@@ -45,35 +36,44 @@ fun TaskDetailSection(taskId: Long) {
 @Composable
 private fun TaskDetailLoader(
     taskId: Long,
-    viewModel: TaskDetailViewModel = getViewModel()
+    detailViewModel: TaskDetailViewModel = getViewModel(),
+    categoryViewModel: TaskCategoryViewModel = getViewModel(),
+    alarmViewModel: TaskAlarmViewModel = getViewModel()
 ) {
-    viewModel.setTaskInfo(taskId = taskId)
-    val viewState by viewModel.state.collectAsState()
+    detailViewModel.setTaskInfo(taskId = taskId)
+    val detailViewState by detailViewModel.state
+
+    categoryViewModel.loadCategories()
+    val categoryViewState by categoryViewModel.state
+
+    val taskDetailActions = TaskDetailActions(
+        onTitleChanged = detailViewModel::updateTitle,
+        onDescriptionChanged = detailViewModel::updateDescription,
+        onCategoryChanged = categoryViewModel::updateCategory,
+        onAlarmUpdated = { calendar -> alarmViewModel.updateAlarm(taskId, calendar) },
+        onIntervalSelected = { interval -> alarmViewModel.setRepeating(taskId, interval) }
+    )
 
     TaskDetailRouter(
-        viewState = viewState,
-        onTitleChanged = viewModel::updateTitle,
-        onDescriptionChanged = viewModel::updateDescription,
-        onCategoryChanged = viewModel::updateCategory
+        detailViewState = detailViewState,
+        categoryViewState = categoryViewState,
+        actions = taskDetailActions
     )
 }
 
 @Composable
 internal fun TaskDetailRouter(
-    viewState: TaskDetailState,
-    onTitleChanged: (String) -> Unit,
-    onDescriptionChanged: (String) -> Unit,
-    onCategoryChanged: (Long?) -> Unit
+    detailViewState: TaskDetailState,
+    categoryViewState: TaskCategoryState,
+    actions: TaskDetailActions
 ) {
-    when (viewState) {
+    when (detailViewState) {
         TaskDetailState.Error -> TaskDetailError()
         is TaskDetailState.Loaded ->
             TaskDetailContent(
-                task = viewState.task,
-                categories = viewState.categoryList,
-                onTitleChanged = onTitleChanged,
-                onDescriptionChanged = onDescriptionChanged,
-                onCategoryChanged = onCategoryChanged
+                task = detailViewState.task,
+                categoryViewState = categoryViewState,
+                actions = actions
             )
     }
 }
@@ -81,22 +81,28 @@ internal fun TaskDetailRouter(
 @Composable
 private fun TaskDetailContent(
     task: Task,
-    categories: List<Category>,
-    onTitleChanged: (String) -> Unit,
-    onDescriptionChanged: (String) -> Unit,
-    onCategoryChanged: (Long?) -> Unit
+    categoryViewState: TaskCategoryState,
+    actions: TaskDetailActions
 ) {
     Surface(color = MaterialTheme.colors.background) {
         Column {
-            TaskTitleTextField(text = task.title, onTitleChanged = onTitleChanged)
+            TaskTitleTextField(text = task.title, onTitleChanged = actions.onTitleChanged)
             CategorySelection(
-                categories = categories,
+                state = categoryViewState,
                 currentCategory = task.categoryId,
-                onCategoryChanged = onCategoryChanged
+                onCategoryChanged = { categoryId ->
+                    actions.onCategoryChanged(TaskId(task.id), categoryId)
+                }
             )
             TaskDescriptionTextField(
                 text = task.description,
-                onDescriptionChanged = onDescriptionChanged
+                onDescriptionChanged = actions.onDescriptionChanged
+            )
+            AlarmSelection(
+                calendar = task.dueDate,
+                interval = task.alarmInterval,
+                onAlarmUpdated = actions.onAlarmUpdated,
+                onIntervalSelected = actions.onIntervalSelected
             )
         }
     }
@@ -149,41 +155,9 @@ private fun TaskDescriptionTextField(text: String?, onDescriptionChanged: (Strin
     )
 }
 
-@Composable
-internal fun CategorySelection(
-    categories: List<Category>,
-    currentCategory: Long?,
-    onCategoryChanged: (Long?) -> Unit
-) {
-    val currentItem = categories.find { category -> category.id == currentCategory }
-    val selectedState = remember { mutableStateOf(currentItem) }
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .preferredSize(56.dp)
-            .padding(start = 12.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        LeadingIcon(
-            imageVector = Icons.Default.Create,
-            contentDescription = R.string.task_detail_cd_icon_category
-        )
-        LazyRow(modifier = Modifier.padding(start = 16.dp)) {
-            items(
-                items = categories,
-                itemContent = { category ->
-                    val isSelected = category == selectedState.value
-                    CategoryItemChip(
-                        category = category,
-                        isSelected = isSelected,
-                        selectedState,
-                        onCategoryChanged = onCategoryChanged
-                    )
-                }
-            )
-        }
-    }
-}
+internal inline class TaskId(val value: Long)
+
+internal inline class CategoryId(val value: Long?)
 
 @Suppress("UndocumentedPublicFunction")
 @Preview
@@ -199,10 +173,8 @@ fun TaskDetailPreview() {
     AlkaaTheme {
         TaskDetailContent(
             task = task,
-            categories = categories,
-            onTitleChanged = {},
-            onDescriptionChanged = {},
-            onCategoryChanged = {}
+            categoryViewState = TaskCategoryState.Loaded(categories),
+            actions = TaskDetailActions()
         )
     }
 }

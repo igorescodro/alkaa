@@ -25,4 +25,6 @@ dependencies {
     implementation Deps.koin.viewModel
     implementation Deps.koin.compose
 
+    androidTestImplementation Deps.espresso.core
+    androidTestImplementation Deps.espresso.contrib
 }

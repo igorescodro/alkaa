@@ -9,6 +9,9 @@ import com.escodro.domain.usecase.alarm.ScheduleNextAlarm
 import com.escodro.domain.usecase.alarm.ShowAlarm
 import com.escodro.domain.usecase.alarm.SnoozeAlarm
 import com.escodro.domain.usecase.alarm.UpdateTaskAsRepeating
+import com.escodro.domain.usecase.alarm.implementation.CancelAlarmImpl
+import com.escodro.domain.usecase.alarm.implementation.ScheduleAlarmImpl
+import com.escodro.domain.usecase.alarm.implementation.UpdateTaskAsRepeatingImpl
 import com.escodro.domain.usecase.category.DeleteCategory
 import com.escodro.domain.usecase.category.InsertCategory
 import com.escodro.domain.usecase.category.LoadAllCategories
@@ -22,10 +25,16 @@ import com.escodro.domain.usecase.task.DeleteTask
 import com.escodro.domain.usecase.task.LoadTask
 import com.escodro.domain.usecase.task.UncompleteTask
 import com.escodro.domain.usecase.task.UpdateTask
+import com.escodro.domain.usecase.task.UpdateTaskCategory
+import com.escodro.domain.usecase.task.UpdateTaskDescription
 import com.escodro.domain.usecase.task.UpdateTaskStatus
+import com.escodro.domain.usecase.task.UpdateTaskTitle
 import com.escodro.domain.usecase.task.implementation.LoadTaskImpl
+import com.escodro.domain.usecase.task.implementation.UpdateTaskCategoryImpl
+import com.escodro.domain.usecase.task.implementation.UpdateTaskDescriptionImpl
 import com.escodro.domain.usecase.task.implementation.UpdateTaskImpl
 import com.escodro.domain.usecase.task.implementation.UpdateTaskStatusImpl
+import com.escodro.domain.usecase.task.implementation.UpdateTaskTitleImpl
 import com.escodro.domain.usecase.taskwithcategory.LoadCompletedTasks
 import com.escodro.domain.usecase.taskwithcategory.LoadTasksByCategory
 import com.escodro.domain.usecase.taskwithcategory.LoadUncompletedTasks
@@ -46,6 +55,9 @@ val domainModule = module {
     factory { DeleteTask(get(), get()) }
     factory<LoadTask> { LoadTaskImpl(get()) }
     factory<UpdateTask> { UpdateTaskImpl(get()) }
+    factory<UpdateTaskTitle> { UpdateTaskTitleImpl(get(), get()) }
+    factory<UpdateTaskDescription> { UpdateTaskDescriptionImpl(get(), get()) }
+    factory<UpdateTaskCategory> { UpdateTaskCategoryImpl(get(), get()) }
 
     // Category Use Cases
     factory { DeleteCategory(get()) }
@@ -63,13 +75,13 @@ val domainModule = module {
     factory<LoadUncompletedTasks> { LoadUncompletedTasksImpl(get()) }
 
     // Alarm Use Cases
-    factory { CancelAlarm(get(), get()) }
+    factory<CancelAlarm> { CancelAlarmImpl(get(), get()) }
     factory { RescheduleFutureAlarms(get(), get(), get(), get()) }
-    factory { ScheduleAlarm(get(), get()) }
+    factory<ScheduleAlarm> { ScheduleAlarmImpl(get(), get()) }
     factory { ScheduleNextAlarm(get(), get(), get()) }
     factory { ShowAlarm(get(), get(), get()) }
     factory { SnoozeAlarm(get(), get(), get()) }
-    factory { UpdateTaskAsRepeating(get()) }
+    factory<UpdateTaskAsRepeating> { UpdateTaskAsRepeatingImpl(get()) }
 
     // Tracker Use Cases
     factory { LoadCompletedTasksByPeriod(get()) }

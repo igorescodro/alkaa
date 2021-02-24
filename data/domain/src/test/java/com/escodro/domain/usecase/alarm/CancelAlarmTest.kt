@@ -1,6 +1,7 @@
 package com.escodro.domain.usecase.alarm
 
 import com.escodro.domain.model.Task
+import com.escodro.domain.usecase.alarm.implementation.CancelAlarmImpl
 import com.escodro.domain.usecase.fake.AlarmInteractorFake
 import com.escodro.domain.usecase.fake.TaskRepositoryFake
 import com.escodro.domain.usecase.task.AddTask
@@ -18,7 +19,7 @@ class CancelAlarmTest {
 
     private val alarmInteractor = AlarmInteractorFake()
 
-    private val cancelAlarmUseCase = CancelAlarm(taskRepository, alarmInteractor)
+    private val cancelAlarmUseCase = CancelAlarmImpl(taskRepository, alarmInteractor)
 
     private val addTaskUseCase = AddTask(taskRepository)
 

@@ -1,12 +1,12 @@
 package com.escodro.task
 
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.test.platform.app.InstrumentationRegistry
-import com.escodro.task.model.Category
 import com.escodro.task.model.Task
+import com.escodro.task.presentation.detail.TaskCategoryState
+import com.escodro.task.presentation.detail.TaskDetailActions
 import com.escodro.task.presentation.detail.TaskDetailRouter
 import com.escodro.task.presentation.detail.TaskDetailState
 import com.escodro.theme.AlkaaTheme
@@ -44,8 +44,7 @@ internal class TaskDetailTest {
             dueDate = null,
             categoryId = 10L
         )
-        val category = Category(id = 10L, name = "Books", color = Color.Green)
-        val state = TaskDetailState.Loaded(task, listOf(category))
+        val state = TaskDetailState.Loaded(task)
 
         // When the view is loaded
         loadTaskDetail(state)
@@ -53,17 +52,15 @@ internal class TaskDetailTest {
         // Assert that the task content is shown
         composeTestRule.onNodeWithText(text = task.title).assertExists()
         composeTestRule.onNodeWithText(text = task.description!!).assertExists()
-        composeTestRule.onNodeWithText(text = category.name!!).assertExists()
     }
 
     private fun loadTaskDetail(state: TaskDetailState) {
         composeTestRule.setContent {
             AlkaaTheme {
                 TaskDetailRouter(
-                    viewState = state,
-                    onTitleChanged = {},
-                    onDescriptionChanged = {},
-                    onCategoryChanged = {}
+                    detailViewState = state,
+                    categoryViewState = TaskCategoryState.Loaded(listOf()),
+                    actions = TaskDetailActions()
                 )
             }
         }

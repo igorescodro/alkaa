@@ -9,4 +9,9 @@
     <string name="task_detail_cd_error">Tarefa não encontrada</string>
     <string name="task_detail_cd_icon_category">Categorias</string>
     <string name="task_detail_cd_icon_description">Descrição</string>
+    <string name="task_detail_category_empty_list">Sem categorias</string>
+    <string name="task_detail_cd_icon_alarm">Alarme</string>
+    <string name="task_detail_cd_icon_repeat_alarm">Alarme recorrente</string>
+    <string name="task_detail_alarm_no_alarm">Sem alarme</string>
+    <string name="task_detail_cd_icon_remove_alarm">Remover alarme</string>
 </resources>

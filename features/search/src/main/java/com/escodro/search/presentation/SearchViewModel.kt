@@ -20,6 +20,10 @@ internal class SearchViewModel(
     val state: State<SearchViewState>
         get() = _state
 
+    init {
+        findTasksByName()
+    }
+
     fun findTasksByName(name: String = "") {
         viewModelScope.launch {
             val taskList = findTaskUseCase(name)

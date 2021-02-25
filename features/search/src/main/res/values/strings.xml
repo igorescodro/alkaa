@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="search_cd_icon">Search</string>
+    <string name="search_cd_empty_list">No tasks</string>
+    <string name="search_header_empty">No tasks found</string>
+
+</resources>

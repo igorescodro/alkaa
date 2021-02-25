@@ -18,6 +18,7 @@ dependencies {
     implementation project(":libraries:theme")
 
     implementation Deps.koin.viewModel
+    implementation Deps.koin.compose
 
     testImplementation project(":libraries:test")
 }

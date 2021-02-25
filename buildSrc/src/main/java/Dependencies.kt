@@ -36,7 +36,7 @@ object Versions {
     const val compose = "1.0.0-alpha11"
     const val composeNav = "1.0.0-alpha06"
 
-    const val buildGradle = "7.0.0-alpha07"
+    const val buildGradle = "7.0.0-alpha08"
 
     const val detekt = "1.13.1"
     const val ktlint = "0.39.0"

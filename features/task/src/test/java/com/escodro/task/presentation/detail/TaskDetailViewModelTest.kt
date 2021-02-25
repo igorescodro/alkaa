@@ -10,7 +10,6 @@ import com.escodro.task.presentation.fake.UpdateTaskDescriptionFake
 import com.escodro.task.presentation.fake.UpdateTaskTitleFake
 import com.escodro.test.CoroutineTestRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test
@@ -37,7 +36,7 @@ internal class TaskDetailViewModelTest {
     )
 
     @Test
-    fun `test if when a task exist it returns the success state`() = runBlockingTest {
+    fun `test if when a task exist it returns the success state`() {
         // Given the viewModel is called to load the task info
         loadTask.taskToBeReturned = FAKE_DOMAIN_TASK
         viewModel.setTaskInfo(FAKE_DOMAIN_TASK.id)
@@ -52,7 +51,7 @@ internal class TaskDetailViewModelTest {
     }
 
     @Test
-    fun `test if when a task does not exist it returns the error state`() = runBlockingTest {
+    fun `test if when a task does not exist it returns the error state`() {
         // Given the viewModel is called to load the task info
         loadTask.taskToBeReturned = null
         viewModel.setTaskInfo(FAKE_DOMAIN_TASK.id)
@@ -65,40 +64,38 @@ internal class TaskDetailViewModelTest {
     }
 
     @Test
-    fun `test if when the update title is called, the field is updated`() =
-        coroutineTestRule.testDispatcher.runBlockingTest {
+    fun `test if when the update title is called, the field is updated`() {
 
-            // Given the viewModel is called to load the task info
-            loadTask.taskToBeReturned = FAKE_DOMAIN_TASK
-            viewModel.setTaskInfo(FAKE_DOMAIN_TASK.id)
+        // Given the viewModel is called to load the task info
+        loadTask.taskToBeReturned = FAKE_DOMAIN_TASK
+        viewModel.setTaskInfo(FAKE_DOMAIN_TASK.id)
 
-            // When the title is updated
-            val newTitle = "title"
-            viewModel.updateTitle(title = newTitle)
-            coroutineTestRule.testDispatcher.advanceUntilIdle() /* Advance typing debounce */
+        // When the title is updated
+        val newTitle = "title"
+        viewModel.updateTitle(title = newTitle)
+        coroutineTestRule.testDispatcher.advanceUntilIdle() /* Advance typing debounce */
 
-            // Then the task will be updated with given title
-            Assert.assertTrue(updateTaskTitle.isTitleUpdated(FAKE_DOMAIN_TASK.id))
-            val updatedTitle = updateTaskTitle.getUpdatedTitle(FAKE_DOMAIN_TASK.id)
-            Assert.assertEquals(newTitle, updatedTitle)
-        }
+        // Then the task will be updated with given title
+        Assert.assertTrue(updateTaskTitle.isTitleUpdated(FAKE_DOMAIN_TASK.id))
+        val updatedTitle = updateTaskTitle.getUpdatedTitle(FAKE_DOMAIN_TASK.id)
+        Assert.assertEquals(newTitle, updatedTitle)
+    }
 
     @Test
-    fun `test if when the update description is called, the field is updated`() =
-        coroutineTestRule.testDispatcher.runBlockingTest {
+    fun `test if when the update description is called, the field is updated`() {
 
-            // Given the viewModel is called to load the task info
-            loadTask.taskToBeReturned = FAKE_DOMAIN_TASK
-            viewModel.setTaskInfo(FAKE_DOMAIN_TASK.id)
+        // Given the viewModel is called to load the task info
+        loadTask.taskToBeReturned = FAKE_DOMAIN_TASK
+        viewModel.setTaskInfo(FAKE_DOMAIN_TASK.id)
 
-            // When the description is updated
-            val newDescription = "description"
-            viewModel.updateDescription(description = newDescription)
-            coroutineTestRule.testDispatcher.advanceUntilIdle() /* Advance typing debounce */
+        // When the description is updated
+        val newDescription = "description"
+        viewModel.updateDescription(description = newDescription)
+        coroutineTestRule.testDispatcher.advanceUntilIdle() /* Advance typing debounce */
 
-            // Then the task will be updated with given description
-            Assert.assertTrue(updateDescription.isDescriptionUpdated(FAKE_DOMAIN_TASK.id))
-            val updatedDesc = updateDescription.getUpdatedDescription(FAKE_DOMAIN_TASK.id)
-            Assert.assertEquals(newDescription, updatedDesc)
-        }
+        // Then the task will be updated with given description
+        Assert.assertTrue(updateDescription.isDescriptionUpdated(FAKE_DOMAIN_TASK.id))
+        val updatedDesc = updateDescription.getUpdatedDescription(FAKE_DOMAIN_TASK.id)
+        Assert.assertEquals(newDescription, updatedDesc)
+    }
 }

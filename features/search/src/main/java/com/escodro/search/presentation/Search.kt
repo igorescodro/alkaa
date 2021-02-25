@@ -1,13 +1,23 @@
 package com.escodro.search.presentation
 
-import android.graphics.Color
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.preferredHeight
+import androidx.compose.foundation.layout.preferredSize
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
@@ -16,7 +26,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.savedinstancestate.savedInstanceState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.escodro.search.R
@@ -42,11 +55,19 @@ private fun SearchLoader(
 ) {
     val viewState by viewModel.state
 
-    SearchScaffold(viewState = viewState, modifier = modifier)
+    SearchScaffold(
+        viewState = viewState,
+        modifier = modifier,
+        onQueryChanged = viewModel::findTasksByName
+    )
 }
 
 @Composable
-internal fun SearchScaffold(modifier: Modifier = Modifier, viewState: SearchViewState) {
+internal fun SearchScaffold(
+    modifier: Modifier = Modifier,
+    viewState: SearchViewState,
+    onQueryChanged: (String) -> Unit
+) {
     Scaffold(
         modifier = modifier.fillMaxSize(),
         backgroundColor = MaterialTheme.colors.background
@@ -54,10 +75,17 @@ internal fun SearchScaffold(modifier: Modifier = Modifier, viewState: SearchView
         Column(modifier = Modifier.fillMaxWidth()) {
             val (query, setQuery) = savedInstanceState { "" }
 
-            SearchTextField(query, setQuery)
+            SearchTextField(
+                query,
+                onTextChanged = { text ->
+                    setQuery(text)
+                    onQueryChanged(text)
+                }
+            )
+
             when (viewState) {
                 SearchViewState.Empty -> SearchEmptyContent()
-                is SearchViewState.Loaded -> SearchListContent()
+                is SearchViewState.Loaded -> SearchListContent(viewState.taskList)
             }
         }
     }
@@ -90,8 +118,51 @@ private fun SearchEmptyContent() {
 }
 
 @Composable
-private fun SearchListContent() {
-    // TODO implement task search list
+private fun SearchListContent(taskList: List<TaskSearchItem>) {
+    LazyColumn {
+        items(
+            items = taskList, itemContent = { task -> SearchItem(task) }
+        )
+    }
+}
+
+@Composable
+private fun SearchItem(task: TaskSearchItem) {
+    Column(
+        modifier = Modifier
+            .preferredHeight(48.dp)
+            .fillMaxWidth()
+            .clickable { },
+        verticalArrangement = Arrangement.Center
+    ) {
+
+        val textDecoration: TextDecoration
+        val circleColor: Color
+
+        if (task.completed) {
+            textDecoration = TextDecoration.LineThrough
+            circleColor = MaterialTheme.colors.onSecondary
+        } else {
+            textDecoration = TextDecoration.None
+            circleColor = task.categoryColor ?: MaterialTheme.colors.background
+        }
+
+        Row(modifier = Modifier.padding(horizontal = 16.dp)) {
+            Box(
+                modifier = Modifier
+                    .preferredSize(24.dp)
+                    .clip(CircleShape)
+                    .background(circleColor)
+            )
+            Text(
+                text = task.title,
+                textDecoration = textDecoration,
+                modifier = Modifier
+                    .padding(horizontal = 12.dp)
+                    .preferredHeight(24.dp)
+            )
+        }
+    }
 }
 
 @Suppress("UndocumentedPublicFunction")
@@ -101,14 +172,14 @@ fun SearchLoadedListPreview() {
     val task1 = TaskSearchItem(
         completed = true,
         title = "Call Me By Your Name",
-        categoryColor = Color.GREEN,
+        categoryColor = Color.Green,
         isRepeating = false
     )
 
     val task2 = TaskSearchItem(
         completed = false,
         title = "The Crown",
-        categoryColor = Color.BLUE,
+        categoryColor = Color.White,
         isRepeating = true
     )
 
@@ -117,7 +188,8 @@ fun SearchLoadedListPreview() {
     AlkaaTheme {
         SearchScaffold(
             modifier = Modifier,
-            viewState = SearchViewState.Loaded(taskList)
+            viewState = SearchViewState.Loaded(taskList),
+            onQueryChanged = {}
         )
     }
 }
@@ -129,7 +201,8 @@ fun SearchEmptyListPreview() {
     AlkaaTheme {
         SearchScaffold(
             modifier = Modifier,
-            viewState = SearchViewState.Empty
+            viewState = SearchViewState.Empty,
+            onQueryChanged = {}
         )
     }
 }

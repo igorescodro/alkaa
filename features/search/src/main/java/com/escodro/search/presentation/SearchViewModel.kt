@@ -15,9 +15,9 @@ internal class SearchViewModel(
     private val mapper: TaskSearchMapper
 ) : ViewModel() {
 
-    private val _state: MutableState<SearchUIState> = mutableStateOf(SearchUIState.Empty)
+    private val _state: MutableState<SearchViewState> = mutableStateOf(SearchViewState.Empty)
 
-    val state: State<SearchUIState>
+    val state: State<SearchViewState>
         get() = _state
 
     fun findTasksByName(name: String = "") {
@@ -26,13 +26,13 @@ internal class SearchViewModel(
             _state.value = if (taskList.isNotEmpty()) {
                 onListLoaded(taskList)
             } else {
-                SearchUIState.Empty
+                SearchViewState.Empty
             }
         }
     }
 
-    private fun onListLoaded(taskList: List<TaskWithCategory>): SearchUIState {
+    private fun onListLoaded(taskList: List<TaskWithCategory>): SearchViewState {
         val searchList = mapper.toTaskSearch(taskList)
-        return SearchUIState.Loaded(searchList)
+        return SearchViewState.Loaded(searchList)
     }
 }

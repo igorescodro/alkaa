@@ -24,7 +24,7 @@ internal class SearchViewModelTest {
         val state = viewModel.state.value
 
         // Then the state contain the queried task
-        require(state is SearchUIState.Loaded)
+        require(state is SearchViewState.Loaded)
         Assert.assertEquals(numberOfValues, state.taskList.size)
     }
 
@@ -38,6 +38,6 @@ internal class SearchViewModelTest {
         val state = viewModel.state.value
 
         // Then the state is empty
-        assert(viewModel.state.value is SearchUIState.Empty)
+        assert(viewModel.state.value is SearchViewState.Empty)
     }
 }

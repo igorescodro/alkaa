@@ -3,6 +3,7 @@ package com.escodro.domain.usecase.search
 import com.escodro.domain.model.Task
 import com.escodro.domain.usecase.fake.SearchRepositoryFake
 import com.escodro.domain.usecase.fake.TaskRepositoryFake
+import com.escodro.domain.usecase.search.implementation.SearchTasksByNameImpl
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert
@@ -16,7 +17,7 @@ internal class SearchTasksTest {
 
     private val searchRepository = SearchRepositoryFake(taskRepository)
 
-    private val searchTaskUseCase = SearchTasksByName(searchRepository)
+    private val searchTaskUseCase = SearchTasksByNameImpl(searchRepository)
 
     @Before
     fun setup() = runBlockingTest {

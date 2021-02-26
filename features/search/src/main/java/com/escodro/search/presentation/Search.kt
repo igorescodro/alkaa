@@ -44,13 +44,14 @@ import org.koin.androidx.compose.getViewModel
  * @param modifier the decorator
  */
 @Composable
-fun SearchSection(modifier: Modifier = Modifier) {
-    SearchLoader(modifier = modifier)
+fun SearchSection(modifier: Modifier = Modifier, onItemClicked: (Long) -> Unit) {
+    SearchLoader(modifier = modifier, onItemClicked = onItemClicked)
 }
 
 @Composable
 private fun SearchLoader(
     modifier: Modifier = Modifier,
+    onItemClicked: (Long) -> Unit,
     viewModel: SearchViewModel = getViewModel()
 ) {
     val viewState by viewModel.state
@@ -58,6 +59,7 @@ private fun SearchLoader(
     SearchScaffold(
         viewState = viewState,
         modifier = modifier,
+        onItemClicked = onItemClicked,
         onQueryChanged = viewModel::findTasksByName
     )
 }
@@ -66,6 +68,7 @@ private fun SearchLoader(
 internal fun SearchScaffold(
     modifier: Modifier = Modifier,
     viewState: SearchViewState,
+    onItemClicked: (Long) -> Unit,
     onQueryChanged: (String) -> Unit
 ) {
     Scaffold(
@@ -85,7 +88,10 @@ internal fun SearchScaffold(
 
             when (viewState) {
                 SearchViewState.Empty -> SearchEmptyContent()
-                is SearchViewState.Loaded -> SearchListContent(viewState.taskList)
+                is SearchViewState.Loaded -> SearchListContent(
+                    taskList = viewState.taskList,
+                    onItemClicked = onItemClicked
+                )
             }
         }
     }
@@ -118,21 +124,22 @@ private fun SearchEmptyContent() {
 }
 
 @Composable
-private fun SearchListContent(taskList: List<TaskSearchItem>) {
+private fun SearchListContent(taskList: List<TaskSearchItem>, onItemClicked: (Long) -> Unit) {
     LazyColumn {
         items(
-            items = taskList, itemContent = { task -> SearchItem(task) }
+            items = taskList,
+            itemContent = { task -> SearchItem(task = task, onItemClicked = onItemClicked) }
         )
     }
 }
 
 @Composable
-private fun SearchItem(task: TaskSearchItem) {
+private fun SearchItem(task: TaskSearchItem, onItemClicked: (Long) -> Unit) {
     Column(
         modifier = Modifier
             .preferredHeight(48.dp)
             .fillMaxWidth()
-            .clickable { },
+            .clickable { onItemClicked(task.id) },
         verticalArrangement = Arrangement.Center
     ) {
 
@@ -189,6 +196,7 @@ fun SearchLoadedListPreview() {
         SearchScaffold(
             modifier = Modifier,
             viewState = SearchViewState.Loaded(taskList),
+            onItemClicked = {},
             onQueryChanged = {}
         )
     }
@@ -202,6 +210,7 @@ fun SearchEmptyListPreview() {
         SearchScaffold(
             modifier = Modifier,
             viewState = SearchViewState.Empty,
+            onItemClicked = {},
             onQueryChanged = {}
         )
     }

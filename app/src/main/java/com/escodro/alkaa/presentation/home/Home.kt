@@ -62,7 +62,7 @@ private fun AlkaaHomeScaffold(
                 HomeSection.Tasks ->
                     TaskListSection(modifier = modifier, onItemClicked = onTaskClicked)
                 HomeSection.Search ->
-                    SearchSection(modifier = modifier)
+                    SearchSection(modifier = modifier, onItemClicked = onTaskClicked)
                 HomeSection.Categories -> { /* TODO create new section */
                 }
                 HomeSection.Settings -> { /* TODO create new section */

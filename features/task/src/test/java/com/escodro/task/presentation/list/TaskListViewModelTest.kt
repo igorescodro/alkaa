@@ -44,7 +44,7 @@ internal class TaskListViewModelTest {
         // Given the use case returns the list with uncompleted tasks
         val numberOfEntries = 14
         loadUncompletedTasks.returnValues(numberOfEntries)
-        val flow = viewModel.state
+        val flow = viewModel.loadTaskList()
 
         // When the latest event is collected
         val state = flow.first()
@@ -60,7 +60,7 @@ internal class TaskListViewModelTest {
 
             // Given the use case returns an empty list
             loadUncompletedTasks.clean()
-            val flow = viewModel.state
+            val flow = viewModel.loadTaskList()
 
             // When the latest event is collected
             val state = flow.first()
@@ -78,7 +78,7 @@ internal class TaskListViewModelTest {
             loadUncompletedTasks.multipleEmissions = true
 
             // Given collecting multiple states
-            val result = viewModel.state.toList()
+            val result = viewModel.loadTaskList().toList()
 
             // Then multiple states are collected
             Assert.assertEquals(2, result.size)
@@ -92,7 +92,7 @@ internal class TaskListViewModelTest {
 
             // Given the use case returns error
             loadUncompletedTasks.throwError = true
-            val flow = viewModel.state
+            val flow = viewModel.loadTaskList()
 
             // When the latest event is collected
             val state = flow.first()

@@ -50,7 +50,7 @@ private fun TaskDetailLoader(
 ) {
     val id = TaskId(taskId)
     val detailViewState by detailViewModel
-        .setTaskInfo(taskId = id)
+        .loadTaskInfo(taskId = id)
         .collectAsState(initial = TaskDetailState.Error)
 
     val categoryViewState by categoryViewModel.loadCategories()

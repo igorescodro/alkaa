@@ -51,7 +51,7 @@ fun NavGraph(startDestination: String = Destinations.Home) {
         }
 
         composable(Destinations.About) {
-            About()
+            About(onUpPressed = actions.onUpPressed)
         }
     }
 }
@@ -64,5 +64,9 @@ internal data class Actions(val navController: NavHostController) {
 
     val openAbout: () -> Unit = {
         navController.navigate(Destinations.About)
+    }
+
+    val onUpPressed: () -> Unit = {
+        navController.navigateUp()
     }
 }

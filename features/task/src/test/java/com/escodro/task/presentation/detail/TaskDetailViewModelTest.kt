@@ -42,7 +42,7 @@ internal class TaskDetailViewModelTest {
     fun `test if when a task exist it returns the success state`() = runBlockingTest {
         // Given the viewModel is called to load the task info
         loadTask.taskToBeReturned = FAKE_DOMAIN_TASK
-        val flow = viewModel.setTaskInfo(TaskId(FAKE_DOMAIN_TASK.id))
+        val flow = viewModel.loadTaskInfo(TaskId(FAKE_DOMAIN_TASK.id))
 
         // When the latest event is collected
         val state = flow.first()
@@ -57,7 +57,7 @@ internal class TaskDetailViewModelTest {
     fun `test if when a task does not exist it returns the error state`() = runBlockingTest {
         // Given the viewModel is called to load the task info
         loadTask.taskToBeReturned = null
-        val flow = viewModel.setTaskInfo(TaskId(FAKE_DOMAIN_TASK.id))
+        val flow = viewModel.loadTaskInfo(TaskId(FAKE_DOMAIN_TASK.id))
 
         // When the latest event is collected
         val state = flow.first()
@@ -72,7 +72,7 @@ internal class TaskDetailViewModelTest {
         // Given the viewModel is called to load the task info
         val taskId = TaskId(FAKE_DOMAIN_TASK.id)
         loadTask.taskToBeReturned = FAKE_DOMAIN_TASK
-        viewModel.setTaskInfo(taskId)
+        viewModel.loadTaskInfo(taskId)
 
         // When the title is updated
         val newTitle = "title"
@@ -91,7 +91,7 @@ internal class TaskDetailViewModelTest {
         // Given the viewModel is called to load the task info
         val taskId = TaskId(FAKE_DOMAIN_TASK.id)
         loadTask.taskToBeReturned = FAKE_DOMAIN_TASK
-        viewModel.setTaskInfo(taskId)
+        viewModel.loadTaskInfo(taskId)
 
         // When the description is updated
         val newDescription = "description"

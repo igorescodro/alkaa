@@ -23,7 +23,7 @@ internal class TaskListViewModel(
     private val taskWithCategoryMapper: TaskWithCategoryMapper
 ) : ViewModel() {
 
-    val state: Flow<TaskListViewState> = flow {
+    fun loadTaskList(): Flow<TaskListViewState> = flow {
         loadAllTasksUseCase()
             .map { task -> taskWithCategoryMapper.toView(task) }
             .catch { error -> emit(TaskListViewState.Error(error)) }

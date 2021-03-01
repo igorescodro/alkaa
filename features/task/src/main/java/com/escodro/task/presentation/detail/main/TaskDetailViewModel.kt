@@ -19,7 +19,7 @@ internal class TaskDetailViewModel(
 
     private val coroutineDebouncer = CoroutineDebouncer()
 
-    fun setTaskInfo(taskId: TaskId): Flow<TaskDetailState> = flow {
+    fun loadTaskInfo(taskId: TaskId): Flow<TaskDetailState> = flow {
         val task = loadTaskUseCase(taskId = taskId.value)
 
         if (task != null) {

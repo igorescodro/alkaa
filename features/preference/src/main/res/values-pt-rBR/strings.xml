@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="preference_title_about">Sobre</string>
+    <string name="preference_title_version">Versão</string>
+
+</resources>

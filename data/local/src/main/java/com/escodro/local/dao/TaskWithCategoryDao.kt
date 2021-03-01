@@ -51,5 +51,5 @@ interface TaskWithCategoryDao {
             ORDER BY task_is_completed
         """
     )
-    suspend fun findTaskByName(query: String): List<TaskWithCategory>
+    fun findTaskByName(query: String): Flow<List<TaskWithCategory>>
 }

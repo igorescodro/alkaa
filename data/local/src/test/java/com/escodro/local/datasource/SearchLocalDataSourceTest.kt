@@ -5,6 +5,7 @@ import com.escodro.local.provider.DaoProvider
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Test
@@ -19,7 +20,7 @@ internal class SearchLocalDataSourceTest {
 
     @Before
     fun setup() {
-        coEvery { mockDaoProvider.getTaskWithCategoryDao().findTaskByName(any()) } returns listOf()
+        coEvery { mockDaoProvider.getTaskWithCategoryDao().findTaskByName(any()) } returns flow { }
     }
 
     @Test

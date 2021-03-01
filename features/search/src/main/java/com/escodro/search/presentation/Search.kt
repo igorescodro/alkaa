@@ -23,6 +23,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.ExitToApp
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.savedinstancestate.savedInstanceState
 import androidx.compose.ui.Modifier
@@ -54,13 +55,16 @@ private fun SearchLoader(
     onItemClicked: (Long) -> Unit,
     viewModel: SearchViewModel = getViewModel()
 ) {
-    val viewState by viewModel.state
+    val (query, setQuery) = savedInstanceState { "" }
+    val viewState by viewModel.findTasksByName(query)
+        .collectAsState(initial = SearchViewState.Empty)
 
     SearchScaffold(
         viewState = viewState,
         modifier = modifier,
         onItemClicked = onItemClicked,
-        onQueryChanged = viewModel::findTasksByName
+        query = query,
+        setQuery = setQuery
     )
 }
 
@@ -69,22 +73,15 @@ internal fun SearchScaffold(
     modifier: Modifier = Modifier,
     viewState: SearchViewState,
     onItemClicked: (Long) -> Unit,
-    onQueryChanged: (String) -> Unit
+    query: String,
+    setQuery: (String) -> Unit
 ) {
     Scaffold(
         modifier = modifier.fillMaxSize(),
         backgroundColor = MaterialTheme.colors.background
     ) {
         Column(modifier = Modifier.fillMaxWidth()) {
-            val (query, setQuery) = savedInstanceState { "" }
-
-            SearchTextField(
-                query,
-                onTextChanged = { text ->
-                    setQuery(text)
-                    onQueryChanged(text)
-                }
-            )
+            SearchTextField(query, onTextChanged = setQuery)
 
             when (viewState) {
                 SearchViewState.Empty -> SearchEmptyContent()
@@ -197,7 +194,8 @@ fun SearchLoadedListPreview() {
             modifier = Modifier,
             viewState = SearchViewState.Loaded(taskList),
             onItemClicked = {},
-            onQueryChanged = {}
+            query = "",
+            setQuery = {}
         )
     }
 }
@@ -211,7 +209,8 @@ fun SearchEmptyListPreview() {
             modifier = Modifier,
             viewState = SearchViewState.Empty,
             onItemClicked = {},
-            onQueryChanged = {}
+            query = "",
+            setQuery = {}
         )
     }
 }

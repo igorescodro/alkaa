@@ -6,10 +6,10 @@ import com.escodro.domain.usecase.task.UpdateTaskStatus
 import com.escodro.domain.usecase.taskwithcategory.LoadUncompletedTasks
 import com.escodro.task.mapper.TaskWithCategoryMapper
 import com.escodro.task.model.TaskWithCategory
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
@@ -23,21 +23,17 @@ internal class TaskListViewModel(
     private val taskWithCategoryMapper: TaskWithCategoryMapper
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow<TaskListViewState>(TaskListViewState.Empty)
-
-    val state: StateFlow<TaskListViewState>
-        get() = _state
-
-    fun loadTasks() = viewModelScope.launch {
+    val state: Flow<TaskListViewState> = flow {
         loadAllTasksUseCase()
             .map { task -> taskWithCategoryMapper.toView(task) }
-            .catch { error -> _state.value = TaskListViewState.Error(error) }
+            .catch { error -> emit(TaskListViewState.Error(error)) }
             .collect { tasks ->
-                _state.value = if (tasks.isNotEmpty()) {
+                val state = if (tasks.isNotEmpty()) {
                     TaskListViewState.Loaded(tasks)
                 } else {
                     TaskListViewState.Empty
                 }
+                emit(state)
             }
     }
 

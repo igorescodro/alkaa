@@ -43,8 +43,7 @@ private fun TaskListLoader(
     onItemClicked: (Long) -> Unit,
     viewModel: TaskListViewModel = getViewModel()
 ) {
-    viewModel.loadTasks()
-    val viewState by viewModel.state.collectAsState()
+    val viewState by viewModel.state.collectAsState(initial = TaskListViewState.Empty)
 
     TaskListScaffold(
         viewState = viewState,

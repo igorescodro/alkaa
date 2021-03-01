@@ -53,8 +53,8 @@ private fun TaskDetailLoader(
         .setTaskInfo(taskId = id)
         .collectAsState(initial = TaskDetailState.Error)
 
-    categoryViewModel.loadCategories()
-    val categoryViewState by categoryViewModel.state
+    val categoryViewState by categoryViewModel.loadCategories()
+        .collectAsState(initial = TaskCategoryState.Empty)
 
     val taskDetailActions = TaskDetailActions(
         onTitleChanged = { title -> detailViewModel.updateTitle(id, title) },

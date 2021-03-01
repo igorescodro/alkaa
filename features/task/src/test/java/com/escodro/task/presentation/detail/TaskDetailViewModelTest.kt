@@ -4,12 +4,15 @@ import com.escodro.task.mapper.AlarmIntervalMapper
 import com.escodro.task.mapper.TaskMapper
 import com.escodro.task.presentation.detail.main.TaskDetailState
 import com.escodro.task.presentation.detail.main.TaskDetailViewModel
+import com.escodro.task.presentation.detail.main.TaskId
 import com.escodro.task.presentation.fake.FAKE_DOMAIN_TASK
 import com.escodro.task.presentation.fake.LoadTaskFake
 import com.escodro.task.presentation.fake.UpdateTaskDescriptionFake
 import com.escodro.task.presentation.fake.UpdateTaskTitleFake
 import com.escodro.test.CoroutineTestRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test
@@ -36,13 +39,13 @@ internal class TaskDetailViewModelTest {
     )
 
     @Test
-    fun `test if when a task exist it returns the success state`() {
+    fun `test if when a task exist it returns the success state`() = runBlockingTest {
         // Given the viewModel is called to load the task info
         loadTask.taskToBeReturned = FAKE_DOMAIN_TASK
-        viewModel.setTaskInfo(FAKE_DOMAIN_TASK.id)
+        val flow = viewModel.loadTaskInfo(TaskId(FAKE_DOMAIN_TASK.id))
 
         // When the latest event is collected
-        val state = viewModel.state.value
+        val state = flow.first()
 
         // Then the state contain the loaded task
         require(state is TaskDetailState.Loaded)
@@ -51,13 +54,13 @@ internal class TaskDetailViewModelTest {
     }
 
     @Test
-    fun `test if when a task does not exist it returns the error state`() {
+    fun `test if when a task does not exist it returns the error state`() = runBlockingTest {
         // Given the viewModel is called to load the task info
         loadTask.taskToBeReturned = null
-        viewModel.setTaskInfo(FAKE_DOMAIN_TASK.id)
+        val flow = viewModel.loadTaskInfo(TaskId(FAKE_DOMAIN_TASK.id))
 
         // When the latest event is collected
-        val state = viewModel.state.value
+        val state = flow.first()
 
         // Then the state contain the loaded task
         Assert.assertTrue(state is TaskDetailState.Error)
@@ -67,12 +70,13 @@ internal class TaskDetailViewModelTest {
     fun `test if when the update title is called, the field is updated`() {
 
         // Given the viewModel is called to load the task info
+        val taskId = TaskId(FAKE_DOMAIN_TASK.id)
         loadTask.taskToBeReturned = FAKE_DOMAIN_TASK
-        viewModel.setTaskInfo(FAKE_DOMAIN_TASK.id)
+        viewModel.loadTaskInfo(taskId)
 
         // When the title is updated
         val newTitle = "title"
-        viewModel.updateTitle(title = newTitle)
+        viewModel.updateTitle(taskId = taskId, title = newTitle)
         coroutineTestRule.testDispatcher.advanceUntilIdle() /* Advance typing debounce */
 
         // Then the task will be updated with given title
@@ -85,12 +89,13 @@ internal class TaskDetailViewModelTest {
     fun `test if when the update description is called, the field is updated`() {
 
         // Given the viewModel is called to load the task info
+        val taskId = TaskId(FAKE_DOMAIN_TASK.id)
         loadTask.taskToBeReturned = FAKE_DOMAIN_TASK
-        viewModel.setTaskInfo(FAKE_DOMAIN_TASK.id)
+        viewModel.loadTaskInfo(taskId)
 
         // When the description is updated
         val newDescription = "description"
-        viewModel.updateDescription(description = newDescription)
+        viewModel.updateDescription(taskId = taskId, description = newDescription)
         coroutineTestRule.testDispatcher.advanceUntilIdle() /* Advance typing debounce */
 
         // Then the task will be updated with given description

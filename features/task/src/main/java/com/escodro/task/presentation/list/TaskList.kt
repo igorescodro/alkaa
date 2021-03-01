@@ -14,6 +14,7 @@ import androidx.compose.material.icons.outlined.ThumbUp
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -43,8 +44,8 @@ private fun TaskListLoader(
     onItemClicked: (Long) -> Unit,
     viewModel: TaskListViewModel = getViewModel()
 ) {
-    viewModel.loadTasks()
-    val viewState by viewModel.state.collectAsState()
+    val viewState by remember(viewModel) { viewModel.loadTaskList() }
+        .collectAsState(initial = TaskListViewState.Empty)
 
     TaskListScaffold(
         viewState = viewState,

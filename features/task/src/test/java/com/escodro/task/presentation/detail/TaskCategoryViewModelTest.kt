@@ -9,11 +9,14 @@ import com.escodro.task.presentation.fake.FAKE_DOMAIN_CATEGORY_LIST
 import com.escodro.task.presentation.fake.LoadAllCategoriesFake
 import com.escodro.task.presentation.fake.UpdateTaskCategoryFake
 import com.escodro.test.CoroutineTestRule
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test
 
+@OptIn(ExperimentalCoroutinesApi::class)
 internal class TaskCategoryViewModelTest {
 
     @get:Rule
@@ -34,10 +37,10 @@ internal class TaskCategoryViewModelTest {
 
             // Given the viewModel is called to load the categories
             loadAllCategories.categoriesToBeReturned = FAKE_DOMAIN_CATEGORY_LIST
-            viewModel.loadCategories()
+            val flow = viewModel.loadCategories()
 
             // When the latest event is collected
-            val state = viewModel.state.value
+            val state = flow.first()
 
             // Then the category list is returned
             require(state is TaskCategoryState.Loaded)
@@ -50,10 +53,10 @@ internal class TaskCategoryViewModelTest {
         runBlockingTest {
             // Given the viewModel is called to load the categories
             loadAllCategories.categoriesToBeReturned = listOf()
-            viewModel.loadCategories()
+            val flow = viewModel.loadCategories()
 
             // When the latest event is collected
-            val state = viewModel.state.value
+            val state = flow.first()
 
             require(state is TaskCategoryState.Empty)
         }

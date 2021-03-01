@@ -25,6 +25,7 @@ import androidx.compose.material.icons.outlined.ExitToApp
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.savedinstancestate.savedInstanceState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -56,7 +57,7 @@ private fun SearchLoader(
     viewModel: SearchViewModel = getViewModel()
 ) {
     val (query, setQuery) = savedInstanceState { "" }
-    val viewState by viewModel.findTasksByName(query)
+    val viewState by remember(viewModel, query) { viewModel.findTasksByName(query) }
         .collectAsState(initial = SearchViewState.Empty)
 
     SearchScaffold(

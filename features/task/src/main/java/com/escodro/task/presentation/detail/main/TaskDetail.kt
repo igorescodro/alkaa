@@ -49,11 +49,12 @@ private fun TaskDetailLoader(
     alarmViewModel: TaskAlarmViewModel = getViewModel()
 ) {
     val id = TaskId(taskId)
-    val detailViewState by detailViewModel
-        .loadTaskInfo(taskId = id)
+    val detailViewState by
+    remember(detailViewModel, taskId) { detailViewModel.loadTaskInfo(taskId = id) }
         .collectAsState(initial = TaskDetailState.Error)
 
-    val categoryViewState by categoryViewModel.loadCategories()
+    val categoryViewState by
+    remember(categoryViewModel, taskId) { categoryViewModel.loadCategories() }
         .collectAsState(initial = TaskCategoryState.Empty)
 
     val taskDetailActions = TaskDetailActions(

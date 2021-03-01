@@ -7,6 +7,7 @@ import com.escodro.domain.usecase.alarm.ScheduleAlarm
 import com.escodro.domain.usecase.alarm.UpdateTaskAsRepeating
 import com.escodro.task.mapper.AlarmIntervalMapper
 import com.escodro.task.model.AlarmInterval
+import com.escodro.task.presentation.detail.main.TaskId
 import kotlinx.coroutines.launch
 import java.util.Calendar
 
@@ -17,16 +18,16 @@ internal class TaskAlarmViewModel(
     private val alarmIntervalMapper: AlarmIntervalMapper
 ) : ViewModel() {
 
-    fun updateAlarm(taskId: Long, alarm: Calendar?) = viewModelScope.launch {
+    fun updateAlarm(taskId: TaskId, alarm: Calendar?) = viewModelScope.launch {
         if (alarm != null) {
-            scheduleAlarmUseCase(taskId, alarm)
+            scheduleAlarmUseCase(taskId.value, alarm)
         } else {
-            cancelAlarmUseCase(taskId)
+            cancelAlarmUseCase(taskId.value)
         }
     }
 
-    fun setRepeating(taskId: Long, alarmInterval: AlarmInterval) = viewModelScope.launch {
+    fun setRepeating(taskId: TaskId, alarmInterval: AlarmInterval) = viewModelScope.launch {
         val interval = alarmIntervalMapper.toDomain(alarmInterval)
-        updateTaskAsRepeatingUseCase(taskId, interval)
+        updateTaskAsRepeatingUseCase(taskId.value, interval)
     }
 }

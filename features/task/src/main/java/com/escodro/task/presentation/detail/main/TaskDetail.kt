@@ -9,6 +9,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.outlined.Close
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -47,18 +48,20 @@ private fun TaskDetailLoader(
     categoryViewModel: TaskCategoryViewModel = getViewModel(),
     alarmViewModel: TaskAlarmViewModel = getViewModel()
 ) {
-    detailViewModel.setTaskInfo(taskId = taskId)
-    val detailViewState by detailViewModel.state
+    val id = TaskId(taskId)
+    val detailViewState by detailViewModel
+        .setTaskInfo(taskId = id)
+        .collectAsState(initial = TaskDetailState.Error)
 
     categoryViewModel.loadCategories()
     val categoryViewState by categoryViewModel.state
 
     val taskDetailActions = TaskDetailActions(
-        onTitleChanged = detailViewModel::updateTitle,
-        onDescriptionChanged = detailViewModel::updateDescription,
-        onCategoryChanged = categoryViewModel::updateCategory,
-        onAlarmUpdated = { calendar -> alarmViewModel.updateAlarm(taskId, calendar) },
-        onIntervalSelected = { interval -> alarmViewModel.setRepeating(taskId, interval) }
+        onTitleChanged = { title -> detailViewModel.updateTitle(id, title) },
+        onDescriptionChanged = { desc -> detailViewModel.updateDescription(id, desc) },
+        onCategoryChanged = { categoryId -> categoryViewModel.updateCategory(id, categoryId) },
+        onAlarmUpdated = { calendar -> alarmViewModel.updateAlarm(id, calendar) },
+        onIntervalSelected = { interval -> alarmViewModel.setRepeating(id, interval) }
     )
 
     TaskDetailRouter(
@@ -97,9 +100,7 @@ private fun TaskDetailContent(
             CategorySelection(
                 state = categoryViewState,
                 currentCategory = task.categoryId,
-                onCategoryChanged = { categoryId ->
-                    actions.onCategoryChanged(TaskId(task.id), categoryId)
-                }
+                onCategoryChanged = actions.onCategoryChanged
             )
             TaskDescriptionTextField(
                 text = task.description,

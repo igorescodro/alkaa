@@ -1,8 +1,5 @@
 package com.escodro.task.presentation.detail.main
 
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.escodro.core.coroutines.CoroutineDebouncer
@@ -10,7 +7,8 @@ import com.escodro.domain.usecase.task.LoadTask
 import com.escodro.domain.usecase.task.UpdateTaskDescription
 import com.escodro.domain.usecase.task.UpdateTaskTitle
 import com.escodro.task.mapper.TaskMapper
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 
 internal class TaskDetailViewModel(
     private val loadTaskUseCase: LoadTask,
@@ -19,41 +17,28 @@ internal class TaskDetailViewModel(
     private val taskMapper: TaskMapper
 ) : ViewModel() {
 
-    private val _state: MutableState<TaskDetailState> = mutableStateOf(TaskDetailState.Error)
-
-    val state: State<TaskDetailState>
-        get() = _state
-
     private val coroutineDebouncer = CoroutineDebouncer()
 
-    fun setTaskInfo(taskId: Long) = viewModelScope.launch {
-        val task = loadTaskUseCase(taskId = taskId)
+    fun setTaskInfo(taskId: TaskId): Flow<TaskDetailState> = flow {
+        val task = loadTaskUseCase(taskId = taskId.value)
 
         if (task != null) {
             val viewTask = taskMapper.toView(task)
-            _state.value = TaskDetailState.Loaded(viewTask)
+            emit(TaskDetailState.Loaded(viewTask))
         } else {
-            _state.value = TaskDetailState.Error
+            emit(TaskDetailState.Error)
         }
     }
 
-    fun updateTitle(title: String) {
+    fun updateTitle(taskId: TaskId, title: String) {
         coroutineDebouncer(coroutineScope = viewModelScope) {
-            _state.value.run {
-                if (this is TaskDetailState.Loaded) {
-                    updateTaskTitle(this.task.id, title)
-                }
-            }
+            updateTaskTitle(taskId.value, title)
         }
     }
 
-    fun updateDescription(description: String) {
+    fun updateDescription(taskId: TaskId, description: String) {
         coroutineDebouncer(coroutineScope = viewModelScope) {
-            _state.value.run {
-                if (this is TaskDetailState.Loaded) {
-                    updateTaskDescription(this.task.id, description)
-                }
-            }
+            updateTaskDescription(taskId.value, description)
         }
     }
 }

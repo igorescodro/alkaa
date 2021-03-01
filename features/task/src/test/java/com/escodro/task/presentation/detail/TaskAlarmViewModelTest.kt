@@ -3,6 +3,7 @@ package com.escodro.task.presentation.detail
 import com.escodro.task.mapper.AlarmIntervalMapper
 import com.escodro.task.model.AlarmInterval
 import com.escodro.task.presentation.detail.alarm.TaskAlarmViewModel
+import com.escodro.task.presentation.detail.main.TaskId
 import com.escodro.task.presentation.fake.CancelAlarmFake
 import com.escodro.task.presentation.fake.ScheduleAlarmFake
 import com.escodro.task.presentation.fake.UpdateTaskAsRepeatingFake
@@ -36,7 +37,7 @@ internal class TaskAlarmViewModelTest {
         val alarm = Calendar.getInstance()
 
         // When the function to set the alarm is called
-        viewModel.updateAlarm(taskId, alarm)
+        viewModel.updateAlarm(TaskId(taskId), alarm)
 
         // Then the alarm is set
         Assert.assertTrue(scheduleAlarm.isAlarmScheduled(taskId))
@@ -50,7 +51,7 @@ internal class TaskAlarmViewModelTest {
         val alarmInterval = AlarmInterval.WEEKLY
 
         // When the function to set the alarm interval is called
-        viewModel.setRepeating(taskId, alarmInterval)
+        viewModel.setRepeating(TaskId(taskId), alarmInterval)
 
         // Then the alarm interval is set
         Assert.assertTrue(updateTaskAsRepeating.isAlarmUpdated(taskId))
@@ -64,7 +65,7 @@ internal class TaskAlarmViewModelTest {
         val taskId = 123L
 
         // When the function to cancel the alarm is called
-        viewModel.updateAlarm(taskId, null)
+        viewModel.updateAlarm(TaskId(taskId), null)
 
         // Then the alarm is removed
         Assert.assertTrue(cancelAlarm.isAlarmCancelled(taskId))

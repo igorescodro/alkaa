@@ -5,6 +5,7 @@ import com.escodro.domain.usecase.fake.SearchRepositoryFake
 import com.escodro.domain.usecase.fake.TaskRepositoryFake
 import com.escodro.domain.usecase.search.implementation.SearchTasksByNameImpl
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert
 import org.junit.Before
@@ -32,7 +33,7 @@ internal class SearchTasksTest {
     @Test
     fun `test if search returns correct tasks`() = runBlockingTest {
         val query = "birthday"
-        val taskList = searchTaskUseCase(query)
+        val taskList = searchTaskUseCase(query).first()
 
         Assert.assertEquals(2, taskList.size)
         Assert.assertNotEquals(taskList[0], taskList[1])
@@ -44,12 +45,12 @@ internal class SearchTasksTest {
     @Test
     fun `test if return list is empty when query is not found`() = runBlockingTest {
         val taskList = searchTaskUseCase("pineapple")
-        Assert.assertEquals(0, taskList.size)
+        Assert.assertEquals(0, taskList.first().size)
     }
 
     @Test
     fun `test if all tasks are returned when empty query is passed`() = runBlockingTest {
         val taskList = searchTaskUseCase("")
-        Assert.assertEquals(4, taskList.size)
+        Assert.assertEquals(4, taskList.first().size)
     }
 }

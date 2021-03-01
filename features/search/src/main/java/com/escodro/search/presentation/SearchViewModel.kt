@@ -1,37 +1,26 @@
 package com.escodro.search.presentation
 
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.escodro.domain.model.TaskWithCategory
 import com.escodro.domain.usecase.search.SearchTasksByName
 import com.escodro.search.mapper.TaskSearchMapper
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flow
 
 internal class SearchViewModel(
     private val findTaskUseCase: SearchTasksByName,
     private val mapper: TaskSearchMapper
 ) : ViewModel() {
 
-    private val _state: MutableState<SearchViewState> = mutableStateOf(SearchViewState.Empty)
-
-    val state: State<SearchViewState>
-        get() = _state
-
-    init {
-        findTasksByName()
-    }
-
-    fun findTasksByName(name: String = "") {
-        viewModelScope.launch {
-            val taskList = findTaskUseCase(name)
-            _state.value = if (taskList.isNotEmpty()) {
+    fun findTasksByName(name: String = ""): Flow<SearchViewState> = flow {
+        findTaskUseCase(name).collect { taskList ->
+            val state = if (taskList.isNotEmpty()) {
                 onListLoaded(taskList)
             } else {
                 SearchViewState.Empty
             }
+            emit(state)
         }
     }
 

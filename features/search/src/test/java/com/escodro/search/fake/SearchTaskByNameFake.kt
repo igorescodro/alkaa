@@ -4,6 +4,8 @@ import com.escodro.domain.model.Category
 import com.escodro.domain.model.Task
 import com.escodro.domain.model.TaskWithCategory
 import com.escodro.domain.usecase.search.SearchTasksByName
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 
 internal class SearchTaskByNameFake : SearchTasksByName {
 
@@ -21,6 +23,6 @@ internal class SearchTaskByNameFake : SearchTasksByName {
         list = taskList
     }
 
-    override suspend fun invoke(query: String): List<TaskWithCategory> =
-        list
+    override suspend fun invoke(query: String): Flow<List<TaskWithCategory>> =
+        flow { emit(list) }
 }

@@ -21,4 +21,5 @@ dependencies {
     implementation Deps.koin.compose
 
     testImplementation project(":libraries:test")
+    androidTestImplementation project(":libraries:test")
 }

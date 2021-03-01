@@ -1,1 +1,10 @@
 apply from: "$rootDir/config/dependencies/feature_dependencies.gradle"
+apply from: "$rootDir/config/dependencies/compose_dependencies.gradle"
+
+dependencies {
+    implementation project(":libraries:core")
+    implementation project(":libraries:theme")
+
+    testImplementation project(":libraries:test")
+    androidTestImplementation project(":libraries:test")
+}

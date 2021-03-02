@@ -10,11 +10,13 @@ import androidx.navigation.compose.navArgument
 import androidx.navigation.compose.navigate
 import androidx.navigation.compose.rememberNavController
 import com.escodro.alkaa.presentation.home.Home
+import com.escodro.preference.presentation.About
 import com.escodro.task.presentation.detail.main.TaskDetailSection
 
 internal object Destinations {
     const val Home = "home"
     const val TaskDetail = "taskDetail"
+    const val About = "about"
 }
 
 internal object DestinationArgs {
@@ -34,7 +36,10 @@ fun NavGraph(startDestination: String = Destinations.Home) {
     NavHost(navController = navController, startDestination = startDestination) {
 
         composable(Destinations.Home) {
-            Home(onTaskClicked = actions.openTaskDetail)
+            Home(
+                onTaskClicked = actions.openTaskDetail,
+                onAboutClicked = actions.openAbout
+            )
         }
 
         composable(
@@ -44,6 +49,10 @@ fun NavGraph(startDestination: String = Destinations.Home) {
             val arguments = requireNotNull(backStackEntry.arguments)
             TaskDetailSection(taskId = arguments.getLong(DestinationArgs.TaskId))
         }
+
+        composable(Destinations.About) {
+            About(onUpPressed = actions.onUpPressed)
+        }
     }
 }
 
@@ -51,5 +60,13 @@ internal data class Actions(val navController: NavHostController) {
 
     val openTaskDetail: (Long) -> Unit = { taskId ->
         navController.navigate("${Destinations.TaskDetail}/$taskId")
+    }
+
+    val openAbout: () -> Unit = {
+        navController.navigate(Destinations.About)
+    }
+
+    val onUpPressed: () -> Unit = {
+        navController.navigateUp()
     }
 }

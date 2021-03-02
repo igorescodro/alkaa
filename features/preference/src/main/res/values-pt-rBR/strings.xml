@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="preference_title_about">Sobre</string>
+    <string name="preference_title_version">Versão</string>
+    <string name="back_arrow_content_description">Voltar</string>
+    <string name="about_description">Alkaa (começar, iniciar em finlandês) é um gerenciador de tarefas simples para deixar sua vida mais fácil.\n\nTudo começou quando criei um projeto para aprender e me manter atualizado sobre os últimos componentes e bibliotecas Android. E agora esta disponível na sua versão com Jetpack Compose! Se você é um desenvolvedor ou entusiasta, sinta-se livre para acessar, copiar or atualizar o código aberto.\n\nMuito obrigado por usar o meu app!</string>
+    <string name="about_button_project">Visite o projeto no GitHub</string>
+
+</resources>

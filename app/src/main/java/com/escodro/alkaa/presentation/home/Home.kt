@@ -21,6 +21,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.escodro.alkaa.model.HomeSection
+import com.escodro.preference.presentation.PreferenceSection
 import com.escodro.search.presentation.SearchSection
 import com.escodro.task.presentation.list.TaskListSection
 import com.escodro.theme.AlkaaTheme
@@ -29,18 +30,23 @@ import com.escodro.theme.AlkaaTheme
  * Alkaa Home screen.
  */
 @Composable
-fun Home(onTaskClicked: (Long) -> Unit) {
+fun Home(onTaskClicked: (Long) -> Unit, onAboutClicked: () -> Unit) {
     val (currentSection, setCurrentSection) = savedInstanceState { HomeSection.Tasks }
     val navItems = HomeSection.values().toList()
     val homeModifier = Modifier.padding(bottom = 56.dp)
+
+    val actions = HomeActions(
+        onTaskClicked = onTaskClicked,
+        onAboutClicked = onAboutClicked,
+        setCurrentSection = setCurrentSection,
+    )
 
     Crossfade(current = currentSection) { homeSection ->
         AlkaaHomeScaffold(
             homeSection = homeSection,
             modifier = homeModifier,
-            onTaskClicked = onTaskClicked,
-            setCurrentSection = setCurrentSection,
-            navItems = navItems
+            navItems = navItems,
+            actions = actions
         )
     }
 }
@@ -49,9 +55,8 @@ fun Home(onTaskClicked: (Long) -> Unit) {
 private fun AlkaaHomeScaffold(
     homeSection: HomeSection,
     modifier: Modifier,
-    onTaskClicked: (Long) -> Unit,
-    setCurrentSection: (HomeSection) -> Unit,
-    navItems: List<HomeSection>
+    navItems: List<HomeSection>,
+    actions: HomeActions
 ) {
     Scaffold(
         topBar = {
@@ -60,19 +65,19 @@ private fun AlkaaHomeScaffold(
         bodyContent = {
             when (homeSection) {
                 HomeSection.Tasks ->
-                    TaskListSection(modifier = modifier, onItemClicked = onTaskClicked)
+                    TaskListSection(modifier = modifier, onItemClicked = actions.onTaskClicked)
                 HomeSection.Search ->
-                    SearchSection(modifier = modifier, onItemClicked = onTaskClicked)
+                    SearchSection(modifier = modifier, onItemClicked = actions.onTaskClicked)
                 HomeSection.Categories -> { /* TODO create new section */
                 }
-                HomeSection.Settings -> { /* TODO create new section */
-                }
+                HomeSection.Settings ->
+                    PreferenceSection(modifier = modifier, onAboutClicked = actions.onAboutClicked)
             }
         },
         bottomBar = {
             AlkaaBottomNav(
                 currentSection = homeSection,
-                onSectionSelected = setCurrentSection,
+                onSectionSelected = actions.setCurrentSection,
                 items = navItems
             )
         }

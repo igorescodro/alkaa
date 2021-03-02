@@ -8,10 +8,13 @@ import com.escodro.domain.usecase.alarm.UpdateTaskAsRepeating
 import com.escodro.task.mapper.AlarmIntervalMapper
 import com.escodro.task.model.AlarmInterval
 import com.escodro.task.presentation.detail.main.TaskId
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.util.Calendar
+import javax.inject.Inject
 
-internal class TaskAlarmViewModel(
+@HiltViewModel
+internal class TaskAlarmViewModel @Inject constructor(
     private val scheduleAlarmUseCase: ScheduleAlarm,
     private val updateTaskAsRepeatingUseCase: UpdateTaskAsRepeating,
     private val cancelAlarmUseCase: CancelAlarm,

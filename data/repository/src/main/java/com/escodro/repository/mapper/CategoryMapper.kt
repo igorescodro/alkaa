@@ -1,12 +1,13 @@
 package com.escodro.repository.mapper
 
+import javax.inject.Inject
 import com.escodro.domain.model.Category as DomainCategory
 import com.escodro.repository.model.Category as RepoCategory
 
 /**
  * Maps Category between Repository and Domain.
  */
-internal class CategoryMapper {
+internal class CategoryMapper @Inject constructor() {
 
     /**
      * Maps Category from Repo to Domain.

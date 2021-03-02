@@ -1,12 +1,13 @@
 package com.escodro.local.mapper
 
+import javax.inject.Inject
 import com.escodro.local.model.Category as LocalCategory
 import com.escodro.repository.model.Category as RepoCategory
 
 /**
  * Maps Category between Repository and Local.
  */
-internal class CategoryMapper {
+internal class CategoryMapper @Inject constructor() {
 
     /**
      * Maps Category from Repo to Local.

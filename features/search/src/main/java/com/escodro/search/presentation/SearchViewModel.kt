@@ -4,11 +4,14 @@ import androidx.lifecycle.ViewModel
 import com.escodro.domain.model.TaskWithCategory
 import com.escodro.domain.usecase.search.SearchTasksByName
 import com.escodro.search.mapper.TaskSearchMapper
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
+import javax.inject.Inject
 
-internal class SearchViewModel(
+@HiltViewModel
+internal class SearchViewModel @Inject constructor(
     private val findTaskUseCase: SearchTasksByName,
     private val mapper: TaskSearchMapper
 ) : ViewModel() {

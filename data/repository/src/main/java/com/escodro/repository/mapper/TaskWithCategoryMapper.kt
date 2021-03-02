@@ -1,12 +1,13 @@
 package com.escodro.repository.mapper
 
+import javax.inject.Inject
 import com.escodro.domain.model.TaskWithCategory as DomainTaskWithCategory
 import com.escodro.repository.model.TaskWithCategory as RepoTaskWithCategory
 
 /**
  * Maps Task With Category between Repository and Domain.
  */
-internal class TaskWithCategoryMapper(
+internal class TaskWithCategoryMapper @Inject constructor(
     private val taskMapper: TaskMapper,
     private val categoryMapper: CategoryMapper
 ) {

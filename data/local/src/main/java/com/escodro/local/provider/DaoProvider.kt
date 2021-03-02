@@ -3,11 +3,12 @@ package com.escodro.local.provider
 import com.escodro.local.dao.CategoryDao
 import com.escodro.local.dao.TaskDao
 import com.escodro.local.dao.TaskWithCategoryDao
+import javax.inject.Inject
 
 /**
  * Repository with the database [androidx.room.Dao]s.
  */
-class DaoProvider(private val database: DatabaseProvider) {
+class DaoProvider @Inject constructor(private val database: DatabaseProvider) {
 
     /**
      * Gets the [TaskDao].

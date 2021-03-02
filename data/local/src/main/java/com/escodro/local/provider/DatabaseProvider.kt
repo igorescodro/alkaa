@@ -10,13 +10,15 @@ import com.escodro.local.TaskDatabase
 import com.escodro.local.migration.MIGRATION_1_2
 import com.escodro.local.migration.MIGRATION_2_3
 import com.escodro.local.model.Category
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 /**
  * Repository with the [Room] database.
  */
-class DatabaseProvider(private val context: Context) {
+class DatabaseProvider @Inject constructor(@ApplicationContext private val context: Context) {
 
     private var database: TaskDatabase? = null
 

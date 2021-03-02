@@ -4,8 +4,9 @@ import com.escodro.domain.repository.TaskRepository
 import com.escodro.domain.usecase.task.CompleteTask
 import com.escodro.domain.usecase.task.UncompleteTask
 import com.escodro.domain.usecase.task.UpdateTaskStatus
+import javax.inject.Inject
 
-internal class UpdateTaskStatusImpl(
+internal class UpdateTaskStatusImpl @Inject constructor(
     private val taskRepository: TaskRepository,
     private val completeTask: CompleteTask,
     private val uncompleteTask: UncompleteTask

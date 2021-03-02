@@ -5,8 +5,9 @@ import com.escodro.alarm.notification.TaskNotification
 import com.escodro.domain.interactor.NotificationInteractor
 import com.escodro.domain.model.Task
 import timber.log.Timber
+import javax.inject.Inject
 
-internal class NotificationInteractorImpl(
+internal class NotificationInteractorImpl @Inject constructor(
     private val taskNotification: TaskNotification,
     private val taskMapper: TaskMapper
 ) : NotificationInteractor {

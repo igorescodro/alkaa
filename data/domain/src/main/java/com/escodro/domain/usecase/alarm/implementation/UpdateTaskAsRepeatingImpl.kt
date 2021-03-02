@@ -4,8 +4,9 @@ import com.escodro.domain.model.AlarmInterval
 import com.escodro.domain.repository.TaskRepository
 import com.escodro.domain.usecase.alarm.UpdateTaskAsRepeating
 import timber.log.Timber
+import javax.inject.Inject
 
-internal class UpdateTaskAsRepeatingImpl(
+internal class UpdateTaskAsRepeatingImpl @Inject constructor(
     private val taskRepository: TaskRepository
 ) : UpdateTaskAsRepeating {
 

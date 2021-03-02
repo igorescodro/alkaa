@@ -5,13 +5,14 @@ import com.escodro.local.model.AlarmInterval.HOURLY
 import com.escodro.local.model.AlarmInterval.MONTHLY
 import com.escodro.local.model.AlarmInterval.WEEKLY
 import com.escodro.local.model.AlarmInterval.YEARLY
+import javax.inject.Inject
 import com.escodro.local.model.AlarmInterval as LocalInterval
 import com.escodro.repository.model.AlarmInterval as RepoInterval
 
 /**
  * Maps Alarm Interval between Repository and Domain.
  */
-internal class AlarmIntervalMapper {
+internal class AlarmIntervalMapper @Inject constructor() {
 
     /**
      * Maps Alarm Interval from Local to Repo.

@@ -6,12 +6,16 @@ import android.content.Intent
 import com.escodro.alarm.TaskReceiver
 import com.escodro.core.extension.cancelAlarm
 import com.escodro.core.extension.setAlarm
+import dagger.hilt.android.qualifiers.ApplicationContext
 import timber.log.Timber
+import javax.inject.Inject
 
 /**
  * Alarm manager to schedule a event based on the due date from a Task.
  */
-internal class TaskNotificationScheduler(private val context: Context) {
+internal class TaskNotificationScheduler @Inject constructor(
+    @ApplicationContext private val context: Context
+) {
 
     /**
      * Schedules a task notification based on the due date.

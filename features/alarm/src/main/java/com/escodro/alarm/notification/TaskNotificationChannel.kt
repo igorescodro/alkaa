@@ -6,11 +6,13 @@ import android.content.Context
 import android.os.Build
 import com.escodro.alarm.R
 import com.escodro.core.extension.getNotificationManager
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 
 /**
  * [NotificationChannel] to send Task notifications in Android O and above.
  */
-internal class TaskNotificationChannel(context: Context) {
+internal class TaskNotificationChannel @Inject constructor(@ApplicationContext context: Context) {
 
     init {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

@@ -1,12 +1,13 @@
 package com.escodro.repository.mapper
 
+import javax.inject.Inject
 import com.escodro.domain.model.Task as DomainTask
 import com.escodro.repository.model.Task as RepoTask
 
 /**
  * Maps Tasks between Repository and Domain.
  */
-internal class TaskMapper(private val alarmIntervalMapper: AlarmIntervalMapper) {
+internal class TaskMapper @Inject constructor(private val alarmIntervalMapper: AlarmIntervalMapper) {
 
     /**
      * Maps Task from Repo to Domain.

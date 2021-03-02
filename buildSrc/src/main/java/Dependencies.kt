@@ -20,6 +20,7 @@ object Versions {
 
     const val timber = "4.7.1"
 
+    const val version = "2.33-beta"
     const val koin = "2.2.1"
 
     const val testJunit = "4.12"
@@ -47,6 +48,7 @@ object Deps {
     val timber = "com.jakewharton.timber:timber:${Versions.timber}"
     val android = AndroidDeps
     val coroutines = CoroutinesDeps
+    val hilt = HiltDeps
     val koin = KoinDeps
     val compose = ComposeDeps
     val test = TestDeps
@@ -78,6 +80,13 @@ object NavigationDeps {
     val ui = "androidx.navigation:navigation-ui:${Versions.navigation}"
 }
 
+object HiltDeps {
+    const val gradlePlugin = "com.google.dagger:hilt-android-gradle-plugin:${Versions.version}"
+    const val android = "com.google.dagger:hilt-android:${Versions.version}"
+    const val compiler = "com.google.dagger:hilt-compiler:${Versions.version}"
+    const val testing = "com.google.dagger:hilt-android-testing:${Versions.version}"
+}
+
 object KoinDeps {
     val core = "org.koin:koin-android:${Versions.koin}"
     val viewModel = "org.koin:koin-androidx-viewmodel:${Versions.koin}"
@@ -89,7 +98,7 @@ object ComposeDeps {
     val ui = "androidx.compose.ui:ui:${Versions.compose}"
     val material = "androidx.compose.material:material:${Versions.compose}"
     val tooling = "androidx.compose.ui:ui-tooling:${Versions.compose}"
-    val navigation = "androidx.navigation:navigation-compose:${Versions.composeNav}"
+    val navigation = "androidx.navigatigiton:navigation-compose:${Versions.composeNav}"
     val uiTest = "androidx.compose.ui:ui-test:${Versions.compose}"
     val junit4 = "androidx.compose.ui:ui-test-junit4:${Versions.compose}"
 }

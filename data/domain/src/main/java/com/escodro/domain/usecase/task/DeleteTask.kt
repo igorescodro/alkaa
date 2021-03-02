@@ -4,11 +4,12 @@ import com.escodro.domain.interactor.AlarmInteractor
 import com.escodro.domain.model.Task
 import com.escodro.domain.repository.TaskRepository
 import timber.log.Timber
+import javax.inject.Inject
 
 /**
  * Use case to delete a task from the database.
  */
-class DeleteTask(
+class DeleteTask @Inject constructor(
     private val taskRepository: TaskRepository,
     private val alarmInteractor: AlarmInteractor
 ) {

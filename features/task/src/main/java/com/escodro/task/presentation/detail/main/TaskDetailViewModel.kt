@@ -7,10 +7,13 @@ import com.escodro.domain.usecase.task.LoadTask
 import com.escodro.domain.usecase.task.UpdateTaskDescription
 import com.escodro.domain.usecase.task.UpdateTaskTitle
 import com.escodro.task.mapper.TaskMapper
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import javax.inject.Inject
 
-internal class TaskDetailViewModel(
+@HiltViewModel
+internal class TaskDetailViewModel @Inject constructor(
     private val loadTaskUseCase: LoadTask,
     private val updateTaskTitle: UpdateTaskTitle,
     private val updateTaskDescription: UpdateTaskDescription,

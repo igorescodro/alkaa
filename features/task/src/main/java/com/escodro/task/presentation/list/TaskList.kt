@@ -19,13 +19,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.viewModel
 import com.escodro.task.R
 import com.escodro.task.model.Category
 import com.escodro.task.model.Task
 import com.escodro.task.model.TaskWithCategory
 import com.escodro.theme.AlkaaTheme
 import com.escodro.theme.components.DefaultIconTextContent
-import org.koin.androidx.compose.getViewModel
 import java.util.Calendar
 
 /**
@@ -42,7 +42,7 @@ fun TaskListSection(modifier: Modifier = Modifier, onItemClicked: (Long) -> Unit
 private fun TaskListLoader(
     modifier: Modifier = Modifier,
     onItemClicked: (Long) -> Unit,
-    viewModel: TaskListViewModel = getViewModel()
+    viewModel: TaskListViewModel = viewModel()
 ) {
     val viewState by remember(viewModel) { viewModel.loadTaskList() }
         .collectAsState(initial = TaskListViewState.Empty)

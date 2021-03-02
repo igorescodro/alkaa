@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.viewinterop.viewModel
 import com.escodro.task.R
 import com.escodro.task.model.Category
 import com.escodro.task.model.Task
@@ -29,7 +30,6 @@ import com.escodro.task.presentation.detail.category.TaskCategoryState
 import com.escodro.task.presentation.detail.category.TaskCategoryViewModel
 import com.escodro.theme.AlkaaTheme
 import com.escodro.theme.components.DefaultIconTextContent
-import org.koin.androidx.compose.getViewModel
 
 /**
  * Alkaa Task Detail Section.
@@ -44,9 +44,9 @@ fun TaskDetailSection(taskId: Long) {
 @Composable
 private fun TaskDetailLoader(
     taskId: Long,
-    detailViewModel: TaskDetailViewModel = getViewModel(),
-    categoryViewModel: TaskCategoryViewModel = getViewModel(),
-    alarmViewModel: TaskAlarmViewModel = getViewModel()
+    detailViewModel: TaskDetailViewModel = viewModel(),
+    categoryViewModel: TaskCategoryViewModel = viewModel(),
+    alarmViewModel: TaskAlarmViewModel = viewModel()
 ) {
     val id = TaskId(taskId)
     val detailViewState by

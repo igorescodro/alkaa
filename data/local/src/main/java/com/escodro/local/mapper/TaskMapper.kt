@@ -1,12 +1,13 @@
 package com.escodro.local.mapper
 
+import javax.inject.Inject
 import com.escodro.local.model.Task as LocalTask
 import com.escodro.repository.model.Task as RepoTask
 
 /**
  * Maps Tasks between Repository and Local.
  */
-internal class TaskMapper(private val alarmIntervalMapper: AlarmIntervalMapper) {
+internal class TaskMapper @Inject constructor(private val alarmIntervalMapper: AlarmIntervalMapper) {
 
     /**
      * Maps Task from Repo to Local.

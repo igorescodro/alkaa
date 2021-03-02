@@ -3,11 +3,12 @@ package com.escodro.domain.usecase.category
 import com.escodro.domain.model.Category
 import com.escodro.domain.repository.CategoryRepository
 import timber.log.Timber
+import javax.inject.Inject
 
 /**
  * Use case to insert a category in the database.
  */
-class InsertCategory(private val categoryRepository: CategoryRepository) {
+class InsertCategory @Inject constructor(private val categoryRepository: CategoryRepository) {
 
     /**
      * Inserts a category.

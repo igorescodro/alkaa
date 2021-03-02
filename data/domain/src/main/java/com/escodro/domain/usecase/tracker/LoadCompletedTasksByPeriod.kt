@@ -5,11 +5,12 @@ import com.escodro.domain.repository.TaskWithCategoryRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import java.util.Calendar
+import javax.inject.Inject
 
 /**
  * Use case to get completed tasks in Tracker format for the last month from the database.
  */
-class LoadCompletedTasksByPeriod(private val repository: TaskWithCategoryRepository) {
+class LoadCompletedTasksByPeriod @Inject constructor(private val repository: TaskWithCategoryRepository) {
 
     /**
      * Gets completed tasks in Tracker format for the last month.

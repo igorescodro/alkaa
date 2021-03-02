@@ -5,8 +5,9 @@ import com.escodro.domain.repository.TaskWithCategoryRepository
 import com.escodro.domain.usecase.taskwithcategory.LoadUncompletedTasks
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
-internal class LoadUncompletedTasksImpl(
+internal class LoadUncompletedTasksImpl @Inject constructor(
     private val repository: TaskWithCategoryRepository
 ) : LoadUncompletedTasks {
 

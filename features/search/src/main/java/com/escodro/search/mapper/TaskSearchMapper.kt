@@ -3,8 +3,9 @@ package com.escodro.search.mapper
 import androidx.compose.ui.graphics.Color
 import com.escodro.domain.model.TaskWithCategory
 import com.escodro.search.model.TaskSearchItem
+import javax.inject.Inject
 
-internal class TaskSearchMapper {
+internal class TaskSearchMapper @Inject constructor() {
 
     fun toTaskSearch(taskList: List<TaskWithCategory>): List<TaskSearchItem> =
         taskList.map(::toTaskSearch)

@@ -5,11 +5,12 @@ import com.escodro.domain.interactor.NotificationInteractor
 import com.escodro.domain.model.Task
 import com.escodro.domain.provider.CalendarProvider
 import com.escodro.domain.repository.TaskRepository
+import javax.inject.Inject
 
 /**
  * Use case to set a task as completed in the database.
  */
-class CompleteTask(
+class CompleteTask @Inject constructor(
     private val taskRepository: TaskRepository,
     private val alarmInteractor: AlarmInteractor,
     private val notificationInteractor: NotificationInteractor,

@@ -3,28 +3,16 @@ package com.escodro.domain.di
 import com.escodro.domain.provider.CalendarProvider
 import com.escodro.domain.provider.CalendarProviderImpl
 import com.escodro.domain.usecase.alarm.CancelAlarm
-import com.escodro.domain.usecase.alarm.RescheduleFutureAlarms
 import com.escodro.domain.usecase.alarm.ScheduleAlarm
-import com.escodro.domain.usecase.alarm.ScheduleNextAlarm
-import com.escodro.domain.usecase.alarm.ShowAlarm
-import com.escodro.domain.usecase.alarm.SnoozeAlarm
 import com.escodro.domain.usecase.alarm.UpdateTaskAsRepeating
 import com.escodro.domain.usecase.alarm.implementation.CancelAlarmImpl
 import com.escodro.domain.usecase.alarm.implementation.ScheduleAlarmImpl
 import com.escodro.domain.usecase.alarm.implementation.UpdateTaskAsRepeatingImpl
-import com.escodro.domain.usecase.category.DeleteCategory
-import com.escodro.domain.usecase.category.InsertCategory
 import com.escodro.domain.usecase.category.LoadAllCategories
-import com.escodro.domain.usecase.category.LoadCategory
-import com.escodro.domain.usecase.category.UpdateCategory
 import com.escodro.domain.usecase.category.implementation.LoadAllCategoriesImpl
 import com.escodro.domain.usecase.search.SearchTasksByName
 import com.escodro.domain.usecase.search.implementation.SearchTasksByNameImpl
-import com.escodro.domain.usecase.task.AddTask
-import com.escodro.domain.usecase.task.CompleteTask
-import com.escodro.domain.usecase.task.DeleteTask
 import com.escodro.domain.usecase.task.LoadTask
-import com.escodro.domain.usecase.task.UncompleteTask
 import com.escodro.domain.usecase.task.UpdateTask
 import com.escodro.domain.usecase.task.UpdateTaskCategory
 import com.escodro.domain.usecase.task.UpdateTaskDescription
@@ -36,57 +24,53 @@ import com.escodro.domain.usecase.task.implementation.UpdateTaskDescriptionImpl
 import com.escodro.domain.usecase.task.implementation.UpdateTaskImpl
 import com.escodro.domain.usecase.task.implementation.UpdateTaskStatusImpl
 import com.escodro.domain.usecase.task.implementation.UpdateTaskTitleImpl
-import com.escodro.domain.usecase.taskwithcategory.LoadCompletedTasks
-import com.escodro.domain.usecase.taskwithcategory.LoadTasksByCategory
 import com.escodro.domain.usecase.taskwithcategory.LoadUncompletedTasks
 import com.escodro.domain.usecase.taskwithcategory.implementation.LoadUncompletedTasksImpl
-import com.escodro.domain.usecase.tracker.LoadCompletedTasksByPeriod
-import org.koin.dsl.module
+import dagger.Binds
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 
-/**
- * Domain dependency injection module.
- */
-val domainModule = module {
+@Module
+@InstallIn(SingletonComponent::class)
+internal abstract class DomainModule {
 
-    // Task Use Cases
-    factory { AddTask(get()) }
-    factory { CompleteTask(get(), get(), get(), get()) }
-    factory { UncompleteTask(get()) }
-    factory<UpdateTaskStatus> { UpdateTaskStatusImpl(get(), get(), get()) }
-    factory { DeleteTask(get(), get()) }
-    factory<LoadTask> { LoadTaskImpl(get()) }
-    factory<UpdateTask> { UpdateTaskImpl(get()) }
-    factory<UpdateTaskTitle> { UpdateTaskTitleImpl(get(), get()) }
-    factory<UpdateTaskDescription> { UpdateTaskDescriptionImpl(get(), get()) }
-    factory<UpdateTaskCategory> { UpdateTaskCategoryImpl(get(), get()) }
+    @Binds
+    abstract fun bindUpdateTaskStatus(impl: UpdateTaskStatusImpl): UpdateTaskStatus
 
-    // Category Use Cases
-    factory { DeleteCategory(get()) }
-    factory<LoadAllCategories> { LoadAllCategoriesImpl(get()) }
-    factory { LoadCategory(get()) }
-    factory { InsertCategory(get()) }
-    factory { UpdateCategory(get()) }
+    @Binds
+    abstract fun bindLoadTask(impl: LoadTaskImpl): LoadTask
 
-    // Search Use Cases
-    factory<SearchTasksByName> { SearchTasksByNameImpl(get()) }
+    @Binds
+    abstract fun bindUpdateTask(impl: UpdateTaskImpl): UpdateTask
 
-    // Task With Category Use Cases
-    factory { LoadTasksByCategory(get(), get()) }
-    factory { LoadCompletedTasks(get()) }
-    factory<LoadUncompletedTasks> { LoadUncompletedTasksImpl(get()) }
+    @Binds
+    abstract fun bindUpdateTaskTitle(impl: UpdateTaskTitleImpl): UpdateTaskTitle
 
-    // Alarm Use Cases
-    factory<CancelAlarm> { CancelAlarmImpl(get(), get()) }
-    factory { RescheduleFutureAlarms(get(), get(), get(), get()) }
-    factory<ScheduleAlarm> { ScheduleAlarmImpl(get(), get()) }
-    factory { ScheduleNextAlarm(get(), get(), get()) }
-    factory { ShowAlarm(get(), get(), get()) }
-    factory { SnoozeAlarm(get(), get(), get()) }
-    factory<UpdateTaskAsRepeating> { UpdateTaskAsRepeatingImpl(get()) }
+    @Binds
+    abstract fun bindUpdateTaskDescription(impl: UpdateTaskDescriptionImpl): UpdateTaskDescription
 
-    // Tracker Use Cases
-    factory { LoadCompletedTasksByPeriod(get()) }
+    @Binds
+    abstract fun bindUpdateTaskCategory(impl: UpdateTaskCategoryImpl): UpdateTaskCategory
 
-    // Providers
-    factory<CalendarProvider> { CalendarProviderImpl() }
+    @Binds
+    abstract fun bindLoadAllCategories(impl: LoadAllCategoriesImpl): LoadAllCategories
+
+    @Binds
+    abstract fun bindSearchTaskByName(impl: SearchTasksByNameImpl): SearchTasksByName
+
+    @Binds
+    abstract fun bindLoadUncompletedTasks(impl: LoadUncompletedTasksImpl): LoadUncompletedTasks
+
+    @Binds
+    abstract fun bindCancelAlarm(impl: CancelAlarmImpl): CancelAlarm
+
+    @Binds
+    abstract fun bindScheduleAlarm(impl: ScheduleAlarmImpl): ScheduleAlarm
+
+    @Binds
+    abstract fun bindUpdateTaskAsRepeating(impl: UpdateTaskAsRepeatingImpl): UpdateTaskAsRepeating
+
+    @Binds
+    abstract fun bindCalendarProvider(impl: CalendarProviderImpl): CalendarProvider
 }

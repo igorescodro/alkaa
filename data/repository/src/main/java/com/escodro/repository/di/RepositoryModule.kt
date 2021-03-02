@@ -8,26 +8,26 @@ import com.escodro.repository.CategoryRepositoryImpl
 import com.escodro.repository.SearchRepositoryImpl
 import com.escodro.repository.TaskRepositoryImpl
 import com.escodro.repository.TaskWithCategoryRepositoryImpl
-import com.escodro.repository.mapper.AlarmIntervalMapper
-import com.escodro.repository.mapper.CategoryMapper
-import com.escodro.repository.mapper.TaskMapper
-import com.escodro.repository.mapper.TaskWithCategoryMapper
-import org.koin.dsl.module
+import dagger.Binds
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 
-/**
- * Repository dependency injection module.
- */
-val repositoryModule = module {
+@Module
+@InstallIn(SingletonComponent::class)
+internal abstract class RepositoryModule {
 
-    // Repositories
-    single<TaskRepository> { TaskRepositoryImpl(get(), get()) }
-    single<CategoryRepository> { CategoryRepositoryImpl(get(), get()) }
-    single<TaskWithCategoryRepository> { TaskWithCategoryRepositoryImpl(get(), get()) }
-    single<SearchRepository> { SearchRepositoryImpl(get(), get()) }
+    @Binds
+    abstract fun bindTaskRepository(impl: TaskRepositoryImpl): TaskRepository
 
-    // Mappers
-    factory { AlarmIntervalMapper() }
-    factory { TaskMapper(get()) }
-    factory { CategoryMapper() }
-    factory { TaskWithCategoryMapper(get(), get()) }
+    @Binds
+    abstract fun bindCategoryRepository(impl: CategoryRepositoryImpl): CategoryRepository
+
+    @Binds
+    abstract fun bindTaskWithCategoryRepository(
+        impl: TaskWithCategoryRepositoryImpl
+    ): TaskWithCategoryRepository
+
+    @Binds
+    abstract fun bindSearchRepository(impl: SearchRepositoryImpl): SearchRepository
 }

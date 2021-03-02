@@ -6,13 +6,14 @@ import com.escodro.task.model.AlarmInterval.MONTHLY
 import com.escodro.task.model.AlarmInterval.NEVER
 import com.escodro.task.model.AlarmInterval.WEEKLY
 import com.escodro.task.model.AlarmInterval.YEARLY
+import javax.inject.Inject
 import com.escodro.domain.model.AlarmInterval as DomainInterval
 import com.escodro.task.model.AlarmInterval as ViewDataInterval
 
 /**
  * Maps Alarm Interval between Domain and View.
  */
-internal class AlarmIntervalMapper {
+internal class AlarmIntervalMapper @Inject constructor() {
 
     /**
      * Maps Alarm Interval from View Data to Domain.

@@ -2,11 +2,12 @@ package com.escodro.domain.usecase.task
 
 import com.escodro.domain.model.Task
 import com.escodro.domain.repository.TaskRepository
+import javax.inject.Inject
 
 /**
  * Use case to set a task as uncompleted in the database.
  */
-class UncompleteTask(private val taskRepository: TaskRepository) {
+class UncompleteTask @Inject constructor(private val taskRepository: TaskRepository) {
 
     /**
      * Completes the given task.

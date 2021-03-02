@@ -34,11 +34,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.viewModel
 import com.escodro.search.R
 import com.escodro.search.model.TaskSearchItem
 import com.escodro.theme.AlkaaTheme
 import com.escodro.theme.components.DefaultIconTextContent
-import org.koin.androidx.compose.getViewModel
 
 /**
  * Alkaa Search Section.
@@ -54,7 +54,7 @@ fun SearchSection(modifier: Modifier = Modifier, onItemClicked: (Long) -> Unit) 
 private fun SearchLoader(
     modifier: Modifier = Modifier,
     onItemClicked: (Long) -> Unit,
-    viewModel: SearchViewModel = getViewModel()
+    viewModel: SearchViewModel = viewModel()
 ) {
     val (query, setQuery) = savedInstanceState { "" }
     val viewState by remember(viewModel, query) { viewModel.findTasksByName(query) }

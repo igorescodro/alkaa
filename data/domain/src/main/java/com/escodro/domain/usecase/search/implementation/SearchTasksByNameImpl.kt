@@ -4,8 +4,9 @@ import com.escodro.domain.model.TaskWithCategory
 import com.escodro.domain.repository.SearchRepository
 import com.escodro.domain.usecase.search.SearchTasksByName
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-internal class SearchTasksByNameImpl(
+internal class SearchTasksByNameImpl @Inject constructor(
     private val searchRepository: SearchRepository
 ) : SearchTasksByName {
 

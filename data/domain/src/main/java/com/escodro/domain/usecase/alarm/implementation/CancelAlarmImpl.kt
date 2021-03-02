@@ -3,8 +3,9 @@ package com.escodro.domain.usecase.alarm.implementation
 import com.escodro.domain.interactor.AlarmInteractor
 import com.escodro.domain.repository.TaskRepository
 import com.escodro.domain.usecase.alarm.CancelAlarm
+import javax.inject.Inject
 
-internal class CancelAlarmImpl(
+internal class CancelAlarmImpl @Inject constructor(
     private val taskRepository: TaskRepository,
     private val alarmInteractor: AlarmInteractor
 ) : CancelAlarm {

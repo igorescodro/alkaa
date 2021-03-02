@@ -1,12 +1,13 @@
 package com.escodro.local.mapper
 
+import javax.inject.Inject
 import com.escodro.local.model.TaskWithCategory as LocalTaskWithCategory
 import com.escodro.repository.model.TaskWithCategory as RepoTaskWithCategory
 
 /**
  * Maps Task With Category between Repository and Local.
  */
-internal class TaskWithCategoryMapper(
+internal class TaskWithCategoryMapper @Inject constructor(
     private val taskMapper: TaskMapper,
     private val categoryMapper: CategoryMapper
 ) {

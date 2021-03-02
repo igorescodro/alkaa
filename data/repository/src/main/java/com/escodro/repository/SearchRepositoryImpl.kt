@@ -6,8 +6,9 @@ import com.escodro.repository.datasource.SearchDataSource
 import com.escodro.repository.mapper.TaskWithCategoryMapper
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
-internal class SearchRepositoryImpl(
+internal class SearchRepositoryImpl @Inject constructor(
     private val searchDataSource: SearchDataSource,
     private val mapper: TaskWithCategoryMapper
 ) : SearchRepository {

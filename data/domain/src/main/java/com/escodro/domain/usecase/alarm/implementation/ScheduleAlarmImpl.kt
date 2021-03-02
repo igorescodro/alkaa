@@ -4,8 +4,9 @@ import com.escodro.domain.interactor.AlarmInteractor
 import com.escodro.domain.repository.TaskRepository
 import com.escodro.domain.usecase.alarm.ScheduleAlarm
 import java.util.Calendar
+import javax.inject.Inject
 
-internal class ScheduleAlarmImpl(
+internal class ScheduleAlarmImpl @Inject constructor(
     private val taskRepository: TaskRepository,
     private val alarmInteractor: AlarmInteractor
 ) : ScheduleAlarm {

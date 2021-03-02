@@ -1,13 +1,14 @@
 package com.escodro.task.mapper
 
 import androidx.compose.ui.graphics.Color
+import javax.inject.Inject
 import com.escodro.domain.model.Category as DomainCategory
 import com.escodro.task.model.Category as ViewCategory
 
 /**
  * Maps Category between View and Domain.
  */
-internal class CategoryMapper {
+internal class CategoryMapper @Inject constructor() {
 
     /**
      * Maps Category from Domain to View.

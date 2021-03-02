@@ -6,8 +6,9 @@ import com.escodro.repository.datasource.SearchDataSource
 import com.escodro.repository.model.TaskWithCategory
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
-internal class SearchLocalDataSource(
+internal class SearchLocalDataSource @Inject constructor(
     daoProvider: DaoProvider,
     private val taskWithCategoryMapper: TaskWithCategoryMapper
 ) : SearchDataSource {

@@ -6,11 +6,12 @@ import com.escodro.repository.datasource.TaskWithCategoryDataSource
 import com.escodro.repository.model.TaskWithCategory
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
 /**
  * Local implementation of [TaskWithCategoryDataSource].
  */
-internal class TaskWithCategoryLocalDataSource(
+internal class TaskWithCategoryLocalDataSource @Inject constructor(
     daoProvider: DaoProvider,
     private val mapper: TaskWithCategoryMapper
 ) : TaskWithCategoryDataSource {

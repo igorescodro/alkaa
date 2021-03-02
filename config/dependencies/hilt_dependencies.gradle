@@ -1,0 +1,7 @@
+apply plugin: 'dagger.hilt.android.plugin'
+apply plugin: 'kotlin-kapt'
+
+dependencies {
+    implementation Deps.hilt.android
+    kapt Deps.hilt.compiler
+}

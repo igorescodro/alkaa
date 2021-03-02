@@ -5,11 +5,12 @@ import com.escodro.domain.repository.CategoryRepository
 import com.escodro.domain.repository.TaskWithCategoryRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import javax.inject.Inject
 
 /**
  * Use case to get a task with category by the category id from the database.
  */
-class LoadTasksByCategory(
+class LoadTasksByCategory @Inject constructor(
     private val joinRepository: TaskWithCategoryRepository,
     private val categoryRepository: CategoryRepository
 ) {

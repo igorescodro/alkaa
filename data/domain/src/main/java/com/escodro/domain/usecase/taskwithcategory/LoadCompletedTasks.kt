@@ -4,11 +4,12 @@ import com.escodro.domain.model.TaskWithCategory
 import com.escodro.domain.repository.TaskWithCategoryRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
 /**
  * Use case to get all completed tasks from the database.
  */
-class LoadCompletedTasks(private val repository: TaskWithCategoryRepository) {
+class LoadCompletedTasks @Inject constructor(private val repository: TaskWithCategoryRepository) {
 
     /**
      * Gets all completed tasks.

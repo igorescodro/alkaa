@@ -6,8 +6,9 @@ import com.escodro.repository.datasource.TaskWithCategoryDataSource
 import com.escodro.repository.mapper.TaskWithCategoryMapper
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
-internal class TaskWithCategoryRepositoryImpl(
+internal class TaskWithCategoryRepositoryImpl @Inject constructor(
     private val dataSource: TaskWithCategoryDataSource,
     private val mapper: TaskWithCategoryMapper
 ) : TaskWithCategoryRepository {

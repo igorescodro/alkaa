@@ -5,11 +5,12 @@ import com.escodro.domain.interactor.NotificationInteractor
 import com.escodro.domain.provider.CalendarProvider
 import timber.log.Timber
 import java.util.Calendar
+import javax.inject.Inject
 
 /**
  * Use case to snooze a task from the database.
  */
-class SnoozeAlarm(
+class SnoozeAlarm @Inject constructor(
     private val calendarProvider: CalendarProvider,
     private val notificationInteractor: NotificationInteractor,
     private val alarmInteractor: AlarmInteractor

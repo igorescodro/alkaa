@@ -3,11 +3,12 @@ package com.escodro.domain.usecase.alarm
 import com.escodro.domain.interactor.NotificationInteractor
 import com.escodro.domain.repository.TaskRepository
 import timber.log.Timber
+import javax.inject.Inject
 
 /**
  * Use case to show an alarm.
  */
-class ShowAlarm(
+class ShowAlarm @Inject constructor(
     private val taskRepository: TaskRepository,
     private val notificationInteractor: NotificationInteractor,
     private val scheduleNextAlarm: ScheduleNextAlarm

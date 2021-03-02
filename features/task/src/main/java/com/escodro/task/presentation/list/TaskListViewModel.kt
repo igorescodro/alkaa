@@ -6,18 +6,21 @@ import com.escodro.domain.usecase.task.UpdateTaskStatus
 import com.escodro.domain.usecase.taskwithcategory.LoadUncompletedTasks
 import com.escodro.task.mapper.TaskWithCategoryMapper
 import com.escodro.task.model.TaskWithCategory
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 /**
  * ViewModel responsible to handle the interaction between the presentation and business logic from
  * Task Section.
  */
-internal class TaskListViewModel(
+@HiltViewModel
+internal class TaskListViewModel @Inject constructor(
     private val loadAllTasksUseCase: LoadUncompletedTasks,
     private val updateTaskStatusUseCase: UpdateTaskStatus,
     private val taskWithCategoryMapper: TaskWithCategoryMapper

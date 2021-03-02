@@ -3,8 +3,9 @@ package com.escodro.domain.usecase.task.implementation
 import com.escodro.domain.usecase.task.LoadTask
 import com.escodro.domain.usecase.task.UpdateTask
 import com.escodro.domain.usecase.task.UpdateTaskDescription
+import javax.inject.Inject
 
-internal class UpdateTaskDescriptionImpl(
+internal class UpdateTaskDescriptionImpl @Inject constructor(
     private val loadTask: LoadTask,
     private val updateTask: UpdateTask
 ) : UpdateTaskDescription {

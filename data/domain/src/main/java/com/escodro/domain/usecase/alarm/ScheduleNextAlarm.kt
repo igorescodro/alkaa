@@ -12,11 +12,12 @@ import com.escodro.domain.provider.CalendarProvider
 import com.escodro.domain.repository.TaskRepository
 import timber.log.Timber
 import java.util.Calendar
+import javax.inject.Inject
 
 /**
  * Schedules the next alarm entry or the missing ones in a repeating alarm.
  */
-class ScheduleNextAlarm(
+class ScheduleNextAlarm @Inject constructor(
     private val taskRepository: TaskRepository,
     private val alarmInteractor: AlarmInteractor,
     private val calendarProvider: CalendarProvider

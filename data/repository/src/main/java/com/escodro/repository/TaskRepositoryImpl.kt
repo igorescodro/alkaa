@@ -4,8 +4,9 @@ import com.escodro.domain.model.Task
 import com.escodro.domain.repository.TaskRepository
 import com.escodro.repository.datasource.TaskDataSource
 import com.escodro.repository.mapper.TaskMapper
+import javax.inject.Inject
 
-internal class TaskRepositoryImpl(
+internal class TaskRepositoryImpl @Inject constructor(
     private val taskDataSource: TaskDataSource,
     private val taskMapper: TaskMapper
 ) : TaskRepository {

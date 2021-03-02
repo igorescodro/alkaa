@@ -4,8 +4,9 @@ import com.escodro.domain.model.Category
 import com.escodro.domain.repository.CategoryRepository
 import com.escodro.repository.datasource.CategoryDataSource
 import com.escodro.repository.mapper.CategoryMapper
+import javax.inject.Inject
 
-internal class CategoryRepositoryImpl(
+internal class CategoryRepositoryImpl @Inject constructor(
     private val categoryDataSource: CategoryDataSource,
     private val categoryMapper: CategoryMapper
 ) : CategoryRepository {

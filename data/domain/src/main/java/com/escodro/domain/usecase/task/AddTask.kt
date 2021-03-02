@@ -3,11 +3,12 @@ package com.escodro.domain.usecase.task
 import com.escodro.domain.model.Task
 import com.escodro.domain.repository.TaskRepository
 import timber.log.Timber
+import javax.inject.Inject
 
 /**
  * Use case to add a task from the database.
  */
-class AddTask(private val taskRepository: TaskRepository) {
+class AddTask @Inject constructor(private val taskRepository: TaskRepository) {
 
     /**
      * Adds a task.

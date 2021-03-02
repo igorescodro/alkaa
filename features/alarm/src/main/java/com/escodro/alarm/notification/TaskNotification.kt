@@ -10,13 +10,15 @@ import com.escodro.alarm.R
 import com.escodro.alarm.TaskReceiver
 import com.escodro.alarm.model.Task
 import com.escodro.core.extension.getNotificationManager
+import dagger.hilt.android.qualifiers.ApplicationContext
 import timber.log.Timber
+import javax.inject.Inject
 
 /**
  * Handles the notification related to the Task reminders.
  */
-internal class TaskNotification(
-    private val context: Context,
+internal class TaskNotification @Inject constructor(
+    @ApplicationContext private val context: Context,
     private val channel: TaskNotificationChannel
 ) {
 

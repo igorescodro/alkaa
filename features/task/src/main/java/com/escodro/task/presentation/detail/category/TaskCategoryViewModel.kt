@@ -7,11 +7,14 @@ import com.escodro.domain.usecase.task.UpdateTaskCategory
 import com.escodro.task.mapper.CategoryMapper
 import com.escodro.task.presentation.detail.main.CategoryId
 import com.escodro.task.presentation.detail.main.TaskId
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-internal class TaskCategoryViewModel(
+@HiltViewModel
+internal class TaskCategoryViewModel @Inject constructor(
     private val loadAllCategories: LoadAllCategories,
     private val updateTaskCategory: UpdateTaskCategory,
     private val categoryMapper: CategoryMapper

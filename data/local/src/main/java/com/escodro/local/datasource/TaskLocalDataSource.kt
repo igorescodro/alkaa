@@ -4,11 +4,15 @@ import com.escodro.local.mapper.TaskMapper
 import com.escodro.local.provider.DaoProvider
 import com.escodro.repository.datasource.TaskDataSource
 import com.escodro.repository.model.Task
+import javax.inject.Inject
 
 /**
  * Local implementation of [TaskDataSource].
  */
-internal class TaskLocalDataSource(daoProvider: DaoProvider, private val taskMapper: TaskMapper) :
+internal class TaskLocalDataSource @Inject constructor(
+    daoProvider: DaoProvider,
+    private val taskMapper: TaskMapper
+) :
     TaskDataSource {
 
     private val taskDao = daoProvider.getTaskDao()

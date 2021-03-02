@@ -4,11 +4,12 @@ import com.escodro.local.mapper.CategoryMapper
 import com.escodro.local.provider.DaoProvider
 import com.escodro.repository.datasource.CategoryDataSource
 import com.escodro.repository.model.Category
+import javax.inject.Inject
 
 /**
  * Local implementation of [CategoryDataSource].
  */
-internal class CategoryLocalDataSource(
+internal class CategoryLocalDataSource @Inject constructor(
     daoProvider: DaoProvider,
     private val categoryMapper: CategoryMapper
 ) : CategoryDataSource {

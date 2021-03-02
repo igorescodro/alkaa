@@ -6,7 +6,6 @@ dependencies {
 
     testImplementation project(':libraries:test')
 
-    implementation Deps.koin.core
     implementation Deps.coroutines.core
 
     testImplementation Deps.test.junit

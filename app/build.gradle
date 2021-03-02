@@ -64,6 +64,5 @@ dependencies {
 
     implementation Deps.compose.navigation
     implementation Deps.android.playCore
-    implementation Deps.koin.core
     implementation Deps.timber
 }

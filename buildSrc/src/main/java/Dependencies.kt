@@ -15,13 +15,13 @@ object Versions {
     const val room = "2.2.3"
     const val navigation = "2.3.0"
     const val playCore = "1.6.1"
+    const val viewModelKtx = "2.3.0"
 
     const val coroutines = "1.4.0"
 
     const val timber = "4.7.1"
 
     const val version = "2.33-beta"
-    const val koin = "2.2.1"
 
     const val testJunit = "4.12"
     const val testRunner = "1.1.1"
@@ -49,7 +49,6 @@ object Deps {
     val android = AndroidDeps
     val coroutines = CoroutinesDeps
     val hilt = HiltDeps
-    val koin = KoinDeps
     val compose = ComposeDeps
     val test = TestDeps
     val quality = QualityDeps
@@ -61,6 +60,7 @@ object AndroidDeps {
     val constraintLayout = "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
     val ktx = "androidx.core:core-ktx:${Versions.ktx}"
     val playCore = "com.google.android.play:core:${Versions.playCore}"
+    val viewModelKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.viewModelKtx}"
     val room = RoomDeps
     val navigation = NavigationDeps
 }
@@ -87,18 +87,11 @@ object HiltDeps {
     const val testing = "com.google.dagger:hilt-android-testing:${Versions.version}"
 }
 
-object KoinDeps {
-    val core = "org.koin:koin-android:${Versions.koin}"
-    val viewModel = "org.koin:koin-androidx-viewmodel:${Versions.koin}"
-    val compose = "org.koin:koin-androidx-compose:${Versions.koin}"
-    val test = "org.koin:koin-test:${Versions.koin}"
-}
-
 object ComposeDeps {
     val ui = "androidx.compose.ui:ui:${Versions.compose}"
     val material = "androidx.compose.material:material:${Versions.compose}"
     val tooling = "androidx.compose.ui:ui-tooling:${Versions.compose}"
-    val navigation = "androidx.navigatigiton:navigation-compose:${Versions.composeNav}"
+    val navigation = "androidx.navigation:navigation-compose:${Versions.composeNav}"
     val uiTest = "androidx.compose.ui:ui-test:${Versions.compose}"
     val junit4 = "androidx.compose.ui:ui-test-junit4:${Versions.compose}"
 }

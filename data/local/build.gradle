@@ -21,7 +21,6 @@ dependencies {
     implementation project(":libraries:core")
     implementation project(":data:repository")
 
-    implementation Deps.koin.core
     implementation Deps.android.room.runtime
     implementation Deps.android.room.ktx
     kapt Deps.android.room.compiler

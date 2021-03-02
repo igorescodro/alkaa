@@ -4,6 +4,5 @@ apply from: "$rootDir/config/dependencies/hilt_dependencies.gradle"
 dependencies {
     implementation project(":data:domain")
 
-    implementation Deps.koin.core
     implementation Deps.coroutines.core
 }

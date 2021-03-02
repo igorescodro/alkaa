@@ -22,9 +22,7 @@ dependencies {
     androidTestImplementation project(":libraries:test")
 
     implementation Deps.android.playCore
-
-    implementation Deps.koin.viewModel
-    implementation Deps.koin.compose
+    implementation Deps.android.viewModelKtx
 
     testImplementation Deps.test.coreKtx
     androidTestImplementation Deps.test.barista

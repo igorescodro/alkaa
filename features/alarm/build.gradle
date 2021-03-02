@@ -5,6 +5,10 @@ android {
     testOptions {
         unitTests.returnDefaultValues = true
     }
+
+    lintOptions {
+        abortOnError false // Google needs to update their libraries to API Level 10.
+    }
 }
 
 dependencies {
@@ -13,8 +17,6 @@ dependencies {
 
     implementation Deps.coroutines.core
     implementation Deps.android.navigation.ui
-
-    implementation Deps.koin.core
 
     testImplementation Deps.test.junit
     testImplementation Deps.test.mockk

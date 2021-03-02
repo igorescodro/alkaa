@@ -7,26 +7,22 @@ import com.escodro.domain.usecase.alarm.RescheduleFutureAlarms
 import com.escodro.domain.usecase.alarm.ShowAlarm
 import com.escodro.domain.usecase.alarm.SnoozeAlarm
 import com.escodro.domain.usecase.task.CompleteTask
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import org.koin.core.component.KoinApiExtension
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 import timber.log.Timber
+import javax.inject.Inject
 
 /**
  * [BroadcastReceiver] to be notified by the [android.app.AlarmManager].
  */
-@OptIn(KoinApiExtension::class)
-internal class TaskReceiver : BroadcastReceiver(), KoinComponent {
-
-    private val completeTaskUseCase: CompleteTask by inject()
-
-    private val showAlarmUseCase: ShowAlarm by inject()
-
-    private val snoozeAlarmUseCase: SnoozeAlarm by inject()
-
-    private val rescheduleUseCase: RescheduleFutureAlarms by inject()
+@AndroidEntryPoint
+internal class TaskReceiver @Inject constructor(
+    private val completeTaskUseCase: CompleteTask,
+    private val showAlarmUseCase: ShowAlarm,
+    private val snoozeAlarmUseCase: SnoozeAlarm,
+    private val rescheduleUseCase: RescheduleFutureAlarms,
+) : BroadcastReceiver() {
 
     @Suppress("GlobalCoroutineUsage")
     override fun onReceive(context: Context?, intent: Intent?) {

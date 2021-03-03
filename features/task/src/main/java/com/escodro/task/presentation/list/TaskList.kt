@@ -15,17 +15,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.escodro.task.R
 import com.escodro.task.model.Category
 import com.escodro.task.model.Task
 import com.escodro.task.model.TaskWithCategory
 import com.escodro.theme.AlkaaTheme
 import com.escodro.theme.components.DefaultIconTextContent
+import com.escodro.theme.temp.hiltNavGraphViewModel
 import java.util.Calendar
 
 /**
@@ -38,11 +39,12 @@ fun TaskListSection(modifier: Modifier = Modifier, onItemClicked: (Long) -> Unit
     TaskListLoader(modifier = modifier, onItemClicked = onItemClicked)
 }
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 private fun TaskListLoader(
     modifier: Modifier = Modifier,
     onItemClicked: (Long) -> Unit,
-    viewModel: TaskListViewModel = viewModel()
+    viewModel: TaskListViewModel = hiltNavGraphViewModel()
 ) {
     val viewState by remember(viewModel) { viewModel.loadTaskList() }
         .collectAsState(initial = TaskListViewState.Empty)

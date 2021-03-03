@@ -7,3 +7,8 @@ android {
         exclude 'META-INF/LGPL2.1'
     }
 }
+
+dependencies {
+    implementation Deps.compose.navigation
+    implementation Deps.hilt.navigation
+}

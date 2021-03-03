@@ -21,7 +21,8 @@ object Versions {
 
     const val timber = "4.7.1"
 
-    const val version = "2.33-beta"
+    const val hilt = "2.33-beta"
+    const val hiltNav = "1.0.0-alpha03"
 
     const val testJunit = "4.12"
     const val testRunner = "1.1.1"
@@ -83,10 +84,11 @@ object NavigationDeps {
 }
 
 object HiltDeps {
-    const val gradlePlugin = "com.google.dagger:hilt-android-gradle-plugin:${Versions.version}"
-    const val android = "com.google.dagger:hilt-android:${Versions.version}"
-    const val compiler = "com.google.dagger:hilt-compiler:${Versions.version}"
-    const val testing = "com.google.dagger:hilt-android-testing:${Versions.version}"
+    const val gradlePlugin = "com.google.dagger:hilt-android-gradle-plugin:${Versions.hilt}"
+    const val android = "com.google.dagger:hilt-android:${Versions.hilt}"
+    const val compiler = "com.google.dagger:hilt-compiler:${Versions.hilt}"
+    const val navigation = "androidx.hilt:hilt-navigation:${Versions.hiltNav}"
+    const val testing = "com.google.dagger:hilt-android-testing:${Versions.hilt}"
 }
 
 object ComposeDeps {

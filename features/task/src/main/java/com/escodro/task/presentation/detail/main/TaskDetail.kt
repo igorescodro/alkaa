@@ -13,11 +13,11 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.escodro.task.R
 import com.escodro.task.model.Category
 import com.escodro.task.model.Task
@@ -30,6 +30,7 @@ import com.escodro.task.presentation.detail.category.TaskCategoryState
 import com.escodro.task.presentation.detail.category.TaskCategoryViewModel
 import com.escodro.theme.AlkaaTheme
 import com.escodro.theme.components.DefaultIconTextContent
+import com.escodro.theme.temp.hiltNavGraphViewModel
 
 /**
  * Alkaa Task Detail Section.
@@ -41,12 +42,13 @@ fun TaskDetailSection(taskId: Long) {
     TaskDetailLoader(taskId = taskId)
 }
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 private fun TaskDetailLoader(
     taskId: Long,
-    detailViewModel: TaskDetailViewModel = viewModel(),
-    categoryViewModel: TaskCategoryViewModel = viewModel(),
-    alarmViewModel: TaskAlarmViewModel = viewModel()
+    detailViewModel: TaskDetailViewModel = hiltNavGraphViewModel(),
+    categoryViewModel: TaskCategoryViewModel = hiltNavGraphViewModel(),
+    alarmViewModel: TaskAlarmViewModel = hiltNavGraphViewModel()
 ) {
     val id = TaskId(taskId)
     val detailViewState by

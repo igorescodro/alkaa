@@ -5,10 +5,12 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.escodro.alkaa.navigation.NavGraph
 import com.escodro.theme.AlkaaTheme
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * Main Alkaa Activity.
  */
+@AndroidEntryPoint
 internal class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

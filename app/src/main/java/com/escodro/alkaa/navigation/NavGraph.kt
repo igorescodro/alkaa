@@ -2,6 +2,8 @@ package com.escodro.alkaa.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalContext
+import androidx.hilt.navigation.HiltViewModelFactory
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -36,6 +38,7 @@ fun NavGraph(startDestination: String = Destinations.Home) {
     NavHost(navController = navController, startDestination = startDestination) {
 
         composable(Destinations.Home) {
+            HiltViewModelFactory(LocalContext.current, it)
             Home(
                 onTaskClicked = actions.openTaskDetail,
                 onAboutClicked = actions.openAbout
@@ -43,9 +46,10 @@ fun NavGraph(startDestination: String = Destinations.Home) {
         }
 
         composable(
-            "${Destinations.TaskDetail}/{${DestinationArgs.TaskId}}",
+            route = "${Destinations.TaskDetail}/{${DestinationArgs.TaskId}}",
             arguments = listOf(navArgument(DestinationArgs.TaskId) { type = NavType.LongType })
         ) { backStackEntry ->
+            HiltViewModelFactory(LocalContext.current, backStackEntry)
             val arguments = requireNotNull(backStackEntry.arguments)
             TaskDetailSection(taskId = arguments.getLong(DestinationArgs.TaskId))
         }

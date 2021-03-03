@@ -66,4 +66,6 @@ dependencies {
     implementation Deps.compose.activity
     implementation Deps.android.playCore
     implementation Deps.timber
+
+    implementation Deps.hilt.navigation
 }

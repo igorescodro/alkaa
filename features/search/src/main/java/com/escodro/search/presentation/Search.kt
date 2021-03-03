@@ -28,6 +28,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -35,11 +36,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.escodro.search.R
 import com.escodro.search.model.TaskSearchItem
 import com.escodro.theme.AlkaaTheme
 import com.escodro.theme.components.DefaultIconTextContent
+import com.escodro.theme.temp.hiltNavGraphViewModel
 
 /**
  * Alkaa Search Section.
@@ -51,11 +52,12 @@ fun SearchSection(modifier: Modifier = Modifier, onItemClicked: (Long) -> Unit) 
     SearchLoader(modifier = modifier, onItemClicked = onItemClicked)
 }
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 private fun SearchLoader(
     modifier: Modifier = Modifier,
     onItemClicked: (Long) -> Unit,
-    viewModel: SearchViewModel = viewModel()
+    viewModel: SearchViewModel = hiltNavGraphViewModel()
 ) {
     val (query, setQuery) = rememberSaveable { mutableStateOf("") }
     val viewState by remember(viewModel, query) { viewModel.findTasksByName(query) }

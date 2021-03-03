@@ -8,7 +8,7 @@ object Versions {
     const val targetSdk = 29
     const val minSdk = 23
 
-    const val kotlin = "1.4.21-2"
+    const val kotlin = "1.4.30"
     const val material = "1.3.0"
     const val constraintLayout = "2.0.4"
     const val ktx = "1.0.2"
@@ -34,8 +34,10 @@ object Versions {
 
     const val espresso = "3.3.0"
 
-    const val compose = "1.0.0-alpha11"
-    const val composeNav = "1.0.0-alpha06"
+    const val compose = "1.0.0-beta01"
+    const val composeNav = "1.0.0-alpha08"
+    const val composeViewModel = "1.0.0-alpha02"
+    const val composeActivity = "1.3.0-alpha03"
 
     const val buildGradle = "7.0.0-alpha08"
 
@@ -92,6 +94,8 @@ object ComposeDeps {
     val material = "androidx.compose.material:material:${Versions.compose}"
     val tooling = "androidx.compose.ui:ui-tooling:${Versions.compose}"
     val navigation = "androidx.navigation:navigation-compose:${Versions.composeNav}"
+    val viewModel = "androidx.lifecycle:lifecycle-viewmodel-compose:${Versions.composeViewModel}"
+    val activity = "androidx.activity:activity-compose:${Versions.composeActivity}"
     val uiTest = "androidx.compose.ui:ui-test:${Versions.compose}"
     val junit4 = "androidx.compose.ui:ui-test-junit4:${Versions.compose}"
 }

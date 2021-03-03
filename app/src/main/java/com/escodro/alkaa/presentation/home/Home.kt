@@ -13,7 +13,8 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.savedinstancestate.savedInstanceState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -31,7 +32,7 @@ import com.escodro.theme.AlkaaTheme
  */
 @Composable
 fun Home(onTaskClicked: (Long) -> Unit, onAboutClicked: () -> Unit) {
-    val (currentSection, setCurrentSection) = savedInstanceState { HomeSection.Tasks }
+    val (currentSection, setCurrentSection) = rememberSaveable { mutableStateOf(HomeSection.Tasks) }
     val navItems = HomeSection.values().toList()
     val homeModifier = Modifier.padding(bottom = 56.dp)
 
@@ -41,7 +42,7 @@ fun Home(onTaskClicked: (Long) -> Unit, onAboutClicked: () -> Unit) {
         setCurrentSection = setCurrentSection,
     )
 
-    Crossfade(current = currentSection) { homeSection ->
+    Crossfade(currentSection) { homeSection ->
         AlkaaHomeScaffold(
             homeSection = homeSection,
             modifier = homeModifier,
@@ -62,7 +63,7 @@ private fun AlkaaHomeScaffold(
         topBar = {
             AlkaaTopBar(currentSection = homeSection)
         },
-        bodyContent = {
+        content = {
             when (homeSection) {
                 HomeSection.Tasks ->
                     TaskListSection(modifier = modifier, onItemClicked = actions.onTaskClicked)

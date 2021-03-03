@@ -4,7 +4,7 @@ import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.preferredSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -38,7 +38,7 @@ fun DefaultIconTextContent(
         Icon(
             imageVector = icon,
             contentDescription = stringResource(id = iconContentDescription),
-            modifier = Modifier.preferredSize(128.dp)
+            modifier = Modifier.size(128.dp)
         )
         Text(
             text = stringResource(id = header),

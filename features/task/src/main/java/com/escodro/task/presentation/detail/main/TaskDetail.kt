@@ -17,7 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.viewinterop.viewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.escodro.task.R
 import com.escodro.task.model.Category
 import com.escodro.task.model.Task
@@ -138,7 +138,6 @@ private fun TaskTitleTextField(text: String, onTitleChanged: (String) -> Unit) {
             textState.value = it
         },
         textStyle = MaterialTheme.typography.h4,
-        backgroundColor = MaterialTheme.colors.background,
     )
 }
 
@@ -160,7 +159,6 @@ private fun TaskDescriptionTextField(text: String?, onDescriptionChanged: (Strin
             textState.value = it
         },
         textStyle = MaterialTheme.typography.body1,
-        backgroundColor = MaterialTheme.colors.background,
     )
 }
 

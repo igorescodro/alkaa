@@ -8,9 +8,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.preferredHeight
-import androidx.compose.foundation.layout.preferredSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
@@ -25,8 +25,9 @@ import androidx.compose.material.icons.outlined.ExitToApp
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.savedinstancestate.savedInstanceState
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -34,7 +35,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.viewinterop.viewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.escodro.search.R
 import com.escodro.search.model.TaskSearchItem
 import com.escodro.theme.AlkaaTheme
@@ -56,7 +57,7 @@ private fun SearchLoader(
     onItemClicked: (Long) -> Unit,
     viewModel: SearchViewModel = viewModel()
 ) {
-    val (query, setQuery) = savedInstanceState { "" }
+    val (query, setQuery) = rememberSaveable { mutableStateOf("") }
     val viewState by remember(viewModel, query) { viewModel.findTasksByName(query) }
         .collectAsState(initial = SearchViewState.Empty)
 
@@ -135,7 +136,7 @@ private fun SearchListContent(taskList: List<TaskSearchItem>, onItemClicked: (Lo
 private fun SearchItem(task: TaskSearchItem, onItemClicked: (Long) -> Unit) {
     Column(
         modifier = Modifier
-            .preferredHeight(48.dp)
+            .height(48.dp)
             .fillMaxWidth()
             .clickable { onItemClicked(task.id) },
         verticalArrangement = Arrangement.Center
@@ -155,7 +156,7 @@ private fun SearchItem(task: TaskSearchItem, onItemClicked: (Long) -> Unit) {
         Row(modifier = Modifier.padding(horizontal = 16.dp)) {
             Box(
                 modifier = Modifier
-                    .preferredSize(24.dp)
+                    .size(24.dp)
                     .clip(CircleShape)
                     .background(circleColor)
             )
@@ -164,7 +165,7 @@ private fun SearchItem(task: TaskSearchItem, onItemClicked: (Long) -> Unit) {
                 textDecoration = textDecoration,
                 modifier = Modifier
                     .padding(horizontal = 12.dp)
-                    .preferredHeight(24.dp)
+                    .height(24.dp)
             )
         }
     }

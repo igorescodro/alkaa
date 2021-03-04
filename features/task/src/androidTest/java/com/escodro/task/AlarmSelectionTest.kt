@@ -17,10 +17,15 @@ import com.escodro.theme.AlkaaTheme
 import com.schibsted.spain.barista.rule.flaky.FlakyTestRule
 import org.junit.After
 import org.junit.Before
+import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import java.util.Calendar
 
+@Ignore(
+    "For some reason performClick() is not working. Issue Tracker created: " +
+        "https://issuetracker.google.com/issues/181859825"
+)
 internal class AlarmSelectionTest {
 
     @get:Rule

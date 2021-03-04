@@ -6,7 +6,7 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.test.platform.app.InstrumentationRegistry
 import com.escodro.alkaa.model.HomeSection
-import com.escodro.alkaa.presentation.home.Home
+import com.escodro.alkaa.navigation.NavGraph
 import com.escodro.theme.AlkaaTheme
 import org.junit.Before
 import org.junit.Rule
@@ -23,7 +23,7 @@ internal class HomeScreenTest {
     fun setup() {
         composeTestRule.setContent {
             AlkaaTheme {
-                Home(onTaskClicked = {}, onAboutClicked = {})
+                NavGraph()
             }
         }
     }

@@ -4,8 +4,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.preferredHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.Icon
@@ -25,7 +25,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.AmbientContext
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -46,14 +46,14 @@ internal fun AlarmSelection(
     onAlarmUpdated: (Calendar?) -> Unit,
     onIntervalSelected: (AlarmInterval) -> Unit
 ) {
-    val context = AmbientContext.current
+    val context = LocalContext.current
     var date by remember { mutableStateOf(calendar) }
     var alarmInterval by remember { mutableStateOf(interval) }
 
     Column {
         TaskDetailSectionContent(
             modifier = Modifier
-                .preferredHeight(56.dp)
+                .height(56.dp)
                 .clickable {
                     DateTimePickerDialog(context) { calendar ->
                         date = calendar
@@ -81,7 +81,7 @@ internal fun AlarmSelection(
 
             TaskDetailSectionContent(
                 modifier = Modifier
-                    .preferredHeight(56.dp)
+                    .height(56.dp)
                     .clickable {
                         showDialog.value = true
                     },

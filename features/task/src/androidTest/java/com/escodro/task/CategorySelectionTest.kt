@@ -15,9 +15,14 @@ import com.escodro.task.presentation.detail.category.CategorySelection
 import com.escodro.task.presentation.detail.category.ChipNameKey
 import com.escodro.task.presentation.detail.category.TaskCategoryState
 import com.escodro.theme.AlkaaTheme
+import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 
+@Ignore(
+    "For some reason performClick() is not working. Issue Tracker created: " +
+        "https://issuetracker.google.com/issues/181859825"
+)
 internal class CategorySelectionTest {
 
     @get:Rule

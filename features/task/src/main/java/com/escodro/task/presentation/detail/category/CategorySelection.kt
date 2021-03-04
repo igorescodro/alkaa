@@ -2,8 +2,8 @@ package com.escodro.task.presentation.detail.category
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.preferredHeight
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.selection.toggleable
@@ -59,7 +59,7 @@ private fun LoadedCategoryList(
     TaskDetailSectionContent(
         imageVector = Icons.Outlined.Create,
         contentDescription = R.string.task_detail_cd_icon_category,
-        modifier = Modifier.preferredHeight(56.dp)
+        modifier = Modifier.height(56.dp)
     ) {
         LazyRow {
             items(
@@ -83,7 +83,7 @@ private fun EmptyCategoryList() {
     TaskDetailSectionContent(
         imageVector = Icons.Outlined.Create,
         contentDescription = R.string.task_detail_cd_icon_category,
-        modifier = Modifier.preferredHeight(56.dp)
+        modifier = Modifier.height(56.dp)
     ) {
         Text(
             text = stringResource(id = R.string.task_detail_category_empty_list),

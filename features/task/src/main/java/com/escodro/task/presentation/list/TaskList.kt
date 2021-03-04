@@ -25,7 +25,7 @@ import com.escodro.task.model.Task
 import com.escodro.task.model.TaskWithCategory
 import com.escodro.theme.AlkaaTheme
 import com.escodro.theme.components.DefaultIconTextContent
-import org.koin.androidx.compose.getViewModel
+import com.escodro.theme.temp.getViewModel
 import java.util.Calendar
 
 /**

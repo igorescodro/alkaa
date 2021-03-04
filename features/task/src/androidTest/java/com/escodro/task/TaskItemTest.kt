@@ -2,7 +2,6 @@ package com.escodro.task
 
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.compose.ui.test.onNodeWithSubstring
 import androidx.compose.ui.test.onNodeWithText
 import com.escodro.task.model.Task
 import com.escodro.task.model.TaskWithCategory
@@ -46,8 +45,10 @@ internal class TaskItemTest {
         // Assert that the due date time is shown
         val hour = calendar.get(Calendar.HOUR).toString()
         val minute = calendar.get(Calendar.MINUTE).toString()
-        composeTestRule.onNodeWithSubstring(text = hour, useUnmergedTree = true).assertExists()
-        composeTestRule.onNodeWithSubstring(text = minute, useUnmergedTree = true).assertExists()
+        composeTestRule.onNodeWithText(text = hour, substring = true, useUnmergedTree = true)
+            .assertExists()
+        composeTestRule.onNodeWithText(text = minute, substring = true, useUnmergedTree = true)
+            .assertExists()
     }
 
     @Test

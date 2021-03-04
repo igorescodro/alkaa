@@ -29,7 +29,7 @@ import com.escodro.task.presentation.detail.category.TaskCategoryState
 import com.escodro.task.presentation.detail.category.TaskCategoryViewModel
 import com.escodro.theme.AlkaaTheme
 import com.escodro.theme.components.DefaultIconTextContent
-import org.koin.androidx.compose.getViewModel
+import com.escodro.theme.temp.getViewModel
 
 /**
  * Alkaa Task Detail Section.
@@ -138,7 +138,6 @@ private fun TaskTitleTextField(text: String, onTitleChanged: (String) -> Unit) {
             textState.value = it
         },
         textStyle = MaterialTheme.typography.h4,
-        backgroundColor = MaterialTheme.colors.background,
     )
 }
 
@@ -160,7 +159,6 @@ private fun TaskDescriptionTextField(text: String?, onDescriptionChanged: (Strin
             textState.value = it
         },
         textStyle = MaterialTheme.typography.body1,
-        backgroundColor = MaterialTheme.colors.background,
     )
 }
 

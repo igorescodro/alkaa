@@ -9,9 +9,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.preferredHeight
-import androidx.compose.foundation.layout.preferredWidth
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.Card
 import androidx.compose.material.Checkbox
 import androidx.compose.material.FloatingActionButton
@@ -23,7 +23,7 @@ import androidx.compose.material.icons.outlined.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.AmbientContext
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -53,7 +53,7 @@ internal fun TaskItem(
         modifier = modifier
             .fillMaxWidth()
             .padding(all = 8.dp)
-            .preferredHeight(74.dp)
+            .height(74.dp)
             .clickable { onItemClicked(task.task.id) }
     ) {
         Row {
@@ -63,7 +63,7 @@ internal fun TaskItem(
                 checked = task.task.completed,
                 onCheckedChange = { onCheckedChanged(task) }
             )
-            Spacer(Modifier.preferredWidth(8.dp))
+            Spacer(Modifier.width(8.dp))
             Column(modifier = modifier.fillMaxHeight(), verticalArrangement = Arrangement.Center) {
                 Text(
                     text = task.task.title,
@@ -93,7 +93,7 @@ internal fun CardRibbon(color: Color?, modifier: Modifier = Modifier) {
 
     Spacer(
         modifier
-            .preferredWidth(18.dp)
+            .width(18.dp)
             .fillMaxHeight()
             .padding(end = 8.dp)
             .background(ribbonColor)
@@ -106,7 +106,7 @@ internal fun RelativeDateText(calendar: Calendar?) {
         return
     }
 
-    val context = AmbientContext.current
+    val context = LocalContext.current
     val time = calendar.time.time
     val stringTime = DateUtils.getRelativeDateTimeString(
         context, time, DateUtils.DAY_IN_MILLIS, DateUtils.DAY_IN_MILLIS, 0

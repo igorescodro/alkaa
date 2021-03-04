@@ -5,13 +5,13 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.preferredHeight
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.AmbientContext
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -36,7 +36,7 @@ fun PreferenceSection(modifier: Modifier = Modifier, onAboutClicked: () -> Unit)
 @Composable
 private fun VersionItem() {
     val title = stringResource(id = R.string.preference_title_version)
-    val version = AmbientContext.current.getVersionName()
+    val version = LocalContext.current.getVersionName()
     PreferenceItem(title = title, version)
 }
 
@@ -59,7 +59,7 @@ private fun PreferenceItem(
             .clickable { onItemClicked() }
             .padding(start = 32.dp, top = 8.dp, end = 16.dp, bottom = 8.dp)
             .fillMaxWidth()
-            .preferredHeight(48.dp),
+            .height(48.dp),
         verticalArrangement = Arrangement.Center
     ) {
         Text(

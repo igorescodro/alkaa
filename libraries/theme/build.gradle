@@ -7,3 +7,8 @@ android {
         exclude 'META-INF/LGPL2.1'
     }
 }
+
+dependencies {
+    implementation Deps.koin.viewModel
+    implementation Deps.compose.viewModel
+}

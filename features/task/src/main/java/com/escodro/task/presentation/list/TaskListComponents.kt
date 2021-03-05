@@ -78,8 +78,8 @@ internal fun TaskItem(
 }
 
 @Composable
-internal fun FloatingButton() {
-    FloatingActionButton(backgroundColor = MaterialTheme.colors.primary, onClick = { /*TODO*/ }) {
+internal fun FloatingButton(onClick: () -> Unit) {
+    FloatingActionButton(backgroundColor = MaterialTheme.colors.primary, onClick = onClick) {
         Icon(
             imageVector = Icons.Outlined.Add,
             contentDescription = stringResource(id = R.string.task_cd_add_task)

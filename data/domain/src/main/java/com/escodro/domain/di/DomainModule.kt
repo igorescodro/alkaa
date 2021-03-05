@@ -21,6 +21,7 @@ import com.escodro.domain.usecase.category.implementation.LoadAllCategoriesImpl
 import com.escodro.domain.usecase.search.SearchTasksByName
 import com.escodro.domain.usecase.search.implementation.SearchTasksByNameImpl
 import com.escodro.domain.usecase.task.AddTask
+import com.escodro.domain.usecase.task.implementation.AddTaskImpl
 import com.escodro.domain.usecase.task.CompleteTask
 import com.escodro.domain.usecase.task.DeleteTask
 import com.escodro.domain.usecase.task.LoadTask
@@ -49,7 +50,7 @@ import org.koin.dsl.module
 val domainModule = module {
 
     // Task Use Cases
-    factory { AddTask(get()) }
+    factory<AddTask> { AddTaskImpl(get()) }
     factory { CompleteTask(get(), get(), get(), get()) }
     factory { UncompleteTask(get()) }
     factory<UpdateTaskStatus> { UpdateTaskStatusImpl(get(), get(), get()) }

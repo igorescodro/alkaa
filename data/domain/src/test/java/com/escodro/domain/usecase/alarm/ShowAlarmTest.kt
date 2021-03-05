@@ -6,7 +6,7 @@ import com.escodro.domain.provider.CalendarProviderImpl
 import com.escodro.domain.usecase.fake.AlarmInteractorFake
 import com.escodro.domain.usecase.fake.NotificationInteractorFake
 import com.escodro.domain.usecase.fake.TaskRepositoryFake
-import com.escodro.domain.usecase.task.AddTask
+import com.escodro.domain.usecase.task.implementation.AddTaskImpl
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert
@@ -24,7 +24,7 @@ internal class ShowAlarmTest {
 
     private val calendarProvider = CalendarProviderImpl()
 
-    private val addTaskUseCase = AddTask(taskRepository)
+    private val addTaskUseCase = AddTaskImpl(taskRepository)
 
     private val scheduleNextAlarmUseCase =
         ScheduleNextAlarm(taskRepository, alarmInteractor, calendarProvider)

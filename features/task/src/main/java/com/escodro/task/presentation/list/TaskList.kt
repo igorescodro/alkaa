@@ -5,8 +5,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.FabPosition
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.ModalBottomSheetState
+import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Close
@@ -15,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -23,9 +27,11 @@ import com.escodro.task.R
 import com.escodro.task.model.Category
 import com.escodro.task.model.Task
 import com.escodro.task.model.TaskWithCategory
+import com.escodro.task.presentation.add.AddTaskSection
 import com.escodro.theme.AlkaaTheme
 import com.escodro.theme.components.DefaultIconTextContent
 import com.escodro.theme.temp.getViewModel
+import kotlinx.coroutines.launch
 import java.util.Calendar
 
 /**
@@ -33,16 +39,25 @@ import java.util.Calendar
  *
  * @param modifier the decorator
  */
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun TaskListSection(modifier: Modifier = Modifier, onItemClicked: (Long) -> Unit) {
-    TaskListLoader(modifier = modifier, onItemClicked = onItemClicked)
+fun TaskListSection(
+    modifier: Modifier = Modifier,
+    onItemClicked: (Long) -> Unit,
+    bottomSheetContent: (@Composable() () -> Unit) -> Unit,
+    sheetState: ModalBottomSheetState
+) {
+    TaskListLoader(modifier = modifier, onItemClicked = onItemClicked, sheetState = sheetState)
+    bottomSheetContent { AddTaskSection(sheetState = sheetState) }
 }
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 private fun TaskListLoader(
     modifier: Modifier = Modifier,
     onItemClicked: (Long) -> Unit,
-    viewModel: TaskListViewModel = getViewModel()
+    viewModel: TaskListViewModel = getViewModel(),
+    sheetState: ModalBottomSheetState
 ) {
     val viewState by remember(viewModel) { viewModel.loadTaskList() }
         .collectAsState(initial = TaskListViewState.Empty)
@@ -51,21 +66,25 @@ private fun TaskListLoader(
         viewState = viewState,
         modifier = modifier,
         onCheckedChanged = { item -> viewModel.updateTaskStatus(item) },
-        onItemClicked = onItemClicked
+        onItemClicked = onItemClicked,
+        sheetState = sheetState
     )
 }
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 internal fun TaskListScaffold(
     viewState: TaskListViewState,
     modifier: Modifier = Modifier,
     onCheckedChanged: (TaskWithCategory) -> Unit,
-    onItemClicked: (Long) -> Unit
+    onItemClicked: (Long) -> Unit,
+    sheetState: ModalBottomSheetState
 ) {
+    val coroutineScope = rememberCoroutineScope()
     Scaffold(
         modifier = modifier.fillMaxSize(),
         backgroundColor = MaterialTheme.colors.background,
-        floatingActionButton = { FloatingButton() },
+        floatingActionButton = { FloatingButton { coroutineScope.launch { sheetState.show() } } },
         floatingActionButtonPosition = FabPosition.Center
     ) {
         when (viewState) {
@@ -119,6 +138,7 @@ private fun TaskListError() {
     )
 }
 
+@ExperimentalMaterialApi
 @Suppress("UndocumentedPublicFunction")
 @Preview
 @Composable
@@ -143,11 +163,13 @@ fun TaskListScaffoldLoaded() {
             viewState = state,
             modifier = Modifier,
             onCheckedChanged = {},
-            onItemClicked = {}
+            onItemClicked = {},
+            sheetState = ModalBottomSheetState(ModalBottomSheetValue.Hidden)
         )
     }
 }
 
+@OptIn(ExperimentalMaterialApi::class)
 @Suppress("UndocumentedPublicFunction")
 @Preview
 @Composable
@@ -159,11 +181,13 @@ fun TaskListScaffoldEmpty() {
             viewState = state,
             modifier = Modifier,
             onCheckedChanged = {},
-            onItemClicked = {}
+            onItemClicked = {},
+            sheetState = ModalBottomSheetState(ModalBottomSheetValue.Hidden)
         )
     }
 }
 
+@OptIn(ExperimentalMaterialApi::class)
 @Suppress("UndocumentedPublicFunction")
 @Preview
 @Composable
@@ -175,7 +199,8 @@ fun TaskListScaffoldError() {
             viewState = state,
             modifier = Modifier,
             onCheckedChanged = {},
-            onItemClicked = {}
+            onItemClicked = {},
+            sheetState = ModalBottomSheetState(ModalBottomSheetValue.Hidden)
         )
     }
 }

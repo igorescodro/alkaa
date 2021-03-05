@@ -14,4 +14,6 @@
     <string name="task_detail_cd_icon_repeat_alarm">Alarme recorrente</string>
     <string name="task_detail_alarm_no_alarm">Sem alarme</string>
     <string name="task_detail_cd_icon_remove_alarm">Remover alarme</string>
+    <string name="task_add_save">Salvar</string>
+    <string name="task_add_label">Tarefa</string>
 </resources>

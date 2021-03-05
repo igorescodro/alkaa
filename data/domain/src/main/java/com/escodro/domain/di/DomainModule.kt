@@ -30,6 +30,7 @@ import com.escodro.domain.usecase.task.UpdateTaskCategory
 import com.escodro.domain.usecase.task.UpdateTaskDescription
 import com.escodro.domain.usecase.task.UpdateTaskStatus
 import com.escodro.domain.usecase.task.UpdateTaskTitle
+import com.escodro.domain.usecase.task.implementation.AddTaskImpl
 import com.escodro.domain.usecase.task.implementation.LoadTaskImpl
 import com.escodro.domain.usecase.task.implementation.UpdateTaskCategoryImpl
 import com.escodro.domain.usecase.task.implementation.UpdateTaskDescriptionImpl
@@ -49,7 +50,7 @@ import org.koin.dsl.module
 val domainModule = module {
 
     // Task Use Cases
-    factory { AddTask(get()) }
+    factory<AddTask> { AddTaskImpl(get()) }
     factory { CompleteTask(get(), get(), get(), get()) }
     factory { UncompleteTask(get()) }
     factory<UpdateTaskStatus> { UpdateTaskStatusImpl(get(), get(), get()) }

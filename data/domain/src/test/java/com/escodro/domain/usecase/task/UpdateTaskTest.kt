@@ -2,6 +2,7 @@ package com.escodro.domain.usecase.task
 
 import com.escodro.domain.model.Task
 import com.escodro.domain.usecase.fake.TaskRepositoryFake
+import com.escodro.domain.usecase.task.implementation.AddTaskImpl
 import com.escodro.domain.usecase.task.implementation.LoadTaskImpl
 import com.escodro.domain.usecase.task.implementation.UpdateTaskCategoryImpl
 import com.escodro.domain.usecase.task.implementation.UpdateTaskDescriptionImpl
@@ -17,7 +18,7 @@ internal class UpdateTaskTest {
 
     private val taskRepository = TaskRepositoryFake()
 
-    private val addTaskUseCase = AddTask(taskRepository)
+    private val addTaskUseCase = AddTaskImpl(taskRepository)
 
     private val updateTaskUseCase = UpdateTaskImpl(taskRepository)
 

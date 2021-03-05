@@ -5,6 +5,7 @@ import com.escodro.domain.usecase.fake.AlarmInteractorFake
 import com.escodro.domain.usecase.fake.CalendarProviderFake
 import com.escodro.domain.usecase.fake.NotificationInteractorFake
 import com.escodro.domain.usecase.fake.TaskRepositoryFake
+import com.escodro.domain.usecase.task.implementation.AddTaskImpl
 import com.escodro.domain.usecase.task.implementation.LoadTaskImpl
 import com.escodro.domain.usecase.task.implementation.UpdateTaskStatusImpl
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -24,7 +25,7 @@ internal class CompleteTaskTest {
 
     private val calendarProvider = CalendarProviderFake()
 
-    private val addTaskUseCase = AddTask(taskRepository)
+    private val addTaskUseCase = AddTaskImpl(taskRepository)
 
     private val completeTaskUseCase =
         CompleteTask(taskRepository, alarmInteractor, notificationInteractor, calendarProvider)

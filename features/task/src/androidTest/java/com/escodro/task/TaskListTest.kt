@@ -1,5 +1,8 @@
 package com.escodro.task
 
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.ModalBottomSheetValue
+import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.test.junit4.createComposeRule
@@ -67,6 +70,7 @@ internal class TaskListTest {
         composeTestRule.onNodeWithText(text = task.title, useUnmergedTree = true).assertExists()
     }
 
+    @OptIn(ExperimentalMaterialApi::class)
     private fun loadTaskList(state: TaskListViewState) {
         composeTestRule.setContent {
             AlkaaTheme {
@@ -74,7 +78,8 @@ internal class TaskListTest {
                     viewState = state,
                     modifier = Modifier,
                     onCheckedChanged = {},
-                    onItemClicked = {}
+                    onItemClicked = {},
+                    sheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
                 )
             }
         }

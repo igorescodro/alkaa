@@ -17,7 +17,8 @@
 
         <activity
             android:name="com.escodro.alkaa.presentation.MainActivity"
-            android:theme="@style/Theme.Alkaa">
+            android:theme="@style/Theme.Alkaa"
+            android:windowSoftInputMode="adjustResize">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

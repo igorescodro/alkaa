@@ -11,9 +11,9 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.ModalBottomSheetState
 import androidx.compose.material.ModalBottomSheetValue
+import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.material.TextField
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -48,7 +48,8 @@ internal fun AddTaskLoader(
         verticalArrangement = Arrangement.SpaceAround
     ) {
         val textState = remember { mutableStateOf(TextFieldValue("")) }
-        TextField(
+        OutlinedTextField(
+            label = { Text(text = stringResource(id = R.string.task_add_label)) },
             value = textState.value,
             onValueChange = { text -> textState.value = text },
             modifier = Modifier.fillMaxWidth()

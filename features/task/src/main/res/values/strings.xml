@@ -19,4 +19,5 @@
     <string name="task_detail_alarm_no_alarm">No alarm</string>
 
     <string name="task_add_save">Save</string>
+    <string name="task_add_label">Task</string>
 </resources>

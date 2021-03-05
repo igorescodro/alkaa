@@ -27,11 +27,21 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.escodro.task.R
 import com.escodro.theme.AlkaaTheme
+import com.escodro.theme.temp.getViewModel
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-internal fun AddTaskBottomSheet(sheetState: ModalBottomSheetState) {
+internal fun AddTaskSection(sheetState: ModalBottomSheetState) {
+    AddTaskLoader(sheetState = sheetState)
+}
+
+@OptIn(ExperimentalMaterialApi::class)
+@Composable
+internal fun AddTaskLoader(
+    sheetState: ModalBottomSheetState,
+    viewModel: AddTaskViewModel = getViewModel()
+) {
     val coroutineScope = rememberCoroutineScope()
     Column(
         modifier = Modifier.padding(16.dp),
@@ -47,6 +57,7 @@ internal fun AddTaskBottomSheet(sheetState: ModalBottomSheetState) {
         Button(
             modifier = Modifier.align(Alignment.End),
             onClick = {
+                viewModel.addTask(textState.value.text)
                 coroutineScope.launch { sheetState.hide() }
                 textState.value = TextFieldValue()
             }
@@ -69,7 +80,7 @@ fun TaskListScaffoldError() {
                 .height(256.dp)
                 .background(MaterialTheme.colors.background)
         ) {
-            AddTaskBottomSheet(sheetState = state)
+            AddTaskSection(sheetState = state)
         }
     }
 }

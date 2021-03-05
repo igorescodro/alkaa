@@ -5,7 +5,7 @@ import com.escodro.domain.repository.TaskRepository
 import com.escodro.domain.usecase.task.AddTask
 import timber.log.Timber
 
-class AddTaskImpl(private val taskRepository: TaskRepository) : AddTask {
+internal class AddTaskImpl(private val taskRepository: TaskRepository) : AddTask {
 
     override suspend operator fun invoke(task: Task) {
         if (task.title.isBlank()) {

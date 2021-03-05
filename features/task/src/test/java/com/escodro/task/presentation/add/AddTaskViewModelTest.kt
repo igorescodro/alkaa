@@ -19,7 +19,7 @@ internal class AddTaskViewModelTest {
     val coroutineTestRule = CoroutineTestRule()
 
     @Before
-    fun setup(){
+    fun setup() {
         addTask.clear()
     }
 

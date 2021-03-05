@@ -27,7 +27,7 @@ import com.escodro.task.R
 import com.escodro.task.model.Category
 import com.escodro.task.model.Task
 import com.escodro.task.model.TaskWithCategory
-import com.escodro.task.presentation.add.AddTaskBottomSheet
+import com.escodro.task.presentation.add.AddTaskSection
 import com.escodro.theme.AlkaaTheme
 import com.escodro.theme.components.DefaultIconTextContent
 import com.escodro.theme.temp.getViewModel
@@ -48,7 +48,7 @@ fun TaskListSection(
     sheetState: ModalBottomSheetState
 ) {
     TaskListLoader(modifier = modifier, onItemClicked = onItemClicked, sheetState = sheetState)
-    bottomSheetContent { AddTaskBottomSheet(sheetState = sheetState) }
+    bottomSheetContent { AddTaskSection(sheetState = sheetState) }
 }
 
 @OptIn(ExperimentalMaterialApi::class)

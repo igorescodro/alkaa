@@ -1,6 +1,7 @@
 package com.escodro.task.presentation.category
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -10,12 +11,11 @@ import androidx.compose.foundation.selection.toggleable
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Create
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
@@ -28,7 +28,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.escodro.task.R
 import com.escodro.task.model.Category
-import com.escodro.task.presentation.detail.TaskDetailSectionContent
 import com.escodro.task.presentation.detail.main.CategoryId
 import com.escodro.theme.AlkaaTheme
 
@@ -36,15 +35,21 @@ import com.escodro.theme.AlkaaTheme
 internal fun CategorySelection(
     state: CategoryState,
     currentCategory: Long?,
-    onCategoryChanged: (CategoryId) -> Unit
+    onCategoryChanged: (CategoryId) -> Unit,
+    modifier: Modifier = Modifier
 ) {
-    when (state) {
-        is CategoryState.Loaded -> LoadedCategoryList(
-            categoryList = state.categoryList,
-            currentCategory = currentCategory,
-            onCategoryChanged = onCategoryChanged
-        )
-        CategoryState.Empty -> EmptyCategoryList()
+    Box(
+        modifier = modifier.height(56.dp),
+        contentAlignment = Alignment.CenterStart
+    ) {
+        when (state) {
+            is CategoryState.Loaded -> LoadedCategoryList(
+                categoryList = state.categoryList,
+                currentCategory = currentCategory,
+                onCategoryChanged = onCategoryChanged
+            )
+            CategoryState.Empty -> EmptyCategoryList()
+        }
     }
 }
 
@@ -56,40 +61,28 @@ private fun LoadedCategoryList(
 ) {
     val currentItem = categoryList.find { category -> category.id == currentCategory }
     val selectedState = remember { mutableStateOf(currentItem) }
-    TaskDetailSectionContent(
-        imageVector = Icons.Outlined.Create,
-        contentDescription = R.string.task_detail_cd_icon_category,
-        modifier = Modifier.height(56.dp)
-    ) {
-        LazyRow {
-            items(
-                items = categoryList,
-                itemContent = { category ->
-                    val isSelected = category == selectedState.value
-                    CategoryItemChip(
-                        category = category,
-                        isSelected = isSelected,
-                        selectedState,
-                        onCategoryChanged = { id -> onCategoryChanged(CategoryId(id)) }
-                    )
-                }
-            )
-        }
+    LazyRow {
+        items(
+            items = categoryList,
+            itemContent = { category ->
+                val isSelected = category == selectedState.value
+                CategoryItemChip(
+                    category = category,
+                    isSelected = isSelected,
+                    selectedState,
+                    onCategoryChanged = { id -> onCategoryChanged(CategoryId(id)) }
+                )
+            }
+        )
     }
 }
 
 @Composable
 private fun EmptyCategoryList() {
-    TaskDetailSectionContent(
-        imageVector = Icons.Outlined.Create,
-        contentDescription = R.string.task_detail_cd_icon_category,
-        modifier = Modifier.height(56.dp)
-    ) {
-        Text(
-            text = stringResource(id = R.string.task_detail_category_empty_list),
-            color = MaterialTheme.colors.onSecondary
-        )
-    }
+    Text(
+        text = stringResource(id = R.string.task_detail_category_empty_list),
+        color = MaterialTheme.colors.onSecondary
+    )
 }
 
 @Composable

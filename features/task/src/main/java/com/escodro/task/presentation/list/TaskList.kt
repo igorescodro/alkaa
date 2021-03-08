@@ -127,7 +127,8 @@ private fun TaskFilter(categoryHandler: CategoryStateHandler) {
     CategorySelection(
         state = categoryHandler.state,
         currentCategory = categoryHandler.currentCategory?.value,
-        onCategoryChanged = categoryHandler.onCategoryChanged
+        onCategoryChanged = categoryHandler.onCategoryChanged,
+        modifier = Modifier.padding(start = 16.dp)
     )
 }
 

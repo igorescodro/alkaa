@@ -1,7 +1,7 @@
 package com.escodro.task.presentation.detail
 
 import com.escodro.task.mapper.CategoryMapper
-import com.escodro.task.presentation.detail.category.TaskCategoryState
+import com.escodro.task.presentation.category.CategoryState
 import com.escodro.task.presentation.detail.category.TaskCategoryViewModel
 import com.escodro.task.presentation.detail.main.CategoryId
 import com.escodro.task.presentation.detail.main.TaskId
@@ -43,7 +43,7 @@ internal class TaskCategoryViewModelTest {
             val state = flow.first()
 
             // Then the category list is returned
-            require(state is TaskCategoryState.Loaded)
+            require(state is CategoryState.Loaded)
             val assertCategoryList = categoryMapper.toView(FAKE_DOMAIN_CATEGORY_LIST)
             Assert.assertEquals(assertCategoryList, state.categoryList)
         }
@@ -58,7 +58,7 @@ internal class TaskCategoryViewModelTest {
             // When the latest event is collected
             val state = flow.first()
 
-            require(state is TaskCategoryState.Empty)
+            require(state is CategoryState.Empty)
         }
 
     @Test

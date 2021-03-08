@@ -1,4 +1,4 @@
-package com.escodro.task.presentation.detail.category
+package com.escodro.task.presentation.category
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Row
@@ -34,17 +34,17 @@ import com.escodro.theme.AlkaaTheme
 
 @Composable
 internal fun CategorySelection(
-    state: TaskCategoryState,
+    state: CategoryState,
     currentCategory: Long?,
     onCategoryChanged: (CategoryId) -> Unit
 ) {
     when (state) {
-        is TaskCategoryState.Loaded -> LoadedCategoryList(
+        is CategoryState.Loaded -> LoadedCategoryList(
             categoryList = state.categoryList,
             currentCategory = currentCategory,
             onCategoryChanged = onCategoryChanged
         )
-        TaskCategoryState.Empty -> EmptyCategoryList()
+        CategoryState.Empty -> EmptyCategoryList()
     }
 }
 
@@ -160,7 +160,7 @@ fun CategorySelectionListPreview() {
     AlkaaTheme {
         Surface(color = MaterialTheme.colors.background) {
             CategorySelection(
-                state = TaskCategoryState.Loaded(categories),
+                state = CategoryState.Loaded(categories),
                 currentCategory = category2.id,
                 onCategoryChanged = {}
             )
@@ -175,7 +175,7 @@ fun CategorySelectionEmptyPreview() {
     AlkaaTheme {
         Surface(color = MaterialTheme.colors.background) {
             CategorySelection(
-                state = TaskCategoryState.Empty,
+                state = CategoryState.Empty,
                 currentCategory = null,
                 onCategoryChanged = {}
             )

@@ -9,6 +9,7 @@ import androidx.compose.material.TextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.outlined.Close
+import androidx.compose.material.icons.outlined.Create
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -26,6 +27,7 @@ import com.escodro.task.presentation.category.CategoryState
 import com.escodro.task.presentation.category.TaskCategoryViewModel
 import com.escodro.task.presentation.detail.LeadingIcon
 import com.escodro.task.presentation.detail.TaskDetailActions
+import com.escodro.task.presentation.detail.TaskDetailSectionContent
 import com.escodro.task.presentation.detail.alarm.AlarmSelection
 import com.escodro.task.presentation.detail.alarm.TaskAlarmViewModel
 import com.escodro.theme.AlkaaTheme
@@ -100,11 +102,16 @@ private fun TaskDetailContent(
     Surface(color = MaterialTheme.colors.background) {
         Column {
             TaskTitleTextField(text = task.title, onTitleChanged = actions.onTitleChanged)
-            CategorySelection(
-                state = categoryViewState,
-                currentCategory = task.categoryId,
-                onCategoryChanged = actions.onCategoryChanged
-            )
+            TaskDetailSectionContent(
+                imageVector = Icons.Outlined.Create,
+                contentDescription = R.string.task_detail_cd_icon_category,
+            ) {
+                CategorySelection(
+                    state = categoryViewState,
+                    currentCategory = task.categoryId,
+                    onCategoryChanged = actions.onCategoryChanged
+                )
+            }
             TaskDescriptionTextField(
                 text = task.description,
                 onDescriptionChanged = actions.onDescriptionChanged

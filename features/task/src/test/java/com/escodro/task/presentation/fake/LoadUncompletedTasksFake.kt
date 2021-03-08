@@ -5,7 +5,6 @@ import com.escodro.domain.model.Task
 import com.escodro.domain.model.TaskWithCategory
 import com.escodro.domain.usecase.taskwithcategory.LoadUncompletedTasks
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import java.util.Calendar
@@ -15,8 +14,6 @@ internal class LoadUncompletedTasksFake : LoadUncompletedTasks {
     private var list: List<TaskWithCategory> = listOf()
 
     var throwError: Boolean = false
-
-    var multipleEmissions: Boolean = false
 
     fun returnDefaultValues() {
         val task1 = Task(title = "Buy milk", dueDate = null)
@@ -51,17 +48,11 @@ internal class LoadUncompletedTasksFake : LoadUncompletedTasks {
         list = listOf()
     }
 
-    override fun invoke(): Flow<List<TaskWithCategory>> {
+    override fun invoke(categoryId: Long?): Flow<List<TaskWithCategory>> {
         return when {
-            multipleEmissions -> multipleEmissions()
-            throwError.not() -> flowOf(list)
-            else -> flowOf(list).map { throw IllegalStateException() }
+            throwError -> flowOf(list).map { throw IllegalStateException() }
+            categoryId != null -> flowOf(list.filter { it.category?.id == categoryId })
+            else -> flowOf(list)
         }
     }
-
-    private fun multipleEmissions() =
-        flow {
-            emit(listOf<TaskWithCategory>())
-            emit(list)
-        }
 }

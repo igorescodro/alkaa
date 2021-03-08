@@ -94,4 +94,18 @@ internal class TaskListViewModelTest {
         // Then the task is updated
         Assert.assertTrue(updateTaskStatus.isTaskUpdated(fakeTask.task.id))
     }
+
+    @Test
+    fun `test if tasks are filtered by category when parameter is passed`() = runBlockingTest {
+        // Given the use case returns the list with uncompleted tasks
+        loadUncompletedTasks.returnDefaultValues()
+        val flow = viewModel.loadTaskList(categoryId = 1)
+
+        // When the latest event is collected
+        val state = flow.first()
+
+        // Then that state contains the list with uncompleted tasks
+        require(state is TaskListViewState.Loaded)
+        Assert.assertEquals(2, state.items.size)
+    }
 }

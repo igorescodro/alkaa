@@ -165,7 +165,8 @@ private fun SearchItem(task: TaskSearchItem, onItemClicked: (Long) -> Unit) {
                 textDecoration = textDecoration,
                 modifier = Modifier
                     .padding(horizontal = 12.dp)
-                    .size(24.dp)
+                    .fillMaxWidth()
+                    .height(24.dp)
             )
         }
     }

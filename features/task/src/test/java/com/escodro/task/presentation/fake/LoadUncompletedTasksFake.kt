@@ -19,14 +19,16 @@ internal class LoadUncompletedTasksFake : LoadUncompletedTasks {
         val task1 = Task(title = "Buy milk", dueDate = null)
         val task2 = Task(title = "Call Mark", dueDate = Calendar.getInstance())
         val task3 = Task(title = "Watch Moonlight", dueDate = Calendar.getInstance())
+        val task4 = Task(title = "Find Moo")
 
-        val category1 = Category(name = "Books", color = "#FF0000")
-        val category2 = Category(name = "Reminders", color = "#00FF00")
+        val category1 = Category(id = 1, name = "Books", color = "#FF0000")
+        val category2 = Category(id = 2, name = "Reminders", color = "#00FF00")
 
         val taskList = listOf(
             TaskWithCategory(task = task1, category = category1),
             TaskWithCategory(task = task2, category = category2),
-            TaskWithCategory(task = task3, category = null)
+            TaskWithCategory(task = task3, category = null),
+            TaskWithCategory(task = task4, category = category1)
         )
 
         list = taskList

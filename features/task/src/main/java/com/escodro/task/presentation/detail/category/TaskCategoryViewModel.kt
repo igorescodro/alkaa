@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.escodro.domain.usecase.category.LoadAllCategories
 import com.escodro.domain.usecase.task.UpdateTaskCategory
 import com.escodro.task.mapper.CategoryMapper
+import com.escodro.task.presentation.category.CategoryState
 import com.escodro.task.presentation.detail.main.CategoryId
 import com.escodro.task.presentation.detail.main.TaskId
 import kotlinx.coroutines.flow.Flow
@@ -17,14 +18,14 @@ internal class TaskCategoryViewModel(
     private val categoryMapper: CategoryMapper
 ) : ViewModel() {
 
-    fun loadCategories(): Flow<TaskCategoryState> = flow {
+    fun loadCategories(): Flow<CategoryState> = flow {
         val categoryList = loadAllCategories()
 
         if (categoryList.isNotEmpty()) {
             val mappedList = categoryMapper.toView(categoryList)
-            emit(TaskCategoryState.Loaded(mappedList))
+            emit(CategoryState.Loaded(mappedList))
         } else {
-            emit(TaskCategoryState.Empty)
+            emit(CategoryState.Empty)
         }
     }
 

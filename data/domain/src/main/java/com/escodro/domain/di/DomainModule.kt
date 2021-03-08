@@ -39,6 +39,7 @@ import com.escodro.domain.usecase.task.implementation.UpdateTaskStatusImpl
 import com.escodro.domain.usecase.task.implementation.UpdateTaskTitleImpl
 import com.escodro.domain.usecase.taskwithcategory.LoadCompletedTasks
 import com.escodro.domain.usecase.taskwithcategory.LoadTasksByCategory
+import com.escodro.domain.usecase.taskwithcategory.implementation.LoadTasksByCategoryImpl
 import com.escodro.domain.usecase.taskwithcategory.LoadUncompletedTasks
 import com.escodro.domain.usecase.taskwithcategory.implementation.LoadUncompletedTasksImpl
 import com.escodro.domain.usecase.tracker.LoadCompletedTasksByPeriod
@@ -72,7 +73,7 @@ val domainModule = module {
     factory<SearchTasksByName> { SearchTasksByNameImpl(get()) }
 
     // Task With Category Use Cases
-    factory { LoadTasksByCategory(get(), get()) }
+    factory<LoadTasksByCategory> { LoadTasksByCategoryImpl(get(), get()) }
     factory { LoadCompletedTasks(get()) }
     factory<LoadUncompletedTasks> { LoadUncompletedTasksImpl(get()) }
 

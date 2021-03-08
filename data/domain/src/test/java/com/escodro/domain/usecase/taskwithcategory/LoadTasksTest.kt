@@ -5,7 +5,6 @@ import com.escodro.domain.model.Task
 import com.escodro.domain.usecase.fake.CategoryRepositoryFake
 import com.escodro.domain.usecase.fake.TaskRepositoryFake
 import com.escodro.domain.usecase.fake.TaskWithCategoryRepositoryFake
-import com.escodro.domain.usecase.taskwithcategory.implementation.LoadUncompletedTasksByCategoryImpl
 import com.escodro.domain.usecase.taskwithcategory.implementation.LoadUncompletedTasksImpl
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
@@ -28,9 +27,6 @@ internal class LoadTasksTest {
     private val loadCompletedTasksUseCase = LoadCompletedTasks(taskWithCategoryRepository)
 
     private val loadUncompletedTasksUseCase = LoadUncompletedTasksImpl(taskWithCategoryRepository)
-
-    private val loadUncompletedTasksByCategoryUseCase =
-        LoadUncompletedTasksByCategoryImpl(taskWithCategoryRepository, categoryRepository)
 
     @Before
     fun setup() = runBlockingTest {
@@ -74,16 +70,11 @@ internal class LoadTasksTest {
 
     @Test
     fun `test if uncompleted tasks are filtered by category`() = runBlockingTest {
-        val uncompletedTasksByCategory = loadUncompletedTasksByCategoryUseCase(2L).first()
+        val uncompletedTasksByCategory = loadUncompletedTasksUseCase(2L).first()
 
         Assert.assertEquals(1, uncompletedTasksByCategory.size)
         uncompletedTasksByCategory.forEach { taskWithCategory ->
             Assert.assertFalse(taskWithCategory.task.completed)
         }
-    }
-
-    @Test(expected = IllegalArgumentException::class)
-    fun `test if exception is returned when category does not exist`() = runBlockingTest {
-        loadUncompletedTasksByCategoryUseCase(999L).first()
     }
 }

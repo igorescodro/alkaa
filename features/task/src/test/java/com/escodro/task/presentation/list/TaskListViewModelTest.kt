@@ -10,7 +10,6 @@ import com.escodro.task.presentation.fake.UpdateTaskStatusFake
 import com.escodro.test.CoroutineTestRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert
 import org.junit.Before
@@ -67,23 +66,6 @@ internal class TaskListViewModelTest {
 
             // Then that state contains the empty list
             Assert.assertTrue(state is TaskListViewState.Empty)
-        }
-
-    @Test
-    fun `test if when list changes, the state is re-triggered`() =
-        coroutinesRule.testDispatcher.runBlockingTest {
-
-            // When multiple states are sent
-            loadUncompletedTasks.returnDefaultValues()
-            loadUncompletedTasks.multipleEmissions = true
-
-            // Given collecting multiple states
-            val result = viewModel.loadTaskList().toList()
-
-            // Then multiple states are collected
-            Assert.assertEquals(2, result.size)
-            Assert.assertTrue(result[0] is TaskListViewState.Empty)
-            Assert.assertTrue(result[1] is TaskListViewState.Loaded)
         }
 
     @Test

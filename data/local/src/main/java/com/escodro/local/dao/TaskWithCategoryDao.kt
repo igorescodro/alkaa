@@ -32,8 +32,7 @@ interface TaskWithCategoryDao {
     @Query(
         """SELECT * FROM task
             LEFT JOIN category ON task_category_id = category_id
-            WHERE task_category_id = :categoryId
-            AND task_is_completed = 0"""
+            WHERE task_category_id = :categoryId"""
     )
     fun findAllTasksWithCategoryId(categoryId: Long): Flow<List<TaskWithCategory>>
 

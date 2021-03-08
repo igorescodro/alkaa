@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 /**
  * Use case to get a task with category by the category id from the database.
  */
-interface LoadTasksByCategory {
+interface LoadUncompletedTasksByCategory {
 
     /**
      * Gets a task with category by the category id if the category exists.

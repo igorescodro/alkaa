@@ -5,7 +5,6 @@ import com.escodro.domain.model.Task
 import com.escodro.domain.model.TaskWithCategory
 import com.escodro.domain.usecase.taskwithcategory.LoadUncompletedTasks
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import java.util.Calendar
@@ -16,20 +15,20 @@ internal class LoadUncompletedTasksFake : LoadUncompletedTasks {
 
     var throwError: Boolean = false
 
-    var multipleEmissions: Boolean = false
-
     fun returnDefaultValues() {
         val task1 = Task(title = "Buy milk", dueDate = null)
         val task2 = Task(title = "Call Mark", dueDate = Calendar.getInstance())
         val task3 = Task(title = "Watch Moonlight", dueDate = Calendar.getInstance())
+        val task4 = Task(title = "Find Moo")
 
-        val category1 = Category(name = "Books", color = "#FF0000")
-        val category2 = Category(name = "Reminders", color = "#00FF00")
+        val category1 = Category(id = 1, name = "Books", color = "#FF0000")
+        val category2 = Category(id = 2, name = "Reminders", color = "#00FF00")
 
         val taskList = listOf(
             TaskWithCategory(task = task1, category = category1),
             TaskWithCategory(task = task2, category = category2),
-            TaskWithCategory(task = task3, category = null)
+            TaskWithCategory(task = task3, category = null),
+            TaskWithCategory(task = task4, category = category1)
         )
 
         list = taskList
@@ -51,17 +50,11 @@ internal class LoadUncompletedTasksFake : LoadUncompletedTasks {
         list = listOf()
     }
 
-    override fun invoke(): Flow<List<TaskWithCategory>> {
+    override fun invoke(categoryId: Long?): Flow<List<TaskWithCategory>> {
         return when {
-            multipleEmissions -> multipleEmissions()
-            throwError.not() -> flowOf(list)
-            else -> flowOf(list).map { throw IllegalStateException() }
+            throwError -> flowOf(list).map { throw IllegalStateException() }
+            categoryId != null -> flowOf(list.filter { it.category?.id == categoryId })
+            else -> flowOf(list)
         }
     }
-
-    private fun multipleEmissions() =
-        flow {
-            emit(listOf<TaskWithCategory>())
-            emit(list)
-        }
 }

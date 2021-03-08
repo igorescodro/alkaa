@@ -10,7 +10,6 @@ import com.escodro.task.presentation.fake.UpdateTaskStatusFake
 import com.escodro.test.CoroutineTestRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert
 import org.junit.Before
@@ -70,23 +69,6 @@ internal class TaskListViewModelTest {
         }
 
     @Test
-    fun `test if when list changes, the state is re-triggered`() =
-        coroutinesRule.testDispatcher.runBlockingTest {
-
-            // When multiple states are sent
-            loadUncompletedTasks.returnDefaultValues()
-            loadUncompletedTasks.multipleEmissions = true
-
-            // Given collecting multiple states
-            val result = viewModel.loadTaskList().toList()
-
-            // Then multiple states are collected
-            Assert.assertEquals(2, result.size)
-            Assert.assertTrue(result[0] is TaskListViewState.Empty)
-            Assert.assertTrue(result[1] is TaskListViewState.Loaded)
-        }
-
-    @Test
     fun `test if when load tasks fails, the error state is returned`() =
         coroutinesRule.testDispatcher.runBlockingTest {
 
@@ -111,5 +93,19 @@ internal class TaskListViewModelTest {
 
         // Then the task is updated
         Assert.assertTrue(updateTaskStatus.isTaskUpdated(fakeTask.task.id))
+    }
+
+    @Test
+    fun `test if tasks are filtered by category when parameter is passed`() = runBlockingTest {
+        // Given the use case returns the list with uncompleted tasks
+        loadUncompletedTasks.returnDefaultValues()
+        val flow = viewModel.loadTaskList(categoryId = 1)
+
+        // When the latest event is collected
+        val state = flow.first()
+
+        // Then that state contains the list with uncompleted tasks
+        require(state is TaskListViewState.Loaded)
+        Assert.assertEquals(2, state.items.size)
     }
 }

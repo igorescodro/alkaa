@@ -12,8 +12,10 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.escodro.task.model.Category
 import com.escodro.task.model.Task
 import com.escodro.task.model.TaskWithCategory
+import com.escodro.task.presentation.list.CategoryStateHandler
 import com.escodro.task.presentation.list.TaskListScaffold
 import com.escodro.task.presentation.list.TaskListViewState
+import com.escodro.task.presentation.list.TaskStateHandler
 import com.escodro.theme.AlkaaTheme
 import org.junit.Rule
 import org.junit.Test
@@ -75,10 +77,9 @@ internal class TaskListTest {
         composeTestRule.setContent {
             AlkaaTheme {
                 TaskListScaffold(
-                    viewState = state,
+                    taskHandler = TaskStateHandler(state = state),
+                    categoryHandler = CategoryStateHandler(),
                     modifier = Modifier,
-                    onCheckedChanged = {},
-                    onItemClicked = {},
                     sheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
                 )
             }

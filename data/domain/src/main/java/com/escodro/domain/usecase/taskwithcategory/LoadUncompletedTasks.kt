@@ -13,5 +13,5 @@ interface LoadUncompletedTasks {
      *
      * @return observable to be subscribe
      */
-    operator fun invoke(): Flow<List<TaskWithCategory>>
+    operator fun invoke(categoryId: Long? = null): Flow<List<TaskWithCategory>>
 }

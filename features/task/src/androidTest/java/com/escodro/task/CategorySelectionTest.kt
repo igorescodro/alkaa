@@ -12,8 +12,8 @@ import androidx.compose.ui.test.performClick
 import androidx.test.platform.app.InstrumentationRegistry
 import com.escodro.task.model.Category
 import com.escodro.task.presentation.category.CategorySelection
-import com.escodro.task.presentation.category.ChipNameKey
 import com.escodro.task.presentation.category.CategoryState
+import com.escodro.task.presentation.category.ChipNameKey
 import com.escodro.theme.AlkaaTheme
 import org.junit.Ignore
 import org.junit.Rule

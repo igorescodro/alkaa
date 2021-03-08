@@ -4,16 +4,19 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.escodro.core.coroutines.CoroutineDebouncer
 import com.escodro.domain.usecase.task.LoadTask
+import com.escodro.domain.usecase.task.UpdateTaskCategory
 import com.escodro.domain.usecase.task.UpdateTaskDescription
 import com.escodro.domain.usecase.task.UpdateTaskTitle
 import com.escodro.task.mapper.TaskMapper
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.launch
 
 internal class TaskDetailViewModel(
     private val loadTaskUseCase: LoadTask,
     private val updateTaskTitle: UpdateTaskTitle,
     private val updateTaskDescription: UpdateTaskDescription,
+    private val updateTaskCategory: UpdateTaskCategory,
     private val taskMapper: TaskMapper
 ) : ViewModel() {
 
@@ -30,15 +33,18 @@ internal class TaskDetailViewModel(
         }
     }
 
-    fun updateTitle(taskId: TaskId, title: String) {
+    fun updateTitle(taskId: TaskId, title: String) =
         coroutineDebouncer(coroutineScope = viewModelScope) {
             updateTaskTitle(taskId.value, title)
         }
-    }
 
-    fun updateDescription(taskId: TaskId, description: String) {
+    fun updateDescription(taskId: TaskId, description: String) =
         coroutineDebouncer(coroutineScope = viewModelScope) {
             updateTaskDescription(taskId.value, description)
         }
-    }
+
+    fun updateCategory(taskId: TaskId, categoryId: CategoryId) =
+        viewModelScope.launch {
+            updateTaskCategory(taskId = taskId.value, categoryId = categoryId.value)
+        }
 }

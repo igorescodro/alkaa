@@ -1,5 +1,6 @@
 package com.escodro.task.presentation.detail.main
 
+import android.os.Parcelable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.MaterialTheme
@@ -30,6 +31,7 @@ import com.escodro.task.presentation.detail.alarm.TaskAlarmViewModel
 import com.escodro.theme.AlkaaTheme
 import com.escodro.theme.components.DefaultIconTextContent
 import com.escodro.theme.temp.getViewModel
+import kotlinx.parcelize.Parcelize
 
 /**
  * Alkaa Task Detail Section.
@@ -162,9 +164,11 @@ private fun TaskDescriptionTextField(text: String?, onDescriptionChanged: (Strin
     )
 }
 
-internal inline class TaskId(val value: Long)
+@Parcelize
+internal inline class TaskId(val value: Long) : Parcelable
 
-internal inline class CategoryId(val value: Long?)
+@Parcelize
+internal inline class CategoryId(val value: Long?) : Parcelable
 
 @Suppress("UndocumentedPublicFunction")
 @Preview

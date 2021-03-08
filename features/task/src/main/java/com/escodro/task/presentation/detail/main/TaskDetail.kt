@@ -20,13 +20,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.escodro.task.R
 import com.escodro.task.model.Category
 import com.escodro.task.model.Task
+import com.escodro.task.presentation.category.CategorySelection
+import com.escodro.task.presentation.category.CategoryState
+import com.escodro.task.presentation.category.TaskCategoryViewModel
 import com.escodro.task.presentation.detail.LeadingIcon
 import com.escodro.task.presentation.detail.TaskDetailActions
 import com.escodro.task.presentation.detail.alarm.AlarmSelection
 import com.escodro.task.presentation.detail.alarm.TaskAlarmViewModel
-import com.escodro.task.presentation.detail.category.CategorySelection
-import com.escodro.task.presentation.detail.category.TaskCategoryState
-import com.escodro.task.presentation.detail.category.TaskCategoryViewModel
 import com.escodro.theme.AlkaaTheme
 import com.escodro.theme.components.DefaultIconTextContent
 import com.escodro.theme.temp.getViewModel
@@ -55,12 +55,12 @@ private fun TaskDetailLoader(
 
     val categoryViewState by
     remember(categoryViewModel, taskId) { categoryViewModel.loadCategories() }
-        .collectAsState(initial = TaskCategoryState.Empty)
+        .collectAsState(initial = CategoryState.Empty)
 
     val taskDetailActions = TaskDetailActions(
         onTitleChanged = { title -> detailViewModel.updateTitle(id, title) },
         onDescriptionChanged = { desc -> detailViewModel.updateDescription(id, desc) },
-        onCategoryChanged = { categoryId -> categoryViewModel.updateCategory(id, categoryId) },
+        onCategoryChanged = { categoryId -> detailViewModel.updateCategory(id, categoryId) },
         onAlarmUpdated = { calendar -> alarmViewModel.updateAlarm(id, calendar) },
         onIntervalSelected = { interval -> alarmViewModel.setRepeating(id, interval) }
     )
@@ -75,7 +75,7 @@ private fun TaskDetailLoader(
 @Composable
 internal fun TaskDetailRouter(
     detailViewState: TaskDetailState,
-    categoryViewState: TaskCategoryState,
+    categoryViewState: CategoryState,
     actions: TaskDetailActions
 ) {
     when (detailViewState) {
@@ -92,7 +92,7 @@ internal fun TaskDetailRouter(
 @Composable
 private fun TaskDetailContent(
     task: Task,
-    categoryViewState: TaskCategoryState,
+    categoryViewState: CategoryState,
     actions: TaskDetailActions
 ) {
     Surface(color = MaterialTheme.colors.background) {
@@ -180,7 +180,7 @@ fun TaskDetailPreview() {
     AlkaaTheme {
         TaskDetailContent(
             task = task,
-            categoryViewState = TaskCategoryState.Loaded(categories),
+            categoryViewState = CategoryState.Loaded(categories),
             actions = TaskDetailActions()
         )
     }

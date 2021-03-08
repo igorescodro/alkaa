@@ -1,5 +1,6 @@
 package com.escodro.task.presentation.add
 
+import com.escodro.task.presentation.detail.main.CategoryId
 import com.escodro.task.presentation.fake.AddTaskFake
 import com.escodro.test.CoroutineTestRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -27,7 +28,7 @@ internal class AddTaskViewModelTest {
     fun `test if when a task is created when function is called`() {
         val taskTitle = "Rendez-vous"
 
-        viewModel.addTask(taskTitle)
+        viewModel.addTask(taskTitle, CategoryId(null))
 
         Assert.assertTrue(addTask.wasTaskCreated(taskTitle))
     }
@@ -36,7 +37,7 @@ internal class AddTaskViewModelTest {
     fun `test if when a task is not created when title is empty`() {
         val taskTitle = ""
 
-        viewModel.addTask(taskTitle)
+        viewModel.addTask(taskTitle, CategoryId(null))
 
         Assert.assertFalse(addTask.wasTaskCreated(taskTitle))
     }

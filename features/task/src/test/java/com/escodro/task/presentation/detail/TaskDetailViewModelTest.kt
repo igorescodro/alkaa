@@ -2,11 +2,13 @@ package com.escodro.task.presentation.detail
 
 import com.escodro.task.mapper.AlarmIntervalMapper
 import com.escodro.task.mapper.TaskMapper
+import com.escodro.task.presentation.detail.main.CategoryId
 import com.escodro.task.presentation.detail.main.TaskDetailState
 import com.escodro.task.presentation.detail.main.TaskDetailViewModel
 import com.escodro.task.presentation.detail.main.TaskId
 import com.escodro.task.presentation.fake.FAKE_DOMAIN_TASK
 import com.escodro.task.presentation.fake.LoadTaskFake
+import com.escodro.task.presentation.fake.UpdateTaskCategoryFake
 import com.escodro.task.presentation.fake.UpdateTaskDescriptionFake
 import com.escodro.task.presentation.fake.UpdateTaskTitleFake
 import com.escodro.test.CoroutineTestRule
@@ -29,12 +31,15 @@ internal class TaskDetailViewModelTest {
 
     private val updateDescription = UpdateTaskDescriptionFake()
 
+    private val updateTaskCategory = UpdateTaskCategoryFake()
+
     private val taskMapper = TaskMapper(AlarmIntervalMapper())
 
     private val viewModel = TaskDetailViewModel(
         loadTaskUseCase = loadTask,
         updateTaskTitle = updateTaskTitle,
         updateTaskDescription = updateDescription,
+        updateTaskCategory = updateTaskCategory,
         taskMapper = taskMapper
     )
 
@@ -103,4 +108,39 @@ internal class TaskDetailViewModelTest {
         val updatedDesc = updateDescription.getUpdatedDescription(FAKE_DOMAIN_TASK.id)
         Assert.assertEquals(newDescription, updatedDesc)
     }
+
+    @Test
+    fun `test if when update category is called, the category is updated`() = runBlockingTest {
+        // Given the viewModel is called to load the categories
+        val taskId = TaskId(FAKE_DOMAIN_TASK.id)
+        loadTask.taskToBeReturned = FAKE_DOMAIN_TASK
+        viewModel.loadTaskInfo(taskId)
+
+        // When the category id is updated
+        val newCategoryId = 4L
+        viewModel.updateCategory(taskId = taskId, categoryId = CategoryId(newCategoryId))
+
+        // Then the task will be updated with given category id
+        Assert.assertTrue(updateTaskCategory.isCategoryUpdated(taskId.value))
+        val updatedCategoryId = updateTaskCategory.getUpdatedCategory(taskId.value)
+        Assert.assertEquals(newCategoryId, updatedCategoryId)
+    }
+
+    @Test
+    fun `test if when update category is called with null, the category is updated`() =
+        runBlockingTest {
+
+            // Given the viewModel is called to load the categories
+            val taskId = TaskId(FAKE_DOMAIN_TASK.id)
+            loadTask.taskToBeReturned = FAKE_DOMAIN_TASK
+            viewModel.loadTaskInfo(taskId)
+
+            // When the category id is updated
+            viewModel.updateCategory(taskId = taskId, categoryId = CategoryId(null))
+
+            // Then the task will be updated with given category id
+            Assert.assertTrue(updateTaskCategory.isCategoryUpdated(taskId.value))
+            val updatedCategoryId = updateTaskCategory.getUpdatedCategory(taskId.value)
+            Assert.assertNull(updatedCategoryId)
+        }
 }

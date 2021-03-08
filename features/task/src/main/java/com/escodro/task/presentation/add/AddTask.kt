@@ -30,7 +30,7 @@ import androidx.compose.ui.unit.dp
 import com.escodro.task.R
 import com.escodro.task.presentation.category.CategorySelection
 import com.escodro.task.presentation.category.CategoryState
-import com.escodro.task.presentation.detail.category.TaskCategoryViewModel
+import com.escodro.task.presentation.category.TaskCategoryViewModel
 import com.escodro.task.presentation.detail.main.CategoryId
 import com.escodro.theme.AlkaaTheme
 import com.escodro.theme.temp.getViewModel

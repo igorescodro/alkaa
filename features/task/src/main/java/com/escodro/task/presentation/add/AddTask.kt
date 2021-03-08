@@ -16,6 +16,8 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -26,6 +28,10 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.escodro.task.R
+import com.escodro.task.presentation.category.CategorySelection
+import com.escodro.task.presentation.category.CategoryState
+import com.escodro.task.presentation.detail.category.TaskCategoryViewModel
+import com.escodro.task.presentation.detail.main.CategoryId
 import com.escodro.theme.AlkaaTheme
 import com.escodro.theme.temp.getViewModel
 import kotlinx.coroutines.launch
@@ -40,7 +46,8 @@ internal fun AddTaskSection(sheetState: ModalBottomSheetState) {
 @Composable
 internal fun AddTaskLoader(
     sheetState: ModalBottomSheetState,
-    viewModel: AddTaskViewModel = getViewModel()
+    addTaskViewModel: AddTaskViewModel = getViewModel(),
+    categoryViewModel: TaskCategoryViewModel = getViewModel()
 ) {
     val coroutineScope = rememberCoroutineScope()
     Column(
@@ -48,6 +55,10 @@ internal fun AddTaskLoader(
         verticalArrangement = Arrangement.SpaceAround
     ) {
         val textState = remember { mutableStateOf(TextFieldValue("")) }
+        val categoryState by remember(categoryViewModel) { categoryViewModel }.loadCategories()
+            .collectAsState(initial = CategoryState.Empty)
+        val currentCategory = remember { mutableStateOf<CategoryId?>(null) }
+
         OutlinedTextField(
             label = { Text(text = stringResource(id = R.string.task_add_label)) },
             value = textState.value,
@@ -55,10 +66,16 @@ internal fun AddTaskLoader(
             modifier = Modifier.fillMaxWidth()
         )
 
+        CategorySelection(
+            state = categoryState,
+            currentCategory = null,
+            onCategoryChanged = { categoryId -> currentCategory.value = categoryId }
+        )
+
         Button(
             modifier = Modifier.align(Alignment.End),
             onClick = {
-                viewModel.addTask(textState.value.text)
+                addTaskViewModel.addTask(textState.value.text, currentCategory.value)
                 coroutineScope.launch { sheetState.hide() }
                 textState.value = TextFieldValue()
             }

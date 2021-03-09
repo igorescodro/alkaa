@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="status_color_bar">@android:color/white</color>
+</resources>

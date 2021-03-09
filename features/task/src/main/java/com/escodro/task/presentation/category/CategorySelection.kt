@@ -99,7 +99,7 @@ private fun CategoryItemChip(
     Surface(
         modifier = Modifier.padding(end = 8.dp),
         shape = CircleShape,
-        color = if (isSelected) Color(category.color) else Color.White,
+        color = if (isSelected) Color(category.color) else MaterialTheme.colors.background,
         border = chipBorder(isSelected)
     ) {
         Row(
@@ -117,7 +117,11 @@ private fun CategoryItemChip(
         ) {
             Text(
                 modifier = Modifier.padding(8.dp),
-                color = if (isSelected) Color.White else MaterialTheme.colors.onSecondary,
+                color = if (isSelected) {
+                    MaterialTheme.colors.background
+                } else {
+                    MaterialTheme.colors.onSecondary
+                },
                 text = category.name
             )
         }

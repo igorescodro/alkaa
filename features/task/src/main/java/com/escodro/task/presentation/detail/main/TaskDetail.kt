@@ -5,6 +5,7 @@ import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.TextField
 import androidx.compose.material.icons.Icons
@@ -33,6 +34,7 @@ import com.escodro.task.presentation.detail.alarm.AlarmSelection
 import com.escodro.task.presentation.detail.alarm.TaskAlarmViewModel
 import com.escodro.theme.AlkaaTheme
 import com.escodro.theme.components.AlkaaLoadingContent
+import com.escodro.theme.components.AlkaaToolbar
 import com.escodro.theme.components.DefaultIconTextContent
 import com.escodro.theme.temp.getViewModel
 import kotlinx.parcelize.Parcelize
@@ -43,13 +45,14 @@ import kotlinx.parcelize.Parcelize
  * @param taskId the id from the task to be shown
  */
 @Composable
-fun TaskDetailSection(taskId: Long) {
-    TaskDetailLoader(taskId = taskId)
+fun TaskDetailSection(taskId: Long, onUpPressed: () -> Unit) {
+    TaskDetailLoader(taskId = taskId, onUpPressed = onUpPressed)
 }
 
 @Composable
 private fun TaskDetailLoader(
     taskId: Long,
+    onUpPressed: () -> Unit,
     detailViewModel: TaskDetailViewModel = getViewModel(),
     categoryViewModel: TaskCategoryViewModel = getViewModel(),
     alarmViewModel: TaskAlarmViewModel = getViewModel()
@@ -68,7 +71,8 @@ private fun TaskDetailLoader(
         onDescriptionChanged = { desc -> detailViewModel.updateDescription(id, desc) },
         onCategoryChanged = { categoryId -> detailViewModel.updateCategory(id, categoryId) },
         onAlarmUpdated = { calendar -> alarmViewModel.updateAlarm(id, calendar) },
-        onIntervalSelected = { interval -> alarmViewModel.setRepeating(id, interval) }
+        onIntervalSelected = { interval -> alarmViewModel.setRepeating(id, interval) },
+        onUpPressed = onUpPressed
     )
 
     TaskDetailRouter(
@@ -84,16 +88,18 @@ internal fun TaskDetailRouter(
     categoryViewState: CategoryState,
     actions: TaskDetailActions
 ) {
-    Crossfade(detailViewState) { state ->
-        when (state) {
-            TaskDetailState.Loading -> AlkaaLoadingContent()
-            TaskDetailState.Error -> TaskDetailError()
-            is TaskDetailState.Loaded ->
-                TaskDetailContent(
-                    task = state.task,
-                    categoryViewState = categoryViewState,
-                    actions = actions
-                )
+    Scaffold(topBar = { AlkaaToolbar(onUpPressed = actions.onUpPressed) }) {
+        Crossfade(detailViewState) { state ->
+            when (state) {
+                TaskDetailState.Loading -> AlkaaLoadingContent()
+                TaskDetailState.Error -> TaskDetailError()
+                is TaskDetailState.Loaded ->
+                    TaskDetailContent(
+                        task = state.task,
+                        categoryViewState = categoryViewState,
+                        actions = actions
+                    )
+            }
         }
     }
 }

@@ -4,8 +4,8 @@ object Releases {
 }
 
 object Versions {
-    const val compileSdk = 29
-    const val targetSdk = 29
+    const val compileSdk = 30
+    const val targetSdk = 30
     const val minSdk = 23
 
     const val kotlin = "1.4.30"

@@ -39,8 +39,8 @@ import com.escodro.task.presentation.detail.main.CategoryId
 import com.escodro.theme.AlkaaTheme
 import com.escodro.theme.components.AlkaaLoadingContent
 import com.escodro.theme.components.DefaultIconTextContent
-import com.escodro.theme.temp.getViewModel
 import kotlinx.coroutines.launch
+import org.koin.androidx.compose.getViewModel
 import java.util.Calendar
 
 /**

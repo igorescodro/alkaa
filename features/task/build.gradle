@@ -23,7 +23,7 @@ dependencies {
 
     implementation Deps.android.playCore
 
-    implementation Deps.koin.viewModel
+    implementation Deps.koin.android
     implementation Deps.koin.compose
 
     testImplementation Deps.test.coreKtx

@@ -8,6 +8,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.TextField
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.outlined.Close
@@ -158,6 +159,7 @@ private fun TaskTitleTextField(text: String, onTitleChanged: (String) -> Unit) {
             textState.value = it
         },
         textStyle = MaterialTheme.typography.h4,
+        colors = TextFieldDefaults.textFieldColors(backgroundColor = MaterialTheme.colors.surface)
     )
 }
 
@@ -179,6 +181,7 @@ private fun TaskDescriptionTextField(text: String?, onDescriptionChanged: (Strin
             textState.value = it
         },
         textStyle = MaterialTheme.typography.body1,
+        colors = TextFieldDefaults.textFieldColors(backgroundColor = MaterialTheme.colors.surface)
     )
 }
 

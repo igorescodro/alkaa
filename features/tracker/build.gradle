@@ -3,5 +3,5 @@ apply from: "$rootDir/config/dependencies/dynamic_dependencies.gradle"
 dependencies {
     implementation project(":data:domain")
 
-    implementation Deps.koin.viewModel
+    implementation Deps.koin.android
 }

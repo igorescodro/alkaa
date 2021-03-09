@@ -5,7 +5,7 @@ dependencies {
 
     testImplementation project(':libraries:test')
 
-    implementation Deps.koin.core
+    implementation Deps.koin.android
     implementation Deps.coroutines.core
 
     testImplementation Deps.test.junit

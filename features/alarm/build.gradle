@@ -13,7 +13,7 @@ dependencies {
     implementation Deps.coroutines.core
     implementation Deps.android.navigation.ui
 
-    implementation Deps.koin.core
+    implementation Deps.koin.android
 
     testImplementation Deps.test.junit
     testImplementation Deps.test.mockk

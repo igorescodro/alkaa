@@ -37,8 +37,8 @@ import com.escodro.theme.AlkaaTheme
 import com.escodro.theme.components.AlkaaLoadingContent
 import com.escodro.theme.components.AlkaaToolbar
 import com.escodro.theme.components.DefaultIconTextContent
-import com.escodro.theme.temp.getViewModel
 import kotlinx.parcelize.Parcelize
+import org.koin.androidx.compose.getViewModel
 
 /**
  * Alkaa Task Detail Section.

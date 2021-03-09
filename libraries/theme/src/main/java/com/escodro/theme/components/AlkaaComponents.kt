@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -51,11 +50,9 @@ fun DefaultIconTextContent(
 }
 
 /**
- * Basic loading screen with a indeterminate progress bar to be used when the screen is loading.
+ * Basic loading screen to be used when the screen is loading, making the transition smoother.
  */
 @Composable
 fun AlkaaLoadingContent() {
-    Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
-        CircularProgressIndicator()
-    }
+    Box(modifier = Modifier.fillMaxSize(), content = {})
 }

@@ -9,6 +9,6 @@ android {
 }
 
 dependencies {
-    implementation Deps.koin.viewModel
+    implementation Deps.koin.android
     implementation Deps.compose.viewModel
 }

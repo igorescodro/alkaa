@@ -17,7 +17,7 @@ dependencies {
     implementation project(":data:domain")
     implementation project(":libraries:theme")
 
-    implementation Deps.koin.viewModel
+    implementation Deps.koin.android
     implementation Deps.koin.compose
 
     testImplementation project(":libraries:test")

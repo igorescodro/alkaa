@@ -20,7 +20,7 @@ object Versions {
 
     const val timber = "4.7.1"
 
-    const val koin = "2.2.1"
+    const val koin = "3.0.1-beta-1"
 
     const val testJunit = "4.12"
     const val testRunner = "1.1.1"
@@ -81,10 +81,9 @@ object NavigationDeps {
 }
 
 object KoinDeps {
-    val core = "org.koin:koin-android:${Versions.koin}"
-    val viewModel = "org.koin:koin-androidx-viewmodel:${Versions.koin}"
-    val compose = "org.koin:koin-androidx-compose:${Versions.koin}"
-    val test = "org.koin:koin-test:${Versions.koin}"
+    val android = "io.insert-koin:koin-android:${Versions.koin}"
+    val compose = "io.insert-koin:koin-androidx-compose:${Versions.koin}"
+    val test = "io.insert-koin:koin-test:${Versions.koin}"
 }
 
 object ComposeDeps {

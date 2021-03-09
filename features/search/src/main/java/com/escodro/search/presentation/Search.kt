@@ -42,7 +42,7 @@ import com.escodro.search.model.TaskSearchItem
 import com.escodro.theme.AlkaaTheme
 import com.escodro.theme.components.AlkaaLoadingContent
 import com.escodro.theme.components.DefaultIconTextContent
-import com.escodro.theme.temp.getViewModel
+import org.koin.androidx.compose.getViewModel
 
 /**
  * Alkaa Search Section.

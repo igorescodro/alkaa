@@ -38,6 +38,7 @@ import androidx.compose.ui.unit.dp
 import com.escodro.search.R
 import com.escodro.search.model.TaskSearchItem
 import com.escodro.theme.AlkaaTheme
+import com.escodro.theme.components.AlkaaLoadingContent
 import com.escodro.theme.components.DefaultIconTextContent
 import com.escodro.theme.temp.getViewModel
 
@@ -59,7 +60,7 @@ private fun SearchLoader(
 ) {
     val (query, setQuery) = rememberSaveable { mutableStateOf("") }
     val viewState by remember(viewModel, query) { viewModel.findTasksByName(query) }
-        .collectAsState(initial = SearchViewState.Empty)
+        .collectAsState(initial = SearchViewState.Loading)
 
     SearchScaffold(
         viewState = viewState,
@@ -86,6 +87,7 @@ internal fun SearchScaffold(
             SearchTextField(query, onTextChanged = setQuery)
 
             when (viewState) {
+                SearchViewState.Loading -> AlkaaLoadingContent()
                 SearchViewState.Empty -> SearchEmptyContent()
                 is SearchViewState.Loaded -> SearchListContent(
                     taskList = viewState.taskList,

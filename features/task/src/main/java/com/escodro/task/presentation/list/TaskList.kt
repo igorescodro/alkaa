@@ -1,6 +1,7 @@
 package com.escodro.task.presentation.list
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -139,7 +140,7 @@ private fun TaskListContent(
     onCheckedChanged: (TaskWithCategory) -> Unit
 ) {
     Column(modifier = Modifier.padding(start = 8.dp, end = 8.dp)) {
-        LazyColumn {
+        LazyColumn(contentPadding = PaddingValues(bottom = 48.dp)) {
             items(
                 items = taskList,
                 itemContent = { task ->

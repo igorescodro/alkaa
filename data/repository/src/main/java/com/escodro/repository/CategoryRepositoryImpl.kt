@@ -4,6 +4,8 @@ import com.escodro.domain.model.Category
 import com.escodro.domain.repository.CategoryRepository
 import com.escodro.repository.datasource.CategoryDataSource
 import com.escodro.repository.mapper.CategoryMapper
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 internal class CategoryRepositoryImpl(
     private val categoryDataSource: CategoryDataSource,
@@ -25,7 +27,7 @@ internal class CategoryRepositoryImpl(
     override suspend fun cleanTable() =
         categoryDataSource.cleanTable()
 
-    override suspend fun findAllCategories(): List<Category> =
+    override fun findAllCategories(): Flow<List<Category>> =
         categoryDataSource.findAllCategories().map { categoryMapper.toDomain(it) }
 
     override suspend fun findCategoryById(categoryId: Long): Category? =

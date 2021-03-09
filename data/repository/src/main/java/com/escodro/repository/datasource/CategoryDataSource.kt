@@ -1,6 +1,7 @@
 package com.escodro.repository.datasource
 
 import com.escodro.repository.model.Category
+import kotlinx.coroutines.flow.Flow
 
 /**
  * Interface to represent the implementation of Category data source.
@@ -45,7 +46,7 @@ interface CategoryDataSource {
      *
      * @return all inserted categories.
      */
-    suspend fun findAllCategories(): List<Category>
+    fun findAllCategories(): Flow<List<Category>>
 
     /**
      * Gets a specific category by id.

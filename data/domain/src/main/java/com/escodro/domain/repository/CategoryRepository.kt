@@ -1,6 +1,7 @@
 package com.escodro.domain.repository
 
 import com.escodro.domain.model.Category
+import kotlinx.coroutines.flow.Flow
 
 /**
  * Interface to represent the implementation of Category repository.
@@ -45,7 +46,7 @@ interface CategoryRepository {
      *
      * @return all inserted categories.
      */
-    suspend fun findAllCategories(): List<Category>
+    fun findAllCategories(): Flow<List<Category>>
 
     /**
      * Gets a specific category by id.

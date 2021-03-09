@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.escodro.domain.usecase.category.LoadAllCategories
 import com.escodro.task.mapper.CategoryMapper
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
 
 internal class TaskCategoryViewModel(
@@ -12,13 +13,13 @@ internal class TaskCategoryViewModel(
 ) : ViewModel() {
 
     fun loadCategories(): Flow<CategoryState> = flow {
-        val categoryList = loadAllCategories()
-
-        if (categoryList.isNotEmpty()) {
-            val mappedList = categoryMapper.toView(categoryList)
-            emit(CategoryState.Loaded(mappedList))
-        } else {
-            emit(CategoryState.Empty)
+        loadAllCategories().collect { categoryList ->
+            if (categoryList.isNotEmpty()) {
+                val mappedList = categoryMapper.toView(categoryList)
+                emit(CategoryState.Loaded(mappedList))
+            } else {
+                emit(CategoryState.Empty)
+            }
         }
     }
 }

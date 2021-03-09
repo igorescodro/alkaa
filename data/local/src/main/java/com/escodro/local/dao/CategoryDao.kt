@@ -7,6 +7,7 @@ import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
 import androidx.room.Update
 import com.escodro.local.model.Category
+import kotlinx.coroutines.flow.Flow
 
 /**
  * DAO class to handle all [Category]-related database operations.
@@ -20,7 +21,7 @@ interface CategoryDao {
      * @return all inserted categories.
      */
     @Query("SELECT * FROM category")
-    suspend fun findAllCategories(): List<Category>
+    fun findAllCategories(): Flow<List<Category>>
 
     /**
      * Inserts a new category.

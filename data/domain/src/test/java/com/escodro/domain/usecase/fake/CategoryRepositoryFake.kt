@@ -2,6 +2,8 @@ package com.escodro.domain.usecase.fake
 
 import com.escodro.domain.model.Category
 import com.escodro.domain.repository.CategoryRepository
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 import java.util.TreeMap
 
 internal class CategoryRepositoryFake : CategoryRepository {
@@ -36,8 +38,8 @@ internal class CategoryRepositoryFake : CategoryRepository {
         categoryMap.clear()
     }
 
-    override suspend fun findAllCategories(): List<Category> =
-        categoryMap.values.toList()
+    override fun findAllCategories(): Flow<List<Category>> =
+        flowOf(categoryMap.values.toList())
 
     override suspend fun findCategoryById(categoryId: Long): Category? =
         categoryMap[categoryId]

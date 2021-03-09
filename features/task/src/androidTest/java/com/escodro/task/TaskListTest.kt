@@ -77,7 +77,7 @@ internal class TaskListTest {
         composeTestRule.setContent {
             AlkaaTheme {
                 TaskListScaffold(
-                    taskHandler = TaskStateHandler(state = state),
+                    handler = TaskStateHandler(state = state),
                     categoryHandler = CategoryStateHandler(),
                     modifier = Modifier,
                     sheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)

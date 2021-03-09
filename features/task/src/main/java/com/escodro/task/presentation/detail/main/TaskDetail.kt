@@ -1,11 +1,14 @@
 package com.escodro.task.presentation.detail.main
 
 import android.os.Parcelable
+import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.TextField
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.outlined.Close
@@ -31,6 +34,8 @@ import com.escodro.task.presentation.detail.TaskDetailSectionContent
 import com.escodro.task.presentation.detail.alarm.AlarmSelection
 import com.escodro.task.presentation.detail.alarm.TaskAlarmViewModel
 import com.escodro.theme.AlkaaTheme
+import com.escodro.theme.components.AlkaaLoadingContent
+import com.escodro.theme.components.AlkaaToolbar
 import com.escodro.theme.components.DefaultIconTextContent
 import com.escodro.theme.temp.getViewModel
 import kotlinx.parcelize.Parcelize
@@ -41,13 +46,14 @@ import kotlinx.parcelize.Parcelize
  * @param taskId the id from the task to be shown
  */
 @Composable
-fun TaskDetailSection(taskId: Long) {
-    TaskDetailLoader(taskId = taskId)
+fun TaskDetailSection(taskId: Long, onUpPressed: () -> Unit) {
+    TaskDetailLoader(taskId = taskId, onUpPressed = onUpPressed)
 }
 
 @Composable
 private fun TaskDetailLoader(
     taskId: Long,
+    onUpPressed: () -> Unit,
     detailViewModel: TaskDetailViewModel = getViewModel(),
     categoryViewModel: TaskCategoryViewModel = getViewModel(),
     alarmViewModel: TaskAlarmViewModel = getViewModel()
@@ -55,18 +61,19 @@ private fun TaskDetailLoader(
     val id = TaskId(taskId)
     val detailViewState by
     remember(detailViewModel, taskId) { detailViewModel.loadTaskInfo(taskId = id) }
-        .collectAsState(initial = TaskDetailState.Error)
+        .collectAsState(initial = TaskDetailState.Loading)
 
     val categoryViewState by
     remember(categoryViewModel, taskId) { categoryViewModel.loadCategories() }
-        .collectAsState(initial = CategoryState.Empty)
+        .collectAsState(initial = CategoryState.Loading)
 
     val taskDetailActions = TaskDetailActions(
         onTitleChanged = { title -> detailViewModel.updateTitle(id, title) },
         onDescriptionChanged = { desc -> detailViewModel.updateDescription(id, desc) },
         onCategoryChanged = { categoryId -> detailViewModel.updateCategory(id, categoryId) },
         onAlarmUpdated = { calendar -> alarmViewModel.updateAlarm(id, calendar) },
-        onIntervalSelected = { interval -> alarmViewModel.setRepeating(id, interval) }
+        onIntervalSelected = { interval -> alarmViewModel.setRepeating(id, interval) },
+        onUpPressed = onUpPressed
     )
 
     TaskDetailRouter(
@@ -82,14 +89,19 @@ internal fun TaskDetailRouter(
     categoryViewState: CategoryState,
     actions: TaskDetailActions
 ) {
-    when (detailViewState) {
-        TaskDetailState.Error -> TaskDetailError()
-        is TaskDetailState.Loaded ->
-            TaskDetailContent(
-                task = detailViewState.task,
-                categoryViewState = categoryViewState,
-                actions = actions
-            )
+    Scaffold(topBar = { AlkaaToolbar(onUpPressed = actions.onUpPressed) }) {
+        Crossfade(detailViewState) { state ->
+            when (state) {
+                TaskDetailState.Loading -> AlkaaLoadingContent()
+                TaskDetailState.Error -> TaskDetailError()
+                is TaskDetailState.Loaded ->
+                    TaskDetailContent(
+                        task = state.task,
+                        categoryViewState = categoryViewState,
+                        actions = actions
+                    )
+            }
+        }
     }
 }
 
@@ -147,6 +159,7 @@ private fun TaskTitleTextField(text: String, onTitleChanged: (String) -> Unit) {
             textState.value = it
         },
         textStyle = MaterialTheme.typography.h4,
+        colors = TextFieldDefaults.textFieldColors(backgroundColor = MaterialTheme.colors.surface)
     )
 }
 
@@ -168,6 +181,7 @@ private fun TaskDescriptionTextField(text: String?, onDescriptionChanged: (Strin
             textState.value = it
         },
         textStyle = MaterialTheme.typography.body1,
+        colors = TextFieldDefaults.textFieldColors(backgroundColor = MaterialTheme.colors.surface)
     )
 }
 

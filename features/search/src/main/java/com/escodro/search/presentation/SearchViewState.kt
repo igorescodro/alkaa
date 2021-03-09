@@ -8,6 +8,11 @@ import com.escodro.search.model.TaskSearchItem
 internal sealed class SearchViewState {
 
     /**
+     * Represents the stated where the screen is loading.
+     */
+    internal object Loading : SearchViewState()
+
+    /**
      * Represents the stated where the tasks matches the query.
      */
     internal data class Loaded(val taskList: List<TaskSearchItem>) : SearchViewState()

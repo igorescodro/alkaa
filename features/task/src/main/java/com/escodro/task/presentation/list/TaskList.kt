@@ -1,6 +1,8 @@
 package com.escodro.task.presentation.list
 
+import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -35,6 +37,7 @@ import com.escodro.task.presentation.category.CategoryState
 import com.escodro.task.presentation.category.TaskCategoryViewModel
 import com.escodro.task.presentation.detail.main.CategoryId
 import com.escodro.theme.AlkaaTheme
+import com.escodro.theme.components.AlkaaLoadingContent
 import com.escodro.theme.components.DefaultIconTextContent
 import com.escodro.theme.temp.getViewModel
 import kotlinx.coroutines.launch
@@ -70,10 +73,10 @@ private fun TaskListLoader(
 
     val taskViewState by remember(taskListViewModel, currentCategory) {
         taskListViewModel.loadTaskList(currentCategory?.value)
-    }.collectAsState(initial = TaskListViewState.Empty)
+    }.collectAsState(initial = TaskListViewState.Loading)
 
     val categoryViewState by remember(categoryViewModel) { categoryViewModel.loadCategories() }
-        .collectAsState(initial = CategoryState.Empty)
+        .collectAsState(initial = CategoryState.Loading)
 
     val taskHandler = TaskStateHandler(
         state = taskViewState,
@@ -88,7 +91,7 @@ private fun TaskListLoader(
     )
 
     TaskListScaffold(
-        taskHandler = taskHandler,
+        handler = taskHandler,
         categoryHandler = categoryHandler,
         modifier = modifier,
         sheetState = sheetState
@@ -98,7 +101,7 @@ private fun TaskListLoader(
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 internal fun TaskListScaffold(
-    taskHandler: TaskStateHandler,
+    handler: TaskStateHandler,
     categoryHandler: CategoryStateHandler,
     modifier: Modifier = Modifier,
     sheetState: ModalBottomSheetState
@@ -111,13 +114,16 @@ internal fun TaskListScaffold(
         floatingActionButton = { FloatingButton { coroutineScope.launch { sheetState.show() } } },
         floatingActionButtonPosition = FabPosition.Center
     ) {
-        when (taskHandler.state) {
-            is TaskListViewState.Error -> TaskListError()
-            is TaskListViewState.Loaded -> {
-                val taskList = taskHandler.state.items
-                TaskListContent(taskList, taskHandler.onItemClicked, taskHandler.onCheckedChanged)
+        Crossfade(handler.state) { state ->
+            when (state) {
+                TaskListViewState.Loading -> AlkaaLoadingContent()
+                is TaskListViewState.Error -> TaskListError()
+                is TaskListViewState.Loaded -> {
+                    val taskList = state.items
+                    TaskListContent(taskList, handler.onItemClicked, handler.onCheckedChanged)
+                }
+                TaskListViewState.Empty -> TaskListEmpty()
             }
-            TaskListViewState.Empty -> TaskListEmpty()
         }
     }
 }
@@ -139,7 +145,7 @@ private fun TaskListContent(
     onCheckedChanged: (TaskWithCategory) -> Unit
 ) {
     Column(modifier = Modifier.padding(start = 8.dp, end = 8.dp)) {
-        LazyColumn {
+        LazyColumn(contentPadding = PaddingValues(bottom = 48.dp)) {
             items(
                 items = taskList,
                 itemContent = { task ->
@@ -194,7 +200,7 @@ fun TaskListScaffoldLoaded() {
 
     AlkaaTheme {
         TaskListScaffold(
-            taskHandler = TaskStateHandler(state = state),
+            handler = TaskStateHandler(state = state),
             categoryHandler = CategoryStateHandler(),
             modifier = Modifier,
             sheetState = ModalBottomSheetState(ModalBottomSheetValue.Hidden)
@@ -211,7 +217,7 @@ fun TaskListScaffoldEmpty() {
 
     AlkaaTheme {
         TaskListScaffold(
-            taskHandler = TaskStateHandler(state = state),
+            handler = TaskStateHandler(state = state),
             categoryHandler = CategoryStateHandler(),
             modifier = Modifier,
             sheetState = ModalBottomSheetState(ModalBottomSheetValue.Hidden)
@@ -228,7 +234,7 @@ fun TaskListScaffoldError() {
 
     AlkaaTheme {
         TaskListScaffold(
-            taskHandler = TaskStateHandler(state = state),
+            handler = TaskStateHandler(state = state),
             categoryHandler = CategoryStateHandler(),
             modifier = Modifier,
             sheetState = ModalBottomSheetState(ModalBottomSheetValue.Hidden)

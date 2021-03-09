@@ -12,18 +12,14 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -32,6 +28,7 @@ import androidx.compose.ui.unit.sp
 import com.escodro.core.extension.openUrl
 import com.escodro.preference.R
 import com.escodro.theme.AlkaaTheme
+import com.escodro.theme.components.AlkaaToolbar
 import java.util.Locale
 
 /**
@@ -40,21 +37,9 @@ import java.util.Locale
 @Composable
 fun About(onUpPressed: () -> Unit) {
     Scaffold(
-        topBar = { AboutToolbar(onUpPressed = onUpPressed) },
+        topBar = { AlkaaToolbar(onUpPressed = onUpPressed) },
         content = { AboutContent() }
     )
-}
-
-@Composable
-private fun AboutToolbar(onUpPressed: () -> Unit) {
-    TopAppBar(backgroundColor = Color.Transparent, elevation = 0.dp) {
-        IconButton(onClick = onUpPressed) {
-            Icon(
-                imageVector = Icons.Rounded.ArrowBack,
-                contentDescription = stringResource(id = R.string.back_arrow_content_description)
-            )
-        }
-    }
 }
 
 @Composable

@@ -1,5 +1,6 @@
 package com.escodro.search.presentation
 
+import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -19,6 +20,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.ExitToApp
@@ -38,6 +40,7 @@ import androidx.compose.ui.unit.dp
 import com.escodro.search.R
 import com.escodro.search.model.TaskSearchItem
 import com.escodro.theme.AlkaaTheme
+import com.escodro.theme.components.AlkaaLoadingContent
 import com.escodro.theme.components.DefaultIconTextContent
 import com.escodro.theme.temp.getViewModel
 
@@ -59,7 +62,7 @@ private fun SearchLoader(
 ) {
     val (query, setQuery) = rememberSaveable { mutableStateOf("") }
     val viewState by remember(viewModel, query) { viewModel.findTasksByName(query) }
-        .collectAsState(initial = SearchViewState.Empty)
+        .collectAsState(initial = SearchViewState.Loading)
 
     SearchScaffold(
         viewState = viewState,
@@ -85,12 +88,15 @@ internal fun SearchScaffold(
         Column(modifier = Modifier.fillMaxWidth()) {
             SearchTextField(query, onTextChanged = setQuery)
 
-            when (viewState) {
-                SearchViewState.Empty -> SearchEmptyContent()
-                is SearchViewState.Loaded -> SearchListContent(
-                    taskList = viewState.taskList,
-                    onItemClicked = onItemClicked
-                )
+            Crossfade(viewState) { state ->
+                when (state) {
+                    SearchViewState.Loading -> AlkaaLoadingContent()
+                    SearchViewState.Empty -> SearchEmptyContent()
+                    is SearchViewState.Loaded -> SearchListContent(
+                        taskList = state.taskList,
+                        onItemClicked = onItemClicked
+                    )
+                }
             }
         }
     }
@@ -109,7 +115,8 @@ private fun SearchTextField(text: String, onTextChanged: (String) -> Unit) {
         },
         modifier = Modifier
             .fillMaxWidth()
-            .padding(12.dp)
+            .padding(12.dp),
+        colors = TextFieldDefaults.textFieldColors(backgroundColor = MaterialTheme.colors.surface)
     )
 }
 

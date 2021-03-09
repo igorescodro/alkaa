@@ -47,7 +47,10 @@ fun NavGraph(startDestination: String = Destinations.Home) {
             arguments = listOf(navArgument(DestinationArgs.TaskId) { type = NavType.LongType })
         ) { backStackEntry ->
             val arguments = requireNotNull(backStackEntry.arguments)
-            TaskDetailSection(taskId = arguments.getLong(DestinationArgs.TaskId))
+            TaskDetailSection(
+                taskId = arguments.getLong(DestinationArgs.TaskId),
+                onUpPressed = actions.onUpPressed
+            )
         }
 
         composable(Destinations.About) {

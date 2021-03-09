@@ -1,5 +1,6 @@
 package com.escodro.search.presentation
 
+import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -86,13 +87,15 @@ internal fun SearchScaffold(
         Column(modifier = Modifier.fillMaxWidth()) {
             SearchTextField(query, onTextChanged = setQuery)
 
-            when (viewState) {
-                SearchViewState.Loading -> AlkaaLoadingContent()
-                SearchViewState.Empty -> SearchEmptyContent()
-                is SearchViewState.Loaded -> SearchListContent(
-                    taskList = viewState.taskList,
-                    onItemClicked = onItemClicked
-                )
+            Crossfade(viewState) { state ->
+                when (state) {
+                    SearchViewState.Loading -> AlkaaLoadingContent()
+                    SearchViewState.Empty -> SearchEmptyContent()
+                    is SearchViewState.Loaded -> SearchListContent(
+                        taskList = state.taskList,
+                        onItemClicked = onItemClicked
+                    )
+                }
             }
         }
     }

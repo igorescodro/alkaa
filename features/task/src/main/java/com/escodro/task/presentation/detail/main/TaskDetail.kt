@@ -1,6 +1,7 @@
 package com.escodro.task.presentation.detail.main
 
 import android.os.Parcelable
+import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.MaterialTheme
@@ -83,15 +84,17 @@ internal fun TaskDetailRouter(
     categoryViewState: CategoryState,
     actions: TaskDetailActions
 ) {
-    when (detailViewState) {
-        TaskDetailState.Loading -> AlkaaLoadingContent()
-        TaskDetailState.Error -> TaskDetailError()
-        is TaskDetailState.Loaded ->
-            TaskDetailContent(
-                task = detailViewState.task,
-                categoryViewState = categoryViewState,
-                actions = actions
-            )
+    Crossfade(detailViewState) { state ->
+        when (state) {
+            TaskDetailState.Loading -> AlkaaLoadingContent()
+            TaskDetailState.Error -> TaskDetailError()
+            is TaskDetailState.Loaded ->
+                TaskDetailContent(
+                    task = state.task,
+                    categoryViewState = categoryViewState,
+                    actions = actions
+                )
+        }
     }
 }
 

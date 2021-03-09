@@ -36,6 +36,7 @@ import com.escodro.task.presentation.category.CategoryState
 import com.escodro.task.presentation.category.TaskCategoryViewModel
 import com.escodro.task.presentation.detail.main.CategoryId
 import com.escodro.theme.AlkaaTheme
+import com.escodro.theme.components.AlkaaLoadingContent
 import com.escodro.theme.components.DefaultIconTextContent
 import com.escodro.theme.temp.getViewModel
 import kotlinx.coroutines.launch
@@ -71,10 +72,10 @@ private fun TaskListLoader(
 
     val taskViewState by remember(taskListViewModel, currentCategory) {
         taskListViewModel.loadTaskList(currentCategory?.value)
-    }.collectAsState(initial = TaskListViewState.Empty)
+    }.collectAsState(initial = TaskListViewState.Loading)
 
     val categoryViewState by remember(categoryViewModel) { categoryViewModel.loadCategories() }
-        .collectAsState(initial = CategoryState.Empty)
+        .collectAsState(initial = CategoryState.Loading)
 
     val taskHandler = TaskStateHandler(
         state = taskViewState,
@@ -113,6 +114,7 @@ internal fun TaskListScaffold(
         floatingActionButtonPosition = FabPosition.Center
     ) {
         when (taskHandler.state) {
+            TaskListViewState.Loading -> AlkaaLoadingContent()
             is TaskListViewState.Error -> TaskListError()
             is TaskListViewState.Loaded -> {
                 val taskList = taskHandler.state.items

@@ -31,6 +31,7 @@ import com.escodro.task.presentation.detail.TaskDetailSectionContent
 import com.escodro.task.presentation.detail.alarm.AlarmSelection
 import com.escodro.task.presentation.detail.alarm.TaskAlarmViewModel
 import com.escodro.theme.AlkaaTheme
+import com.escodro.theme.components.AlkaaLoadingContent
 import com.escodro.theme.components.DefaultIconTextContent
 import com.escodro.theme.temp.getViewModel
 import kotlinx.parcelize.Parcelize
@@ -55,11 +56,11 @@ private fun TaskDetailLoader(
     val id = TaskId(taskId)
     val detailViewState by
     remember(detailViewModel, taskId) { detailViewModel.loadTaskInfo(taskId = id) }
-        .collectAsState(initial = TaskDetailState.Error)
+        .collectAsState(initial = TaskDetailState.Loading)
 
     val categoryViewState by
     remember(categoryViewModel, taskId) { categoryViewModel.loadCategories() }
-        .collectAsState(initial = CategoryState.Empty)
+        .collectAsState(initial = CategoryState.Loading)
 
     val taskDetailActions = TaskDetailActions(
         onTitleChanged = { title -> detailViewModel.updateTitle(id, title) },
@@ -83,6 +84,7 @@ internal fun TaskDetailRouter(
     actions: TaskDetailActions
 ) {
     when (detailViewState) {
+        TaskDetailState.Loading -> AlkaaLoadingContent()
         TaskDetailState.Error -> TaskDetailError()
         is TaskDetailState.Loaded ->
             TaskDetailContent(

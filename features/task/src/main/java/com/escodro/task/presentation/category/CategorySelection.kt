@@ -30,6 +30,7 @@ import com.escodro.task.R
 import com.escodro.task.model.Category
 import com.escodro.task.presentation.detail.main.CategoryId
 import com.escodro.theme.AlkaaTheme
+import com.escodro.theme.components.AlkaaLoadingContent
 
 @Composable
 internal fun CategorySelection(
@@ -43,6 +44,7 @@ internal fun CategorySelection(
         contentAlignment = Alignment.CenterStart
     ) {
         when (state) {
+            CategoryState.Loading -> AlkaaLoadingContent()
             is CategoryState.Loaded -> LoadedCategoryList(
                 categoryList = state.categoryList,
                 currentCategory = currentCategory,

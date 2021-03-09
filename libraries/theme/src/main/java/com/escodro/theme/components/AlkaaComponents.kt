@@ -4,7 +4,9 @@ import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -45,12 +47,15 @@ fun DefaultIconTextContent(
         Icon(
             imageVector = icon,
             contentDescription = stringResource(id = iconContentDescription),
-            modifier = Modifier.size(128.dp)
+            modifier = Modifier.size(64.dp),
+            tint = MaterialTheme.colors.primary
         )
+        Spacer(modifier = Modifier.height(24.dp))
         Text(
             text = stringResource(id = header),
             style = MaterialTheme.typography.h6,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
+            color = MaterialTheme.colors.onSecondary,
         )
     }
 }

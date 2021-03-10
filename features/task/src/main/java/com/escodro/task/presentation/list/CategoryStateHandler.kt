@@ -1,6 +1,6 @@
 package com.escodro.task.presentation.list
 
-import com.escodro.task.presentation.category.CategoryState
+import com.escodro.categoryapi.presentation.CategoryState
 import com.escodro.task.presentation.detail.main.CategoryId
 
 internal data class CategoryStateHandler(

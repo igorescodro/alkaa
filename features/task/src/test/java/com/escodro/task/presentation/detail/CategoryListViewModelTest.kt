@@ -1,8 +1,8 @@
 package com.escodro.task.presentation.detail
 
-import com.escodro.task.mapper.CategoryMapper
-import com.escodro.task.presentation.category.CategoryState
-import com.escodro.task.presentation.category.TaskCategoryViewModel
+import com.escodro.categoryapi.presentation.CategoryState
+import com.escodro.task.mapper.CategoryMapperImpl
+import com.escodro.task.presentation.category.CategoryListViewModelImpl
 import com.escodro.task.presentation.fake.FAKE_DOMAIN_CATEGORY_LIST
 import com.escodro.task.presentation.fake.LoadAllCategoriesFake
 import com.escodro.test.CoroutineTestRule
@@ -14,16 +14,16 @@ import org.junit.Rule
 import org.junit.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
-internal class TaskCategoryViewModelTest {
+internal class CategoryListViewModelTest {
 
     @get:Rule
     val coroutineTestRule = CoroutineTestRule()
 
     private val loadAllCategories = LoadAllCategoriesFake()
 
-    private val categoryMapper = CategoryMapper()
+    private val categoryMapper = CategoryMapperImpl()
 
-    private val viewModel = TaskCategoryViewModel(loadAllCategories, categoryMapper)
+    private val viewModel = CategoryListViewModelImpl(loadAllCategories, categoryMapper)
 
     @Test
     fun `test if when there is categories created than it returns the success state with them`() =

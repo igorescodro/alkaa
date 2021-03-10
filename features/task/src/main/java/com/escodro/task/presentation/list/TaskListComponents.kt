@@ -28,8 +28,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.escodro.categoryapi.model.Category
 import com.escodro.task.R
-import com.escodro.task.model.Category
 import com.escodro.task.model.Task
 import com.escodro.task.model.TaskWithCategory
 import java.util.Calendar

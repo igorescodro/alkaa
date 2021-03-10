@@ -61,7 +61,7 @@ internal class TaskListTest {
     fun test_listViewIsShown() {
         // Given a success state
         val task = Task(title = "Buy milk", dueDate = null)
-        val category = Category(name = "Books", color = Color.Green)
+        val category = Category(name = "Books", color = android.graphics.Color.GREEN)
         val taskList = listOf(TaskWithCategory(task = task, category = category))
         val state = TaskListViewState.Loaded(taskList)
 

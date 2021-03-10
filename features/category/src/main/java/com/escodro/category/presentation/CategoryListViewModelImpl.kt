@@ -1,4 +1,4 @@
-package com.escodro.task.presentation.category
+package com.escodro.category.presentation
 
 import com.escodro.categoryapi.mapper.CategoryMapper
 import com.escodro.categoryapi.presentation.CategoryListViewModel

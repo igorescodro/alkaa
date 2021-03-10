@@ -1,11 +1,11 @@
-package com.escodro.task.mapper
+package com.escodro.task.presentation.fake
 
 import androidx.compose.ui.graphics.Color
 import com.escodro.categoryapi.mapper.CategoryMapper
 import com.escodro.categoryapi.model.Category as ViewCategory
 import com.escodro.domain.model.Category as DomainCategory
 
-internal class CategoryMapperImpl : CategoryMapper {
+internal class CategoryMapperFake : CategoryMapper {
 
     override fun toView(domainCategoryList: List<DomainCategory>): List<ViewCategory> =
         domainCategoryList.map { toView(it) }

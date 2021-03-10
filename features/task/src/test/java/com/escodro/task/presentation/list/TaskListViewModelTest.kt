@@ -1,7 +1,7 @@
 package com.escodro.task.presentation.list
 
 import com.escodro.task.mapper.AlarmIntervalMapper
-import com.escodro.task.mapper.CategoryMapper
+import com.escodro.task.mapper.CategoryMapperImpl
 import com.escodro.task.mapper.TaskMapper
 import com.escodro.task.mapper.TaskWithCategoryMapper
 import com.escodro.task.presentation.fake.FAKE_VIEW_TASK_WITH_CATEGORY
@@ -29,7 +29,7 @@ internal class TaskListViewModelTest {
     private val viewModel = TaskListViewModel(
         loadUncompletedTasks,
         updateTaskStatus,
-        TaskWithCategoryMapper(TaskMapper(AlarmIntervalMapper()), CategoryMapper())
+        TaskWithCategoryMapper(TaskMapper(AlarmIntervalMapper()), CategoryMapperImpl())
     )
 
     @Before

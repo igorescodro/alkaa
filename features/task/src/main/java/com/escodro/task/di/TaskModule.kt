@@ -1,11 +1,13 @@
 package com.escodro.task.di
 
+import com.escodro.categoryapi.mapper.CategoryMapper
+import com.escodro.categoryapi.presentation.CategoryListViewModel
 import com.escodro.task.mapper.AlarmIntervalMapper
-import com.escodro.task.mapper.CategoryMapper
+import com.escodro.task.mapper.CategoryMapperImpl
 import com.escodro.task.mapper.TaskMapper
 import com.escodro.task.mapper.TaskWithCategoryMapper
 import com.escodro.task.presentation.add.AddTaskViewModel
-import com.escodro.task.presentation.category.TaskCategoryViewModel
+import com.escodro.task.presentation.category.CategoryListViewModelImpl
 import com.escodro.task.presentation.detail.alarm.TaskAlarmViewModel
 import com.escodro.task.presentation.detail.main.TaskDetailViewModel
 import com.escodro.task.presentation.list.TaskListViewModel
@@ -20,13 +22,13 @@ val taskModule = module {
     // Presentation
     viewModel { TaskListViewModel(get(), get(), get()) }
     viewModel { TaskDetailViewModel(get(), get(), get(), get(), get()) }
-    viewModel { TaskCategoryViewModel(get(), get()) }
+    viewModel< CategoryListViewModel> { CategoryListViewModelImpl(get(), get()) }
     viewModel { TaskAlarmViewModel(get(), get(), get(), get()) }
     viewModel { AddTaskViewModel(get()) }
 
     // Mappers
     factory { AlarmIntervalMapper() }
     factory { TaskMapper(get()) }
-    factory { CategoryMapper() }
+    factory<CategoryMapper> { CategoryMapperImpl() }
     factory { TaskWithCategoryMapper(get(), get()) }
 }

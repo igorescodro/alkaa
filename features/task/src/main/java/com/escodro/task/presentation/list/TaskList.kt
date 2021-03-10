@@ -27,14 +27,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.escodro.categoryapi.model.Category
+import com.escodro.categoryapi.presentation.CategoryListViewModel
+import com.escodro.categoryapi.presentation.CategoryState
 import com.escodro.task.R
-import com.escodro.task.model.Category
 import com.escodro.task.model.Task
 import com.escodro.task.model.TaskWithCategory
 import com.escodro.task.presentation.add.AddTaskSection
 import com.escodro.task.presentation.category.CategorySelection
-import com.escodro.task.presentation.category.CategoryState
-import com.escodro.task.presentation.category.TaskCategoryViewModel
 import com.escodro.task.presentation.detail.main.CategoryId
 import com.escodro.theme.AlkaaTheme
 import com.escodro.theme.components.AlkaaLoadingContent
@@ -66,7 +66,7 @@ private fun TaskListLoader(
     modifier: Modifier = Modifier,
     onItemClicked: (Long) -> Unit,
     taskListViewModel: TaskListViewModel = getViewModel(),
-    categoryViewModel: TaskCategoryViewModel = getViewModel(),
+    categoryViewModel: CategoryListViewModel = getViewModel(),
     sheetState: ModalBottomSheetState
 ) {
     val (currentCategory, setCategory) = rememberSaveable { mutableStateOf<CategoryId?>(null) }

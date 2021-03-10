@@ -27,10 +27,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.escodro.categoryapi.presentation.CategoryListViewModel
+import com.escodro.categoryapi.presentation.CategoryState
 import com.escodro.task.R
 import com.escodro.task.presentation.category.CategorySelection
-import com.escodro.task.presentation.category.CategoryState
-import com.escodro.task.presentation.category.TaskCategoryViewModel
 import com.escodro.task.presentation.detail.main.CategoryId
 import com.escodro.theme.AlkaaTheme
 import kotlinx.coroutines.launch
@@ -47,7 +47,7 @@ internal fun AddTaskSection(sheetState: ModalBottomSheetState) {
 internal fun AddTaskLoader(
     sheetState: ModalBottomSheetState,
     addTaskViewModel: AddTaskViewModel = getViewModel(),
-    categoryViewModel: TaskCategoryViewModel = getViewModel()
+    categoryViewModel: CategoryListViewModel = getViewModel()
 ) {
     val coroutineScope = rememberCoroutineScope()
     Column(

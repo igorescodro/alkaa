@@ -1,4 +1,4 @@
-package com.escodro.task.model
+package com.escodro.categoryapi.model
 
 import androidx.compose.ui.graphics.Color
 

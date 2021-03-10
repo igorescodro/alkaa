@@ -1,10 +1,10 @@
 package com.escodro.task.presentation.fake
 
 import androidx.compose.ui.graphics.Color
+import com.escodro.categoryapi.model.Category as ViewCategory
 import com.escodro.domain.model.Category as DomainCategory
 import com.escodro.domain.model.Task as DomainTask
 import com.escodro.domain.model.TaskWithCategory as DomainTaskWithCategory
-import com.escodro.task.model.Category as ViewCategory
 import com.escodro.task.model.Task as ViewTask
 import com.escodro.task.model.TaskWithCategory as ViewTaskWithCategory
 

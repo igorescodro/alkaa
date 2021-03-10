@@ -1,5 +1,7 @@
 package com.escodro.task.model
 
+import com.escodro.categoryapi.model.Category
+
 /**
  * Data class to represent a Task with Category.
  *

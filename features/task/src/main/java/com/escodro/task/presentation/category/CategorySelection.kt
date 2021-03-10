@@ -98,7 +98,7 @@ private fun CategoryItemChip(
     Surface(
         modifier = Modifier.padding(end = 8.dp),
         shape = MaterialTheme.shapes.small,
-        color = if (isSelected) category.color else Color.White,
+        color = if (isSelected) Color(category.color) else Color.White,
         border = chipBorder(isSelected)
     ) {
         Row(
@@ -148,9 +148,9 @@ private var SemanticsPropertyReceiver.chipName by ChipNameKey
 @Preview
 @Composable
 fun CategorySelectionListPreview() {
-    val category1 = Category(name = "Groceries", color = Color.Magenta)
-    val category2 = Category(name = "Books", color = Color.Cyan)
-    val category3 = Category(name = "Movies", color = Color.Red)
+    val category1 = Category(name = "Groceries", color = android.graphics.Color.BLUE)
+    val category2 = Category(name = "Books", color = android.graphics.Color.RED)
+    val category3 = Category(name = "Movies", color = android.graphics.Color.GREEN)
     val categories = listOf(category1, category2, category3)
 
     AlkaaTheme {

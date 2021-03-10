@@ -57,7 +57,7 @@ internal fun TaskItem(
             .clickable { onItemClicked(task.task.id) }
     ) {
         Row {
-            CardRibbon(color = task.category?.color)
+            CardRibbon(colorInt = task.category?.color)
             Checkbox(
                 modifier = modifier.fillMaxHeight(),
                 checked = task.task.completed,
@@ -88,8 +88,12 @@ internal fun FloatingButton(onClick: () -> Unit) {
 }
 
 @Composable
-internal fun CardRibbon(color: Color?, modifier: Modifier = Modifier) {
-    val ribbonColor = color ?: MaterialTheme.colors.background
+internal fun CardRibbon(colorInt: Int?, modifier: Modifier = Modifier) {
+    val ribbonColor = if (colorInt != null) {
+        Color(colorInt)
+    } else {
+        MaterialTheme.colors.background
+    }
 
     Spacer(
         modifier
@@ -125,7 +129,7 @@ internal fun RelativeDateText(calendar: Calendar?) {
 @Composable
 fun TaskItemPreview() {
     val task1 = Task(title = "Buy milk", dueDate = null)
-    val category1 = Category(name = "Books", color = Color.Green)
+    val category1 = Category(name = "Books", color = android.graphics.Color.BLUE)
     val taskWithCategory = TaskWithCategory(task = task1, category = category1)
 
     TaskItem(

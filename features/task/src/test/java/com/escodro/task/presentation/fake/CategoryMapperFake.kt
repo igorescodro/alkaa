@@ -1,6 +1,6 @@
 package com.escodro.task.presentation.fake
 
-import androidx.compose.ui.graphics.Color
+import android.graphics.Color
 import com.escodro.categoryapi.mapper.CategoryMapper
 import com.escodro.categoryapi.model.Category as ViewCategory
 import com.escodro.domain.model.Category as DomainCategory
@@ -14,6 +14,6 @@ internal class CategoryMapperFake : CategoryMapper {
         ViewCategory(
             id = domainCategory.id,
             name = domainCategory.name,
-            color = Color(android.graphics.Color.parseColor(domainCategory.color))
+            color = Color.parseColor(domainCategory.color)
         )
 }

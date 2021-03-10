@@ -187,8 +187,8 @@ fun TaskListScaffoldLoaded() {
     val task2 = Task(title = "Call Mark", dueDate = Calendar.getInstance())
     val task3 = Task(title = "Watch Moonlight", dueDate = Calendar.getInstance())
 
-    val category1 = Category(name = "Books", color = Color.Green)
-    val category2 = Category(name = "Reminders", color = Color.Magenta)
+    val category1 = Category(name = "Books", color = android.graphics.Color.GREEN)
+    val category2 = Category(name = "Reminders", color = android.graphics.Color.MAGENTA)
 
     val taskList = listOf(
         TaskWithCategory(task = task1, category = category1),

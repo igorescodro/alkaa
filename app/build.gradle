@@ -59,6 +59,7 @@ dependencies {
     implementation project(":data:domain")
     implementation project(":features:task")
     implementation project(":features:alarm")
+    implementation project(":features:category-api")
     implementation project(":features:category")
     implementation project(":features:preference")
     implementation project(":features:search")

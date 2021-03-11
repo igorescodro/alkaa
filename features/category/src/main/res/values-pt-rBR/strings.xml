@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="category_list_header_empty">Sem categorias</string>
+    <string name="category_list_cd_empty_list">Sem categorias disponíveis</string>
+    <string name="category_icon_cd">Categoria</string>
+</resources>

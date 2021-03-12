@@ -18,8 +18,10 @@ import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.ModalBottomSheetState
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
@@ -29,6 +31,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -45,6 +48,7 @@ import com.escodro.categoryapi.presentation.CategoryState
 import com.escodro.theme.AlkaaTheme
 import com.escodro.theme.components.AlkaaLoadingContent
 import com.escodro.theme.components.DefaultIconTextContent
+import kotlinx.coroutines.launch
 import org.koin.androidx.compose.getViewModel
 
 /**
@@ -52,30 +56,52 @@ import org.koin.androidx.compose.getViewModel
  *
  * @param modifier the decorator
  */
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun CategoryListSection(modifier: Modifier) {
-    CategoryListLoader(modifier)
+fun CategoryListSection(
+    modifier: Modifier,
+    bottomSheetContent: (@Composable () -> Unit) -> Unit,
+    sheetState: ModalBottomSheetState
+) {
+    val coroutineScope = rememberCoroutineScope()
+
+    val onItemClick: (Category) -> Unit = {
+        coroutineScope.launch { sheetState.show() }
+        bottomSheetContent {
+            Text(text = it.name ?: "")
+        }
+    }
+
+    CategoryListLoader(
+        modifier = modifier,
+        onItemClick = onItemClick
+    )
 }
 
 @Composable
 private fun CategoryListLoader(
     modifier: Modifier,
-    viewModel: CategoryListViewModel = getViewModel()
+    viewModel: CategoryListViewModel = getViewModel(),
+    onItemClick: (Category) -> Unit
 ) {
     val viewState by remember(viewModel) { viewModel.loadCategories() }
         .collectAsState(initial = CategoryState.Loading)
 
-    CategoryListScaffold(modifier, viewState)
+    CategoryListScaffold(modifier, viewState, onItemClick)
 }
 
 @Composable
-private fun CategoryListScaffold(modifier: Modifier, viewState: CategoryState) {
+private fun CategoryListScaffold(
+    modifier: Modifier,
+    viewState: CategoryState,
+    onItemClick: (Category) -> Unit
+) {
     Scaffold(modifier = modifier.fillMaxSize()) {
         Crossfade(viewState) { state ->
             when (state) {
                 CategoryState.Loading -> AlkaaLoadingContent()
                 CategoryState.Empty -> CategoryListEmpty()
-                is CategoryState.Loaded -> CategoryListContent(state.categoryList)
+                is CategoryState.Loaded -> CategoryListContent(state.categoryList, onItemClick)
             }
         }
     }
@@ -83,13 +109,13 @@ private fun CategoryListScaffold(modifier: Modifier, viewState: CategoryState) {
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-private fun CategoryListContent(categoryList: List<Category>) {
+private fun CategoryListContent(categoryList: List<Category>, onItemClick: (Category) -> Unit) {
     Column(modifier = Modifier.padding(start = 8.dp, end = 8.dp)) {
         LazyVerticalGrid(cells = GridCells.Fixed(2)) {
             items(
                 items = categoryList,
                 itemContent = { category ->
-                    CategoryItem(category = category)
+                    CategoryItem(category = category, onItemClick = onItemClick)
                 }
             )
         }
@@ -97,13 +123,17 @@ private fun CategoryListContent(categoryList: List<Category>) {
 }
 
 @Composable
-private fun CategoryItem(modifier: Modifier = Modifier, category: Category) {
+private fun CategoryItem(
+    modifier: Modifier = Modifier,
+    category: Category,
+    onItemClick: (Category) -> Unit
+) {
     Card(
         elevation = 4.dp,
         modifier = modifier
             .fillMaxWidth()
             .padding(all = 8.dp)
-            .clickable { }
+            .clickable { onItemClick(category) }
     ) {
         Column(
             verticalArrangement = Arrangement.Center,
@@ -159,6 +189,9 @@ private fun CategoryListEmpty() {
 @Composable
 fun AboutPreview() {
     AlkaaTheme {
-        CategoryItem(category = Category(name = "Movies", color = android.graphics.Color.RED))
+        CategoryItem(
+            category = Category(name = "Movies", color = android.graphics.Color.RED),
+            onItemClick = { }
+        )
     }
 }

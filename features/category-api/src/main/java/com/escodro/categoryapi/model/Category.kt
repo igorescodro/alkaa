@@ -1,6 +1,4 @@
-package com.escodro.task.model
-
-import androidx.compose.ui.graphics.Color
+package com.escodro.categoryapi.model
 
 /**
  * Data class to represent a View Category.
@@ -12,5 +10,5 @@ import androidx.compose.ui.graphics.Color
 data class Category(
     val id: Long = 0,
     val name: String?,
-    val color: Color
+    val color: Int
 )

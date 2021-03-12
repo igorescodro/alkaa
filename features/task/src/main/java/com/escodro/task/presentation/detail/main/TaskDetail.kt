@@ -22,12 +22,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
+import com.escodro.categoryapi.model.Category
+import com.escodro.categoryapi.presentation.CategoryListViewModel
+import com.escodro.categoryapi.presentation.CategoryState
 import com.escodro.task.R
-import com.escodro.task.model.Category
 import com.escodro.task.model.Task
 import com.escodro.task.presentation.category.CategorySelection
-import com.escodro.task.presentation.category.CategoryState
-import com.escodro.task.presentation.category.TaskCategoryViewModel
 import com.escodro.task.presentation.detail.LeadingIcon
 import com.escodro.task.presentation.detail.TaskDetailActions
 import com.escodro.task.presentation.detail.TaskDetailSectionContent
@@ -55,7 +55,7 @@ private fun TaskDetailLoader(
     taskId: Long,
     onUpPressed: () -> Unit,
     detailViewModel: TaskDetailViewModel = getViewModel(),
-    categoryViewModel: TaskCategoryViewModel = getViewModel(),
+    categoryViewModel: CategoryListViewModel = getViewModel(),
     alarmViewModel: TaskAlarmViewModel = getViewModel()
 ) {
     val id = TaskId(taskId)
@@ -196,9 +196,9 @@ internal inline class CategoryId(val value: Long?) : Parcelable
 @Composable
 fun TaskDetailPreview() {
     val task = Task(title = "Buy milk", description = "This is a amazing task!", dueDate = null)
-    val category1 = Category(name = "Groceries", color = Color.Magenta)
-    val category2 = Category(name = "Books", color = Color.Cyan)
-    val category3 = Category(name = "Movies", color = Color.Red)
+    val category1 = Category(name = "Groceries", color = android.graphics.Color.CYAN)
+    val category2 = Category(name = "Books", color = android.graphics.Color.RED)
+    val category3 = Category(name = "Movies", color = android.graphics.Color.MAGENTA)
 
     val categories = listOf(category1, category2, category3)
 

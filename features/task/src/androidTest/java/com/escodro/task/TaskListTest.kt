@@ -9,7 +9,7 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.test.platform.app.InstrumentationRegistry
-import com.escodro.task.model.Category
+import com.escodro.categoryapi.model.Category
 import com.escodro.task.model.Task
 import com.escodro.task.model.TaskWithCategory
 import com.escodro.task.presentation.list.CategoryStateHandler
@@ -61,7 +61,7 @@ internal class TaskListTest {
     fun test_listViewIsShown() {
         // Given a success state
         val task = Task(title = "Buy milk", dueDate = null)
-        val category = Category(name = "Books", color = Color.Green)
+        val category = Category(name = "Books", color = android.graphics.Color.GREEN)
         val taskList = listOf(TaskWithCategory(task = task, category = category))
         val state = TaskListViewState.Loaded(taskList)
 

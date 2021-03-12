@@ -26,8 +26,9 @@ import androidx.compose.ui.semantics.SemanticsPropertyReceiver
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.escodro.categoryapi.model.Category
+import com.escodro.categoryapi.presentation.CategoryState
 import com.escodro.task.R
-import com.escodro.task.model.Category
 import com.escodro.task.presentation.detail.main.CategoryId
 import com.escodro.theme.AlkaaTheme
 import com.escodro.theme.components.AlkaaLoadingContent
@@ -97,7 +98,7 @@ private fun CategoryItemChip(
     Surface(
         modifier = Modifier.padding(end = 8.dp),
         shape = MaterialTheme.shapes.small,
-        color = if (isSelected) category.color else Color.White,
+        color = if (isSelected) Color(category.color) else Color.White,
         border = chipBorder(isSelected)
     ) {
         Row(
@@ -147,9 +148,9 @@ private var SemanticsPropertyReceiver.chipName by ChipNameKey
 @Preview
 @Composable
 fun CategorySelectionListPreview() {
-    val category1 = Category(name = "Groceries", color = Color.Magenta)
-    val category2 = Category(name = "Books", color = Color.Cyan)
-    val category3 = Category(name = "Movies", color = Color.Red)
+    val category1 = Category(name = "Groceries", color = android.graphics.Color.BLUE)
+    val category2 = Category(name = "Books", color = android.graphics.Color.RED)
+    val category3 = Category(name = "Movies", color = android.graphics.Color.GREEN)
     val categories = listOf(category1, category2, category3)
 
     AlkaaTheme {

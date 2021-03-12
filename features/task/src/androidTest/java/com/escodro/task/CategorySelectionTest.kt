@@ -10,9 +10,9 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.test.platform.app.InstrumentationRegistry
-import com.escodro.task.model.Category
+import com.escodro.categoryapi.model.Category
+import com.escodro.categoryapi.presentation.CategoryState
 import com.escodro.task.presentation.category.CategorySelection
-import com.escodro.task.presentation.category.CategoryState
 import com.escodro.task.presentation.category.ChipNameKey
 import com.escodro.theme.AlkaaTheme
 import org.junit.Ignore
@@ -33,9 +33,9 @@ internal class CategorySelectionTest {
     @Test
     fun test_chipClickedIsTheChipSelected() {
         // Given a list of category
-        val category1 = Category(id = 1, name = "Movies", color = Color.Green)
-        val category2 = Category(id = 2, name = "Books", color = Color.Magenta)
-        val category3 = Category(id = 3, name = "Grocery", color = Color.LightGray)
+        val category1 = Category(id = 1, name = "Movies", color = android.graphics.Color.GREEN)
+        val category2 = Category(id = 2, name = "Books", color = android.graphics.Color.MAGENTA)
+        val category3 = Category(id = 3, name = "Grocery", color = android.graphics.Color.LTGRAY)
         val categoryList = listOf(category1, category2, category3)
 
         // When the view is loaded in a category is clicked
@@ -51,9 +51,9 @@ internal class CategorySelectionTest {
     @Test
     fun test_latestChipClickedIsTheChipSelected() {
         // Given a list of category
-        val category1 = Category(id = 1, name = "Movies", color = Color.Green)
-        val category2 = Category(id = 2, name = "Books", color = Color.Magenta)
-        val category3 = Category(id = 3, name = "Grocery", color = Color.LightGray)
+        val category1 = Category(id = 1, name = "Movies", color = android.graphics.Color.GREEN)
+        val category2 = Category(id = 2, name = "Books", color = android.graphics.Color.MAGENTA)
+        val category3 = Category(id = 3, name = "Grocery", color = android.graphics.Color.LTGRAY)
         val categoryList = listOf(category1, category2, category3)
 
         // When the view is loaded in several category are clicked
@@ -71,9 +71,9 @@ internal class CategorySelectionTest {
     @Test
     fun test_categoryPassedViaParamIsTheCurrentCategory() {
         // Given a list of category
-        val category1 = Category(id = 1, name = "Movies", color = Color.Green)
-        val category2 = Category(id = 2, name = "Books", color = Color.Magenta)
-        val category3 = Category(id = 3, name = "Grocery", color = Color.LightGray)
+        val category1 = Category(id = 1, name = "Movies", color = android.graphics.Color.GREEN)
+        val category2 = Category(id = 2, name = "Books", color = android.graphics.Color.MAGENTA)
+        val category3 = Category(id = 3, name = "Grocery", color = android.graphics.Color.LTGRAY)
         val categoryList = listOf(category1, category2, category3)
 
         // When the view is loaded with a category already selected
@@ -88,9 +88,9 @@ internal class CategorySelectionTest {
     @Test
     fun test_categoryIsUncheckedWhenClickedTwice() {
         // Given a list of category
-        val category1 = Category(id = 1, name = "Movies", color = Color.Green)
-        val category2 = Category(id = 2, name = "Books", color = Color.Magenta)
-        val category3 = Category(id = 3, name = "Grocery", color = Color.LightGray)
+        val category1 = Category(id = 1, name = "Movies", color = android.graphics.Color.GREEN)
+        val category2 = Category(id = 2, name = "Books", color = android.graphics.Color.MAGENTA)
+        val category3 = Category(id = 3, name = "Grocery", color = android.graphics.Color.LTGRAY)
         val categoryList = listOf(category1, category2, category3)
 
         // When the view is loaded and a category is clicked twice

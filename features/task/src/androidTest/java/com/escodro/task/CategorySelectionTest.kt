@@ -1,6 +1,5 @@
 package com.escodro.task
 
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.SemanticsNodeInteraction
@@ -15,14 +14,9 @@ import com.escodro.categoryapi.presentation.CategoryState
 import com.escodro.task.presentation.category.CategorySelection
 import com.escodro.task.presentation.category.ChipNameKey
 import com.escodro.theme.AlkaaTheme
-import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 
-@Ignore(
-    "For some reason performClick() is not working. Issue Tracker created: " +
-        "https://issuetracker.google.com/issues/181859825"
-)
 internal class CategorySelectionTest {
 
     @get:Rule

@@ -11,7 +11,6 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.FabPosition
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.ModalBottomSheetState
-import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Close
@@ -24,7 +23,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.escodro.categoryapi.model.Category
@@ -53,21 +51,25 @@ import java.util.Calendar
 fun TaskListSection(
     modifier: Modifier = Modifier,
     onItemClicked: (Long) -> Unit,
-    bottomSheetContent: (@Composable() () -> Unit) -> Unit,
+    bottomSheetContent: (@Composable () -> Unit) -> Unit,
     sheetState: ModalBottomSheetState
 ) {
-    TaskListLoader(modifier = modifier, onItemClicked = onItemClicked, sheetState = sheetState)
-    bottomSheetContent { AddTaskSection(sheetState = sheetState) }
+    val coroutineScope = rememberCoroutineScope()
+    val onAddClicked: () -> Unit = {
+        coroutineScope.launch { sheetState.show() }
+        bottomSheetContent { AddTaskSection(sheetState = sheetState) }
+    }
+
+    TaskListLoader(modifier = modifier, onItemClicked = onItemClicked, onAddClicked = onAddClicked)
 }
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 private fun TaskListLoader(
     modifier: Modifier = Modifier,
     onItemClicked: (Long) -> Unit,
+    onAddClicked: () -> Unit,
     taskListViewModel: TaskListViewModel = getViewModel(),
     categoryViewModel: CategoryListViewModel = getViewModel(),
-    sheetState: ModalBottomSheetState
 ) {
     val (currentCategory, setCategory) = rememberSaveable { mutableStateOf<CategoryId?>(null) }
 
@@ -81,7 +83,8 @@ private fun TaskListLoader(
     val taskHandler = TaskStateHandler(
         state = taskViewState,
         onCheckedChanged = taskListViewModel::updateTaskStatus,
-        onItemClicked = onItemClicked
+        onItemClicked = onItemClicked,
+        onAddClicked = onAddClicked
     )
 
     val categoryHandler = CategoryStateHandler(
@@ -91,36 +94,36 @@ private fun TaskListLoader(
     )
 
     TaskListScaffold(
-        handler = taskHandler,
+        taskHandler = taskHandler,
         categoryHandler = categoryHandler,
         modifier = modifier,
-        sheetState = sheetState
     )
 }
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 internal fun TaskListScaffold(
-    handler: TaskStateHandler,
+    taskHandler: TaskStateHandler,
     categoryHandler: CategoryStateHandler,
     modifier: Modifier = Modifier,
-    sheetState: ModalBottomSheetState
 ) {
-    val coroutineScope = rememberCoroutineScope()
     Scaffold(
         modifier = modifier.fillMaxSize(),
         backgroundColor = MaterialTheme.colors.background,
         topBar = { TaskFilter(categoryHandler = categoryHandler) },
-        floatingActionButton = { FloatingButton { coroutineScope.launch { sheetState.show() } } },
+        floatingActionButton = { FloatingButton { taskHandler.onAddClicked() } },
         floatingActionButtonPosition = FabPosition.Center
     ) {
-        Crossfade(handler.state) { state ->
+        Crossfade(taskHandler.state) { state ->
             when (state) {
                 TaskListViewState.Loading -> AlkaaLoadingContent()
                 is TaskListViewState.Error -> TaskListError()
                 is TaskListViewState.Loaded -> {
                     val taskList = state.items
-                    TaskListContent(taskList, handler.onItemClicked, handler.onCheckedChanged)
+                    TaskListContent(
+                        taskList,
+                        taskHandler.onItemClicked,
+                        taskHandler.onCheckedChanged
+                    )
                 }
                 TaskListViewState.Empty -> TaskListEmpty()
             }
@@ -200,10 +203,9 @@ fun TaskListScaffoldLoaded() {
 
     AlkaaTheme {
         TaskListScaffold(
-            handler = TaskStateHandler(state = state),
+            taskHandler = TaskStateHandler(state = state),
             categoryHandler = CategoryStateHandler(),
             modifier = Modifier,
-            sheetState = ModalBottomSheetState(ModalBottomSheetValue.Hidden)
         )
     }
 }
@@ -217,10 +219,9 @@ fun TaskListScaffoldEmpty() {
 
     AlkaaTheme {
         TaskListScaffold(
-            handler = TaskStateHandler(state = state),
+            taskHandler = TaskStateHandler(state = state),
             categoryHandler = CategoryStateHandler(),
             modifier = Modifier,
-            sheetState = ModalBottomSheetState(ModalBottomSheetValue.Hidden)
         )
     }
 }
@@ -234,10 +235,9 @@ fun TaskListScaffoldError() {
 
     AlkaaTheme {
         TaskListScaffold(
-            handler = TaskStateHandler(state = state),
+            taskHandler = TaskStateHandler(state = state),
             categoryHandler = CategoryStateHandler(),
             modifier = Modifier,
-            sheetState = ModalBottomSheetState(ModalBottomSheetValue.Hidden)
         )
     }
 }

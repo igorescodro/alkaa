@@ -34,12 +34,12 @@ internal class CategorySelectionTest {
 
         // When the view is loaded in a category is clicked
         loadCategorySelection(categoryList, null)
-        composeTestRule.onNodeWithText(text = category1.name!!).performClick()
+        composeTestRule.onNodeWithText(text = category1.name).performClick()
 
         // Then only the clicked category is checked
-        composeTestRule.onChip(category1.name!!).assertIsChecked()
-        composeTestRule.onChip(category2.name!!).assertIsUnchecked()
-        composeTestRule.onChip(category3.name!!).assertIsUnchecked()
+        composeTestRule.onChip(category1.name).assertIsChecked()
+        composeTestRule.onChip(category2.name).assertIsUnchecked()
+        composeTestRule.onChip(category3.name).assertIsUnchecked()
     }
 
     @Test
@@ -52,14 +52,14 @@ internal class CategorySelectionTest {
 
         // When the view is loaded in several category are clicked
         loadCategorySelection(categoryList, null)
-        composeTestRule.onNodeWithText(text = category1.name!!).performClick()
-        composeTestRule.onNodeWithText(text = category2.name!!).performClick()
-        composeTestRule.onNodeWithText(text = category3.name!!).performClick()
+        composeTestRule.onNodeWithText(text = category1.name).performClick()
+        composeTestRule.onNodeWithText(text = category2.name).performClick()
+        composeTestRule.onNodeWithText(text = category3.name).performClick()
 
         // Then only the last clicked category is checked
-        composeTestRule.onChip(category1.name!!).assertIsUnchecked()
-        composeTestRule.onChip(category2.name!!).assertIsUnchecked()
-        composeTestRule.onChip(category3.name!!).assertIsChecked()
+        composeTestRule.onChip(category1.name).assertIsUnchecked()
+        composeTestRule.onChip(category2.name).assertIsUnchecked()
+        composeTestRule.onChip(category3.name).assertIsChecked()
     }
 
     @Test
@@ -74,9 +74,9 @@ internal class CategorySelectionTest {
         loadCategorySelection(categoryList, category2.id)
 
         // Then only the given category is checked
-        composeTestRule.onChip(category1.name!!).assertIsUnchecked()
-        composeTestRule.onChip(category2.name!!).assertIsChecked()
-        composeTestRule.onChip(category3.name!!).assertIsUnchecked()
+        composeTestRule.onChip(category1.name).assertIsUnchecked()
+        composeTestRule.onChip(category2.name).assertIsChecked()
+        composeTestRule.onChip(category3.name).assertIsUnchecked()
     }
 
     @Test
@@ -89,13 +89,13 @@ internal class CategorySelectionTest {
 
         // When the view is loaded and a category is clicked twice
         loadCategorySelection(categoryList, null)
-        composeTestRule.onNodeWithText(text = category1.name!!).performClick()
-        composeTestRule.onNodeWithText(text = category1.name!!).performClick()
+        composeTestRule.onNodeWithText(text = category1.name).performClick()
+        composeTestRule.onNodeWithText(text = category1.name).performClick()
 
         // Then no chip are checked in the list
-        composeTestRule.onChip(category1.name!!).assertIsUnchecked()
-        composeTestRule.onChip(category2.name!!).assertIsUnchecked()
-        composeTestRule.onChip(category3.name!!).assertIsUnchecked()
+        composeTestRule.onChip(category1.name).assertIsUnchecked()
+        composeTestRule.onChip(category2.name).assertIsUnchecked()
+        composeTestRule.onChip(category3.name).assertIsUnchecked()
     }
 
     @Test

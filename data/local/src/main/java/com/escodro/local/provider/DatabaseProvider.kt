@@ -9,6 +9,7 @@ import com.escodro.local.R
 import com.escodro.local.TaskDatabase
 import com.escodro.local.migration.MIGRATION_1_2
 import com.escodro.local.migration.MIGRATION_2_3
+import com.escodro.local.migration.MIGRATION_3_4
 import com.escodro.local.model.Category
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -33,7 +34,7 @@ class DatabaseProvider(private val context: Context) {
     private fun buildDatabase(): TaskDatabase =
         Room.databaseBuilder(context, TaskDatabase::class.java, "todo-db")
             .addCallback(onCreateDatabase())
-            .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
+            .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4)
             .build()
 
     @Suppress("GlobalCoroutineUsage")

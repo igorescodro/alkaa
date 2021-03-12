@@ -69,7 +69,7 @@ internal fun AddTaskLoader(
         CategorySelection(
             state = categoryState,
             currentCategory = null,
-            onCategoryChanged = { categoryId -> currentCategory.value = categoryId }
+            onCategoryChange = { categoryId -> currentCategory.value = categoryId }
         )
 
         Button(

@@ -37,8 +37,8 @@ fun NavGraph(startDestination: String = Destinations.Home) {
 
         composable(Destinations.Home) {
             Home(
-                onTaskClicked = actions.openTaskDetail,
-                onAboutClicked = actions.openAbout
+                onTaskClick = actions.openTaskDetail,
+                onAboutClick = actions.openAbout
             )
         }
 
@@ -49,12 +49,12 @@ fun NavGraph(startDestination: String = Destinations.Home) {
             val arguments = requireNotNull(backStackEntry.arguments)
             TaskDetailSection(
                 taskId = arguments.getLong(DestinationArgs.TaskId),
-                onUpPressed = actions.onUpPressed
+                onUpPress = actions.onUpPress
             )
         }
 
         composable(Destinations.About) {
-            About(onUpPressed = actions.onUpPressed)
+            About(onUpPress = actions.onUpPress)
         }
     }
 }
@@ -69,7 +69,7 @@ internal data class Actions(val navController: NavHostController) {
         navController.navigate(Destinations.About)
     }
 
-    val onUpPressed: () -> Unit = {
+    val onUpPress: () -> Unit = {
         navController.navigateUp()
     }
 }

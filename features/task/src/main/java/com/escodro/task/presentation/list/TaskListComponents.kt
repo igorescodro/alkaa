@@ -39,14 +39,14 @@ import java.util.Calendar
  *
  * @param modifier the decorator
  * @param task the task item to be rendered
- * @param onItemClicked the action to be done when the item is clicked
+ * @param onItemClick the action to be done when the item is clicked
  */
 @Composable
 internal fun TaskItem(
     modifier: Modifier = Modifier,
     task: TaskWithCategory,
-    onItemClicked: (Long) -> Unit,
-    onCheckedChanged: (TaskWithCategory) -> Unit
+    onItemClick: (Long) -> Unit,
+    onCheckedChange: (TaskWithCategory) -> Unit
 ) {
     Card(
         elevation = 4.dp,
@@ -54,14 +54,14 @@ internal fun TaskItem(
             .fillMaxWidth()
             .padding(all = 8.dp)
             .height(74.dp)
-            .clickable { onItemClicked(task.task.id) }
+            .clickable { onItemClick(task.task.id) }
     ) {
         Row {
             CardRibbon(colorInt = task.category?.color)
             Checkbox(
                 modifier = modifier.fillMaxHeight(),
                 checked = task.task.completed,
-                onCheckedChange = { onCheckedChanged(task) }
+                onCheckedChange = { onCheckedChange(task) }
             )
             Spacer(Modifier.width(8.dp))
             Column(modifier = modifier.fillMaxHeight(), verticalArrangement = Arrangement.Center) {
@@ -135,7 +135,7 @@ fun TaskItemPreview() {
     TaskItem(
         modifier = Modifier,
         task = taskWithCategory,
-        onCheckedChanged = {},
-        onItemClicked = {}
+        onCheckedChange = {},
+        onItemClick = {}
     )
 }

@@ -43,8 +43,8 @@ import java.util.Calendar
 internal fun AlarmSelection(
     calendar: Calendar?,
     interval: AlarmInterval?,
-    onAlarmUpdated: (Calendar?) -> Unit,
-    onIntervalSelected: (AlarmInterval) -> Unit
+    onAlarmUpdate: (Calendar?) -> Unit,
+    onIntervalSelect: (AlarmInterval) -> Unit
 ) {
     val context = LocalContext.current
     var date by remember { mutableStateOf(calendar) }
@@ -57,7 +57,7 @@ internal fun AlarmSelection(
                 .clickable {
                     DateTimePickerDialog(context) { calendar ->
                         date = calendar
-                        onAlarmUpdated(calendar)
+                        onAlarmUpdate(calendar)
                     }.show()
                 },
             imageVector = Icons.Outlined.CheckCircle,
@@ -76,7 +76,7 @@ internal fun AlarmSelection(
         if (date != null) {
             AlarmIntervalDialog(showDialog) { interval ->
                 alarmInterval = interval
-                onIntervalSelected(interval)
+                onIntervalSelect(interval)
             }
 
             TaskDetailSectionContent(
@@ -99,13 +99,13 @@ internal fun AlarmSelection(
 }
 
 @Composable
-private fun AlarmSet(date: Calendar?, onRemoveButtonClicked: () -> Unit) {
+private fun AlarmSet(date: Calendar?, onRemoveClick: () -> Unit) {
     Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
         Text(
             text = date?.format() ?: "",
             color = MaterialTheme.colors.onSecondary,
         )
-        IconButton(onClick = onRemoveButtonClicked) {
+        IconButton(onClick = onRemoveClick) {
             Icon(
                 imageVector = Icons.Outlined.Close,
                 contentDescription = stringResource(
@@ -129,7 +129,7 @@ private fun NoAlarmSet() {
 @Composable
 private fun AlarmIntervalDialog(
     showDialog: MutableState<Boolean>,
-    onIntervalSelected: (AlarmInterval) -> Unit
+    onIntervalSelect: (AlarmInterval) -> Unit
 ) {
     if (showDialog.value.not()) {
         return
@@ -149,7 +149,7 @@ private fun AlarmIntervalDialog(
                             title = title,
                             index = index,
                             showDialog = showDialog,
-                            onIntervalSelected = onIntervalSelected
+                            onIntervalSelect = onIntervalSelect
                         )
                     }
                 )
@@ -163,7 +163,7 @@ private fun AlarmListItem(
     title: String,
     index: Int,
     showDialog: MutableState<Boolean>,
-    onIntervalSelected: (AlarmInterval) -> Unit
+    onIntervalSelect: (AlarmInterval) -> Unit
 ) {
     Text(
         text = title,
@@ -174,7 +174,7 @@ private fun AlarmListItem(
                     AlarmInterval
                         .values()
                         .find { it.index == index } ?: AlarmInterval.NEVER
-                onIntervalSelected(interval)
+                onIntervalSelect(interval)
                 showDialog.value = false
             },
     )
@@ -189,8 +189,8 @@ fun AlarmSetSelectionPreview() {
             AlarmSelection(
                 Calendar.getInstance(),
                 AlarmInterval.WEEKLY,
-                onAlarmUpdated = {},
-                onIntervalSelected = {}
+                onAlarmUpdate = {},
+                onIntervalSelect = {}
             )
         }
     }
@@ -205,8 +205,8 @@ fun AlarmNotSetSelectionPreview() {
             AlarmSelection(
                 null,
                 AlarmInterval.NEVER,
-                onAlarmUpdated = {},
-                onIntervalSelected = {}
+                onAlarmUpdate = {},
+                onIntervalSelect = {}
             )
         }
     }
@@ -219,7 +219,7 @@ fun AlarmIntervalDialogPreview() {
     AlkaaTheme {
         AlarmIntervalDialog(
             showDialog = mutableStateOf(true),
-            onIntervalSelected = {}
+            onIntervalSelect = {}
         )
     }
 }

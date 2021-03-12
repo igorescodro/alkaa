@@ -23,12 +23,12 @@ import com.escodro.theme.AlkaaTheme
  * Alkaa Preference Section.
  *
  * @param modifier the decorator
- * @param onAboutClicked function to be called when the about item is clicked
+ * @param onAboutClick function to be called when the about item is clicked
  */
 @Composable
-fun PreferenceSection(modifier: Modifier = Modifier, onAboutClicked: () -> Unit) {
+fun PreferenceSection(modifier: Modifier = Modifier, onAboutClick: () -> Unit) {
     Column(modifier = modifier.fillMaxSize()) {
-        AboutItem(onAboutClicked)
+        AboutItem(onAboutClick)
         VersionItem()
     }
 }
@@ -41,10 +41,10 @@ private fun VersionItem() {
 }
 
 @Composable
-private fun AboutItem(onAboutClicked: () -> Unit) {
+private fun AboutItem(onAboutClick: () -> Unit) {
     PreferenceItem(
         title = stringResource(id = R.string.preference_title_about),
-        onItemClicked = onAboutClicked
+        onItemClick = onAboutClick
     )
 }
 
@@ -52,11 +52,11 @@ private fun AboutItem(onAboutClicked: () -> Unit) {
 private fun PreferenceItem(
     title: String,
     description: String? = null,
-    onItemClicked: () -> Unit = { }
+    onItemClick: () -> Unit = { }
 ) {
     Column(
         modifier = Modifier
-            .clickable { onItemClicked() }
+            .clickable { onItemClick() }
             .padding(start = 32.dp, top = 8.dp, end = 16.dp, bottom = 8.dp)
             .fillMaxWidth()
             .height(48.dp),
@@ -80,6 +80,6 @@ private fun PreferenceItem(
 @Composable
 fun PreferencePreview() {
     AlkaaTheme {
-        PreferenceSection(onAboutClicked = {})
+        PreferenceSection(onAboutClick = {})
     }
 }

@@ -44,14 +44,14 @@ import com.escodro.theme.AlkaaTheme
  * Alkaa Home screen.
  */
 @Composable
-fun Home(onTaskClicked: (Long) -> Unit, onAboutClicked: () -> Unit) {
+fun Home(onTaskClick: (Long) -> Unit, onAboutClick: () -> Unit) {
     val (currentSection, setCurrentSection) = rememberSaveable { mutableStateOf(HomeSection.Tasks) }
     val navItems = HomeSection.values().toList()
     val homeModifier = Modifier.padding(bottom = 56.dp)
 
     val actions = HomeActions(
-        onTaskClicked = onTaskClicked,
-        onAboutClicked = onAboutClicked,
+        onTaskClick = onTaskClick,
+        onAboutClick = onAboutClick,
         setCurrentSection = setCurrentSection,
     )
 
@@ -86,7 +86,7 @@ private fun AlkaaHomeScaffold(
             bottomBar = {
                 AlkaaBottomNav(
                     currentSection = homeSection,
-                    onSectionSelected = actions.setCurrentSection,
+                    onSectionSelect = actions.setCurrentSection,
                     items = navItems
                 )
             }
@@ -107,12 +107,12 @@ private fun AlkaaContent(
         HomeSection.Tasks ->
             TaskListSection(
                 modifier = modifier,
-                onItemClicked = actions.onTaskClicked,
+                onItemClick = actions.onTaskClick,
                 bottomSheetContent = setSheetContent,
                 sheetState = sheetState
             )
         HomeSection.Search ->
-            SearchSection(modifier = modifier, onItemClicked = actions.onTaskClicked)
+            SearchSection(modifier = modifier, onItemClick = actions.onTaskClick)
         HomeSection.Categories ->
             CategoryListSection(
                 modifier = modifier,
@@ -122,7 +122,7 @@ private fun AlkaaContent(
         HomeSection.Settings ->
             PreferenceSection(
                 modifier = modifier,
-                onAboutClicked = actions.onAboutClicked
+                onAboutClick = actions.onAboutClick
             )
     }
 }
@@ -132,7 +132,7 @@ private fun AlkaaContent(
 private fun AlkaaBottomSheetLayout(
     sheetState: ModalBottomSheetState,
     bottomSheetContent: @Composable() () -> Unit,
-    content: @Composable() () -> Unit
+    content: @Composable () -> Unit
 ) {
     val focusManager = LocalFocusManager.current
     DisposableEffect(sheetState.isVisible.not()) {
@@ -175,7 +175,7 @@ private fun AlkaaTopBar(currentSection: HomeSection) {
 @Composable
 private fun AlkaaBottomNav(
     currentSection: HomeSection,
-    onSectionSelected: (HomeSection) -> Unit,
+    onSectionSelect: (HomeSection) -> Unit,
     items: List<HomeSection>
 ) {
     BottomAppBar(backgroundColor = MaterialTheme.colors.background) {
@@ -191,7 +191,7 @@ private fun AlkaaBottomNav(
             AlkaaBottomIcon(
                 section = section,
                 tint = colorState.value,
-                onSectionSelected = onSectionSelected,
+                onSectionSelect = onSectionSelect,
                 modifier = Modifier.weight(1f)
             )
         }
@@ -202,12 +202,12 @@ private fun AlkaaBottomNav(
 private fun AlkaaBottomIcon(
     section: HomeSection,
     tint: Color,
-    onSectionSelected: (HomeSection) -> Unit,
+    onSectionSelect: (HomeSection) -> Unit,
     modifier: Modifier
 ) {
     val title = stringResource(section.title)
     IconButton(
-        onClick = { onSectionSelected(section) },
+        onClick = { onSectionSelect(section) },
         modifier = modifier
     ) {
         Icon(imageVector = section.icon, tint = tint, contentDescription = title)
@@ -230,7 +230,7 @@ fun AlkaaBottomNavPreview() {
     AlkaaTheme {
         AlkaaBottomNav(
             currentSection = HomeSection.Tasks,
-            onSectionSelected = {},
+            onSectionSelect = {},
             items = HomeSection.values().toList()
         )
     }

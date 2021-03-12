@@ -32,7 +32,7 @@ internal class AboutTest {
     private fun loadView() {
         composeTestRule.setContent {
             AlkaaTheme {
-                About(onUpPressed = { })
+                About(onUpPress = { })
             }
         }
     }

@@ -4,7 +4,7 @@ import com.escodro.task.model.TaskWithCategory
 
 internal data class TaskStateHandler(
     val state: TaskListViewState = TaskListViewState.Empty,
-    val onCheckedChanged: (TaskWithCategory) -> Unit = {},
-    val onItemClicked: (Long) -> Unit = {},
-    val onAddClicked: () -> Unit = {},
+    val onCheckedChange: (TaskWithCategory) -> Unit = {},
+    val onItemClick: (Long) -> Unit = {},
+    val onAddClick: () -> Unit = {},
 )

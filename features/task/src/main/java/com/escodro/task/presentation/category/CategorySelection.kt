@@ -37,7 +37,7 @@ import com.escodro.theme.components.AlkaaLoadingContent
 internal fun CategorySelection(
     state: CategoryState,
     currentCategory: Long?,
-    onCategoryChanged: (CategoryId) -> Unit,
+    onCategoryChange: (CategoryId) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Box(
@@ -49,7 +49,7 @@ internal fun CategorySelection(
             is CategoryState.Loaded -> LoadedCategoryList(
                 categoryList = state.categoryList,
                 currentCategory = currentCategory,
-                onCategoryChanged = onCategoryChanged
+                onCategoryChange = onCategoryChange
             )
             CategoryState.Empty -> EmptyCategoryList()
         }
@@ -60,7 +60,7 @@ internal fun CategorySelection(
 private fun LoadedCategoryList(
     categoryList: List<Category>,
     currentCategory: Long?,
-    onCategoryChanged: (CategoryId) -> Unit
+    onCategoryChange: (CategoryId) -> Unit
 ) {
     val currentItem = categoryList.find { category -> category.id == currentCategory }
     val selectedState = remember { mutableStateOf(currentItem) }
@@ -73,7 +73,7 @@ private fun LoadedCategoryList(
                     category = category,
                     isSelected = isSelected,
                     selectedState,
-                    onCategoryChanged = { id -> onCategoryChanged(CategoryId(id)) }
+                    onCategoryChange = { id -> onCategoryChange(CategoryId(id)) }
                 )
             }
         )
@@ -93,7 +93,7 @@ private fun CategoryItemChip(
     category: Category,
     isSelected: Boolean = false,
     selectedState: MutableState<Category?>,
-    onCategoryChanged: (Long?) -> Unit
+    onCategoryChange: (Long?) -> Unit
 ) {
     Surface(
         modifier = Modifier.padding(end = 8.dp),
@@ -110,7 +110,7 @@ private fun CategoryItemChip(
                     onValueChange = {
                         val newCategory = toggleChip(selectedState, category)
                         selectedState.value = newCategory
-                        onCategoryChanged(newCategory?.id)
+                        onCategoryChange(newCategory?.id)
                     }
                 )
         ) {
@@ -158,7 +158,7 @@ fun CategorySelectionListPreview() {
             CategorySelection(
                 state = CategoryState.Loaded(categories),
                 currentCategory = category2.id,
-                onCategoryChanged = {}
+                onCategoryChange = {}
             )
         }
     }
@@ -173,7 +173,7 @@ fun CategorySelectionEmptyPreview() {
             CategorySelection(
                 state = CategoryState.Empty,
                 currentCategory = null,
-                onCategoryChanged = {}
+                onCategoryChange = {}
             )
         }
     }

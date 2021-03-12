@@ -50,24 +50,24 @@ import java.util.Calendar
 @Composable
 fun TaskListSection(
     modifier: Modifier = Modifier,
-    onItemClicked: (Long) -> Unit,
+    onItemClick: (Long) -> Unit,
     bottomSheetContent: (@Composable () -> Unit) -> Unit,
     sheetState: ModalBottomSheetState
 ) {
     val coroutineScope = rememberCoroutineScope()
-    val onAddClicked: () -> Unit = {
+    val onAddClick: () -> Unit = {
         coroutineScope.launch { sheetState.show() }
         bottomSheetContent { AddTaskSection(sheetState = sheetState) }
     }
 
-    TaskListLoader(modifier = modifier, onItemClicked = onItemClicked, onAddClicked = onAddClicked)
+    TaskListLoader(modifier = modifier, onItemClick = onItemClick, onAddClick = onAddClick)
 }
 
 @Composable
 private fun TaskListLoader(
     modifier: Modifier = Modifier,
-    onItemClicked: (Long) -> Unit,
-    onAddClicked: () -> Unit,
+    onItemClick: (Long) -> Unit,
+    onAddClick: () -> Unit,
     taskListViewModel: TaskListViewModel = getViewModel(),
     categoryViewModel: CategoryListViewModel = getViewModel(),
 ) {
@@ -82,15 +82,15 @@ private fun TaskListLoader(
 
     val taskHandler = TaskStateHandler(
         state = taskViewState,
-        onCheckedChanged = taskListViewModel::updateTaskStatus,
-        onItemClicked = onItemClicked,
-        onAddClicked = onAddClicked
+        onCheckedChange = taskListViewModel::updateTaskStatus,
+        onItemClick = onItemClick,
+        onAddClick = onAddClick
     )
 
     val categoryHandler = CategoryStateHandler(
         state = categoryViewState,
         currentCategory = currentCategory,
-        onCategoryChanged = setCategory,
+        onCategoryChange = setCategory,
     )
 
     TaskListScaffold(
@@ -110,7 +110,7 @@ internal fun TaskListScaffold(
         modifier = modifier.fillMaxSize(),
         backgroundColor = MaterialTheme.colors.background,
         topBar = { TaskFilter(categoryHandler = categoryHandler) },
-        floatingActionButton = { FloatingButton { taskHandler.onAddClicked() } },
+        floatingActionButton = { FloatingButton { taskHandler.onAddClick() } },
         floatingActionButtonPosition = FabPosition.Center
     ) {
         Crossfade(taskHandler.state) { state ->
@@ -121,8 +121,8 @@ internal fun TaskListScaffold(
                     val taskList = state.items
                     TaskListContent(
                         taskList,
-                        taskHandler.onItemClicked,
-                        taskHandler.onCheckedChanged
+                        taskHandler.onItemClick,
+                        taskHandler.onCheckedChange
                     )
                 }
                 TaskListViewState.Empty -> TaskListEmpty()
@@ -136,7 +136,7 @@ private fun TaskFilter(categoryHandler: CategoryStateHandler) {
     CategorySelection(
         state = categoryHandler.state,
         currentCategory = categoryHandler.currentCategory?.value,
-        onCategoryChanged = categoryHandler.onCategoryChanged,
+        onCategoryChange = categoryHandler.onCategoryChange,
         modifier = Modifier.padding(start = 16.dp)
     )
 }
@@ -144,8 +144,8 @@ private fun TaskFilter(categoryHandler: CategoryStateHandler) {
 @Composable
 private fun TaskListContent(
     taskList: List<TaskWithCategory>,
-    onItemClicked: (Long) -> Unit,
-    onCheckedChanged: (TaskWithCategory) -> Unit
+    onItemClick: (Long) -> Unit,
+    onCheckedChange: (TaskWithCategory) -> Unit
 ) {
     Column(modifier = Modifier.padding(start = 8.dp, end = 8.dp)) {
         LazyColumn(contentPadding = PaddingValues(bottom = 48.dp)) {
@@ -154,8 +154,8 @@ private fun TaskListContent(
                 itemContent = { task ->
                     TaskItem(
                         task = task,
-                        onItemClicked = onItemClicked,
-                        onCheckedChanged = onCheckedChanged
+                        onItemClick = onItemClick,
+                        onCheckedChange = onCheckedChange
                     )
                 }
             )

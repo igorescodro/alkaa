@@ -143,8 +143,8 @@ internal class AlarmSelectionTest {
                     AlarmSelection(
                         calendar = null,
                         interval = AlarmInterval.NEVER,
-                        onAlarmUpdated = {},
-                        onIntervalSelected = {}
+                        onAlarmUpdate = {},
+                        onIntervalSelect = {}
                     )
                 }
             }
@@ -158,8 +158,8 @@ internal class AlarmSelectionTest {
                     AlarmSelection(
                         calendar = calendar,
                         interval = alarmInterval,
-                        onAlarmUpdated = {},
-                        onIntervalSelected = {}
+                        onAlarmUpdate = {},
+                        onIntervalSelect = {}
                     )
                 }
             }

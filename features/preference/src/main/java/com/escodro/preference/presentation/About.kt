@@ -35,9 +35,9 @@ import java.util.Locale
  * Alkaa about screen.
  */
 @Composable
-fun About(onUpPressed: () -> Unit) {
+fun About(onUpPress: () -> Unit) {
     Scaffold(
-        topBar = { AlkaaToolbar(onUpPressed = onUpPressed) },
+        topBar = { AlkaaToolbar(onUpPress = onUpPress) },
         content = { AboutContent() }
     )
 }
@@ -100,6 +100,6 @@ private const val PROJECT_URL = "https://github.com/igorescodro/alkaa"
 @Composable
 fun AboutPreview() {
     AlkaaTheme {
-        About(onUpPressed = { })
+        About(onUpPress = { })
     }
 }

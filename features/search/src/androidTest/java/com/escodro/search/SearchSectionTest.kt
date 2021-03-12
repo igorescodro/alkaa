@@ -55,7 +55,7 @@ internal class SearchSectionTest {
             AlkaaTheme {
                 SearchScaffold(
                     viewState = state,
-                    onItemClicked = {},
+                    onItemClick = {},
                     query = "",
                     setQuery = {}
                 )

@@ -5,10 +5,10 @@ import com.escodro.task.presentation.detail.main.CategoryId
 import java.util.Calendar
 
 internal data class TaskDetailActions(
-    val onTitleChanged: (String) -> Unit = {},
-    val onDescriptionChanged: (String) -> Unit = {},
-    val onCategoryChanged: (CategoryId) -> Unit = {},
-    val onAlarmUpdated: (Calendar?) -> Unit = {},
-    val onIntervalSelected: (AlarmInterval) -> Unit = {},
-    val onUpPressed: () -> Unit = {}
+    val onTitleChange: (String) -> Unit = {},
+    val onDescriptionChange: (String) -> Unit = {},
+    val onCategoryChange: (CategoryId) -> Unit = {},
+    val onAlarmUpdate: (Calendar?) -> Unit = {},
+    val onIntervalSelect: (AlarmInterval) -> Unit = {},
+    val onUpPress: () -> Unit = {}
 )

@@ -50,14 +50,14 @@ import org.koin.androidx.compose.getViewModel
  * @param modifier the decorator
  */
 @Composable
-fun SearchSection(modifier: Modifier = Modifier, onItemClicked: (Long) -> Unit) {
-    SearchLoader(modifier = modifier, onItemClicked = onItemClicked)
+fun SearchSection(modifier: Modifier = Modifier, onItemClick: (Long) -> Unit) {
+    SearchLoader(modifier = modifier, onItemClick = onItemClick)
 }
 
 @Composable
 private fun SearchLoader(
     modifier: Modifier = Modifier,
-    onItemClicked: (Long) -> Unit,
+    onItemClick: (Long) -> Unit,
     viewModel: SearchViewModel = getViewModel()
 ) {
     val (query, setQuery) = rememberSaveable { mutableStateOf("") }
@@ -67,7 +67,7 @@ private fun SearchLoader(
     SearchScaffold(
         viewState = viewState,
         modifier = modifier,
-        onItemClicked = onItemClicked,
+        onItemClick = onItemClick,
         query = query,
         setQuery = setQuery
     )
@@ -77,7 +77,7 @@ private fun SearchLoader(
 internal fun SearchScaffold(
     modifier: Modifier = Modifier,
     viewState: SearchViewState,
-    onItemClicked: (Long) -> Unit,
+    onItemClick: (Long) -> Unit,
     query: String,
     setQuery: (String) -> Unit
 ) {
@@ -86,7 +86,7 @@ internal fun SearchScaffold(
         backgroundColor = MaterialTheme.colors.background
     ) {
         Column(modifier = Modifier.fillMaxWidth()) {
-            SearchTextField(query, onTextChanged = setQuery)
+            SearchTextField(query, onTextChange = setQuery)
 
             Crossfade(viewState) { state ->
                 when (state) {
@@ -94,7 +94,7 @@ internal fun SearchScaffold(
                     SearchViewState.Empty -> SearchEmptyContent()
                     is SearchViewState.Loaded -> SearchListContent(
                         taskList = state.taskList,
-                        onItemClicked = onItemClicked
+                        onItemClick = onItemClick
                     )
                 }
             }
@@ -103,10 +103,10 @@ internal fun SearchScaffold(
 }
 
 @Composable
-private fun SearchTextField(text: String, onTextChanged: (String) -> Unit) {
+private fun SearchTextField(text: String, onTextChange: (String) -> Unit) {
     TextField(
         value = text,
-        onValueChange = onTextChanged,
+        onValueChange = onTextChange,
         trailingIcon = {
             Icon(
                 imageVector = Icons.Default.Search,
@@ -130,22 +130,22 @@ private fun SearchEmptyContent() {
 }
 
 @Composable
-private fun SearchListContent(taskList: List<TaskSearchItem>, onItemClicked: (Long) -> Unit) {
+private fun SearchListContent(taskList: List<TaskSearchItem>, onItemClick: (Long) -> Unit) {
     LazyColumn {
         items(
             items = taskList,
-            itemContent = { task -> SearchItem(task = task, onItemClicked = onItemClicked) }
+            itemContent = { task -> SearchItem(task = task, onItemClick = onItemClick) }
         )
     }
 }
 
 @Composable
-private fun SearchItem(task: TaskSearchItem, onItemClicked: (Long) -> Unit) {
+private fun SearchItem(task: TaskSearchItem, onItemClick: (Long) -> Unit) {
     Column(
         modifier = Modifier
             .height(48.dp)
             .fillMaxWidth()
-            .clickable { onItemClicked(task.id) },
+            .clickable { onItemClick(task.id) },
         verticalArrangement = Arrangement.Center
     ) {
 
@@ -203,7 +203,7 @@ fun SearchLoadedListPreview() {
         SearchScaffold(
             modifier = Modifier,
             viewState = SearchViewState.Loaded(taskList),
-            onItemClicked = {},
+            onItemClick = {},
             query = "",
             setQuery = {}
         )
@@ -218,7 +218,7 @@ fun SearchEmptyListPreview() {
         SearchScaffold(
             modifier = Modifier,
             viewState = SearchViewState.Empty,
-            onItemClicked = {},
+            onItemClick = {},
             query = "",
             setQuery = {}
         )

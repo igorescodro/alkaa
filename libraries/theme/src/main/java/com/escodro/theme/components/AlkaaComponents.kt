@@ -71,12 +71,12 @@ fun AlkaaLoadingContent() {
 /**
  * TopAppBar for screens that need a back button.
  *
- * @param onUpPressed function to be called when the back/up button is clicked
+ * @param onUpPress function to be called when the back/up button is clicked
  */
 @Composable
-fun AlkaaToolbar(onUpPressed: () -> Unit) {
+fun AlkaaToolbar(onUpPress: () -> Unit) {
     TopAppBar(backgroundColor = Color.Transparent, elevation = 0.dp) {
-        IconButton(onClick = onUpPressed, modifier = Modifier.align(Alignment.CenterVertically)) {
+        IconButton(onClick = onUpPress, modifier = Modifier.align(Alignment.CenterVertically)) {
             Icon(
                 imageVector = Icons.Rounded.ArrowBack,
                 contentDescription = stringResource(id = R.string.back_arrow_content_description)

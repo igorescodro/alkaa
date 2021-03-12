@@ -19,7 +19,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import com.escodro.categoryapi.model.Category
@@ -46,14 +45,14 @@ import org.koin.androidx.compose.getViewModel
  * @param taskId the id from the task to be shown
  */
 @Composable
-fun TaskDetailSection(taskId: Long, onUpPressed: () -> Unit) {
-    TaskDetailLoader(taskId = taskId, onUpPressed = onUpPressed)
+fun TaskDetailSection(taskId: Long, onUpPress: () -> Unit) {
+    TaskDetailLoader(taskId = taskId, onUpPress = onUpPress)
 }
 
 @Composable
 private fun TaskDetailLoader(
     taskId: Long,
-    onUpPressed: () -> Unit,
+    onUpPress: () -> Unit,
     detailViewModel: TaskDetailViewModel = getViewModel(),
     categoryViewModel: CategoryListViewModel = getViewModel(),
     alarmViewModel: TaskAlarmViewModel = getViewModel()
@@ -68,12 +67,12 @@ private fun TaskDetailLoader(
         .collectAsState(initial = CategoryState.Loading)
 
     val taskDetailActions = TaskDetailActions(
-        onTitleChanged = { title -> detailViewModel.updateTitle(id, title) },
-        onDescriptionChanged = { desc -> detailViewModel.updateDescription(id, desc) },
-        onCategoryChanged = { categoryId -> detailViewModel.updateCategory(id, categoryId) },
-        onAlarmUpdated = { calendar -> alarmViewModel.updateAlarm(id, calendar) },
-        onIntervalSelected = { interval -> alarmViewModel.setRepeating(id, interval) },
-        onUpPressed = onUpPressed
+        onTitleChange = { title -> detailViewModel.updateTitle(id, title) },
+        onDescriptionChange = { desc -> detailViewModel.updateDescription(id, desc) },
+        onCategoryChange = { categoryId -> detailViewModel.updateCategory(id, categoryId) },
+        onAlarmUpdate = { calendar -> alarmViewModel.updateAlarm(id, calendar) },
+        onIntervalSelect = { interval -> alarmViewModel.setRepeating(id, interval) },
+        onUpPress = onUpPress
     )
 
     TaskDetailRouter(
@@ -89,7 +88,7 @@ internal fun TaskDetailRouter(
     categoryViewState: CategoryState,
     actions: TaskDetailActions
 ) {
-    Scaffold(topBar = { AlkaaToolbar(onUpPressed = actions.onUpPressed) }) {
+    Scaffold(topBar = { AlkaaToolbar(onUpPress = actions.onUpPress) }) {
         Crossfade(detailViewState) { state ->
             when (state) {
                 TaskDetailState.Loading -> AlkaaLoadingContent()
@@ -113,7 +112,7 @@ private fun TaskDetailContent(
 ) {
     Surface(color = MaterialTheme.colors.background) {
         Column {
-            TaskTitleTextField(text = task.title, onTitleChanged = actions.onTitleChanged)
+            TaskTitleTextField(text = task.title, onTitleChange = actions.onTitleChange)
             TaskDetailSectionContent(
                 imageVector = Icons.Outlined.Create,
                 contentDescription = R.string.task_detail_cd_icon_category,
@@ -121,18 +120,18 @@ private fun TaskDetailContent(
                 CategorySelection(
                     state = categoryViewState,
                     currentCategory = task.categoryId,
-                    onCategoryChanged = actions.onCategoryChanged
+                    onCategoryChange = actions.onCategoryChange
                 )
             }
             TaskDescriptionTextField(
                 text = task.description,
-                onDescriptionChanged = actions.onDescriptionChanged
+                onDescriptionChange = actions.onDescriptionChange
             )
             AlarmSelection(
                 calendar = task.dueDate,
                 interval = task.alarmInterval,
-                onAlarmUpdated = actions.onAlarmUpdated,
-                onIntervalSelected = actions.onIntervalSelected
+                onAlarmUpdate = actions.onAlarmUpdate,
+                onIntervalSelect = actions.onIntervalSelect
             )
         }
     }
@@ -148,14 +147,14 @@ private fun TaskDetailError() {
 }
 
 @Composable
-private fun TaskTitleTextField(text: String, onTitleChanged: (String) -> Unit) {
+private fun TaskTitleTextField(text: String, onTitleChange: (String) -> Unit) {
     val textState = remember { mutableStateOf(TextFieldValue(text)) }
 
     TextField(
         modifier = Modifier.fillMaxWidth(),
         value = textState.value,
         onValueChange = {
-            onTitleChanged(it.text)
+            onTitleChange(it.text)
             textState.value = it
         },
         textStyle = MaterialTheme.typography.h4,
@@ -164,7 +163,7 @@ private fun TaskTitleTextField(text: String, onTitleChanged: (String) -> Unit) {
 }
 
 @Composable
-private fun TaskDescriptionTextField(text: String?, onDescriptionChanged: (String) -> Unit) {
+private fun TaskDescriptionTextField(text: String?, onDescriptionChange: (String) -> Unit) {
     val textState = remember { mutableStateOf(TextFieldValue(text ?: "")) }
 
     TextField(
@@ -177,7 +176,7 @@ private fun TaskDescriptionTextField(text: String?, onDescriptionChanged: (Strin
         },
         value = textState.value,
         onValueChange = {
-            onDescriptionChanged(it.text)
+            onDescriptionChange(it.text)
             textState.value = it
         },
         textStyle = MaterialTheme.typography.body1,

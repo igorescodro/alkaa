@@ -9,6 +9,6 @@ package com.escodro.categoryapi.model
  */
 data class Category(
     val id: Long = 0,
-    val name: String?,
+    val name: String,
     val color: Int
 )

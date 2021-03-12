@@ -68,7 +68,7 @@ fun CategoryListSection(
     val onItemClick: (Category) -> Unit = {
         coroutineScope.launch { sheetState.show() }
         bottomSheetContent {
-            Text(text = it.name ?: "")
+            Text(text = it.name)
         }
     }
 
@@ -142,11 +142,9 @@ private fun CategoryItem(
                 .fillMaxWidth()
                 .padding(vertical = 24.dp)
         ) {
-            category.name?.let { name ->
-                CategoryItemIcon(category.color)
-                Spacer(modifier = Modifier.height(16.dp))
-                Text(text = name)
-            }
+            CategoryItemIcon(category.color)
+            Spacer(modifier = Modifier.height(16.dp))
+            Text(text = category.name)
         }
     }
 }

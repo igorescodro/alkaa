@@ -103,7 +103,7 @@ private fun CategoryItemChip(
     ) {
         Row(
             modifier = Modifier
-                .semantics { chipName = category.name ?: "" }
+                .semantics { chipName = category.name }
                 .toggleable(
                     value = isSelected,
                     role = Role.RadioButton,
@@ -117,7 +117,7 @@ private fun CategoryItemChip(
             Text(
                 modifier = Modifier.padding(8.dp),
                 color = if (isSelected) Color.White else MaterialTheme.colors.onSecondary,
-                text = category.name ?: ""
+                text = category.name
             )
         }
     }

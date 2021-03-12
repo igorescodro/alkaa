@@ -1,10 +1,7 @@
 package com.escodro.task
 
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.ModalBottomSheetValue
-import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
@@ -77,10 +74,9 @@ internal class TaskListTest {
         composeTestRule.setContent {
             AlkaaTheme {
                 TaskListScaffold(
-                    handler = TaskStateHandler(state = state),
+                    taskHandler = TaskStateHandler(state = state),
                     categoryHandler = CategoryStateHandler(),
                     modifier = Modifier,
-                    sheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
                 )
             }
         }

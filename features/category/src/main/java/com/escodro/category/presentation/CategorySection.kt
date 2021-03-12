@@ -65,10 +65,10 @@ fun CategoryListSection(
 ) {
     val coroutineScope = rememberCoroutineScope()
 
-    val onItemClick: (Category) -> Unit = {
+    val onItemClick: (Category) -> Unit = { category ->
         coroutineScope.launch { sheetState.show() }
         bottomSheetContent {
-            Text(text = it.name)
+            CategoryBottomSheet(category = category)
         }
     }
 

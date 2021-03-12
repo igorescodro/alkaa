@@ -114,7 +114,11 @@ private fun AlkaaContent(
         HomeSection.Search ->
             SearchSection(modifier = modifier, onItemClicked = actions.onTaskClicked)
         HomeSection.Categories ->
-            CategoryListSection(modifier = modifier)
+            CategoryListSection(
+                modifier = modifier,
+                bottomSheetContent = setSheetContent,
+                sheetState = sheetState
+            )
         HomeSection.Settings ->
             PreferenceSection(
                 modifier = modifier,

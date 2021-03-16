@@ -19,6 +19,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.FabPosition
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
@@ -44,6 +45,7 @@ import com.escodro.categoryapi.model.Category
 import com.escodro.categoryapi.presentation.CategoryListViewModel
 import com.escodro.categoryapi.presentation.CategoryState
 import com.escodro.theme.AlkaaTheme
+import com.escodro.theme.components.AddFloatingButton
 import com.escodro.theme.components.AlkaaLoadingContent
 import com.escodro.theme.components.DefaultIconTextContent
 import org.koin.androidx.compose.getViewModel
@@ -57,11 +59,12 @@ import org.koin.androidx.compose.getViewModel
 @Composable
 fun CategoryListSection(
     modifier: Modifier,
-    onShowBottomSheet: (Category) -> Unit
+    onShowBottomSheet: (Category?) -> Unit
 ) {
     CategoryListLoader(
         modifier = modifier,
-        onItemClick = onShowBottomSheet
+        onItemClick = onShowBottomSheet,
+        onAddClick = { onShowBottomSheet(null) }
     )
 }
 
@@ -69,21 +72,37 @@ fun CategoryListSection(
 private fun CategoryListLoader(
     modifier: Modifier,
     viewModel: CategoryListViewModel = getViewModel(),
-    onItemClick: (Category) -> Unit
+    onItemClick: (Category) -> Unit,
+    onAddClick: () -> Unit
 ) {
     val viewState by remember(viewModel) { viewModel.loadCategories() }
         .collectAsState(initial = CategoryState.Loading)
 
-    CategoryListScaffold(modifier, viewState, onItemClick)
+    CategoryListScaffold(
+        modifier = modifier,
+        viewState = viewState,
+        onItemClick = onItemClick,
+        onAddClick = onAddClick
+    )
 }
 
 @Composable
 private fun CategoryListScaffold(
     modifier: Modifier,
     viewState: CategoryState,
-    onItemClick: (Category) -> Unit
+    onItemClick: (Category) -> Unit,
+    onAddClick: () -> Unit
 ) {
-    Scaffold(modifier = modifier.fillMaxSize()) {
+    Scaffold(
+        modifier = modifier.fillMaxSize(),
+        floatingActionButton = {
+            AddFloatingButton(
+                contentDescription = R.string.category_cd_add_category,
+                onClick = { onAddClick() }
+            )
+        },
+        floatingActionButtonPosition = FabPosition.Center
+    ) {
         Crossfade(viewState) { state ->
             when (state) {
                 CategoryState.Loading -> AlkaaLoadingContent()

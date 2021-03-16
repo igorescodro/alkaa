@@ -13,6 +13,7 @@ android {
 }
 
 dependencies {
+    implementation project(":libraries:core")
     implementation project(":features:category-api")
     implementation project(":data:domain")
     implementation project(":libraries:theme")

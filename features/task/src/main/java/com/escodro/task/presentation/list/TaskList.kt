@@ -10,7 +10,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.FabPosition
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.ModalBottomSheetState
 import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Close
@@ -20,7 +19,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -31,13 +29,11 @@ import com.escodro.categoryapi.presentation.CategoryState
 import com.escodro.task.R
 import com.escodro.task.model.Task
 import com.escodro.task.model.TaskWithCategory
-import com.escodro.task.presentation.add.AddTaskSection
 import com.escodro.task.presentation.category.CategorySelection
 import com.escodro.task.presentation.detail.main.CategoryId
 import com.escodro.theme.AlkaaTheme
 import com.escodro.theme.components.AlkaaLoadingContent
 import com.escodro.theme.components.DefaultIconTextContent
-import kotlinx.coroutines.launch
 import org.koin.androidx.compose.getViewModel
 import java.util.Calendar
 
@@ -51,16 +47,9 @@ import java.util.Calendar
 fun TaskListSection(
     modifier: Modifier = Modifier,
     onItemClick: (Long) -> Unit,
-    bottomSheetContent: (@Composable () -> Unit) -> Unit,
-    sheetState: ModalBottomSheetState
+    onBottomShow: () -> Unit
 ) {
-    val coroutineScope = rememberCoroutineScope()
-    val onAddClick: () -> Unit = {
-        coroutineScope.launch { sheetState.show() }
-        bottomSheetContent { AddTaskSection(sheetState = sheetState) }
-    }
-
-    TaskListLoader(modifier = modifier, onItemClick = onItemClick, onAddClick = onAddClick)
+    TaskListLoader(modifier = modifier, onItemClick = onItemClick, onAddClick = onBottomShow)
 }
 
 @Composable

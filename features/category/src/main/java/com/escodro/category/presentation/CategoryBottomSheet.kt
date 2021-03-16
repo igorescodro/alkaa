@@ -37,8 +37,11 @@ import com.escodro.category.R
 import com.escodro.categoryapi.model.Category
 import com.escodro.theme.AlkaaTheme
 
+/**
+ * Alkaa Category Bottom Sheet.
+ */
 @Composable
-internal fun CategoryBottomSheet(category: Category) {
+fun CategoryBottomSheet(category: Category) {
     val colorList = CategoryColors.values().map { it.value }
     CategorySheetContent(
         colorList = colorList,

@@ -5,4 +5,5 @@
     <string name="category_icon_cd">Category</string>
     <string name="category_sheet_title">Category name</string>
     <string name="category_sheet_save">Save</string>
+    <string name="category_cd_add_category">Add category</string>
 </resources>

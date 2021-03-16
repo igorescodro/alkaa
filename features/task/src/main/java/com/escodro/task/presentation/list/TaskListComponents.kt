@@ -14,22 +14,16 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Card
 import androidx.compose.material.Checkbox
-import androidx.compose.material.FloatingActionButton
-import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.escodro.categoryapi.model.Category
-import com.escodro.task.R
 import com.escodro.task.model.Task
 import com.escodro.task.model.TaskWithCategory
 import java.util.Calendar
@@ -74,16 +68,6 @@ internal fun TaskItem(
                 RelativeDateText(calendar = task.task.dueDate)
             }
         }
-    }
-}
-
-@Composable
-internal fun FloatingButton(onClick: () -> Unit) {
-    FloatingActionButton(backgroundColor = MaterialTheme.colors.primary, onClick = onClick) {
-        Icon(
-            imageVector = Icons.Outlined.Add,
-            contentDescription = stringResource(id = R.string.task_cd_add_task)
-        )
     }
 }
 

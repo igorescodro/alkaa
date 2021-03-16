@@ -53,5 +53,5 @@ internal sealed class SheetContentState {
     object TaskListSheet : SheetContentState(), Parcelable
 
     @Parcelize
-    data class CategorySheet(val category: Category) : SheetContentState(), Parcelable
+    data class CategorySheet(val category: Category?) : SheetContentState(), Parcelable
 }

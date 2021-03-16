@@ -32,6 +32,7 @@ import com.escodro.task.model.TaskWithCategory
 import com.escodro.task.presentation.category.CategorySelection
 import com.escodro.task.presentation.detail.main.CategoryId
 import com.escodro.theme.AlkaaTheme
+import com.escodro.theme.components.AddFloatingButton
 import com.escodro.theme.components.AlkaaLoadingContent
 import com.escodro.theme.components.DefaultIconTextContent
 import org.koin.androidx.compose.getViewModel
@@ -99,7 +100,12 @@ internal fun TaskListScaffold(
         modifier = modifier.fillMaxSize(),
         backgroundColor = MaterialTheme.colors.background,
         topBar = { TaskFilter(categoryHandler = categoryHandler) },
-        floatingActionButton = { FloatingButton { taskHandler.onAddClick() } },
+        floatingActionButton = {
+            AddFloatingButton(
+                contentDescription = R.string.task_cd_add_task,
+                onClick = { taskHandler.onAddClick() }
+            )
+        },
         floatingActionButtonPosition = FabPosition.Center
     ) {
         Crossfade(taskHandler.state) { state ->

@@ -41,17 +41,20 @@ import com.escodro.theme.AlkaaTheme
  * Alkaa Category Bottom Sheet.
  */
 @Composable
-fun CategoryBottomSheet(category: Category) {
+fun CategoryBottomSheet(category: Category?) {
     val colorList = CategoryColors.values().map { it.value }
-    CategorySheetContent(
-        colorList = colorList,
-        category = category,
-        onCategoryChange = { _, _ -> }
-    )
+
+    if (category != null) {
+        CategoryAddContent(
+            colorList = colorList,
+            category = category,
+            onCategoryChange = { _, _ -> }
+        )
+    }
 }
 
 @Composable
-private fun CategorySheetContent(
+private fun CategoryAddContent(
     colorList: List<Color>,
     category: Category,
     onCategoryChange: (name: String, color: Color) -> Unit
@@ -154,7 +157,7 @@ fun CategorySheetContentPreview() {
     AlkaaTheme {
         Surface(modifier = Modifier.height(256.dp)) {
             val category = Category(name = "Movies to watch", color = android.graphics.Color.YELLOW)
-            CategorySheetContent(
+            CategoryAddContent(
                 colorList = CategoryColors.values().map { it.value },
                 category = category,
                 onCategoryChange = { _, _ -> }

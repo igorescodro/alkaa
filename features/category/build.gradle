@@ -1,6 +1,8 @@
 apply from: "$rootDir/config/dependencies/feature_dependencies.gradle"
 apply from: "$rootDir/config/dependencies/compose_dependencies.gradle"
 
+apply plugin: "kotlin-parcelize"
+
 android {
     testOptions {
         unitTests.returnDefaultValues = true

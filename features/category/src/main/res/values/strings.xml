@@ -6,4 +6,5 @@
     <string name="category_sheet_title">Category name</string>
     <string name="category_sheet_save">Save</string>
     <string name="category_cd_add_category">Add category</string>
+    <string name="category_new_placeholder">New category</string>
 </resources>

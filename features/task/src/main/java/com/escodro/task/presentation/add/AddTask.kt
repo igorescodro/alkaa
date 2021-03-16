@@ -36,8 +36,8 @@ import org.koin.androidx.compose.getViewModel
  */
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun AddTaskBottomSheet(onBottomSheetHide: () -> Unit) {
-    AddTaskLoader(onBottomSheetHide = onBottomSheetHide)
+fun AddTaskBottomSheet(onHideBottomSheet: () -> Unit) {
+    AddTaskLoader(onHideBottomSheet = onHideBottomSheet)
 }
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -45,7 +45,7 @@ fun AddTaskBottomSheet(onBottomSheetHide: () -> Unit) {
 internal fun AddTaskLoader(
     addTaskViewModel: AddTaskViewModel = getViewModel(),
     categoryViewModel: CategoryListViewModel = getViewModel(),
-    onBottomSheetHide: () -> Unit
+    onHideBottomSheet: () -> Unit
 ) {
     Column(
         modifier = Modifier.padding(16.dp),
@@ -74,7 +74,7 @@ internal fun AddTaskLoader(
             onClick = {
                 addTaskViewModel.addTask(textState.value.text, currentCategory.value)
                 textState.value = TextFieldValue()
-                onBottomSheetHide()
+                onHideBottomSheet()
             }
         ) {
             Text(stringResource(id = R.string.task_add_save))
@@ -94,7 +94,7 @@ fun TaskListScaffoldError() {
                 .height(256.dp)
                 .background(MaterialTheme.colors.background)
         ) {
-            AddTaskBottomSheet(onBottomSheetHide = {})
+            AddTaskBottomSheet(onHideBottomSheet = {})
         }
     }
 }

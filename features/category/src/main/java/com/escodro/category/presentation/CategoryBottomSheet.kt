@@ -22,13 +22,13 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
@@ -36,37 +36,68 @@ import androidx.compose.ui.unit.dp
 import com.escodro.category.R
 import com.escodro.categoryapi.model.Category
 import com.escodro.theme.AlkaaTheme
+import org.koin.androidx.compose.getViewModel
 
 /**
  * Alkaa Category Bottom Sheet.
  */
 @Composable
-fun CategoryBottomSheet(category: Category?) {
+fun CategoryBottomSheet(category: Category?, onHideBottomSheet: () -> Unit) {
     val colorList = CategoryColors.values().map { it.value }
 
-    if (category != null) {
-        CategoryAddContent(
-            colorList = colorList,
-            category = category,
-            onCategoryChange = { _, _ -> }
-        )
-    }
+    val editCategory = category ?: Category(
+        name = stringResource(id = R.string.category_new_placeholder),
+        color = CategoryColors.values()[0].value.toArgb()
+    )
+
+    var bottomContent by rememberSaveable { mutableStateOf(CategoryBottomSheetState(editCategory)) }
+
+    CategorySheetLoader(
+        colorList = colorList,
+        bottomSheetState = bottomContent,
+        onHideBottomSheet = onHideBottomSheet,
+        onCategorySave = { bottomContent = CategoryBottomSheetState(editCategory) }
+    )
 }
 
 @Composable
-private fun CategoryAddContent(
+private fun CategorySheetLoader(
+    viewModel: CategoryAddViewModel = getViewModel(),
+    bottomSheetState: CategoryBottomSheetState,
     colorList: List<Color>,
-    category: Category,
+    onHideBottomSheet: () -> Unit,
+    onCategorySave: () -> Unit,
+) {
+    CategorySheetContent(
+        colorList = colorList,
+        state = bottomSheetState,
+        onCategoryChange = { newName, newColor ->
+            viewModel.addCategory(newName, newColor.toArgb())
+            onHideBottomSheet()
+            onCategorySave()
+        }
+    )
+}
+
+@Composable
+private fun CategorySheetContent(
+    state: CategoryBottomSheetState,
+    colorList: List<Color>,
     onCategoryChange: (name: String, color: Color) -> Unit
 ) {
     Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.SpaceAround) {
-        var name by rememberSaveable(category) { mutableStateOf(category.name) }
-        CategoryNameField(name = name, onNameChange = { name = it })
+        CategoryNameField(name = state.name, onNameChange = { state.name = it })
 
-        var color by remember(category) { mutableStateOf(Color(category.color)) }
-        CategoryColorSelector(colorList = colorList, value = color, onValueChange = { color = it })
+        CategoryColorSelector(
+            colorList = colorList,
+            value = Color(state.color),
+            onColorChange = { state.color = it.toArgb() }
+        )
 
-        CategorySaveButton(currentColor = color, onClick = { onCategoryChange(name, color) })
+        CategorySaveButton(
+            currentColor = Color(state.color),
+            onClick = { onCategoryChange(state.name, Color(state.color)) }
+        )
     }
 }
 
@@ -78,6 +109,27 @@ private fun CategoryNameField(name: String, onNameChange: (String) -> Unit) {
         onValueChange = onNameChange,
         modifier = Modifier.fillMaxWidth()
     )
+}
+
+@Composable
+private fun CategoryColorSelector(
+    colorList: List<Color>,
+    value: Color,
+    onColorChange: (Color) -> Unit
+) {
+    LazyRow(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 16.dp)
+    ) {
+        items(
+            items = colorList,
+            itemContent = { color ->
+                val optionSelected = color == value
+                CategoryColorItem(color, optionSelected, onClick = { onColorChange(color) })
+            }
+        )
+    }
 }
 
 @Composable
@@ -93,27 +145,6 @@ private fun CategorySaveButton(currentColor: Color, onClick: () -> Unit) {
         Text(
             text = stringResource(id = R.string.category_sheet_save),
             color = MaterialTheme.colors.background
-        )
-    }
-}
-
-@Composable
-private fun CategoryColorSelector(
-    colorList: List<Color>,
-    value: Color,
-    onValueChange: (Color) -> Unit
-) {
-    LazyRow(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 16.dp)
-    ) {
-        items(
-            items = colorList,
-            itemContent = { color ->
-                val optionSelected = color == value
-                CategoryColorItem(color, optionSelected, onClick = { onValueChange(color) })
-            }
         )
     }
 }
@@ -157,9 +188,10 @@ fun CategorySheetContentPreview() {
     AlkaaTheme {
         Surface(modifier = Modifier.height(256.dp)) {
             val category = Category(name = "Movies to watch", color = android.graphics.Color.YELLOW)
-            CategoryAddContent(
+            val state = CategoryBottomSheetState(category)
+            CategorySheetContent(
+                state = state,
                 colorList = CategoryColors.values().map { it.value },
-                category = category,
                 onCategoryChange = { _, _ -> }
             )
         }

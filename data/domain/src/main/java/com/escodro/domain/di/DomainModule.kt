@@ -17,6 +17,7 @@ import com.escodro.domain.usecase.category.DeleteCategory
 import com.escodro.domain.usecase.category.LoadAllCategories
 import com.escodro.domain.usecase.category.LoadCategory
 import com.escodro.domain.usecase.category.UpdateCategory
+import com.escodro.domain.usecase.category.implementation.UpdateCategoryImpl
 import com.escodro.domain.usecase.category.implementation.AddCategoryImpl
 import com.escodro.domain.usecase.category.implementation.LoadAllCategoriesImpl
 import com.escodro.domain.usecase.search.SearchTasksByName
@@ -66,7 +67,7 @@ val domainModule = module {
     factory<LoadAllCategories> { LoadAllCategoriesImpl(get()) }
     factory { LoadCategory(get()) }
     factory<AddCategory> { AddCategoryImpl(get()) }
-    factory { UpdateCategory(get()) }
+    factory<UpdateCategory> { UpdateCategoryImpl(get()) }
 
     // Search Use Cases
     factory<SearchTasksByName> { SearchTasksByNameImpl(get()) }

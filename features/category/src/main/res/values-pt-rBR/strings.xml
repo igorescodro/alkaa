@@ -3,4 +3,9 @@
     <string name="category_list_header_empty">Sem categorias</string>
     <string name="category_list_cd_empty_list">Sem categorias disponíveis</string>
     <string name="category_icon_cd">Categoria</string>
+    <string name="category_sheet_title">Nome da categoria</string>
+    <string name="category_sheet_save">Salvar</string>
+    <string name="category_cd_add_category">Adicionar categoria</string>
+    <string name="category_new_placeholder">Nova categoria</string>
+
 </resources>

@@ -23,9 +23,11 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -34,11 +36,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.escodro.alkaa.model.HomeSection
+import com.escodro.category.presentation.CategoryBottomSheet
 import com.escodro.category.presentation.CategoryListSection
 import com.escodro.preference.presentation.PreferenceSection
 import com.escodro.search.presentation.SearchSection
+import com.escodro.task.presentation.add.AddTaskBottomSheet
 import com.escodro.task.presentation.list.TaskListSection
 import com.escodro.theme.AlkaaTheme
+import kotlinx.coroutines.launch
 
 /**
  * Alkaa Home screen.
@@ -73,15 +78,35 @@ private fun AlkaaHomeScaffold(
     navItems: List<HomeSection>,
     actions: HomeActions
 ) {
-    val sheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
-    val (sheetContent, setSheetContent) = remember { mutableStateOf<@Composable () -> Unit>({ }) }
-    AlkaaBottomSheetLayout(sheetState = sheetState, bottomSheetContent = sheetContent) {
+    val coroutineScope = rememberCoroutineScope()
+    val modalSheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
+    var sheetContentState by rememberSaveable {
+        mutableStateOf<SheetContentState>(SheetContentState.Empty)
+    }
+
+    val focusManager = LocalFocusManager.current
+    DisposableEffect(modalSheetState.isVisible.not()) {
+        onDispose { focusManager.clearFocus() }
+    }
+
+    val onShowBottomSheet: (SheetContentState) -> Unit = { contentState ->
+        sheetContentState = contentState
+        coroutineScope.launch { modalSheetState.show() }
+    }
+
+    val onHideBottomSheet: () -> Unit = { coroutineScope.launch { modalSheetState.hide() } }
+
+    AlkaaBottomSheetLayout(
+        modalSheetState = modalSheetState,
+        sheetContentState = sheetContentState,
+        onHideBottomSheet = onHideBottomSheet
+    ) {
         Scaffold(
             topBar = {
                 AlkaaTopBar(currentSection = homeSection)
             },
             content = {
-                AlkaaContent(homeSection, modifier, actions, setSheetContent, sheetState)
+                AlkaaContent(homeSection, modifier, actions, onShowBottomSheet)
             },
             bottomBar = {
                 AlkaaBottomNav(
@@ -96,51 +121,14 @@ private fun AlkaaHomeScaffold(
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-private fun AlkaaContent(
-    homeSection: HomeSection,
-    modifier: Modifier,
-    actions: HomeActions,
-    setSheetContent: (@Composable() () -> Unit) -> Unit,
-    sheetState: ModalBottomSheetState
-) {
-    when (homeSection) {
-        HomeSection.Tasks ->
-            TaskListSection(
-                modifier = modifier,
-                onItemClick = actions.onTaskClick,
-                bottomSheetContent = setSheetContent,
-                sheetState = sheetState
-            )
-        HomeSection.Search ->
-            SearchSection(modifier = modifier, onItemClick = actions.onTaskClick)
-        HomeSection.Categories ->
-            CategoryListSection(
-                modifier = modifier,
-                bottomSheetContent = setSheetContent,
-                sheetState = sheetState
-            )
-        HomeSection.Settings ->
-            PreferenceSection(
-                modifier = modifier,
-                onAboutClick = actions.onAboutClick
-            )
-    }
-}
-
-@OptIn(ExperimentalMaterialApi::class)
-@Composable
 private fun AlkaaBottomSheetLayout(
-    sheetState: ModalBottomSheetState,
-    bottomSheetContent: @Composable() () -> Unit,
+    modalSheetState: ModalBottomSheetState,
+    sheetContentState: SheetContentState,
+    onHideBottomSheet: () -> Unit,
     content: @Composable () -> Unit
 ) {
-    val focusManager = LocalFocusManager.current
-    DisposableEffect(sheetState.isVisible.not()) {
-        onDispose { focusManager.clearFocus() }
-    }
-
     ModalBottomSheetLayout(
-        sheetState = sheetState,
+        sheetState = modalSheetState,
         sheetBackgroundColor = Color.Transparent,
         sheetContent = {
             Card(
@@ -150,11 +138,53 @@ private fun AlkaaBottomSheetLayout(
                     .padding(horizontal = 2.dp)
                     .clickable { /* consume click in the sheet background to avoid dismissal */ }
             ) {
-                bottomSheetContent()
+                when (sheetContentState) {
+                    SheetContentState.TaskListSheet ->
+                        AddTaskBottomSheet(onHideBottomSheet = onHideBottomSheet)
+                    is SheetContentState.CategorySheet ->
+                        CategoryBottomSheet(
+                            category = sheetContentState.category,
+                            onHideBottomSheet = onHideBottomSheet
+                        )
+                    SheetContentState.Empty ->
+                        Box(modifier = Modifier.fillMaxSize())
+                }
             }
         }
     ) {
         content()
+    }
+}
+
+@OptIn(ExperimentalMaterialApi::class)
+@Composable
+private fun AlkaaContent(
+    homeSection: HomeSection,
+    modifier: Modifier,
+    actions: HomeActions,
+    onShowBottomSheet: (SheetContentState) -> Unit
+) {
+    when (homeSection) {
+        HomeSection.Tasks ->
+            TaskListSection(
+                modifier = modifier,
+                onItemClick = actions.onTaskClick,
+                onBottomShow = { onShowBottomSheet(SheetContentState.TaskListSheet) }
+            )
+        HomeSection.Search ->
+            SearchSection(modifier = modifier, onItemClick = actions.onTaskClick)
+        HomeSection.Categories ->
+            CategoryListSection(
+                modifier = modifier,
+                onShowBottomSheet = { category ->
+                    onShowBottomSheet(SheetContentState.CategorySheet(category))
+                }
+            )
+        HomeSection.Settings ->
+            PreferenceSection(
+                modifier = modifier,
+                onAboutClick = actions.onAboutClick
+            )
     }
 }
 

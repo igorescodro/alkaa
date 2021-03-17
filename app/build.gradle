@@ -5,6 +5,7 @@ apply from: "$rootDir/config/dependencies/compose_dependencies.gradle"
 apply from: "$rootDir/config/artifacts.gradle"
 
 apply plugin: "kotlin-kapt"
+apply plugin: "kotlin-parcelize"
 
 android {
     defaultConfig {

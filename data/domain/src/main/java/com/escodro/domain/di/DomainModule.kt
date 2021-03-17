@@ -12,12 +12,14 @@ import com.escodro.domain.usecase.alarm.UpdateTaskAsRepeating
 import com.escodro.domain.usecase.alarm.implementation.CancelAlarmImpl
 import com.escodro.domain.usecase.alarm.implementation.ScheduleAlarmImpl
 import com.escodro.domain.usecase.alarm.implementation.UpdateTaskAsRepeatingImpl
+import com.escodro.domain.usecase.category.AddCategory
 import com.escodro.domain.usecase.category.DeleteCategory
-import com.escodro.domain.usecase.category.InsertCategory
 import com.escodro.domain.usecase.category.LoadAllCategories
 import com.escodro.domain.usecase.category.LoadCategory
 import com.escodro.domain.usecase.category.UpdateCategory
+import com.escodro.domain.usecase.category.implementation.AddCategoryImpl
 import com.escodro.domain.usecase.category.implementation.LoadAllCategoriesImpl
+import com.escodro.domain.usecase.category.implementation.UpdateCategoryImpl
 import com.escodro.domain.usecase.search.SearchTasksByName
 import com.escodro.domain.usecase.search.implementation.SearchTasksByNameImpl
 import com.escodro.domain.usecase.task.AddTask
@@ -64,8 +66,8 @@ val domainModule = module {
     factory { DeleteCategory(get()) }
     factory<LoadAllCategories> { LoadAllCategoriesImpl(get()) }
     factory { LoadCategory(get()) }
-    factory { InsertCategory(get()) }
-    factory { UpdateCategory(get()) }
+    factory<AddCategory> { AddCategoryImpl(get()) }
+    factory<UpdateCategory> { UpdateCategoryImpl(get()) }
 
     // Search Use Cases
     factory<SearchTasksByName> { SearchTasksByNameImpl(get()) }

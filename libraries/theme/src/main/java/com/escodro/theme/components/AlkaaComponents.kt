@@ -8,12 +8,14 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -82,5 +84,21 @@ fun AlkaaToolbar(onUpPress: () -> Unit) {
                 contentDescription = stringResource(id = R.string.back_arrow_content_description)
             )
         }
+    }
+}
+
+/**
+ * Floating Action button do add new elements.
+ *
+ * @param contentDescription string resource to describe the add button
+ * @param onClick function to be called on the click
+ */
+@Composable
+fun AddFloatingButton(@StringRes contentDescription: Int, onClick: () -> Unit) {
+    FloatingActionButton(backgroundColor = MaterialTheme.colors.primary, onClick = onClick) {
+        Icon(
+            imageVector = Icons.Outlined.Add,
+            contentDescription = stringResource(id = contentDescription)
+        )
     }
 }

@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.selection.toggleable
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -97,7 +98,7 @@ private fun CategoryItemChip(
 ) {
     Surface(
         modifier = Modifier.padding(end = 8.dp),
-        shape = MaterialTheme.shapes.small,
+        shape = CircleShape,
         color = if (isSelected) Color(category.color) else Color.White,
         border = chipBorder(isSelected)
     ) {

@@ -1,6 +1,7 @@
 package com.escodro.domain.usecase.category
 
 import com.escodro.domain.model.Category
+import com.escodro.domain.usecase.category.implementation.AddCategoryImpl
 import com.escodro.domain.usecase.fake.CategoryRepositoryFake
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
@@ -13,7 +14,7 @@ class DeleteCategoryTest {
 
     private val categoryRepository = CategoryRepositoryFake()
 
-    private val addCategory = InsertCategory(categoryRepository)
+    private val addCategory = AddCategoryImpl(categoryRepository)
 
     private val deleteCategory = DeleteCategory(categoryRepository)
 

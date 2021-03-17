@@ -3,13 +3,14 @@ package com.escodro.domain.usecase.category
 import com.escodro.domain.model.Category
 
 /**
- * Use case to update a category in the database.
+ * Use case to insert a category in the database.
  */
-interface UpdateCategory {
+interface AddCategory {
+
     /**
-     * Updates a category.
+     * Inserts a category.
      *
-     * @param category category to be updated
+     * @param category category to be inserted
      */
     suspend operator fun invoke(category: Category)
 }

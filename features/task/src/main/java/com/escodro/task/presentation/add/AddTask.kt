@@ -9,18 +9,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.ModalBottomSheetState
-import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -33,23 +29,24 @@ import com.escodro.task.R
 import com.escodro.task.presentation.category.CategorySelection
 import com.escodro.task.presentation.detail.main.CategoryId
 import com.escodro.theme.AlkaaTheme
-import kotlinx.coroutines.launch
 import org.koin.androidx.compose.getViewModel
 
+/**
+ * Alkaa Add Task Bottom Sheet.
+ */
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-internal fun AddTaskSection(sheetState: ModalBottomSheetState) {
-    AddTaskLoader(sheetState = sheetState)
+fun AddTaskBottomSheet(onHideBottomSheet: () -> Unit) {
+    AddTaskLoader(onHideBottomSheet = onHideBottomSheet)
 }
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 internal fun AddTaskLoader(
-    sheetState: ModalBottomSheetState,
     addTaskViewModel: AddTaskViewModel = getViewModel(),
-    categoryViewModel: CategoryListViewModel = getViewModel()
+    categoryViewModel: CategoryListViewModel = getViewModel(),
+    onHideBottomSheet: () -> Unit
 ) {
-    val coroutineScope = rememberCoroutineScope()
     Column(
         modifier = Modifier.padding(16.dp),
         verticalArrangement = Arrangement.SpaceAround
@@ -76,8 +73,8 @@ internal fun AddTaskLoader(
             modifier = Modifier.align(Alignment.End),
             onClick = {
                 addTaskViewModel.addTask(textState.value.text, currentCategory.value)
-                coroutineScope.launch { sheetState.hide() }
                 textState.value = TextFieldValue()
+                onHideBottomSheet()
             }
         ) {
             Text(stringResource(id = R.string.task_add_save))
@@ -90,7 +87,6 @@ internal fun AddTaskLoader(
 @Preview
 @Composable
 fun TaskListScaffoldError() {
-    val state = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Expanded)
     AlkaaTheme {
         Surface(
             modifier = Modifier
@@ -98,7 +94,7 @@ fun TaskListScaffoldError() {
                 .height(256.dp)
                 .background(MaterialTheme.colors.background)
         ) {
-            AddTaskSection(sheetState = state)
+            AddTaskBottomSheet(onHideBottomSheet = {})
         }
     }
 }

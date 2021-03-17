@@ -1,6 +1,8 @@
 package com.escodro.domain.usecase.category
 
 import com.escodro.domain.model.Category
+import com.escodro.domain.usecase.category.implementation.AddCategoryImpl
+import com.escodro.domain.usecase.category.implementation.UpdateCategoryImpl
 import com.escodro.domain.usecase.fake.CategoryRepositoryFake
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
@@ -13,11 +15,11 @@ internal class UpdateCategoryTest {
 
     private val categoryRepository = CategoryRepositoryFake()
 
-    private val addCategoryUseCase = InsertCategory(categoryRepository)
+    private val addCategoryUseCase = AddCategoryImpl(categoryRepository)
 
     private val loadCategoryUseCase = LoadCategory(categoryRepository)
 
-    private val updateCategoryUseCase = UpdateCategory(categoryRepository)
+    private val updateCategoryUseCase = UpdateCategoryImpl(categoryRepository)
 
     @Before
     fun setup() = runBlockingTest {

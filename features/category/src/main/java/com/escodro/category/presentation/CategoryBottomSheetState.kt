@@ -24,6 +24,9 @@ internal class CategoryBottomSheetState(
     @IgnoredOnParcel
     var color by mutableStateOf(category.color)
 
+    fun isEditing(): Boolean =
+        id > 0L
+
     fun toCategory(): Category =
         Category(
             id = id,

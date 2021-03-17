@@ -50,31 +50,40 @@ fun CategoryBottomSheet(category: Category?, onHideBottomSheet: () -> Unit) {
         color = CategoryColors.values()[0].value.toArgb()
     )
 
-    var bottomContent by rememberSaveable { mutableStateOf(CategoryBottomSheetState(editCategory)) }
+    var bottomContent by rememberSaveable(category) {
+        mutableStateOf(CategoryBottomSheetState(editCategory))
+    }
 
     CategorySheetLoader(
         colorList = colorList,
         bottomSheetState = bottomContent,
-        onHideBottomSheet = onHideBottomSheet,
-        onCategorySave = { bottomContent = CategoryBottomSheetState(editCategory) }
+        onHideBottomSheet = {
+            onHideBottomSheet()
+            bottomContent = CategoryBottomSheetState(editCategory)
+        }
     )
 }
 
 @Composable
 private fun CategorySheetLoader(
-    viewModel: CategoryAddViewModel = getViewModel(),
+    addViewModel: CategoryAddViewModel = getViewModel(),
+    editViewModel: CategoryEditViewModel = getViewModel(),
     bottomSheetState: CategoryBottomSheetState,
     colorList: List<Color>,
     onHideBottomSheet: () -> Unit,
-    onCategorySave: () -> Unit,
 ) {
+    val onSaveCategory: (CategoryBottomSheetState) -> Unit = if (bottomSheetState.isEditing()) {
+        { editCategory -> editViewModel.updateCategory(editCategory.toCategory()) }
+    } else {
+        { newCategory -> addViewModel.addCategory(newCategory.toCategory()) }
+    }
+
     CategorySheetContent(
         colorList = colorList,
         state = bottomSheetState,
         onCategoryChange = { updatedState ->
-            viewModel.addCategory(updatedState.toCategory())
+            onSaveCategory(updatedState)
             onHideBottomSheet()
-            onCategorySave()
         }
     )
 }

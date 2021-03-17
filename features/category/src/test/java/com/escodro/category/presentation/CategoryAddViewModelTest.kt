@@ -3,6 +3,7 @@ package com.escodro.category.presentation
 import android.graphics.Color
 import com.escodro.category.fake.AddCategoryFake
 import com.escodro.category.mapper.CategoryMapperImpl
+import com.escodro.categoryapi.model.Category
 import com.escodro.core.extension.toStringColor
 import org.junit.Assert
 import org.junit.Before
@@ -26,9 +27,10 @@ internal class CategoryAddViewModelTest {
         // Given the category to be added
         val name = "Beer"
         val color = Color.parseColor("#9CCC65")
+        val category = Category(name = name, color = color)
 
         // When the add function is called
-        viewModel.addCategory(name = name, color = color)
+        viewModel.addCategory(category = category)
 
         // Then the category is added
         Assert.assertTrue(addCategory.wasCategoryCreated(name))
@@ -40,9 +42,10 @@ internal class CategoryAddViewModelTest {
         // Given the category without name
         val name = ""
         val color = Color.parseColor("#9CCC65")
+        val category = Category(name = name, color = color)
 
         // When the add function is called
-        viewModel.addCategory(name = name, color = color)
+        viewModel.addCategory(category = category)
 
         // Then the category is not added
         Assert.assertFalse(addCategory.wasCategoryCreated(name))

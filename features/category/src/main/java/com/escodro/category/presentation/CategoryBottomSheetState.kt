@@ -11,12 +11,23 @@ import kotlinx.parcelize.Parcelize
 
 @Stable
 @Parcelize
-internal class CategoryBottomSheetState(val category: Category) :
-    Parcelable {
+internal class CategoryBottomSheetState(
+    private val category: Category
+) : Parcelable {
+
+    @IgnoredOnParcel
+    var id by mutableStateOf(category.id)
 
     @IgnoredOnParcel
     var name by mutableStateOf(category.name)
 
     @IgnoredOnParcel
     var color by mutableStateOf(category.color)
+
+    fun toCategory(): Category =
+        Category(
+            id = id,
+            name = name,
+            color = color
+        )
 }

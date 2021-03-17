@@ -23,22 +23,28 @@ internal class CategoryAddViewModelTest {
 
     @Test
     fun `test if category is added`() {
+        // Given the category to be added
         val name = "Beer"
         val color = Color.parseColor("#9CCC65")
 
+        // When the add function is called
         viewModel.addCategory(name = name, color = color)
 
+        // Then the category is added
         Assert.assertTrue(addCategory.wasCategoryCreated(name))
         Assert.assertEquals(color.toStringColor(), addCategory.getCategory(name)!!.color)
     }
 
     @Test
     fun `test if category without name is not added`() {
+        // Given the category without name
         val name = ""
         val color = Color.parseColor("#9CCC65")
 
+        // When the add function is called
         viewModel.addCategory(name = name, color = color)
 
+        // Then the category is not added
         Assert.assertFalse(addCategory.wasCategoryCreated(name))
     }
 }

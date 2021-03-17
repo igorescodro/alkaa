@@ -13,9 +13,7 @@ internal class CategoryAddViewModel(
 ) : ViewModel() {
 
     fun addCategory(name: String, color: Int) {
-        if (name.isEmpty()) {
-            return
-        }
+        if (name.isEmpty()) return
 
         viewModelScope.launch {
             val category = Category(name = name, color = color)

@@ -71,8 +71,8 @@ private fun CategorySheetLoader(
     CategorySheetContent(
         colorList = colorList,
         state = bottomSheetState,
-        onCategoryChange = { newName, newColor ->
-            viewModel.addCategory(newName, newColor.toArgb())
+        onCategoryChange = { updatedState ->
+            viewModel.addCategory(updatedState.toCategory())
             onHideBottomSheet()
             onCategorySave()
         }
@@ -83,7 +83,7 @@ private fun CategorySheetLoader(
 private fun CategorySheetContent(
     state: CategoryBottomSheetState,
     colorList: List<Color>,
-    onCategoryChange: (name: String, color: Color) -> Unit
+    onCategoryChange: (CategoryBottomSheetState) -> Unit
 ) {
     Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.SpaceAround) {
         CategoryNameField(name = state.name, onNameChange = { state.name = it })
@@ -96,7 +96,7 @@ private fun CategorySheetContent(
 
         CategorySaveButton(
             currentColor = Color(state.color),
-            onClick = { onCategoryChange(state.name, Color(state.color)) }
+            onClick = { onCategoryChange(state) }
         )
     }
 }
@@ -192,7 +192,7 @@ fun CategorySheetContentPreview() {
             CategorySheetContent(
                 state = state,
                 colorList = CategoryColors.values().map { it.value },
-                onCategoryChange = { _, _ -> }
+                onCategoryChange = {}
             )
         }
     }

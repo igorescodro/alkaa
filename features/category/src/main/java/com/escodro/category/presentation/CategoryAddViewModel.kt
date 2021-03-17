@@ -12,11 +12,10 @@ internal class CategoryAddViewModel(
     private val categoryMapper: CategoryMapper
 ) : ViewModel() {
 
-    fun addCategory(name: String, color: Int) {
-        if (name.isEmpty()) return
+    fun addCategory(category: Category) {
+        if (category.name.isEmpty()) return
 
         viewModelScope.launch {
-            val category = Category(name = name, color = color)
             val domainCategory = categoryMapper.toDomain(category)
             addCategoryUseCase.invoke(domainCategory)
         }

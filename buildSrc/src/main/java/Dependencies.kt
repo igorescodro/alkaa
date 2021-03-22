@@ -38,7 +38,7 @@ object Versions {
     const val composeViewModel = "1.0.0-alpha03"
     const val composeActivity = "1.3.0-alpha04"
 
-    const val buildGradle = "7.0.0-alpha09"
+    const val buildGradle = "7.0.0-alpha11"
 
     const val detekt = "1.13.1"
     const val ktlint = "0.39.0"

@@ -12,8 +12,6 @@ dependencies {
     implementation project(":data:domain")
 
     implementation Deps.coroutines.core
-    implementation Deps.android.navigation.ui
-
     implementation Deps.koin.android
 
     testImplementation Deps.test.junit

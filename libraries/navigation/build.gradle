@@ -1,0 +1,5 @@
+apply from: "$rootDir/config/dependencies/feature_dependencies.gradle"
+
+dependencies {
+    implementation Deps.android.ktx
+}

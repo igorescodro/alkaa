@@ -1,15 +1,15 @@
 package com.escodro.alarm.notification
 
 import android.app.PendingIntent
+import android.app.TaskStackBuilder
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
 import androidx.core.app.NotificationCompat
-import androidx.navigation.NavDeepLinkBuilder
 import com.escodro.alarm.R
 import com.escodro.alarm.TaskReceiver
 import com.escodro.alarm.model.Task
 import com.escodro.core.extension.getNotificationManager
+import com.escodro.navigation.DestinationDeepLink
 import timber.log.Timber
 
 /**
@@ -64,12 +64,15 @@ internal class TaskNotification(
         }
 
     private fun buildPendingIntent(task: Task): PendingIntent {
-        val arguments = Bundle()
-        arguments.putLong(ARGUMENT_TASK, task.id)
+        val openTaskIntent = Intent(
+            Intent.ACTION_VIEW,
+            DestinationDeepLink.getTaskDetailUri(task.id)
+        )
 
-        return NavDeepLinkBuilder(context)
-            .setArguments(arguments)
-            .createPendingIntent()
+        return TaskStackBuilder.create(context).run {
+            addNextIntentWithParentStack(openTaskIntent)
+            getPendingIntent(REQUEST_CODE_OPEN_TASK, PendingIntent.FLAG_UPDATE_CURRENT)
+        }
     }
 
     private fun getCompleteAction(task: Task): NotificationCompat.Action {
@@ -95,17 +98,17 @@ internal class TaskNotification(
         }
 
         return PendingIntent
-            .getBroadcast(context, requestCode, receiverIntent, PendingIntent.FLAG_CANCEL_CURRENT)
+            .getBroadcast(
+                context,
+                requestCode,
+                receiverIntent,
+                PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            )
     }
 
     companion object {
 
-        /**
-         * Once it is not possible yet to use _Navigation Safe Args_ creating a
-         * [NavDeepLinkBuilder], the argument name must be passed hardcoded. This value must match
-         * with the argument in _nav.graph.xml_.
-         */
-        private const val ARGUMENT_TASK = "taskId"
+        private const val REQUEST_CODE_OPEN_TASK = 1_121_111
 
         private const val REQUEST_CODE_ACTION_COMPLETE = 1_234
 

@@ -11,18 +11,11 @@ import androidx.navigation.compose.navigate
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navDeepLink
 import com.escodro.alkaa.presentation.home.Home
+import com.escodro.navigation.DestinationArgs
+import com.escodro.navigation.DestinationDeepLink
+import com.escodro.navigation.Destinations
 import com.escodro.preference.presentation.About
 import com.escodro.task.presentation.detail.main.TaskDetailSection
-
-internal object Destinations {
-    const val Home = "home"
-    const val TaskDetail = "taskDetail"
-    const val About = "about"
-}
-
-internal object DestinationArgs {
-    const val TaskId = "taskId"
-}
 
 /**
  * Navigation Graph to control the Alkaa navigation.
@@ -32,8 +25,6 @@ internal object DestinationArgs {
 @Composable
 fun NavGraph(startDestination: String = Destinations.Home) {
     val navController = rememberNavController()
-
-    val uri = "app://com.escodro.alkaa/taskId="
 
     val actions = remember(navController) { Actions(navController) }
     NavHost(navController = navController, startDestination = startDestination) {
@@ -48,7 +39,7 @@ fun NavGraph(startDestination: String = Destinations.Home) {
         composable(
             route = "${Destinations.TaskDetail}/{${DestinationArgs.TaskId}}",
             arguments = listOf(navArgument(DestinationArgs.TaskId) { type = NavType.LongType }),
-            deepLinks = listOf(navDeepLink { uriPattern = "$uri{${DestinationArgs.TaskId}}" })
+            deepLinks = listOf(navDeepLink { uriPattern = DestinationDeepLink.TaskDetailPattern })
         ) { backStackEntry ->
             val arguments = requireNotNull(backStackEntry.arguments)
             TaskDetailSection(

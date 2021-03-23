@@ -15,7 +15,7 @@ import org.koin.dsl.module
 val categoryModule = module {
     viewModel<CategoryListViewModel> { CategoryListViewModelImpl(get(), get()) }
     viewModel { CategoryAddViewModel(get(), get()) }
-    viewModel { CategoryEditViewModel(get(), get()) }
+    viewModel { CategoryEditViewModel(get(), get(), get()) }
 
     factory<CategoryMapper> { CategoryMapperImpl() }
 }

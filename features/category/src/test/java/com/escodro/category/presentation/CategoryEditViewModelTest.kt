@@ -1,6 +1,7 @@
 package com.escodro.category.presentation
 
 import android.graphics.Color
+import com.escodro.category.fake.DeleteCategoryFake
 import com.escodro.category.fake.UpdateCategoryFake
 import com.escodro.category.mapper.CategoryMapperImpl
 import com.escodro.categoryapi.model.Category
@@ -12,13 +13,16 @@ internal class CategoryEditViewModelTest {
 
     private val updateCategory = UpdateCategoryFake()
 
+    private val deleteCategory = DeleteCategoryFake()
+
     private val mapper = CategoryMapperImpl()
 
-    private val viewModel = CategoryEditViewModel(updateCategory, mapper)
+    private val viewModel = CategoryEditViewModel(updateCategory, deleteCategory, mapper)
 
     @Before
     fun setup() {
         updateCategory.clear()
+        deleteCategory.clear()
     }
 
     @Test
@@ -45,5 +49,18 @@ internal class CategoryEditViewModelTest {
 
         // Then the category is not updated
         Assert.assertFalse(updateCategory.wasCategoryUpdated(id))
+    }
+
+    @Test
+    fun `test if category is deleted`() {
+        // Given the category to be removed
+        val id = 234L
+        val category = Category(id = id, name = "", color = Color.YELLOW)
+
+        // When the remove function is called
+        viewModel.deleteCategory(category)
+
+        // Then the category is not updated
+        Assert.assertTrue(deleteCategory.wasCategoryRemoved(id))
     }
 }

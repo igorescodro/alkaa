@@ -4,12 +4,12 @@ import android.app.PendingIntent
 import android.app.TaskStackBuilder
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import androidx.core.app.NotificationCompat
 import com.escodro.alarm.R
 import com.escodro.alarm.TaskReceiver
 import com.escodro.alarm.model.Task
 import com.escodro.core.extension.getNotificationManager
+import com.escodro.navigation.DestinationDeepLink
 import timber.log.Timber
 
 /**
@@ -66,7 +66,7 @@ internal class TaskNotification(
     private fun buildPendingIntent(task: Task): PendingIntent {
         val openTaskIntent = Intent(
             Intent.ACTION_VIEW,
-            Uri.parse("app://com.escodro.alkaa/taskId=${task.id}")
+            DestinationDeepLink.getTaskDetailUri(task.id)
         )
 
         return TaskStackBuilder.create(context).run {

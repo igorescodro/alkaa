@@ -13,7 +13,6 @@ object Versions {
     const val constraintLayout = "2.0.4"
     const val ktx = "1.0.2"
     const val room = "2.2.3"
-    const val navigation = "2.3.0"
     const val playCore = "1.6.1"
 
     const val coroutines = "1.4.0"
@@ -62,7 +61,6 @@ object AndroidDeps {
     val ktx = "androidx.core:core-ktx:${Versions.ktx}"
     val playCore = "com.google.android.play:core:${Versions.playCore}"
     val room = RoomDeps
-    val navigation = NavigationDeps
 }
 
 object CoroutinesDeps {
@@ -74,10 +72,6 @@ object RoomDeps {
     val runtime = "androidx.room:room-runtime:${Versions.room}"
     val compiler = "androidx.room:room-compiler:${Versions.room}"
     val ktx = "androidx.room:room-ktx:${Versions.room}"
-}
-
-object NavigationDeps {
-    val ui = "androidx.navigation:navigation-ui:${Versions.navigation}"
 }
 
 object KoinDeps {

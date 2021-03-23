@@ -9,6 +9,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.navArgument
 import androidx.navigation.compose.navigate
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navDeepLink
 import com.escodro.alkaa.presentation.home.Home
 import com.escodro.preference.presentation.About
 import com.escodro.task.presentation.detail.main.TaskDetailSection
@@ -32,6 +33,8 @@ internal object DestinationArgs {
 fun NavGraph(startDestination: String = Destinations.Home) {
     val navController = rememberNavController()
 
+    val uri = "app://com.escodro.alkaa/taskId="
+
     val actions = remember(navController) { Actions(navController) }
     NavHost(navController = navController, startDestination = startDestination) {
 
@@ -43,8 +46,9 @@ fun NavGraph(startDestination: String = Destinations.Home) {
         }
 
         composable(
-            "${Destinations.TaskDetail}/{${DestinationArgs.TaskId}}",
-            arguments = listOf(navArgument(DestinationArgs.TaskId) { type = NavType.LongType })
+            route = "${Destinations.TaskDetail}/{${DestinationArgs.TaskId}}",
+            arguments = listOf(navArgument(DestinationArgs.TaskId) { type = NavType.LongType }),
+            deepLinks = listOf(navDeepLink { uriPattern = "$uri{${DestinationArgs.TaskId}}" })
         ) { backStackEntry ->
             val arguments = requireNotNull(backStackEntry.arguments)
             TaskDetailSection(

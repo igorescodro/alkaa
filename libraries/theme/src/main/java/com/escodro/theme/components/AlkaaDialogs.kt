@@ -22,14 +22,17 @@ fun AlkaaDialog(
     onCloseDialog: () -> Unit
 ) {
     if (isDialogOpen) {
-        AlertDialog(onDismissRequest = onCloseDialog,
+        AlertDialog(
+            onDismissRequest = onCloseDialog,
             title = { Text(text = arguments.title) },
             text = { Text(text = arguments.text) },
             confirmButton = {
-                Button(onClick = {
-                    arguments.onConfirmAction()
-                    onCloseDialog()
-                }) {
+                Button(
+                    onClick = {
+                        arguments.onConfirmAction()
+                        onCloseDialog()
+                    }
+                ) {
                     Text(text = arguments.confirmText)
                 }
             },
@@ -37,7 +40,8 @@ fun AlkaaDialog(
                 OutlinedButton(onClick = onCloseDialog) {
                     Text(text = arguments.dismissText)
                 }
-            })
+            }
+        )
     }
 }
 

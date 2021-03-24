@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -15,10 +16,14 @@ import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -36,6 +41,8 @@ import androidx.compose.ui.unit.dp
 import com.escodro.category.R
 import com.escodro.categoryapi.model.Category
 import com.escodro.theme.AlkaaTheme
+import com.escodro.theme.components.AlkaaDialog
+import com.escodro.theme.components.DialogArguments
 import org.koin.androidx.compose.getViewModel
 
 /**
@@ -84,6 +91,10 @@ private fun CategorySheetLoader(
         onCategoryChange = { updatedState ->
             onSaveCategory(updatedState)
             onHideBottomSheet()
+        },
+        onCategoryRemove = { category ->
+            editViewModel.deleteCategory(category)
+            onHideBottomSheet()
         }
     )
 }
@@ -92,10 +103,36 @@ private fun CategorySheetLoader(
 private fun CategorySheetContent(
     state: CategoryBottomSheetState,
     colorList: List<Color>,
-    onCategoryChange: (CategoryBottomSheetState) -> Unit
+    onCategoryChange: (CategoryBottomSheetState) -> Unit,
+    onCategoryRemove: (Category) -> Unit
 ) {
     Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.SpaceAround) {
-        CategoryNameField(name = state.name, onNameChange = { state.name = it })
+        Row(verticalAlignment = Alignment.CenterVertically) {
+
+            var openDialog by rememberSaveable { mutableStateOf(false) }
+            RemoveCategoryDialog(
+                categoryName = state.name,
+                isDialogOpen = openDialog,
+                onCloseDialog = { openDialog = false },
+                onActionConfirm = { onCategoryRemove(state.toCategory()) }
+            )
+
+            CategoryNameField(
+                name = state.name,
+                onNameChange = { state.name = it },
+                modifier = Modifier.weight(5F)
+            )
+            if (state.isEditing()) {
+                IconButton(
+                    onClick = { openDialog = true },
+                    modifier = Modifier
+                        .height(64.dp)
+                        .weight(1F)
+                ) {
+                    Icon(imageVector = Icons.Outlined.Delete, contentDescription = "")
+                }
+            }
+        }
 
         CategoryColorSelector(
             colorList = colorList,
@@ -111,12 +148,15 @@ private fun CategorySheetContent(
 }
 
 @Composable
-private fun CategoryNameField(name: String, onNameChange: (String) -> Unit) {
+private fun CategoryNameField(
+    modifier: Modifier = Modifier,
+    name: String,
+    onNameChange: (String) -> Unit
+) {
     OutlinedTextField(
-        label = { Text(text = stringResource(id = R.string.category_sheet_title)) },
         value = name,
         onValueChange = onNameChange,
-        modifier = Modifier.fillMaxWidth()
+        modifier = modifier
     )
 }
 
@@ -139,6 +179,27 @@ private fun CategoryColorSelector(
             }
         )
     }
+}
+
+@Composable
+private fun RemoveCategoryDialog(
+    categoryName: String,
+    isDialogOpen: Boolean,
+    onCloseDialog: () -> Unit,
+    onActionConfirm: () -> Unit
+) {
+    val arguments = DialogArguments(
+        title = stringResource(id = R.string.category_dialog_remove_title),
+        text = stringResource(id = R.string.category_dialog_remove_text, categoryName),
+        confirmText = stringResource(id = R.string.category_dialog_remove_confirm),
+        dismissText = stringResource(id = R.string.category_dialog_remove_cancel),
+        onConfirmAction = onActionConfirm
+    )
+    AlkaaDialog(
+        arguments = arguments,
+        isDialogOpen = isDialogOpen,
+        onCloseDialog = onCloseDialog
+    )
 }
 
 @Composable
@@ -196,12 +257,13 @@ private fun CategoryColorItem(
 fun CategorySheetContentPreview() {
     AlkaaTheme {
         Surface(modifier = Modifier.height(256.dp)) {
-            val category = Category(name = "Movies to watch", color = android.graphics.Color.YELLOW)
+            val category = Category(id = 1L, name = "Movies", color = android.graphics.Color.YELLOW)
             val state = CategoryBottomSheetState(category)
             CategorySheetContent(
                 state = state,
                 colorList = CategoryColors.values().map { it.value },
-                onCategoryChange = {}
+                onCategoryChange = {},
+                onCategoryRemove = {}
             )
         }
     }

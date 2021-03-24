@@ -27,7 +27,7 @@ fun AlkaaDialog(
             text = { Text(text = arguments.text) },
             confirmButton = {
                 Button(onClick = {
-                    arguments.onConfirmAction
+                    arguments.onConfirmAction()
                     onCloseDialog()
                 }) {
                     Text(text = arguments.confirmText)

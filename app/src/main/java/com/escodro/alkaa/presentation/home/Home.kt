@@ -80,7 +80,7 @@ private fun AlkaaHomeScaffold(
 ) {
     val coroutineScope = rememberCoroutineScope()
     val modalSheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
-    var sheetContentState by rememberSaveable {
+    var sheetContentState by rememberSaveable(homeSection) {
         mutableStateOf<SheetContentState>(SheetContentState.Empty)
     }
 

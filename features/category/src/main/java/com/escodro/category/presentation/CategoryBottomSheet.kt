@@ -27,6 +27,7 @@ import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -57,7 +58,7 @@ fun CategoryBottomSheet(category: Category?, onHideBottomSheet: () -> Unit) {
         color = CategoryColors.values()[0].value.toArgb()
     )
 
-    var bottomContent by rememberSaveable(category) {
+    var bottomContent by remember(editCategory) {
         mutableStateOf(CategoryBottomSheetState(editCategory))
     }
 

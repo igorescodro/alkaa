@@ -84,6 +84,7 @@ object ComposeDeps {
     val ui = "androidx.compose.ui:ui:${Versions.compose}"
     val material = "androidx.compose.material:material:${Versions.compose}"
     val tooling = "androidx.compose.ui:ui-tooling:${Versions.compose}"
+    val icons = "androidx.compose.material:material-icons-extended:${Versions.compose}"
     val navigation = "androidx.navigation:navigation-compose:${Versions.composeNav}"
     val viewModel = "androidx.lifecycle:lifecycle-viewmodel-compose:${Versions.composeViewModel}"
     val activity = "androidx.activity:activity-compose:${Versions.composeActivity}"

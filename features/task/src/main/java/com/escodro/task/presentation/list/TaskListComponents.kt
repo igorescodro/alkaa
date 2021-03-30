@@ -13,8 +13,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Card
-import androidx.compose.material.Checkbox
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.RadioButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -52,10 +52,10 @@ internal fun TaskItem(
     ) {
         Row {
             CardRibbon(colorInt = task.category?.color)
-            Checkbox(
+            RadioButton(
                 modifier = modifier.fillMaxHeight(),
-                checked = task.task.completed,
-                onCheckedChange = { onCheckedChange(task) }
+                selected = task.task.completed,
+                onClick = { onCheckedChange(task) }
             )
             Spacer(Modifier.width(8.dp))
             Column(modifier = modifier.fillMaxHeight(), verticalArrangement = Arrangement.Center) {

@@ -11,16 +11,20 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.FabPosition
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
+import androidx.compose.material.SnackbarResult
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material.icons.outlined.ThumbUp
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.escodro.categoryapi.model.Category
@@ -35,6 +39,7 @@ import com.escodro.theme.AlkaaTheme
 import com.escodro.theme.components.AddFloatingButton
 import com.escodro.theme.components.AlkaaLoadingContent
 import com.escodro.theme.components.DefaultIconTextContent
+import kotlinx.coroutines.launch
 import org.koin.androidx.compose.getViewModel
 import java.util.Calendar
 
@@ -96,8 +101,26 @@ internal fun TaskListScaffold(
     categoryHandler: CategoryStateHandler,
     modifier: Modifier = Modifier,
 ) {
+    val coroutineScope = rememberCoroutineScope()
+    val scaffoldState = rememberScaffoldState()
+
+    val snackbarTitle = stringResource(id = R.string.task_snackbar_message_complete)
+    val snackbarButton = stringResource(id = R.string.task_snackbar_button_undo)
+
+    val onShowSnackbar: (TaskWithCategory) -> Unit = { taskWithCategory ->
+        coroutineScope.launch {
+            val message = String.format(snackbarTitle, taskWithCategory.task.title)
+            when (scaffoldState.snackbarHostState.showSnackbar(message, snackbarButton)) {
+                SnackbarResult.Dismissed -> { /* Do nothing */
+                }
+                SnackbarResult.ActionPerformed -> taskHandler.onCheckedChange(taskWithCategory)
+            }
+        }
+    }
+
     Scaffold(
         modifier = modifier.fillMaxSize(),
+        scaffoldState = scaffoldState,
         backgroundColor = MaterialTheme.colors.background,
         topBar = { TaskFilter(categoryHandler = categoryHandler) },
         floatingActionButton = {
@@ -115,9 +138,12 @@ internal fun TaskListScaffold(
                 is TaskListViewState.Loaded -> {
                     val taskList = state.items
                     TaskListContent(
-                        taskList,
-                        taskHandler.onItemClick,
-                        taskHandler.onCheckedChange
+                        taskList = taskList,
+                        onItemClick = taskHandler.onItemClick,
+                        onCheckedChange = { taskWithCategory ->
+                            taskHandler.onCheckedChange(taskWithCategory)
+                            onShowSnackbar(taskWithCategory)
+                        }
                     )
                 }
                 TaskListViewState.Empty -> TaskListEmpty()
@@ -236,3 +262,19 @@ fun TaskListScaffoldError() {
         )
     }
 }
+
+// LazyColumn() {
+//     items(
+//         items = taskList,
+//         itemContent = { task ->
+//             TaskItem(
+//                 task = task,
+//                 onItemClick = onItemClick,
+//                 onCheckedChange = {
+//                     onCheckedChange(it)
+//                     coroutineScope.launch { snackbarHostState.showSnackbar("Task Completed", "Undo") }
+//                 }
+//             )
+//         }
+//     )
+// }

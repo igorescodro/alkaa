@@ -1,8 +1,11 @@
 package com.escodro.preference.presentation
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -10,14 +13,17 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.escodro.core.extension.getVersionName
 import com.escodro.preference.R
 import com.escodro.theme.AlkaaTheme
+import java.util.Locale
 
 /**
  * Alkaa Preference Section.
@@ -28,9 +34,38 @@ import com.escodro.theme.AlkaaTheme
 @Composable
 fun PreferenceSection(modifier: Modifier = Modifier, onAboutClick: () -> Unit) {
     Column(modifier = modifier.fillMaxSize()) {
+        PreferenceTitle(title = "Features")
+        TrackerItem()
+        Separator()
+        PreferenceTitle(title = "Settings")
         AboutItem(onAboutClick)
         VersionItem()
     }
+}
+
+@Composable
+private fun PreferenceTitle(title: String) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = 32.dp, end = 16.dp)
+            .height(32.dp),
+        contentAlignment = Alignment.CenterStart
+    ) {
+        Text(
+            text = title.toUpperCase(Locale.getDefault()),
+            style = MaterialTheme.typography.body2.copy(fontWeight = FontWeight.Bold),
+            color = MaterialTheme.colors.primary
+        )
+    }
+}
+
+@Composable
+private fun TrackerItem() {
+    PreferenceItem(
+        title = stringResource(id = R.string.preference_title_tracker),
+        onItemClick = {}
+    )
 }
 
 @Composable
@@ -73,6 +108,17 @@ private fun PreferenceItem(
             )
         }
     }
+}
+
+@Composable
+private fun Separator() {
+    Spacer(
+        modifier = Modifier
+            .padding(bottom = 8.dp)
+            .height(1.dp)
+            .fillMaxWidth()
+            .background(MaterialTheme.colors.onSecondary.copy(alpha = 0.7F))
+    )
 }
 
 @Suppress("UndocumentedPublicFunction")

@@ -14,9 +14,9 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.CheckCircle
+import androidx.compose.material.icons.outlined.Alarm
 import androidx.compose.material.icons.outlined.Close
-import androidx.compose.material.icons.outlined.Warning
+import androidx.compose.material.icons.outlined.Repeat
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
@@ -60,7 +60,7 @@ internal fun AlarmSelection(
                         onAlarmUpdate(calendar)
                     }.show()
                 },
-            imageVector = Icons.Outlined.CheckCircle,
+            imageVector = Icons.Outlined.Alarm,
             contentDescription = R.string.task_detail_cd_icon_alarm
         ) {
             Column {
@@ -85,7 +85,7 @@ internal fun AlarmSelection(
                     .clickable {
                         showDialog.value = true
                     },
-                imageVector = Icons.Outlined.Warning,
+                imageVector = Icons.Outlined.Repeat,
                 contentDescription = R.string.task_detail_cd_icon_repeat_alarm
             ) {
                 val index = alarmInterval?.index ?: 0

@@ -10,9 +10,9 @@ import androidx.compose.material.Surface
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.Description
+import androidx.compose.material.icons.outlined.Bookmark
 import androidx.compose.material.icons.outlined.Close
-import androidx.compose.material.icons.outlined.Create
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -114,7 +114,7 @@ private fun TaskDetailContent(
         Column {
             TaskTitleTextField(text = task.title, onTitleChange = actions.onTitleChange)
             TaskDetailSectionContent(
-                imageVector = Icons.Outlined.Create,
+                imageVector = Icons.Outlined.Bookmark,
                 contentDescription = R.string.task_detail_cd_icon_category,
             ) {
                 CategorySelection(
@@ -170,7 +170,7 @@ private fun TaskDescriptionTextField(text: String?, onDescriptionChange: (String
         modifier = Modifier.fillMaxWidth(),
         leadingIcon = {
             LeadingIcon(
-                imageVector = Icons.Default.Menu,
+                imageVector = Icons.Default.Description,
                 contentDescription = R.string.task_detail_cd_icon_description
             )
         },

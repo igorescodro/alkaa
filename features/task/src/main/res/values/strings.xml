@@ -20,4 +20,7 @@
 
     <string name="task_add_save">Save</string>
     <string name="task_add_label">Task</string>
+
+    <string name="task_snackbar_message_complete">\"%s\" completed</string>
+    <string name="task_snackbar_button_undo">Undo</string>
 </resources>

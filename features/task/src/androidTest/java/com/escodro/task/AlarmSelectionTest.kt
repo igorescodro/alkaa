@@ -13,8 +13,8 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.escodro.task.espresso.setDateTime
 import com.escodro.task.model.AlarmInterval
 import com.escodro.task.presentation.detail.alarm.AlarmSelection
+import com.escodro.test.DisableAnimationsRule
 import com.escodro.theme.AlkaaTheme
-import com.schibsted.spain.barista.rule.flaky.FlakyTestRule
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -26,10 +26,8 @@ internal class AlarmSelectionTest {
     @get:Rule
     val composeTestRule = createEmptyComposeRule()
 
-    // Unfortunately due to integration between Compose and Android View System, the test
-    // sometime fails due to delay in opening Date and TimePicker.
     @get:Rule
-    val flakyRule = FlakyTestRule().allowFlakyAttemptsByDefault(defaultAttempts = 10)
+    val disableAnimationsRule = DisableAnimationsRule()
 
     private val context = InstrumentationRegistry.getInstrumentation().targetContext
 

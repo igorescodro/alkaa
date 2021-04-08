@@ -26,4 +26,7 @@ dependencies {
         exclude group: "androidx.activity", module: "activity"
         exclude group: "androidx.lifecycle", module: "lifecycle-runtime"
     }
+
+    implementation Deps.test.core
+    implementation Deps.test.uiAutomator
 }

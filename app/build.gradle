@@ -58,7 +58,7 @@ dependencies {
     implementation project(":libraries:navigation")
     implementation project(":data:local")
     implementation project(":data:repository")
-    implementation project(":data:domain")
+    implementation project(":domain")
     implementation project(":features:task")
     implementation project(":features:alarm")
     implementation project(":features:category-api")

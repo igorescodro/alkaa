@@ -9,7 +9,7 @@ android {
 dependencies {
     implementation project(":libraries:core")
     implementation project(":libraries:navigation")
-    implementation project(":data:domain")
+    implementation project(":domain")
 
     implementation Deps.coroutines.core
     implementation Deps.koin.android

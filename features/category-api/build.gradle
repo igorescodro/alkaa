@@ -2,7 +2,7 @@ apply from: "$rootDir/config/dependencies/feature_dependencies.gradle"
 apply plugin: "kotlin-parcelize"
 
 dependencies {
-    implementation project(":data:domain")
+    implementation project(":domain")
 
     implementation Deps.coroutines.core
     implementation Deps.koin.android

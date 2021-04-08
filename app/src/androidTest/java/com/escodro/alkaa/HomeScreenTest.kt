@@ -31,9 +31,10 @@ internal class HomeScreenTest {
     @Test
     fun test_titleChangesWhenBottomIconIsSelected() {
         HomeSection.values().forEach { section ->
-            composeTestRule.onNodeWithContentDescription(context.getString(section.title))
+            val title = context.getString(section.title)
+            composeTestRule.onNodeWithContentDescription(label = title, useUnmergedTree = true)
                 .performClick()
-            composeTestRule.onNodeWithText(context.getString(section.title)).assertExists()
+            composeTestRule.onNodeWithText(title).assertExists()
         }
     }
 }

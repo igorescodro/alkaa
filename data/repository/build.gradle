@@ -1,7 +1,7 @@
 apply from: "$rootDir/config/dependencies/feature_dependencies.gradle"
 
 dependencies {
-    implementation project(":data:domain")
+    implementation project(":domain")
 
     implementation Deps.koin.android
     implementation Deps.coroutines.core

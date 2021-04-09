@@ -1,11 +1,13 @@
 package com.escodro.task.presentation.list
 
 import androidx.compose.animation.Crossfade
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.GridCells
+import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.FabPosition
@@ -118,35 +120,38 @@ internal fun TaskListScaffold(
         }
     }
 
-    Scaffold(
-        modifier = modifier.fillMaxSize(),
-        scaffoldState = scaffoldState,
-        backgroundColor = MaterialTheme.colors.background,
-        topBar = { TaskFilter(categoryHandler = categoryHandler) },
-        floatingActionButton = {
-            AddFloatingButton(
-                contentDescription = R.string.task_cd_add_task,
-                onClick = { taskHandler.onAddClick() }
-            )
-        },
-        floatingActionButtonPosition = FabPosition.Center
-    ) {
-        Crossfade(taskHandler.state) { state ->
-            when (state) {
-                TaskListViewState.Loading -> AlkaaLoadingContent()
-                is TaskListViewState.Error -> TaskListError()
-                is TaskListViewState.Loaded -> {
-                    val taskList = state.items
-                    TaskListContent(
-                        taskList = taskList,
-                        onItemClick = taskHandler.onItemClick,
-                        onCheckedChange = { taskWithCategory ->
-                            taskHandler.onCheckedChange(taskWithCategory)
-                            onShowSnackbar(taskWithCategory)
-                        }
-                    )
+    BoxWithConstraints {
+        val fabPosition = if (this.maxHeight > maxWidth) FabPosition.Center else FabPosition.End
+        Scaffold(
+            modifier = modifier.fillMaxSize(),
+            scaffoldState = scaffoldState,
+            backgroundColor = MaterialTheme.colors.background,
+            topBar = { TaskFilter(categoryHandler = categoryHandler) },
+            floatingActionButton = {
+                AddFloatingButton(
+                    contentDescription = R.string.task_cd_add_task,
+                    onClick = { taskHandler.onAddClick() }
+                )
+            },
+            floatingActionButtonPosition = fabPosition
+        ) {
+            Crossfade(taskHandler.state) { state ->
+                when (state) {
+                    TaskListViewState.Loading -> AlkaaLoadingContent()
+                    is TaskListViewState.Error -> TaskListError()
+                    is TaskListViewState.Loaded -> {
+                        val taskList = state.items
+                        TaskListContent(
+                            taskList = taskList,
+                            onItemClick = taskHandler.onItemClick,
+                            onCheckedChange = { taskWithCategory ->
+                                taskHandler.onCheckedChange(taskWithCategory)
+                                onShowSnackbar(taskWithCategory)
+                            }
+                        )
+                    }
+                    TaskListViewState.Empty -> TaskListEmpty()
                 }
-                TaskListViewState.Empty -> TaskListEmpty()
             }
         }
     }
@@ -162,14 +167,19 @@ private fun TaskFilter(categoryHandler: CategoryStateHandler) {
     )
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun TaskListContent(
     taskList: List<TaskWithCategory>,
     onItemClick: (Long) -> Unit,
     onCheckedChange: (TaskWithCategory) -> Unit
 ) {
-    Column(modifier = Modifier.padding(start = 8.dp, end = 8.dp)) {
-        LazyColumn(contentPadding = PaddingValues(bottom = 48.dp)) {
+    BoxWithConstraints(modifier = Modifier.padding(start = 8.dp, end = 8.dp)) {
+        val cellCount = if (this.maxHeight > maxWidth) 1 else 2
+        LazyVerticalGrid(
+            cells = GridCells.Fixed(cellCount),
+            contentPadding = PaddingValues(bottom = 48.dp)
+        ) {
             items(
                 items = taskList,
                 itemContent = { task ->
@@ -262,19 +272,3 @@ fun TaskListScaffoldError() {
         )
     }
 }
-
-// LazyColumn() {
-//     items(
-//         items = taskList,
-//         itemContent = { task ->
-//             TaskItem(
-//                 task = task,
-//                 onItemClick = onItemClick,
-//                 onCheckedChange = {
-//                     onCheckedChange(it)
-//                     coroutineScope.launch { snackbarHostState.showSnackbar("Task Completed", "Undo") }
-//                 }
-//             )
-//         }
-//     )
-// }

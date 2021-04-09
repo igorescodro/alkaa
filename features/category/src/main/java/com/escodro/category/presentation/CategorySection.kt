@@ -6,6 +6,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -49,6 +50,7 @@ import com.escodro.theme.components.AddFloatingButton
 import com.escodro.theme.components.AlkaaLoadingContent
 import com.escodro.theme.components.DefaultIconTextContent
 import org.koin.androidx.compose.getViewModel
+import kotlin.math.roundToInt
 
 /**
  * Alkaa Category List Section.
@@ -93,21 +95,24 @@ private fun CategoryListScaffold(
     onItemClick: (Category) -> Unit,
     onAddClick: () -> Unit
 ) {
-    Scaffold(
-        modifier = modifier.fillMaxSize(),
-        floatingActionButton = {
-            AddFloatingButton(
-                contentDescription = R.string.category_cd_add_category,
-                onClick = { onAddClick() }
-            )
-        },
-        floatingActionButtonPosition = FabPosition.Center
-    ) {
-        Crossfade(viewState) { state ->
-            when (state) {
-                CategoryState.Loading -> AlkaaLoadingContent()
-                CategoryState.Empty -> CategoryListEmpty()
-                is CategoryState.Loaded -> CategoryListContent(state.categoryList, onItemClick)
+    BoxWithConstraints {
+        val fabPosition = if (this.maxHeight > maxWidth) FabPosition.Center else FabPosition.End
+        Scaffold(
+            modifier = modifier.fillMaxSize(),
+            floatingActionButton = {
+                AddFloatingButton(
+                    contentDescription = R.string.category_cd_add_category,
+                    onClick = { onAddClick() }
+                )
+            },
+            floatingActionButtonPosition = fabPosition
+        ) {
+            Crossfade(viewState) { state ->
+                when (state) {
+                    CategoryState.Loading -> AlkaaLoadingContent()
+                    CategoryState.Empty -> CategoryListEmpty()
+                    is CategoryState.Loaded -> CategoryListContent(state.categoryList, onItemClick)
+                }
             }
         }
     }
@@ -116,8 +121,9 @@ private fun CategoryListScaffold(
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun CategoryListContent(categoryList: List<Category>, onItemClick: (Category) -> Unit) {
-    Column(modifier = Modifier.padding(start = 8.dp, end = 8.dp)) {
-        LazyVerticalGrid(cells = GridCells.Fixed(2)) {
+    BoxWithConstraints(modifier = Modifier.padding(start = 8.dp, end = 8.dp)) {
+        val cellCount: Int = (maxWidth.value / 250).roundToInt()
+        LazyVerticalGrid(cells = GridCells.Fixed(cellCount)) {
             items(
                 items = categoryList,
                 itemContent = { category ->

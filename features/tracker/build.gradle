@@ -1,10 +1,13 @@
 apply from: "$rootDir/config/dependencies/dynamic_dependencies.gradle"
+apply from: "$rootDir/config/dependencies/compose_dependencies.gradle"
 
 dependencies {
     implementation project(":domain")
+    implementation project(":libraries:theme")
 
     implementation Deps.koin.android
     implementation Deps.coroutines.core
+    implementation Deps.compose.activity
 
     testImplementation project(':libraries:test')
 }

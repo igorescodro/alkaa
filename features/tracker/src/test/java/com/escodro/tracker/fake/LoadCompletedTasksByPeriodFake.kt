@@ -1,4 +1,4 @@
-package com.escodro.alkaa.tracker
+package com.escodro.tracker.fake
 
 import com.escodro.domain.model.Category
 import com.escodro.domain.model.Task

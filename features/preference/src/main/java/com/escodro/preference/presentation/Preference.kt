@@ -32,10 +32,14 @@ import java.util.Locale
  * @param onAboutClick function to be called when the about item is clicked
  */
 @Composable
-fun PreferenceSection(modifier: Modifier = Modifier, onAboutClick: () -> Unit) {
+fun PreferenceSection(
+    modifier: Modifier = Modifier,
+    onAboutClick: () -> Unit,
+    onTrackerClick: () -> Unit
+) {
     Column(modifier = modifier.fillMaxSize()) {
         PreferenceTitle(title = "Features")
-        TrackerItem()
+        TrackerItem(onTrackerClick)
         Separator()
         PreferenceTitle(title = "Settings")
         AboutItem(onAboutClick)
@@ -61,10 +65,10 @@ private fun PreferenceTitle(title: String) {
 }
 
 @Composable
-private fun TrackerItem() {
+private fun TrackerItem(onTrackerClick: () -> Unit) {
     PreferenceItem(
         title = stringResource(id = R.string.preference_title_tracker),
-        onItemClick = {}
+        onItemClick = onTrackerClick
     )
 }
 
@@ -126,6 +130,6 @@ private fun Separator() {
 @Composable
 fun PreferencePreview() {
     AlkaaTheme {
-        PreferenceSection(onAboutClick = {})
+        PreferenceSection(onAboutClick = {}, onTrackerClick = {})
     }
 }

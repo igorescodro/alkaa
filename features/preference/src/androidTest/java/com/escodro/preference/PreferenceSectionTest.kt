@@ -30,7 +30,7 @@ internal class PreferenceSectionTest {
     private fun loadView() {
         composeTestRule.setContent {
             AlkaaTheme {
-                PreferenceSection(onAboutClick = { })
+                PreferenceSection(onAboutClick = { }, onTrackerClick = {})
             }
         }
     }

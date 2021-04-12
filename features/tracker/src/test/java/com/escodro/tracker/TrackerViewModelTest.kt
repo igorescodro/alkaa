@@ -1,9 +1,10 @@
-package com.escodro.alkaa.tracker
+package com.escodro.tracker
 
-import com.escodro.alkaa.presentation.tracker.mapper.TrackerMapper
-import com.escodro.alkaa.presentation.tracker.presentation.TrackerViewModel
-import com.escodro.alkaa.presentation.tracker.presentation.TrackerViewState
 import com.escodro.test.CoroutineTestRule
+import com.escodro.tracker.fake.LoadCompletedTasksByPeriodFake
+import com.escodro.tracker.mapper.TrackerMapper
+import com.escodro.tracker.presentation.TrackerViewModel
+import com.escodro.tracker.presentation.TrackerViewState
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runBlockingTest

@@ -71,6 +71,4 @@ dependencies {
     implementation Deps.android.playCore
     implementation Deps.koin.android
     implementation Deps.timber
-
-    testImplementation project(':libraries:test')
 }

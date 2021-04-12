@@ -1,7 +1,7 @@
-package com.escodro.alkaa.presentation.tracker.mapper
+package com.escodro.tracker.mapper
 
-import com.escodro.alkaa.presentation.tracker.model.Tracker
 import com.escodro.domain.model.TaskWithCategory
+import com.escodro.tracker.model.Tracker
 
 /**
  * Maps Tracker between View and Domain.

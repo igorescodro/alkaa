@@ -1,4 +1,4 @@
-package com.escodro.alkaa.presentation.tracker.model
+package com.escodro.tracker.model
 
 /**
  * UI representation of Tracker.

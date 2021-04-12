@@ -1,6 +1,6 @@
-package com.escodro.alkaa.presentation.tracker.presentation
+package com.escodro.tracker.presentation
 
-import com.escodro.alkaa.presentation.tracker.model.Tracker
+import com.escodro.tracker.model.Tracker
 
 /**
  * Represents the possible UI States of Tracker screen.

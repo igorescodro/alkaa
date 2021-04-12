@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:dist="http://schemas.android.com/apk/distribution"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:dist="http://schemas.android.com/apk/distribution"
     package="com.escodro.tracker">
 
     <dist:module
@@ -8,5 +9,25 @@
         dist:title="@string/dynamic_feature_title_tracker">
         <dist:fusing dist:include="true" />
     </dist:module>
+
+    <application>
+        <activity
+            android:name=".presentation.TrackerActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Alkaa">
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="com.escodro.tracker"
+                    android:scheme="app" />
+            </intent-filter>
+
+        </activity>
+    </application>
 
 </manifest>

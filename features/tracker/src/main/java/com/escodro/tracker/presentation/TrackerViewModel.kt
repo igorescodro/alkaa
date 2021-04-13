@@ -19,7 +19,7 @@ internal class TrackerViewModel(
             .map { task -> trackerMapper.toTracker(task) }
             .catch { error -> emit(TrackerViewState.Error(error)) }
             .collect { trackerInfo ->
-                val state = if (trackerInfo.categoryList.isNotEmpty()) {
+                val state = if (trackerInfo.categoryInfoList.isNotEmpty()) {
                     TrackerViewState.Loaded(trackerInfo)
                 } else {
                     TrackerViewState.Empty

@@ -1,8 +1,11 @@
 package com.escodro.alkaa.navigation
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -16,11 +19,8 @@ import com.escodro.navigation.DestinationArgs
 import com.escodro.navigation.DestinationDeepLink
 import com.escodro.navigation.Destinations
 import com.escodro.preference.presentation.About
-import com.escodro.task.presentation.detail.main.TaskDetailSection
-import android.content.Intent
-import android.net.Uri
-import androidx.compose.ui.platform.LocalContext
 import com.escodro.splitinstall.SplitInstall
+import com.escodro.task.presentation.detail.main.TaskDetailSection
 
 /**
  * Navigation Graph to control the Alkaa navigation.
@@ -91,4 +91,3 @@ internal data class Actions(val navController: NavHostController, val context: C
 private const val FEATURE_TRACKER = "tracker"
 
 private const val TRACKER_DEEP_LINK = "app://com.escodro.tracker"
-

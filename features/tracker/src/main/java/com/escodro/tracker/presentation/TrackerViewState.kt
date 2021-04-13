@@ -8,6 +8,11 @@ import com.escodro.tracker.model.Tracker
 internal sealed class TrackerViewState {
 
     /**
+     * Represents the stated where the screen is loading.
+     */
+    internal object Loading : TrackerViewState()
+
+    /**
      * Represents the state where they are [Tracker.Info] to be shown on the screen.
      */
     internal data class Loaded(val trackerInfo: Tracker.Info) : TrackerViewState()

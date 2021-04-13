@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tracker_name_no_category">Sem categoria</string>
+    <string name="tracker_cp_item_icon">Item finalizado</string>
+
+</resources>

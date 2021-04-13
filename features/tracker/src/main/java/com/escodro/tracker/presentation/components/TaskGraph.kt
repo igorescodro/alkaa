@@ -8,8 +8,6 @@ import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -24,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import com.escodro.tracker.model.Tracker
 
 @Composable
-internal fun TaskGraph(list: List<Tracker.CategoryInfo>) {
+internal fun TaskGraph(list: List<Tracker.CategoryInfo>, modifier: Modifier = Modifier) {
     val currentState = remember {
         MutableTransitionState(AnimatedCircleProgress.START)
             .apply { targetState = AnimatedCircleProgress.END }
@@ -36,11 +34,7 @@ internal fun TaskGraph(list: List<Tracker.CategoryInfo>) {
     val angleOffset by angleOffset(transition)
     val shift by shift(transition)
 
-    Canvas(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(48.dp)
-    ) {
+    Canvas(modifier = modifier) {
         val innerRadius = (size.minDimension - stroke.width) / 2
         val halfSize = size / 2.0f
         val topLeft = Offset(x = halfSize.width - innerRadius, y = halfSize.height - innerRadius)

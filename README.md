@@ -1,45 +1,45 @@
-[![Build Status](https://travis-ci.com/igorescodro/alkaa.svg?branch=master)](https://travis-ci.com/igorescodro/alkaa)
+[![Build Status](https://travis-ci.com/igorescodro/alkaa.svg?branch=main)](https://travis-ci.com/igorescodro/alkaa)
 <a href="https://ktlint.github.io/"><img src="https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg" alt="ktlint"></a>
-
-<a href="https://codebeat.co/projects/github-com-igorescodro-alkaa-master"><img alt="codebeat badge" src="https://codebeat.co/badges/e742f8bf-2047-4a59-bdb4-14ed2b1d9d28" /></a>
-[![CodeFactor](https://www.codefactor.io/repository/github/igorescodro/alkaa/badge/master)](https://www.codefactor.io/repository/github/igorescodro/alkaa/overview/master)
+<a href="https://codebeat.co/projects/github-com-igorescodro-alkaa-main"><img alt="codebeat badge" src="https://codebeat.co/badges/e742f8bf-2047-4a59-bdb4-14ed2b1d9d28" /></a>
+[![CodeFactor](https://www.codefactor.io/repository/github/igorescodro/alkaa/badge/main)](https://www.codefactor.io/repository/github/igorescodro/alkaa/overview/main)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/d88ab7250f1a4e9fb0a96dec11a0c2cd)](https://www.codacy.com/manual/igorescodro/alkaa?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=igorescodro/alkaa&amp;utm_campaign=Badge_Grade)
 
-# Alkaa
+<img src="app/src/main/ic_launcher-web.png" width="200">
 
-Alkaa (_begin_, _start_ in Finnish) is a simple to-do list project to study the latest components, architecture, tools, and APIs released in Android Platform. The project evolved a lot in the last year and now is available on Google Play! :heart:
+# Alkaa 2.0
 
-<a href='https://play.google.com/store/apps/details?id=com.escodro.alkaa'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' height=64/></a>
+Alkaa (_begin_, _start_ in Finnish) is a to-do application project to study the latest components,
+architecture and tools for Android development. The project evolved a lot since the beginning is
+available on Google Play! :heart:
 
-<img src="https://lh3.googleusercontent.com/sUz8bqzv3BpcasgcPxOm21m4GYvxPZshcJnSYzSIdvYT-GfBMyNpPZ09UDBGdbMg=w1920-h1006" width="200"> <img src="https://lh3.googleusercontent.com/v6d72SO8nWjglaHckIIKRcZvKPDkIobTaiTPsAeN09kXe0z0PbZIkoG-BJNvqdCZnvY=w1920-h1006" width="200"> <img src="https://lh3.googleusercontent.com/xo_3zfVO1azfV0erPqWc2MkCejbD5gfo-yBWzkImleonGFrS6L73cul9mloLeEo6xHmK=w1920-h1006" width="200"> <img src="https://lh3.googleusercontent.com/tNDbS4fDLazUHZ6LH5S4Pa5M-JXvUmTKIvQ5dxm4zLl852kh0_eaYS5m8GkjetimiXQ=w1920-h1006" width="200">
+The current version of Alkaa was also completely migrate to **Jetpack Compose**!
 
-Currently, this project covers the following topics:
+## 📦 Download
 
-#### Android
-- [Kotlin](https://kotlinlang.org)
-  - [High Order Functions](https://kotlinlang.org/docs/reference/lambdas.html)
-  - [Extensions](https://kotlinlang.org/docs/reference/extensions.html#extensions)
-  - [Gradle Kotlin DSL](https://github.com/gradle/kotlin-dsl)
-- [Coroutines](https://kotlin.github.io/kotlinx.coroutines/)
-- [Android Architecture Components](https://developer.android.com/topic/libraries/architecture)
-  - [Data Binding](https://developer.android.com/topic/libraries/data-binding)
-  - [Lifecycle](https://developer.android.com/topic/libraries/architecture/lifecycle)
-  - [LiveData](https://developer.android.com/topic/libraries/architecture/livedata)
-  - [Navigation](https://developer.android.com/topic/libraries/architecture/navigation)
-  - [Room](https://developer.android.com/topic/libraries/architecture/room)
-  - [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel)
-- [ListAdapter](https://developer.android.com/reference/android/support/v7/recyclerview/extensions/ListAdapter)
-- [ConstraintLayout](https://developer.android.com/training/constraint-layout/)
-- [Android KTX](https://developer.android.com/kotlin/ktx)
-- [Modularization](https://www.youtube.com/watch?v=PZBg5DIzNww)
-- [Dynamic Delivery](https://developer.android.com/studio/projects/dynamic-delivery)
-- [Dark Theme](https://developer.android.com/guide/topics/ui/look-and-feel/darktheme)
+<a href='https://play.google.com/store/apps/details?id=com.escodro.alkaa'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png' width=240/></a>
 
-#### Third-Party
-- [Koin](https://insert-koin.io)
-- [Timber](https://github.com/JakeWharton/timber)
+## 📚 Android tech stack
 
-#### Quality check
+One of the main goals of Alkaa is too use all the latest libraries and tools available.
+
+### 🧑🏻‍💻 Android development
+
+- Application entirely written in [Kotlin](https://kotlinlang.org)
+- Complete migrated to [Jetpack Compose](https://developer.android.com/jetpack/compose)
+- Asynchronous processing using [Coroutines](https://kotlin.github.io/kotlinx.coroutines/)
+- [Dynamic delivery](https://developer.android.com/guide/playcore/feature-delivery) for the _Task
+  Tracker_ feature
+- Dependency injection with [Koin](https://insert-koin.io)
+- Database using [Room](https://developer.android.com/topic/libraries/architecture/room)
+
+For more dependencies used in project, please access the
+[Dependency File](https://github.com/igorescodro/alkaa/blob/main/buildSrc/src/main/java/Dependencies.kt)
+
+If you want to check the previous version of Alkaa, please take a look at
+the [last V1 release](https://github.com/igorescodro/alkaa/tree/v1.7.0)
+
+### 🧪 Quality
+
 - [klint](https://github.com/shyiko/ktlint)
 - [detekt](https://github.com/arturbosch/detekt)
 - [lint](https://developer.android.com/studio/write/lint)
@@ -47,27 +47,34 @@ Currently, this project covers the following topics:
 - [CodeFactor](https://www.codefactor.io/)
 - [Codacy](http://codacy.com)
 
-#### Tests
-- [Espresso](https://developer.android.com/training/testing/espresso/)
-- [UiAutomator](https://developer.android.com/training/testing/ui-automator)
-- [Mockk](https://github.com/mockk/mockk)
-- [Coroutines Test](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-test/)
+## 🏛 Architecture
 
-#### Continuous Integration
-- [Travis CI](https://travis-ci.org)
+Alkaa architecture is strongly based on
+the [Hexagonal Architecture](https://alistair.cockburn.us/hexagonal-architecture/) by Alistair
+Cockburn. The application also relies heavily in modularization for better separation of concerns
+and encapsulation.
 
-#### Tools covered but removed:
-- [Dagger 2](https://google.github.io/dagger/) (replaced by Koin)
-- [RxJava 2 and RxAndroid 2](https://github.com/ReactiveX/RxAndroid)
-  (replaced by Coroutines)
-- [Data Binding](https://developer.android.com/topic/libraries/data-binding/)
-- [WorkManager](https://developer.android.com/topic/libraries/architecture/workmanager)
+Let's take a look in each major module of the application:
 
----
-### Feel free to use the code the way you prefer - Enjoy your studies!
----
+* **app** - The Application module. It contains all the initialization logic for the Android
+  environment and starts the _Jetpack Navigation Compose Graph_.
+* **features** - The module/folder containing all the features (visual or not) from the application
+* **domain** - The modules containing the most important part of the application: the business
+  logic. This module depends only on itself and all interaction it does is via _dependency
+  inversion_.
+* **data** - The module containing the data (local, remote, light etc) from the app
 
-## License
+This type of architecture protects the most important modules in the app. To achieve this, all the
+dependency points to the center, and the modules are organized in a way that
+_the more the module is in the center, more important it is_.
+
+To better represents the idea behind the modules, here is a architecture image representing the flow
+of dependency:
+
+![Alkaa Architecture](assets/alkaa-2-0-architecture.png)
+
+## 📃 License
+
 ```
 Copyright 2018 Igor Escodro
 

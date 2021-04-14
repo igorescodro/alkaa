@@ -10,4 +10,9 @@
 
     <string name="tracker_message_description">In the last 30 days</string>
     <string name="tracker_cp_info_icon">Completed tasks</string>
+
+    <string name="tracker_cd_empty">No completed tasks</string>
+    <string name="tracker_header_empty">You don\'t have completed tasks in the last 30 days</string>
+    <string name="tracker_header_error">Ops… That\'s embarrassing…</string>
+    <string name="tracker_cd_error">Something went wrong</string>
 </resources>

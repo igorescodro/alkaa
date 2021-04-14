@@ -10,11 +10,11 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
+import com.escodro.designsystem.AlkaaTheme
 import com.escodro.task.espresso.setDateTime
 import com.escodro.task.model.AlarmInterval
 import com.escodro.task.presentation.detail.alarm.AlarmSelection
 import com.escodro.test.DisableAnimationsRule
-import com.escodro.theme.AlkaaTheme
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule

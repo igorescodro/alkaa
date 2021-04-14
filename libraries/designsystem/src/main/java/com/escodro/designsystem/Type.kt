@@ -1,4 +1,4 @@
-package com.escodro.theme
+package com.escodro.designsystem
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle

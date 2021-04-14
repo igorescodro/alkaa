@@ -45,10 +45,10 @@ import com.escodro.category.R
 import com.escodro.categoryapi.model.Category
 import com.escodro.categoryapi.presentation.CategoryListViewModel
 import com.escodro.categoryapi.presentation.CategoryState
-import com.escodro.theme.AlkaaTheme
-import com.escodro.theme.components.AddFloatingButton
-import com.escodro.theme.components.AlkaaLoadingContent
-import com.escodro.theme.components.DefaultIconTextContent
+import com.escodro.designsystem.AlkaaTheme
+import com.escodro.designsystem.components.AddFloatingButton
+import com.escodro.designsystem.components.AlkaaLoadingContent
+import com.escodro.designsystem.components.DefaultIconTextContent
 import org.koin.androidx.compose.getViewModel
 import kotlin.math.max
 import kotlin.math.roundToInt

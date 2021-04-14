@@ -24,6 +24,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.escodro.categoryapi.model.Category
 import com.escodro.categoryapi.presentation.CategoryListViewModel
 import com.escodro.categoryapi.presentation.CategoryState
+import com.escodro.designsystem.AlkaaTheme
+import com.escodro.designsystem.components.AlkaaLoadingContent
+import com.escodro.designsystem.components.AlkaaToolbar
+import com.escodro.designsystem.components.DefaultIconTextContent
 import com.escodro.task.R
 import com.escodro.task.model.Task
 import com.escodro.task.presentation.category.CategorySelection
@@ -32,10 +36,6 @@ import com.escodro.task.presentation.detail.TaskDetailActions
 import com.escodro.task.presentation.detail.TaskDetailSectionContent
 import com.escodro.task.presentation.detail.alarm.AlarmSelection
 import com.escodro.task.presentation.detail.alarm.TaskAlarmViewModel
-import com.escodro.theme.AlkaaTheme
-import com.escodro.theme.components.AlkaaLoadingContent
-import com.escodro.theme.components.AlkaaToolbar
-import com.escodro.theme.components.DefaultIconTextContent
 import kotlinx.parcelize.Parcelize
 import org.koin.androidx.compose.getViewModel
 

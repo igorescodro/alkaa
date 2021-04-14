@@ -1,4 +1,4 @@
-package com.escodro.theme.components
+package com.escodro.designsystem.components
 
 import androidx.compose.material.AlertDialog
 import androidx.compose.material.Button
@@ -6,7 +6,7 @@ import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.escodro.theme.AlkaaTheme
+import com.escodro.designsystem.AlkaaTheme
 
 /**
  * Default dialog with confirm and dismiss button.

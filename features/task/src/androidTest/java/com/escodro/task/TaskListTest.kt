@@ -7,13 +7,13 @@ import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.test.platform.app.InstrumentationRegistry
 import com.escodro.categoryapi.model.Category
+import com.escodro.designsystem.AlkaaTheme
 import com.escodro.task.model.Task
 import com.escodro.task.model.TaskWithCategory
 import com.escodro.task.presentation.list.CategoryStateHandler
 import com.escodro.task.presentation.list.TaskListScaffold
 import com.escodro.task.presentation.list.TaskListViewState
 import com.escodro.task.presentation.list.TaskStateHandler
-import com.escodro.theme.AlkaaTheme
 import org.junit.Rule
 import org.junit.Test
 

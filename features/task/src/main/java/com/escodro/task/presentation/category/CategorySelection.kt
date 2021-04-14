@@ -29,10 +29,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.escodro.categoryapi.model.Category
 import com.escodro.categoryapi.presentation.CategoryState
+import com.escodro.designsystem.AlkaaTheme
+import com.escodro.designsystem.components.AlkaaLoadingContent
 import com.escodro.task.R
 import com.escodro.task.presentation.detail.main.CategoryId
-import com.escodro.theme.AlkaaTheme
-import com.escodro.theme.components.AlkaaLoadingContent
 
 @Composable
 internal fun CategorySelection(

@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.escodro.alkaa.navigation.NavGraph
-import com.escodro.theme.AlkaaTheme
+import com.escodro.designsystem.AlkaaTheme
 
 /**
  * Main Alkaa Activity.

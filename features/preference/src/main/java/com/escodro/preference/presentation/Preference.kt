@@ -21,8 +21,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.escodro.core.extension.getVersionName
+import com.escodro.designsystem.AlkaaTheme
 import com.escodro.preference.R
-import com.escodro.theme.AlkaaTheme
 import java.util.Locale
 
 /**

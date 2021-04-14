@@ -26,9 +26,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.escodro.core.extension.openUrl
+import com.escodro.designsystem.AlkaaTheme
+import com.escodro.designsystem.components.AlkaaToolbar
 import com.escodro.preference.R
-import com.escodro.theme.AlkaaTheme
-import com.escodro.theme.components.AlkaaToolbar
 import java.util.Locale
 
 /**

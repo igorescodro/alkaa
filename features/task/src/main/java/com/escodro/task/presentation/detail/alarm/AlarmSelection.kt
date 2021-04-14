@@ -33,10 +33,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.escodro.core.extension.format
 import com.escodro.core.view.DateTimePickerDialog
+import com.escodro.designsystem.AlkaaTheme
 import com.escodro.task.R
 import com.escodro.task.model.AlarmInterval
 import com.escodro.task.presentation.detail.TaskDetailSectionContent
-import com.escodro.theme.AlkaaTheme
 import java.util.Calendar
 
 @Composable

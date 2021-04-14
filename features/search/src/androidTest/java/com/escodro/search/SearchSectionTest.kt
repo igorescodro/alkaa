@@ -5,10 +5,10 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.test.platform.app.InstrumentationRegistry
+import com.escodro.designsystem.AlkaaTheme
 import com.escodro.search.model.TaskSearchItem
 import com.escodro.search.presentation.SearchScaffold
 import com.escodro.search.presentation.SearchViewState
-import com.escodro.theme.AlkaaTheme
 import org.junit.Rule
 import org.junit.Test
 

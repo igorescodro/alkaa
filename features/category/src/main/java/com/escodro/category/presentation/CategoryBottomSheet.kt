@@ -40,9 +40,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.escodro.category.R
 import com.escodro.categoryapi.model.Category
-import com.escodro.theme.AlkaaTheme
-import com.escodro.theme.components.AlkaaDialog
-import com.escodro.theme.components.DialogArguments
+import com.escodro.designsystem.AlkaaTheme
+import com.escodro.designsystem.components.AlkaaDialog
+import com.escodro.designsystem.components.DialogArguments
 import org.koin.androidx.compose.getViewModel
 
 /**

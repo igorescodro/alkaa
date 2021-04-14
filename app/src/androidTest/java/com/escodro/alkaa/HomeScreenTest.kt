@@ -7,7 +7,7 @@ import androidx.compose.ui.test.performClick
 import androidx.test.platform.app.InstrumentationRegistry
 import com.escodro.alkaa.model.HomeSection
 import com.escodro.alkaa.navigation.NavGraph
-import com.escodro.theme.AlkaaTheme
+import com.escodro.designsystem.AlkaaTheme
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test

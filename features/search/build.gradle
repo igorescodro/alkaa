@@ -15,7 +15,7 @@ android {
 dependencies {
     implementation project(":libraries:core")
     implementation project(":domain")
-    implementation project(":libraries:theme")
+    implementation project(':libraries:designsystem')
 
     implementation Deps.koin.android
     implementation Deps.koin.compose

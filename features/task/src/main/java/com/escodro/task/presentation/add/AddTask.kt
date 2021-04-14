@@ -25,10 +25,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.escodro.categoryapi.presentation.CategoryListViewModel
 import com.escodro.categoryapi.presentation.CategoryState
+import com.escodro.designsystem.AlkaaTheme
 import com.escodro.task.R
 import com.escodro.task.presentation.category.CategorySelection
 import com.escodro.task.presentation.detail.main.CategoryId
-import com.escodro.theme.AlkaaTheme
 import org.koin.androidx.compose.getViewModel
 
 /**

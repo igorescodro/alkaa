@@ -16,7 +16,7 @@ internal class TrackerActivity : ComponentActivity() {
 
         setContent {
             AlkaaTheme {
-                TrackerContent()
+                TrackerSection(onUpPress = { finish() })
             }
         }
     }

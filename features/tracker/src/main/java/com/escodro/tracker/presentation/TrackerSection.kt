@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DynamicFeed
@@ -21,6 +22,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.escodro.theme.components.AlkaaToolbar
 import com.escodro.tracker.R
 import com.escodro.tracker.model.Tracker
 import com.escodro.tracker.presentation.components.TaskGraph
@@ -28,21 +30,28 @@ import com.escodro.tracker.presentation.components.TaskTrackerList
 import org.koin.androidx.compose.getViewModel
 
 @Composable
-internal fun TrackerContent(viewModel: TrackerViewModel = getViewModel()) {
+internal fun TrackerSection(onUpPress: () -> Unit) {
+    TrackerLoader(onUpPress = onUpPress)
+}
+
+@Composable
+internal fun TrackerLoader(viewModel: TrackerViewModel = getViewModel(), onUpPress: () -> Unit) {
     val data by remember { viewModel.loadTracker() }
         .collectAsState(initial = TrackerViewState.Loading)
 
-    when (data) {
-        TrackerViewState.Empty -> {
-            // TODO
-        }
-        is TrackerViewState.Error -> {
-            // TODO
-        }
-        is TrackerViewState.Loaded ->
-            TrackerLoadedContent((data as TrackerViewState.Loaded).trackerInfo)
-        TrackerViewState.Loading -> {
-            // TODO
+    Scaffold(topBar = { AlkaaToolbar(onUpPress = onUpPress) }) {
+        when (data) {
+            TrackerViewState.Empty -> {
+                // TODO
+            }
+            is TrackerViewState.Error -> {
+                // TODO
+            }
+            is TrackerViewState.Loaded ->
+                TrackerLoadedContent((data as TrackerViewState.Loaded).trackerInfo)
+            TrackerViewState.Loading -> {
+                // TODO
+            }
         }
     }
 }

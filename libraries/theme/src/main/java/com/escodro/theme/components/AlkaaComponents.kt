@@ -34,15 +34,17 @@ import com.escodro.theme.R
  * @param icon icon to be shown
  * @param iconContentDescription the icon content description
  * @param header the text header to be shown
+ * @param modifier modifier to be set
  */
 @Composable
 fun DefaultIconTextContent(
     icon: ImageVector,
     @StringRes iconContentDescription: Int,
-    @StringRes header: Int
+    @StringRes header: Int,
+    modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {

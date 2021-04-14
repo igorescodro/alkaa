@@ -1,19 +1,23 @@
-package com.escodro.task.presentation.fake
+package com.escodro.tracker.fake
 
 import com.escodro.domain.model.Category
 import com.escodro.domain.model.Task
 import com.escodro.domain.model.TaskWithCategory
-import com.escodro.domain.usecase.taskwithcategory.LoadUncompletedTasks
+import com.escodro.domain.usecase.tracker.LoadCompletedTasksByPeriod
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import java.util.Calendar
 
-internal class LoadUncompletedTasksFake : LoadUncompletedTasks {
+internal class LoadCompletedTasksByPeriodFake : LoadCompletedTasksByPeriod {
 
-    private var list: List<TaskWithCategory> = listOf()
+    private var returnList: List<TaskWithCategory> = emptyList()
 
     var throwError: Boolean = false
+
+    fun clearList() {
+        returnList = emptyList()
+    }
 
     fun returnDefaultValues() {
         val task1 = Task(title = "Buy milk", dueDate = null)
@@ -31,31 +35,18 @@ internal class LoadUncompletedTasksFake : LoadUncompletedTasks {
             TaskWithCategory(task = task4, category = category1)
         )
 
-        list = taskList
-    }
-
-    fun returnValues(numberOfValues: Int) {
-        val task = Task(title = "Buy milk", dueDate = null)
-        val category = Category(name = "Books", color = "#FF0000")
-
-        val taskList = mutableListOf<TaskWithCategory>()
-        for (i in 1..numberOfValues) {
-            taskList.add(TaskWithCategory(task = task.copy(id = i.toLong()), category = category))
-        }
-
-        list = taskList
+        returnList = taskList
     }
 
     fun clean() {
-        list = listOf()
+        returnList = emptyList()
         throwError = false
     }
 
-    override fun invoke(categoryId: Long?): Flow<List<TaskWithCategory>> {
-        return when {
-            throwError -> flowOf(list).map { throw IllegalStateException() }
-            categoryId != null -> flowOf(list.filter { it.category?.id == categoryId })
-            else -> flowOf(list)
+    override fun invoke(): Flow<List<TaskWithCategory>> =
+        if (throwError) {
+            flowOf(returnList).map { throw IllegalAccessException() }
+        } else {
+            flowOf(returnList)
         }
-    }
 }

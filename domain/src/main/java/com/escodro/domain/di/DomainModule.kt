@@ -44,6 +44,7 @@ import com.escodro.domain.usecase.taskwithcategory.LoadCompletedTasks
 import com.escodro.domain.usecase.taskwithcategory.LoadUncompletedTasks
 import com.escodro.domain.usecase.taskwithcategory.implementation.LoadUncompletedTasksImpl
 import com.escodro.domain.usecase.tracker.LoadCompletedTasksByPeriod
+import com.escodro.domain.usecase.tracker.implementation.LoadCompletedTasksByPeriodImpl
 import org.koin.dsl.module
 
 /**
@@ -87,7 +88,7 @@ val domainModule = module {
     factory<UpdateTaskAsRepeating> { UpdateTaskAsRepeatingImpl(get()) }
 
     // Tracker Use Cases
-    factory { LoadCompletedTasksByPeriod(get()) }
+    factory<LoadCompletedTasksByPeriod> { LoadCompletedTasksByPeriodImpl(get()) }
 
     // Providers
     factory<CalendarProvider> { CalendarProviderImpl() }

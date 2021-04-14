@@ -49,7 +49,7 @@ import kotlinx.coroutines.launch
  * Alkaa Home screen.
  */
 @Composable
-fun Home(onTaskClick: (Long) -> Unit, onAboutClick: () -> Unit) {
+fun Home(onTaskClick: (Long) -> Unit, onAboutClick: () -> Unit, onTrackerClick: () -> Unit) {
     val (currentSection, setCurrentSection) = rememberSaveable { mutableStateOf(HomeSection.Tasks) }
     val navItems = HomeSection.values().toList()
     val homeModifier = Modifier.padding(bottom = 56.dp)
@@ -57,6 +57,7 @@ fun Home(onTaskClick: (Long) -> Unit, onAboutClick: () -> Unit) {
     val actions = HomeActions(
         onTaskClick = onTaskClick,
         onAboutClick = onAboutClick,
+        onTrackerClick = onTrackerClick,
         setCurrentSection = setCurrentSection,
     )
 
@@ -183,7 +184,8 @@ private fun AlkaaContent(
         HomeSection.Settings ->
             PreferenceSection(
                 modifier = modifier,
-                onAboutClick = actions.onAboutClick
+                onAboutClick = actions.onAboutClick,
+                onTrackerClick = actions.onTrackerClick
             )
     }
 }

@@ -6,6 +6,7 @@ import com.escodro.domain.model.TaskWithCategory
 import com.escodro.domain.usecase.fake.CategoryRepositoryFake
 import com.escodro.domain.usecase.fake.TaskRepositoryFake
 import com.escodro.domain.usecase.fake.TaskWithCategoryRepositoryFake
+import com.escodro.domain.usecase.tracker.implementation.LoadCompletedTasksByPeriodImpl
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runBlockingTest
@@ -23,7 +24,7 @@ internal class LoadCompletedTasksByPeriodTest {
     private val taskWithCategoryRepository =
         TaskWithCategoryRepositoryFake(taskRepository, categoryRepository)
 
-    private val loadTrackerUseCase = LoadCompletedTasksByPeriod(taskWithCategoryRepository)
+    private val loadTrackerUseCase = LoadCompletedTasksByPeriodImpl(taskWithCategoryRepository)
 
     @Test
     fun `test if completed tasks are returned in group`() = runBlockingTest {

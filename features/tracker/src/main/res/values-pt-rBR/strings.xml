@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tracker_name_no_category">Sem categoria</string>
+    <string name="tracker_cp_item_icon">Item finalizado</string>
+
+    <plurals name="tracker_message_title">
+        <item quantity="one">%1$d tarefa finalizada</item>
+        <item quantity="other">%1$d tarefas finalizadas</item>
+    </plurals>
+
+    <string name="tracker_message_description">Nos últimos 30 dias</string>
+    <string name="tracker_cp_info_icon">Tarefas finalizadas</string>
+
+    <string name="tracker_cd_empty">Sem tarefas finalizadas</string>
+    <string name="tracker_header_empty">Você ainda não completou nenhuma tarefa nos últimos 30 dias</string>
+    <string name="tracker_header_error">Ops… Isso é embaraçoso…</string>
+    <string name="tracker_cd_error">Algo deu errado</string>
+</resources>

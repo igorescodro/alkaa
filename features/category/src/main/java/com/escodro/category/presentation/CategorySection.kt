@@ -50,6 +50,7 @@ import com.escodro.theme.components.AddFloatingButton
 import com.escodro.theme.components.AlkaaLoadingContent
 import com.escodro.theme.components.DefaultIconTextContent
 import org.koin.androidx.compose.getViewModel
+import kotlin.math.max
 import kotlin.math.roundToInt
 
 /**
@@ -122,7 +123,7 @@ private fun CategoryListScaffold(
 @Composable
 private fun CategoryListContent(categoryList: List<Category>, onItemClick: (Category) -> Unit) {
     BoxWithConstraints(modifier = Modifier.padding(start = 8.dp, end = 8.dp)) {
-        val cellCount: Int = (maxWidth.value / 250).roundToInt()
+        val cellCount: Int = max(2F, maxWidth.value / 250).roundToInt()
         LazyVerticalGrid(cells = GridCells.Fixed(cellCount)) {
             items(
                 items = categoryList,

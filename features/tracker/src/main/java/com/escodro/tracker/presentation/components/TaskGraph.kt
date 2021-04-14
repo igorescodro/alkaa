@@ -30,9 +30,10 @@ internal fun TaskGraph(list: List<Tracker.CategoryInfo>, modifier: Modifier = Mo
 
     val defaultColor = MaterialTheme.colors.onSecondary
     val stroke = with(LocalDensity.current) { Stroke(32.dp.toPx()) }
-    val transition = updateTransition(currentState, label = "")
+    val transition = updateTransition(currentState, label = LabelUpdateTransition)
     val angleOffset by angleOffset(transition)
     val shift by shift(transition)
+    val dividerLength = if (list.count() == 1) 0F else DividerLengthInDegrees
 
     Canvas(modifier = modifier) {
         val innerRadius = (size.minDimension - stroke.width) / 2
@@ -45,8 +46,8 @@ internal fun TaskGraph(list: List<Tracker.CategoryInfo>, modifier: Modifier = Mo
             val sweep = categoryInfo.percentage * angleOffset
             drawArc(
                 color = categoryInfo.color?.let { Color(it) } ?: defaultColor,
-                startAngle = startAngle + DividerLengthInDegrees / 2,
-                sweepAngle = sweep - DividerLengthInDegrees,
+                startAngle = startAngle + dividerLength / 2,
+                sweepAngle = sweep - dividerLength,
                 topLeft = topLeft,
                 size = size,
                 useCenter = false,
@@ -100,5 +101,7 @@ private const val DividerLengthInDegrees = 1.8f
 internal const val LabelAngleOffsetAnimation = "AngleOffsetAnimation"
 
 internal const val LabelShiftAnimation = "ShiftAnimation"
+
+internal const val LabelUpdateTransition = "UpdateTransition"
 
 private enum class AnimatedCircleProgress { START, END }

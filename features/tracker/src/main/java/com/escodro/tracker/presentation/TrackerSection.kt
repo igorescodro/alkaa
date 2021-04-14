@@ -1,5 +1,6 @@
 package com.escodro.tracker.presentation
 
+import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,6 +13,8 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DynamicFeed
+import androidx.compose.material.icons.outlined.Close
+import androidx.compose.material.icons.outlined.DataUsage
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -22,7 +25,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.escodro.theme.components.AlkaaLoadingContent
 import com.escodro.theme.components.AlkaaToolbar
+import com.escodro.theme.components.DefaultIconTextContent
 import com.escodro.tracker.R
 import com.escodro.tracker.model.Tracker
 import com.escodro.tracker.presentation.components.TaskGraph
@@ -40,17 +45,12 @@ internal fun TrackerLoader(viewModel: TrackerViewModel = getViewModel(), onUpPre
         .collectAsState(initial = TrackerViewState.Loading)
 
     Scaffold(topBar = { AlkaaToolbar(onUpPress = onUpPress) }) {
-        when (data) {
-            TrackerViewState.Empty -> {
-                // TODO
-            }
-            is TrackerViewState.Error -> {
-                // TODO
-            }
-            is TrackerViewState.Loaded ->
-                TrackerLoadedContent((data as TrackerViewState.Loaded).trackerInfo)
-            TrackerViewState.Loading -> {
-                // TODO
+        Crossfade(data) { state ->
+            when (state) {
+                TrackerViewState.Empty -> TrackerEmpty()
+                is TrackerViewState.Error -> TrackerError()
+                is TrackerViewState.Loaded -> TrackerLoadedContent(state.trackerInfo)
+                TrackerViewState.Loading -> AlkaaLoadingContent()
             }
         }
     }
@@ -81,6 +81,26 @@ private fun TrackerLoadedContent(trackerInfo: Tracker.Info) {
                 .padding(24.dp)
         )
     }
+}
+
+@Composable
+private fun TrackerEmpty() {
+    DefaultIconTextContent(
+        icon = Icons.Outlined.DataUsage,
+        iconContentDescription = R.string.tracker_cd_empty,
+        header = R.string.tracker_header_empty,
+        modifier = Modifier.padding(16.dp)
+    )
+}
+
+@Composable
+private fun TrackerError() {
+    DefaultIconTextContent(
+        icon = Icons.Outlined.Close,
+        iconContentDescription = R.string.tracker_cd_error,
+        header = R.string.tracker_header_error,
+        modifier = Modifier.padding(16.dp)
+    )
 }
 
 @Composable

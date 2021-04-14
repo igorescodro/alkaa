@@ -13,7 +13,7 @@ style:
   DataClassShouldBeImmutable:
     active: false
   MagicNumber:
-    excludes: ['**/theme/**', '**/test/**','**/androidTest/**', '**/presentation/**']
+    excludes: ['**/designsystem/**', '**/test/**','**/androidTest/**', '**/presentation/**']
 
 potential-bugs:
   UnsafeCallOnNullableType:

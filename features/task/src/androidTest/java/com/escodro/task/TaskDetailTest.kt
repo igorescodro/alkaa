@@ -5,11 +5,11 @@ import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.test.platform.app.InstrumentationRegistry
 import com.escodro.categoryapi.presentation.CategoryState
+import com.escodro.designsystem.AlkaaTheme
 import com.escodro.task.model.Task
 import com.escodro.task.presentation.detail.TaskDetailActions
 import com.escodro.task.presentation.detail.main.TaskDetailRouter
 import com.escodro.task.presentation.detail.main.TaskDetailState
-import com.escodro.theme.AlkaaTheme
 import org.junit.Rule
 import org.junit.Test
 

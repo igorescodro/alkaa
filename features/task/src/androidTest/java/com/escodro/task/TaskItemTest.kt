@@ -3,11 +3,11 @@ package com.escodro.task
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
+import com.escodro.designsystem.AlkaaTheme
 import com.escodro.task.model.Task
 import com.escodro.task.model.TaskWithCategory
 import com.escodro.task.presentation.list.TaskItem
 import com.escodro.test.assertLines
-import com.escodro.theme.AlkaaTheme
 import org.junit.Rule
 import org.junit.Test
 import java.util.Calendar

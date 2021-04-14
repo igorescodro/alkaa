@@ -1,4 +1,4 @@
-package com.escodro.theme.components
+package com.escodro.designsystem.components
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
@@ -25,7 +25,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.escodro.theme.R
+import com.escodro.designsystem.R
 
 /**
  * Default content containing a icon and a text showing some full screen information.

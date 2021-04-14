@@ -17,7 +17,7 @@ dependencies {
     implementation project(":features:category-api")
     implementation project(":libraries:core")
     implementation project(":domain")
-    implementation project(":libraries:theme")
+    implementation project(':libraries:designsystem')
 
     testImplementation project(":libraries:test")
     androidTestImplementation project(":libraries:test")

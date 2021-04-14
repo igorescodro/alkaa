@@ -25,9 +25,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.escodro.theme.components.AlkaaLoadingContent
-import com.escodro.theme.components.AlkaaToolbar
-import com.escodro.theme.components.DefaultIconTextContent
+import com.escodro.designsystem.components.AlkaaLoadingContent
+import com.escodro.designsystem.components.AlkaaToolbar
+import com.escodro.designsystem.components.DefaultIconTextContent
 import com.escodro.tracker.R
 import com.escodro.tracker.model.Tracker
 import com.escodro.tracker.presentation.components.TaskGraph

@@ -1,4 +1,4 @@
-package com.escodro.theme
+package com.escodro.designsystem
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes

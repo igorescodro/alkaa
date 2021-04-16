@@ -1,32 +1,33 @@
 apply from: "$rootDir/config/dependencies/feature_dependencies.gradle"
-apply plugin: "androidx.navigation.safeargs"
+apply from: "$rootDir/config/dependencies/compose_dependencies.gradle"
+apply plugin: "kotlin-parcelize"
 
 android {
-    androidExtensions {
-        experimental = true
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+
+    packagingOptions {
+        exclude 'META-INF/AL2.0'
+        exclude 'META-INF/LGPL2.1'
     }
 }
 
 dependencies {
+    implementation project(":features:category-api")
     implementation project(":libraries:core")
-    implementation project(":libraries:navigation")
-    implementation project(":data:domain")
+    implementation project(":domain")
+    implementation project(':libraries:designsystem')
 
     testImplementation project(":libraries:test")
+    androidTestImplementation project(":libraries:test")
 
-    implementation Deps.android.constraintLayout
-    implementation Deps.android.material
-    implementation Deps.android.navigation.fragment
-    implementation Deps.android.navigation.ui
-    implementation Deps.android.lifecycle.viewmodel
-    implementation Deps.android.lifecycle.runtime
     implementation Deps.android.playCore
 
-    implementation Deps.koin.viewModel
+    implementation Deps.koin.android
+    implementation Deps.koin.compose
 
-    implementation Deps.groupie.core
-    implementation Deps.groupie.ktx
-
-    testImplementation Deps.test.mockk
-    testImplementation Deps.test.arch
+    testImplementation Deps.test.coreKtx
+    androidTestImplementation Deps.compose.activity
+    androidTestImplementation Deps.test.barista
 }

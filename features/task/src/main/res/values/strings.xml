@@ -1,20 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="task_menu_search">Search</string>
-    <string name="task_menu_completed">Update task status</string>
-    <string name="task_add_new">Add new task</string>
-    <string name="task_snackbar_completed">Moved to \'Completed\'</string>
-    <string name="task_snackbar_undo">Undo</string>
-    <string name="task_list_default_title">All Tasks</string>
-    <string name="task_list_empty">No tasks</string>
-    <string name="task_details_category_empty">No category</string>
-    <string name="task_details_alarm_removed">Alarm removed</string>
-    <string name="task_details_description_hint">Add a description</string>
-    <string name="task_details_alarm_hint">Add an alarm</string>
-    <string name="task_alarm_dialog_title">Repeat alarm</string>
-    <string name="task_status_mark_completed">Task marked as completed</string>
-    <string name="task_status_mark_uncompleted">Task marked as uncompleted</string>
+    <string name="task_cd_add_task">Add task</string>
+    <string name="task_list_header_empty">Wow! All tasks are completed!</string>
+    <string name="task_list_cd_empty_list">That\'s all clear</string>
+    <string name="task_list_header_error">Ops… That\'s embarrassing…</string>
+    <string name="task_list_cd_error">Something went wrong</string>
+    <string name="task_detail_header_error">This task is no longer available</string>
+    <string name="task_detail_cd_error">Task not found</string>
 
-    <string-array name="task_dialog_options">
-        <item>Remove</item>
-    </string-array>
+    <string name="task_detail_cd_icon_category">Categories</string>
+    <string name="task_detail_cd_icon_description">Description</string>
+    <string name="task_detail_cd_icon_alarm">Alarm</string>
+    <string name="task_detail_cd_icon_remove_alarm">Remove alarm</string>
+    <string name="task_detail_cd_icon_repeat_alarm">Repeating alarm</string>
+
+    <string name="task_detail_category_empty_list">No categories</string>
+
+    <string name="task_detail_alarm_no_alarm">No alarm</string>
+
+    <string name="task_add_save">Save</string>
+    <string name="task_add_label">Task</string>
+
+    <string name="task_snackbar_message_complete">\"%s\" completed</string>
+    <string name="task_snackbar_button_undo">Undo</string>
 </resources>

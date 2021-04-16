@@ -1,10 +1,11 @@
 apply plugin: "com.android.application"
 
 apply from: "$rootDir/config/dependencies/android_dependencies.gradle"
+apply from: "$rootDir/config/dependencies/compose_dependencies.gradle"
 apply from: "$rootDir/config/artifacts.gradle"
 
 apply plugin: "kotlin-kapt"
-apply plugin: "androidx.navigation.safeargs"
+apply plugin: "kotlin-parcelize"
 
 android {
     defaultConfig {
@@ -22,16 +23,12 @@ android {
 
     lintOptions {
         warningsAsErrors true
-        abortOnError true
+        abortOnError false // Google needs to update their libraries to API Level 10.
         htmlReport true
         checkDependencies true
 
         lintConfig file("${rootDir}/config/filters/lint.xml")
         htmlOutput file("${buildDir}/reports/lint.html")
-    }
-
-    androidExtensions {
-        experimental = true
     }
 
     kapt {
@@ -42,45 +39,36 @@ android {
     }
 
     dynamicFeatures = [":features:tracker"]
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    packagingOptions {
+        exclude 'META-INF/AL2.0'
+        exclude 'META-INF/LGPL2.1'
+    }
 
 }
 
 dependencies {
     implementation project(":libraries:core")
-    implementation project(":libraries:navigation")
     implementation project(":libraries:splitInstall")
+    implementation project(':libraries:designsystem')
+    implementation project(":libraries:navigation")
     implementation project(":data:local")
     implementation project(":data:repository")
-    implementation project(":data:domain")
+    implementation project(":domain")
     implementation project(":features:task")
     implementation project(":features:alarm")
+    implementation project(":features:category-api")
     implementation project(":features:category")
     implementation project(":features:preference")
     implementation project(":features:search")
 
-    implementation Deps.android.preference
-    implementation Deps.android.constraintLayout
-    implementation Deps.android.ktx
-    implementation Deps.android.room.runtime
-    implementation Deps.android.navigation.fragment
-    implementation Deps.android.navigation.ui
-    implementation Deps.android.lifecycle.viewmodel
+    implementation Deps.compose.navigation
+    implementation Deps.compose.activity
     implementation Deps.android.playCore
-
+    implementation Deps.koin.android
     implementation Deps.timber
-
-    implementation Deps.koin.viewModel
-    androidTestImplementation Deps.koin.test
-
-    implementation Deps.coroutines.test
-
-    testImplementation Deps.test.junit
-    androidTestImplementation Deps.test.runner
-    androidTestImplementation Deps.test.rules
-    androidTestImplementation Deps.test.core
-    androidTestImplementation Deps.test.espresso.core
-    androidTestImplementation Deps.test.espresso.intents
-    androidTestImplementation Deps.test.espresso.contrib
-    androidTestImplementation Deps.test.junitExt
-    androidTestImplementation Deps.test.uiAutomator
 }

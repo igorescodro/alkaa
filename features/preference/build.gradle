@@ -1,11 +1,21 @@
 apply from: "$rootDir/config/dependencies/feature_dependencies.gradle"
+apply from: "$rootDir/config/dependencies/compose_dependencies.gradle"
+
+android {
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+
+    packagingOptions {
+        exclude 'META-INF/AL2.0'
+        exclude 'META-INF/LGPL2.1'
+    }
+}
 
 dependencies {
     implementation project(":libraries:core")
-    implementation project(":libraries:navigation")
+    implementation project(':libraries:designsystem')
 
-    implementation Deps.android.preference
-    implementation Deps.android.constraintLayout
-    implementation Deps.android.navigation.fragment
-    implementation Deps.android.navigation.ui
+    testImplementation project(":libraries:test")
+    androidTestImplementation project(":libraries:test")
 }

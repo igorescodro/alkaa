@@ -1,12 +1,12 @@
 package com.escodro.repository.mapper
 
-import com.escodro.domain.model.AlarmInterval as DomainInterval
-import com.escodro.repository.model.AlarmInterval as RepoInterval
 import com.escodro.repository.model.AlarmInterval.DAILY
 import com.escodro.repository.model.AlarmInterval.HOURLY
 import com.escodro.repository.model.AlarmInterval.MONTHLY
 import com.escodro.repository.model.AlarmInterval.WEEKLY
 import com.escodro.repository.model.AlarmInterval.YEARLY
+import com.escodro.domain.model.AlarmInterval as DomainInterval
+import com.escodro.repository.model.AlarmInterval as RepoInterval
 
 /**
  * Maps Alarm Interval between Repository and Domain.

@@ -12,24 +12,31 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
+        android:theme="@style/Theme.Alkaa"
         tools:ignore="GoogleAppIndexingWarning">
 
         <activity
-            android:name=".presentation.MainActivity"
-            android:label="@string/app_name"
-            android:resizeableActivity="false"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize"
-            tools:ignore="UnusedAttribute">
-
-            <nav-graph android:value="@navigation/nav_graph_tracker" />
+            android:name="com.escodro.alkaa.presentation.MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Alkaa"
+            android:windowSoftInputMode="adjustResize">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="com.escodro.alkaa"
+                    android:scheme="app" />
+            </intent-filter>
+
         </activity>
 
     </application>

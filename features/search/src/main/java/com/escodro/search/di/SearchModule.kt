@@ -9,6 +9,8 @@ import org.koin.dsl.module
  * Search dependency injection module.
  */
 val searchModule = module {
+
+    // Presentation
     viewModel { SearchViewModel(get(), get()) }
 
     // Mappers

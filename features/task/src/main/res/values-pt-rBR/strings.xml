@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="task_menu_search">Buscar</string>
-    <string name="task_add_new">Adicionar nova tarefa</string>
-    <string name="task_details_alarm_removed">Alarme removido</string>
-    <string name="task_details_description_hint">Adicionar uma descrição</string>
-    <string name="task_details_alarm_hint">Adicionar alarme</string>
-    <string name="task_details_category_empty">Sem categoria</string>
-    <string-array name="task_dialog_options">
-        <item>Remover</item>
-    </string-array>
-    <string name="task_snackbar_completed">Movido para \'Finalizadas\'</string>
-    <string name="task_snackbar_undo">Desfazer</string>
-    <string name="task_list_empty">Sem tarefas</string>
-    <string name="task_list_default_title">Todas as Tarefas</string>
-    <string name="task_alarm_dialog_title">Repetir alarme</string>
-    <string name="task_menu_completed">Atualizar estado da tarefa</string>
-    <string name="task_status_mark_completed">Tarefa marcada como finalizada</string>
-    <string name="task_status_mark_uncompleted">Tarefa marcada como não finalizada</string>
+    <string name="task_cd_add_task">Adicionar tarefa</string>
+    <string name="task_list_header_empty">Uau! Todas as tarefas estão cumpridas!</string>
+    <string name="task_list_cd_empty_list">Sem tarefas</string>
+    <string name="task_list_header_error">Ops… Isso é embaraçoso…</string>
+    <string name="task_list_cd_error">Algo deu errado</string>
+    <string name="task_detail_header_error">A tarefa não está mais disponível</string>
+    <string name="task_detail_cd_error">Tarefa não encontrada</string>
+    <string name="task_detail_cd_icon_category">Categorias</string>
+    <string name="task_detail_cd_icon_description">Descrição</string>
+    <string name="task_detail_category_empty_list">Sem categorias</string>
+    <string name="task_detail_cd_icon_alarm">Alarme</string>
+    <string name="task_detail_cd_icon_repeat_alarm">Alarme recorrente</string>
+    <string name="task_detail_alarm_no_alarm">Sem alarme</string>
+    <string name="task_detail_cd_icon_remove_alarm">Remover alarme</string>
+    <string name="task_add_save">Salvar</string>
+    <string name="task_add_label">Tarefa</string>
+    <string name="task_snackbar_message_complete">\"%s\" finalizada</string>
+    <string name="task_snackbar_button_undo">Desfazer</string>
 </resources>

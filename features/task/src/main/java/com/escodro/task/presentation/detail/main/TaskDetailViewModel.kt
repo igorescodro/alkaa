@@ -1,100 +1,50 @@
 package com.escodro.task.presentation.detail.main
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.escodro.domain.usecase.task.UpdateTask
-import com.escodro.domain.usecase.task.UpdateTaskStatus
+import com.escodro.core.coroutines.CoroutineDebouncer
+import com.escodro.domain.usecase.task.LoadTask
+import com.escodro.domain.usecase.task.UpdateTaskCategory
+import com.escodro.domain.usecase.task.UpdateTaskDescription
+import com.escodro.domain.usecase.task.UpdateTaskTitle
 import com.escodro.task.mapper.TaskMapper
-import com.escodro.task.model.Task
-import com.escodro.task.presentation.detail.TaskDetailProvider
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
-/**
- * [ViewModel] responsible to provide information to [TaskDetailFragment].
- */
 internal class TaskDetailViewModel(
-    private val taskProvider: TaskDetailProvider,
-    private val updateTaskUseCase: UpdateTask,
-    private val updateTaskStatusUseCase: UpdateTaskStatus,
+    private val loadTaskUseCase: LoadTask,
+    private val updateTaskTitle: UpdateTaskTitle,
+    private val updateTaskDescription: UpdateTaskDescription,
+    private val updateTaskCategory: UpdateTaskCategory,
     private val taskMapper: TaskMapper
 ) : ViewModel() {
 
-    val state: LiveData<TaskDetailUIState> =
-        Transformations.map(taskProvider.taskData) { mapToUIState(it) }
+    private val coroutineDebouncer = CoroutineDebouncer()
 
-    val taskData: LiveData<Task> = taskProvider.taskData
+    fun loadTaskInfo(taskId: TaskId): Flow<TaskDetailState> = flow {
+        val task = loadTaskUseCase(taskId = taskId.value)
 
-    /**
-     * Loads the Task to be handled by the [ViewModel]s.
-     *
-     * @param id the task id
-     */
-    fun loadTask(id: Long) {
-        Timber.d("loadTask() - $id")
-        taskProvider.loadTask(id, viewModelScope)
-    }
-
-    /**
-     * Updates the task title.
-     *
-     * @param title the task title
-     */
-    fun updateTitle(title: String) {
-        Timber.d("updateTitle() - $title")
-
-        if (title.isEmpty() || title == taskData.value?.title) {
-            return
-        }
-
-        viewModelScope.launch {
-            taskData.value?.copy(title = title)?.let { task ->
-                updateTaskUseCase(taskMapper.toDomain(task))
-            }
-        }
-    }
-
-    /**
-     * Updates the task description.
-     *
-     * @param description the task description
-     */
-    fun updateDescription(description: String) {
-        Timber.d("updateDescription() - $description")
-
-        if (description == taskData.value?.description) {
-            return
-        }
-
-        viewModelScope.launch {
-            taskData.value?.copy(description = description)?.let { task ->
-                updateTaskUseCase(taskMapper.toDomain(task))
-            }
-        }
-    }
-
-    /**
-     * Updates the task status between completed and uncompleted.
-     */
-    fun updateTaskStatus() {
-        viewModelScope.launch {
-            taskData.value?.id?.let { id -> updateTaskStatusUseCase(id) }
-        }
-    }
-
-    private fun mapToUIState(task: Task): TaskDetailUIState =
-        if (task.completed) {
-            TaskDetailUIState.Completed
+        if (task != null) {
+            val viewTask = taskMapper.toView(task)
+            emit(TaskDetailState.Loaded(viewTask))
         } else {
-            TaskDetailUIState.Uncompleted
+            emit(TaskDetailState.Error)
+        }
+    }
+
+    fun updateTitle(taskId: TaskId, title: String) =
+        coroutineDebouncer(coroutineScope = viewModelScope) {
+            updateTaskTitle(taskId.value, title)
         }
 
-    /**
-     * Clears the [ViewModel] when the [androidx.fragment.app.Fragment] is not visible to user.
-     */
-    fun onDetach() {
-        taskProvider.clear()
-    }
+    fun updateDescription(taskId: TaskId, description: String) =
+        coroutineDebouncer(coroutineScope = viewModelScope) {
+            updateTaskDescription(taskId.value, description)
+        }
+
+    fun updateCategory(taskId: TaskId, categoryId: CategoryId) =
+        viewModelScope.launch {
+            updateTaskCategory(taskId = taskId.value, categoryId = categoryId.value)
+        }
 }

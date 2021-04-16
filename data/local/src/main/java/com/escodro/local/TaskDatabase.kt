@@ -14,7 +14,7 @@ import com.escodro.local.model.Task
 /**
  * [Task] Database class.
  */
-@Database(entities = [Task::class, Category::class], version = 3)
+@Database(entities = [Task::class, Category::class], version = 4)
 @TypeConverters(DateConverter::class, AlarmIntervalConverter::class)
 abstract class TaskDatabase : RoomDatabase() {
 

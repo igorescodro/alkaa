@@ -7,7 +7,6 @@ import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
 import androidx.room.Update
 import com.escodro.local.model.Task
-import kotlinx.coroutines.flow.Flow
 
 /**
  * DAO class to handle all [Task]-related database operations.
@@ -61,5 +60,5 @@ interface TaskDao {
      * @return selected task
      */
     @Query("SELECT * FROM task WHERE task_id = :taskId")
-    fun getTaskById(taskId: Long): Flow<Task>
+    suspend fun getTaskById(taskId: Long): Task?
 }

@@ -1,18 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="category_list_header_empty">No categories</string>
+    <string name="category_list_cd_empty_list">No categories available</string>
+    <string name="category_icon_cd">Category</string>
+    <string name="category_sheet_save">Save</string>
+    <string name="category_cd_add_category">Add category</string>
+    <string name="category_new_placeholder">New category</string>
 
-    <!-- Category detail screen -->
-    <string name="category_list_menu_remove">Remove</string>
-    <string name="category_list_menu_edit">Edit</string>
-    <string name="category_list_dialog_remove_title">Remove category?</string>
-    <string name="category_list_dialog_remove_description">Deleting \"%s\" will also delete all the tasks under this category.</string>
-    <string name="category_list_dialog_remove_positive">Remove</string>
-    <string name="category_list_dialog_remove_negative">Cancel</string>
-    <string name="category_list_empty">No category</string>
-
-    <!-- Category detail screen -->
-    <string name="category_detail_save">Save</string>
-    <string name="category_detail_hint">Category name</string>
-    <string name="category_detail_error_empty">Empty field</string>
-
+    <string name="category_dialog_remove_title">Remove category</string>
+    <string name="category_dialog_remove_text">Are you sure you want to remove this category?\nRemoving \"%s\" also removes all the tasks under this category.</string>
+    <string name="category_dialog_remove_confirm">Remove</string>
+    <string name="category_dialog_remove_cancel">Cancel</string>
 
 </resources>

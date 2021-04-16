@@ -9,8 +9,8 @@ import com.escodro.domain.usecase.alarm.SnoozeAlarm
 import com.escodro.domain.usecase.task.CompleteTask
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import timber.log.Timber
 
 /**
@@ -26,6 +26,7 @@ internal class TaskReceiver : BroadcastReceiver(), KoinComponent {
 
     private val rescheduleUseCase: RescheduleFutureAlarms by inject()
 
+    @Suppress("GlobalCoroutineUsage")
     override fun onReceive(context: Context?, intent: Intent?) {
         Timber.d("onReceive() - intent ${intent?.action}")
 

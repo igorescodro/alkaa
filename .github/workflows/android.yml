@@ -1,17 +1,22 @@
 name: Run Automated Tests
 
-on: [push, pull_request]
+on: [ push, pull_request ]
 
 jobs:
   build:
     runs-on: macos-latest
 
     steps:
-      - name: checkout
+      - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Setup Java
+        uses: actions/setup-java@v1.4.3
+        with:
+          java-version: '11'
+
       - name: Android Emulator Runner
-        uses: ReactiveCircus/android-emulator-runner@v2.8.0
+        uses: ReactiveCircus/android-emulator-runner@v2.14.3
         with:
           api-level: 29
           script: ./gradlew connectedCheck --stacktrace

@@ -21,6 +21,5 @@ private val loadFeatureModules by lazy {
  */
 val trackerModule = module {
     viewModel { TrackerViewModel(get(), get()) }
-
     factory { TrackerMapper() }
 }

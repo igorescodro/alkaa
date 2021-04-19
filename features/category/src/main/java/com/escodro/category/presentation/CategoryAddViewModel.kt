@@ -2,7 +2,7 @@ package com.escodro.category.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.escodro.categoryapi.mapper.CategoryMapper
+import com.escodro.category.mapper.CategoryMapper
 import com.escodro.categoryapi.model.Category
 import com.escodro.domain.usecase.category.AddCategory
 import kotlinx.coroutines.launch

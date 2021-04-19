@@ -1,6 +1,6 @@
 package com.escodro.category.presentation
 
-import com.escodro.categoryapi.mapper.CategoryMapper
+import com.escodro.category.mapper.CategoryMapper
 import com.escodro.categoryapi.presentation.CategoryListViewModel
 import com.escodro.categoryapi.presentation.CategoryState
 import com.escodro.domain.usecase.category.LoadAllCategories

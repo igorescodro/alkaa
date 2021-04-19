@@ -2,7 +2,7 @@ package com.escodro.category.presentation
 
 import com.escodro.category.fake.FAKE_DOMAIN_CATEGORY_LIST
 import com.escodro.category.fake.LoadAllCategoriesFake
-import com.escodro.category.mapper.CategoryMapperImpl
+import com.escodro.category.mapper.CategoryMapper
 import com.escodro.categoryapi.presentation.CategoryState
 import com.escodro.test.CoroutineTestRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -20,7 +20,7 @@ internal class CategoryListViewModelTest {
 
     private val loadAllCategories = LoadAllCategoriesFake()
 
-    private val categoryMapper = CategoryMapperImpl()
+    private val categoryMapper = CategoryMapper()
 
     private val viewModel = CategoryListViewModelImpl(loadAllCategories, categoryMapper)
 

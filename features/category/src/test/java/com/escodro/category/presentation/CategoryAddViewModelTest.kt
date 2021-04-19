@@ -2,7 +2,7 @@ package com.escodro.category.presentation
 
 import android.graphics.Color
 import com.escodro.category.fake.AddCategoryFake
-import com.escodro.category.mapper.CategoryMapperImpl
+import com.escodro.category.mapper.CategoryMapper
 import com.escodro.categoryapi.model.Category
 import com.escodro.core.extension.toStringColor
 import org.junit.Assert
@@ -13,7 +13,7 @@ internal class CategoryAddViewModelTest {
 
     private val addCategory = AddCategoryFake()
 
-    private val categoryMapper = CategoryMapperImpl()
+    private val categoryMapper = CategoryMapper()
 
     private val viewModel = CategoryAddViewModel(addCategory, categoryMapper)
 

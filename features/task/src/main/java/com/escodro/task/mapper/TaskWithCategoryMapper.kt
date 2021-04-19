@@ -1,6 +1,5 @@
 package com.escodro.task.mapper
 
-import com.escodro.categoryapi.mapper.CategoryMapper
 import com.escodro.domain.model.TaskWithCategory as DomainTaskWithCategory
 import com.escodro.task.model.TaskWithCategory as ViewTaskWithCategory
 

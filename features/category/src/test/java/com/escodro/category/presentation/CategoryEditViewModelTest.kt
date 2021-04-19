@@ -3,7 +3,7 @@ package com.escodro.category.presentation
 import android.graphics.Color
 import com.escodro.category.fake.DeleteCategoryFake
 import com.escodro.category.fake.UpdateCategoryFake
-import com.escodro.category.mapper.CategoryMapperImpl
+import com.escodro.category.mapper.CategoryMapper
 import com.escodro.categoryapi.model.Category
 import org.junit.Assert
 import org.junit.Before
@@ -15,7 +15,7 @@ internal class CategoryEditViewModelTest {
 
     private val deleteCategory = DeleteCategoryFake()
 
-    private val mapper = CategoryMapperImpl()
+    private val mapper = CategoryMapper()
 
     private val viewModel = CategoryEditViewModel(updateCategory, deleteCategory, mapper)
 

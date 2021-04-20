@@ -1,4 +1,4 @@
-package com.escodro.category.presentation
+package com.escodro.category.presentation.list
 
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.ExperimentalFoundationApi

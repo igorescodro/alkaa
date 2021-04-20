@@ -3,7 +3,7 @@ package com.escodro.domain.usecase.task
 import com.escodro.domain.interactor.AlarmInteractor
 import com.escodro.domain.model.Task
 import com.escodro.domain.repository.TaskRepository
-import timber.log.Timber
+import mu.KotlinLogging.logger
 
 /**
  * Use case to delete a task from the database.
@@ -21,7 +21,7 @@ class DeleteTask(
      * @return observable to be subscribe
      */
     suspend operator fun invoke(task: Task) {
-        Timber.d("Deleting task ${task.title}")
+        logger("Deleting task ${task.title}")
         taskRepository.deleteTask(task)
         alarmInteractor.cancel(task.id)
     }

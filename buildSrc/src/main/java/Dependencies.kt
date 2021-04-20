@@ -18,6 +18,7 @@ object Versions {
     const val coroutines = "1.4.0"
 
     const val timber = "4.7.1"
+    const val logging = "2.0.6"
 
     const val koin = "3.0.1-beta-1"
 
@@ -46,6 +47,7 @@ object Versions {
 object Deps {
     val kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
     val timber = "com.jakewharton.timber:timber:${Versions.timber}"
+    val logging = "io.github.microutils:kotlin-logging-jvm:${Versions.logging}"
     val android = AndroidDeps
     val coroutines = CoroutinesDeps
     val koin = KoinDeps
@@ -75,6 +77,7 @@ object RoomDeps {
 }
 
 object KoinDeps {
+    val core = "io.insert-koin:koin-core:${Versions.koin}"
     val android = "io.insert-koin:koin-android:${Versions.koin}"
     val compose = "io.insert-koin:koin-androidx-compose:${Versions.koin}"
     val test = "io.insert-koin:koin-test:${Versions.koin}"

@@ -3,7 +3,7 @@ package com.escodro.domain.usecase.alarm
 import com.escodro.domain.interactor.AlarmInteractor
 import com.escodro.domain.interactor.NotificationInteractor
 import com.escodro.domain.provider.CalendarProvider
-import timber.log.Timber
+import mu.KotlinLogging.logger
 import java.util.Calendar
 
 /**
@@ -29,7 +29,7 @@ class SnoozeAlarm(
         val snoozedTime = getSnoozedTask(calendarProvider.getCurrentCalendar(), minutes)
         alarmInteractor.schedule(taskId, snoozedTime)
         notificationInteractor.dismiss(taskId)
-        Timber.d("Task snoozed in $minutes minutes")
+        logger("Task snoozed in $minutes minutes")
     }
 
     private fun getSnoozedTask(calendar: Calendar, minutes: Int): Long {

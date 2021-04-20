@@ -10,7 +10,7 @@ import com.escodro.domain.model.AlarmInterval.YEARLY
 import com.escodro.domain.model.Task
 import com.escodro.domain.provider.CalendarProvider
 import com.escodro.domain.repository.TaskRepository
-import timber.log.Timber
+import mu.KotlinLogging.logger
 import java.util.Calendar
 
 /**
@@ -39,7 +39,7 @@ class ScheduleNextAlarm(
 
         taskRepository.updateTask(task)
         alarmInteractor.schedule(task.id, task.dueDate.time.time)
-        Timber.d("ScheduleNextAlarm = Task = '${task.title}' at ${task.dueDate.time} ")
+        logger("ScheduleNextAlarm = Task = '${task.title}' at ${task.dueDate.time} ")
     }
 
     private fun updatedAlarmTime(calendar: Calendar, alarmInterval: AlarmInterval) =

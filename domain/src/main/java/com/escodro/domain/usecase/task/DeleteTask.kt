@@ -3,6 +3,7 @@ package com.escodro.domain.usecase.task
 import com.escodro.domain.interactor.AlarmInteractor
 import com.escodro.domain.model.Task
 import com.escodro.domain.repository.TaskRepository
+import mu.KLogging
 import mu.KotlinLogging.logger
 
 /**
@@ -21,8 +22,10 @@ class DeleteTask(
      * @return observable to be subscribe
      */
     suspend operator fun invoke(task: Task) {
-        logger("Deleting task ${task.title}")
+        logger.debug("Deleting task ${task.title}")
         taskRepository.deleteTask(task)
         alarmInteractor.cancel(task.id)
     }
+
+    companion object : KLogging()
 }

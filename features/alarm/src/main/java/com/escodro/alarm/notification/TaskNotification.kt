@@ -10,7 +10,7 @@ import com.escodro.alarm.TaskReceiver
 import com.escodro.alarm.model.Task
 import com.escodro.core.extension.getNotificationManager
 import com.escodro.navigation.DestinationDeepLink
-import timber.log.Timber
+import mu.KLogging
 
 /**
  * Handles the notification related to the Task reminders.
@@ -26,7 +26,7 @@ internal class TaskNotification(
      * @param task the task to be shown in the notification
      */
     fun show(task: Task) {
-        Timber.d("Showing notification for '${task.title}'")
+        logger.debug("Showing notification for '${task.title}'")
         val builder = buildNotification(task)
         builder.addAction(getCompleteAction(task))
         context.getNotificationManager()?.notify(task.id.toInt(), builder.build())
@@ -38,7 +38,7 @@ internal class TaskNotification(
      * @param task the task to be shown in the notification
      */
     fun showRepeating(task: Task) {
-        Timber.d("Showing repeating notification for '${task.title}'")
+        logger.debug("Showing repeating notification for '${task.title}'")
         val builder = buildNotification(task)
         context.getNotificationManager()?.notify(task.id.toInt(), builder.build())
     }
@@ -49,7 +49,7 @@ internal class TaskNotification(
      * @param notificationId the notification id to be dismissed
      */
     fun dismiss(notificationId: Long) {
-        Timber.d("Dismissing notification id '$notificationId'")
+        logger.debug("Dismissing notification id '$notificationId'")
         context.getNotificationManager()?.cancel(notificationId.toInt())
     }
 
@@ -106,7 +106,7 @@ internal class TaskNotification(
             )
     }
 
-    companion object {
+    companion object : KLogging() {
 
         private const val REQUEST_CODE_OPEN_TASK = 1_121_111
 

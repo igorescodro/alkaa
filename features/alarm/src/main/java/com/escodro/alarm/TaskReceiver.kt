@@ -9,9 +9,9 @@ import com.escodro.domain.usecase.alarm.SnoozeAlarm
 import com.escodro.domain.usecase.task.CompleteTask
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import mu.KLogging
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
-import timber.log.Timber
 
 /**
  * [BroadcastReceiver] to be notified by the [android.app.AlarmManager].
@@ -28,7 +28,7 @@ internal class TaskReceiver : BroadcastReceiver(), KoinComponent {
 
     @Suppress("GlobalCoroutineUsage")
     override fun onReceive(context: Context?, intent: Intent?) {
-        Timber.d("onReceive() - intent ${intent?.action}")
+        logger.debug("onReceive() - intent ${intent?.action}")
 
         GlobalScope.launch {
             handleIntent(intent)
@@ -41,12 +41,12 @@ internal class TaskReceiver : BroadcastReceiver(), KoinComponent {
             COMPLETE_ACTION -> getTaskId(intent)?.let { completeTaskUseCase(it) }
             SNOOZE_ACTION -> getTaskId(intent)?.let { snoozeAlarmUseCase(it) }
             Intent.ACTION_BOOT_COMPLETED -> rescheduleUseCase()
-            else -> Timber.e("Action not supported")
+            else -> logger.error("Action not supported")
         }
 
     private fun getTaskId(intent: Intent?) = intent?.getLongExtra(EXTRA_TASK, 0)
 
-    companion object {
+    companion object : KLogging() {
 
         const val EXTRA_TASK = "extra_task"
 

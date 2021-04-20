@@ -2,6 +2,7 @@ package com.escodro.domain.usecase.alarm
 
 import com.escodro.domain.interactor.NotificationInteractor
 import com.escodro.domain.repository.TaskRepository
+import mu.KLogging
 import mu.KotlinLogging.logger
 
 /**
@@ -22,10 +23,10 @@ class ShowAlarm(
         val task = taskRepository.findTaskById(taskId) ?: return
 
         if (task.completed) {
-            logger("Task '${task.title}' is already completed. Will not notify")
+            logger.debug("Task '${task.title}' is already completed. Will not notify")
             return
         } else {
-            logger("Notifying task '${task.title}'")
+            logger.debug("Notifying task '${task.title}'")
             notificationInteractor.show(task)
         }
 
@@ -33,4 +34,6 @@ class ShowAlarm(
             scheduleNextAlarm(task)
         }
     }
+
+    companion object : KLogging()
 }

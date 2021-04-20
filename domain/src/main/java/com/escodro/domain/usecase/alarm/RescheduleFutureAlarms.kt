@@ -4,7 +4,7 @@ import com.escodro.domain.interactor.AlarmInteractor
 import com.escodro.domain.model.Task
 import com.escodro.domain.provider.CalendarProvider
 import com.escodro.domain.repository.TaskRepository
-import mu.KotlinLogging.logger
+import mu.KLogging
 import java.util.Calendar
 
 /**
@@ -42,11 +42,13 @@ class RescheduleFutureAlarms(
     private fun rescheduleFutureTask(task: Task) {
         val futureTime = task.dueDate?.time?.time ?: return
         alarmInteractor.schedule(task.id, futureTime)
-        logger("Task '${task.title} rescheduled to '${task.dueDate}")
+        logger.debug("Task '${task.title} rescheduled to '${task.dueDate}")
     }
 
     private suspend fun rescheduleRepeatingTask(task: Task) {
         scheduleNextAlarm(task)
-        logger("Repeating task '${task.title} rescheduled to '${task.dueDate}")
+        logger.debug("Repeating task '${task.title} rescheduled to '${task.dueDate}")
     }
+
+    companion object : KLogging()
 }

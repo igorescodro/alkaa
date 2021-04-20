@@ -12,5 +12,5 @@ android {
 
 dependencies {
     implementation Deps.kotlin
-    implementation Deps.timber
+    implementation Deps.logging
 }

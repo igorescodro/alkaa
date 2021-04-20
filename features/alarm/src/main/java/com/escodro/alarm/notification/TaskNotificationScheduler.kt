@@ -6,7 +6,7 @@ import android.content.Intent
 import com.escodro.alarm.TaskReceiver
 import com.escodro.core.extension.cancelAlarm
 import com.escodro.core.extension.setAlarm
-import timber.log.Timber
+import mu.KLogging
 
 /**
  * Alarm manager to schedule a event based on the due date from a Task.
@@ -32,7 +32,7 @@ internal class TaskNotificationScheduler(private val context: Context) {
             PendingIntent.FLAG_CANCEL_CURRENT
         )
 
-        Timber.d("Scheduling notification for '$taskId' at '$timeInMillis'")
+        logger.debug("Scheduling notification for '$taskId' at '$timeInMillis'")
         context.setAlarm(timeInMillis, pendingIntent)
     }
 
@@ -52,7 +52,9 @@ internal class TaskNotificationScheduler(private val context: Context) {
             PendingIntent.FLAG_UPDATE_CURRENT
         )
 
-        Timber.d("Canceling notification with id '$taskId'")
+        logger.debug("Canceling notification with id '$taskId'")
         context.cancelAlarm(pendingIntent)
     }
+
+    companion object : KLogging()
 }

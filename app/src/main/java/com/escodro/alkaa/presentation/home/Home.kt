@@ -36,8 +36,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.escodro.alkaa.model.HomeSection
-import com.escodro.category.presentation.CategoryBottomSheet
-import com.escodro.category.presentation.CategoryListSection
+import com.escodro.category.presentation.bottomsheet.CategoryBottomSheet
+import com.escodro.category.presentation.list.CategoryListSection
 import com.escodro.designsystem.AlkaaTheme
 import com.escodro.preference.presentation.PreferenceSection
 import com.escodro.search.presentation.SearchSection

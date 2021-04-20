@@ -1,9 +1,9 @@
 package com.escodro.category.di
 
 import com.escodro.category.mapper.CategoryMapper
-import com.escodro.category.presentation.CategoryAddViewModel
-import com.escodro.category.presentation.CategoryEditViewModel
-import com.escodro.category.presentation.CategoryListViewModelImpl
+import com.escodro.category.presentation.bottomsheet.CategoryAddViewModel
+import com.escodro.category.presentation.bottomsheet.CategoryEditViewModel
+import com.escodro.category.presentation.list.CategoryListViewModelImpl
 import com.escodro.categoryapi.presentation.CategoryListViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module

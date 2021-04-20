@@ -1,4 +1,4 @@
-package com.escodro.category.presentation
+package com.escodro.category.presentation.bottomsheet
 
 import android.graphics.Color
 import com.escodro.category.fake.DeleteCategoryFake

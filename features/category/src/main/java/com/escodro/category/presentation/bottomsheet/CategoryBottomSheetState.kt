@@ -1,4 +1,4 @@
-package com.escodro.category.presentation
+package com.escodro.category.presentation.bottomsheet
 
 import android.os.Parcelable
 import androidx.compose.runtime.Stable

@@ -1,4 +1,4 @@
-package com.escodro.category.presentation
+package com.escodro.category.presentation.list
 
 import com.escodro.category.fake.FAKE_DOMAIN_CATEGORY_LIST
 import com.escodro.category.fake.LoadAllCategoriesFake

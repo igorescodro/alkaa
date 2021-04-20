@@ -1,4 +1,4 @@
-package com.escodro.category.presentation
+package com.escodro.category.presentation.bottomsheet
 
 import androidx.compose.ui.graphics.Color
 

@@ -1,8 +1,8 @@
-apply from: "$rootDir/config/dependencies/feature_dependencies.gradle"
+apply plugin: 'kotlin'
 
 dependencies {
     implementation project(":domain")
 
-    implementation Deps.koin.android
+    implementation Deps.koin.core
     implementation Deps.coroutines.core
 }

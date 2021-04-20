@@ -1,4 +1,5 @@
 apply plugin: 'kotlin'
+apply from: "$rootDir/config/quality.gradle"
 
 dependencies {
     implementation Deps.koin.core

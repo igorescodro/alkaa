@@ -1,5 +1,7 @@
 package com.escodro.test
 
+import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.SemanticsNodeInteraction
 import androidx.compose.ui.test.assert
 
@@ -11,3 +13,15 @@ import androidx.compose.ui.test.assert
  */
 fun SemanticsNodeInteraction.assertLines(lines: Int): SemanticsNodeInteraction =
     assert(hasLines(lines))
+
+/**
+ * Assert if the node is with the "Checked" value.
+ */
+fun SemanticsNodeInteraction.assertIsChecked(): SemanticsNodeInteraction =
+    assert(SemanticsMatcher.expectValue(SemanticsProperties.StateDescription, "Checked"))
+
+/**
+ * Assert if the node is with the "Unchecked" value.
+ */
+fun SemanticsNodeInteraction.assertIsUnchecked(): SemanticsNodeInteraction =
+    assert(SemanticsMatcher.expectValue(SemanticsProperties.StateDescription, "Unchecked"))

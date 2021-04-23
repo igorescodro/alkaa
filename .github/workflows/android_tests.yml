@@ -5,6 +5,9 @@ on: [ push ]
 jobs:
   build:
     runs-on: macos-latest
+    strategy:
+      matrix:
+        api-level: [ 23, 27, 30 ]
 
     steps:
       - name: Checkout
@@ -17,7 +20,7 @@ jobs:
           distribution: 'adopt'
 
       - name: Android Emulator Runner
-        uses: ReactiveCircus/android-emulator-runner@v2.14.3
+        uses: ReactiveCircus/android-emulator-runner@v2.15
         with:
-          api-level: 29
+          api-level: ${{ matrix.api-level }}
           script: ./gradlew connectedCheck --stacktrace

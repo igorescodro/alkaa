@@ -1,4 +1,5 @@
-[![Build Status](https://travis-ci.com/igorescodro/alkaa.svg?branch=main)](https://travis-ci.com/igorescodro/alkaa)
+![build](https://github.com/igorescodro/alkaa/actions/workflows/build.yml/badge.svg)
+![instrumented tests](https://github.com/igorescodro/alkaa/actions/workflows/android_tests.yml/badge.svg)
 <a href="https://ktlint.github.io/"><img src="https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg" alt="ktlint"></a>
 <a href="https://codebeat.co/projects/github-com-igorescodro-alkaa-main"><img alt="codebeat badge" src="https://codebeat.co/badges/e742f8bf-2047-4a59-bdb4-14ed2b1d9d28" /></a>
 [![CodeFactor](https://www.codefactor.io/repository/github/igorescodro/alkaa/badge/main)](https://www.codefactor.io/repository/github/igorescodro/alkaa/overview/main)

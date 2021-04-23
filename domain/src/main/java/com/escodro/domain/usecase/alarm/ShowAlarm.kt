@@ -2,7 +2,8 @@ package com.escodro.domain.usecase.alarm
 
 import com.escodro.domain.interactor.NotificationInteractor
 import com.escodro.domain.repository.TaskRepository
-import timber.log.Timber
+import mu.KLogging
+import mu.KotlinLogging.logger
 
 /**
  * Use case to show an alarm.
@@ -22,10 +23,10 @@ class ShowAlarm(
         val task = taskRepository.findTaskById(taskId) ?: return
 
         if (task.completed) {
-            Timber.d("Task '${task.title}' is already completed. Will not notify")
+            logger.debug("Task '${task.title}' is already completed. Will not notify")
             return
         } else {
-            Timber.d("Notifying task '${task.title}'")
+            logger.debug("Notifying task '${task.title}'")
             notificationInteractor.show(task)
         }
 
@@ -33,4 +34,6 @@ class ShowAlarm(
             scheduleNextAlarm(task)
         }
     }
+
+    companion object : KLogging()
 }

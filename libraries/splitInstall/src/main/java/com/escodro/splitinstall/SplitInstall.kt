@@ -10,7 +10,7 @@ import com.google.android.play.core.splitinstall.SplitInstallManager
 import com.google.android.play.core.splitinstall.SplitInstallManagerFactory
 import com.google.android.play.core.splitinstall.SplitInstallRequest
 import com.google.android.play.core.splitinstall.model.SplitInstallSessionStatus
-import timber.log.Timber
+import mu.KLogging
 
 /**
  * Handles the Dynamic Features installation, abstracting the complex logic and providing visual
@@ -70,7 +70,7 @@ class SplitInstall(private val windowContext: Context) {
         }
 
         val isInstalled = isFeatureInstalled(featureName)
-        Timber.d("load = [$featureName] - isInstalled = $isInstalled")
+        logger.debug("load = [$featureName] - isInstalled = $isInstalled")
 
         if (isFeatureInstalled(featureName)) {
             onFeatureReady()
@@ -80,7 +80,7 @@ class SplitInstall(private val windowContext: Context) {
     }
 
     private fun downloadFeature() {
-        Timber.d("downloadFeature = [$featureName]")
+        logger.debug("downloadFeature = [$featureName]")
 
         val request = SplitInstallRequest.newBuilder()
             .addModule(featureName)
@@ -89,7 +89,7 @@ class SplitInstall(private val windowContext: Context) {
         val dialog = getDownloadingDialog(windowContext)
 
         manager.registerListener {
-            Timber.d("${it.status()}")
+            logger.debug("${it.status()}")
 
             when (it.status()) {
                 SplitInstallSessionStatus.PENDING -> dialog.show()
@@ -114,11 +114,13 @@ class SplitInstall(private val windowContext: Context) {
     }
 
     private fun onFeatureInstalled(dialog: AlertDialog, onFeatureReady: () -> Unit) {
-        Timber.d("onFeatureInstalled")
+        logger.debug("onFeatureInstalled")
         dialog.dismiss()
         onFeatureReady()
     }
 
     private fun isFeatureInstalled(featureName: String) =
         manager.installedModules.contains(featureName)
+
+    companion object : KLogging()
 }

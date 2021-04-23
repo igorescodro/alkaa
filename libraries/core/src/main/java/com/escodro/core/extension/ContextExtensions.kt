@@ -14,7 +14,7 @@ import androidx.annotation.ColorRes
 import androidx.annotation.StringRes
 import androidx.core.app.AlarmManagerCompat
 import androidx.core.net.toUri
-import timber.log.Timber
+import mu.KotlinLogging.logger
 import java.util.Calendar
 
 private const val INVALID_VERSION = "x.x.x"
@@ -34,12 +34,12 @@ fun Context.setAlarm(
 ) {
     val currentTime = Calendar.getInstance().timeInMillis
     if (triggerAtMillis <= currentTime) {
-        Timber.w("It is not possible to set alarm in the past")
+        logger.warn("It is not possible to set alarm in the past")
         return
     }
 
     if (operation == null) {
-        Timber.e("PendingIntent is null")
+        logger.error("PendingIntent is null")
         return
     }
 
@@ -54,7 +54,7 @@ fun Context.setAlarm(
  */
 fun Context.cancelAlarm(operation: PendingIntent?) {
     if (operation == null) {
-        Timber.e("PendingIntent is null")
+        logger.error("PendingIntent is null")
         return
     }
 
@@ -106,8 +106,10 @@ fun Context.getVersionName(): String {
         try {
             packageInfo = packageManager.getPackageInfo(it, 0)
         } catch (e: PackageManager.NameNotFoundException) {
-            Timber.e(e)
+            logger.error(e.localizedMessage)
         }
     }
     return packageInfo?.versionName ?: INVALID_VERSION
 }
+
+private val logger = logger {}

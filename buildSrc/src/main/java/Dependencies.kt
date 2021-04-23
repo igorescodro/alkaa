@@ -32,10 +32,10 @@ object Versions {
 
     const val espresso = "3.3.0"
 
-    const val compose = "1.0.0-beta04"
+    const val compose = "1.0.0-beta05"
     const val composeNav = "1.0.0-alpha10"
     const val composeViewModel = "1.0.0-alpha04"
-    const val composeActivity = "1.3.0-alpha06"
+    const val composeActivity = "1.3.0-alpha07"
 
     const val buildGradle = "7.0.0-alpha14"
 
@@ -90,6 +90,7 @@ object ComposeDeps {
     val activity = "androidx.activity:activity-compose:${Versions.composeActivity}"
     val uiTest = "androidx.compose.ui:ui-test:${Versions.compose}"
     val junit4 = "androidx.compose.ui:ui-test-junit4:${Versions.compose}"
+    val manifest = "androidx.compose.ui:ui-test-manifest:${Versions.compose}"
 }
 
 object TestDeps {

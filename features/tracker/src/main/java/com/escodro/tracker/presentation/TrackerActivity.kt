@@ -21,8 +21,8 @@ internal class TrackerActivity : ComponentActivity() {
         }
     }
 
-    override fun attachBaseContext(context: Context?) {
+    override fun attachBaseContext(context: Context) {
         super.attachBaseContext(context)
-        SplitCompat.install(context)
+        SplitCompat.installActivity(context)
     }
 }

@@ -13,7 +13,7 @@ object Versions {
     const val constraintLayout = "2.0.4"
     const val ktx = "1.0.2"
     const val room = "2.2.3"
-    const val playCore = "1.6.1"
+    const val playCore = "1.10.0"
 
     const val coroutines = "1.4.0"
 

@@ -94,6 +94,7 @@ class SplitInstall(private val windowContext: Context) {
             when (it.status()) {
                 SplitInstallSessionStatus.PENDING -> dialog.show()
                 SplitInstallSessionStatus.INSTALLED -> onFeatureInstalled(dialog, onFeatureReady)
+                else -> logger.debug("${it.status()}")
             }
         }
 

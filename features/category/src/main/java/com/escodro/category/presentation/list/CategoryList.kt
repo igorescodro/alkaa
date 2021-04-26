@@ -26,7 +26,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.outlined.ThumbUp
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -168,7 +168,7 @@ private fun CategoryItemIcon(color: Int) {
         CategoryCircleIndicator(size = 48.dp, color = color, alpha = 0.2F)
         CategoryCircleIndicator(size = 40.dp, color = color)
         Icon(
-            imageVector = Icons.Default.Home,
+            imageVector = Icons.Default.Bookmark,
             contentDescription = stringResource(id = R.string.category_icon_cd),
             tint = MaterialTheme.colors.background
         )

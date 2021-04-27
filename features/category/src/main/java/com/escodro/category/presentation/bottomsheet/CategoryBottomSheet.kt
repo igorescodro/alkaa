@@ -19,19 +19,22 @@ import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.res.stringResource
@@ -42,7 +45,9 @@ import com.escodro.category.R
 import com.escodro.categoryapi.model.Category
 import com.escodro.designsystem.AlkaaTheme
 import com.escodro.designsystem.components.AlkaaDialog
+import com.escodro.designsystem.components.AlkaaInputTextField
 import com.escodro.designsystem.components.DialogArguments
+import kotlinx.coroutines.delay
 import org.koin.androidx.compose.getViewModel
 
 /**
@@ -53,7 +58,7 @@ fun CategoryBottomSheet(category: Category?, onHideBottomSheet: () -> Unit) {
     val colorList = CategoryColors.values().map { it.value }
 
     val editCategory = category ?: Category(
-        name = stringResource(id = R.string.category_new_placeholder),
+        name = "",
         color = CategoryColors.values()[0].value.toArgb()
     )
 
@@ -110,6 +115,13 @@ private fun CategorySheetContent(
         Row(verticalAlignment = Alignment.CenterVertically) {
 
             var openDialog by rememberSaveable { mutableStateOf(false) }
+            val focusRequester = remember { FocusRequester() }
+
+            LaunchedEffect(Unit) {
+                delay(300)
+                focusRequester.requestFocus()
+            }
+
             RemoveCategoryDialog(
                 categoryName = state.name,
                 isDialogOpen = openDialog,
@@ -117,10 +129,13 @@ private fun CategorySheetContent(
                 onActionConfirm = { onCategoryRemove(state.toCategory()) }
             )
 
-            CategoryNameField(
-                name = state.name,
-                onNameChange = { state.name = it },
-                modifier = Modifier.weight(5F)
+            AlkaaInputTextField(
+                label = stringResource(id = R.string.category_add_label),
+                text = state.name,
+                onTextChange = { state.name = it },
+                modifier = Modifier
+                    .weight(5F)
+                    .focusRequester(focusRequester)
             )
             if (state.isEditing()) {
                 IconButton(
@@ -145,19 +160,6 @@ private fun CategorySheetContent(
             onClick = { onCategoryChange(state) }
         )
     }
-}
-
-@Composable
-private fun CategoryNameField(
-    modifier: Modifier = Modifier,
-    name: String,
-    onNameChange: (String) -> Unit
-) {
-    OutlinedTextField(
-        value = name,
-        onValueChange = onNameChange,
-        modifier = modifier
-    )
 }
 
 @Composable

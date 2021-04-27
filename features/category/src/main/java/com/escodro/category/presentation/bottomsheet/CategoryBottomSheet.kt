@@ -25,13 +25,17 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.res.stringResource
@@ -43,6 +47,7 @@ import com.escodro.categoryapi.model.Category
 import com.escodro.designsystem.AlkaaTheme
 import com.escodro.designsystem.components.AlkaaDialog
 import com.escodro.designsystem.components.DialogArguments
+import kotlinx.coroutines.delay
 import org.koin.androidx.compose.getViewModel
 
 /**
@@ -110,6 +115,13 @@ private fun CategorySheetContent(
         Row(verticalAlignment = Alignment.CenterVertically) {
 
             var openDialog by rememberSaveable { mutableStateOf(false) }
+            val focusRequester = remember { FocusRequester() }
+
+            LaunchedEffect(Unit) {
+                delay(300)
+                focusRequester.requestFocus()
+            }
+
             RemoveCategoryDialog(
                 categoryName = state.name,
                 isDialogOpen = openDialog,
@@ -120,7 +132,7 @@ private fun CategorySheetContent(
             CategoryNameField(
                 name = state.name,
                 onNameChange = { state.name = it },
-                modifier = Modifier.weight(5F)
+                modifier = Modifier.weight(5F).focusRequester(focusRequester)
             )
             if (state.isEditing()) {
                 IconButton(

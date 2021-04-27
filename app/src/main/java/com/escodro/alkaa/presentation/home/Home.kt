@@ -22,12 +22,13 @@ import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -43,6 +44,7 @@ import com.escodro.preference.presentation.PreferenceSection
 import com.escodro.search.presentation.SearchSection
 import com.escodro.task.presentation.add.AddTaskBottomSheet
 import com.escodro.task.presentation.list.TaskListSection
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 /**
@@ -86,8 +88,13 @@ private fun AlkaaHomeScaffold(
     }
 
     val focusManager = LocalFocusManager.current
-    DisposableEffect(modalSheetState.isVisible.not()) {
-        onDispose { focusManager.clearFocus() }
+    LaunchedEffect(modalSheetState, focusManager) {
+        snapshotFlow { modalSheetState.isVisible }.collect { isVisible ->
+            if (isVisible.not()) {
+                focusManager.clearFocus()
+                sheetContentState = SheetContentState.Empty
+            }
+        }
     }
 
     val onShowBottomSheet: (SheetContentState) -> Unit = { contentState ->

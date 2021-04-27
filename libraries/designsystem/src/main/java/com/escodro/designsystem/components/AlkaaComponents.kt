@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -20,10 +22,13 @@ import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.escodro.designsystem.R
@@ -114,6 +119,7 @@ fun AddFloatingButton(@StringRes contentDescription: Int, onClick: () -> Unit) {
  * @param onTextChange function to update text
  * @param modifier text field modifier
  */
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun AlkaaInputTextField(
     label: String,
@@ -121,10 +127,14 @@ fun AlkaaInputTextField(
     onTextChange: (String) -> Unit,
     modifier: Modifier
 ) {
+    val keyboardController = LocalSoftwareKeyboardController.current
+
     OutlinedTextField(
         label = { Text(text = label) },
         value = text,
         onValueChange = onTextChange,
+        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+        keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() }),
         modifier = modifier
     )
 }

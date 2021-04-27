@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -28,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import com.escodro.categoryapi.presentation.CategoryListViewModel
 import com.escodro.categoryapi.presentation.CategoryState
 import com.escodro.designsystem.AlkaaTheme
+import com.escodro.designsystem.components.AlkaaInputTextField
 import com.escodro.task.R
 import com.escodro.task.presentation.category.CategorySelection
 import com.escodro.task.presentation.detail.main.CategoryId
@@ -65,10 +65,13 @@ internal fun AddTaskLoader(
             focusRequester.requestFocus()
         }
 
-        TaskInputTextField(
+        AlkaaInputTextField(
+            label = stringResource(id = R.string.task_add_label),
             text = taskInputText,
             onTextChange = { text -> taskInputText = text },
-            modifier = Modifier.focusRequester(focusRequester)
+            modifier = Modifier
+                .fillMaxWidth()
+                .focusRequester(focusRequester)
         )
 
         CategorySelection(
@@ -90,20 +93,6 @@ internal fun AddTaskLoader(
             Text(stringResource(id = R.string.task_add_save))
         }
     }
-}
-
-@Composable
-private fun TaskInputTextField(
-    text: String,
-    onTextChange: (String) -> Unit,
-    modifier: Modifier
-) {
-    OutlinedTextField(
-        label = { Text(text = stringResource(id = R.string.task_add_label)) },
-        value = text,
-        onValueChange = onTextChange,
-        modifier = modifier.fillMaxWidth()
-    )
 }
 
 @OptIn(ExperimentalMaterialApi::class)

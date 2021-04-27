@@ -19,7 +19,6 @@ import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
@@ -46,6 +45,7 @@ import com.escodro.category.R
 import com.escodro.categoryapi.model.Category
 import com.escodro.designsystem.AlkaaTheme
 import com.escodro.designsystem.components.AlkaaDialog
+import com.escodro.designsystem.components.AlkaaInputTextField
 import com.escodro.designsystem.components.DialogArguments
 import kotlinx.coroutines.delay
 import org.koin.androidx.compose.getViewModel
@@ -129,9 +129,10 @@ private fun CategorySheetContent(
                 onActionConfirm = { onCategoryRemove(state.toCategory()) }
             )
 
-            CategoryNameField(
-                name = state.name,
-                onNameChange = { state.name = it },
+            AlkaaInputTextField(
+                label = stringResource(id = R.string.category_add_label),
+                text = state.name,
+                onTextChange = { state.name = it },
                 modifier = Modifier
                     .weight(5F)
                     .focusRequester(focusRequester)
@@ -159,20 +160,6 @@ private fun CategorySheetContent(
             onClick = { onCategoryChange(state) }
         )
     }
-}
-
-@Composable
-private fun CategoryNameField(
-    modifier: Modifier = Modifier,
-    name: String,
-    onNameChange: (String) -> Unit
-) {
-    OutlinedTextField(
-        label = { Text(text = stringResource(id = R.string.category_add_label)) },
-        value = name,
-        onValueChange = onNameChange,
-        modifier = modifier
-    )
 }
 
 @Composable

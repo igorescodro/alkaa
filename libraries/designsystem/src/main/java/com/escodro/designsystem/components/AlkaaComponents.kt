@@ -12,6 +12,7 @@ import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
@@ -103,4 +104,27 @@ fun AddFloatingButton(@StringRes contentDescription: Int, onClick: () -> Unit) {
             contentDescription = stringResource(id = contentDescription)
         )
     }
+}
+
+/**
+ * TextField input for Alkaa forms.
+ *
+ * @param label text field label
+ * @param text text to be shown
+ * @param onTextChange function to update text
+ * @param modifier text field modifier
+ */
+@Composable
+fun AlkaaInputTextField(
+    label: String,
+    text: String,
+    onTextChange: (String) -> Unit,
+    modifier: Modifier
+) {
+    OutlinedTextField(
+        label = { Text(text = label) },
+        value = text,
+        onValueChange = onTextChange,
+        modifier = modifier
+    )
 }

@@ -58,7 +58,7 @@ fun CategoryBottomSheet(category: Category?, onHideBottomSheet: () -> Unit) {
     val colorList = CategoryColors.values().map { it.value }
 
     val editCategory = category ?: Category(
-        name = stringResource(id = R.string.category_new_placeholder),
+        name = "",
         color = CategoryColors.values()[0].value.toArgb()
     )
 
@@ -132,7 +132,9 @@ private fun CategorySheetContent(
             CategoryNameField(
                 name = state.name,
                 onNameChange = { state.name = it },
-                modifier = Modifier.weight(5F).focusRequester(focusRequester)
+                modifier = Modifier
+                    .weight(5F)
+                    .focusRequester(focusRequester)
             )
             if (state.isEditing()) {
                 IconButton(
@@ -166,6 +168,7 @@ private fun CategoryNameField(
     onNameChange: (String) -> Unit
 ) {
     OutlinedTextField(
+        label = { Text(text = stringResource(id = R.string.category_add_label)) },
         value = name,
         onValueChange = onNameChange,
         modifier = modifier

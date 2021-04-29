@@ -67,7 +67,13 @@ internal fun AlarmSelection(
                 if (date == null) {
                     NoAlarmSet()
                 } else {
-                    AlarmSet(date) { date = null }
+                    AlarmSet(
+                        date = date,
+                        onRemoveClick = {
+                            date = null
+                            onAlarmUpdate(null)
+                        }
+                    )
                 }
             }
         }
@@ -218,7 +224,7 @@ fun AlarmNotSetSelectionPreview() {
 fun AlarmIntervalDialogPreview() {
     AlkaaTheme {
         AlarmIntervalDialog(
-            showDialog = mutableStateOf(true),
+            showDialog = remember { mutableStateOf(true) },
             onIntervalSelect = {}
         )
     }

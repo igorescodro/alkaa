@@ -21,3 +21,8 @@ val blueGray400 = Color(0xFF78909C)
  * Material design Pink 300 color.
  */
 val pink300 = Color(0xFFF06292)
+
+/**
+ * Material design Light Green 700 color.
+ */
+val lightGreen700 = Color(0xFF689F38)

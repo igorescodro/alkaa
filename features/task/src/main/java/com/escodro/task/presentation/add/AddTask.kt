@@ -17,6 +17,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
@@ -54,10 +55,10 @@ internal fun AddTaskLoader(
         modifier = Modifier.padding(16.dp),
         verticalArrangement = Arrangement.SpaceAround
     ) {
-        var taskInputText by remember { mutableStateOf("") }
+        var taskInputText by rememberSaveable { mutableStateOf("") }
         val categoryState by remember(categoryViewModel) { categoryViewModel }.loadCategories()
             .collectAsState(initial = CategoryState.Empty)
-        val currentCategory = remember { mutableStateOf<CategoryId?>(null) }
+        var currentCategory by rememberSaveable { mutableStateOf<CategoryId?>(null) }
         val focusRequester = remember { FocusRequester() }
 
         LaunchedEffect(Unit) {
@@ -76,8 +77,8 @@ internal fun AddTaskLoader(
 
         CategorySelection(
             state = categoryState,
-            currentCategory = null,
-            onCategoryChange = { categoryId -> currentCategory.value = categoryId }
+            currentCategory = currentCategory?.value,
+            onCategoryChange = { categoryId -> currentCategory = categoryId }
         )
 
         Button(
@@ -85,7 +86,7 @@ internal fun AddTaskLoader(
                 .fillMaxWidth()
                 .height(48.dp),
             onClick = {
-                addTaskViewModel.addTask(taskInputText, currentCategory.value)
+                addTaskViewModel.addTask(taskInputText, currentCategory)
                 taskInputText = ""
                 onHideBottomSheet()
             }

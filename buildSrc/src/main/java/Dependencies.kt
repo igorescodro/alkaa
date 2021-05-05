@@ -32,7 +32,7 @@ object Versions {
 
     const val espresso = "3.3.0"
 
-    const val compose = "1.0.0-beta05"
+    const val compose = "1.0.0-beta06"
     const val composeNav = "1.0.0-alpha10"
     const val composeViewModel = "1.0.0-alpha04"
     const val composeActivity = "1.3.0-alpha07"

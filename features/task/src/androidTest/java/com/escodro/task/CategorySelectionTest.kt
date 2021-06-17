@@ -1,6 +1,7 @@
 package com.escodro.task
 
 import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.SemanticsNodeInteraction
 import androidx.compose.ui.test.assert
@@ -128,11 +129,13 @@ internal class CategorySelectionTest {
         }
     }
 
-    private fun SemanticsNodeInteraction.assertIsChecked() =
-        assert(SemanticsMatcher.expectValue(SemanticsProperties.StateDescription, "Checked"))
+    private fun SemanticsNodeInteraction.assertIsChecked() = assert(
+        SemanticsMatcher.expectValue(SemanticsProperties.ToggleableState, ToggleableState.On)
+    )
 
-    private fun SemanticsNodeInteraction.assertIsUnchecked() =
-        assert(SemanticsMatcher.expectValue(SemanticsProperties.StateDescription, "Unchecked"))
+    private fun SemanticsNodeInteraction.assertIsUnchecked() = assert(
+        SemanticsMatcher.expectValue(SemanticsProperties.ToggleableState, ToggleableState.Off)
+    )
 
     private fun ComposeTestRule.onChip(chipName: String) = onNode(
         SemanticsMatcher.expectValue(ChipNameKey, chipName)

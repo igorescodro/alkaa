@@ -13,7 +13,9 @@ import com.escodro.search.di.searchModule
 import com.escodro.task.di.taskModule
 import com.google.android.play.core.splitcompat.SplitCompat
 import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
+import org.koin.core.logger.Level
 
 /**
  * Alkaa [Application] class.
@@ -24,7 +26,7 @@ class AlkaaApp : Application() {
         super.onCreate()
 
         startKoin {
-            printLogger()
+            androidLogger(Level.NONE)
             androidContext(this@AlkaaApp)
             modules(
                 appModule +

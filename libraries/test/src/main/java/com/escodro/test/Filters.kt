@@ -13,5 +13,5 @@ fun hasLines(lines: Int): SemanticsMatcher =
     SemanticsMatcher(
         description = "Has $lines lines"
     ) { node ->
-        node.config.getOrNull(SemanticsProperties.Text)?.text?.lines()?.size == lines
+        node.config.getOrNull(SemanticsProperties.Text)?.get(0)?.text?.lines()?.size == lines
     }

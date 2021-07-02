@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -112,12 +111,7 @@ private fun CategorySheetContent(
     onCategoryChange: (CategoryBottomSheetState) -> Unit,
     onCategoryRemove: (Category) -> Unit
 ) {
-    Column(
-        modifier = Modifier
-            .fillMaxHeight()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.SpaceAround
-    ) {
+    Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.SpaceAround) {
         Row(verticalAlignment = Alignment.CenterVertically) {
 
             var openDialog by rememberSaveable { mutableStateOf(false) }
@@ -177,7 +171,6 @@ private fun CategoryColorSelector(
     LazyRow(
         modifier = Modifier
             .fillMaxWidth()
-            .height(56.dp)
             .padding(top = 16.dp)
     ) {
         items(

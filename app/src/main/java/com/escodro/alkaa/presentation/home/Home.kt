@@ -2,13 +2,12 @@ package com.escodro.alkaa.presentation.home
 
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.animateColorAsState
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxWithConstraints
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.BottomAppBar
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
@@ -145,24 +144,23 @@ private fun AlkaaBottomSheetLayout(
         sheetState = modalSheetState,
         sheetBackgroundColor = Color.Transparent,
         sheetContent = {
-            BoxWithConstraints {
-                val cardFraction = if (this.maxHeight > maxWidth) 0.333F else 0.5F
-                Card(
-                    modifier = Modifier
-                        .fillMaxHeight(fraction = cardFraction)
-                        .verticalScroll(rememberScrollState())
-                ) {
-                    when (sheetContentState) {
-                        SheetContentState.TaskListSheet ->
-                            AddTaskBottomSheet(onHideBottomSheet = onHideBottomSheet)
-                        is SheetContentState.CategorySheet ->
-                            CategoryBottomSheet(
-                                category = sheetContentState.category,
-                                onHideBottomSheet = onHideBottomSheet
-                            )
-                        SheetContentState.Empty ->
-                            Box(modifier = Modifier.fillMaxSize())
-                    }
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(256.dp)
+                    .padding(horizontal = 2.dp)
+                    .clickable { /* consume click in the sheet background to avoid dismissal */ }
+            ) {
+                when (sheetContentState) {
+                    SheetContentState.TaskListSheet ->
+                        AddTaskBottomSheet(onHideBottomSheet = onHideBottomSheet)
+                    is SheetContentState.CategorySheet ->
+                        CategoryBottomSheet(
+                            category = sheetContentState.category,
+                            onHideBottomSheet = onHideBottomSheet
+                        )
+                    SheetContentState.Empty ->
+                        Box(modifier = Modifier.fillMaxSize())
                 }
             }
         }

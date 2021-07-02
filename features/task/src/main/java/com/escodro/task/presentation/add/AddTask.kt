@@ -3,7 +3,6 @@ package com.escodro.task.presentation.add
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -53,9 +52,7 @@ internal fun AddTaskLoader(
     onHideBottomSheet: () -> Unit
 ) {
     Column(
-        modifier = Modifier
-            .fillMaxHeight()
-            .padding(16.dp),
+        modifier = Modifier.padding(16.dp),
         verticalArrangement = Arrangement.SpaceAround
     ) {
         var taskInputText by rememberSaveable { mutableStateOf("") }

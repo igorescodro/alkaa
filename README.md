@@ -16,7 +16,7 @@ available on Google Play! :heart:
 The current version of Alkaa was also completely migrate to **Jetpack Compose**!
 
 
-<img src="https://play-lh.googleusercontent.com/tzN8wqrM0YpcCbsFP9ttzln48nf2bz8EUcUtrAjf2v7YheAz3SNg5Xz36zJVuVjghBY=w1920-h995" width="200">  <img src="https://play-lh.googleusercontent.com/_W5kBODa9LQVTp0T0eviIWs-ajD3yiX-VdJKwogMGQpBI2eUrjThwvI1TNzyggQSlLA=w1920-h995" width="200">  <img src="https://play-lh.googleusercontent.com/mkhrcsfHAK8pPEKkUIMaq0FWYD8MYR6oYzhDB8l2jtX6XQXcUneed1TRWXAhtt_YMcA=w1920-h995" width="200">  <img src="https://play-lh.googleusercontent.com/041NuKD-ODmBsEMW9sgzIL6cWf4RRDPV_uVOkCo031YY8vTImw-uEdv6bU_buxBTr9MR=w1920-h995" width="200"> 
+<img src="https://play-lh.googleusercontent.com/tzN8wqrM0YpcCbsFP9ttzln48nf2bz8EUcUtrAjf2v7YheAz3SNg5Xz36zJVuVjghBY=w1920-h995" width="186">  <img src="https://play-lh.googleusercontent.com/_W5kBODa9LQVTp0T0eviIWs-ajD3yiX-VdJKwogMGQpBI2eUrjThwvI1TNzyggQSlLA=w1920-h995" width="186">  <img src="https://play-lh.googleusercontent.com/mkhrcsfHAK8pPEKkUIMaq0FWYD8MYR6oYzhDB8l2jtX6XQXcUneed1TRWXAhtt_YMcA=w1920-h995" width="186">  <img src="https://play-lh.googleusercontent.com/041NuKD-ODmBsEMW9sgzIL6cWf4RRDPV_uVOkCo031YY8vTImw-uEdv6bU_buxBTr9MR=w1920-h995" width="186"> 
 
 ## 📦 Download
 

@@ -2,7 +2,6 @@ package com.escodro.alkaa.presentation.home
 
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.animateColorAsState
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -149,7 +148,6 @@ private fun AlkaaBottomSheetLayout(
                     .fillMaxWidth()
                     .height(256.dp)
                     .padding(horizontal = 2.dp)
-                    .clickable { /* consume click in the sheet background to avoid dismissal */ }
             ) {
                 when (sheetContentState) {
                     SheetContentState.TaskListSheet ->

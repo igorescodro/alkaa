@@ -18,7 +18,7 @@ val taskModule = module {
 
     // Presentation
     viewModel { TaskListViewModel(get(), get(), get()) }
-    viewModel { TaskDetailViewModel(get(), get(), get(), get(), get()) }
+    viewModel { TaskDetailViewModel(get(), get(), get(), get(), get(), get()) }
     viewModel { TaskAlarmViewModel(get(), get(), get(), get()) }
     viewModel { AddTaskViewModel(get()) }
 

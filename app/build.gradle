@@ -1,3 +1,5 @@
+import com.android.build.api.dsl.ManagedVirtualDevice
+
 apply plugin: "com.android.application"
 
 apply from: "$rootDir/config/dependencies/android_dependencies.gradle"
@@ -49,6 +51,33 @@ android {
         exclude 'META-INF/LGPL2.1'
     }
 
+    testOptions {
+        devices {
+            pixel4api30(ManagedVirtualDevice) {
+                device = "Pixel 4"
+                apiLevel = 30
+                systemImageSource = "google"
+                abi = "x86"
+            }
+            pixel2api26(ManagedVirtualDevice) {
+                device = "Pixel 2"
+                apiLevel = 26
+                systemImageSource = "aosp"
+                abi = "x86"
+            }
+            nexus9api29(ManagedVirtualDevice){
+                device = "Nexus 9"
+                apiLevel = 29
+                systemImageSource = "google"
+                abi = "x86"
+            }
+        }
+        deviceGroups {
+            alkaaDevices {
+                targetDevices.addAll(devices.pixel4api30, devices.pixel2api26, devices.nexus9api29)
+            }
+        }
+    }
 }
 
 dependencies {
@@ -70,4 +99,7 @@ dependencies {
     implementation Deps.compose.activity
     implementation Deps.android.playCore
     implementation Deps.koin.android
+
+    androidTestImplementation project(":libraries:test")
+    androidTestImplementation Deps.koin.test
 }

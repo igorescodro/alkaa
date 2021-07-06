@@ -6,6 +6,7 @@ import com.escodro.task.presentation.detail.main.CategoryId
 import com.escodro.task.presentation.detail.main.TaskDetailState
 import com.escodro.task.presentation.detail.main.TaskDetailViewModel
 import com.escodro.task.presentation.detail.main.TaskId
+import com.escodro.task.presentation.fake.CoroutinesDebouncerFake
 import com.escodro.task.presentation.fake.FAKE_DOMAIN_TASK
 import com.escodro.task.presentation.fake.LoadTaskFake
 import com.escodro.task.presentation.fake.UpdateTaskCategoryFake
@@ -40,7 +41,8 @@ internal class TaskDetailViewModelTest {
         updateTaskTitle = updateTaskTitle,
         updateTaskDescription = updateDescription,
         updateTaskCategory = updateTaskCategory,
-        taskMapper = taskMapper
+        taskMapper = taskMapper,
+        coroutineDebouncer = CoroutinesDebouncerFake(coroutineTestRule.testDispatcher)
     )
 
     @Test
@@ -72,7 +74,7 @@ internal class TaskDetailViewModelTest {
     }
 
     @Test
-    fun `test if when the update title is called, the field is updated`() {
+    fun `test if when the update title is called, the field is updated`() = runBlockingTest {
 
         // Given the viewModel is called to load the task info
         val taskId = TaskId(FAKE_DOMAIN_TASK.id)
@@ -91,7 +93,7 @@ internal class TaskDetailViewModelTest {
     }
 
     @Test
-    fun `test if when the update description is called, the field is updated`() {
+    fun `test if when the update description is called, the field is updated`() = runBlockingTest {
 
         // Given the viewModel is called to load the task info
         val taskId = TaskId(FAKE_DOMAIN_TASK.id)

@@ -89,7 +89,7 @@ fun AlkaaToolbar(onUpPress: () -> Unit) {
         IconButton(onClick = onUpPress, modifier = Modifier.align(Alignment.CenterVertically)) {
             Icon(
                 imageVector = Icons.Rounded.ArrowBack,
-                contentDescription = stringResource(id = R.string.back_arrow_content_description)
+                contentDescription = stringResource(id = R.string.back_arrow_cd)
             )
         }
     }

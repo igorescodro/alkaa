@@ -146,7 +146,10 @@ private fun toggleChip(
         category
     }
 
-internal val ChipNameKey = SemanticsPropertyKey<String>("ChipNameKey")
+/**
+ * Semantic Property for the Chip.
+ */
+val ChipNameKey = SemanticsPropertyKey<String>("ChipNameKey")
 private var SemanticsPropertyReceiver.chipName by ChipNameKey
 
 @Suppress("UndocumentedPublicFunction")

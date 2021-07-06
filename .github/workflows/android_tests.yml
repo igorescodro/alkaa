@@ -16,8 +16,5 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
 
-      - name: Android Emulator Runner
-        uses: ReactiveCircus/android-emulator-runner@v2.24.0
-        with:
-          api-level: 29
-          script: ./gradlew connectedCheck --stacktrace
+      - name: Run instrumented tests
+        run: ./gradlew -Pandroid.experimental.androidTest.useUnifiedTestPlatform=true alkaaDevicesGroupDebugAndroidTest

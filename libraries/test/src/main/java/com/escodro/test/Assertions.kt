@@ -1,6 +1,7 @@
 package com.escodro.test
 
 import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.SemanticsNodeInteraction
 import androidx.compose.ui.test.assert
@@ -17,11 +18,13 @@ fun SemanticsNodeInteraction.assertLines(lines: Int): SemanticsNodeInteraction =
 /**
  * Assert if the node is with the "Checked" value.
  */
-fun SemanticsNodeInteraction.assertIsChecked(): SemanticsNodeInteraction =
-    assert(SemanticsMatcher.expectValue(SemanticsProperties.StateDescription, "Checked"))
+fun SemanticsNodeInteraction.assertIsChecked() = assert(
+    SemanticsMatcher.expectValue(SemanticsProperties.ToggleableState, ToggleableState.On)
+)
 
 /**
  * Assert if the node is with the "Unchecked" value.
  */
-fun SemanticsNodeInteraction.assertIsUnchecked(): SemanticsNodeInteraction =
-    assert(SemanticsMatcher.expectValue(SemanticsProperties.StateDescription, "Unchecked"))
+fun SemanticsNodeInteraction.assertIsUnchecked() = assert(
+    SemanticsMatcher.expectValue(SemanticsProperties.ToggleableState, ToggleableState.Off)
+)

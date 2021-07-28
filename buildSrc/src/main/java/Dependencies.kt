@@ -6,7 +6,7 @@ object Releases {
 object Versions {
     const val compileSdk = 30
     const val targetSdk = 30
-    const val minSdk = 23
+    const val minSdk = 24
 
     const val kotlin = "1.5.10"
     const val material = "1.3.0"
@@ -32,12 +32,12 @@ object Versions {
 
     const val espresso = "3.3.0"
 
-    const val compose = "1.0.0-rc01"
+    const val compose = "1.0.0"
     const val composeNav = "2.4.0-alpha01"
     const val composeViewModel = "1.0.0-alpha06"
     const val composeActivity = "1.3.0-beta01"
 
-    const val buildGradle = "7.1.0-alpha03"
+    const val buildGradle = "7.1.0-alpha05"
 
     const val detekt = "1.13.1"
     const val ktlint = "0.39.0"

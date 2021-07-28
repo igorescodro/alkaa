@@ -17,7 +17,7 @@ jobs:
           distribution: 'adopt'
 
       - name: Android Emulator Runner
-        uses: ReactiveCircus/android-emulator-runner@v2.14.3
+        uses: ReactiveCircus/android-emulator-runner@v2.19.1
         with:
           api-level: 29
           script: ./gradlew connectedCheck --stacktrace

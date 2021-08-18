@@ -5,7 +5,7 @@ import android.content.Context
 import android.content.Intent
 import com.escodro.alarm.TaskReceiver
 import com.escodro.core.extension.cancelAlarm
-import com.escodro.core.extension.setAlarm
+import com.escodro.core.extension.setExactAlarm
 import mu.KLogging
 
 /**
@@ -33,7 +33,7 @@ internal class TaskNotificationScheduler(private val context: Context) {
         )
 
         logger.debug("Scheduling notification for '$taskId' at '$timeInMillis'")
-        context.setAlarm(timeInMillis, pendingIntent)
+        context.setExactAlarm(timeInMillis, pendingIntent)
     }
 
     /**

@@ -3,7 +3,7 @@ package com.escodro.alarm
 import android.app.AlarmManager
 import android.os.Build
 import com.escodro.alarm.fake.AndroidVersionFake
-import com.escodro.alarm.permission.AlarmPermission
+import com.escodro.alarm.permission.AlarmPermissionImpl
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.Assert
@@ -15,7 +15,7 @@ internal class AlarmPermissionTest {
 
     private val androidVersion = AndroidVersionFake()
 
-    private val alarmPermission = AlarmPermission(alarmManager, androidVersion)
+    private val alarmPermission = AlarmPermissionImpl(alarmManager, androidVersion)
 
     @Test
     fun `test if when permission is granted returns true`() {

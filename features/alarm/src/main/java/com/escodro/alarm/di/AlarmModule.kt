@@ -6,6 +6,9 @@ import com.escodro.alarm.mapper.TaskMapper
 import com.escodro.alarm.notification.TaskNotification
 import com.escodro.alarm.notification.TaskNotificationChannel
 import com.escodro.alarm.notification.TaskNotificationScheduler
+import com.escodro.alarm.permission.AlarmPermission
+import com.escodro.alarm.permission.AndroidVersion
+import com.escodro.alarm.permission.AndroidVersionImpl
 import com.escodro.domain.interactor.AlarmInteractor
 import com.escodro.domain.interactor.NotificationInteractor
 import org.koin.android.ext.koin.androidContext
@@ -24,4 +27,7 @@ val alarmModule = module {
 
     factory<AlarmInteractor> { AlarmInteractorImpl(get()) }
     factory<NotificationInteractor> { NotificationInteractorImpl(get(), get()) }
+
+    factory<AndroidVersion> { AndroidVersionImpl() }
+    factory { AlarmPermission(get(), get()) }
 }

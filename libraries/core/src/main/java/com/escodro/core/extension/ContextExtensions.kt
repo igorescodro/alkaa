@@ -20,12 +20,17 @@ private const val INVALID_VERSION = "x.x.x"
 /**
  * Sets a alarm using [AlarmManagerCompat] to be triggered based on the given parameter.
  *
+ * **This function can only be called if the permission `SCHEDULE_EXACT_ALARM` is granted to
+ * the application.**
+ *
+ * @see [android.Manifest.permission.SCHEDULE_EXACT_ALARM]
+ *
  * @param triggerAtMillis time in milliseconds that the alarm should go off, using the
  * appropriate clock (depending on the alarm type).
  * @param operation action to perform when the alarm goes off
  * @param type type to define how the alarm will behave
  */
-fun Context.setAlarm(
+fun Context.setExactAlarm(
     triggerAtMillis: Long,
     operation: PendingIntent?,
     type: Int = AlarmManager.RTC_WAKEUP
@@ -42,7 +47,10 @@ fun Context.setAlarm(
     }
 
     val manager = getAlarmManager()
-    manager?.let { AlarmManagerCompat.setAndAllowWhileIdle(it, type, triggerAtMillis, operation) }
+    manager?.let {
+        AlarmManagerCompat
+            .setExactAndAllowWhileIdle(it, type, triggerAtMillis, operation)
+    }
 }
 
 /**

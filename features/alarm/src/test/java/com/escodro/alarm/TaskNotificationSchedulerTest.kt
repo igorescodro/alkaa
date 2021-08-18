@@ -4,7 +4,7 @@ import android.content.Context
 import com.escodro.alarm.model.Task
 import com.escodro.alarm.notification.TaskNotificationScheduler
 import com.escodro.core.extension.cancelAlarm
-import com.escodro.core.extension.setAlarm
+import com.escodro.core.extension.setExactAlarm
 import io.mockk.mockk
 import io.mockk.mockkStatic
 import io.mockk.verify
@@ -25,7 +25,7 @@ class TaskNotificationSchedulerTest {
     @Test
     fun `check if alarm was scheduled with valid task`() {
         scheduler.scheduleTaskAlarm(mockTask.id, mockTask.dueDate!!.time.time)
-        verify { mockContext.setAlarm(mockTask.dueDate!!.time.time, any()) }
+        verify { mockContext.setExactAlarm(mockTask.dueDate!!.time.time, any()) }
     }
 
     @Test

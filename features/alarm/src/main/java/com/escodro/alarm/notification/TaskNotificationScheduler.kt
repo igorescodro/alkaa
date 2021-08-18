@@ -29,7 +29,7 @@ internal class TaskNotificationScheduler(private val context: Context) {
             context,
             taskId.toInt(),
             receiverIntent,
-            PendingIntent.FLAG_CANCEL_CURRENT
+            PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
         logger.debug("Scheduling notification for '$taskId' at '$timeInMillis'")
@@ -49,7 +49,7 @@ internal class TaskNotificationScheduler(private val context: Context) {
             context,
             taskId.toInt(),
             receiverIntent,
-            PendingIntent.FLAG_UPDATE_CURRENT
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
         logger.debug("Canceling notification with id '$taskId'")

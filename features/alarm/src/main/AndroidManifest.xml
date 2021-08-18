@@ -3,7 +3,9 @@
     package="com.escodro.alarm">
 
     <application>
-        <receiver android:name=".TaskReceiver">
+        <receiver
+            android:name=".TaskReceiver"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
 

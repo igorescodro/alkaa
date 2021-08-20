@@ -10,7 +10,7 @@ object Versions {
 
     const val kotlin = "1.5.10"
     const val material = "1.3.0"
-    const val constraintLayout = "2.0.4"
+    const val constraint = "2.0.4"
     const val ktx = "1.0.2"
     const val room = "2.3.0"
     const val playCore = "1.10.0"
@@ -32,18 +32,18 @@ object Versions {
 
     const val compose = "1.0.0"
     const val composeNav = "2.4.0-alpha01"
-    const val composeViewModel = "1.0.0-alpha06"
+    const val composeVm = "1.0.0-alpha06"
     const val composeActivity = "1.3.0-beta01"
 
     const val buildGradle = "7.1.0-alpha08"
 
     const val detekt = "1.17.1"
-    const val ktlint = "0.39.0"
+    const val ktlint = "0.42.1"
 }
 
 object Deps {
-    val kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
-    val logging = "io.github.microutils:kotlin-logging-jvm:${Versions.logging}"
+    const val kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
+    const val logging = "io.github.microutils:kotlin-logging-jvm:${Versions.logging}"
     val android = AndroidDeps
     val coroutines = CoroutinesDeps
     val koin = KoinDeps
@@ -54,62 +54,62 @@ object Deps {
 }
 
 object AndroidDeps {
-    val material = "com.google.android.material:material:${Versions.material}"
-    val constraintLayout = "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
-    val ktx = "androidx.core:core-ktx:${Versions.ktx}"
-    val playCore = "com.google.android.play:core:${Versions.playCore}"
+    const val material = "com.google.android.material:material:${Versions.material}"
+    const val constraintLayout = "androidx.constraintlayout:constraintlayout:${Versions.constraint}"
+    const val ktx = "androidx.core:core-ktx:${Versions.ktx}"
+    const val playCore = "com.google.android.play:core:${Versions.playCore}"
     val room = RoomDeps
 }
 
 object CoroutinesDeps {
-    val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
-    val test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutines}"
+    const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
+    const val test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutines}"
 }
 
 object RoomDeps {
-    val runtime = "androidx.room:room-runtime:${Versions.room}"
-    val compiler = "androidx.room:room-compiler:${Versions.room}"
-    val ktx = "androidx.room:room-ktx:${Versions.room}"
+    const val runtime = "androidx.room:room-runtime:${Versions.room}"
+    const val compiler = "androidx.room:room-compiler:${Versions.room}"
+    const val ktx = "androidx.room:room-ktx:${Versions.room}"
 }
 
 object KoinDeps {
-    val core = "io.insert-koin:koin-core:${Versions.koin}"
-    val android = "io.insert-koin:koin-android:${Versions.koin}"
-    val compose = "io.insert-koin:koin-androidx-compose:${Versions.koin}"
-    val test = "io.insert-koin:koin-test:${Versions.koin}"
+    const val core = "io.insert-koin:koin-core:${Versions.koin}"
+    const val android = "io.insert-koin:koin-android:${Versions.koin}"
+    const val compose = "io.insert-koin:koin-androidx-compose:${Versions.koin}"
+    const val test = "io.insert-koin:koin-test:${Versions.koin}"
 }
 
 object ComposeDeps {
-    val ui = "androidx.compose.ui:ui:${Versions.compose}"
-    val material = "androidx.compose.material:material:${Versions.compose}"
-    val tooling = "androidx.compose.ui:ui-tooling:${Versions.compose}"
-    val icons = "androidx.compose.material:material-icons-extended:${Versions.compose}"
-    val navigation = "androidx.navigation:navigation-compose:${Versions.composeNav}"
-    val viewModel = "androidx.lifecycle:lifecycle-viewmodel-compose:${Versions.composeViewModel}"
-    val activity = "androidx.activity:activity-compose:${Versions.composeActivity}"
-    val uiTest = "androidx.compose.ui:ui-test:${Versions.compose}"
-    val junit4 = "androidx.compose.ui:ui-test-junit4:${Versions.compose}"
-    val manifest = "androidx.compose.ui:ui-test-manifest:${Versions.compose}"
+    const val ui = "androidx.compose.ui:ui:${Versions.compose}"
+    const val material = "androidx.compose.material:material:${Versions.compose}"
+    const val tooling = "androidx.compose.ui:ui-tooling:${Versions.compose}"
+    const val icons = "androidx.compose.material:material-icons-extended:${Versions.compose}"
+    const val navigation = "androidx.navigation:navigation-compose:${Versions.composeNav}"
+    const val viewModel = "androidx.lifecycle:lifecycle-viewmodel-compose:${Versions.composeVm}"
+    const val activity = "androidx.activity:activity-compose:${Versions.composeActivity}"
+    const val uiTest = "androidx.compose.ui:ui-test:${Versions.compose}"
+    const val junit4 = "androidx.compose.ui:ui-test-junit4:${Versions.compose}"
+    const val manifest = "androidx.compose.ui:ui-test-manifest:${Versions.compose}"
 }
 
 object TestDeps {
-    val junit = "junit:junit:${Versions.testJunit}"
-    val runner = "androidx.test:runner:${Versions.testRunner}"
-    val core = "androidx.test:core:${Versions.testCore}"
-    val coreKtx = "androidx.test:core-ktx:${Versions.testCore}"
-    val uiAutomator = "androidx.test.uiautomator:uiautomator:${Versions.testUiAutomator}"
-    val junitExt = "androidx.test.ext:junit:${Versions.testJunitExt}"
-    val mockk = "io.mockk:mockk:${Versions.testMockk}"
-    val room = "androidx.room:room-testing:${Versions.testRoom}"
-    val barista = "com.adevinta.android:barista:${Versions.barista}"
+    const val junit = "junit:junit:${Versions.testJunit}"
+    const val runner = "androidx.test:runner:${Versions.testRunner}"
+    const val core = "androidx.test:core:${Versions.testCore}"
+    const val coreKtx = "androidx.test:core-ktx:${Versions.testCore}"
+    const val uiAutomator = "androidx.test.uiautomator:uiautomator:${Versions.testUiAutomator}"
+    const val junitExt = "androidx.test.ext:junit:${Versions.testJunitExt}"
+    const val mockk = "io.mockk:mockk:${Versions.testMockk}"
+    const val room = "androidx.room:room-testing:${Versions.testRoom}"
+    const val barista = "com.adevinta.android:barista:${Versions.barista}"
 }
 
 object QualityDeps {
-    val detekt = "io.gitlab.arturbosch.detekt:detekt-cli:${Versions.detekt}"
-    val ktlint = "com.pinterest:ktlint:${Versions.ktlint}"
+    const val detekt = "io.gitlab.arturbosch.detekt:detekt-cli:${Versions.detekt}"
+    const val ktlint = "com.pinterest:ktlint:${Versions.ktlint}"
 }
 
 object GradleDeps {
-    val buildGradle = "com.android.tools.build:gradle:${Versions.buildGradle}"
-    val kotlinGradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
+    const val buildGradle = "com.android.tools.build:gradle:${Versions.buildGradle}"
+    const val kotlinGradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
 }

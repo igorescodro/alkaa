@@ -184,11 +184,15 @@ private fun TaskDescriptionTextField(text: String?, onDescriptionChange: (String
     )
 }
 
+@Suppress("ModifierOrder")
+@JvmInline
 @Parcelize
-internal inline class TaskId(val value: Long) : Parcelable
+internal value class TaskId(val value: Long) : Parcelable
 
+@Suppress("ModifierOrder")
+@JvmInline
 @Parcelize
-internal inline class CategoryId(val value: Long?) : Parcelable
+internal value class CategoryId(val value: Long?) : Parcelable
 
 @Suppress("UndocumentedPublicFunction")
 @Preview

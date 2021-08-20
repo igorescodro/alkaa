@@ -49,14 +49,4 @@ internal class TaskMapper(private val alarmIntervalMapper: AlarmIntervalMapper) 
             isRepeating = localTask.isRepeating,
             alarmInterval = localTask.alarmInterval?.let { alarmIntervalMapper.toRepo(it) }
         )
-
-    /**
-     * Maps Task from Local to Repo.
-     *
-     * @param localTaskList the list of Task to be converted.
-     *
-     * @return the converted list of Task
-     */
-    fun toRepo(localTaskList: List<LocalTask>): List<RepoTask> =
-        localTaskList.map { toRepo(it) }
 }

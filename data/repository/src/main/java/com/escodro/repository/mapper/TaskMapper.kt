@@ -11,16 +11,6 @@ internal class TaskMapper(private val alarmIntervalMapper: AlarmIntervalMapper) 
     /**
      * Maps Task from Repo to Domain.
      *
-     * @param localTaskList the list of Task to be converted.
-     *
-     * @return the converted list of Task
-     */
-    fun toDomain(localTaskList: List<RepoTask>): List<DomainTask> =
-        localTaskList.map { toDomain(it) }
-
-    /**
-     * Maps Task from Repo to Domain.
-     *
      * @param repoTask the Task to be converted.
      *
      * @return the converted Task

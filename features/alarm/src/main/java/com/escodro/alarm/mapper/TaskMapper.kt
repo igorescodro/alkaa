@@ -11,16 +11,6 @@ internal class TaskMapper {
     /**
      * Maps Task from Domain to View.
      *
-     * @param domainTaskList the list of Task to be converted.
-     *
-     * @return the converted list of Task
-     */
-    fun fromDomain(domainTaskList: List<DomainTask>): List<ViewTask> =
-        domainTaskList.map { fromDomain(it) }
-
-    /**
-     * Maps Task from Domain to View.
-     *
      * @param domainTask the Task to be converted.
      *
      * @return the converted Task

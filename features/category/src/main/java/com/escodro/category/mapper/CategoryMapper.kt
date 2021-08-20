@@ -10,7 +10,7 @@ internal class CategoryMapper {
     fun toView(domainCategoryList: List<DomainCategory>): List<ViewCategory> =
         domainCategoryList.map { toView(it) }
 
-    fun toView(domainCategory: DomainCategory): ViewCategory =
+    private fun toView(domainCategory: DomainCategory): ViewCategory =
         ViewCategory(
             id = domainCategory.id,
             name = domainCategory.name,

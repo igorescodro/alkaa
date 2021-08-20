@@ -84,7 +84,7 @@ private fun ContentHeader() {
             .height(200.dp)
             .background(color = color)
     ) {
-        val appName = stringResource(id = R.string.app_name).toLowerCase(Locale.getDefault())
+        val appName = stringResource(id = R.string.app_name).lowercase(Locale.getDefault())
         Text(
             text = appName,
             style = MaterialTheme.typography.h1.copy(color = MaterialTheme.colors.surface)

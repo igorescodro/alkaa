@@ -3,7 +3,6 @@ package com.escodro.domain.usecase.alarm
 import com.escodro.domain.interactor.NotificationInteractor
 import com.escodro.domain.repository.TaskRepository
 import mu.KLogging
-import mu.KotlinLogging.logger
 
 /**
  * Use case to show an alarm.

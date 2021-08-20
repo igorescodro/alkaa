@@ -105,7 +105,7 @@ private fun TrackerError() {
 
 @Composable
 private fun TaskTrackerInfoCard(list: List<Tracker.CategoryInfo>, modifier: Modifier = Modifier) {
-    val taskCount = list.sumBy { item -> item.taskCount }
+    val taskCount = list.sumOf { item -> item.taskCount }
     val message = LocalContext.current.resources
         .getQuantityString(R.plurals.tracker_message_title, taskCount, taskCount)
 

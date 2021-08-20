@@ -4,7 +4,6 @@ import com.escodro.domain.model.Category
 import com.escodro.domain.repository.CategoryRepository
 import com.escodro.domain.usecase.category.AddCategory
 import mu.KLogging
-import mu.KotlinLogging.logger
 
 internal class AddCategoryImpl(
     private val categoryRepository: CategoryRepository

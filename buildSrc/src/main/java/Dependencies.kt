@@ -28,9 +28,7 @@ object Versions {
     const val testUiAutomator = "2.2.0"
     const val testJunitExt = "1.1.0"
     const val testRoom = "2.1.0"
-    const val barista = "3.7.0"
-
-    const val espresso = "3.3.0"
+    const val barista = "4.0.0"
 
     const val compose = "1.0.0"
     const val composeNav = "2.4.0-alpha01"
@@ -39,7 +37,7 @@ object Versions {
 
     const val buildGradle = "7.1.0-alpha08"
 
-    const val detekt = "1.13.1"
+    const val detekt = "1.17.1"
     const val ktlint = "0.39.0"
 }
 
@@ -103,7 +101,7 @@ object TestDeps {
     val junitExt = "androidx.test.ext:junit:${Versions.testJunitExt}"
     val mockk = "io.mockk:mockk:${Versions.testMockk}"
     val room = "androidx.room:room-testing:${Versions.testRoom}"
-    val barista = "com.schibsted.spain:barista:${Versions.espresso}"
+    val barista = "com.adevinta.android:barista:${Versions.barista}"
 }
 
 object QualityDeps {

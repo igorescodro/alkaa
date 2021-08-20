@@ -27,7 +27,7 @@ private val LightColorPalette = lightColors(
  * @param content composable function
  */
 @Composable
-fun AlkaaTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable() () -> Unit) {
+fun AlkaaTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
     val colors = if (darkTheme) DarkColorPalette else LightColorPalette
 
     MaterialTheme(

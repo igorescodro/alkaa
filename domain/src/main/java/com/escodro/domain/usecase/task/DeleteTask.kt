@@ -4,7 +4,6 @@ import com.escodro.domain.interactor.AlarmInteractor
 import com.escodro.domain.model.Task
 import com.escodro.domain.repository.TaskRepository
 import mu.KLogging
-import mu.KotlinLogging.logger
 
 /**
  * Use case to delete a task from the database.

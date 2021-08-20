@@ -9,9 +9,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
-import android.widget.Toast
 import androidx.annotation.ColorRes
-import androidx.annotation.StringRes
 import androidx.core.app.AlarmManagerCompat
 import androidx.core.net.toUri
 import mu.KotlinLogging.logger
@@ -60,16 +58,6 @@ fun Context.cancelAlarm(operation: PendingIntent?) {
 
     val manager = getAlarmManager()
     manager?.let { manager.cancel(operation) }
-}
-
-/**
- * Shows a [Toast] with the given message.
- *
- * @param messageId the message String resource id
- * @param duration the Toast duration, if not provided will be set to [Toast.LENGTH_SHORT]
- */
-fun Context.showToast(@StringRes messageId: Int, duration: Int = Toast.LENGTH_SHORT) {
-    Toast.makeText(this, messageId, duration).show()
 }
 
 /**

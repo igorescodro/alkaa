@@ -49,21 +49,6 @@ class SplitInstall(private val windowContext: Context) {
         this.onFeatureReady = onFeatureReady
     }
 
-    /**
-     * Customizes the confirmation dialog shown to the user when prompting to download the dynamic
-     * module.
-     */
-    fun confirmationDialog(block: ConfirmationDialog.() -> Unit) {
-        this.confirmationDialog.apply(block)
-    }
-
-    /**
-     * Customizes the loading dialog shown to the user when downloading the dynamic module.
-     */
-    fun loadingDialog(block: LoadingDialog.() -> Unit) {
-        this.loadingDialog.apply(block)
-    }
-
     private fun load() {
         if (featureName.isEmpty()) {
             throw IllegalArgumentException("Feature name not provided")

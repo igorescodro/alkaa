@@ -28,25 +28,4 @@ internal class TaskMapper(private val alarmIntervalMapper: AlarmIntervalMapper) 
             isRepeating = domainTask.isRepeating,
             alarmInterval = alarmIntervalMapper.toViewData(domainTask.alarmInterval)
         )
-
-    /**
-     * Maps Task from View to Domain.
-     *
-     * @param viewTask the Task to be converted.
-     *
-     * @return the converted Task
-     */
-    fun toDomain(viewTask: ViewTask): DomainTask =
-        DomainTask(
-            id = viewTask.id,
-            completed = viewTask.completed,
-            title = viewTask.title,
-            description = viewTask.description,
-            categoryId = viewTask.categoryId,
-            dueDate = viewTask.dueDate,
-            creationDate = viewTask.creationDate,
-            completedDate = viewTask.completedDate,
-            isRepeating = viewTask.isRepeating,
-            alarmInterval = viewTask.alarmInterval?.let { alarmIntervalMapper.toDomain(it) }
-        )
 }

@@ -57,7 +57,7 @@ private fun PreferenceTitle(title: String) {
         contentAlignment = Alignment.CenterStart
     ) {
         Text(
-            text = title.toUpperCase(Locale.getDefault()),
+            text = title.uppercase(Locale.getDefault()),
             style = MaterialTheme.typography.body2.copy(fontWeight = FontWeight.Bold),
             color = MaterialTheme.colors.primary
         )

@@ -51,6 +51,7 @@ fun TaskDetailSection(taskId: Long, onUpPress: () -> Unit) {
     TaskDetailLoader(taskId = taskId, onUpPress = onUpPress)
 }
 
+@Suppress("LongParameterList")
 @Composable
 private fun TaskDetailLoader(
     taskId: Long,

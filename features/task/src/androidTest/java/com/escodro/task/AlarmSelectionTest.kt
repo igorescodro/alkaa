@@ -141,7 +141,7 @@ internal class AlarmSelectionTest {
 
     @SdkSuppress(minSdkVersion = Build.VERSION_CODES.S)
     @Test
-    fun test_whenExactAlarmPermissionIsNotGrantedDialogIsShown(){
+    fun test_whenExactAlarmPermissionIsNotGrantedDialogIsShown() {
         // Load the alarm section component without permission
         loadAlarmSelection(hasPermission = false)
 

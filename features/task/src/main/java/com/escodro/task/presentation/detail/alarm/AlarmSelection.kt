@@ -61,7 +61,8 @@ internal fun AlarmSelection(
     AlarmPermissionDialog(
         context = context,
         isDialogOpen = showPermissionDialog,
-        onCloseDialog = { showPermissionDialog = false })
+        onCloseDialog = { showPermissionDialog = false }
+    )
 
     Column {
         TaskDetailSectionContent(
@@ -94,29 +95,41 @@ internal fun AlarmSelection(
                 }
             }
         }
-
-        val showDialog = remember { mutableStateOf(false) }
-        if (date != null) {
-            AlarmIntervalDialog(showDialog) { interval ->
+        AlarmIntervalSelection(
+            date = date,
+            alarmInterval = alarmInterval,
+            onIntervalSelect = { interval ->
                 alarmInterval = interval
                 onIntervalSelect(interval)
             }
+        )
+    }
+}
 
-            TaskDetailSectionContent(
-                modifier = Modifier
-                    .height(56.dp)
-                    .clickable {
-                        showDialog.value = true
-                    },
-                imageVector = Icons.Outlined.Repeat,
-                contentDescription = R.string.task_detail_cd_icon_repeat_alarm
-            ) {
-                val index = alarmInterval?.index ?: 0
-                Text(
-                    text = stringArrayResource(id = R.array.task_alarm_repeating)[index],
-                    color = MaterialTheme.colors.onSecondary
-                )
-            }
+@Composable
+private fun AlarmIntervalSelection(
+    date: Calendar?,
+    alarmInterval: AlarmInterval?,
+    onIntervalSelect: (AlarmInterval) -> Unit
+) {
+    val showDialog = remember { mutableStateOf(false) }
+    if (date != null) {
+        AlarmIntervalDialog(showDialog) { interval -> onIntervalSelect(interval) }
+
+        TaskDetailSectionContent(
+            modifier = Modifier
+                .height(56.dp)
+                .clickable {
+                    showDialog.value = true
+                },
+            imageVector = Icons.Outlined.Repeat,
+            contentDescription = R.string.task_detail_cd_icon_repeat_alarm
+        ) {
+            val index = alarmInterval?.index ?: 0
+            Text(
+                text = stringArrayResource(id = R.array.task_alarm_repeating)[index],
+                color = MaterialTheme.colors.onSecondary
+            )
         }
     }
 }

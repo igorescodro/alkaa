@@ -1,5 +1,9 @@
 package com.escodro.task.presentation.detail.alarm
 
+import android.content.Context
+import android.content.Intent
+import android.os.Build
+import android.provider.Settings
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -34,6 +38,8 @@ import androidx.compose.ui.window.Dialog
 import com.escodro.core.extension.format
 import com.escodro.core.view.DateTimePickerDialog
 import com.escodro.designsystem.AlkaaTheme
+import com.escodro.designsystem.components.AlkaaDialog
+import com.escodro.designsystem.components.DialogArguments
 import com.escodro.task.R
 import com.escodro.task.model.AlarmInterval
 import com.escodro.task.presentation.detail.TaskDetailSectionContent
@@ -44,21 +50,32 @@ internal fun AlarmSelection(
     calendar: Calendar?,
     interval: AlarmInterval?,
     onAlarmUpdate: (Calendar?) -> Unit,
-    onIntervalSelect: (AlarmInterval) -> Unit
+    onIntervalSelect: (AlarmInterval) -> Unit,
+    hasAlarmPermission: () -> Boolean
 ) {
     val context = LocalContext.current
     var date by remember { mutableStateOf(calendar) }
     var alarmInterval by remember { mutableStateOf(interval) }
+
+    var showPermissionDialog by remember { mutableStateOf(false) }
+    AlarmPermissionDialog(
+        context = context,
+        isDialogOpen = showPermissionDialog,
+        onCloseDialog = { showPermissionDialog = false })
 
     Column {
         TaskDetailSectionContent(
             modifier = Modifier
                 .height(56.dp)
                 .clickable {
-                    DateTimePickerDialog(context) { calendar ->
-                        date = calendar
-                        onAlarmUpdate(calendar)
-                    }.show()
+                    if (hasAlarmPermission()) {
+                        DateTimePickerDialog(context) { calendar ->
+                            date = calendar
+                            onAlarmUpdate(calendar)
+                        }.show()
+                    } else {
+                        showPermissionDialog = true
+                    }
                 },
             imageVector = Icons.Outlined.Alarm,
             contentDescription = R.string.task_detail_cd_icon_alarm
@@ -186,6 +203,34 @@ private fun AlarmListItem(
     )
 }
 
+@Composable
+private fun AlarmPermissionDialog(
+    context: Context,
+    isDialogOpen: Boolean,
+    onCloseDialog: () -> Unit,
+) {
+    val arguments = DialogArguments(
+        title = stringResource(id = R.string.task_alarm_permission_dialog_title),
+        text = stringResource(id = R.string.task_alarm_permission_dialog_text),
+        confirmText = stringResource(id = R.string.task_alarm_permission_dialog_confirm),
+        dismissText = stringResource(id = R.string.task_alarm_permission_dialog_cancel),
+        onConfirmAction = {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                val intent = Intent().apply {
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    action = Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM
+                }
+                context.startActivity(intent)
+            }
+        }
+    )
+    AlkaaDialog(
+        arguments = arguments,
+        isDialogOpen = isDialogOpen,
+        onCloseDialog = onCloseDialog
+    )
+}
+
 @Suppress("UndocumentedPublicFunction")
 @Preview
 @Composable
@@ -196,7 +241,8 @@ fun AlarmSetSelectionPreview() {
                 Calendar.getInstance(),
                 AlarmInterval.WEEKLY,
                 onAlarmUpdate = {},
-                onIntervalSelect = {}
+                onIntervalSelect = {},
+                hasAlarmPermission = { true }
             )
         }
     }
@@ -212,7 +258,8 @@ fun AlarmNotSetSelectionPreview() {
                 null,
                 AlarmInterval.NEVER,
                 onAlarmUpdate = {},
-                onIntervalSelect = {}
+                onIntervalSelect = {},
+                hasAlarmPermission = { true }
             )
         }
     }

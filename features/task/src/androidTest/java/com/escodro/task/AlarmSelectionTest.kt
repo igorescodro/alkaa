@@ -1,5 +1,6 @@
 package com.escodro.task
 
+import android.os.Build
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.ui.test.assertIsDisplayed
@@ -9,6 +10,7 @@ import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.test.core.app.ActivityScenario
+import androidx.test.filters.SdkSuppress
 import androidx.test.platform.app.InstrumentationRegistry
 import com.escodro.designsystem.AlkaaTheme
 import com.escodro.task.espresso.setDateTime
@@ -137,7 +139,22 @@ internal class AlarmSelectionTest {
         composeTestRule.onNodeWithText(alarmString).assertIsDisplayed()
     }
 
-    private fun loadAlarmSelection() {
+    @SdkSuppress(minSdkVersion = Build.VERSION_CODES.S)
+    @Test
+    fun test_whenExactAlarmPermissionIsNotGrantedDialogIsShown(){
+        // Load the alarm section component without permission
+        loadAlarmSelection(hasPermission = false)
+
+        // Click in the alarm item
+        val noAlarmString = context.getString(R.string.task_detail_alarm_no_alarm)
+        composeTestRule.onNodeWithText(noAlarmString).performClick()
+
+        // Assert that the alarm item is not set again
+        val dialogTitle = context.getString(R.string.task_alarm_permission_dialog_title)
+        composeTestRule.onNodeWithText(dialogTitle).assertIsDisplayed()
+    }
+
+    private fun loadAlarmSelection(hasPermission: Boolean = true) {
         scenario.onActivity { activity ->
             activity.setContent {
                 AlkaaTheme {
@@ -145,14 +162,19 @@ internal class AlarmSelectionTest {
                         calendar = null,
                         interval = AlarmInterval.NEVER,
                         onAlarmUpdate = {},
-                        onIntervalSelect = {}
+                        onIntervalSelect = {},
+                        hasAlarmPermission = { hasPermission }
                     )
                 }
             }
         }
     }
 
-    private fun loadAlarmSelection(calendar: Calendar, alarmInterval: AlarmInterval) {
+    private fun loadAlarmSelection(
+        calendar: Calendar,
+        alarmInterval: AlarmInterval,
+        hasPermission: Boolean = true
+    ) {
         scenario.onActivity { activity ->
             activity.setContent {
                 AlkaaTheme {
@@ -160,7 +182,8 @@ internal class AlarmSelectionTest {
                         calendar = calendar,
                         interval = alarmInterval,
                         onAlarmUpdate = {},
-                        onIntervalSelect = {}
+                        onIntervalSelect = {},
+                        hasAlarmPermission = { hasPermission }
                     )
                 }
             }

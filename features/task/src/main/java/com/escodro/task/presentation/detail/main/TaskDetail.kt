@@ -21,6 +21,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
+import com.escodro.alarmapi.AlarmPermission
 import com.escodro.categoryapi.model.Category
 import com.escodro.categoryapi.presentation.CategoryListViewModel
 import com.escodro.categoryapi.presentation.CategoryState
@@ -37,6 +38,7 @@ import com.escodro.task.presentation.detail.TaskDetailSectionContent
 import com.escodro.task.presentation.detail.alarm.AlarmSelection
 import com.escodro.task.presentation.detail.alarm.TaskAlarmViewModel
 import kotlinx.parcelize.Parcelize
+import org.koin.androidx.compose.get
 import org.koin.androidx.compose.getViewModel
 
 /**
@@ -55,7 +57,8 @@ private fun TaskDetailLoader(
     onUpPress: () -> Unit,
     detailViewModel: TaskDetailViewModel = getViewModel(),
     categoryViewModel: CategoryListViewModel = getViewModel(),
-    alarmViewModel: TaskAlarmViewModel = getViewModel()
+    alarmViewModel: TaskAlarmViewModel = getViewModel(),
+    alarmPermission: AlarmPermission = get()
 ) {
     val id = TaskId(taskId)
     val detailViewState by
@@ -72,6 +75,7 @@ private fun TaskDetailLoader(
         onCategoryChange = { categoryId -> detailViewModel.updateCategory(id, categoryId) },
         onAlarmUpdate = { calendar -> alarmViewModel.updateAlarm(id, calendar) },
         onIntervalSelect = { interval -> alarmViewModel.setRepeating(id, interval) },
+        hasAlarmPermission = { alarmPermission.hasExactAlarmPermission() },
         onUpPress = onUpPress
     )
 
@@ -131,7 +135,8 @@ private fun TaskDetailContent(
                 calendar = task.dueDate,
                 interval = task.alarmInterval,
                 onAlarmUpdate = actions.onAlarmUpdate,
-                onIntervalSelect = actions.onIntervalSelect
+                onIntervalSelect = actions.onIntervalSelect,
+                hasAlarmPermission = actions.hasAlarmPermission
             )
         }
     }

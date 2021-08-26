@@ -1,5 +1,9 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
-    <application>
-        <activity android:name="androidx.activity.ComponentActivity" />
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application tools:ignore="MissingApplicationIcon">
+        <activity
+            android:name="androidx.activity.ComponentActivity"
+            android:exported="false" />
     </application>
 </manifest>

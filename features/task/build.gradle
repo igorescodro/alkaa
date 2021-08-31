@@ -14,13 +14,13 @@ android {
 }
 
 dependencies {
-    implementation project(":features:category-api")
-    implementation project(":libraries:core")
-    implementation project(":domain")
-    implementation project(':libraries:designsystem')
+    implementation(projects.features.categoryApi)
+    implementation(projects.libraries.core)
+    implementation(projects.domain)
+    implementation(projects.libraries.designsystem)
 
-    testImplementation project(":libraries:test")
-    androidTestImplementation project(":libraries:test")
+    testImplementation(projects.libraries.test)
+    androidTestImplementation(projects.libraries.test)
 
     implementation Deps.android.playCore
 

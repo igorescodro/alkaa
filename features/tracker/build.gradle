@@ -13,13 +13,13 @@ android {
 }
 
 dependencies {
-    implementation project(":domain")
-    implementation project(':libraries:designsystem')
+    implementation(projects.domain)
+    implementation(projects.libraries.designsystem)
 
     implementation Deps.koin.android
     implementation Deps.coroutines.core
     implementation Deps.koin.compose
     implementation Deps.compose.activity
 
-    testImplementation project(':libraries:test')
+    testImplementation(projects.libraries.test)
 }

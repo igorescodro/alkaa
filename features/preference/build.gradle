@@ -13,9 +13,9 @@ android {
 }
 
 dependencies {
-    implementation project(":libraries:core")
-    implementation project(':libraries:designsystem')
+    implementation(projects.libraries.core)
+    implementation(projects.libraries.designsystem)
 
-    testImplementation project(":libraries:test")
-    androidTestImplementation project(":libraries:test")
+    testImplementation(projects.libraries.test)
+    androidTestImplementation(projects.libraries.test)
 }

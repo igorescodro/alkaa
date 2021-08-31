@@ -18,8 +18,8 @@ android {
 }
 
 dependencies {
-    implementation project(":libraries:core")
-    implementation project(":data:repository")
+    implementation(projects.libraries.core)
+    implementation(projects.data.repository)
 
     implementation Deps.koin.android
     implementation Deps.android.room.runtime

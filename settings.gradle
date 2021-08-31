@@ -14,3 +14,5 @@ include ':libraries:test'
 include ':libraries:splitInstall'
 include ':libraries:designsystem'
 include ':libraries:navigation'
+
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")

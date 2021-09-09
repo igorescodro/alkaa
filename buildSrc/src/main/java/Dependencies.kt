@@ -24,7 +24,7 @@ object Versions {
     const val testJunit = "4.12"
     const val testRunner = "1.1.1"
     const val testCore = "1.1.0"
-    const val testMockk = "1.9.3"
+    const val testMockk = "1.12.0"
     const val testUiAutomator = "2.2.0"
     const val testJunitExt = "1.1.0"
     const val testRoom = "2.1.0"
@@ -37,7 +37,6 @@ object Versions {
 
     const val buildGradle = "7.1.0-alpha08"
 
-    const val detekt = "1.17.1"
     const val ktlint = "0.42.1"
 }
 
@@ -105,7 +104,6 @@ object TestDeps {
 }
 
 object QualityDeps {
-    const val detekt = "io.gitlab.arturbosch.detekt:detekt-cli:${Versions.detekt}"
     const val ktlint = "com.pinterest:ktlint:${Versions.ktlint}"
 }
 

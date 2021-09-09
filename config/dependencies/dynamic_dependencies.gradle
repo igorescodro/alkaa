@@ -1,9 +1,0 @@
-apply plugin: 'com.android.dynamic-feature'
-apply from: "$rootDir/config/dependencies/android_dependencies.gradle"
-
-dependencies {
-    implementation(projects.app)
-    androidTestImplementation(projects.app)
-
-    implementation Deps.android.playCore
-}

@@ -1,7 +1,0 @@
-apply from: "$rootDir/config/dependencies/feature_dependencies.gradle"
-apply plugin: "kotlin-parcelize"
-
-dependencies {
-    implementation Deps.coroutines.core
-    implementation Deps.koin.android
-}

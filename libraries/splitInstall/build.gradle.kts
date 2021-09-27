@@ -7,6 +7,5 @@ dependencies {
     implementation(projects.libraries.core)
     implementation(projects.libraries.designsystem)
 
-    implementation(Deps.android.constraintLayout)
     implementation(Deps.android.playCore)
 }

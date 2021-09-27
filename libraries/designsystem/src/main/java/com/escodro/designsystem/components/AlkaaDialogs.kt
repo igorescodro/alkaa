@@ -13,31 +13,26 @@ import com.escodro.designsystem.AlkaaTheme
  *
  * @param arguments arguments to compose the dialog
  * @param isDialogOpen flag to indicate if the dialog should be open
- * @param onCloseDialog function to be called dismissing the dialog
+ * @param onDismissRequest function to be called user requests to dismiss the dialog
  */
 @Composable
 fun AlkaaDialog(
     arguments: DialogArguments,
     isDialogOpen: Boolean,
-    onCloseDialog: () -> Unit
+    onDismissRequest: () -> Unit
 ) {
     if (isDialogOpen) {
         AlertDialog(
-            onDismissRequest = onCloseDialog,
+            onDismissRequest = onDismissRequest,
             title = { Text(text = arguments.title) },
             text = { Text(text = arguments.text) },
             confirmButton = {
-                Button(
-                    onClick = {
-                        arguments.onConfirmAction()
-                        onCloseDialog()
-                    }
-                ) {
+                Button(onClick = arguments.onConfirmAction) {
                     Text(text = arguments.confirmText)
                 }
             },
             dismissButton = {
-                OutlinedButton(onClick = onCloseDialog) {
+                OutlinedButton(onClick = onDismissRequest) {
                     Text(text = arguments.dismissText)
                 }
             }
@@ -75,6 +70,6 @@ fun DialogPreview() {
             onConfirmAction = {}
         )
 
-        AlkaaDialog(arguments = arguments, isDialogOpen = true, onCloseDialog = {})
+        AlkaaDialog(arguments = arguments, isDialogOpen = true, onDismissRequest = {})
     }
 }

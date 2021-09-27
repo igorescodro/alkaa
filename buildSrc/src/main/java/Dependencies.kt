@@ -31,7 +31,7 @@ object Versions {
     const val barista = "4.0.0"
 
     const val compose = "1.0.0"
-    const val composeNav = "2.4.0-alpha01"
+    const val composeNav = "2.4.0-alpha04"
     const val composeVm = "1.0.0-alpha06"
     const val composeActivity = "1.3.0-beta01"
 
@@ -54,7 +54,6 @@ object Deps {
 
 object AndroidDeps {
     const val material = "com.google.android.material:material:${Versions.material}"
-    const val constraintLayout = "androidx.constraintlayout:constraintlayout:${Versions.constraint}"
     const val ktx = "androidx.core:core-ktx:${Versions.ktx}"
     const val playCore = "com.google.android.play:core:${Versions.playCore}"
     val room = RoomDeps

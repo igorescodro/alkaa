@@ -24,6 +24,11 @@ object Destinations {
      * About destination.
      */
     const val About = "about"
+
+    /**
+     * Task Tracker dynamic feature destination.
+     */
+    const val Tracker = "tracker"
 }
 
 /**

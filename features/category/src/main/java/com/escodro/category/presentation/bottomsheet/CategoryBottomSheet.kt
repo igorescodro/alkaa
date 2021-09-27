@@ -195,12 +195,15 @@ private fun RemoveCategoryDialog(
         text = stringResource(id = R.string.category_dialog_remove_text, categoryName),
         confirmText = stringResource(id = R.string.category_dialog_remove_confirm),
         dismissText = stringResource(id = R.string.category_dialog_remove_cancel),
-        onConfirmAction = onActionConfirm
+        onConfirmAction = {
+            onActionConfirm()
+            onCloseDialog()
+        }
     )
     AlkaaDialog(
         arguments = arguments,
         isDialogOpen = isDialogOpen,
-        onCloseDialog = onCloseDialog
+        onDismissRequest = onCloseDialog
     )
 }
 

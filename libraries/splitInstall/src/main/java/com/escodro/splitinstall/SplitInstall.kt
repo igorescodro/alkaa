@@ -58,11 +58,12 @@ fun LoadFeature(
         throw IllegalArgumentException("Feature name not provided")
     }
 
-    val manager = remember { SplitInstallManagerFactory.create(context) }
-    val isFeatureReady = isFeatureInstalled(manager = manager, featureName = featureName)
-    val initialState = if (isFeatureReady) FeatureReady else RequestDownload
-
-    var state by rememberSaveable { mutableStateOf(initialState) }
+    val manager = remember(featureName) { SplitInstallManagerFactory.create(context) }
+    val isFeatureReady =
+        remember(featureName) { !isFeatureInstalled(manager = manager, featureName = featureName) }
+    val initialState =
+        remember(featureName) { if (isFeatureReady) FeatureReady else RequestDownload }
+    var state by rememberSaveable(featureName) { mutableStateOf(initialState) }
 
     when (state) {
         RequestDownload -> RequestDownload(onDismiss = onDismiss, setState = { state = it })
@@ -166,8 +167,8 @@ private fun DownloadDialog() {
                 }
             }
         },
-        confirmButton = {},
-        dismissButton = {}
+        confirmButton = { /* Shows nothing */ },
+        dismissButton = { /* Shows nothing */ }
     )
 }
 

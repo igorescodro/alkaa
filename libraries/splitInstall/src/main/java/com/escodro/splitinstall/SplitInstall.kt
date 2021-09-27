@@ -1,112 +1,174 @@
 package com.escodro.splitinstall
 
 import android.content.Context
-import androidx.appcompat.app.AlertDialog
-import com.escodro.core.extension.dialog
-import com.escodro.core.extension.negativeButton
-import com.escodro.core.extension.positiveButton
-import com.escodro.core.extension.view
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.AlertDialog
+import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
+import com.escodro.designsystem.components.AlkaaDialog
+import com.escodro.designsystem.components.DialogArguments
+import com.escodro.splitinstall.SplitInstallState.Downloading
+import com.escodro.splitinstall.SplitInstallState.FeatureReady
+import com.escodro.splitinstall.SplitInstallState.RequestDownload
 import com.google.android.play.core.splitinstall.SplitInstallManager
 import com.google.android.play.core.splitinstall.SplitInstallManagerFactory
 import com.google.android.play.core.splitinstall.SplitInstallRequest
+import com.google.android.play.core.splitinstall.SplitInstallStateUpdatedListener
 import com.google.android.play.core.splitinstall.model.SplitInstallSessionStatus
-import mu.KLogging
+import mu.KotlinLogging
 
 /**
- * Handles the Dynamic Features installation, abstracting the complex logic and providing visual
- * feedback.
+ * Composable to handle the all the operations to open a Dynamic Feature Module. This Composable
+ * handles the user request, download and notifies the caller when the feature is ready to be
+ * opened. If the feature is already installed, it will open the feature right away.
+ *
+ * There is a workaround in this code because the Jetpack Navigation Compose does not support
+ * Dynamic Feature properly. Once Alkaa needs to open a new Activity, the Composable/Dialog needed
+ * to do so needs to be manually removed from the stack. Hopefully this hack will not be needed
+ * when the proper support is launched.
+ *
+ * @param context the application context
+ * @param featureName the dynamic feature name
+ * @param onDismiss the action to dismiss the current composable
+ * @param onFeatureReady function called when the feature is ready to be opened
  */
-class SplitInstall(private val windowContext: Context) {
-
-    private val manager: SplitInstallManager = SplitInstallManagerFactory.create(windowContext)
-
-    private var featureName: String = ""
-
-    private var onFeatureReady: () -> Unit = { /* Do nothing */ }
-
-    private val confirmationDialog = ConfirmationDialog()
-
-    private val loadingDialog = LoadingDialog()
-
-    /**
-     * Loads the requested feature, ensuring that it is ready to be used. If the feature is not
-     * installed, it downloads from Google Play services providing visual feedback, otherwise it
-     * loads the installed package.
-     *
-     * @param featureName the dynamic feature name
-     */
-    fun loadFeature(featureName: String, func: SplitInstall.() -> Unit): SplitInstall {
-        this.featureName = featureName
-        this.func()
-        load()
-        return this
+@Composable
+fun LoadFeature(
+    context: Context,
+    featureName: String,
+    onDismiss: () -> Unit,
+    onFeatureReady: () -> Unit
+) {
+    if (featureName.isEmpty()) {
+        throw IllegalArgumentException("Feature name not provided")
     }
 
-    /**
-     * Defines the action to be taken when the feature is installed and ready to be accessed.
-     */
-    fun onFeatureReady(onFeatureReady: () -> Unit) {
-        this.onFeatureReady = onFeatureReady
-    }
+    val manager = remember { SplitInstallManagerFactory.create(context) }
+    val isFeatureReady = isFeatureInstalled(manager = manager, featureName = featureName)
+    val initialState = if (isFeatureReady) FeatureReady else RequestDownload
 
-    private fun load() {
-        if (featureName.isEmpty()) {
-            throw IllegalArgumentException("Feature name not provided")
-        }
+    var state by rememberSaveable { mutableStateOf(initialState) }
 
-        val isInstalled = isFeatureInstalled(featureName)
-        logger.debug("load = [$featureName] - isInstalled = $isInstalled")
-
-        if (isFeatureInstalled(featureName)) {
+    when (state) {
+        RequestDownload -> RequestDownload(onDismiss = onDismiss, setState = { state = it })
+        Downloading -> DownloadFeature(
+            featureName = featureName,
+            manager = manager,
+            onDismiss = onDismiss,
+            setState = { state = it }
+        )
+        FeatureReady -> {
+            onDismiss()
             onFeatureReady()
-        } else {
-            showConfirmationDialog()
         }
     }
+}
 
-    private fun downloadFeature() {
-        logger.debug("downloadFeature = [$featureName]")
+private fun isFeatureInstalled(
+    manager: SplitInstallManager,
+    featureName: String,
+): Boolean {
+    val isFeatureInstalled = manager.installedModules.contains(featureName)
+    logger.debug("load = [$featureName] - isFeatureInstalled = $isFeatureInstalled")
 
+    return isFeatureInstalled
+}
+
+@Composable
+private fun RequestDownload(setState: (SplitInstallState) -> Unit, onDismiss: () -> Unit) {
+    var isDialogOpen by rememberSaveable { mutableStateOf(true) }
+
+    val arguments = DialogArguments(
+        title = stringResource(id = R.string.split_confirmation_install_title),
+        text = stringResource(id = R.string.split_confirmation_install_description),
+        confirmText = stringResource(id = R.string.split_confirmation_install_accept),
+        dismissText = stringResource(id = R.string.split_confirmation_install_deny),
+        onConfirmAction = { setState(Downloading) }
+    )
+    AlkaaDialog(
+        arguments = arguments,
+        isDialogOpen = isDialogOpen,
+        onDismissRequest = {
+            isDialogOpen = false
+            onDismiss()
+        }
+    )
+}
+
+@Composable
+private fun DownloadFeature(
+    featureName: String,
+    manager: SplitInstallManager,
+    onDismiss: () -> Unit,
+    setState: (SplitInstallState) -> Unit
+) {
+    var isDialogOpen by rememberSaveable { mutableStateOf(true) }
+    DisposableEffect(featureName) {
         val request = SplitInstallRequest.newBuilder()
             .addModule(featureName)
             .build()
 
-        val dialog = getDownloadingDialog(windowContext)
-
-        manager.registerListener {
+        val listener = SplitInstallStateUpdatedListener {
             logger.debug("${it.status()}")
 
             when (it.status()) {
-                SplitInstallSessionStatus.PENDING -> dialog.show()
-                SplitInstallSessionStatus.INSTALLED -> onFeatureInstalled(dialog, onFeatureReady)
+                SplitInstallSessionStatus.PENDING -> isDialogOpen = true
+                SplitInstallSessionStatus.INSTALLED -> {
+                    isDialogOpen = false
+                    setState(FeatureReady)
+                    onDismiss()
+                }
                 else -> logger.debug("${it.status()}")
             }
         }
 
+        manager.registerListener(listener)
         manager.startInstall(request)
+
+        onDispose { manager.unregisterListener(listener) }
     }
 
-    private fun showConfirmationDialog() = with(confirmationDialog) {
-        windowContext.dialog(title, message) {
-            positiveButton(R.string.split_confirmation_install_accept) { downloadFeature() }
-            negativeButton(R.string.split_confirmation_install_deny) { /* Do nothing */ }
-        }.show()
+    if (isDialogOpen) {
+        DownloadDialog()
     }
-
-    private fun getDownloadingDialog(windowContext: Context) = with(loadingDialog) {
-        windowContext.dialog(title, message) {
-            view(layout)
-        }.setCancelable(false).create()
-    }
-
-    private fun onFeatureInstalled(dialog: AlertDialog, onFeatureReady: () -> Unit) {
-        logger.debug("onFeatureInstalled")
-        dialog.dismiss()
-        onFeatureReady()
-    }
-
-    private fun isFeatureInstalled(featureName: String) =
-        manager.installedModules.contains(featureName)
-
-    companion object : KLogging()
 }
+
+@Composable
+private fun DownloadDialog() {
+    AlertDialog(
+        onDismissRequest = { /* Does not close */ },
+        title = { Text(text = stringResource(id = R.string.split_downloading_title)) },
+        text = {
+            Column {
+                Text(text = stringResource(id = R.string.split_downloading_description))
+                Box(
+                    contentAlignment = Alignment.Center,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 32.dp)
+                ) {
+                    CircularProgressIndicator(modifier = Modifier.size(64.dp))
+                }
+            }
+        },
+        confirmButton = {},
+        dismissButton = {}
+    )
+}
+
+private val logger = KotlinLogging.logger {}

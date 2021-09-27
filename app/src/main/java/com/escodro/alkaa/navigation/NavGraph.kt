@@ -10,6 +10,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.dialog
 import androidx.navigation.compose.navArgument
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navDeepLink
@@ -18,7 +19,7 @@ import com.escodro.navigation.DestinationArgs
 import com.escodro.navigation.DestinationDeepLink
 import com.escodro.navigation.Destinations
 import com.escodro.preference.presentation.About
-import com.escodro.splitinstall.SplitInstall
+import com.escodro.splitinstall.LoadFeature
 import com.escodro.task.presentation.detail.main.TaskDetailSection
 
 /**
@@ -57,6 +58,22 @@ fun NavGraph(startDestination: String = Destinations.Home) {
         composable(Destinations.About) {
             About(onUpPress = actions.onUpPress)
         }
+
+        dialog(Destinations.Tracker) {
+            LoadFeature(
+                context = context,
+                featureName = FEATURE_TRACKER,
+                onDismiss = actions.onUpPress
+            ) {
+                // Workaround to be able to use Dynamic Feature with Compose
+                // https://issuetracker.google.com/issues/183677219
+                val intent = Intent(Intent.ACTION_VIEW).apply {
+                    data = Uri.parse(TRACKER_DEEP_LINK)
+                    `package` = context.packageName
+                }
+                context.startActivity(intent)
+            }
+        }
     }
 }
 
@@ -71,15 +88,7 @@ internal data class Actions(val navController: NavHostController, val context: C
     }
 
     val openTracker: () -> Unit = {
-        SplitInstall(context).loadFeature(FEATURE_TRACKER) {
-            onFeatureReady {
-                val intent = Intent(Intent.ACTION_VIEW).apply {
-                    data = Uri.parse(TRACKER_DEEP_LINK)
-                    `package` = context.packageName
-                }
-                context.startActivity(intent)
-            }
-        }
+        navController.navigate(Destinations.Tracker)
     }
 
     val onUpPress: () -> Unit = {

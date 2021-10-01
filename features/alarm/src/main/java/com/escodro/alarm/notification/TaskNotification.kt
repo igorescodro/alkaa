@@ -71,7 +71,10 @@ internal class TaskNotification(
 
         return TaskStackBuilder.create(context).run {
             addNextIntentWithParentStack(openTaskIntent)
-            getPendingIntent(REQUEST_CODE_OPEN_TASK, PendingIntent.FLAG_UPDATE_CURRENT)
+            getPendingIntent(
+                REQUEST_CODE_OPEN_TASK,
+                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            )
         }
     }
 

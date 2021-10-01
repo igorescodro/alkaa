@@ -9,6 +9,7 @@ android {
 dependencies {
     implementation project(":libraries:core")
     implementation project(":libraries:navigation")
+    implementation project(":features:alarm-api")
     implementation project(":domain")
 
     implementation Deps.coroutines.core

@@ -4,6 +4,7 @@
     package="com.escodro.alkaa">
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
 
     <application
         android:name=".AlkaaApp"

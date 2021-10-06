@@ -1,5 +1,6 @@
 package com.escodro.alarm
 
+import android.app.AlarmManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -40,7 +41,8 @@ internal class TaskReceiver : BroadcastReceiver(), KoinComponent {
             ALARM_ACTION -> getTaskId(intent)?.let { showAlarmUseCase(it) }
             COMPLETE_ACTION -> getTaskId(intent)?.let { completeTaskUseCase(it) }
             SNOOZE_ACTION -> getTaskId(intent)?.let { snoozeAlarmUseCase(it) }
-            Intent.ACTION_BOOT_COMPLETED -> rescheduleUseCase()
+            Intent.ACTION_BOOT_COMPLETED,
+            AlarmManager.ACTION_SCHEDULE_EXACT_ALARM_PERMISSION_STATE_CHANGED -> rescheduleUseCase()
             else -> logger.error("Action not supported")
         }
 

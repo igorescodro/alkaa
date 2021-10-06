@@ -7,6 +7,7 @@ import com.escodro.domain.usecase.alarm.RescheduleFutureAlarms
 import com.escodro.domain.usecase.alarm.ScheduleAlarm
 import com.escodro.domain.usecase.alarm.ScheduleNextAlarm
 import com.escodro.domain.usecase.alarm.ShowAlarm
+import com.escodro.domain.usecase.alarm.ShowAlarmPermissionInfo
 import com.escodro.domain.usecase.alarm.SnoozeAlarm
 import com.escodro.domain.usecase.alarm.UpdateTaskAsRepeating
 import com.escodro.domain.usecase.alarm.implementation.CancelAlarmImpl
@@ -86,6 +87,7 @@ val domainModule = module {
     factory { ShowAlarm(get(), get(), get()) }
     factory { SnoozeAlarm(get(), get(), get()) }
     factory<UpdateTaskAsRepeating> { UpdateTaskAsRepeatingImpl(get()) }
+    factory { ShowAlarmPermissionInfo(get()) }
 
     // Tracker Use Cases
     factory<LoadCompletedTasksByPeriod> { LoadCompletedTasksByPeriodImpl(get()) }

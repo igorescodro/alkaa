@@ -4,4 +4,7 @@
     <string name="channel_task_description">Notificações para lembretes</string>
     <string name="notification_action_completed">Concluído</string>
     <string name="notification_action_snooze">Daqui 15 min</string>
+    <string name="alarm_permission_notification_title">Permissão de alarmes e lembretes</string>
+    <string name="alarm_permission_notification_content">Alkaa precisa da permissão para criar alarmes e lembretes</string>
+    <string name="alarm_permission_notification_big_text">Alkaa precisa da permissão para criar alarmes e lembretes. Ao remover essa permissão, todos os alarmes já configurados e o novos não irão funcionar. Por favor, clique aqui para ligar essa permissão novamente.</string>
 </resources>

@@ -6,4 +6,10 @@
     <!-- Task notification -->
     <string name="notification_action_completed">Done</string>
     <string name="notification_action_snooze">In 15 min</string>
+
+    <!-- Task notification -->
+    <string name="alarm_permission_notification_title">Alarms &amp; reminders permission</string>
+    <string name="alarm_permission_notification_content">Alkaa needs the permission to set alarms and reminders</string>
+    <string name="alarm_permission_notification_big_text">Alkaa needs the permission to set alarms and reminders. By removing this permission, all the already set and new alarms will not work. Please click here to turn this permission on again.</string>
+
 </resources>

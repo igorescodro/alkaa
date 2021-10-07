@@ -119,9 +119,7 @@ private fun AlarmIntervalSelection(
         TaskDetailSectionContent(
             modifier = Modifier
                 .height(56.dp)
-                .clickable {
-                    showDialog.value = true
-                },
+                .clickable { showDialog.value = true },
             imageVector = Icons.Outlined.Repeat,
             contentDescription = R.string.task_detail_cd_icon_repeat_alarm
         ) {
@@ -234,13 +232,14 @@ private fun AlarmPermissionDialog(
                     action = Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM
                 }
                 context.startActivity(intent)
+                onCloseDialog()
             }
         }
     )
     AlkaaDialog(
         arguments = arguments,
         isDialogOpen = isDialogOpen,
-        onCloseDialog = onCloseDialog
+        onDismissRequest = onCloseDialog
     )
 }
 

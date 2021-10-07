@@ -6,6 +6,7 @@ plugins {
 
 dependencies {
     implementation(projects.features.categoryApi)
+    implementation(projects.features.alarmApi)
     implementation(projects.libraries.core)
     implementation(projects.domain)
     implementation(projects.libraries.designsystem)

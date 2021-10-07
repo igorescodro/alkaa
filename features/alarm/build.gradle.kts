@@ -3,6 +3,7 @@ plugins {
 }
 
 dependencies {
+    implementation(projects.features.alarmApi)
     implementation(projects.libraries.core)
     implementation(projects.libraries.navigation)
     implementation(projects.domain)

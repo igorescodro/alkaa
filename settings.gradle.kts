@@ -1,4 +1,5 @@
 include(":app")
+include(":features:alarm-api")
 include(":features:alarm")
 include(":features:task")
 include(":features:category-api")

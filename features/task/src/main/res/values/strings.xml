@@ -23,4 +23,9 @@
 
     <string name="task_snackbar_message_complete">\"%s\" completed</string>
     <string name="task_snackbar_button_undo">Undo</string>
+
+    <string name="task_alarm_permission_dialog_title">Alarm and reminders</string>
+    <string name="task_alarm_permission_dialog_text">In order to alarms work, Alkaa needs the permission to set alarms and reminders. If this permission is not granted, the existing alarms will not work as well.</string>
+    <string name="task_alarm_permission_dialog_confirm">Grant permission</string>
+    <string name="task_alarm_permission_dialog_cancel">Not now</string>
 </resources>

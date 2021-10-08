@@ -8,7 +8,6 @@ object Versions {
     const val targetSdk = 31
     const val minSdk = 24
 
-    const val kotlin = "1.5.10"
     const val material = "1.3.0"
     const val constraint = "2.0.4"
     const val ktx = "1.0.2"
@@ -30,10 +29,10 @@ object Versions {
     const val testRoom = "2.1.0"
     const val barista = "4.0.0"
 
-    const val compose = "1.0.0"
-    const val composeNav = "2.4.0-alpha04"
-    const val composeVm = "1.0.0-alpha06"
-    const val composeActivity = "1.3.0-beta01"
+    const val compose = "1.0.3"
+    const val composeNav = "2.4.0-alpha10"
+    const val composeVm = "1.0.0-alpha07"
+    const val composeActivity = "1.3.1"
 
     const val buildGradle = "7.1.0-alpha08"
 
@@ -41,7 +40,6 @@ object Versions {
 }
 
 object Deps {
-    const val kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
     const val logging = "io.github.microutils:kotlin-logging-jvm:${Versions.logging}"
     val android = AndroidDeps
     val coroutines = CoroutinesDeps
@@ -49,7 +47,6 @@ object Deps {
     val compose = ComposeDeps
     val test = TestDeps
     val quality = QualityDeps
-    val gradle = GradleDeps
 }
 
 object AndroidDeps {
@@ -104,9 +101,4 @@ object TestDeps {
 
 object QualityDeps {
     const val ktlint = "com.pinterest:ktlint:${Versions.ktlint}"
-}
-
-object GradleDeps {
-    const val buildGradle = "com.android.tools.build:gradle:${Versions.buildGradle}"
-    const val kotlinGradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
 }

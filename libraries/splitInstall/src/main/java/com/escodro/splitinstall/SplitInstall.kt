@@ -60,7 +60,7 @@ fun LoadFeature(
 
     val manager = remember(featureName) { SplitInstallManagerFactory.create(context) }
     val isFeatureReady =
-        remember(featureName) { !isFeatureInstalled(manager = manager, featureName = featureName) }
+        remember(featureName) { isFeatureInstalled(manager = manager, featureName = featureName) }
     val initialState =
         remember(featureName) { if (isFeatureReady) FeatureReady else RequestDownload }
     var state by rememberSaveable(featureName) { mutableStateOf(initialState) }

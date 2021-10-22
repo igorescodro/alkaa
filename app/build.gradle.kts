@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.dsl.ManagedVirtualDevice
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
@@ -59,9 +61,45 @@ android {
     }
 
     testOptions {
-        unitTests.isReturnDefaultValues = true
+        devices {
+            add(
+                ManagedVirtualDevice("pixel4api30").apply {
+                    device = "Pixel 4"
+                    apiLevel = 30
+                    systemImageSource = "aosp-atd"
+                    abi = "x86"
+                }
+            )
+            add(
+                ManagedVirtualDevice("pixel2api26").apply {
+                    device = "Pixel 2"
+                    apiLevel = 26
+                    systemImageSource = "aosp"
+                    abi = "x86"
+                }
+            )
+            add(
+                ManagedVirtualDevice("nexus9api29").apply {
+                    device = "Nexus 9"
+                    apiLevel = 29
+                    systemImageSource = "aosp"
+                    abi = "x86"
+                }
+            )
+        }
+        deviceGroups {
+            create("alkaaDevices").apply {
+                targetDevices.addAll(
+                    listOf(
+                        devices.getByName("pixel4api30"),
+                        // TODO add again after tests: devices.getByName("pixel2api26"),
+                        // TODO add again after tests: devices.getByName("nexus9api29")
+                    )
+                )
+            }
+            unitTests.isReturnDefaultValues = true
+        }
     }
-}
 
 dependencies {
     implementation(projects.libraries.core)
@@ -89,6 +127,8 @@ dependencies {
 
     implementation(libs.bundles.compose)
 
+    androidTestImplementation(projects.libraries.test)
+    androidTestImplementation(libs.koin.test)
     androidTestImplementation(libs.bundles.composetest) {
         exclude(group = "androidx.core", module = "core-ktx")
         exclude(group = "androidx.fragment", module = "fragment")

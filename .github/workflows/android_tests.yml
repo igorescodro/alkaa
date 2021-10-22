@@ -17,4 +17,4 @@ jobs:
           distribution: 'adopt'
 
       - name: Run instrumented tests
-        run: ./gradlew -Pandroid.experimental.androidTest.useUnifiedTestPlatform=true alkaaDevicesGroupDebugAndroidTest
+        run: ./gradlew alkaaDevicesGroupDebugAndroidTest -Pandroid.sdk.channel=3

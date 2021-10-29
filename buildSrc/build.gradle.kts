@@ -10,7 +10,7 @@ plugins {
 }
 
 object PluginsVersions {
-    const val gradle = "7.2.0-alpha02"
+    const val gradle = "7.2.0-alpha03"
     const val kotlin = "1.5.30"
     const val detekt = "1.17.1"
 }

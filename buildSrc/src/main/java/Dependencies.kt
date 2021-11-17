@@ -37,6 +37,7 @@ object Versions {
     const val composeNav = "2.4.2"
     const val composeVm = "2.4.1"
     const val composeActivity = "1.3.0"
+    const val composeMaterialYou = "1.0.0-alpha01"
 
     const val accompanist = "0.23.1"
 
@@ -86,6 +87,7 @@ object KoinDeps {
 object ComposeDeps {
     const val ui = "androidx.compose.ui:ui:${Versions.compose}"
     const val material = "androidx.compose.material:material:${Versions.compose}"
+    const val materialYou = "androidx.compose.material3:material3:${Versions.composeMaterialYou}"
     const val tooling = "androidx.compose.ui:ui-tooling:${Versions.compose}"
     const val icons = "androidx.compose.material:material-icons-extended:${Versions.compose}"
     const val navigation = "androidx.navigation:navigation-compose:${Versions.composeNav}"

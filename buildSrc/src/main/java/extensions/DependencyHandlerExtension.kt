@@ -14,6 +14,7 @@ import org.gradle.kotlin.dsl.exclude
 fun DependencyHandler.addComposeDependencies() {
     implementation(Deps.compose.ui)
     implementation(Deps.compose.material)
+    implementation(Deps.compose.materialYou)
     implementation(Deps.compose.tooling)
     implementation(Deps.compose.icons)
 

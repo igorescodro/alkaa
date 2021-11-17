@@ -35,9 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.escodro.core.extension.openUrl
 import com.escodro.designsystem.AlkaaTheme
-import com.escodro.designsystem.blue700
 import com.escodro.designsystem.components.AlkaaToolbar
-import com.escodro.designsystem.lightGreen700
 import com.escodro.preference.R
 import java.util.Locale
 
@@ -71,8 +69,8 @@ private fun AboutContent() {
 private fun ContentHeader() {
     val infiniteTransition = rememberInfiniteTransition()
     val color by infiniteTransition.animateColor(
-        initialValue = blue700,
-        targetValue = lightGreen700,
+        initialValue = MaterialTheme.colorScheme.primary,
+        targetValue = MaterialTheme.colorScheme.tertiary,
         animationSpec = infiniteRepeatable(
             animation = tween(durationMillis = 10_000, easing = LinearEasing),
             repeatMode = RepeatMode.Reverse

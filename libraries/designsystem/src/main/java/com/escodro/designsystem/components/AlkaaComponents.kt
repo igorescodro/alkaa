@@ -10,21 +10,20 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.FloatingActionButton
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.rounded.ArrowBack
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SmallTopAppBar
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
@@ -58,14 +57,14 @@ fun DefaultIconTextContent(
             imageVector = icon,
             contentDescription = stringResource(id = iconContentDescription),
             modifier = Modifier.size(64.dp),
-            tint = MaterialTheme.colors.primary
+            tint = MaterialTheme.colorScheme.primary
         )
         Spacer(modifier = Modifier.height(24.dp))
         Text(
             text = stringResource(id = header),
-            style = MaterialTheme.typography.h6,
+            style = MaterialTheme.typography.bodyLarge,
             textAlign = TextAlign.Center,
-            color = MaterialTheme.colors.onSecondary,
+            color = MaterialTheme.colorScheme.outline,
         )
     }
 }
@@ -85,14 +84,17 @@ fun AlkaaLoadingContent() {
  */
 @Composable
 fun AlkaaToolbar(onUpPress: () -> Unit) {
-    TopAppBar(backgroundColor = Color.Transparent, elevation = 0.dp) {
-        IconButton(onClick = onUpPress, modifier = Modifier.align(Alignment.CenterVertically)) {
-            Icon(
-                imageVector = Icons.Rounded.ArrowBack,
-                contentDescription = stringResource(id = R.string.back_arrow_content_description)
-            )
+    SmallTopAppBar(
+        title = {},
+        navigationIcon = {
+            IconButton(onClick = onUpPress) {
+                Icon(
+                    imageVector = Icons.Rounded.ArrowBack,
+                    contentDescription = stringResource(id = R.string.back_arrow_content_description)
+                )
+            }
         }
-    }
+    )
 }
 
 /**
@@ -103,7 +105,7 @@ fun AlkaaToolbar(onUpPress: () -> Unit) {
  */
 @Composable
 fun AddFloatingButton(@StringRes contentDescription: Int, onClick: () -> Unit) {
-    FloatingActionButton(backgroundColor = MaterialTheme.colors.primary, onClick = onClick) {
+    FloatingActionButton(containerColor = MaterialTheme.colorScheme.primary, onClick = onClick) {
         Icon(
             imageVector = Icons.Outlined.Add,
             contentDescription = stringResource(id = contentDescription)

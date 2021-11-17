@@ -16,13 +16,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Button
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -44,6 +45,7 @@ import java.util.Locale
  * Alkaa about screen.
  */
 @Composable
+@OptIn(ExperimentalMaterial3Api::class)
 fun About(onUpPress: () -> Unit) {
     Scaffold(
         topBar = { AlkaaToolbar(onUpPress = onUpPress) },
@@ -57,7 +59,7 @@ private fun AboutContent() {
         ContentHeader()
         Text(
             text = stringResource(id = R.string.about_description),
-            style = MaterialTheme.typography.body1,
+            style = MaterialTheme.typography.bodyMedium,
             lineHeight = 32.sp,
             modifier = Modifier.padding(16.dp)
         )
@@ -87,7 +89,9 @@ private fun ContentHeader() {
         val appName = stringResource(id = R.string.app_name).lowercase(Locale.getDefault())
         Text(
             text = appName,
-            style = MaterialTheme.typography.h1.copy(color = MaterialTheme.colors.surface)
+            style = MaterialTheme.typography.displayLarge.copy(
+                color = MaterialTheme.colorScheme.surface
+            )
         )
     }
 }

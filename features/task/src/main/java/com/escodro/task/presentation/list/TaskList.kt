@@ -10,14 +10,13 @@ import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.FabPosition
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.SnackbarResult
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material.icons.outlined.ThumbUp
-import androidx.compose.material.rememberScaffoldState
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FabPosition
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -100,6 +99,7 @@ private fun TaskListLoader(
 }
 
 @Composable
+@OptIn(ExperimentalMaterial3Api::class)
 internal fun TaskListScaffold(
     taskHandler: TaskStateHandler,
     categoryHandler: CategoryStateHandler,
@@ -111,14 +111,15 @@ internal fun TaskListScaffold(
     val snackbarTitle = stringResource(id = R.string.task_snackbar_message_complete)
     val snackbarButton = stringResource(id = R.string.task_snackbar_button_undo)
 
+    // TODO re-enable the SnackBar behavior when M3 supports it
     val onShowSnackbar: (TaskWithCategory) -> Unit = { taskWithCategory ->
         coroutineScope.launch {
             val message = String.format(snackbarTitle, taskWithCategory.task.title)
-            when (scaffoldState.snackbarHostState.showSnackbar(message, snackbarButton)) {
-                SnackbarResult.Dismissed -> { /* Do nothing */
-                }
-                SnackbarResult.ActionPerformed -> taskHandler.onCheckedChange(taskWithCategory)
-            }
+            // when (scaffoldState.snackbarHostState.showSnackbar(message, snackbarButton)) {
+            //     SnackbarResult.Dismissed -> { /* Do nothing */
+            //     }
+            //     SnackbarResult.ActionPerformed -> taskHandler.onCheckedChange(taskWithCategory)
+            // }
         }
     }
 
@@ -127,7 +128,6 @@ internal fun TaskListScaffold(
         Scaffold(
             modifier = modifier.fillMaxSize(),
             scaffoldState = scaffoldState,
-            backgroundColor = MaterialTheme.colors.background,
             topBar = { TaskFilter(categoryHandler = categoryHandler) },
             floatingActionButton = {
                 AddFloatingButton(

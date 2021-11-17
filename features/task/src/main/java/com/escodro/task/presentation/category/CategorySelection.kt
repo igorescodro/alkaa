@@ -9,9 +9,9 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -85,7 +85,7 @@ private fun LoadedCategoryList(
 private fun EmptyCategoryList() {
     Text(
         text = stringResource(id = R.string.task_detail_category_empty_list),
-        color = MaterialTheme.colors.onSecondary
+        color = MaterialTheme.colorScheme.outline
     )
 }
 
@@ -99,7 +99,7 @@ private fun CategoryItemChip(
     Surface(
         modifier = Modifier.padding(end = 8.dp),
         shape = CircleShape,
-        color = if (isSelected) Color(category.color) else MaterialTheme.colors.background,
+        color = if (isSelected) Color(category.color) else MaterialTheme.colorScheme.background,
         border = chipBorder(isSelected)
     ) {
         Row(
@@ -118,9 +118,9 @@ private fun CategoryItemChip(
             Text(
                 modifier = Modifier.padding(8.dp),
                 color = if (isSelected) {
-                    MaterialTheme.colors.background
+                    MaterialTheme.colorScheme.background
                 } else {
-                    MaterialTheme.colors.onSecondary
+                    MaterialTheme.colorScheme.outline
                 },
                 text = category.name
             )
@@ -133,7 +133,7 @@ private fun chipBorder(isChipSelected: Boolean): BorderStroke =
     if (isChipSelected) {
         BorderStroke(1.dp, Color.Transparent)
     } else {
-        BorderStroke(1.dp, SolidColor(MaterialTheme.colors.onSecondary))
+        BorderStroke(1.dp, SolidColor(MaterialTheme.colorScheme.outline))
     }
 
 private fun toggleChip(
@@ -159,7 +159,7 @@ fun CategorySelectionListPreview() {
     val categories = listOf(category1, category2, category3)
 
     AlkaaTheme {
-        Surface(color = MaterialTheme.colors.background) {
+        Surface(color = MaterialTheme.colorScheme.background) {
             CategorySelection(
                 state = CategoryState.Loaded(categories),
                 currentCategory = category2.id,
@@ -174,7 +174,7 @@ fun CategorySelectionListPreview() {
 @Composable
 fun CategorySelectionEmptyPreview() {
     AlkaaTheme {
-        Surface(color = MaterialTheme.colors.background) {
+        Surface(color = MaterialTheme.colorScheme.background) {
             CategorySelection(
                 state = CategoryState.Empty,
                 currentCategory = null,

@@ -6,8 +6,8 @@ import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,7 +24,7 @@ internal fun LeadingIcon(
     Icon(
         imageVector = imageVector,
         contentDescription = stringResource(id = contentDescription),
-        tint = MaterialTheme.colors.onSurface.copy(alpha = TrailingLeadingAlpha),
+        tint = MaterialTheme.colorScheme.onSurface.copy(alpha = TrailingLeadingAlpha),
         modifier = modifier
     )
 }

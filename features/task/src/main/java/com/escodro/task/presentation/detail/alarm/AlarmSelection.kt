@@ -12,15 +12,15 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Alarm
 import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material.icons.outlined.Repeat
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
@@ -126,7 +126,7 @@ private fun AlarmIntervalSelection(
             val index = alarmInterval?.index ?: 0
             Text(
                 text = stringArrayResource(id = R.array.task_alarm_repeating)[index],
-                color = MaterialTheme.colors.onSecondary
+                color = MaterialTheme.colorScheme.outline
             )
         }
     }
@@ -137,7 +137,7 @@ private fun AlarmSet(date: Calendar?, onRemoveClick: () -> Unit) {
     Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
         Text(
             text = date?.format() ?: "",
-            color = MaterialTheme.colors.onSecondary,
+            color = MaterialTheme.colorScheme.outline,
         )
         IconButton(onClick = onRemoveClick) {
             Icon(
@@ -155,7 +155,7 @@ private fun NoAlarmSet() {
     Row(verticalAlignment = Alignment.CenterVertically) {
         Text(
             text = stringResource(id = R.string.task_detail_alarm_no_alarm),
-            color = MaterialTheme.colors.onSecondary
+            color = MaterialTheme.colorScheme.outline
         )
     }
 }
@@ -171,7 +171,7 @@ private fun AlarmIntervalDialog(
 
     Dialog(onDismissRequest = { showDialog.value = false }) {
         Surface(
-            color = MaterialTheme.colors.background,
+            color = MaterialTheme.colorScheme.background,
             modifier = Modifier.fillMaxWidth()
         ) {
             val intervalList = stringArrayResource(id = R.array.task_alarm_repeating)
@@ -247,7 +247,7 @@ private fun AlarmPermissionDialog(
 @Preview
 @Composable
 fun AlarmSetSelectionPreview() {
-    Surface(color = MaterialTheme.colors.background) {
+    Surface(color = MaterialTheme.colorScheme.background) {
         AlkaaTheme {
             AlarmSelection(
                 Calendar.getInstance(),
@@ -264,7 +264,7 @@ fun AlarmSetSelectionPreview() {
 @Preview
 @Composable
 fun AlarmNotSetSelectionPreview() {
-    Surface(color = MaterialTheme.colors.background) {
+    Surface(color = MaterialTheme.colorScheme.background) {
         AlkaaTheme {
             AlarmSelection(
                 null,

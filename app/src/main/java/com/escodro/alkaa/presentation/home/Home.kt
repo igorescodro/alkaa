@@ -2,21 +2,19 @@ package com.escodro.alkaa.presentation.home
 
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.animateColorAsState
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.BottomAppBar
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -38,7 +36,7 @@ fun Home(
     onAboutClick: () -> Unit,
     onTrackerClick: () -> Unit,
     onTaskSheetOpen: () -> Unit,
-    onCategorySheetOpen: (Long?) -> Unit
+    onCategorySheetOpen: (Long?) -> Unit,
 ) {
     val (currentSection, setCurrentSection) = rememberSaveable { mutableStateOf(HomeSection.Tasks) }
     val navItems = HomeSection.values().toList()
@@ -63,13 +61,13 @@ fun Home(
     }
 }
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
+@OptIn(ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class)
 private fun AlkaaHomeScaffold(
     homeSection: HomeSection,
     modifier: Modifier,
     navItems: List<HomeSection>,
-    actions: HomeActions
+    actions: HomeActions,
 ) {
     Scaffold(
         topBar = {
@@ -121,15 +119,13 @@ private fun AlkaaContent(
 
 @Composable
 private fun AlkaaTopBar(currentSection: HomeSection) {
-    TopAppBar(backgroundColor = MaterialTheme.colors.background, elevation = 0.dp) {
-        Box(modifier = Modifier.fillMaxSize()) {
+    CenterAlignedTopAppBar(
+        title = {
             Text(
-                modifier = Modifier.align(Alignment.Center),
-                style = MaterialTheme.typography.h5,
-                text = stringResource(currentSection.title)
+                style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Thin),
+                text = stringResource(currentSection.title),
             )
-        }
-    }
+        })
 }
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -137,16 +133,16 @@ private fun AlkaaTopBar(currentSection: HomeSection) {
 private fun AlkaaBottomNav(
     currentSection: HomeSection,
     onSectionSelect: (HomeSection) -> Unit,
-    items: List<HomeSection>
+    items: List<HomeSection>,
 ) {
-    BottomAppBar(backgroundColor = MaterialTheme.colors.background) {
+    BottomAppBar(backgroundColor = MaterialTheme.colorScheme.background) {
         items.forEach { section ->
             val selected = section == currentSection
             val colorState = animateColorAsState(
                 if (selected) {
-                    MaterialTheme.colors.primary
+                    MaterialTheme.colorScheme.primary
                 } else {
-                    MaterialTheme.colors.onSecondary
+                    MaterialTheme.colorScheme.outline
                 }
             )
             AlkaaBottomIcon(
@@ -164,7 +160,7 @@ private fun AlkaaBottomIcon(
     section: HomeSection,
     tint: Color,
     onSectionSelect: (HomeSection) -> Unit,
-    modifier: Modifier
+    modifier: Modifier,
 ) {
     val title = stringResource(section.title)
     IconButton(

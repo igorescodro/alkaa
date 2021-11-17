@@ -7,11 +7,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -36,7 +36,7 @@ internal fun TaskTrackerList(list: List<Tracker.CategoryInfo>, modifier: Modifie
 @Composable
 @Suppress("MagicNumber")
 private fun TrackerItem(item: Tracker.CategoryInfo, modifier: Modifier = Modifier) {
-    val tint = item.color?.let { Color(it) } ?: MaterialTheme.colors.onSecondary
+    val tint = item.color?.let { Color(it) } ?: MaterialTheme.colorScheme.outline
     val name = item.name ?: stringResource(id = R.string.tracker_name_no_category)
     Row(
         verticalAlignment = Alignment.CenterVertically,

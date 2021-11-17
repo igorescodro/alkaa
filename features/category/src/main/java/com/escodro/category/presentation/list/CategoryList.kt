@@ -20,14 +20,15 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.FabPosition
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.outlined.ThumbUp
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FabPosition
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -91,6 +92,7 @@ private fun CategoryListLoader(
 }
 
 @Composable
+@OptIn(ExperimentalMaterial3Api::class)
 private fun CategoryListScaffold(
     modifier: Modifier,
     viewState: CategoryState,
@@ -145,6 +147,7 @@ private fun CategoryItem(
 ) {
     Card(
         elevation = 4.dp,
+        backgroundColor = MaterialTheme.colorScheme.surfaceVariant,
         modifier = modifier
             .fillMaxWidth()
             .padding(all = 8.dp)
@@ -172,7 +175,7 @@ private fun CategoryItemIcon(color: Int) {
         Icon(
             imageVector = Icons.Default.Bookmark,
             contentDescription = stringResource(id = R.string.category_icon_cd),
-            tint = MaterialTheme.colors.background
+            tint = MaterialTheme.colorScheme.background
         )
     }
 }

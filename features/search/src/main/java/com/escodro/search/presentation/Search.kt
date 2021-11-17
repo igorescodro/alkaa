@@ -15,15 +15,15 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
 import androidx.compose.material.TextField
-import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.ExitToApp
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -75,6 +75,7 @@ private fun SearchLoader(
 }
 
 @Composable
+@OptIn(ExperimentalMaterial3Api::class)
 internal fun SearchScaffold(
     modifier: Modifier = Modifier,
     viewState: SearchViewState,
@@ -84,7 +85,6 @@ internal fun SearchScaffold(
 ) {
     Scaffold(
         modifier = modifier.fillMaxSize(),
-        backgroundColor = MaterialTheme.colors.background
     ) {
         Column(modifier = Modifier.fillMaxWidth()) {
             SearchTextField(query, onTextChange = setQuery)
@@ -116,8 +116,7 @@ private fun SearchTextField(text: String, onTextChange: (String) -> Unit) {
         },
         modifier = Modifier
             .fillMaxWidth()
-            .padding(12.dp),
-        colors = TextFieldDefaults.textFieldColors(backgroundColor = MaterialTheme.colors.surface)
+            .padding(12.dp)
     )
 }
 
@@ -155,10 +154,10 @@ private fun SearchItem(task: TaskSearchItem, onItemClick: (Long) -> Unit) {
 
         if (task.completed) {
             textDecoration = TextDecoration.LineThrough
-            circleColor = MaterialTheme.colors.onSecondary
+            circleColor = MaterialTheme.colorScheme.outline
         } else {
             textDecoration = TextDecoration.None
-            circleColor = task.categoryColor ?: MaterialTheme.colors.background
+            circleColor = task.categoryColor ?: MaterialTheme.colorScheme.surfaceVariant
         }
 
         Row(modifier = Modifier.padding(horizontal = 16.dp)) {

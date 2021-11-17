@@ -30,6 +30,7 @@ One of the main goals of Alkaa is too use all the latest libraries and tools ava
 
 - Application entirely written in [Kotlin](https://kotlinlang.org)
 - Complete migrated to [Jetpack Compose](https://developer.android.com/jetpack/compose)
+- Following the [Material You](https://m3.material.io/) guidelines and dynamic color
 - Asynchronous processing using [Coroutines](https://kotlin.github.io/kotlinx.coroutines/)
 - [Dynamic delivery](https://developer.android.com/guide/playcore/feature-delivery) for the _Task
   Tracker_ feature

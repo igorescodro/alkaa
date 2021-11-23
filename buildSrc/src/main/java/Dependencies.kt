@@ -16,7 +16,8 @@ object Versions {
 
     const val coroutines = "1.4.0"
 
-    const val logging = "2.0.6"
+    const val logging = "2.1.0"
+    const val slf4j = "1.7.30"
 
     const val koin = "3.1.0"
 
@@ -41,6 +42,7 @@ object Versions {
 
 object Deps {
     const val logging = "io.github.microutils:kotlin-logging-jvm:${Versions.logging}"
+    const val slf4j = "com.gitlab.mvysny.slf4j:slf4j-handroid:${Versions.slf4j}"
     val android = AndroidDeps
     val coroutines = CoroutinesDeps
     val koin = KoinDeps

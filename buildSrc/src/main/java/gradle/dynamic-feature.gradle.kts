@@ -15,6 +15,7 @@ android {
 
 dependencies {
     implementation(Deps.logging)
+    implementation(Deps.slf4j)
     implementation(project(":app"))
     androidTestImplementation(project(":app"))
 

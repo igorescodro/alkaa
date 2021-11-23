@@ -23,4 +23,5 @@ android {
 
 dependencies {
     implementation(Deps.logging)
+    implementation(Deps.slf4j)
 }

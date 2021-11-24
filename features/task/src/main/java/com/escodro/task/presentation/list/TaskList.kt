@@ -2,12 +2,12 @@ package com.escodro.task.presentation.list
 
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.GridCells
-import androidx.compose.foundation.lazy.LazyVerticalGrid
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.FabPosition
@@ -25,6 +25,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -33,6 +34,7 @@ import com.escodro.categoryapi.model.Category
 import com.escodro.categoryapi.presentation.CategoryListViewModel
 import com.escodro.categoryapi.presentation.CategoryState
 import com.escodro.designsystem.AlkaaTheme
+import com.escodro.designsystem.WindowSize
 import com.escodro.designsystem.components.AddFloatingButton
 import com.escodro.designsystem.components.AlkaaLoadingContent
 import com.escodro.designsystem.components.DefaultIconTextContent
@@ -41,6 +43,7 @@ import com.escodro.task.model.Task
 import com.escodro.task.model.TaskWithCategory
 import com.escodro.task.presentation.category.CategorySelection
 import com.escodro.task.presentation.detail.main.CategoryId
+import com.escodro.task.presentation.detail.main.TaskDetailSection
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.getViewModel
 import java.util.Calendar
@@ -56,15 +59,22 @@ import java.util.Calendar
 @Composable
 fun TaskListSection(
     modifier: Modifier = Modifier,
+    windowSize: WindowSize,
     onItemClick: (Long) -> Unit,
     onBottomShow: () -> Unit
 ) {
-    TaskListLoader(modifier = modifier, onItemClick = onItemClick, onAddClick = onBottomShow)
+    TaskListLoader(
+        modifier = modifier,
+        windowSize = windowSize,
+        onItemClick = onItemClick,
+        onAddClick = onBottomShow
+    )
 }
 
 @Composable
 private fun TaskListLoader(
     modifier: Modifier = Modifier,
+    windowSize: WindowSize,
     onItemClick: (Long) -> Unit,
     onAddClick: () -> Unit,
     taskListViewModel: TaskListViewModel = getViewModel(),
@@ -93,6 +103,7 @@ private fun TaskListLoader(
     )
 
     TaskListScaffold(
+        windowSize = windowSize,
         taskHandler = taskHandler,
         categoryHandler = categoryHandler,
         modifier = modifier,
@@ -101,6 +112,7 @@ private fun TaskListLoader(
 
 @Composable
 internal fun TaskListScaffold(
+    windowSize: WindowSize,
     taskHandler: TaskStateHandler,
     categoryHandler: CategoryStateHandler,
     modifier: Modifier = Modifier,
@@ -122,10 +134,12 @@ internal fun TaskListScaffold(
         }
     }
 
-    BoxWithConstraints {
-        val fabPosition = if (this.maxHeight > maxWidth) FabPosition.Center else FabPosition.End
+    val fabPosition = if (windowSize == WindowSize.Compact) FabPosition.Center else FabPosition.End
+    var taskId by remember { mutableStateOf(0L) }
+
+    Row(modifier = Modifier.fillMaxSize()) {
         Scaffold(
-            modifier = modifier.fillMaxSize(),
+            modifier = modifier.weight(1F),
             scaffoldState = scaffoldState,
             backgroundColor = MaterialTheme.colors.background,
             topBar = { TaskFilter(categoryHandler = categoryHandler) },
@@ -137,24 +151,60 @@ internal fun TaskListScaffold(
             },
             floatingActionButtonPosition = fabPosition
         ) {
-            Crossfade(taskHandler.state) { state ->
-                when (state) {
-                    TaskListViewState.Loading -> AlkaaLoadingContent()
-                    is TaskListViewState.Error -> TaskListError()
-                    is TaskListViewState.Loaded -> {
-                        val taskList = state.items
-                        TaskListContent(
-                            taskList = taskList,
-                            onItemClick = taskHandler.onItemClick,
-                            onCheckedChange = { taskWithCategory ->
-                                taskHandler.onCheckedChange(taskWithCategory)
-                                onShowSnackbar(taskWithCategory)
-                            }
-                        )
+            if (windowSize == WindowSize.Compact) {
+                TaskListContent(
+                    listState = taskHandler.state,
+                    onItemClick = taskHandler.onItemClick,
+                    onCheckedChange = { task ->
+                        taskHandler.onCheckedChange(task)
+                        onShowSnackbar(task)
                     }
-                    TaskListViewState.Empty -> TaskListEmpty()
-                }
+                )
+            } else {
+                TaskListContent(
+                    listState = taskHandler.state,
+                    onItemClick = { taskId = it },
+                    onCheckedChange = { task ->
+                        taskHandler.onCheckedChange(task)
+                        onShowSnackbar(task)
+
+                        if (task.task.id == taskId) {
+                            taskId = 0L
+                        }
+                    }
+                )
             }
+        }
+        if (windowSize != WindowSize.Compact) {
+            Spacer(modifier = Modifier.weight(0.1F))
+            TaskDetailSection(
+                modifier = modifier.weight(2F),
+                taskId = taskId,
+                onUpPress = { taskId = 0L }
+            )
+        }
+    }
+}
+
+@Composable
+private fun TaskListContent(
+    listState: TaskListViewState,
+    onItemClick: (Long) -> Unit,
+    onCheckedChange: (TaskWithCategory) -> Unit,
+) {
+    Crossfade(listState) { state ->
+        when (state) {
+            TaskListViewState.Loading -> AlkaaLoadingContent()
+            is TaskListViewState.Error -> TaskListError()
+            is TaskListViewState.Loaded -> {
+                val taskList = state.items
+                TaskListItems(
+                    taskList = taskList,
+                    onItemClick = onItemClick,
+                    onCheckedChange = onCheckedChange
+                )
+            }
+            TaskListViewState.Empty -> TaskListEmpty()
         }
     }
 }
@@ -171,28 +221,24 @@ private fun TaskFilter(categoryHandler: CategoryStateHandler) {
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-private fun TaskListContent(
+private fun TaskListItems(
     taskList: List<TaskWithCategory>,
     onItemClick: (Long) -> Unit,
     onCheckedChange: (TaskWithCategory) -> Unit
 ) {
-    BoxWithConstraints(modifier = Modifier.padding(start = 8.dp, end = 8.dp)) {
-        val cellCount = if (this.maxHeight > maxWidth) 1 else 2
-        LazyVerticalGrid(
-            cells = GridCells.Fixed(cellCount),
-            contentPadding = PaddingValues(bottom = 48.dp)
-        ) {
-            items(
-                items = taskList,
-                itemContent = { task ->
-                    TaskItem(
-                        task = task,
-                        onItemClick = onItemClick,
-                        onCheckedChange = onCheckedChange
-                    )
-                }
-            )
-        }
+    LazyColumn(
+        contentPadding = PaddingValues(bottom = 48.dp)
+    ) {
+        items(
+            items = taskList,
+            itemContent = { task ->
+                TaskItem(
+                    task = task,
+                    onItemClick = onItemClick,
+                    onCheckedChange = onCheckedChange
+                )
+            }
+        )
     }
 }
 
@@ -236,6 +282,7 @@ fun TaskListScaffoldLoaded() {
 
     AlkaaTheme {
         TaskListScaffold(
+            windowSize = WindowSize.Compact,
             taskHandler = TaskStateHandler(state = state),
             categoryHandler = CategoryStateHandler(),
             modifier = Modifier,
@@ -252,6 +299,7 @@ fun TaskListScaffoldEmpty() {
 
     AlkaaTheme {
         TaskListScaffold(
+            windowSize = WindowSize.Compact,
             taskHandler = TaskStateHandler(state = state),
             categoryHandler = CategoryStateHandler(),
             modifier = Modifier,
@@ -268,6 +316,7 @@ fun TaskListScaffoldError() {
 
     AlkaaTheme {
         TaskListScaffold(
+            windowSize = WindowSize.Compact,
             taskHandler = TaskStateHandler(state = state),
             categoryHandler = CategoryStateHandler(),
             modifier = Modifier,

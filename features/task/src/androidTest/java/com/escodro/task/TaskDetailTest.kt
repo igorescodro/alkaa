@@ -1,5 +1,6 @@
 package com.escodro.task
 
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
@@ -58,6 +59,7 @@ internal class TaskDetailTest {
         composeTestRule.setContent {
             AlkaaTheme {
                 TaskDetailRouter(
+                    modifier = Modifier,
                     detailViewState = state,
                     categoryViewState = CategoryState.Loaded(listOf()),
                     actions = TaskDetailActions()

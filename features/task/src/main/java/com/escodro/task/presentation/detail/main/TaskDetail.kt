@@ -4,6 +4,8 @@ import android.os.Parcelable
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
@@ -11,8 +13,8 @@ import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Description
+import androidx.compose.material.icons.outlined.Book
 import androidx.compose.material.icons.outlined.Bookmark
-import androidx.compose.material.icons.outlined.Close
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -48,13 +50,14 @@ import org.koin.androidx.compose.getViewModel
  * @param onUpPress action to be called when the back button is pressed
  */
 @Composable
-fun TaskDetailSection(taskId: Long, onUpPress: () -> Unit) {
-    TaskDetailLoader(taskId = taskId, onUpPress = onUpPress)
+fun TaskDetailSection(modifier: Modifier = Modifier, taskId: Long, onUpPress: () -> Unit) {
+    TaskDetailLoader(modifier = modifier, taskId = taskId, onUpPress = onUpPress)
 }
 
 @Suppress("LongParameterList")
 @Composable
 private fun TaskDetailLoader(
+    modifier: Modifier,
     taskId: Long,
     onUpPress: () -> Unit,
     detailViewModel: TaskDetailViewModel = getViewModel(),
@@ -82,6 +85,7 @@ private fun TaskDetailLoader(
     )
 
     TaskDetailRouter(
+        modifier = modifier,
         detailViewState = detailViewState,
         categoryViewState = categoryViewState,
         actions = taskDetailActions
@@ -90,11 +94,12 @@ private fun TaskDetailLoader(
 
 @Composable
 internal fun TaskDetailRouter(
+    modifier: Modifier,
     detailViewState: TaskDetailState,
     categoryViewState: CategoryState,
     actions: TaskDetailActions
 ) {
-    Scaffold(topBar = { AlkaaToolbar(onUpPress = actions.onUpPress) }) {
+    Scaffold(modifier = modifier, topBar = { AlkaaToolbar(onUpPress = actions.onUpPress) }) {
         Crossfade(detailViewState) { state ->
             when (state) {
                 TaskDetailState.Loading -> AlkaaLoadingContent()
@@ -117,7 +122,7 @@ private fun TaskDetailContent(
     actions: TaskDetailActions
 ) {
     Surface(color = MaterialTheme.colors.background) {
-        Column {
+        Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
             TaskTitleTextField(text = task.title, onTitleChange = actions.onTitleChange)
             TaskDetailSectionContent(
                 imageVector = Icons.Outlined.Bookmark,
@@ -147,7 +152,7 @@ private fun TaskDetailContent(
 @Composable
 private fun TaskDetailError() {
     DefaultIconTextContent(
-        icon = Icons.Outlined.Close,
+        icon = Icons.Outlined.Book,
         iconContentDescription = R.string.task_detail_cd_error,
         header = R.string.task_detail_header_error
     )

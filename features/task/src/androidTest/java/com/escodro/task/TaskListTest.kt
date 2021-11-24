@@ -8,6 +8,7 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.test.platform.app.InstrumentationRegistry
 import com.escodro.categoryapi.model.Category
 import com.escodro.designsystem.AlkaaTheme
+import com.escodro.designsystem.WindowSize
 import com.escodro.task.model.Task
 import com.escodro.task.model.TaskWithCategory
 import com.escodro.task.presentation.list.CategoryStateHandler
@@ -74,6 +75,7 @@ internal class TaskListTest {
         composeTestRule.setContent {
             AlkaaTheme {
                 TaskListScaffold(
+                    windowSize = WindowSize.Compact,
                     taskHandler = TaskStateHandler(state = state),
                     categoryHandler = CategoryStateHandler(),
                     modifier = Modifier,

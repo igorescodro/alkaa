@@ -5,8 +5,8 @@
     <string name="task_list_cd_empty_list">Sem tarefas</string>
     <string name="task_list_header_error">Ops… Isso é embaraçoso…</string>
     <string name="task_list_cd_error">Algo deu errado</string>
-    <string name="task_detail_header_error">A tarefa não está mais disponível</string>
-    <string name="task_detail_cd_error">Tarefa não encontrada</string>
+    <string name="task_detail_header_error">Nenhuma tarefa selcionada</string>
+    <string name="task_detail_cd_error">As informações da tarefa selecionada aparecerão aqui</string>
     <string name="task_detail_cd_icon_category">Categorias</string>
     <string name="task_detail_cd_icon_description">Descrição</string>
     <string name="task_detail_category_empty_list">Sem categorias</string>

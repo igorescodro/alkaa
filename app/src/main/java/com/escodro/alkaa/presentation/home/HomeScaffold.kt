@@ -6,6 +6,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.escodro.alkaa.model.HomeSection
+import com.escodro.designsystem.WindowSize
 
 @Composable
 internal fun CompactScaffold(
@@ -20,7 +21,7 @@ internal fun CompactScaffold(
             AlkaaTopBar(currentSection = homeSection)
         },
         content = {
-            AlkaaContent(homeSection, modifier, actions, onShowBottomSheet)
+            AlkaaContent(WindowSize.Compact, homeSection, modifier, actions, onShowBottomSheet)
         },
         bottomBar = {
             AlkaaBottomNav(
@@ -51,7 +52,7 @@ internal fun ExpandedScaffold(
                     onSectionSelect = actions.setCurrentSection,
                     items = navItems
                 )
-                AlkaaContent(homeSection, modifier, actions, onShowBottomSheet)
+                AlkaaContent(WindowSize.Expanded, homeSection, modifier, actions, onShowBottomSheet)
             }
         },
     )

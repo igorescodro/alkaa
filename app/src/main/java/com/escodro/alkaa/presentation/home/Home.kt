@@ -204,6 +204,7 @@ private fun AlkaaBottomSheetLayout(
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 internal fun AlkaaContent(
+    windowSize: WindowSize,
     homeSection: HomeSection,
     modifier: Modifier,
     actions: HomeActions,
@@ -212,6 +213,7 @@ internal fun AlkaaContent(
     when (homeSection) {
         HomeSection.Tasks ->
             TaskListSection(
+                windowSize = windowSize,
                 modifier = modifier,
                 onItemClick = actions.onTaskClick,
                 onBottomShow = { onShowBottomSheet(SheetContentState.TaskListSheet) }

@@ -5,8 +5,8 @@
     <string name="task_list_cd_empty_list">That\'s all clear</string>
     <string name="task_list_header_error">Ops… That\'s embarrassing…</string>
     <string name="task_list_cd_error">Something went wrong</string>
-    <string name="task_detail_header_error">This task is no longer available</string>
-    <string name="task_detail_cd_error">Task not found</string>
+    <string name="task_detail_header_error">No task selected</string>
+    <string name="task_detail_cd_error">The selected task info will appear here</string>
 
     <string name="task_detail_cd_icon_category">Categories</string>
     <string name="task_detail_cd_icon_description">Description</string>

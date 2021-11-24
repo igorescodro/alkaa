@@ -12,8 +12,8 @@ import androidx.compose.runtime.remember
 import androidx.core.view.WindowInsetsControllerCompat
 import com.escodro.alkaa.navigation.NavGraph
 import com.escodro.alkaa.presentation.model.AppThemeOptions
-import com.escodro.alkaa.rememberWindowSizeClass
 import com.escodro.designsystem.AlkaaTheme
+import com.escodro.designsystem.rememberWindowSizeClass
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 /**
@@ -29,8 +29,8 @@ internal class MainActivity : ComponentActivity() {
             val isDarkTheme = rememberIsDarkTheme()
             updateTheme(isDarkTheme)
 
-            AlkaaTheme(darkTheme = isDarkTheme, windowSizeClass = windowSizeClass) {
-                NavGraph()
+            AlkaaTheme(darkTheme = isDarkTheme) {
+                NavGraph(windowSizeClass = windowSizeClass)
             }
         }
     }

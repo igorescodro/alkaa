@@ -6,4 +6,5 @@ plugins {
 dependencies {
     implementation(Deps.koin.android)
     implementation(Deps.compose.viewModel)
+    implementation(Deps.android.windowManager)
 }

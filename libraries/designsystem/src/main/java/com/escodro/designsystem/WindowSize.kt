@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.escodro.alkaa
+package com.escodro.designsystem
 
 import android.app.Activity
 import androidx.annotation.VisibleForTesting

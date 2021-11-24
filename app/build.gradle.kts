@@ -75,7 +75,6 @@ dependencies {
     implementation(Deps.compose.activity)
     implementation(Deps.accompanist.animation)
     implementation(Deps.android.playCore)
-    implementation(Deps.android.windowManager)
     implementation(Deps.koin.android)
 
     addComposeDependencies()

@@ -14,8 +14,8 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.dialog
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
-import com.escodro.alkaa.WindowSize
 import com.escodro.alkaa.presentation.home.Home
+import com.escodro.designsystem.WindowSize
 import com.escodro.navigation.DestinationArgs
 import com.escodro.navigation.DestinationDeepLink
 import com.escodro.navigation.Destinations

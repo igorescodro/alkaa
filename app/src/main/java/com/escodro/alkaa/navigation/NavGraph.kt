@@ -14,6 +14,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.dialog
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
+import com.escodro.alkaa.WindowSize
 import com.escodro.alkaa.presentation.home.Home
 import com.escodro.navigation.DestinationArgs
 import com.escodro.navigation.DestinationDeepLink
@@ -33,7 +34,7 @@ import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 @OptIn(ExperimentalAnimationApi::class)
 @Suppress("LongMethod", "MagicNumber")
 @Composable
-fun NavGraph(startDestination: String = Destinations.Home) {
+fun NavGraph(startDestination: String = Destinations.Home, windowSizeClass: WindowSize,) {
     val navController = rememberAnimatedNavController()
     val context = LocalContext.current
 
@@ -57,6 +58,7 @@ fun NavGraph(startDestination: String = Destinations.Home) {
             }
         ) {
             Home(
+                windowSizeClass = windowSizeClass,
                 onTaskClick = actions.openTaskDetail,
                 onAboutClick = actions.openAbout,
                 onTrackerClick = actions.openTracker

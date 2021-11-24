@@ -3,7 +3,10 @@ package com.escodro.alkaa.presentation.home
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.animateColorAsState
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -17,7 +20,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetState
 import androidx.compose.material.ModalBottomSheetValue
-import androidx.compose.material.Scaffold
+import androidx.compose.material.NavigationRail
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.rememberModalBottomSheetState
@@ -36,6 +39,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.escodro.alkaa.WindowSize
 import com.escodro.alkaa.model.HomeSection
 import com.escodro.category.presentation.bottomsheet.CategoryBottomSheet
 import com.escodro.category.presentation.list.CategoryListSection
@@ -51,10 +55,16 @@ import kotlinx.coroutines.launch
  * Alkaa Home screen.
  */
 @Composable
-fun Home(onTaskClick: (Long) -> Unit, onAboutClick: () -> Unit, onTrackerClick: () -> Unit) {
+fun Home(
+    windowSizeClass: WindowSize,
+    onTaskClick: (Long) -> Unit,
+    onAboutClick: () -> Unit,
+    onTrackerClick: () -> Unit
+) {
     val (currentSection, setCurrentSection) = rememberSaveable { mutableStateOf(HomeSection.Tasks) }
     val navItems = HomeSection.values().toList()
-    val homeModifier = Modifier.padding(bottom = 56.dp)
+    val homeModifier =
+        if (windowSizeClass == WindowSize.Compact) Modifier.padding(bottom = 56.dp) else Modifier
 
     val actions = HomeActions(
         onTaskClick = onTaskClick,
@@ -65,6 +75,7 @@ fun Home(onTaskClick: (Long) -> Unit, onAboutClick: () -> Unit, onTrackerClick: 
 
     Crossfade(currentSection) { homeSection ->
         AlkaaHomeScaffold(
+            windowSizeClass = windowSizeClass,
             homeSection = homeSection,
             modifier = homeModifier,
             navItems = navItems,
@@ -76,6 +87,7 @@ fun Home(onTaskClick: (Long) -> Unit, onAboutClick: () -> Unit, onTrackerClick: 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 private fun AlkaaHomeScaffold(
+    windowSizeClass: WindowSize,
     homeSection: HomeSection,
     modifier: Modifier,
     navItems: List<HomeSection>,
@@ -113,21 +125,43 @@ private fun AlkaaHomeScaffold(
         sheetContentState = sheetContentState,
         onHideBottomSheet = onHideBottomSheet
     ) {
-        Scaffold(
-            topBar = {
-                AlkaaTopBar(currentSection = homeSection)
-            },
-            content = {
-                AlkaaContent(homeSection, modifier, actions, onShowBottomSheet)
-            },
-            bottomBar = {
-                AlkaaBottomNav(
-                    currentSection = homeSection,
-                    onSectionSelect = actions.setCurrentSection,
-                    items = navItems
+        if (windowSizeClass == WindowSize.Compact) {
+            CompactScaffold(modifier, homeSection, actions, onShowBottomSheet, navItems)
+        } else {
+            ExpandedScaffold(modifier, homeSection, actions, onShowBottomSheet, navItems)
+        }
+    }
+}
+
+@Composable
+internal fun AlkaaNavRail(
+    currentSection: HomeSection,
+    onSectionSelect: (HomeSection) -> Unit,
+    items: List<HomeSection>
+) {
+    NavigationRail {
+        Column(
+            modifier = Modifier
+                .fillMaxHeight()
+                .padding(horizontal = 16.dp),
+            verticalArrangement = Arrangement.Center
+        ) {
+            items.forEach { section ->
+                val selected = section == currentSection
+                val colorState = animateColorAsState(
+                    if (selected) {
+                        MaterialTheme.colors.primary
+                    } else {
+                        MaterialTheme.colors.onSecondary
+                    }
+                )
+                AlkaaNavIcon(
+                    section = section,
+                    tint = colorState.value,
+                    onSectionSelect = onSectionSelect,
                 )
             }
-        )
+        }
     }
 }
 
@@ -169,7 +203,7 @@ private fun AlkaaBottomSheetLayout(
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-private fun AlkaaContent(
+internal fun AlkaaContent(
     homeSection: HomeSection,
     modifier: Modifier,
     actions: HomeActions,
@@ -201,7 +235,7 @@ private fun AlkaaContent(
 }
 
 @Composable
-private fun AlkaaTopBar(currentSection: HomeSection) {
+internal fun AlkaaTopBar(currentSection: HomeSection) {
     TopAppBar(backgroundColor = MaterialTheme.colors.background, elevation = 0.dp) {
         Box(modifier = Modifier.fillMaxSize()) {
             Text(
@@ -215,7 +249,7 @@ private fun AlkaaTopBar(currentSection: HomeSection) {
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-private fun AlkaaBottomNav(
+internal fun AlkaaBottomNav(
     currentSection: HomeSection,
     onSectionSelect: (HomeSection) -> Unit,
     items: List<HomeSection>
@@ -230,7 +264,7 @@ private fun AlkaaBottomNav(
                     MaterialTheme.colors.onSecondary
                 }
             )
-            AlkaaBottomIcon(
+            AlkaaNavIcon(
                 section = section,
                 tint = colorState.value,
                 onSectionSelect = onSectionSelect,
@@ -241,11 +275,11 @@ private fun AlkaaBottomNav(
 }
 
 @Composable
-private fun AlkaaBottomIcon(
+private fun AlkaaNavIcon(
+    modifier: Modifier = Modifier,
     section: HomeSection,
     tint: Color,
-    onSectionSelect: (HomeSection) -> Unit,
-    modifier: Modifier
+    onSectionSelect: (HomeSection) -> Unit
 ) {
     val title = stringResource(section.title)
     IconButton(

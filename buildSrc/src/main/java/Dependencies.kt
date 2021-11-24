@@ -15,6 +15,7 @@ object Versions {
     const val playCore = "1.10.0"
     const val dataStore = "1.0.0"
     const val glance = "1.0.0-alpha01"
+    const val windowManager = "1.0.0-beta04"
 
     const val coroutines = "1.4.0"
 
@@ -62,6 +63,7 @@ object AndroidDeps {
     const val playCore = "com.google.android.play:core:${Versions.playCore}"
     const val dataStore = "androidx.datastore:datastore-preferences:${Versions.dataStore}"
     const val glance = "androidx.glance:glance-appwidget:${Versions.glance}"
+    const val windowManager = "androidx.window:window:${Versions.windowManager}"
     val room = RoomDeps
 }
 

@@ -2,11 +2,14 @@ package com.escodro.task.presentation.list
 
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.ExperimentalMaterialApi
@@ -176,7 +179,13 @@ internal fun TaskListScaffold(
             }
         }
         if (windowSize != WindowSize.Compact) {
-            Spacer(modifier = Modifier.weight(0.1F))
+            Spacer(
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .padding(horizontal = 8.dp)
+                    .width(2.dp)
+                    .background(MaterialTheme.colors.onSecondary)
+            )
             TaskDetailSection(
                 modifier = modifier.weight(2F),
                 taskId = taskId,

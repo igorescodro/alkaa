@@ -34,7 +34,7 @@ import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 @OptIn(ExperimentalAnimationApi::class)
 @Suppress("LongMethod", "MagicNumber")
 @Composable
-fun NavGraph(startDestination: String = Destinations.Home, windowSizeClass: WindowSize,) {
+fun NavGraph(startDestination: String = Destinations.Home, windowSizeClass: WindowSize) {
     val navController = rememberAnimatedNavController()
     val context = LocalContext.current
 
@@ -58,7 +58,7 @@ fun NavGraph(startDestination: String = Destinations.Home, windowSizeClass: Wind
             }
         ) {
             Home(
-                windowSizeClass = windowSizeClass,
+                windowSize = windowSize,
                 onTaskClick = actions.openTaskDetail,
                 onAboutClick = actions.openAbout,
                 onTrackerClick = actions.openTracker

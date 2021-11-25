@@ -17,8 +17,8 @@ internal class TrackerActivity : ComponentActivity() {
 
         setContent {
             AlkaaTheme {
-                val windowSizeClass = rememberWindowSizeClass()
-                TrackerSection(windowSize = windowSizeClass, onUpPress = { finish() })
+                val windowSize = rememberWindowSizeClass()
+                TrackerSection(windowSize = windowSize, onUpPress = { finish() })
             }
         }
     }

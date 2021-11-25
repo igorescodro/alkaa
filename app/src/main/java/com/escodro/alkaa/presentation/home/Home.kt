@@ -56,7 +56,7 @@ import kotlinx.coroutines.launch
  */
 @Composable
 fun Home(
-    windowSizeClass: WindowSize,
+    windowSize: WindowSize,
     onTaskClick: (Long) -> Unit,
     onAboutClick: () -> Unit,
     onTrackerClick: () -> Unit
@@ -64,7 +64,7 @@ fun Home(
     val (currentSection, setCurrentSection) = rememberSaveable { mutableStateOf(HomeSection.Tasks) }
     val navItems = HomeSection.values().toList()
     val homeModifier =
-        if (windowSizeClass == WindowSize.Compact) Modifier.padding(bottom = 56.dp) else Modifier
+        if (windowSize == WindowSize.Compact) Modifier.padding(bottom = 56.dp) else Modifier
 
     val actions = HomeActions(
         onTaskClick = onTaskClick,
@@ -75,7 +75,7 @@ fun Home(
 
     Crossfade(currentSection) { homeSection ->
         AlkaaHomeScaffold(
-            windowSizeClass = windowSizeClass,
+            windowSize = windowSize,
             homeSection = homeSection,
             modifier = homeModifier,
             navItems = navItems,
@@ -87,7 +87,7 @@ fun Home(
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 private fun AlkaaHomeScaffold(
-    windowSizeClass: WindowSize,
+    windowSize: WindowSize,
     homeSection: HomeSection,
     modifier: Modifier,
     navItems: List<HomeSection>,
@@ -125,7 +125,7 @@ private fun AlkaaHomeScaffold(
         sheetContentState = sheetContentState,
         onHideBottomSheet = onHideBottomSheet
     ) {
-        if (windowSizeClass == WindowSize.Compact) {
+        if (windowSize == WindowSize.Compact) {
             CompactScaffold(modifier, homeSection, actions, onShowBottomSheet, navItems)
         } else {
             ExpandedScaffold(modifier, homeSection, actions, onShowBottomSheet, navItems)

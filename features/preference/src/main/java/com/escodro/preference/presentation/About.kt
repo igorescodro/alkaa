@@ -9,7 +9,9 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -34,6 +36,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.escodro.core.extension.openUrl
 import com.escodro.designsystem.AlkaaTheme
+import com.escodro.designsystem.WindowSize
 import com.escodro.designsystem.blue700
 import com.escodro.designsystem.components.AlkaaToolbar
 import com.escodro.designsystem.lightGreen700
@@ -44,17 +47,26 @@ import java.util.Locale
  * Alkaa about screen.
  */
 @Composable
-fun About(onUpPress: () -> Unit) {
+fun About(windowSize: WindowSize, onUpPress: () -> Unit) {
     Scaffold(
         topBar = { AlkaaToolbar(onUpPress = onUpPress) },
-        content = { AboutContent() }
+        content = { AboutContent(windowSize = windowSize) }
     )
 }
 
 @Composable
-private fun AboutContent() {
+private fun AboutContent(windowSize: WindowSize) {
+    if (windowSize == WindowSize.Compact) {
+        AboutContentCompact()
+    } else {
+        AboutContentExpanded()
+    }
+}
+
+@Composable
+private fun AboutContentCompact() {
     Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
-        ContentHeader()
+        ContentHeader(modifier = Modifier.fillMaxWidth())
         Text(
             text = stringResource(id = R.string.about_description),
             style = MaterialTheme.typography.body1,
@@ -66,7 +78,31 @@ private fun AboutContent() {
 }
 
 @Composable
-private fun ContentHeader() {
+private fun AboutContentExpanded() {
+    Row {
+        ContentHeader(
+            modifier = Modifier
+                .weight(1F)
+                .fillMaxHeight()
+        )
+        Column(
+            modifier = Modifier
+                .weight(2F)
+                .verticalScroll(rememberScrollState())
+        ) {
+            Text(
+                text = stringResource(id = R.string.about_description),
+                style = MaterialTheme.typography.body1,
+                lineHeight = 32.sp,
+                modifier = Modifier.padding(16.dp)
+            )
+            ContentCallToAction()
+        }
+    }
+}
+
+@Composable
+private fun ContentHeader(modifier: Modifier = Modifier) {
     val infiniteTransition = rememberInfiniteTransition()
     val color by infiniteTransition.animateColor(
         initialValue = blue700,
@@ -79,8 +115,7 @@ private fun ContentHeader() {
 
     Box(
         contentAlignment = Alignment.Center,
-        modifier = Modifier
-            .fillMaxWidth()
+        modifier = modifier
             .height(200.dp)
             .background(color = color)
     ) {
@@ -119,6 +154,6 @@ private const val ProjectUrl = "https://github.com/igorescodro/alkaa"
 @Composable
 fun AboutPreview() {
     AlkaaTheme {
-        About(onUpPress = { })
+        About(windowSize = WindowSize.Compact, onUpPress = { })
     }
 }

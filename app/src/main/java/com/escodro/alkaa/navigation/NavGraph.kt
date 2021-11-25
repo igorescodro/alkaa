@@ -104,7 +104,7 @@ fun NavGraph(startDestination: String = Destinations.Home, windowSizeClass: Wind
                 )
             },
         ) {
-            About(onUpPress = actions.onUpPress)
+            About(windowSize = windowSizeClass, onUpPress = actions.onUpPress)
         }
 
         dialog(Destinations.Tracker) {

@@ -4,6 +4,7 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.test.platform.app.InstrumentationRegistry
 import com.escodro.designsystem.AlkaaTheme
+import com.escodro.designsystem.WindowSize
 import com.escodro.preference.presentation.About
 import org.junit.Rule
 import org.junit.Test
@@ -32,7 +33,7 @@ internal class AboutTest {
     private fun loadView() {
         composeTestRule.setContent {
             AlkaaTheme {
-                About(onUpPress = { })
+                About(windowSize = WindowSize.Compact, onUpPress = { })
             }
         }
     }

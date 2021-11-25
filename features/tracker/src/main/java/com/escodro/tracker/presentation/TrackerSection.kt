@@ -3,6 +3,7 @@ package com.escodro.tracker.presentation
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -25,6 +26,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.escodro.designsystem.WindowSize
 import com.escodro.designsystem.components.AlkaaLoadingContent
 import com.escodro.designsystem.components.AlkaaToolbar
 import com.escodro.designsystem.components.DefaultIconTextContent
@@ -35,12 +37,16 @@ import com.escodro.tracker.presentation.components.TaskTrackerList
 import org.koin.androidx.compose.getViewModel
 
 @Composable
-internal fun TrackerSection(onUpPress: () -> Unit) {
-    TrackerLoader(onUpPress = onUpPress)
+internal fun TrackerSection(windowSize: WindowSize, onUpPress: () -> Unit) {
+    TrackerLoader(windowSize = windowSize, onUpPress = onUpPress)
 }
 
 @Composable
-internal fun TrackerLoader(viewModel: TrackerViewModel = getViewModel(), onUpPress: () -> Unit) {
+internal fun TrackerLoader(
+    viewModel: TrackerViewModel = getViewModel(),
+    windowSize: WindowSize,
+    onUpPress: () -> Unit
+) {
     val data by remember { viewModel.loadTracker() }
         .collectAsState(initial = TrackerViewState.Loading)
 
@@ -49,7 +55,7 @@ internal fun TrackerLoader(viewModel: TrackerViewModel = getViewModel(), onUpPre
             when (state) {
                 TrackerViewState.Empty -> TrackerEmpty()
                 is TrackerViewState.Error -> TrackerError()
-                is TrackerViewState.Loaded -> TrackerLoadedContent(state.trackerInfo)
+                is TrackerViewState.Loaded -> TrackerLoadedContent(windowSize, state.trackerInfo)
                 TrackerViewState.Loading -> AlkaaLoadingContent()
             }
         }
@@ -58,8 +64,17 @@ internal fun TrackerLoader(viewModel: TrackerViewModel = getViewModel(), onUpPre
 
 @Composable
 @Suppress("MagicNumber")
-private fun TrackerLoadedContent(trackerInfo: Tracker.Info) {
+private fun TrackerLoadedContent(windowSize: WindowSize, trackerInfo: Tracker.Info) {
     val categoryList = trackerInfo.categoryInfoList
+    if (windowSize == WindowSize.Compact) {
+        TrackerLoadedContentCompact(categoryList = categoryList)
+    } else {
+        TrackerLoadedContentExpanded(categoryList = categoryList)
+    }
+}
+
+@Composable
+private fun TrackerLoadedContentCompact(categoryList: List<Tracker.CategoryInfo>) {
     Column {
         TaskGraph(
             list = categoryList,
@@ -81,6 +96,34 @@ private fun TrackerLoadedContent(trackerInfo: Tracker.Info) {
                 .weight(1F)
                 .padding(24.dp)
         )
+    }
+}
+
+@Composable
+private fun TrackerLoadedContentExpanded(categoryList: List<Tracker.CategoryInfo>) {
+    Row {
+        TaskGraph(
+            list = categoryList,
+            modifier = Modifier
+                .fillMaxHeight()
+                .weight(1F)
+                .padding(24.dp)
+        )
+        Column(modifier = Modifier.weight(2F)) {
+            TaskTrackerList(
+                list = categoryList,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(2F)
+            )
+            TaskTrackerInfoCard(
+                list = categoryList,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1.5F)
+                    .padding(24.dp)
+            )
+        }
     }
 }
 

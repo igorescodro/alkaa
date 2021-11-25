@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.escodro.designsystem.AlkaaTheme
+import com.escodro.designsystem.rememberWindowSizeClass
 import com.escodro.tracker.di.injectDynamicFeature
 import com.google.android.play.core.splitcompat.SplitCompat
 
@@ -16,7 +17,8 @@ internal class TrackerActivity : ComponentActivity() {
 
         setContent {
             AlkaaTheme {
-                TrackerSection(onUpPress = { finish() })
+                val windowSizeClass = rememberWindowSizeClass()
+                TrackerSection(windowSize = windowSizeClass, onUpPress = { finish() })
             }
         }
     }

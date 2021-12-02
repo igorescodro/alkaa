@@ -35,8 +35,6 @@ object Versions {
     const val composeVm = "1.0.0-alpha07"
     const val composeActivity = "1.3.1"
 
-    const val buildGradle = "7.2.0-alpha05"
-
     const val ktlint = "0.42.1"
 }
 

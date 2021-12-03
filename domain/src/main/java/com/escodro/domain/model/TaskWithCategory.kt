@@ -3,8 +3,8 @@ package com.escodro.domain.model
 /**
  * Data class to represent a Task with Category.
  *
- * @param task the associated task
- * @param category the associated category
+ * @property task the associated task
+ * @property category the associated category
  */
 data class TaskWithCategory(
     val task: Task,

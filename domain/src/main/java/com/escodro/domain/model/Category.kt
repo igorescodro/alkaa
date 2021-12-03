@@ -3,9 +3,9 @@ package com.escodro.domain.model
 /**
  * Data class to represent a Category.
  *
- * @param id category id
- * @param name category name
- * @param color category color
+ * @property id category id
+ * @property name category name
+ * @property color category color
  */
 data class Category(
     val id: Long = 0,

@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import com.escodro.tracker.model.Tracker
 
 @Composable
+@Suppress("MagicNumber")
 internal fun TaskGraph(list: List<Tracker.CategoryInfo>, modifier: Modifier = Modifier) {
     val currentState = remember {
         MutableTransitionState(AnimatedCircleProgress.START)
@@ -59,6 +60,7 @@ internal fun TaskGraph(list: List<Tracker.CategoryInfo>, modifier: Modifier = Mo
 }
 
 @Composable
+@Suppress("MagicNumber")
 private fun shift(transition: Transition<AnimatedCircleProgress>) =
     transition.animateFloat(
         transitionSpec = {
@@ -78,6 +80,7 @@ private fun shift(transition: Transition<AnimatedCircleProgress>) =
     }
 
 @Composable
+@Suppress("MagicNumber")
 private fun angleOffset(transition: Transition<AnimatedCircleProgress>) =
     transition.animateFloat(
         transitionSpec = {

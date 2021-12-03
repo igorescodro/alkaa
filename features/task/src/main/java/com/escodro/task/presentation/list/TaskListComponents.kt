@@ -34,6 +34,7 @@ import java.util.Calendar
  * @param modifier the decorator
  * @param task the task item to be rendered
  * @param onItemClick the action to be done when the item is clicked
+ * @param onCheckedChange action to be called when the checked value changes
  */
 @Composable
 internal fun TaskItem(

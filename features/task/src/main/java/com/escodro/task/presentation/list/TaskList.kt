@@ -49,6 +49,8 @@ import java.util.Calendar
  * Alkaa Task Section.
  *
  * @param modifier the decorator
+ * @param onItemClick action to be called when a item is clicked
+ * @param onBottomShow action to be called when the bottom sheet is shown
  */
 @OptIn(ExperimentalMaterialApi::class)
 @Composable

@@ -5,16 +5,16 @@ import java.util.Calendar
 /**
  * Data class to represent a Task.
  *
- * @param id unique task id
- * @param completed indicates if the task is completed
- * @param title the task title
- * @param description the task description
- * @param categoryId the associated category id
- * @param dueDate the due date to the task be notified
- * @param creationDate the date of creation of the task
- * @param completedDate the date of completion of the task
- * @param isRepeating indicates if the task is repeating
- * @param alarmInterval the interval between the repeating
+ * @property id unique task id
+ * @property completed indicates if the task is completed
+ * @property title the task title
+ * @property description the task description
+ * @property categoryId the associated category id
+ * @property dueDate the due date to the task be notified
+ * @property creationDate the date of creation of the task
+ * @property completedDate the date of completion of the task
+ * @property isRepeating indicates if the task is repeating
+ * @property alarmInterval the interval between the repeating
  */
 data class Task(
     val id: Long = 0,

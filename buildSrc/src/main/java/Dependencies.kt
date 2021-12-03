@@ -35,7 +35,7 @@ object Versions {
     const val composeVm = "1.0.0-alpha07"
     const val composeActivity = "1.3.1"
 
-    const val ktlint = "0.42.1"
+    const val ktlint = "0.43.2"
 }
 
 object Deps {

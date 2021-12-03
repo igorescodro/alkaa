@@ -43,11 +43,11 @@ fun AlkaaDialog(
 /**
  * Arguments to be used with [AlkaaDialog].
  *
- * @param title the dialog title
- * @param text the dialog content text
- * @param confirmText the text to be used in the confirm button
- * @param dismissText the text to be used in the dismiss button
- * @param onConfirmAction the action to be executed when the user confirms the dialog
+ * @property title the dialog title
+ * @property text the dialog content text
+ * @property confirmText the text to be used in the confirm button
+ * @property dismissText the text to be used in the dismiss button
+ * @property onConfirmAction the action to be executed when the user confirms the dialog
  */
 data class DialogArguments(
     val title: String,

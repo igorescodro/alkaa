@@ -48,6 +48,7 @@ import org.koin.androidx.compose.getViewModel
  * Alkaa Search Section.
  *
  * @param modifier the decorator
+ * @param onItemClick action to be called when the item is clicked
  */
 @Composable
 fun SearchSection(modifier: Modifier = Modifier, onItemClick: (Long) -> Unit) {

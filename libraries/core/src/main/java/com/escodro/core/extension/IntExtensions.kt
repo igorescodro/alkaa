@@ -6,8 +6,8 @@ package com.escodro.core.extension
  * @return the color in String format
  */
 fun Int.toStringColor() =
-    String.format(HEX_FORMAT, HEX_WHITE and this)
+    String.format(HexFormat, HexWhite and this)
 
-private const val HEX_FORMAT = "#%06X"
+private const val HexFormat = "#%06X"
 
-private const val HEX_WHITE = 0xFFFFFF
+private const val HexWhite = 0xFFFFFF

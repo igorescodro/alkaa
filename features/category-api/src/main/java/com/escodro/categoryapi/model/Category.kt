@@ -6,9 +6,9 @@ import kotlinx.parcelize.Parcelize
 /**
  * Data class to represent a View Category.
  *
- * @param id category id
- * @param name category name
- * @param color category color
+ * @property id category id
+ * @property name category name
+ * @property color category color
  */
 @Parcelize
 data class Category(

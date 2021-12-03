@@ -15,7 +15,7 @@ sealed class CategoryState {
     /**
      * Loaded state.
      *
-     * @param categoryList the loaded category list
+     * @property categoryList the loaded category list
      */
     data class Loaded(val categoryList: List<Category>) : CategoryState()
 

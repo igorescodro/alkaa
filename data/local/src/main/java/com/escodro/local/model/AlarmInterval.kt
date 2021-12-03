@@ -3,7 +3,7 @@ package com.escodro.local.model
 /**
  * Represents the interval between repeating intervals.
  *
- * @param id the id representation of the interval
+ * @property id the id representation of the interval
  */
 @Suppress("MagicNumber")
 enum class AlarmInterval(val id: Int) {

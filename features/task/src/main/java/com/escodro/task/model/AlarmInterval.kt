@@ -3,7 +3,7 @@ package com.escodro.task.model
 /**
  * Represents the interval between repeating intervals.
  *
- * @param index the id representation of the interval
+ * @property index the id representation of the interval
  */
 @Suppress("MagicNumber")
 enum class AlarmInterval(val index: Int?) {

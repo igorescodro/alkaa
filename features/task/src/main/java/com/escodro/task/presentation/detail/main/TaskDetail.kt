@@ -45,6 +45,7 @@ import org.koin.androidx.compose.getViewModel
  * Alkaa Task Detail Section.
  *
  * @param taskId the id from the task to be shown
+ * @param onUpPress action to be called when the back button is pressed
  */
 @Composable
 fun TaskDetailSection(taskId: Long, onUpPress: () -> Unit) {

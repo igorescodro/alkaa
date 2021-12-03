@@ -15,7 +15,7 @@ import androidx.core.net.toUri
 import mu.KotlinLogging.logger
 import java.util.Calendar
 
-private const val INVALID_VERSION = "x.x.x"
+private const val InvalidVersion = "x.x.x"
 
 /**
  * Sets a alarm using [AlarmManagerCompat] to be triggered based on the given parameter.
@@ -105,7 +105,7 @@ fun Context.getVersionName(): String {
             logger.error(e.localizedMessage)
         }
     }
-    return packageInfo?.versionName ?: INVALID_VERSION
+    return packageInfo?.versionName ?: InvalidVersion
 }
 
 private val logger = logger {}

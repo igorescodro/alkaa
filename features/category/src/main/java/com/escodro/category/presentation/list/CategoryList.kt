@@ -57,6 +57,7 @@ import kotlin.math.roundToInt
  * Alkaa Category List Section.
  *
  * @param modifier the decorator
+ * @param onShowBottomSheet function to be called when the bottom sheet is shown
  */
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -121,6 +122,7 @@ private fun CategoryListScaffold(
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
+@Suppress("MagicNumber")
 private fun CategoryListContent(categoryList: List<Category>, onItemClick: (Category) -> Unit) {
     BoxWithConstraints(modifier = Modifier.padding(start = 8.dp, end = 8.dp)) {
         val cellCount: Int = max(2F, maxWidth.value / 250).roundToInt()

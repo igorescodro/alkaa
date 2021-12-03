@@ -57,6 +57,7 @@ internal fun TrackerLoader(viewModel: TrackerViewModel = getViewModel(), onUpPre
 }
 
 @Composable
+@Suppress("MagicNumber")
 private fun TrackerLoadedContent(trackerInfo: Tracker.Info) {
     val categoryList = trackerInfo.categoryInfoList
     Column {
@@ -104,6 +105,7 @@ private fun TrackerError() {
 }
 
 @Composable
+@Suppress("MagicNumber")
 private fun TaskTrackerInfoCard(list: List<Tracker.CategoryInfo>, modifier: Modifier = Modifier) {
     val taskCount = list.sumOf { item -> item.taskCount }
     val message = LocalContext.current.resources

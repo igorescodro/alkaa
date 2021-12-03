@@ -101,7 +101,7 @@ private fun ContentCallToAction() {
             .padding(vertical = 16.dp)
     ) {
         val context = LocalContext.current
-        Button(onClick = { context.openUrl(PROJECT_URL) }) {
+        Button(onClick = { context.openUrl(ProjectUrl) }) {
             Icon(
                 imageVector = Icons.Default.Person,
                 contentDescription = stringResource(id = R.string.about_cd_github)
@@ -112,7 +112,7 @@ private fun ContentCallToAction() {
     }
 }
 
-private const val PROJECT_URL = "https://github.com/igorescodro/alkaa"
+private const val ProjectUrl = "https://github.com/igorescodro/alkaa"
 
 @Suppress("UndocumentedPublicFunction")
 @Preview

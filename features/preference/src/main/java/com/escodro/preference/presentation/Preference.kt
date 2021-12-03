@@ -40,6 +40,7 @@ import java.util.Locale
  *
  * @param modifier the decorator
  * @param onAboutClick function to be called when the about item is clicked
+ * @param onTrackerClick function to be called when the tracker item is clicked
  */
 @Composable
 fun PreferenceSection(
@@ -83,6 +84,7 @@ private fun TrackerItem(onTrackerClick: () -> Unit) {
 }
 
 @Composable
+@Suppress("MagicNumber")
 private fun VersionItem() {
     val title = stringResource(id = R.string.preference_title_version)
     val context = LocalContext.current
@@ -90,7 +92,7 @@ private fun VersionItem() {
     var numberOfClicks by remember { mutableStateOf(0) }
     val onClick = {
         if (++numberOfClicks == 7) {
-            context.openUrl(EASTER_EGG_URL)
+            context.openUrl(EasterEggUrl)
         }
     }
 
@@ -152,7 +154,7 @@ private fun Separator() {
     )
 }
 
-private const val EASTER_EGG_URL = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+private const val EasterEggUrl = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
 
 @Suppress("UndocumentedPublicFunction")
 @Preview

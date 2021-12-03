@@ -62,7 +62,7 @@ internal fun AddTaskLoader(
         val focusRequester = remember { FocusRequester() }
 
         LaunchedEffect(Unit) {
-            delay(300)
+            delay(FocusDelay)
             focusRequester.requestFocus()
         }
 
@@ -95,6 +95,8 @@ internal fun AddTaskLoader(
         }
     }
 }
+
+private const val FocusDelay = 300L
 
 @OptIn(ExperimentalMaterialApi::class)
 @Suppress("UndocumentedPublicFunction")

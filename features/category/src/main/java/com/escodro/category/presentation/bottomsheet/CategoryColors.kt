@@ -2,6 +2,7 @@ package com.escodro.category.presentation.bottomsheet
 
 import androidx.compose.ui.graphics.Color
 
+@Suppress("MagicNumber")
 internal enum class CategoryColors(val value: Color) {
 
     PURPLE(Color(0xFF7E57C2)),

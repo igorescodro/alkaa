@@ -105,6 +105,7 @@ private fun CategorySheetLoader(
 }
 
 @Composable
+@Suppress("MagicNumber")
 private fun CategorySheetContent(
     state: CategoryBottomSheetState,
     colorList: List<Color>,

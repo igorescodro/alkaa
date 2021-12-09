@@ -71,6 +71,7 @@ dependencies {
     implementation(Deps.slf4j)
     implementation(Deps.compose.navigation)
     implementation(Deps.compose.activity)
+    implementation(Deps.accompanist.animation)
     implementation(Deps.android.playCore)
     implementation(Deps.koin.android)
 

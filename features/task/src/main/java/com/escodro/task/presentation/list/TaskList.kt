@@ -16,7 +16,6 @@ import androidx.compose.material.icons.outlined.ThumbUp
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -106,7 +105,7 @@ internal fun TaskListScaffold(
     modifier: Modifier = Modifier,
 ) {
     val coroutineScope = rememberCoroutineScope()
-    val scaffoldState = rememberScaffoldState()
+    // val scaffoldState = rememberScaffoldState()
 
     val snackbarTitle = stringResource(id = R.string.task_snackbar_message_complete)
     val snackbarButton = stringResource(id = R.string.task_snackbar_button_undo)
@@ -127,7 +126,7 @@ internal fun TaskListScaffold(
         val fabPosition = if (this.maxHeight > maxWidth) FabPosition.Center else FabPosition.End
         Scaffold(
             modifier = modifier.fillMaxSize(),
-            scaffoldState = scaffoldState,
+            // scaffoldState = scaffoldState,
             topBar = { TaskFilter(categoryHandler = categoryHandler) },
             floatingActionButton = {
                 AddFloatingButton(

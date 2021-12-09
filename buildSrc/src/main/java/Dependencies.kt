@@ -35,6 +35,8 @@ object Versions {
     const val composeVm = "1.0.0-alpha07"
     const val composeActivity = "1.3.1"
 
+    const val accompanist = "0.20.2"
+
     const val ktlint = "0.43.2"
 }
 
@@ -45,6 +47,7 @@ object Deps {
     val coroutines = CoroutinesDeps
     val koin = KoinDeps
     val compose = ComposeDeps
+    val accompanist = AccompanistDeps
     val test = TestDeps
     val quality = QualityDeps
 }
@@ -85,6 +88,11 @@ object ComposeDeps {
     const val uiTest = "androidx.compose.ui:ui-test:${Versions.compose}"
     const val junit4 = "androidx.compose.ui:ui-test-junit4:${Versions.compose}"
     const val manifest = "androidx.compose.ui:ui-test-manifest:${Versions.compose}"
+}
+
+object AccompanistDeps {
+    const val animation =
+        "com.google.accompanist:accompanist-navigation-animation:${Versions.accompanist}"
 }
 
 object TestDeps {

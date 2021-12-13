@@ -30,7 +30,7 @@ android {
 
     lint {
         warningsAsErrors = true
-        abortOnError = false // Google needs to update their libraries to API Level 10.
+        abortOnError = true
         htmlReport = true
         checkDependencies = true
 

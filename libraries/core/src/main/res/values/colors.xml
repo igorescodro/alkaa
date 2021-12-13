@@ -1,22 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="colorPrimary">#2f4550</color>
-    <color name="colorAccent">#1976d2</color>
-
-    <!-- General -->
-    <color name="gray">#808080</color>
-    <color name="gray_shadow_light">#7e9d9d9d</color>
-
-
     <!-- Category -->
     <color name="blue">#62A7E0</color>
     <color name="green">#4CB27C</color>
-    <color name="purple">#8579AD</color>
-    <color name="pink">#E65E9E</color>
-    <color name="red">#E06969</color>
     <color name="orange">#F98847</color>
-    <color name="yellow">#E0C03E</color>
-
 
 </resources>

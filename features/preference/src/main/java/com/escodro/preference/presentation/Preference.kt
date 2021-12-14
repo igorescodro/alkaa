@@ -14,6 +14,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -30,9 +31,11 @@ import com.escodro.core.extension.getVersionName
 import com.escodro.core.extension.openUrl
 import com.escodro.designsystem.AlkaaTheme
 import com.escodro.preference.R
+import com.escodro.preference.model.AppThemeOptions
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.filter
+import org.koin.androidx.compose.getViewModel
 import java.util.Locale
 
 /**
@@ -48,12 +51,30 @@ fun PreferenceSection(
     onAboutClick: () -> Unit,
     onTrackerClick: () -> Unit
 ) {
+    PreferenceLoader(
+        modifier = modifier,
+        onAboutClick = onAboutClick,
+        onTrackerClick = onTrackerClick
+    )
+}
+
+@Composable
+private fun PreferenceLoader(
+    modifier: Modifier = Modifier,
+    onAboutClick: () -> Unit,
+    onTrackerClick: () -> Unit,
+    viewModel: PreferenceViewModel = getViewModel()
+) {
+    val theme by remember(viewModel) {
+        viewModel.loadCurrentTheme()
+    }.collectAsState(initial = AppThemeOptions.SYSTEM)
+
     Column(modifier = modifier.fillMaxSize()) {
-        PreferenceTitle(title = "Features")
+        PreferenceTitle(title = stringResource(id = R.string.preference_title_features))
         TrackerItem(onTrackerClick)
         Separator()
-        PreferenceTitle(title = "Settings")
-        ThemeItem()
+        PreferenceTitle(title = stringResource(id = R.string.preference_title_settings))
+        ThemeItem(currentTheme = theme, onThemeUpdated = { viewModel.updateTheme(it) })
         AboutItem(onAboutClick)
         VersionItem()
     }
@@ -118,9 +139,11 @@ private fun AboutItem(onAboutClick: () -> Unit) {
 }
 
 @Composable
-private fun ThemeItem() {
+private fun ThemeItem(
+    currentTheme: AppThemeOptions,
+    onThemeUpdated: (AppThemeOptions) -> Unit
+) {
     var isDialogOpen by remember { mutableStateOf(false) }
-    var currentTheme by remember { mutableStateOf(0) }
 
     PreferenceItem(
         title = stringResource(id = R.string.preference_title_app_theme),
@@ -131,7 +154,8 @@ private fun ThemeItem() {
         isDialogOpen = isDialogOpen,
         onDismissRequest = { isDialogOpen = false },
         currentTheme = currentTheme,
-        onThemeUpdated = { currentTheme = it })
+        onThemeUpdated = onThemeUpdated
+    )
 }
 
 @Composable

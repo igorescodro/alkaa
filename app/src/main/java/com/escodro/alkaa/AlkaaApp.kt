@@ -6,9 +6,10 @@ import com.escodro.alarm.di.alarmModule
 import com.escodro.alkaa.di.appModule
 import com.escodro.category.di.categoryModule
 import com.escodro.core.di.coreModule
-import com.escodro.datastore.di.preferencesModule
+import com.escodro.datastore.di.dataStoreModule
 import com.escodro.domain.di.domainModule
 import com.escodro.local.di.localModule
+import com.escodro.preference.di.preferenceModule
 import com.escodro.repository.di.repositoryModule
 import com.escodro.search.di.searchModule
 import com.escodro.task.di.taskModule
@@ -41,10 +42,11 @@ class AlkaaApp : Application() {
                     alarmModule +
                     categoryModule +
                     searchModule +
+                    preferenceModule +
                     domainModule +
                     repositoryModule +
                     localModule +
-                    preferencesModule
+                    dataStoreModule
             )
         }
     }

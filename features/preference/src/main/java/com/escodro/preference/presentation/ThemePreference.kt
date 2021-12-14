@@ -20,8 +20,8 @@ import com.escodro.preference.model.AppThemeOptions
 internal fun AppThemeDialog(
     isDialogOpen: Boolean,
     onDismissRequest: () -> Unit,
-    currentTheme: Int,
-    onThemeUpdated: (Int) -> Unit
+    currentTheme: AppThemeOptions,
+    onThemeUpdated: (AppThemeOptions) -> Unit
 ) {
     if (isDialogOpen) {
         AlertDialog(
@@ -30,7 +30,7 @@ internal fun AppThemeDialog(
             text = {
                 Column {
                     AppThemeOptions.values().forEach { item ->
-                        val isSelected = currentTheme == item.id
+                        val isSelected = currentTheme.id == item.id
 
                         Row(
                             modifier = Modifier
@@ -39,7 +39,7 @@ internal fun AppThemeDialog(
                                 .selectable(
                                     selected = isSelected,
                                     onClick = {
-                                        onThemeUpdated(item.id)
+                                        onThemeUpdated(item)
                                         onDismissRequest()
                                     }
                                 )
@@ -47,7 +47,7 @@ internal fun AppThemeDialog(
                             RadioButton(
                                 selected = isSelected,
                                 onClick = {
-                                    onThemeUpdated(item.id)
+                                    onThemeUpdated(item)
                                     onDismissRequest()
                                 }
                             )

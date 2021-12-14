@@ -7,9 +7,9 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
 /**
- * Preferences dependency injection module.
+ * DataStore dependency injection module.
  */
-val preferencesModule = module {
+val dataStoreModule = module {
 
     // Data Source
     factory<PreferencesDataSource> { PreferencesDataSourceImpl(androidContext(), get()) }

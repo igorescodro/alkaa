@@ -11,5 +11,7 @@
     <string name="preference_light_theme">Light theme</string>
     <string name="preference_dark_theme">Dark theme</string>
     <string name="preference_system_default_theme">System default</string>
+    <string name="preference_title_features">Features</string>
+    <string name="preference_title_settings">Settings</string>
 
 </resources>

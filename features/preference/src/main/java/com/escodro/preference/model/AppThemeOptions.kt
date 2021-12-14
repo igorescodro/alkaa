@@ -5,6 +5,9 @@ import com.escodro.preference.R
 
 /**
  * Enum to represent the app theme selected by the user.
+ *
+ * @property id the theme id
+ * @property titleRes the string title resource
  */
 enum class AppThemeOptions(val id: Int, @StringRes val titleRes: Int) {
 

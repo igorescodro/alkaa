@@ -59,6 +59,7 @@ dependencies {
     implementation(projects.libraries.designsystem)
     implementation(projects.libraries.navigation)
     implementation(projects.data.local)
+    implementation(projects.data.datastore)
     implementation(projects.data.repository)
     implementation(projects.domain)
     implementation(projects.features.task)

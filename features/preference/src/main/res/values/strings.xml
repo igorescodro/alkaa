@@ -7,5 +7,9 @@
     <string name="about_description">Alkaa (to begin, to start in Finnish) is a simple to-do list to make your life easier.\n\nIt all started when I created a project to learn and keep me updated about the latest Android components and libraries. And now it is available on it Jetpack Compose version! If you\'re a developer or an enthusiast feel free to access, copy and updated the open-source code.\n\nThanks a lot for using my app! </string>
     <string name="about_button_project">Visit project on GitHub</string>
     <string name="about_cd_github" translatable="false">GitHub</string>
+    <string name="preference_title_app_theme">App theme</string>
+    <string name="preference_light_theme">Light theme</string>
+    <string name="preference_dark_theme">Dark theme</string>
+    <string name="preference_system_default_theme">System default</string>
 
 </resources>

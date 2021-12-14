@@ -53,6 +53,7 @@ fun PreferenceSection(
         TrackerItem(onTrackerClick)
         Separator()
         PreferenceTitle(title = "Settings")
+        ThemeItem()
         AboutItem(onAboutClick)
         VersionItem()
     }
@@ -114,6 +115,23 @@ private fun AboutItem(onAboutClick: () -> Unit) {
         title = stringResource(id = R.string.preference_title_about),
         onItemClick = onAboutClick
     )
+}
+
+@Composable
+private fun ThemeItem() {
+    var isDialogOpen by remember { mutableStateOf(false) }
+    var currentTheme by remember { mutableStateOf(0) }
+
+    PreferenceItem(
+        title = stringResource(id = R.string.preference_title_app_theme),
+        onItemClick = { isDialogOpen = true }
+    )
+
+    AppThemeDialog(
+        isDialogOpen = isDialogOpen,
+        onDismissRequest = { isDialogOpen = false },
+        currentTheme = currentTheme,
+        onThemeUpdated = { currentTheme = it })
 }
 
 @Composable

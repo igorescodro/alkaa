@@ -69,12 +69,29 @@ private fun PreferenceLoader(
         viewModel.loadCurrentTheme()
     }.collectAsState(initial = AppThemeOptions.SYSTEM)
 
+    PreferenceContent(
+        modifier = modifier,
+        onAboutClick = onAboutClick,
+        onTrackerClick = onTrackerClick,
+        theme = theme,
+        onThemeUpdate = viewModel::updateTheme
+    )
+}
+
+@Composable
+internal fun PreferenceContent(
+    modifier: Modifier = Modifier,
+    onAboutClick: () -> Unit,
+    onTrackerClick: () -> Unit,
+    theme: AppThemeOptions,
+    onThemeUpdate: (AppThemeOptions) -> Unit
+) {
     Column(modifier = modifier.fillMaxSize()) {
         PreferenceTitle(title = stringResource(id = R.string.preference_title_features))
         TrackerItem(onTrackerClick)
         Separator()
         PreferenceTitle(title = stringResource(id = R.string.preference_title_settings))
-        ThemeItem(currentTheme = theme, onThemeUpdated = { viewModel.updateTheme(it) })
+        ThemeItem(currentTheme = theme, onThemeUpdate = onThemeUpdate)
         AboutItem(onAboutClick)
         VersionItem()
     }
@@ -141,7 +158,7 @@ private fun AboutItem(onAboutClick: () -> Unit) {
 @Composable
 private fun ThemeItem(
     currentTheme: AppThemeOptions,
-    onThemeUpdated: (AppThemeOptions) -> Unit
+    onThemeUpdate: (AppThemeOptions) -> Unit
 ) {
     var isDialogOpen by remember { mutableStateOf(false) }
 
@@ -154,7 +171,7 @@ private fun ThemeItem(
         isDialogOpen = isDialogOpen,
         onDismissRequest = { isDialogOpen = false },
         currentTheme = currentTheme,
-        onThemeUpdated = onThemeUpdated
+        onThemeUpdate = onThemeUpdate
     )
 }
 

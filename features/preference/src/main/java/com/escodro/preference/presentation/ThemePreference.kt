@@ -21,7 +21,7 @@ internal fun AppThemeDialog(
     isDialogOpen: Boolean,
     onDismissRequest: () -> Unit,
     currentTheme: AppThemeOptions,
-    onThemeUpdated: (AppThemeOptions) -> Unit
+    onThemeUpdate: (AppThemeOptions) -> Unit
 ) {
     if (isDialogOpen) {
         AlertDialog(
@@ -39,7 +39,7 @@ internal fun AppThemeDialog(
                                 .selectable(
                                     selected = isSelected,
                                     onClick = {
-                                        onThemeUpdated(item)
+                                        onThemeUpdate(item)
                                         onDismissRequest()
                                     }
                                 )
@@ -47,7 +47,7 @@ internal fun AppThemeDialog(
                             RadioButton(
                                 selected = isSelected,
                                 onClick = {
-                                    onThemeUpdated(item)
+                                    onThemeUpdate(item)
                                     onDismissRequest()
                                 }
                             )

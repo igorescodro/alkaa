@@ -1,5 +1,6 @@
 package quality
 
+import io.gitlab.arturbosch.detekt.Detekt
 import io.gitlab.arturbosch.detekt.DetektPlugin
 import io.gitlab.arturbosch.detekt.extensions.DetektExtension
 
@@ -10,6 +11,6 @@ configure<DetektExtension> {
     allRules = true
 }
 
-tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
+tasks.withType<Detekt>().configureEach {
     exclude("**/resources/**,**/build/**")
 }

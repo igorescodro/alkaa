@@ -31,6 +31,7 @@ import com.google.accompanist.navigation.animation.rememberAnimatedNavController
  * @param startDestination the start destination of the graph
  */
 @OptIn(ExperimentalAnimationApi::class)
+@Suppress("LongMethod", "MagicNumber")
 @Composable
 fun NavGraph(startDestination: String = Destinations.Home) {
     val navController = rememberAnimatedNavController()
@@ -52,7 +53,8 @@ fun NavGraph(startDestination: String = Destinations.Home) {
                     AnimatedContentScope.SlideDirection.Left,
                     animationSpec = tween(700)
                 )
-            }) {
+            }
+        ) {
             Home(
                 onTaskClick = actions.openTaskDetail,
                 onAboutClick = actions.openAbout,
@@ -105,13 +107,13 @@ fun NavGraph(startDestination: String = Destinations.Home) {
         dialog(Destinations.Tracker) {
             LoadFeature(
                 context = context,
-                featureName = FEATURE_TRACKER,
+                featureName = FeatureTracker,
                 onDismiss = actions.onUpPress
             ) {
                 // Workaround to be able to use Dynamic Feature with Compose
                 // https://issuetracker.google.com/issues/183677219
                 val intent = Intent(Intent.ACTION_VIEW).apply {
-                    data = Uri.parse(TRACKER_DEEP_LINK)
+                    data = Uri.parse(TrackerDeepLink)
                     `package` = context.packageName
                 }
                 context.startActivity(intent)
@@ -139,6 +141,6 @@ internal data class Actions(val navController: NavHostController, val context: C
     }
 }
 
-private const val FEATURE_TRACKER = "tracker"
+private const val FeatureTracker = "tracker"
 
-private const val TRACKER_DEEP_LINK = "app://com.escodro.tracker"
+private const val TrackerDeepLink = "app://com.escodro.tracker"

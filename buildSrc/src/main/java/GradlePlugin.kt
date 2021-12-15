@@ -8,4 +8,5 @@ object GradlePlugin {
     const val DYNAMIC_FEATURE = "gradle.dynamic-feature"
     const val PARCELIZE = "kotlin-parcelize"
     const val KAPT = "kotlin-kapt"
+    const val KOTLIN_QUALITY = "gradle.quality"
 }

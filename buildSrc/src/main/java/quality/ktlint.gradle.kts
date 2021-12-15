@@ -26,7 +26,3 @@ tasks {
         args("-F", "src/**/*.kt")
     }
 }
-
-tasks.getByName("check") {
-    setDependsOn(listOf(tasks.getByName("ktlint")))
-}

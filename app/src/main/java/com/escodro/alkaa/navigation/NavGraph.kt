@@ -94,7 +94,7 @@ fun NavGraph(startDestination: String = Destinations.Home) {
                     animationSpec = tween(700)
                 )
             },
-            exitTransition = { _, target ->
+            exitTransition = { _, _ ->
                 slideOutOfContainer(
                     AnimatedContentScope.SlideDirection.Right,
                     animationSpec = tween(700)

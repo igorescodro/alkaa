@@ -1,8 +1,6 @@
 package com.escodro.preference.presentation
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -14,6 +12,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -30,9 +29,11 @@ import com.escodro.core.extension.getVersionName
 import com.escodro.core.extension.openUrl
 import com.escodro.designsystem.AlkaaTheme
 import com.escodro.preference.R
+import com.escodro.preference.model.AppThemeOptions
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.filter
+import org.koin.androidx.compose.getViewModel
 import java.util.Locale
 
 /**
@@ -48,11 +49,47 @@ fun PreferenceSection(
     onAboutClick: () -> Unit,
     onTrackerClick: () -> Unit
 ) {
+    PreferenceLoader(
+        modifier = modifier,
+        onAboutClick = onAboutClick,
+        onTrackerClick = onTrackerClick
+    )
+}
+
+@Composable
+private fun PreferenceLoader(
+    modifier: Modifier = Modifier,
+    onAboutClick: () -> Unit,
+    onTrackerClick: () -> Unit,
+    viewModel: PreferenceViewModel = getViewModel()
+) {
+    val theme by remember(viewModel) {
+        viewModel.loadCurrentTheme()
+    }.collectAsState(initial = AppThemeOptions.SYSTEM)
+
+    PreferenceContent(
+        modifier = modifier,
+        onAboutClick = onAboutClick,
+        onTrackerClick = onTrackerClick,
+        theme = theme,
+        onThemeUpdate = viewModel::updateTheme
+    )
+}
+
+@Composable
+internal fun PreferenceContent(
+    modifier: Modifier = Modifier,
+    onAboutClick: () -> Unit,
+    onTrackerClick: () -> Unit,
+    theme: AppThemeOptions,
+    onThemeUpdate: (AppThemeOptions) -> Unit
+) {
     Column(modifier = modifier.fillMaxSize()) {
-        PreferenceTitle(title = "Features")
+        PreferenceTitle(title = stringResource(id = R.string.preference_title_features))
         TrackerItem(onTrackerClick)
         Separator()
-        PreferenceTitle(title = "Settings")
+        PreferenceTitle(title = stringResource(id = R.string.preference_title_settings))
+        ThemeItem(currentTheme = theme, onThemeUpdate = onThemeUpdate)
         AboutItem(onAboutClick)
         VersionItem()
     }
@@ -117,30 +154,24 @@ private fun AboutItem(onAboutClick: () -> Unit) {
 }
 
 @Composable
-private fun PreferenceItem(
-    title: String,
-    description: String? = null,
-    onItemClick: () -> Unit = { }
+private fun ThemeItem(
+    currentTheme: AppThemeOptions,
+    onThemeUpdate: (AppThemeOptions) -> Unit
 ) {
-    Column(
-        modifier = Modifier
-            .clickable { onItemClick() }
-            .padding(start = 32.dp, top = 8.dp, end = 16.dp, bottom = 8.dp)
-            .fillMaxWidth()
-            .height(48.dp),
-        verticalArrangement = Arrangement.Center
-    ) {
-        Text(
-            text = title,
-            style = MaterialTheme.typography.body1
-        )
-        if (description != null) {
-            Text(
-                text = description,
-                style = MaterialTheme.typography.body2
-            )
-        }
-    }
+    var isDialogOpen by remember { mutableStateOf(false) }
+
+    PreferenceItem(
+        title = stringResource(id = R.string.preference_title_app_theme),
+        description = stringResource(id = currentTheme.titleRes),
+        onItemClick = { isDialogOpen = true }
+    )
+
+    AppThemeDialog(
+        isDialogOpen = isDialogOpen,
+        onDismissRequest = { isDialogOpen = false },
+        currentTheme = currentTheme,
+        onThemeUpdate = onThemeUpdate
+    )
 }
 
 @Composable

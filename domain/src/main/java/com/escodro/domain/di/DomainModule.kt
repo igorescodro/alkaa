@@ -21,6 +21,8 @@ import com.escodro.domain.usecase.category.implementation.AddCategoryImpl
 import com.escodro.domain.usecase.category.implementation.DeleteCategoryImpl
 import com.escodro.domain.usecase.category.implementation.LoadAllCategoriesImpl
 import com.escodro.domain.usecase.category.implementation.UpdateCategoryImpl
+import com.escodro.domain.usecase.preferences.LoadAppTheme
+import com.escodro.domain.usecase.preferences.UpdateAppTheme
 import com.escodro.domain.usecase.search.SearchTasksByName
 import com.escodro.domain.usecase.search.implementation.SearchTasksByNameImpl
 import com.escodro.domain.usecase.task.AddTask
@@ -89,6 +91,10 @@ val domainModule = module {
 
     // Tracker Use Cases
     factory<LoadCompletedTasksByPeriod> { LoadCompletedTasksByPeriodImpl(get()) }
+
+    // Preferences Use Cases
+    factory { UpdateAppTheme(get()) }
+    factory { LoadAppTheme(get()) }
 
     // Providers
     factory<CalendarProvider> { CalendarProviderImpl() }

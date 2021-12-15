@@ -164,6 +164,7 @@ private fun ThemeItem(
 
     PreferenceItem(
         title = stringResource(id = R.string.preference_title_app_theme),
+        description = stringResource(id = currentTheme.titleRes),
         onItemClick = { isDialogOpen = true }
     )
 

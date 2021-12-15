@@ -4,6 +4,7 @@ import extensions.addComposeDependencies
 plugins {
     id(GradlePlugin.ANDROID_APPLICATION)
     id(GradlePlugin.KOTLIN_ANDROID)
+    id(GradlePlugin.KOTLIN_QUALITY)
     id(GradlePlugin.PARCELIZE)
 }
 

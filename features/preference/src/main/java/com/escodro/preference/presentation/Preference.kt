@@ -1,8 +1,6 @@
 package com.escodro.preference.presentation
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -174,33 +172,6 @@ private fun ThemeItem(
         currentTheme = currentTheme,
         onThemeUpdate = onThemeUpdate
     )
-}
-
-@Composable
-private fun PreferenceItem(
-    title: String,
-    description: String? = null,
-    onItemClick: () -> Unit = { }
-) {
-    Column(
-        modifier = Modifier
-            .clickable { onItemClick() }
-            .padding(start = 32.dp, top = 8.dp, end = 16.dp, bottom = 8.dp)
-            .fillMaxWidth()
-            .height(48.dp),
-        verticalArrangement = Arrangement.Center
-    ) {
-        Text(
-            text = title,
-            style = MaterialTheme.typography.body1
-        )
-        if (description != null) {
-            Text(
-                text = description,
-                style = MaterialTheme.typography.body2
-            )
-        }
-    }
 }
 
 @Composable

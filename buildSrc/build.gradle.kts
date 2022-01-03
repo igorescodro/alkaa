@@ -9,15 +9,9 @@ plugins {
     `kotlin-dsl-precompiled-script-plugins`
 }
 
-object PluginsVersions {
-    const val gradle = "7.2.0-alpha05"
-    const val kotlin = "1.5.30"
-    const val detekt = "1.19.0"
-}
-
 dependencies {
-    implementation("com.android.tools.build:gradle:${PluginsVersions.gradle}")
-    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:${PluginsVersions.kotlin}")
+    implementation("com.android.tools.build:gradle:7.2.0-alpha06")
+    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.30")
 
-    implementation("io.gitlab.arturbosch.detekt:detekt-gradle-plugin:${PluginsVersions.detekt}")
+    implementation("io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.19.0")
 }

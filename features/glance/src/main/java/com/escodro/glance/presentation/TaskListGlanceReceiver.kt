@@ -5,5 +5,5 @@ import androidx.glance.appwidget.GlanceAppWidgetReceiver
 
 internal class TaskListGlanceReceiver : GlanceAppWidgetReceiver() {
 
-    override val glanceAppWidget: GlanceAppWidget = TaskListGlanceWidget()
+    override val glanceAppWidget: GlanceAppWidget = TaskListGlanceWidget().apply { loadData() }
 }

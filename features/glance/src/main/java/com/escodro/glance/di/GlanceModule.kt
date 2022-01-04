@@ -1,5 +1,6 @@
 package com.escodro.glance.di
 
+import com.escodro.glance.mapper.TaskMapper
 import com.escodro.glance.presentation.TaskListGlanceDataLoader
 import org.koin.dsl.module
 
@@ -9,5 +10,8 @@ import org.koin.dsl.module
 val glanceModule = module {
 
     // Presentation
-    single { TaskListGlanceDataLoader(get()) }
+    single { TaskListGlanceDataLoader(get(), get()) }
+
+    // Mapper
+    factory { TaskMapper() }
 }

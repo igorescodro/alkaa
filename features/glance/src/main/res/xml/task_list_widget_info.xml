@@ -1,0 +1,14 @@
+<!--TODO Update the resources after creating the widget-->
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:description="@string/glance_list_description"
+    android:initialLayout="@layout/widget_loading"
+    android:minWidth="180dp"
+    android:minHeight="50dp"
+    android:previewImage="@android:drawable/alert_dark_frame"
+    android:previewLayout="@layout/widget_task_list_preview"
+    android:resizeMode="horizontal|vertical"
+    android:targetCellWidth="3"
+    android:targetCellHeight="1"
+    android:widgetCategory="home_screen"
+    tools:targetApi="S" />

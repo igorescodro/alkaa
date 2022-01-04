@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="glance_list_description">Shows your latest tasks</string>
+    <string name="glance_list_loading">Loading</string>
+</resources>

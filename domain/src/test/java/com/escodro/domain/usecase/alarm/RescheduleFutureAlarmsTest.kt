@@ -4,6 +4,7 @@ import com.escodro.domain.model.AlarmInterval
 import com.escodro.domain.model.Task
 import com.escodro.domain.usecase.fake.AlarmInteractorFake
 import com.escodro.domain.usecase.fake.CalendarProviderFake
+import com.escodro.domain.usecase.fake.GlanceInteractorFake
 import com.escodro.domain.usecase.fake.TaskRepositoryFake
 import com.escodro.domain.usecase.task.implementation.AddTaskImpl
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -20,9 +21,11 @@ internal class RescheduleFutureAlarmsTest {
 
     private val alarmInteractor = AlarmInteractorFake()
 
+    private val glanceInteractor = GlanceInteractorFake()
+
     private val calendarProvider = CalendarProviderFake()
 
-    private val addTaskUseCase = AddTaskImpl(taskRepository)
+    private val addTaskUseCase = AddTaskImpl(taskRepository, glanceInteractor)
 
     private val scheduleNextAlarmUseCase =
         ScheduleNextAlarm(taskRepository, alarmInteractor, calendarProvider)

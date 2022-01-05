@@ -17,4 +17,4 @@ jobs:
           distribution: 'adopt'
 
       - name: Build with Gradle
-        run: ./gradlew clean build --no-daemon --parallel build
+        run: ./gradlew clean build test --no-daemon --parallel build

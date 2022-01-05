@@ -80,16 +80,6 @@ internal class TaskListGlanceWidget : GlanceAppWidget(), KoinComponent {
                     contentDescription = "",
                     modifier = GlanceModifier.size(32.dp)
                 )
-                // Text(
-                //     text = taskList.size.toString(),
-                //     modifier = GlanceModifier.height(24.dp),
-                //     style = TextStyle(
-                //         color = ColorProvider(Color.DarkGray),
-                //         fontSize = TextUnit(22f, TextUnitType.Sp),
-                //         fontWeight = FontWeight.Bold
-                //     ),
-                //     maxLines = 1
-                // )
             }
             if (taskList.isEmpty()) {
                 EmptyListContent()
@@ -155,7 +145,6 @@ internal class TaskListGlanceWidget : GlanceAppWidget(), KoinComponent {
      * https://issuetracker.google.com/issues/211022821
      */
     fun loadData() {
-        println("loadData")
         coroutineScope.launch {
             taskList = viewModel.loadTaskList().first()
             val currentGlanceId = snapshotFlow { glanceId }.firstOrNull()

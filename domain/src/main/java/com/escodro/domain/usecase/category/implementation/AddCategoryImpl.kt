@@ -11,7 +11,7 @@ internal class AddCategoryImpl(
 
     override suspend operator fun invoke(category: Category) {
         if (category.name.isBlank()) {
-            logger.debug("Category cannot be inserted with a empty name")
+            // logger.debug("Category cannot be inserted with a empty name")
             return
         }
         categoryRepository.insertCategory(category)

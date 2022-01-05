@@ -22,10 +22,10 @@ class ShowAlarm(
         val task = taskRepository.findTaskById(taskId) ?: return
 
         if (task.completed) {
-            logger.debug("Task '${task.title}' is already completed. Will not notify")
+            // logger.debug("Task '${task.title}' is already completed. Will not notify")
             return
         } else {
-            logger.debug("Notifying task '${task.title}'")
+            // logger.debug("Notifying task '${task.title}'")
             notificationInteractor.show(task)
         }
 

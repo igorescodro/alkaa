@@ -50,6 +50,11 @@ object DestinationDeepLink {
     private val BaseUri = "app://com.escodro.alkaa".toUri()
 
     /**
+     * Deep link pattern to be registered in [Destinations.Home] composable.
+     */
+    val HomePattern = "$BaseUri/home"
+
+    /**
      * Deep link pattern to be registered in [Destinations.TaskDetail] composable.
      */
     val TaskDetailPattern = "$BaseUri/${DestinationArgs.TaskId}={${DestinationArgs.TaskId}}"
@@ -61,4 +66,12 @@ object DestinationDeepLink {
      */
     fun getTaskDetailUri(taskId: Long): Uri =
         "$BaseUri/${DestinationArgs.TaskId}=$taskId".toUri()
+
+    /**
+     * Returns the [Destinations.Home] deep link with the argument set.
+     *
+     * @return the [Destinations.Home] deep link with the argument set
+     */
+    fun getTaskHomeUri(): Uri =
+        HomePattern.toUri()
 }

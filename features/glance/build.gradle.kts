@@ -5,6 +5,7 @@ plugins {
 
 dependencies {
     implementation(projects.domain)
+    implementation(projects.libraries.navigation)
 
     implementation(Deps.koin.android)
     implementation(Deps.koin.compose)

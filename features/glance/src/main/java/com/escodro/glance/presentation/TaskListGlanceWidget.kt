@@ -1,6 +1,7 @@
 package com.escodro.glance.presentation
 
 import android.content.Context
+import android.content.Intent
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -17,7 +18,9 @@ import androidx.glance.GlanceModifier
 import androidx.glance.Image
 import androidx.glance.ImageProvider
 import androidx.glance.LocalGlanceId
+import androidx.glance.action.clickable
 import androidx.glance.appwidget.GlanceAppWidget
+import androidx.glance.appwidget.action.actionStartActivity
 import androidx.glance.appwidget.appWidgetBackground
 import androidx.glance.appwidget.cornerRadius
 import androidx.glance.appwidget.lazy.LazyColumn
@@ -37,6 +40,7 @@ import androidx.glance.text.TextStyle
 import androidx.glance.unit.ColorProvider
 import com.escodro.glance.R
 import com.escodro.glance.model.Task
+import com.escodro.navigation.DestinationDeepLink
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
@@ -79,6 +83,7 @@ internal class TaskListGlanceWidget : GlanceAppWidget(), KoinComponent {
                     provider = ImageProvider(R.drawable.ic_alkaa_icon),
                     contentDescription = "",
                     modifier = GlanceModifier.size(32.dp)
+                        .clickable(actionStartActivity(getHomeIntent()))
                 )
             }
             if (taskList.isEmpty()) {
@@ -112,7 +117,8 @@ internal class TaskListGlanceWidget : GlanceAppWidget(), KoinComponent {
         Column(
             modifier = GlanceModifier
                 .height(32.dp)
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .clickable(actionStartActivity(getTaskIntent(task.id))),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
@@ -136,6 +142,12 @@ internal class TaskListGlanceWidget : GlanceAppWidget(), KoinComponent {
             )
         }
     }
+
+    private fun getHomeIntent(): Intent =
+        Intent(Intent.ACTION_VIEW, DestinationDeepLink.getTaskHomeUri())
+
+    private fun getTaskIntent(taskId: Long): Intent =
+        Intent(Intent.ACTION_VIEW, DestinationDeepLink.getTaskDetailUri(taskId))
 
     /**
      * Loads the data and requests the GlanceAppWidget to be updated. This is needed since it is not

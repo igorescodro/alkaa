@@ -9,5 +9,5 @@ internal class TaskMapper {
         localTaskList.map { toView(it) }
 
     private fun toView(taskWithCategory: TaskWithCategory): Task =
-        Task(title = taskWithCategory.task.title)
+        Task(id = taskWithCategory.task.id, title = taskWithCategory.task.title)
 }

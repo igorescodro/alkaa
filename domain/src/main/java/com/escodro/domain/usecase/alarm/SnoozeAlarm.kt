@@ -29,7 +29,7 @@ class SnoozeAlarm(
         val snoozedTime = getSnoozedTask(calendarProvider.getCurrentCalendar(), minutes)
         alarmInteractor.schedule(taskId, snoozedTime)
         notificationInteractor.dismiss(taskId)
-        // logger.debug("Task snoozed in $minutes minutes")
+        logger.debug { "Task snoozed in $minutes minutes" }
     }
 
     private fun getSnoozedTask(calendar: Calendar, minutes: Int): Long {

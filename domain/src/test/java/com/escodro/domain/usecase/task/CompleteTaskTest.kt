@@ -3,6 +3,7 @@ package com.escodro.domain.usecase.task
 import com.escodro.domain.model.Task
 import com.escodro.domain.usecase.fake.AlarmInteractorFake
 import com.escodro.domain.usecase.fake.CalendarProviderFake
+import com.escodro.domain.usecase.fake.GlanceInteractorFake
 import com.escodro.domain.usecase.fake.NotificationInteractorFake
 import com.escodro.domain.usecase.fake.TaskRepositoryFake
 import com.escodro.domain.usecase.task.implementation.AddTaskImpl
@@ -21,19 +22,25 @@ internal class CompleteTaskTest {
 
     private val alarmInteractor = AlarmInteractorFake()
 
+    private val glanceInteractor = GlanceInteractorFake()
+
     private val notificationInteractor = NotificationInteractorFake()
 
     private val calendarProvider = CalendarProviderFake()
 
-    private val addTaskUseCase = AddTaskImpl(taskRepository)
+    private val addTaskUseCase = AddTaskImpl(taskRepository, glanceInteractor)
 
     private val completeTaskUseCase =
         CompleteTask(taskRepository, alarmInteractor, notificationInteractor, calendarProvider)
 
     private val uncompleteTaskUseCase = UncompleteTask(taskRepository)
 
-    private val updateTaskStatusUseCase =
-        UpdateTaskStatusImpl(taskRepository, completeTaskUseCase, uncompleteTaskUseCase)
+    private val updateTaskStatusUseCase = UpdateTaskStatusImpl(
+        taskRepository,
+        glanceInteractor,
+        completeTaskUseCase,
+        uncompleteTaskUseCase
+    )
 
     private val getTaskUseCase = LoadTaskImpl(taskRepository)
 
@@ -41,6 +48,7 @@ internal class CompleteTaskTest {
     fun setup() = runBlockingTest {
         taskRepository.cleanTable()
         alarmInteractor.clear()
+        glanceInteractor.clean()
         notificationInteractor.clear()
     }
 
@@ -116,5 +124,13 @@ internal class CompleteTaskTest {
         completeTaskUseCase(task)
 
         Assert.assertFalse(notificationInteractor.isNotificationShown(task.id))
+    }
+
+    @Test
+    fun `test if the glance was notified`() = runBlockingTest {
+        val task = Task(id = 15, title = "this title", description = "this desc")
+        addTaskUseCase(task)
+
+        Assert.assertTrue(glanceInteractor.wasNotified)
     }
 }

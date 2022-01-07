@@ -55,14 +55,14 @@ import org.koin.dsl.module
 val domainModule = module {
 
     // Task Use Cases
-    factory<AddTask> { AddTaskImpl(get()) }
+    factory<AddTask> { AddTaskImpl(get(), get()) }
     factory { CompleteTask(get(), get(), get(), get()) }
     factory { UncompleteTask(get()) }
-    factory<UpdateTaskStatus> { UpdateTaskStatusImpl(get(), get(), get()) }
+    factory<UpdateTaskStatus> { UpdateTaskStatusImpl(get(), get(), get(), get()) }
     factory { DeleteTask(get(), get()) }
     factory<LoadTask> { LoadTaskImpl(get()) }
-    factory<UpdateTask> { UpdateTaskImpl(get()) }
-    factory<UpdateTaskTitle> { UpdateTaskTitleImpl(get(), get()) }
+    factory<UpdateTask> { UpdateTaskImpl(get(), get()) }
+    factory<UpdateTaskTitle> { UpdateTaskTitleImpl(get(), get(), get()) }
     factory<UpdateTaskDescription> { UpdateTaskDescriptionImpl(get(), get()) }
     factory<UpdateTaskCategory> { UpdateTaskCategoryImpl(get(), get()) }
 

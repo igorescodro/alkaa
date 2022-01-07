@@ -42,6 +42,7 @@ fun NavGraph(startDestination: String = Destinations.Home) {
 
         composable(
             route = Destinations.Home,
+            deepLinks = listOf(navDeepLink { uriPattern = DestinationDeepLink.HomePattern }),
             enterTransition = { _, _ ->
                 slideIntoContainer(
                     AnimatedContentScope.SlideDirection.Right,

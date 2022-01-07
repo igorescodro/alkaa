@@ -1,6 +1,7 @@
 package com.escodro.domain.usecase.task
 
 import com.escodro.domain.model.Task
+import com.escodro.domain.usecase.fake.GlanceInteractorFake
 import com.escodro.domain.usecase.fake.TaskRepositoryFake
 import com.escodro.domain.usecase.task.implementation.AddTaskImpl
 import com.escodro.domain.usecase.task.implementation.LoadTaskImpl
@@ -11,6 +12,7 @@ import com.escodro.domain.usecase.task.implementation.UpdateTaskTitleImpl
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert
+import org.junit.Before
 import org.junit.Test
 
 @ExperimentalCoroutinesApi
@@ -18,19 +20,27 @@ internal class UpdateTaskTest {
 
     private val taskRepository = TaskRepositoryFake()
 
-    private val addTaskUseCase = AddTaskImpl(taskRepository)
+    private val glanceInteractor = GlanceInteractorFake()
 
-    private val updateTaskUseCase = UpdateTaskImpl(taskRepository)
+    private val addTaskUseCase = AddTaskImpl(taskRepository, glanceInteractor)
+
+    private val updateTaskUseCase = UpdateTaskImpl(taskRepository, glanceInteractor)
 
     private val loadTaskUseCase = LoadTaskImpl(taskRepository)
 
-    private val updateTitleUseCase = UpdateTaskTitleImpl(loadTaskUseCase, updateTaskUseCase)
+    private val updateTitleUseCase =
+        UpdateTaskTitleImpl(loadTaskUseCase, updateTaskUseCase, glanceInteractor)
 
     private val updateDescriptionUseCase =
         UpdateTaskDescriptionImpl(loadTaskUseCase, updateTaskUseCase)
 
     private val updateTaskCategoryUseCase =
         UpdateTaskCategoryImpl(loadTaskUseCase, updateTaskUseCase)
+
+    @Before
+    fun setup() {
+        glanceInteractor.clean()
+    }
 
     @Test
     fun `test if task is updated`() = runBlockingTest {
@@ -78,5 +88,13 @@ internal class UpdateTaskTest {
 
         val loadedTask = loadTaskUseCase(task.id)
         Assert.assertEquals(newCategory, loadedTask!!.categoryId)
+    }
+
+    @Test
+    fun `test if the glance was notified`() = runBlockingTest {
+        val task = Task(id = 15, title = "this title", description = "this desc")
+        addTaskUseCase(task)
+
+        Assert.assertTrue(glanceInteractor.wasNotified)
     }
 }

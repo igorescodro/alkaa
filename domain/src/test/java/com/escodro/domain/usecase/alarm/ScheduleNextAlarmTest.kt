@@ -4,6 +4,7 @@ import com.escodro.domain.model.AlarmInterval
 import com.escodro.domain.model.Task
 import com.escodro.domain.provider.CalendarProviderImpl
 import com.escodro.domain.usecase.fake.AlarmInteractorFake
+import com.escodro.domain.usecase.fake.GlanceInteractorFake
 import com.escodro.domain.usecase.fake.TaskRepositoryFake
 import com.escodro.domain.usecase.task.implementation.AddTaskImpl
 import com.escodro.domain.usecase.task.implementation.LoadTaskImpl
@@ -22,9 +23,11 @@ internal class ScheduleNextAlarmTest {
 
     private val alarmInteractor = AlarmInteractorFake()
 
+    private val glanceInteractor = GlanceInteractorFake()
+
     private val calendarProvider = CalendarProviderImpl()
 
-    private val addTaskUseCase = AddTaskImpl(taskRepository)
+    private val addTaskUseCase = AddTaskImpl(taskRepository, glanceInteractor)
 
     private val getTaskUseCase = LoadTaskImpl(taskRepository)
 

@@ -3,6 +3,7 @@ package com.escodro.domain.usecase.alarm
 import com.escodro.domain.model.AlarmInterval
 import com.escodro.domain.model.Task
 import com.escodro.domain.usecase.alarm.implementation.UpdateTaskAsRepeatingImpl
+import com.escodro.domain.usecase.fake.GlanceInteractorFake
 import com.escodro.domain.usecase.fake.TaskRepositoryFake
 import com.escodro.domain.usecase.task.implementation.AddTaskImpl
 import com.escodro.domain.usecase.task.implementation.LoadTaskImpl
@@ -17,7 +18,9 @@ internal class UpdateTaskAsRepeatingTest {
 
     private val taskRepository = TaskRepositoryFake()
 
-    private val addTaskUseCase = AddTaskImpl(taskRepository)
+    private val glanceInteractor = GlanceInteractorFake()
+
+    private val addTaskUseCase = AddTaskImpl(taskRepository, glanceInteractor)
 
     private val getTaskUseCase = LoadTaskImpl(taskRepository)
 

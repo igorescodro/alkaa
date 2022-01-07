@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="glance_list_description">Exibe as suas tarefas mais recentes</string>
+    <string name="glance_list_loading">"Carregando"</string>
+    <string name="glance_list_preview_item_1">Comprar leite</string>
+    <string name="glance_list_preview_item_2">Assistir Ponyo</string>
+    <string name="glance_list_preview_item_3">Ouvir Local Natives</string>
+</resources>

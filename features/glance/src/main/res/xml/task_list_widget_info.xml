@@ -1,0 +1,13 @@
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:description="@string/glance_list_description"
+    android:initialLayout="@layout/widget_loading"
+    android:minWidth="140dp"
+    android:minHeight="60dp"
+    android:previewImage="@drawable/preview_task_list_widget"
+    android:previewLayout="@layout/widget_task_list_preview"
+    android:resizeMode="horizontal|vertical"
+    android:targetCellWidth="2"
+    android:targetCellHeight="2"
+    android:widgetCategory="home_screen"
+    tools:targetApi="S" />

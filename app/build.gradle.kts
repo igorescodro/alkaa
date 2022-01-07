@@ -68,6 +68,7 @@ dependencies {
     implementation(projects.features.category)
     implementation(projects.features.preference)
     implementation(projects.features.search)
+    implementation(projects.features.glance)
 
     implementation(Deps.logcat)
     implementation(Deps.compose.navigation)

@@ -11,7 +11,7 @@ internal class UpdateTaskAsRepeatingImpl(
 
     override suspend operator fun invoke(taskId: Long, interval: AlarmInterval?) {
         val task = taskRepository.findTaskById(taskId) ?: return
-        // logger.debug("UpdateTaskAsRepeating = Task = '${task.title} as '$interval")
+        logger.debug("UpdateTaskAsRepeating = Task = '${task.title} as '$interval")
 
         val updatedTask = if (interval == null) {
             task.copy(alarmInterval = null, isRepeating = false)

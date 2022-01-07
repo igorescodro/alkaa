@@ -69,8 +69,7 @@ dependencies {
     implementation(projects.features.preference)
     implementation(projects.features.search)
 
-    implementation(Deps.logging)
-    implementation(Deps.slf4j)
+    implementation(Deps.logcat)
     implementation(Deps.compose.navigation)
     implementation(Deps.compose.activity)
     implementation(Deps.accompanist.animation)

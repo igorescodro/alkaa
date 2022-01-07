@@ -4,7 +4,7 @@ import com.escodro.alarm.mapper.TaskMapper
 import com.escodro.alarm.notification.TaskNotification
 import com.escodro.domain.interactor.NotificationInteractor
 import com.escodro.domain.model.Task
-import mu.KLogging
+import logcat.logcat
 
 internal class NotificationInteractorImpl(
     private val taskNotification: TaskNotification,
@@ -12,7 +12,7 @@ internal class NotificationInteractorImpl(
 ) : NotificationInteractor {
 
     override fun show(task: Task) {
-        logger.debug("show - alarmId = ${task.id}")
+        logcat { "show - alarmId = ${task.id}" }
         if (task.isRepeating) {
             taskNotification.showRepeating(taskMapper.fromDomain(task))
         } else {
@@ -21,9 +21,7 @@ internal class NotificationInteractorImpl(
     }
 
     override fun dismiss(notificationId: Long) {
-        logger.debug("dismiss - alarmId = $notificationId")
+        logcat { "dismiss - alarmId = $notificationId" }
         taskNotification.dismiss(notificationId)
     }
-
-    companion object : KLogging()
 }

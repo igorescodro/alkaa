@@ -10,7 +10,8 @@ import com.escodro.domain.usecase.alarm.SnoozeAlarm
 import com.escodro.domain.usecase.task.CompleteTask
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import mu.KLogging
+import logcat.LogPriority
+import logcat.logcat
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -29,7 +30,7 @@ internal class TaskReceiver : BroadcastReceiver(), KoinComponent {
 
     @Suppress("GlobalCoroutineUsage")
     override fun onReceive(context: Context?, intent: Intent?) {
-        logger.debug("onReceive() - intent ${intent?.action}")
+        logcat { "onReceive() - intent ${intent?.action}" }
 
         GlobalScope.launch {
             handleIntent(intent)
@@ -43,12 +44,12 @@ internal class TaskReceiver : BroadcastReceiver(), KoinComponent {
             SNOOZE_ACTION -> getTaskId(intent)?.let { snoozeAlarmUseCase(it) }
             Intent.ACTION_BOOT_COMPLETED,
             AlarmManager.ACTION_SCHEDULE_EXACT_ALARM_PERMISSION_STATE_CHANGED -> rescheduleUseCase()
-            else -> logger.error("Action not supported")
+            else -> logcat(LogPriority.ERROR) { "Action not supported" }
         }
 
     private fun getTaskId(intent: Intent?) = intent?.getLongExtra(EXTRA_TASK, 0)
 
-    companion object : KLogging() {
+    companion object {
 
         const val EXTRA_TASK = "extra_task"
 

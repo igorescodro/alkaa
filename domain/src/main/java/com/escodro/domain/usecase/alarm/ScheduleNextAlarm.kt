@@ -39,7 +39,7 @@ class ScheduleNextAlarm(
 
         taskRepository.updateTask(task)
         alarmInteractor.schedule(task.id, task.dueDate.time.time)
-        // logger.debug("ScheduleNextAlarm = Task = '${task.title}' at ${task.dueDate.time} ")
+        logger.debug { "ScheduleNextAlarm = Task = '${task.title}' at ${task.dueDate.time} " }
     }
 
     private fun updatedAlarmTime(calendar: Calendar, alarmInterval: AlarmInterval) =

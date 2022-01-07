@@ -6,7 +6,7 @@ import android.content.Intent
 import com.escodro.alarm.TaskReceiver
 import com.escodro.core.extension.cancelAlarm
 import com.escodro.core.extension.setExactAlarm
-import mu.KLogging
+import logcat.logcat
 
 /**
  * Alarm manager to schedule a event based on the due date from a Task.
@@ -32,7 +32,7 @@ internal class TaskNotificationScheduler(private val context: Context) {
             PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
-        logger.debug("Scheduling notification for '$taskId' at '$timeInMillis'")
+        logcat { "Scheduling notification for '$taskId' at '$timeInMillis'" }
         context.setExactAlarm(timeInMillis, pendingIntent)
     }
 
@@ -52,9 +52,7 @@ internal class TaskNotificationScheduler(private val context: Context) {
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
-        logger.debug("Canceling notification with id '$taskId'")
+        logcat { "Canceling notification with id '$taskId'" }
         context.cancelAlarm(pendingIntent)
     }
-
-    companion object : KLogging()
 }

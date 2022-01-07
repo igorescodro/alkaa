@@ -8,45 +8,37 @@
     <ImageView
         android:layout_width="32dp"
         android:layout_height="32dp"
+        android:layout_marginBottom="12dp"
         android:src="@drawable/ic_alkaa_icon" />
 
-    <TextView
+    <CheckBox
         android:layout_width="match_parent"
         android:layout_height="32dp"
+        android:ellipsize="end"
         android:gravity="center_vertical"
+        android:maxLines="1"
         android:text="@string/glance_list_preview_item_1"
         android:textColor="#FF444444"
         android:textSize="12sp" />
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:src="#FF444444" />
-
-    <TextView
+    <CheckBox
         android:layout_width="match_parent"
         android:layout_height="32dp"
+        android:ellipsize="end"
         android:gravity="center_vertical"
+        android:maxLines="1"
         android:text="@string/glance_list_preview_item_2"
         android:textColor="#FF444444"
         android:textSize="12sp" />
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:src="#FF444444" />
-
-    <TextView
+    <CheckBox
         android:layout_width="match_parent"
         android:layout_height="32dp"
+        android:ellipsize="end"
         android:gravity="center_vertical"
+        android:maxLines="1"
         android:text="@string/glance_list_preview_item_3"
         android:textColor="#FF444444"
         android:textSize="12sp" />
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:src="#FF444444" />
 
 </LinearLayout>

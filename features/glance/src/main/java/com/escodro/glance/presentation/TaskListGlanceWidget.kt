@@ -132,7 +132,7 @@ internal class TaskListGlanceWidget : GlanceAppWidget(), KoinComponent {
                 Text(
                     text = task.title,
                     modifier = GlanceModifier
-                        .padding(horizontal = 16.dp)
+                        .padding(start = 4.dp, end = 8.dp)
                         .fillMaxWidth()
                         .height(24.dp),
                     style = TextStyle(

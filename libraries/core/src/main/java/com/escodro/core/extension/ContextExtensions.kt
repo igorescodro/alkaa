@@ -12,7 +12,9 @@ import android.content.pm.PackageManager
 import androidx.annotation.ColorRes
 import androidx.core.app.AlarmManagerCompat
 import androidx.core.net.toUri
-import mu.KotlinLogging.logger
+import logcat.LogPriority
+import logcat.asLog
+import logcat.logcat
 import java.util.Calendar
 
 private const val InvalidVersion = "x.x.x"
@@ -37,12 +39,12 @@ fun Context.setExactAlarm(
 ) {
     val currentTime = Calendar.getInstance().timeInMillis
     if (triggerAtMillis <= currentTime) {
-        logger.warn("It is not possible to set alarm in the past")
+        logcat(LogPriority.WARN) { "It is not possible to set alarm in the past" }
         return
     }
 
     if (operation == null) {
-        logger.error("PendingIntent is null")
+        logcat(LogPriority.ERROR) { "PendingIntent is null" }
         return
     }
 
@@ -60,7 +62,7 @@ fun Context.setExactAlarm(
  */
 fun Context.cancelAlarm(operation: PendingIntent?) {
     if (operation == null) {
-        logger.error("PendingIntent is null")
+        logcat(LogPriority.ERROR) { "PendingIntent is null" }
         return
     }
 
@@ -102,10 +104,8 @@ fun Context.getVersionName(): String {
         try {
             packageInfo = packageManager.getPackageInfo(it, 0)
         } catch (e: PackageManager.NameNotFoundException) {
-            logger.error(e.localizedMessage)
+            logcat(LogPriority.ERROR) { e.asLog() }
         }
     }
     return packageInfo?.versionName ?: InvalidVersion
 }
-
-private val logger = logger {}

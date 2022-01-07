@@ -30,7 +30,7 @@ import com.google.android.play.core.splitinstall.SplitInstallManagerFactory
 import com.google.android.play.core.splitinstall.SplitInstallRequest
 import com.google.android.play.core.splitinstall.SplitInstallStateUpdatedListener
 import com.google.android.play.core.splitinstall.model.SplitInstallSessionStatus
-import mu.KotlinLogging
+import logcat.logcat
 
 /**
  * Composable to handle the all the operations to open a Dynamic Feature Module. This Composable
@@ -85,7 +85,7 @@ private fun isFeatureInstalled(
     featureName: String,
 ): Boolean {
     val isFeatureInstalled = manager.installedModules.contains(featureName)
-    logger.debug("load = [$featureName] - isFeatureInstalled = $isFeatureInstalled")
+    logcat(TAG) { "load = [$featureName] - isFeatureInstalled = $isFeatureInstalled" }
 
     return isFeatureInstalled
 }
@@ -125,7 +125,7 @@ private fun DownloadFeature(
             .build()
 
         val listener = SplitInstallStateUpdatedListener {
-            logger.debug("${it.status()}")
+            logcat { "${it.status()}" }
 
             when (it.status()) {
                 SplitInstallSessionStatus.PENDING -> isDialogOpen = true
@@ -134,7 +134,7 @@ private fun DownloadFeature(
                     setState(FeatureReady)
                     onDismiss()
                 }
-                else -> logger.debug("${it.status()}")
+                else -> logcat { "${it.status()}" }
             }
         }
 
@@ -172,4 +172,4 @@ private fun DownloadDialog() {
     )
 }
 
-private val logger = KotlinLogging.logger {}
+private const val TAG = "SplitInstall"

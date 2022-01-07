@@ -7,7 +7,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.ExperimentalUnitApi
 import androidx.compose.ui.unit.TextUnit
@@ -17,14 +16,17 @@ import androidx.glance.GlanceId
 import androidx.glance.GlanceModifier
 import androidx.glance.Image
 import androidx.glance.ImageProvider
-import androidx.glance.LocalGlanceId
+import androidx.glance.action.actionParametersOf
 import androidx.glance.action.clickable
+import androidx.glance.appwidget.CheckBox
 import androidx.glance.appwidget.GlanceAppWidget
+import androidx.glance.appwidget.action.actionRunCallback
 import androidx.glance.appwidget.action.actionStartActivity
 import androidx.glance.appwidget.appWidgetBackground
 import androidx.glance.appwidget.cornerRadius
 import androidx.glance.appwidget.lazy.LazyColumn
 import androidx.glance.appwidget.lazy.items
+import androidx.glance.appwidget.updateAll
 import androidx.glance.background
 import androidx.glance.layout.Alignment
 import androidx.glance.layout.Box
@@ -45,7 +47,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -54,19 +55,15 @@ internal class TaskListGlanceWidget : GlanceAppWidget(), KoinComponent {
 
     private val context: Context by inject()
 
-    private val viewModel: TaskListGlanceDataLoader by inject()
+    private val viewModel: TaskListGlanceViewModel by inject()
 
     private val coroutineScope: CoroutineScope = MainScope()
 
     private var taskList by mutableStateOf<List<Task>>(emptyList())
 
-    private var glanceId by mutableStateOf<GlanceId?>(null)
-
     @OptIn(ExperimentalUnitApi::class)
     @Composable
     override fun Content() {
-        glanceId = LocalGlanceId.current
-
         Column(
             modifier = GlanceModifier
                 .fillMaxSize()
@@ -121,25 +118,30 @@ internal class TaskListGlanceWidget : GlanceAppWidget(), KoinComponent {
                 .clickable(actionStartActivity(getTaskIntent(task.id))),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(
-                text = task.title,
-                modifier = GlanceModifier
-                    .padding(horizontal = 16.dp)
-                    .fillMaxWidth()
-                    .height(24.dp),
-                style = TextStyle(
-                    color = ColorProvider(Color.DarkGray),
-                    fontSize = TextUnit(14f, TextUnitType.Sp),
-                ),
-                maxLines = 1
-            )
-            Box(
-                GlanceModifier
-                    .fillMaxWidth()
-                    .height(1.dp)
-                    .background(color = Color.DarkGray),
-                content = {}
-            )
+            Row(
+                modifier = GlanceModifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                CheckBox(
+                    checked = false,
+                    onCheckedChange = actionRunCallback<UpdateTaskStatusAction>(
+                        actionParametersOf(TaskIdKey to task.id.toString())
+                    ),
+                    modifier = GlanceModifier.size(32.dp)
+                )
+                Text(
+                    text = task.title,
+                    modifier = GlanceModifier
+                        .padding(horizontal = 16.dp)
+                        .fillMaxWidth()
+                        .height(24.dp),
+                    style = TextStyle(
+                        color = ColorProvider(Color.DarkGray),
+                        fontSize = TextUnit(14f, TextUnitType.Sp),
+                    ),
+                    maxLines = 1
+                )
+            }
         }
     }
 
@@ -159,11 +161,7 @@ internal class TaskListGlanceWidget : GlanceAppWidget(), KoinComponent {
     fun loadData() {
         coroutineScope.launch {
             taskList = viewModel.loadTaskList().first()
-            val currentGlanceId = snapshotFlow { glanceId }.firstOrNull()
-
-            if (currentGlanceId != null) {
-                update(context, currentGlanceId)
-            }
+            updateAll(context)
         }
     }
 

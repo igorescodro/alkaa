@@ -3,8 +3,7 @@ package com.escodro.glance.di
 import com.escodro.domain.interactor.GlanceInteractor
 import com.escodro.glance.interactor.GlanceInteractorImpl
 import com.escodro.glance.mapper.TaskMapper
-import com.escodro.glance.presentation.TaskListGlanceDataLoader
-import org.koin.android.ext.koin.androidContext
+import com.escodro.glance.presentation.TaskListGlanceViewModel
 import org.koin.dsl.module
 
 /**
@@ -13,10 +12,10 @@ import org.koin.dsl.module
 val glanceModule = module {
 
     // Presentation
-    single { TaskListGlanceDataLoader(get(), get()) }
+    factory { TaskListGlanceViewModel(get(), get(), get()) }
 
     // Interactor
-    factory<GlanceInteractor> { GlanceInteractorImpl(androidContext()) }
+    factory<GlanceInteractor> { GlanceInteractorImpl() }
 
     // Mapper
     factory { TaskMapper() }

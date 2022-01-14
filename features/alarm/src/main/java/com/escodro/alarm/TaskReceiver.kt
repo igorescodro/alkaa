@@ -8,7 +8,7 @@ import com.escodro.domain.usecase.alarm.RescheduleFutureAlarms
 import com.escodro.domain.usecase.alarm.ShowAlarm
 import com.escodro.domain.usecase.alarm.SnoozeAlarm
 import com.escodro.domain.usecase.task.CompleteTask
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import logcat.LogPriority
 import logcat.logcat
@@ -20,6 +20,8 @@ import org.koin.core.component.inject
  */
 internal class TaskReceiver : BroadcastReceiver(), KoinComponent {
 
+    private val coroutineScope: CoroutineScope by inject()
+
     private val completeTaskUseCase: CompleteTask by inject()
 
     private val showAlarmUseCase: ShowAlarm by inject()
@@ -28,11 +30,10 @@ internal class TaskReceiver : BroadcastReceiver(), KoinComponent {
 
     private val rescheduleUseCase: RescheduleFutureAlarms by inject()
 
-    @Suppress("GlobalCoroutineUsage")
     override fun onReceive(context: Context?, intent: Intent?) {
         logcat { "onReceive() - intent ${intent?.action}" }
 
-        GlobalScope.launch {
+        coroutineScope.launch {
             handleIntent(intent)
         }
     }

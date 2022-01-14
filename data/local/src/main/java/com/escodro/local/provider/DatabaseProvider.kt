@@ -11,13 +11,16 @@ import com.escodro.local.migration.MIGRATION_1_2
 import com.escodro.local.migration.MIGRATION_2_3
 import com.escodro.local.migration.MIGRATION_3_4
 import com.escodro.local.model.Category
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 /**
  * Repository with the [Room] database.
  */
-class DatabaseProvider(private val context: Context) {
+internal class DatabaseProvider(
+    private val context: Context,
+    private val coroutineScope: CoroutineScope
+) {
 
     private var database: TaskDatabase? = null
 
@@ -37,12 +40,11 @@ class DatabaseProvider(private val context: Context) {
             .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4)
             .build()
 
-    @Suppress("GlobalCoroutineUsage")
     private fun onCreateDatabase() =
         object : RoomDatabase.Callback() {
             override fun onCreate(db: SupportSQLiteDatabase) {
                 super.onCreate(db)
-                GlobalScope.launch {
+                coroutineScope.launch {
                     database?.categoryDao()?.insertCategory(getDefaultCategoryList())
                 }
             }

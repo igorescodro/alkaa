@@ -34,6 +34,6 @@ val localModule = module {
     factory { TaskWithCategoryMapper(get(), get()) }
 
     // Providers
-    single { DatabaseProvider(get()) }
+    single { DatabaseProvider(get(), get()) }
     single { DaoProvider(get()) }
 }

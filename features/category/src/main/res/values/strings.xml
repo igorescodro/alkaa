@@ -11,5 +11,6 @@
     <string name="category_dialog_remove_text">Are you sure you want to remove this category?\nRemoving \"%s\" also removes all the tasks under this category.</string>
     <string name="category_dialog_remove_confirm">Remove</string>
     <string name="category_dialog_remove_cancel">Cancel</string>
+    <string name="category_cd_remove_category">Remove</string>
 
 </resources>

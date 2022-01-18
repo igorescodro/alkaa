@@ -39,9 +39,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.escodro.category.R
+import com.escodro.category.presentation.semantics.color
 import com.escodro.categoryapi.model.Category
 import com.escodro.designsystem.AlkaaTheme
 import com.escodro.designsystem.components.AlkaaDialog
@@ -145,7 +147,10 @@ private fun CategorySheetContent(
                         .height(64.dp)
                         .weight(1F)
                 ) {
-                    Icon(imageVector = Icons.Outlined.Delete, contentDescription = "")
+                    Icon(
+                        imageVector = Icons.Outlined.Delete,
+                        contentDescription = stringResource(id = R.string.category_cd_remove_category)
+                    )
                 }
             }
         }
@@ -240,6 +245,7 @@ private fun CategoryColorItem(
                 .size(32.dp)
                 .clip(CircleShape)
                 .background(color = color)
+                .semantics { this.color = color }
                 .selectable(
                     role = Role.RadioButton,
                     selected = isSelected,

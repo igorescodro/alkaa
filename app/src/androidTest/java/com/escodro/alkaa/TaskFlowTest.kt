@@ -19,6 +19,7 @@ import com.escodro.local.model.Category
 import com.escodro.local.provider.DaoProvider
 import com.escodro.task.presentation.category.ChipNameKey
 import com.escodro.test.assertIsChecked
+import com.escodro.test.setDateTime
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Rule
@@ -26,6 +27,7 @@ import org.junit.Test
 import org.koin.test.KoinTest
 import org.koin.test.inject
 import org.koin.test.mock.declare
+import java.util.Calendar
 import com.escodro.task.R as TaskR
 
 internal class TaskFlowTest : KoinTest {
@@ -112,7 +114,50 @@ internal class TaskFlowTest : KoinTest {
 
             // Reopen the task and validate if the category is selected
             onNodeWithText(text = taskName, useUnmergedTree = true).performClick()
-            composeTestRule.onChip(category).assertIsChecked()
+            onChip(category).assertIsChecked()
+        }
+    }
+
+    @Test
+    fun test_alarmIsSaved() {
+        val taskName = "Wake wake! It's time for school!"
+        addAndOpenTask(taskName)
+        with(composeTestRule) {
+            onNodeWithText(string(TaskR.string.task_detail_alarm_no_alarm)).performClick()
+
+            // Set alarm to 2021-04-15 - 17:00:00
+            val calendar = Calendar.getInstance().apply { timeInMillis = 1_650_042_000 }
+            setDateTime(calendar)
+            pressBack()
+
+            // Reopen the task and validate if the alarm is on
+            onNodeWithText(text = taskName, useUnmergedTree = true).performClick()
+            onNodeWithText(string(TaskR.string.task_detail_alarm_no_alarm)).assertDoesNotExist()
+        }
+    }
+
+    @Test
+    fun test_alarmIntervalIsSaved() {
+        val taskName = "Morning is here..."
+        addAndOpenTask(taskName)
+        with(composeTestRule) {
+            onNodeWithText(string(TaskR.string.task_detail_alarm_no_alarm)).performClick()
+
+            // Set alarm to 2021-04-15 - 17:00:00
+            val calendar = Calendar.getInstance().apply { timeInMillis = 1_650_042_000 }
+            setDateTime(calendar)
+
+            // Set repeating randomly
+            val alarmArray =
+                context.resources.getStringArray(com.escodro.task.R.array.task_alarm_repeating)
+            onNodeWithText(alarmArray[0]).performClick()
+            onNodeWithText(alarmArray.last()).performClick()
+
+            pressBack()
+
+            // Reopen the task and validate if the alarm is on
+            onNodeWithText(text = taskName, useUnmergedTree = true).performClick()
+            onNodeWithText(alarmArray[0]).assertDoesNotExist()
         }
     }
 

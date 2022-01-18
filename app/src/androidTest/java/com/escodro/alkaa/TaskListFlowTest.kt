@@ -13,6 +13,7 @@ import androidx.compose.ui.test.performTextInput
 import androidx.test.platform.app.InstrumentationRegistry
 import com.escodro.alkaa.navigation.NavGraph
 import com.escodro.designsystem.AlkaaTheme
+import com.escodro.local.model.Category
 import com.escodro.local.provider.DaoProvider
 import com.escodro.task.presentation.list.CheckboxNameKey
 import kotlinx.coroutines.runBlocking
@@ -21,7 +22,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.koin.test.KoinTest
 import org.koin.test.inject
-import com.escodro.local.R as LocalR
 import com.escodro.task.R as TaskR
 
 internal class TaskListFlowTest : KoinTest {
@@ -35,8 +35,17 @@ internal class TaskListFlowTest : KoinTest {
 
     @Before
     fun setup() {
-        // Clean all existing tasks
-        runBlocking { daoProvider.getTaskDao().cleanTable() }
+        // Clean all existing tasks and categories
+        runBlocking {
+            with(daoProvider) {
+                getTaskDao().cleanTable()
+                getCategoryDao().cleanTable()
+
+                getCategoryDao().insertCategory(Category(name = "Books", color = "#cc5a71"))
+                getCategoryDao().insertCategory(Category(name = "Music", color = "#58a4b0"))
+                getCategoryDao().insertCategory(Category(name = "Work", color = "#519872"))
+            }
+        }
         composeTestRule.setContent {
             AlkaaTheme {
                 NavGraph()
@@ -82,17 +91,17 @@ internal class TaskListFlowTest : KoinTest {
         with(composeTestRule) {
             // Create a task in Work category and validate if it is visible in the list
             clickAddTask()
-            onAllNodesWithText(string(LocalR.string.category_default_work))[1].performClick()
+            onAllNodesWithText("Work")[1].performClick()
             onNode(hasSetTextAction()).performTextInput(taskName)
             onNodeWithText(string(TaskR.string.task_add_save)).performClick()
             onNodeWithText(text = taskName, useUnmergedTree = true).assertExists()
 
             // Click in the Work filter and validate if still visible
-            onAllNodesWithText(string(LocalR.string.category_default_work))[0].performClick()
+            onAllNodesWithText("Work")[0].performClick()
             onNodeWithText(text = taskName, useUnmergedTree = true).assertExists()
 
             // Click in the Shopping List filter and validate if task is no longer visible
-            onAllNodesWithText(string(LocalR.string.category_default_shopping))[0].performClick()
+            onAllNodesWithText("Music")[0].performClick()
             onNodeWithText(text = taskName, useUnmergedTree = true).assertDoesNotExist()
         }
     }

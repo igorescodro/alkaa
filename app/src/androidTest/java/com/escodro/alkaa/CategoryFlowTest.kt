@@ -24,7 +24,7 @@ import org.koin.test.KoinTest
 import org.koin.test.inject
 import com.escodro.category.R as CategoryR
 
-internal class CategoryTest : KoinTest {
+internal class CategoryFlowTest : KoinTest {
 
     private val daoProvider: DaoProvider by inject()
 

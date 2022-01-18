@@ -15,6 +15,7 @@ import com.escodro.alkaa.fake.CoroutinesDebouncerFake
 import com.escodro.alkaa.navigation.NavGraph
 import com.escodro.core.coroutines.CoroutineDebouncer
 import com.escodro.designsystem.AlkaaTheme
+import com.escodro.local.model.Category
 import com.escodro.local.provider.DaoProvider
 import com.escodro.task.presentation.category.ChipNameKey
 import com.escodro.test.assertIsChecked
@@ -25,7 +26,6 @@ import org.junit.Test
 import org.koin.test.KoinTest
 import org.koin.test.inject
 import org.koin.test.mock.declare
-import com.escodro.local.R as LocalR
 import com.escodro.task.R as TaskR
 
 internal class TaskFlowTest : KoinTest {
@@ -39,8 +39,17 @@ internal class TaskFlowTest : KoinTest {
 
     @Before
     fun setup() {
-        // Clean all existing tasks
-        runBlocking { daoProvider.getTaskDao().cleanTable() }
+        // Clean all existing tasks and categories
+        runBlocking {
+            with(daoProvider) {
+                getTaskDao().cleanTable()
+                getCategoryDao().cleanTable()
+
+                getCategoryDao().insertCategory(Category(name = "Books", color = "#cc5a71"))
+                getCategoryDao().insertCategory(Category(name = "Music", color = "#58a4b0"))
+                getCategoryDao().insertCategory(Category(name = "Shared", color = "#519872"))
+            }
+        }
 
         // Replace Debouncer with a Immediate Executor
         declare<CoroutineDebouncer> { CoroutinesDebouncerFake() }
@@ -97,7 +106,7 @@ internal class TaskFlowTest : KoinTest {
 
         with(composeTestRule) {
             // Select a category
-            val category = string(LocalR.string.category_default_shopping)
+            val category = "Music"
             onChip(category).performClick()
             pressBack()
 

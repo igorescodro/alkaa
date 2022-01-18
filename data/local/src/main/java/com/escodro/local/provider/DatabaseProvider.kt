@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 /**
  * Repository with the [Room] database.
  */
-internal class DatabaseProvider(
+class DatabaseProvider(
     private val context: Context,
     private val coroutineScope: CoroutineScope
 ) {

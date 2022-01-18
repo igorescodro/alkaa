@@ -25,6 +25,8 @@ import org.junit.Test
 import org.koin.test.KoinTest
 import org.koin.test.inject
 import org.koin.test.mock.declare
+import com.escodro.local.R as LocalR
+import com.escodro.task.R as TaskR
 
 internal class TaskFlowTest : KoinTest {
 
@@ -95,7 +97,7 @@ internal class TaskFlowTest : KoinTest {
 
         with(composeTestRule) {
             // Select a category
-            val category = string(R.string.category_default_shopping)
+            val category = string(LocalR.string.category_default_shopping)
             onChip(category).performClick()
             pressBack()
 
@@ -108,11 +110,11 @@ internal class TaskFlowTest : KoinTest {
     private fun addAndOpenTask(taskName: String) {
         with(composeTestRule) {
             onNodeWithContentDescription(
-                string(R.string.task_cd_add_task),
+                string(TaskR.string.task_cd_add_task),
                 useUnmergedTree = true
             ).performClick()
             onNode(hasSetTextAction()).performTextInput(taskName)
-            onNodeWithText(string(R.string.task_add_save)).performClick()
+            onNodeWithText(string(TaskR.string.task_add_save)).performClick()
             onNodeWithText(text = taskName, useUnmergedTree = true).performClick()
             onNodeWithText(text = taskName, useUnmergedTree = true).assertExists()
         }
@@ -123,7 +125,7 @@ internal class TaskFlowTest : KoinTest {
 
     private fun pressBack() {
         composeTestRule.onNodeWithContentDescription(
-            string(R.string.back_arrow_cd),
+            string(TaskR.string.back_arrow_cd),
             useUnmergedTree = true
         ).performClick()
     }

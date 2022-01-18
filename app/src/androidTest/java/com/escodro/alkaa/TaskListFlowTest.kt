@@ -21,6 +21,8 @@ import org.junit.Rule
 import org.junit.Test
 import org.koin.test.KoinTest
 import org.koin.test.inject
+import com.escodro.local.R as LocalR
+import com.escodro.task.R as TaskR
 
 internal class TaskListFlowTest : KoinTest {
 
@@ -67,7 +69,7 @@ internal class TaskListFlowTest : KoinTest {
             val taskName = ""
             clickAddTask()
             onNode(hasSetTextAction()).performTextInput(taskName)
-            onNodeWithText(string(R.string.task_add_save)).performClick()
+            onNodeWithText(string(TaskR.string.task_add_save)).performClick()
 
             // Validate if task without title is not created
             onCheckbox(taskName).assertDoesNotExist()
@@ -80,17 +82,17 @@ internal class TaskListFlowTest : KoinTest {
         with(composeTestRule) {
             // Create a task in Work category and validate if it is visible in the list
             clickAddTask()
-            onAllNodesWithText(string(R.string.category_default_work))[1].performClick()
+            onAllNodesWithText(string(LocalR.string.category_default_work))[1].performClick()
             onNode(hasSetTextAction()).performTextInput(taskName)
-            onNodeWithText(string(R.string.task_add_save)).performClick()
+            onNodeWithText(string(TaskR.string.task_add_save)).performClick()
             onNodeWithText(text = taskName, useUnmergedTree = true).assertExists()
 
             // Click in the Work filter and validate if still visible
-            onAllNodesWithText(string(R.string.category_default_work))[0].performClick()
+            onAllNodesWithText(string(LocalR.string.category_default_work))[0].performClick()
             onNodeWithText(text = taskName, useUnmergedTree = true).assertExists()
 
             // Click in the Shopping List filter and validate if task is no longer visible
-            onAllNodesWithText(string(R.string.category_default_shopping))[0].performClick()
+            onAllNodesWithText(string(LocalR.string.category_default_shopping))[0].performClick()
             onNodeWithText(text = taskName, useUnmergedTree = true).assertDoesNotExist()
         }
     }
@@ -99,14 +101,14 @@ internal class TaskListFlowTest : KoinTest {
         with(composeTestRule) {
             clickAddTask()
             onNode(hasSetTextAction()).performTextInput(taskName)
-            onNodeWithText(string(R.string.task_add_save)).performClick()
+            onNodeWithText(string(TaskR.string.task_add_save)).performClick()
             onNodeWithText(text = taskName, useUnmergedTree = true).assertExists()
         }
     }
 
     private fun clickAddTask() {
         composeTestRule.onNodeWithContentDescription(
-            string(R.string.task_cd_add_task),
+            string(TaskR.string.task_cd_add_task),
             useUnmergedTree = true
         ).performClick()
     }

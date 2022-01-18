@@ -19,6 +19,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.koin.test.KoinTest
 import org.koin.test.inject
+import com.escodro.search.R as SearchR
 
 internal class SearchFlowTest : KoinTest {
 
@@ -86,8 +87,8 @@ internal class SearchFlowTest : KoinTest {
                 onNodeWithText(text = task.title, useUnmergedTree = true).assertDoesNotExist()
             }
 
-            onNodeWithContentDescription(label = string(R.string.search_cd_empty_list)).assertExists()
-            onNodeWithText(text = string(R.string.search_header_empty)).assertExists()
+            onNodeWithContentDescription(string(SearchR.string.search_cd_empty_list)).assertExists()
+            onNodeWithText(text = string(SearchR.string.search_header_empty)).assertExists()
         }
     }
 

@@ -10,6 +10,7 @@ import com.escodro.domain.usecase.alarm.ScheduleAlarm
 import com.escodro.local.model.AlarmInterval
 import com.escodro.local.model.Task
 import com.escodro.local.provider.DaoProvider
+import com.escodro.test.DisableAnimationsRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import org.junit.After
@@ -32,6 +33,9 @@ internal class NotificationFlowTest : KoinTest {
 
     @get:Rule
     val composeTestRule = createComposeRule()
+
+    @get:Rule
+    val disableAnimationsRule = DisableAnimationsRule()
 
     private val context = InstrumentationRegistry.getInstrumentation().targetContext
 

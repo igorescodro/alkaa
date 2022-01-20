@@ -16,6 +16,7 @@ import com.escodro.designsystem.AlkaaTheme
 import com.escodro.local.model.Category
 import com.escodro.local.provider.DaoProvider
 import com.escodro.task.presentation.list.CheckboxNameKey
+import com.escodro.test.DisableAnimationsRule
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Rule
@@ -30,6 +31,9 @@ internal class TaskListFlowTest : KoinTest {
 
     @get:Rule
     val composeTestRule = createComposeRule()
+
+    @get:Rule
+    val disableAnimationsRule = DisableAnimationsRule()
 
     private val context = InstrumentationRegistry.getInstrumentation().targetContext
 

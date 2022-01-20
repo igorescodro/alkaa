@@ -18,6 +18,7 @@ import com.escodro.designsystem.AlkaaTheme
 import com.escodro.local.model.Category
 import com.escodro.local.provider.DaoProvider
 import com.escodro.task.presentation.category.ChipNameKey
+import com.escodro.test.DisableAnimationsRule
 import com.escodro.test.assertIsChecked
 import com.escodro.test.setDateTime
 import kotlinx.coroutines.runBlocking
@@ -36,6 +37,9 @@ internal class TaskFlowTest : KoinTest {
 
     @get:Rule
     val composeTestRule = createComposeRule()
+
+    @get:Rule
+    val disableAnimationsRule = DisableAnimationsRule()
 
     private val context = InstrumentationRegistry.getInstrumentation().targetContext
 
@@ -182,6 +186,9 @@ internal class TaskFlowTest : KoinTest {
             string(TaskR.string.back_arrow_cd),
             useUnmergedTree = true
         ).performClick()
+
+        // Wait the list to be loaded
+        Thread.sleep(1000)
     }
 
     private fun ComposeTestRule.onChip(chipName: String) = onNode(

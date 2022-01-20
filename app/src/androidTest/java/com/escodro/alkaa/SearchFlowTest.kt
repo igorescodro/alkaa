@@ -13,6 +13,7 @@ import com.escodro.alkaa.fake.FAKE_TASKS
 import com.escodro.alkaa.navigation.NavGraph
 import com.escodro.designsystem.AlkaaTheme
 import com.escodro.local.provider.DaoProvider
+import com.escodro.test.DisableAnimationsRule
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Rule
@@ -27,6 +28,9 @@ internal class SearchFlowTest : KoinTest {
 
     @get:Rule
     val composeTestRule = createComposeRule()
+
+    @get:Rule
+    val disableAnimationsRule = DisableAnimationsRule()
 
     private val context = InstrumentationRegistry.getInstrumentation().targetContext
 
@@ -69,6 +73,8 @@ internal class SearchFlowTest : KoinTest {
             onNode(hasSetTextAction()).performTextInput(query)
             onAllNodesWithText(text = query, useUnmergedTree = true)[1].assertExists()
 
+            Thread.sleep(1000)
+
             // Drop the first task and validate others are not shown
             FAKE_TASKS.drop(1).forEach { task ->
                 // Validate all tasks are shown
@@ -81,6 +87,8 @@ internal class SearchFlowTest : KoinTest {
     fun test_noTasksAreShownWithInvalidQuery() {
         with(composeTestRule) {
             onNode(hasSetTextAction()).performTextInput("query")
+
+            Thread.sleep(1000)
 
             FAKE_TASKS.forEach { task ->
                 // Validate all tasks are shown

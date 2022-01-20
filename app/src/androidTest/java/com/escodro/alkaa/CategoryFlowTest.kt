@@ -16,6 +16,7 @@ import com.escodro.alkaa.navigation.NavGraph
 import com.escodro.category.presentation.semantics.ColorKey
 import com.escodro.designsystem.AlkaaTheme
 import com.escodro.local.provider.DaoProvider
+import com.escodro.test.DisableAnimationsRule
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Rule
@@ -30,6 +31,9 @@ internal class CategoryFlowTest : KoinTest {
 
     @get:Rule
     val composeTestRule = createComposeRule()
+
+    @get:Rule
+    val disableAnimationsRule = DisableAnimationsRule()
 
     private val context = InstrumentationRegistry.getInstrumentation().targetContext
 

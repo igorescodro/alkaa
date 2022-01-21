@@ -59,16 +59,18 @@ internal class NotificationFlowTest : KoinTest {
 
     @Test
     fun test_notificationIsShown() {
+        // Insert a task
         val id = 12L
         val name = "Don't believe me?"
         val appName = context.getString(com.escodro.core.R.string.app_name)
         insertTask(id, name)
 
+        // Wait until the notification is launched
         val notificationManager = context.getNotificationManager()
-        require(notificationManager != null)
-        composeTestRule.waitUntil(10_000) { notificationManager.activeNotifications.isNotEmpty() }
+        composeTestRule.waitUntil(10_000) { notificationManager!!.activeNotifications.isNotEmpty() }
 
-        with(notificationManager.activeNotifications.first()) {
+        // Validate the notification info
+        with(notificationManager!!.activeNotifications.first()) {
             assertEquals(id.toInt(), this.id)
             assertEquals(name, this.notification.extras[Notification.EXTRA_TEXT])
             assertEquals(appName, this.notification.extras[Notification.EXTRA_TITLE])
@@ -77,47 +79,54 @@ internal class NotificationFlowTest : KoinTest {
 
     @Test
     fun test_taskUpdateReflectsInNotification() = runBlocking {
+        // Insert and update a task
         val task = insertTask(name = "Hi, I'm a PC")
         val updatedTitle = "Hi, I'm a Mac"
 
         val updatedTask = task.copy(title = updatedTitle)
         daoProvider.getTaskDao().updateTask(updatedTask)
 
+        // Wait until the notification is launched
         val notificationManager = context.getNotificationManager()
-        require(notificationManager != null)
-        composeTestRule.waitUntil(10_000) { notificationManager.activeNotifications.isNotEmpty() }
+        composeTestRule.waitUntil(10_000) { notificationManager!!.activeNotifications.isNotEmpty() }
 
-        with(notificationManager.activeNotifications.first()) {
+        // Validate the notification has the updated title
+        with(notificationManager!!.activeNotifications.first()) {
             assertEquals(updatedTitle, this.notification.extras[Notification.EXTRA_TEXT])
         }
     }
 
     @Test
     fun test_taskCompletedIsNotNotified() = runBlocking {
+        // Insert a task and updated it as "completed"
         val task = insertTask(name = "Shhh! I wasn't here!")
 
         val updatedTask = task.copy(completed = true)
         daoProvider.getTaskDao().updateTask(updatedTask)
 
+        // Wait for 7 seconds
         val notificationManager = context.getNotificationManager()
-        require(notificationManager != null)
         Thread.sleep(7_000)
 
-        assertTrue(notificationManager.activeNotifications.isEmpty())
+        // Validate the notification was not launched
+        assertTrue(notificationManager!!.activeNotifications.isEmpty())
     }
 
     @Test
     fun test_completeTaskViaNotification() = runBlocking {
+        // Insert a task
         val id = 3333L
         val name = "You complete me!"
         insertTask(id = id, name = name)
 
+        // Wait until the notification is launched
         val notificationManager = context.getNotificationManager()
-        require(notificationManager != null)
-        composeTestRule.waitUntil(10_000) { notificationManager.activeNotifications.isNotEmpty() }
+        composeTestRule.waitUntil(10_000) { notificationManager!!.activeNotifications.isNotEmpty() }
 
-        notificationManager.activeNotifications.first().notification.actions[1].actionIntent.send()
+        // Run the PendingIntent in the "Done" action button
+        notificationManager!!.activeNotifications.first().notification.actions[1].actionIntent.send()
 
+        // Validate the task is now updated as "completed"
         Thread.sleep(300)
         val task = daoProvider.getTaskDao().getTaskById(id)
 
@@ -126,27 +135,31 @@ internal class NotificationFlowTest : KoinTest {
 
     @Test
     fun test_snoozeTaskViaNotification() = runBlocking {
+        // Insert a task
         val id = 9999L
         val name = "I need to sleep more..."
         val calendar = Calendar.getInstance()
         insertTask(id = id, name = name, calendar = calendar)
 
+        // Wait until the notification is launched
         val notificationManager = context.getNotificationManager()
-        require(notificationManager != null)
-        composeTestRule.waitUntil(10_000) { notificationManager.activeNotifications.isNotEmpty() }
+        composeTestRule.waitUntil(10_000) { notificationManager!!.activeNotifications.isNotEmpty() }
 
-        notificationManager.activeNotifications.first().notification.actions[0].actionIntent.send()
+        // Run the PendingIntent in the "Snooze" action button
+        notificationManager!!.activeNotifications.first().notification.actions[0].actionIntent.send()
     }
 
     @Test
     fun test_ifRepeatingTaskDoesNotHaveDoneButton() {
+        // Insert a repeating task
         insertRepeatingTask(name = "WE ARE NOT DONE YET, YOUNG LADY")
 
+        // Wait until the notification is launched
         val notificationManager = context.getNotificationManager()
-        require(notificationManager != null)
-        composeTestRule.waitUntil(10_000) { notificationManager.activeNotifications.isNotEmpty() }
+        composeTestRule.waitUntil(10_000) { notificationManager!!.activeNotifications.isNotEmpty() }
 
-        val notification = notificationManager.activeNotifications.first().notification
+        // Validate it only have one action and it is "Snooze"
+        val notification = notificationManager!!.activeNotifications.first().notification
         val snoozeString = context.getString(AlarmR.string.notification_action_snooze)
         assertEquals(1, notification.actions.size)
         assertEquals(snoozeString, notification.actions.first().title)
@@ -154,13 +167,15 @@ internal class NotificationFlowTest : KoinTest {
 
     @Test
     fun test_ifNonRepeatingTaskDoesNotHaveBothButtons() {
+        // Insert a normal task
         insertTask(name = "The way it is")
 
+        // Insert a repeating task
         val notificationManager = context.getNotificationManager()
-        require(notificationManager != null)
-        composeTestRule.waitUntil(10_000) { notificationManager.activeNotifications.isNotEmpty() }
+        composeTestRule.waitUntil(10_000) { notificationManager!!.activeNotifications.isNotEmpty() }
 
-        val notification = notificationManager.activeNotifications.first().notification
+        // Validate it only have two actions: "Snooze" and "Done"
+        val notification = notificationManager!!.activeNotifications.first().notification
         val snoozeString = context.getString(AlarmR.string.notification_action_snooze)
         val doneString = context.getString(AlarmR.string.notification_action_completed)
         assertEquals(2, notification.actions.size)

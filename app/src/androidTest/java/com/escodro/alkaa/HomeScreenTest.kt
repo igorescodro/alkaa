@@ -36,6 +36,8 @@ internal class HomeScreenTest {
     fun test_titleChangesWhenBottomIconIsSelected() {
         HomeSection.values().forEach { section ->
             val title = context.getString(section.title)
+
+            // Click on each item and validate the title
             composeTestRule.onNodeWithContentDescription(label = title, useUnmergedTree = true)
                 .performClick()
             composeTestRule.onNodeWithText(title).assertExists()

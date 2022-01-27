@@ -25,6 +25,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -54,51 +55,71 @@ import org.koin.androidx.compose.getViewModel
  * Alkaa Category Bottom Sheet.
  */
 @Composable
-fun CategoryBottomSheet(category: Category?, onHideBottomSheet: () -> Unit) {
+fun CategoryBottomSheet(categoryId: Long, onHideBottomSheet: () -> Unit) {
     val colorList = CategoryColors.values().map { it.value }
+    if (categoryId == 0L) {
+        CategoryNewSheetLoader(
+            colorList = colorList,
+            onHideBottomSheet = onHideBottomSheet
+        )
+    } else {
+        CategoryEditSheetLoader(
+            categoryId = categoryId,
+            colorList = colorList,
+            onHideBottomSheet = onHideBottomSheet
+        )
+    }
+}
 
-    val editCategory = category ?: Category(
-        name = "",
-        color = CategoryColors.values()[0].value.toArgb()
-    )
-
-    var bottomContent by rememberSaveable(category) {
-        mutableStateOf(CategoryBottomSheetState(editCategory))
+@Composable
+private fun CategoryNewSheetLoader(
+    addViewModel: CategoryAddViewModel = getViewModel(),
+    colorList: List<Color>,
+    onHideBottomSheet: () -> Unit,
+) {
+    val sheetState by rememberSaveable(addViewModel) {
+        mutableStateOf(CategoryBottomSheetState(emptyCategory()))
     }
 
-    CategorySheetLoader(
+    CategorySheetContent(
         colorList = colorList,
-        bottomSheetState = bottomContent,
-        onHideBottomSheet = {
+        state = sheetState,
+        onCategoryChange = { updatedState ->
+            addViewModel.addCategory(updatedState.toCategory())
             onHideBottomSheet()
-            bottomContent = CategoryBottomSheetState(editCategory)
         }
     )
 }
 
 @Composable
-private fun CategorySheetLoader(
-    addViewModel: CategoryAddViewModel = getViewModel(),
+private fun CategoryEditSheetLoader(
     editViewModel: CategoryEditViewModel = getViewModel(),
-    bottomSheetState: CategoryBottomSheetState,
+    categoryId: Long,
     colorList: List<Color>,
     onHideBottomSheet: () -> Unit,
 ) {
-    val onSaveCategory: (CategoryBottomSheetState) -> Unit = if (bottomSheetState.isEditing()) {
-        { editCategory -> editViewModel.updateCategory(editCategory.toCategory()) }
-    } else {
-        { newCategory -> addViewModel.addCategory(newCategory.toCategory()) }
+    val categoryState by remember(editViewModel, categoryId) {
+        editViewModel.loadCategory(categoryId = categoryId)
+    }.collectAsState(initial = CategorySheetState.Empty)
+
+    val category = when (categoryState) {
+        CategorySheetState.Empty -> emptyCategory()
+        is CategorySheetState.Loaded -> (categoryState as CategorySheetState.Loaded).category
+    }
+
+    val sheetState by rememberSaveable(categoryState) {
+        mutableStateOf(CategoryBottomSheetState(category))
     }
 
     CategorySheetContent(
         colorList = colorList,
-        state = bottomSheetState,
+        state = sheetState,
         onCategoryChange = { updatedState ->
-            onSaveCategory(updatedState)
+            editViewModel.updateCategory(updatedState.toCategory())
             onHideBottomSheet()
         },
-        onCategoryRemove = { category ->
-            editViewModel.deleteCategory(category)
+        onCategoryRemove = {
+            editViewModel.deleteCategory(it)
             onHideBottomSheet()
         }
     )
@@ -110,9 +131,15 @@ private fun CategorySheetContent(
     state: CategoryBottomSheetState,
     colorList: List<Color>,
     onCategoryChange: (CategoryBottomSheetState) -> Unit,
-    onCategoryRemove: (Category) -> Unit
+    onCategoryRemove: (Category) -> Unit = {}
 ) {
-    Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.SpaceAround) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(256.dp)
+            .padding(16.dp),
+        verticalArrangement = Arrangement.SpaceAround
+    ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
 
             var openDialog by rememberSaveable { mutableStateOf(false) }
@@ -256,6 +283,11 @@ private fun CategoryColorItem(
         }
     }
 }
+
+private fun emptyCategory() = Category(
+    name = "",
+    color = CategoryColors.values()[0].value.toArgb()
+)
 
 @Suppress("UndocumentedPublicFunction")
 @Preview

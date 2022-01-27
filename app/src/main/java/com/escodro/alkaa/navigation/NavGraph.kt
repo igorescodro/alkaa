@@ -15,22 +15,29 @@ import androidx.navigation.compose.dialog
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
 import com.escodro.alkaa.presentation.home.Home
+import com.escodro.category.presentation.bottomsheet.CategoryBottomSheet
+import com.escodro.category.presentation.bottomsheet.CategoryBottomSheet
 import com.escodro.navigation.DestinationArgs
 import com.escodro.navigation.DestinationDeepLink
 import com.escodro.navigation.Destinations
 import com.escodro.preference.presentation.About
 import com.escodro.splitinstall.LoadFeature
+import com.escodro.task.presentation.add.AddTaskBottomSheet
 import com.escodro.task.presentation.detail.main.TaskDetailSection
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
+import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
+import com.google.accompanist.navigation.material.ModalBottomSheetLayout
+import com.google.accompanist.navigation.material.bottomSheet
+import com.google.accompanist.navigation.material.rememberBottomSheetNavigator
 
 /**
  * Navigation Graph to control the Alkaa navigation.
  *
  * @param startDestination the start destination of the graph
  */
-@OptIn(ExperimentalAnimationApi::class)
+@OptIn(ExperimentalAnimationApi::class, ExperimentalMaterialNavigationApi::class)
 @Suppress("LongMethod", "MagicNumber")
 @Composable
 fun NavGraph(startDestination: String = Destinations.Home) {
@@ -59,7 +66,9 @@ fun NavGraph(startDestination: String = Destinations.Home) {
             Home(
                 onTaskClick = actions.openTaskDetail,
                 onAboutClick = actions.openAbout,
-                onTrackerClick = actions.openTracker
+                onTrackerClick = actions.openTracker,
+                onTaskSheetOpen = actions.openTaskBottomSheet,
+                onCategorySheetOpen = actions.openCategoryBottomSheet
             )
         }
 
@@ -83,7 +92,7 @@ fun NavGraph(startDestination: String = Destinations.Home) {
             val arguments = requireNotNull(backStackEntry.arguments)
             TaskDetailSection(
                 taskId = arguments.getLong(DestinationArgs.TaskId),
-                onUpPress = actions.onUpPress
+                onUpPress = actions.navigateUp
             )
         }
 
@@ -102,14 +111,35 @@ fun NavGraph(startDestination: String = Destinations.Home) {
                 )
             },
         ) {
-            About(onUpPress = actions.onUpPress)
+            About(onUpPress = actions.navigateUp)
+        }
+
+
+        bottomSheet(
+            route = "${Destinations.BottomSheet.Category}/{${DestinationArgs.CategoryId}}",
+            arguments = listOf(
+                navArgument(DestinationArgs.CategoryId) {
+                    type = NavType.LongType
+                }
+            ),
+            deepLinks = listOf(
+                navDeepLink {
+                    uriPattern = DestinationDeepLink.CategorySheetPattern
+                }
+            ),
+        ) { backStackEntry ->
+            val id = backStackEntry.arguments?.getLong(DestinationArgs.CategoryId) ?: 0L
+            CategoryBottomSheet(
+                categoryId = id,
+                onHideBottomSheet = actions.navigateUp
+            )
         }
 
         dialog(Destinations.Tracker) {
             LoadFeature(
                 context = context,
                 featureName = FeatureTracker,
-                onDismiss = actions.onUpPress
+                onDismiss = actions.navigateUp
             ) {
                 // Workaround to be able to use Dynamic Feature with Compose
                 // https://issuetracker.google.com/issues/183677219
@@ -137,7 +167,16 @@ internal data class Actions(val navController: NavHostController, val context: C
         navController.navigate(Destinations.Tracker)
     }
 
-    val onUpPress: () -> Unit = {
+    val openTaskBottomSheet: () -> Unit = {
+        navController.navigate(Destinations.BottomSheet.Task)
+    }
+
+    val openCategoryBottomSheet: (Long?) -> Unit = { categoryId ->
+        val id = categoryId ?: 0L
+        navController.navigate("${Destinations.BottomSheet.Category}/$id")
+    }
+
+    val navigateUp: () -> Unit = {
         navController.navigateUp()
     }
 }

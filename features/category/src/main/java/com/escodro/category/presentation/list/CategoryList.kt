@@ -63,7 +63,7 @@ import kotlin.math.roundToInt
 @Composable
 fun CategoryListSection(
     modifier: Modifier,
-    onShowBottomSheet: (Category?) -> Unit
+    onShowBottomSheet: (Long?) -> Unit
 ) {
     CategoryListLoader(
         modifier = modifier,
@@ -76,7 +76,7 @@ fun CategoryListSection(
 private fun CategoryListLoader(
     modifier: Modifier,
     viewModel: CategoryListViewModel = getViewModel(),
-    onItemClick: (Category) -> Unit,
+    onItemClick: (Long?) -> Unit,
     onAddClick: () -> Unit
 ) {
     val viewState by remember(viewModel) { viewModel.loadCategories() }
@@ -94,7 +94,7 @@ private fun CategoryListLoader(
 private fun CategoryListScaffold(
     modifier: Modifier,
     viewState: CategoryState,
-    onItemClick: (Category) -> Unit,
+    onItemClick: (Long?) -> Unit,
     onAddClick: () -> Unit
 ) {
     BoxWithConstraints {
@@ -123,7 +123,7 @@ private fun CategoryListScaffold(
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 @Suppress("MagicNumber")
-private fun CategoryListContent(categoryList: List<Category>, onItemClick: (Category) -> Unit) {
+private fun CategoryListContent(categoryList: List<Category>, onItemClick: (Long?) -> Unit) {
     BoxWithConstraints(modifier = Modifier.padding(start = 8.dp, end = 8.dp)) {
         val cellCount: Int = max(2F, maxWidth.value / 250).roundToInt()
         LazyVerticalGrid(cells = GridCells.Fixed(cellCount)) {
@@ -141,14 +141,14 @@ private fun CategoryListContent(categoryList: List<Category>, onItemClick: (Cate
 private fun CategoryItem(
     modifier: Modifier = Modifier,
     category: Category,
-    onItemClick: (Category) -> Unit
+    onItemClick: (Long) -> Unit
 ) {
     Card(
         elevation = 4.dp,
         modifier = modifier
             .fillMaxWidth()
             .padding(all = 8.dp)
-            .clickable { onItemClick(category) }
+            .clickable { onItemClick(category.id) }
     ) {
         Column(
             verticalArrangement = Arrangement.Center,

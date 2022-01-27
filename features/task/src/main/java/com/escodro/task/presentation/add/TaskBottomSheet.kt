@@ -52,7 +52,10 @@ internal fun AddTaskLoader(
     onHideBottomSheet: () -> Unit
 ) {
     Column(
-        modifier = Modifier.padding(16.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(256.dp)
+            .padding(16.dp),
         verticalArrangement = Arrangement.SpaceAround
     ) {
         var taskInputText by rememberSaveable { mutableStateOf("") }

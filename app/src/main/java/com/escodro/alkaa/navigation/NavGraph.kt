@@ -16,7 +16,6 @@ import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
 import com.escodro.alkaa.presentation.home.Home
 import com.escodro.category.presentation.bottomsheet.CategoryBottomSheet
-import com.escodro.category.presentation.bottomsheet.CategoryBottomSheet
 import com.escodro.navigation.DestinationArgs
 import com.escodro.navigation.DestinationDeepLink
 import com.escodro.navigation.Destinations
@@ -41,113 +40,112 @@ import com.google.accompanist.navigation.material.rememberBottomSheetNavigator
 @Suppress("LongMethod", "MagicNumber")
 @Composable
 fun NavGraph(startDestination: String = Destinations.Home) {
-    val navController = rememberAnimatedNavController()
+    val bottomSheetNavigator = rememberBottomSheetNavigator()
+    val navController = rememberAnimatedNavController(bottomSheetNavigator)
     val context = LocalContext.current
 
     val actions = remember(navController) { Actions(navController, context) }
-    AnimatedNavHost(navController = navController, startDestination = startDestination) {
 
-        composable(
-            route = Destinations.Home,
-            deepLinks = listOf(navDeepLink { uriPattern = DestinationDeepLink.HomePattern }),
-            enterTransition = {
-                slideIntoContainer(
-                    AnimatedContentScope.SlideDirection.Right,
-                    animationSpec = tween(700)
-                )
-            },
-            exitTransition = {
-                slideOutOfContainer(
-                    AnimatedContentScope.SlideDirection.Left,
-                    animationSpec = tween(700)
+    ModalBottomSheetLayout(bottomSheetNavigator) {
+        AnimatedNavHost(navController = navController, startDestination = startDestination) {
+
+            composable(
+                route = Destinations.Home,
+                deepLinks = listOf(navDeepLink { uriPattern = DestinationDeepLink.HomePattern }),
+                enterTransition = {
+                    slideIntoContainer(
+                        AnimatedContentScope.SlideDirection.Right,
+                        animationSpec = tween(700)
+                    )
+                },
+                exitTransition = {
+                    slideOutOfContainer(
+                        AnimatedContentScope.SlideDirection.Left,
+                        animationSpec = tween(700)
+                    )
+                }
+            ) {
+                Home(
+                    onTaskClick = actions.openTaskDetail,
+                    onAboutClick = actions.openAbout,
+                    onTrackerClick = actions.openTracker,
+                    onTaskSheetOpen = actions.openTaskBottomSheet,
+                    onCategorySheetOpen = actions.openCategoryBottomSheet
                 )
             }
-        ) {
-            Home(
-                onTaskClick = actions.openTaskDetail,
-                onAboutClick = actions.openAbout,
-                onTrackerClick = actions.openTracker,
-                onTaskSheetOpen = actions.openTaskBottomSheet,
-                onCategorySheetOpen = actions.openCategoryBottomSheet
-            )
-        }
 
-        composable(
-            route = "${Destinations.TaskDetail}/{${DestinationArgs.TaskId}}",
-            arguments = listOf(navArgument(DestinationArgs.TaskId) { type = NavType.LongType }),
-            deepLinks = listOf(navDeepLink { uriPattern = DestinationDeepLink.TaskDetailPattern }),
-            enterTransition = {
-                slideIntoContainer(
-                    AnimatedContentScope.SlideDirection.Left,
-                    animationSpec = tween(700)
+            composable(
+                route = "${Destinations.TaskDetail}/{${DestinationArgs.TaskId}}",
+                arguments = listOf(navArgument(DestinationArgs.TaskId) { type = NavType.LongType }),
+                deepLinks = listOf(
+                    navDeepLink {
+                        uriPattern = DestinationDeepLink.TaskDetailPattern
+                    }
+                ),
+                enterTransition = {
+                    slideIntoContainer(
+                        AnimatedContentScope.SlideDirection.Left,
+                        animationSpec = tween(700)
+                    )
+                },
+                exitTransition = {
+                    slideOutOfContainer(
+                        AnimatedContentScope.SlideDirection.Right,
+                        animationSpec = tween(700)
+                    )
+                },
+            ) { backStackEntry ->
+                val arguments = requireNotNull(backStackEntry.arguments)
+                TaskDetailSection(
+                    taskId = arguments.getLong(DestinationArgs.TaskId),
+                    onUpPress = actions.navigateUp
                 )
-            },
-            exitTransition = {
-                slideOutOfContainer(
-                    AnimatedContentScope.SlideDirection.Right,
-                    animationSpec = tween(700)
-                )
-            },
-        ) { backStackEntry ->
-            val arguments = requireNotNull(backStackEntry.arguments)
-            TaskDetailSection(
-                taskId = arguments.getLong(DestinationArgs.TaskId),
-                onUpPress = actions.navigateUp
-            )
-        }
+            }
 
-        composable(
-            route = Destinations.About,
-            enterTransition = {
-                slideIntoContainer(
-                    AnimatedContentScope.SlideDirection.Left,
-                    animationSpec = tween(700)
-                )
-            },
-            exitTransition = {
-                slideOutOfContainer(
-                    AnimatedContentScope.SlideDirection.Right,
-                    animationSpec = tween(700)
-                )
-            },
-        ) {
-            About(onUpPress = actions.navigateUp)
-        }
-
-
-        bottomSheet(
-            route = "${Destinations.BottomSheet.Category}/{${DestinationArgs.CategoryId}}",
-            arguments = listOf(
-                navArgument(DestinationArgs.CategoryId) {
-                    type = NavType.LongType
-                }
-            ),
-            deepLinks = listOf(
-                navDeepLink {
-                    uriPattern = DestinationDeepLink.CategorySheetPattern
-                }
-            ),
-        ) { backStackEntry ->
-            val id = backStackEntry.arguments?.getLong(DestinationArgs.CategoryId) ?: 0L
-            CategoryBottomSheet(
-                categoryId = id,
-                onHideBottomSheet = actions.navigateUp
-            )
-        }
-
-        dialog(Destinations.Tracker) {
-            LoadFeature(
-                context = context,
-                featureName = FeatureTracker,
-                onDismiss = actions.navigateUp
+            composable(
+                route = Destinations.About,
             ) {
-                // Workaround to be able to use Dynamic Feature with Compose
-                // https://issuetracker.google.com/issues/183677219
-                val intent = Intent(Intent.ACTION_VIEW).apply {
-                    data = Uri.parse(TrackerDeepLink)
-                    `package` = context.packageName
+                About(onUpPress = actions.navigateUp)
+            }
+
+            bottomSheet(Destinations.BottomSheet.Task) {
+                AddTaskBottomSheet(actions.navigateUp)
+            }
+
+            bottomSheet(
+                route = "${Destinations.BottomSheet.Category}/{${DestinationArgs.CategoryId}}",
+                arguments = listOf(
+                    navArgument(DestinationArgs.CategoryId) {
+                        type = NavType.LongType
+                    }
+                ),
+                deepLinks = listOf(
+                    navDeepLink {
+                        uriPattern = DestinationDeepLink.CategorySheetPattern
+                    }
+                ),
+            ) { backStackEntry ->
+                val id = backStackEntry.arguments?.getLong(DestinationArgs.CategoryId) ?: 0L
+                CategoryBottomSheet(
+                    categoryId = id,
+                    onHideBottomSheet = actions.navigateUp
+                )
+            }
+
+            dialog(Destinations.Tracker) {
+                LoadFeature(
+                    context = context,
+                    featureName = FeatureTracker,
+                    onDismiss = actions.navigateUp
+                ) {
+                    // Workaround to be able to use Dynamic Feature with Compose
+                    // https://issuetracker.google.com/issues/183677219
+                    val intent = Intent(Intent.ACTION_VIEW).apply {
+                        data = Uri.parse(TrackerDeepLink)
+                        `package` = context.packageName
+                    }
+                    context.startActivity(intent)
                 }
-                context.startActivity(intent)
             }
         }
     }

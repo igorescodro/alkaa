@@ -15,6 +15,7 @@ import com.escodro.domain.usecase.alarm.implementation.UpdateTaskAsRepeatingImpl
 import com.escodro.domain.usecase.category.AddCategory
 import com.escodro.domain.usecase.category.DeleteCategory
 import com.escodro.domain.usecase.category.LoadAllCategories
+import com.escodro.domain.usecase.category.LoadCategory
 import com.escodro.domain.usecase.category.UpdateCategory
 import com.escodro.domain.usecase.category.implementation.AddCategoryImpl
 import com.escodro.domain.usecase.category.implementation.DeleteCategoryImpl
@@ -69,7 +70,7 @@ val domainModule = module {
     // Category Use Cases
     factory<DeleteCategory> { DeleteCategoryImpl(get()) }
     factory<LoadAllCategories> { LoadAllCategoriesImpl(get()) }
-    factory { LoadCategoryImpl(get()) }
+    factory<LoadCategory> { LoadCategoryImpl(get()) }
     factory<AddCategory> { AddCategoryImpl(get()) }
     factory<UpdateCategory> { UpdateCategoryImpl(get()) }
 

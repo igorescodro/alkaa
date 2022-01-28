@@ -25,3 +25,4 @@
     public static ** valueOf(java.lang.String);
 }
 
+-keepnames class * implements android.os.Parcelable

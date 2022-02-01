@@ -9,16 +9,6 @@ concurrency:
 jobs:
   build:
     runs-on: macos-latest
-    strategy:
-      # Allow tests to continue on other devices if they fail on one device.
-      fail-fast: false
-      matrix:
-        api-level:
-          - 24
-          - 26
-          - 29
-          - 30
-          - 31
 
     steps:
       - name: Checkout
@@ -30,18 +20,11 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
 
-      - name: Android Emulator Runner
-        uses: ReactiveCircus/android-emulator-runner@v2.22.0
-        with:
-          api-level: ${{ matrix.api-level }}
-          target: google_apis
-          arch: x86_64
-          disable-animations: true
-          profile: Nexus 6
-          emulator-options: -no-snapshot -no-window -no-boot-anim -camera-back none -camera-front none -gpu swiftshader_indirect
-          script: ./gradlew connectedCheck --stacktrace
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v2
 
-#     UTP disables due to some issues with GitHub Actions
-#     For more information: https://issuetracker.google.com/issues/193118030
-#      - name: Run instrumented tests
-#        run: ./gradlew alkaaDevicesGroupDebugAndroidTest -Pandroid.sdk.channel=3
+      - name: Verify Emulator version
+        run: /Users/runner/Library/Android/sdk/emulator/emulator -version
+
+      - name: Run instrumented tests
+        run: ./gradlew pixel4api30DebugAndroidTest -Pandroid.sdk.channel=3 --info

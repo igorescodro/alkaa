@@ -106,7 +106,6 @@ internal class NotificationFlowTest : KoinTest {
 
         // Wait for 7 seconds
         val notificationManager = context.getNotificationManager()
-        Thread.sleep(7_000)
 
         // Validate the notification was not launched
         assertTrue(notificationManager!!.activeNotifications.isEmpty())

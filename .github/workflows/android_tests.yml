@@ -2,9 +2,23 @@ name: instrumented tests
 
 on: [ push ]
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: macos-latest
+    strategy:
+      # Allow tests to continue on other devices if they fail on one device.
+      fail-fast: false
+      matrix:
+        api-level:
+          - 24
+          - 26
+          - 29
+          - 30
+          - 31
 
     steps:
       - name: Checkout
@@ -19,7 +33,12 @@ jobs:
       - name: Android Emulator Runner
         uses: ReactiveCircus/android-emulator-runner@v2.22.0
         with:
-          api-level: 29
+          api-level: ${{ matrix.api-level }}
+          target: google_apis
+          arch: x86_64
+          disable-animations: true
+          profile: Nexus 6
+          emulator-options: -no-snapshot -no-window -no-boot-anim -camera-back none -camera-front none -gpu swiftshader_indirect
           script: ./gradlew connectedCheck --stacktrace
 
 #     UTP disables due to some issues with GitHub Actions

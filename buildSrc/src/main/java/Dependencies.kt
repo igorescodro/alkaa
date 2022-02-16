@@ -11,7 +11,7 @@ object Versions {
     const val material = "1.3.0"
     const val constraint = "2.0.4"
     const val ktx = "1.0.2"
-    const val room = "2.4.1"
+    const val room = "2.3.0"
     const val playCore = "1.10.0"
     const val dataStore = "1.0.0"
     const val glance = "1.0.0-alpha01"
@@ -37,7 +37,7 @@ object Versions {
     const val composeNav = "2.4.2"
     const val composeVm = "2.4.1"
     const val composeActivity = "1.3.0"
-    const val composeMaterialYou = "1.0.0-alpha04"
+    const val composeMaterialYou = "1.0.0-alpha05"
 
     const val accompanist = "0.23.1"
 

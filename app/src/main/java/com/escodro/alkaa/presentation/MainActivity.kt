@@ -25,12 +25,12 @@ internal class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            val windowSizeClass = rememberWindowSizeClass()
+            val windowSize = rememberWindowSizeClass()
             val isDarkTheme = rememberIsDarkTheme()
             updateTheme(isDarkTheme)
 
             AlkaaTheme(darkTheme = isDarkTheme) {
-                NavGraph(windowSizeClass = windowSizeClass)
+                NavGraph(windowSize = windowSize)
             }
         }
     }

@@ -34,7 +34,7 @@ import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 @OptIn(ExperimentalAnimationApi::class)
 @Suppress("LongMethod", "MagicNumber")
 @Composable
-fun NavGraph(startDestination: String = Destinations.Home, windowSizeClass: WindowSize) {
+fun NavGraph(startDestination: String = Destinations.Home, windowSize: WindowSize) {
     val navController = rememberAnimatedNavController()
     val context = LocalContext.current
 
@@ -44,13 +44,13 @@ fun NavGraph(startDestination: String = Destinations.Home, windowSizeClass: Wind
         composable(
             route = Destinations.Home,
             deepLinks = listOf(navDeepLink { uriPattern = DestinationDeepLink.HomePattern }),
-            enterTransition = { _, _ ->
+            enterTransition = {
                 slideIntoContainer(
                     AnimatedContentScope.SlideDirection.Right,
                     animationSpec = tween(700)
                 )
             },
-            exitTransition = { _, _ ->
+            exitTransition = {
                 slideOutOfContainer(
                     AnimatedContentScope.SlideDirection.Left,
                     animationSpec = tween(700)
@@ -69,13 +69,13 @@ fun NavGraph(startDestination: String = Destinations.Home, windowSizeClass: Wind
             route = "${Destinations.TaskDetail}/{${DestinationArgs.TaskId}}",
             arguments = listOf(navArgument(DestinationArgs.TaskId) { type = NavType.LongType }),
             deepLinks = listOf(navDeepLink { uriPattern = DestinationDeepLink.TaskDetailPattern }),
-            enterTransition = { _, _ ->
+            enterTransition = {
                 slideIntoContainer(
                     AnimatedContentScope.SlideDirection.Left,
                     animationSpec = tween(700)
                 )
             },
-            exitTransition = { _, _ ->
+            exitTransition = {
                 slideOutOfContainer(
                     AnimatedContentScope.SlideDirection.Right,
                     animationSpec = tween(700)
@@ -91,20 +91,20 @@ fun NavGraph(startDestination: String = Destinations.Home, windowSizeClass: Wind
 
         composable(
             route = Destinations.About,
-            enterTransition = { _, _ ->
+            enterTransition = {
                 slideIntoContainer(
                     AnimatedContentScope.SlideDirection.Left,
                     animationSpec = tween(700)
                 )
             },
-            exitTransition = { _, _ ->
+            exitTransition = {
                 slideOutOfContainer(
                     AnimatedContentScope.SlideDirection.Right,
                     animationSpec = tween(700)
                 )
             },
         ) {
-            About(windowSize = windowSizeClass, onUpPress = actions.onUpPress)
+            About(windowSize = windowSize, onUpPress = actions.onUpPress)
         }
 
         dialog(Destinations.Tracker) {

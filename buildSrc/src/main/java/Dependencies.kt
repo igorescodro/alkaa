@@ -39,7 +39,7 @@ object Versions {
     const val composeVm = "1.0.0-alpha07"
     const val composeActivity = "1.3.0"
 
-    const val accompanist = "0.20.2"
+    const val accompanist = "0.23.0"
 
     const val ktlint = "0.43.2"
 }

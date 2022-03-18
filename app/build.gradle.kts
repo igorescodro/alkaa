@@ -61,42 +61,36 @@ android {
     }
 
     testOptions {
-        devices {
-            add(
-                ManagedVirtualDevice("pixel4api30").apply {
-                    device = "Pixel 4"
-                    apiLevel = 30
-                    systemImageSource = "aosp"
-                }
-            )
-            add(
-                ManagedVirtualDevice("pixel2api26").apply {
-                    device = "Pixel 2"
-                    apiLevel = 28
-                    systemImageSource = "aosp"
-                    abi = "x86"
-                }
-            )
-            add(
-                ManagedVirtualDevice("nexus9api29").apply {
-                    device = "Nexus 9"
-                    apiLevel = 29
-                    systemImageSource = "aosp"
-                    abi = "x86"
-                }
-            )
-        }
-        deviceGroups {
-            create("alkaaDevices").apply {
-                targetDevices.addAll(
-                    listOf(
-                        // devices.getByName("pixel4api30"),
-                        devices.getByName("pixel2api26"),
-                        // TODO add again after tests: devices.getByName("nexus9api29")
-                    )
+        managedDevices {
+            devices {
+                add(
+                    ManagedVirtualDevice("pixel4api31").apply {
+                        device = "Pixel 4"
+                        apiLevel = 31
+                        systemImageSource = "aosp"
+                        require64Bit = true
+                    }
+                )
+                add(
+                    ManagedVirtualDevice("pixel2api28").apply {
+                        device = "Pixel 2"
+                        apiLevel = 28
+                        systemImageSource = "aosp"
+                        require64Bit = true
+                    }
                 )
             }
-            unitTests.isReturnDefaultValues = true
+            groups {
+                create("alkaaDevices").apply {
+                    targetDevices.addAll(
+                        listOf(
+                            devices.getByName("pixel4api31"),
+                            // re-add it later devices.getByName("pixel2api28"),
+                        )
+                    )
+                }
+                unitTests.isReturnDefaultValues = true
+            }
         }
     }
 

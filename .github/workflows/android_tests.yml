@@ -27,4 +27,4 @@ jobs:
         run: /Users/runner/Library/Android/sdk/emulator/emulator -version
 
       - name: Run instrumented tests
-        run: ./gradlew pixel4api30DebugAndroidTest -Pandroid.sdk.channel=3 --info
+        run: ./gradlew alkaaDevicesGroupDebugAndroidTest -Pandroid.testoptions.manageddevices.emulator.gpu="swiftshader_indirect"

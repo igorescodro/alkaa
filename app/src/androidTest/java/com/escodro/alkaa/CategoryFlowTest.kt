@@ -6,6 +6,7 @@ import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.hasSetTextAction
 import androidx.compose.ui.test.junit4.ComposeTestRule
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
@@ -49,6 +50,7 @@ internal class CategoryFlowTest : KoinTest {
                 NavGraph()
             }
         }
+        waitActivityCreation()
         navigateToCategory()
     }
 
@@ -108,6 +110,19 @@ internal class CategoryFlowTest : KoinTest {
 
             // Validate updated color
             onCategoryColorItem(color).assertExists()
+        }
+    }
+
+    /**
+     * Workaround due to current limitations in detecting pending changes in the Activity lifecycle
+     * with Compose tests.
+     *
+     * See [IssueTracker](https://issuetracker.google.com/issues/201900572)
+     */
+    private fun waitActivityCreation() {
+        composeTestRule.waitUntil {
+            composeTestRule.onAllNodesWithText(string(R.string.home_title_tasks))
+                .fetchSemanticsNodes(false).isNotEmpty()
         }
     }
 

@@ -1,7 +1,11 @@
 package com.escodro.alkaa
 
 import android.app.Notification
+import androidx.annotation.StringRes
+import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onNodeWithContentDescription
+import androidx.compose.ui.test.onNodeWithText
 import androidx.test.platform.app.InstrumentationRegistry
 import com.escodro.alkaa.navigation.NavGraph
 import com.escodro.core.extension.getNotificationManager
@@ -10,6 +14,7 @@ import com.escodro.domain.usecase.alarm.ScheduleAlarm
 import com.escodro.local.model.AlarmInterval
 import com.escodro.local.model.Task
 import com.escodro.local.provider.DaoProvider
+import com.escodro.task.R
 import com.escodro.test.DisableAnimationsRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
@@ -75,6 +80,28 @@ internal class NotificationFlowTest : KoinTest {
             assertEquals(name, this.notification.extras[Notification.EXTRA_TEXT])
             assertEquals(appName, this.notification.extras[Notification.EXTRA_TITLE])
         }
+    }
+
+    @Test
+    fun test_whenNotificationIsClickedOpensTaskDetails() {
+        // Insert a task
+        val id = 13L
+        val name = "Click here for a surprise"
+        val appName = context.getString(com.escodro.core.R.string.app_name)
+        insertTask(id, name)
+
+        // Wait until the notification is launched
+        val notificationManager = context.getNotificationManager()
+        composeTestRule.waitUntil(10_000) { notificationManager!!.activeNotifications.isNotEmpty() }
+
+        // Run the PendingIntent in the notification
+        notificationManager!!.activeNotifications.first().notification.contentIntent.send()
+
+        // Validate the task detail was opened
+        composeTestRule.onNodeWithText(name).assertIsDisplayed()
+        composeTestRule
+            .onNodeWithContentDescription(string(R.string.back_arrow_cd), useUnmergedTree = true)
+            .assertIsDisplayed()
     }
 
     @Test
@@ -182,10 +209,13 @@ internal class NotificationFlowTest : KoinTest {
         assertEquals(doneString, notification.actions.last().title)
     }
 
+    private fun string(@StringRes resId: Int): String =
+        context.getString(resId)
+
     private fun insertTask(
         id: Long = 15L,
         name: String,
-        calendar: Calendar = Calendar.getInstance()
+        calendar: Calendar = Calendar.getInstance(),
     ): Task = runBlocking {
         with(Task(id = id, title = name)) {
             calendar.add(Calendar.SECOND, 1)

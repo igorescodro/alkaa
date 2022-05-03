@@ -33,12 +33,12 @@ object Versions {
     const val testRoom = "2.1.0"
     const val barista = "4.0.0"
 
-    const val compose = "1.1.0-rc03"
-    const val composeNav = "2.4.0"
-    const val composeVm = "2.4.0"
+    const val compose = "1.1.1"
+    const val composeNav = "2.4.2"
+    const val composeVm = "2.4.1"
     const val composeActivity = "1.3.0"
 
-    const val accompanist = "0.22.1-rc"
+    const val accompanist = "0.23.1"
 
     const val ktlint = "0.43.2"
 }

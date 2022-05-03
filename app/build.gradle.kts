@@ -74,6 +74,7 @@ dependencies {
     implementation(Deps.compose.navigation)
     implementation(Deps.compose.activity)
     implementation(Deps.accompanist.animation)
+    implementation(Deps.accompanist.material)
     implementation(Deps.android.playCore)
     implementation(Deps.koin.android)
 

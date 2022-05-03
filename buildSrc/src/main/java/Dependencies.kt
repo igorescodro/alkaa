@@ -99,6 +99,8 @@ object ComposeDeps {
 object AccompanistDeps {
     const val animation =
         "com.google.accompanist:accompanist-navigation-animation:${Versions.accompanist}"
+    const val material =
+        "com.google.accompanist:accompanist-navigation-material:${Versions.accompanist}"
 }
 
 object TestDeps {

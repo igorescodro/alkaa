@@ -29,6 +29,22 @@ object Destinations {
      * Task Tracker dynamic feature destination.
      */
     const val Tracker = "tracker"
+
+    /**
+     * Represents the navigation where the target is a BottomSheet rather than a full screen.
+     */
+    object BottomSheet {
+
+        /**
+         * Bottom Sheet Category destination.
+         */
+        const val Category = "bottom_sheet_category"
+
+        /**
+         * Bottom Sheet Category destination.
+         */
+        const val Task = "bottom_sheet_task"
+    }
 }
 
 /**
@@ -40,6 +56,12 @@ object DestinationArgs {
      * Argument to be passed to [Destinations.TaskDetail] representing the task id to be detailed.
      */
     const val TaskId = "task_id"
+
+    /**
+     * Argument to be passed to [Destinations.BottomSheet.Category] representing the category id to
+     * be detailed.
+     */
+    const val CategoryId = "category_id"
 }
 
 /**
@@ -58,6 +80,12 @@ object DestinationDeepLink {
      * Deep link pattern to be registered in [Destinations.TaskDetail] composable.
      */
     val TaskDetailPattern = "$BaseUri/${DestinationArgs.TaskId}={${DestinationArgs.TaskId}}"
+
+    /**
+     * Deep link pattern to be registered in [Destinations.BottomSheet.Category] composable.
+     */
+    val CategorySheetPattern =
+        "$BaseUri/${DestinationArgs.CategoryId}={${DestinationArgs.CategoryId}}"
 
     /**
      * Returns the [Destinations.TaskDetail] deep link with the argument set.

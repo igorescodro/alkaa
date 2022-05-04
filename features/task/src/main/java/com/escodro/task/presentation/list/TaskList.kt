@@ -6,9 +6,9 @@ import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.GridCells
-import androidx.compose.foundation.lazy.LazyVerticalGrid
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Close
@@ -55,7 +55,7 @@ import java.util.Calendar
 fun TaskListSection(
     modifier: Modifier = Modifier,
     onItemClick: (Long) -> Unit,
-    onBottomShow: () -> Unit
+    onBottomShow: () -> Unit,
 ) {
     TaskListLoader(modifier = modifier, onItemClick = onItemClick, onAddClick = onBottomShow)
 }
@@ -173,12 +173,12 @@ private fun TaskFilter(categoryHandler: CategoryStateHandler) {
 private fun TaskListContent(
     taskList: List<TaskWithCategory>,
     onItemClick: (Long) -> Unit,
-    onCheckedChange: (TaskWithCategory) -> Unit
+    onCheckedChange: (TaskWithCategory) -> Unit,
 ) {
     BoxWithConstraints(modifier = Modifier.padding(start = 8.dp, end = 8.dp)) {
         val cellCount = if (this.maxHeight > maxWidth) 1 else 2
         LazyVerticalGrid(
-            cells = GridCells.Fixed(cellCount),
+            columns = GridCells.Fixed(cellCount),
             contentPadding = PaddingValues(bottom = 48.dp)
         ) {
             items(

@@ -29,7 +29,7 @@ object Versions {
     const val testCore = "1.4.0"
     const val testMockk = "1.12.0"
     const val testUiAutomator = "2.2.0"
-    const val testJunitExt = "1.1.0"
+    const val testJunitExt = "1.1.3"
     const val testRoom = "2.1.0"
     const val barista = "4.0.0"
 
@@ -109,7 +109,7 @@ object TestDeps {
     const val core = "androidx.test:core:${Versions.testCore}"
     const val coreKtx = "androidx.test:core-ktx:${Versions.testCore}"
     const val uiAutomator = "androidx.test.uiautomator:uiautomator:${Versions.testUiAutomator}"
-    const val junitExt = "androidx.test.ext:junit:${Versions.testJunitExt}"
+    const val junitExt = "androidx.test.ext:junit-ktx:${Versions.testJunitExt}"
     const val mockk = "io.mockk:mockk:${Versions.testMockk}"
     const val room = "androidx.room:room-testing:${Versions.testRoom}"
     const val barista = "com.adevinta.android:barista:${Versions.barista}"

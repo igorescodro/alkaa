@@ -24,6 +24,7 @@ dependencies {
     implementation(Deps.koin.android)
     implementation(Deps.android.room.runtime)
     implementation(Deps.android.room.ktx)
+    implementation(Deps.test.junitExt)
     kapt(Deps.android.room.compiler)
 
     androidTestImplementation(Deps.test.runner)

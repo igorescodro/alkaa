@@ -1,9 +1,8 @@
 plugins {
-    id(GradlePlugin.ANDROID_LIBRARY)
-    id(GradlePlugin.COMPOSE)
+    id("com.escodro.android-compose")
 }
 
 dependencies {
-    implementation(Deps.koin.android)
-    implementation(Deps.compose.viewModel)
+    implementation(libs.koin.android)
+    implementation(libs.compose.viewmodel)
 }

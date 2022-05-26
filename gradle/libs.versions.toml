@@ -1,0 +1,118 @@
+[versions]
+# Project
+android_compile_sdk = "31"
+android_gradle_plugin = "7.1.3"
+android_min_sdk = "24"
+android_target_sdk = "31"
+kotlin = "1.5.30"
+
+# General dependencies
+logging = "1.12.5"
+logback = "1.2.6"
+logcat = "0.1"
+
+# AndroidX
+material = "1.3.0"
+constraint = "2.0.4"
+corektx = "1.0.2"
+playcore = "1.10.0"
+datastore = "1.0.0"
+glance = "1.0.0-alpha01"
+
+# Compose
+compose = "1.0.3"
+compose_nav = "2.4.0-alpha10"
+compose_viewmodel = "1.0.0-alpha07"
+compose_activity = "1.3.1"
+
+# Coroutines
+coroutines = "1.4.0"
+
+# Room
+room = "2.3.0"
+
+# Koin
+koin = "3.1.0"
+
+# Accompanist
+accompanist = "0.20.2"
+
+# Test
+test_junit = "4.12"
+test_runner = "1.1.1"
+test_core = "1.4.0"
+test_mockk = "1.12.0"
+test_uiautomator = "2.2.0"
+test_junitext = "1.1.0"
+test_barista = "4.0.0"
+
+# Quality
+ktlint = "0.43.2"
+detekt = "1.19.0"
+
+[libraries]
+# Project
+android_gradle_plugin = { module = "com.android.tools.build:gradle", version.ref = "android_gradle_plugin" }
+kotlin_gradle_plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+kotlin_compiler_embeddable = { module = "org.jetbrains.kotlin:kotlin-compiler-embeddable", version.ref = "kotlin" }
+
+# General dependencies
+logging = { module = "io.github.microutils:kotlin-logging", version.ref = "logging" }
+logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
+logcat = { module = "com.squareup.logcat:logcat", version.ref = "logcat" }
+
+# AndroidX
+androidx_material = { module = "com.google.android.material:material", version.ref = "material" }
+androidx_corektx = { module = "androidx.core:core-ktx", version.ref = "corektx" }
+androidx_playcore = { module = "com.google.android.play:core", version.ref = "playcore" }
+androidx_datastore = { module = "androidx.datastore:datastore-preferences", version.ref = "datastore" }
+androidx_glance = { module = "androidx.glance:glance-appwidget", version.ref = "glance" }
+
+compose_ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
+compose_material = { module = "androidx.compose.material:material", version.ref = "compose" }
+compose_tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
+compose_icons = { module = "androidx.compose.material:material-icons-extended", version.ref = "compose" }
+compose_navigation = { module = "androidx.navigation:navigation-compose", version.ref = "compose_nav" }
+compose_viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "compose_viewmodel" }
+compose_activity = { module = "androidx.activity:activity-compose", version.ref = "compose_activity" }
+compose_uitest = { module = "androidx.compose.ui:ui-test", version.ref = "compose" }
+compose_junit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "compose" }
+compose_manifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "compose" }
+
+# Coroutines
+coroutines_core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+coroutines_test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
+
+# Room
+androidx_room_runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+androidx_room_compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+androidx_room_ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
+androidx_room_test = { module = "androidx.room:room-testing", version.ref = "room" }
+
+#Koin
+koin_core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
+koin_android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
+koin_compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin" }
+koin_test = { module = "io.insert-koin:koin-test", version.ref = "koin" }
+
+# Accompanist
+accompanist_animation = { module = "com.google.accompanist:accompanist-navigation-animation", version.ref = "accompanist" }
+
+# Test
+test_junit = { module = "junit:junit", version.ref = "test_junit" }
+test_runner = { module = "androidx.test:runner", version.ref = "test_runner" }
+test_core = { module = "androidx.test:core", version.ref = "test_core" }
+test_corektx = { module = "androidx.test:core-ktx", version.ref = "test_core" }
+test_uiautomator = { module = "androidx.test.uiautomator:uiautomator", version.ref = "test_uiautomator" }
+test_junitext = { module = "androidx.test.ext:junit", version.ref = "test_junitext" }
+test_mockk = { module = "io.mockk:mockk", version.ref = "test_mockk" }
+test_barista = { module = "com.adevinta.android:barista", version.ref = "test_barista" }
+
+# Quality
+ktlint = { module = "com.pinterest:ktlint", version.ref = "ktlint" }
+detekt = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }
+
+[bundles]
+compose = ["compose.ui", "compose.material", "compose.tooling", "compose.icons"]
+composetest = ["compose.uitest", "compose.junit4", "compose.manifest"]
+

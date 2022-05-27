@@ -39,8 +39,8 @@ android {
     setDynamicFeatures(setOf(":features:tracker"))
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = AlkaaVersions.javaCompileVersion
+        targetCompatibility = AlkaaVersions.javaCompileVersion
     }
 
     buildFeatures {

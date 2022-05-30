@@ -1,10 +1,10 @@
 plugins {
-    id(GradlePlugin.ANDROID_LIBRARY)
+    id("com.escodro.android-library")
 }
 
 dependencies {
-    implementation(Deps.android.ktx)
-    implementation(Deps.android.material)
-    implementation(Deps.coroutines.core)
-    implementation(Deps.koin.android)
+    implementation(libs.androidx.corektx)
+    implementation(libs.androidx.material)
+    implementation(libs.coroutines.core)
+    implementation(libs.koin.android)
 }

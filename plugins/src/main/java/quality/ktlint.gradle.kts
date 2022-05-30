@@ -1,11 +1,15 @@
 package quality
 
-import Deps
+import ktlint
+import org.gradle.api.artifacts.VersionCatalog
+import org.gradle.api.artifacts.VersionCatalogsExtension
+import org.gradle.kotlin.dsl.getByType
 
 val ktlint: Configuration by configurations.creating
+val libs: VersionCatalog = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
 dependencies {
-    ktlint(Deps.quality.ktlint)
+    ktlint(libs.ktlint)
 }
 
 tasks {

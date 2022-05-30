@@ -1,10 +1,10 @@
 plugins {
-    id(GradlePlugin.ANDROID_LIBRARY)
+    id("com.escodro.android-library")
 }
 
 dependencies{
     implementation(projects.data.repository)
 
-    implementation(Deps.koin.android)
-    implementation(Deps.android.dataStore)
+    implementation(libs.koin.android)
+    implementation(libs.androidx.datastore)
 }

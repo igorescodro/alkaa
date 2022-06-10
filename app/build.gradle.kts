@@ -93,6 +93,7 @@ android {
             }
         }
     }
+}
 
 dependencies {
     implementation(projects.libraries.core)

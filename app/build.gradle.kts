@@ -1,4 +1,4 @@
-import com.android.build.gradle.internal.dsl.ManagedVirtualDevice
+import com.android.build.api.dsl.ManagedVirtualDevice
 
 plugins {
     id("com.android.application")
@@ -64,7 +64,7 @@ android {
         managedDevices {
             devices {
                 add(
-                    ManagedVirtualDevice("pixel4api31").apply {
+                    create<ManagedVirtualDevice>("pixel4api31") {
                         device = "Pixel 4"
                         apiLevel = 31
                         systemImageSource = "aosp"
@@ -72,7 +72,7 @@ android {
                     }
                 )
                 add(
-                    ManagedVirtualDevice("pixel2api28").apply {
+                    create<ManagedVirtualDevice>("pixel2api28") {
                         device = "Pixel 2"
                         apiLevel = 28
                         systemImageSource = "aosp"

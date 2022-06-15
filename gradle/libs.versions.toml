@@ -1,7 +1,7 @@
 [versions]
 # Project
 android_compile_sdk = "31"
-android_gradle_plugin = "7.2.1"
+android_gradle_plugin = "7.3.0-beta02"
 android_min_sdk = "24"
 android_target_sdk = "31"
 kotlin = "1.5.30"

@@ -1,24 +1,29 @@
 package com.escodro.alkaa
 
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
 import androidx.annotation.StringRes
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.hasSetTextAction
 import androidx.compose.ui.test.junit4.ComposeTestRule
-import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.compose.ui.test.onAllNodesWithText
+import androidx.compose.ui.test.junit4.createEmptyComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.test.performTextReplacement
+import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
+import com.adevinta.android.barista.rule.flaky.AllowFlaky
+import com.adevinta.android.barista.rule.flaky.FlakyTestRule
 import com.escodro.alkaa.navigation.NavGraph
 import com.escodro.category.presentation.semantics.ColorKey
 import com.escodro.designsystem.AlkaaTheme
 import com.escodro.local.provider.DaoProvider
 import com.escodro.test.DisableAnimationsRule
 import kotlinx.coroutines.runBlocking
+import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -31,7 +36,12 @@ internal class CategoryFlowTest : KoinTest {
     private val daoProvider: DaoProvider by inject()
 
     @get:Rule
-    val composeTestRule = createComposeRule()
+    val composeTestRule = createEmptyComposeRule()
+
+    @get:Rule
+    val flakyRule = FlakyTestRule()
+
+    private lateinit var scenario: ActivityScenario<ComponentActivity>
 
     @get:Rule
     val disableAnimationsRule = DisableAnimationsRule()
@@ -40,18 +50,25 @@ internal class CategoryFlowTest : KoinTest {
 
     @Before
     fun setup() {
+        scenario = ActivityScenario.launch(ComponentActivity::class.java)
         runBlocking {
             // Clean all existing categories
             daoProvider.getCategoryDao().cleanTable()
         }
 
-        composeTestRule.setContent {
-            AlkaaTheme {
-                NavGraph()
+        scenario.onActivity { activity ->
+            activity.setContent {
+                AlkaaTheme {
+                    NavGraph()
+                }
             }
         }
-        waitActivityCreation()
         navigateToCategory()
+    }
+
+    @After
+    fun tearDown() {
+        scenario.close()
     }
 
     @Test
@@ -96,7 +113,10 @@ internal class CategoryFlowTest : KoinTest {
         }
     }
 
+    // Flaky test only on the CI, works fine locally
+    // Please see https://issuetracker.google.com/issues/230857082
     @Test
+    @AllowFlaky(attempts = 5)
     fun test_updateCategoryColor() {
         val name = "Anime"
         val color = Color(0xFFFFCA28)
@@ -110,19 +130,6 @@ internal class CategoryFlowTest : KoinTest {
 
             // Validate updated color
             onCategoryColorItem(color).assertExists()
-        }
-    }
-
-    /**
-     * Workaround due to current limitations in detecting pending changes in the Activity lifecycle
-     * with Compose tests.
-     *
-     * See [IssueTracker](https://issuetracker.google.com/issues/201900572)
-     */
-    private fun waitActivityCreation() {
-        composeTestRule.waitUntil {
-            composeTestRule.onAllNodesWithText(string(R.string.home_title_tasks))
-                .fetchSemanticsNodes(false).isNotEmpty()
         }
     }
 

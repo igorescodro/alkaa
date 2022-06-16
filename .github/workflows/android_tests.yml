@@ -2,6 +2,10 @@ name: instrumented tests
 
 on: [ push ]
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: macos-latest
@@ -16,8 +20,11 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
 
-      - name: Android Emulator Runner
-        uses: ReactiveCircus/android-emulator-runner@v2.24.0
-        with:
-          api-level: 29
-          script: ./gradlew connectedCheck --stacktrace
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v2
+
+      - name: Verify Emulator version
+        run: /Users/runner/Library/Android/sdk/emulator/emulator -version
+
+      - name: Run instrumented tests
+        run: ./gradlew alkaaDevicesGroupDebugAndroidTest -Pandroid.testoptions.manageddevices.emulator.gpu="swiftshader_indirect"

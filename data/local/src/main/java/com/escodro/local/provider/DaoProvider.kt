@@ -7,7 +7,7 @@ import com.escodro.local.dao.TaskWithCategoryDao
 /**
  * Repository with the database [androidx.room.Dao]s.
  */
-internal class DaoProvider(private val database: DatabaseProvider) {
+class DaoProvider(private val database: DatabaseProvider) {
 
     /**
      * Gets the [TaskDao].

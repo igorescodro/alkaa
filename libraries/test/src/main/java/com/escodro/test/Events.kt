@@ -1,11 +1,11 @@
-package com.escodro.task.espresso
+package com.escodro.test
 
 import com.adevinta.android.barista.interaction.BaristaPickerInteractions.setDateOnPicker
 import com.adevinta.android.barista.interaction.BaristaPickerInteractions.setTimeOnPicker
 import com.adevinta.android.barista.interaction.BaristaSleepInteractions
 import java.util.Calendar
 
-internal fun setDateTime(calendar: Calendar) {
+fun setDateTime(calendar: Calendar) {
     with(calendar) {
         BaristaSleepInteractions.sleep(300)
         setDateOnPicker(get(Calendar.YEAR), get(Calendar.MONTH) + 1, get(Calendar.DAY_OF_MONTH))

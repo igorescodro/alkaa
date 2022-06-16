@@ -1,3 +1,5 @@
+import com.android.build.api.dsl.ManagedVirtualDevice
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
@@ -59,7 +61,37 @@ android {
     }
 
     testOptions {
-        unitTests.isReturnDefaultValues = true
+        managedDevices {
+            devices {
+                add(
+                    create<ManagedVirtualDevice>("pixel4api31") {
+                        device = "Pixel 4"
+                        apiLevel = 31
+                        systemImageSource = "aosp"
+                        require64Bit = true
+                    }
+                )
+                add(
+                    create<ManagedVirtualDevice>("pixel2api28") {
+                        device = "Pixel 2"
+                        apiLevel = 28
+                        systemImageSource = "aosp"
+                        require64Bit = true
+                    }
+                )
+            }
+            groups {
+                create("alkaaDevices").apply {
+                    targetDevices.addAll(
+                        listOf(
+                            devices.getByName("pixel4api31"),
+                            // re-add it later devices.getByName("pixel2api28"),
+                        )
+                    )
+                }
+                unitTests.isReturnDefaultValues = true
+            }
+        }
     }
 }
 
@@ -89,6 +121,8 @@ dependencies {
 
     implementation(libs.bundles.compose)
 
+    androidTestImplementation(projects.libraries.test)
+    androidTestImplementation(libs.koin.test)
     androidTestImplementation(libs.bundles.composetest) {
         exclude(group = "androidx.core", module = "core-ktx")
         exclude(group = "androidx.fragment", module = "fragment")

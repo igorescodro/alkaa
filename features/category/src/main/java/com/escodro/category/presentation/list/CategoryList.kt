@@ -38,10 +38,12 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.escodro.category.R
+import com.escodro.category.presentation.semantics.color
 import com.escodro.categoryapi.model.Category
 import com.escodro.categoryapi.presentation.CategoryListViewModel
 import com.escodro.categoryapi.presentation.CategoryState
@@ -184,6 +186,7 @@ private fun CategoryCircleIndicator(size: Dp, color: Int, alpha: Float = 1F) {
             .size(size)
             .clip(CircleShape)
             .alpha(alpha)
+            .semantics { this.color = Color(color) }
             .background(Color(color))
     )
 }

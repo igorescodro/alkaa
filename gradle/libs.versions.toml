@@ -15,7 +15,7 @@ logcat = "0.1"
 material = "1.3.0"
 constraint = "2.0.4"
 corektx = "1.0.2"
-playcore = "1.10.0"
+playcore = "1.10.3"
 datastore = "1.0.0"
 glance = "1.0.0-alpha01"
 

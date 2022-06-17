@@ -22,7 +22,7 @@ glance = "1.0.0-alpha01"
 # Compose
 compose = "1.0.3"
 compose_nav = "2.4.2"
-compose_viewmodel = "1.0.0-alpha07"
+compose_viewmodel = "2.4.1"
 compose_activity = "1.4.0"
 
 # Coroutines

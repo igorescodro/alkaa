@@ -12,7 +12,7 @@ logback = "1.2.11"
 logcat = "0.1"
 
 # AndroidX
-material = "1.3.0"
+material = "1.6.1"
 constraint = "2.0.4"
 corektx = "1.0.2"
 playcore = "1.10.3"

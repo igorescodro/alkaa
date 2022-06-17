@@ -4,7 +4,7 @@ android_compile_sdk = "31"
 android_gradle_plugin = "7.3.0-beta03"
 android_min_sdk = "24"
 android_target_sdk = "31"
-kotlin = "1.5.30"
+kotlin = "1.6.10"
 
 # General dependencies
 logging = "2.1.23"

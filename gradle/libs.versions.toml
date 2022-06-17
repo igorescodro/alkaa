@@ -20,7 +20,7 @@ datastore = "1.0.0"
 glance = "1.0.0-alpha03"
 
 # Compose
-compose = "1.0.3"
+compose = "1.1.1"
 compose_nav = "2.4.2"
 compose_viewmodel = "2.4.1"
 compose_activity = "1.4.0"
@@ -54,7 +54,6 @@ detekt = "1.20.0"
 # Project
 android_gradle_plugin = { module = "com.android.tools.build:gradle", version.ref = "android_gradle_plugin" }
 kotlin_gradle_plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
-kotlin_compiler_embeddable = { module = "org.jetbrains.kotlin:kotlin-compiler-embeddable", version.ref = "kotlin" }
 
 # General dependencies
 logging = { module = "io.github.microutils:kotlin-logging", version.ref = "logging" }

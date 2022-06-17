@@ -8,7 +8,7 @@ import com.escodro.domain.usecase.fake.TaskRepositoryFake
 import com.escodro.domain.usecase.task.implementation.AddTaskImpl
 import com.escodro.domain.usecase.task.implementation.LoadTaskImpl
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -30,13 +30,13 @@ internal class ScheduleAlarmTest {
     private val scheduleAlarmUseCase = ScheduleAlarmImpl(taskRepository, alarmInteractor)
 
     @Before
-    fun setup() = runBlockingTest {
+    fun setup() = runTest {
         taskRepository.cleanTable()
         alarmInteractor.clear()
     }
 
     @Test
-    fun `test if alarm is scheduled`() = runBlockingTest {
+    fun `test if alarm is scheduled`() = runTest {
         val task = Task(id = 1, title = "I need a alarm here")
         val alarm = Calendar.getInstance()
         addTaskUseCase(task)

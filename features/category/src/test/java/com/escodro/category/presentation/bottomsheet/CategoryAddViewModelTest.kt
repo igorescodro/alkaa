@@ -5,10 +5,14 @@ import com.escodro.category.fake.AddCategoryFake
 import com.escodro.category.mapper.CategoryMapper
 import com.escodro.categoryapi.model.Category
 import com.escodro.core.extension.toStringColor
+import com.escodro.test.CoroutineTestRule
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Assert
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 
+@OptIn(ExperimentalCoroutinesApi::class)
 internal class CategoryAddViewModelTest {
 
     private val addCategory = AddCategoryFake()
@@ -16,6 +20,9 @@ internal class CategoryAddViewModelTest {
     private val categoryMapper = CategoryMapper()
 
     private val viewModel = CategoryAddViewModel(addCategory, categoryMapper)
+
+    @get:Rule
+    val coroutinesRule = CoroutineTestRule()
 
     @Before
     fun setup() {

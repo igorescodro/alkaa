@@ -6,7 +6,7 @@ import com.escodro.domain.usecase.category.implementation.LoadAllCategoriesImpl
 import com.escodro.domain.usecase.fake.CategoryRepositoryFake
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -23,12 +23,12 @@ internal class AddCategoryTest {
     private val loadAllCategoriesUseCase = LoadAllCategoriesImpl(categoryRepository)
 
     @Before
-    fun setup() = runBlockingTest {
+    fun setup() = runTest {
         categoryRepository.cleanTable()
     }
 
     @Test
-    fun `test if category is correctly added`() = runBlockingTest {
+    fun `test if category is correctly added`() = runTest {
         val category = Category(id = 22, name = "shopping list", color = "#122100")
         addCategoryUseCase(category)
 
@@ -37,7 +37,7 @@ internal class AddCategoryTest {
     }
 
     @Test
-    fun `test if category with empty title is not added`() = runBlockingTest {
+    fun `test if category with empty title is not added`() = runTest {
         val category = Category(id = 44, name = "   ", color = "#876782")
         addCategoryUseCase(category)
 
@@ -46,7 +46,7 @@ internal class AddCategoryTest {
     }
 
     @Test
-    fun `test if all category are added`() = runBlockingTest {
+    fun `test if all category are added`() = runTest {
         val assertList = mutableListOf<Category>()
         for (iterator in 1..100) {
             val category = Category(id = iterator.toLong(), name = "$iterator", color = "#5567FA")

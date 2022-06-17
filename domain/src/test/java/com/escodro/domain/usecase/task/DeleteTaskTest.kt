@@ -7,7 +7,7 @@ import com.escodro.domain.usecase.fake.TaskRepositoryFake
 import com.escodro.domain.usecase.task.implementation.AddTaskImpl
 import com.escodro.domain.usecase.task.implementation.LoadTaskImpl
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -28,14 +28,14 @@ internal class DeleteTaskTest {
     private val addTaskUseCase = AddTaskImpl(taskRepository, glanceInteractor)
 
     @Before
-    fun setup() = runBlockingTest {
+    fun setup() = runTest {
         taskRepository.cleanTable()
         alarmInteractor.clear()
         glanceInteractor.clean()
     }
 
     @Test
-    fun `test if task is deleted`() = runBlockingTest {
+    fun `test if task is deleted`() = runTest {
         val task = Task(id = 18, title = "coffee time")
         addTaskUseCase(task)
         deleteTaskUseCase(task)
@@ -46,7 +46,7 @@ internal class DeleteTaskTest {
     }
 
     @Test
-    fun `test if the alarm is canceled when the task is completed`() = runBlockingTest {
+    fun `test if the alarm is canceled when the task is completed`() = runTest {
         val task = Task(id = 19, title = "SOLID basics")
         addTaskUseCase(task)
         deleteTaskUseCase(task)
@@ -55,7 +55,7 @@ internal class DeleteTaskTest {
     }
 
     @Test
-    fun `test if the glance was notified`() = runBlockingTest {
+    fun `test if the glance was notified`() = runTest {
         val task = Task(id = 15, title = "this title", description = "this desc")
         addTaskUseCase(task)
 

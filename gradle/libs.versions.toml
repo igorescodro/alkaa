@@ -4,7 +4,7 @@ android_compile_sdk = "31"
 android_gradle_plugin = "7.3.0-beta03"
 android_min_sdk = "24"
 android_target_sdk = "31"
-kotlin = "1.5.30"
+kotlin = "1.6.10"
 
 # General dependencies
 logging = "2.1.23"
@@ -20,13 +20,13 @@ datastore = "1.0.0"
 glance = "1.0.0-alpha03"
 
 # Compose
-compose = "1.0.3"
+compose = "1.1.1"
 compose_nav = "2.4.2"
 compose_viewmodel = "2.4.1"
 compose_activity = "1.4.0"
 
 # Coroutines
-coroutines = "1.4.0"
+coroutines = "1.6.2"
 
 # Room
 room = "2.4.2"
@@ -35,7 +35,7 @@ room = "2.4.2"
 koin = "3.2.0"
 
 # Accompanist
-accompanist = "0.20.2"
+accompanist = "0.23.1"
 
 # Test
 test_junit = "4.13.2"
@@ -54,7 +54,6 @@ detekt = "1.20.0"
 # Project
 android_gradle_plugin = { module = "com.android.tools.build:gradle", version.ref = "android_gradle_plugin" }
 kotlin_gradle_plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
-kotlin_compiler_embeddable = { module = "org.jetbrains.kotlin:kotlin-compiler-embeddable", version.ref = "kotlin" }
 
 # General dependencies
 logging = { module = "io.github.microutils:kotlin-logging", version.ref = "logging" }

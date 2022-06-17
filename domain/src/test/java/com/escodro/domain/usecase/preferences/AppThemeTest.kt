@@ -4,7 +4,7 @@ import com.escodro.domain.model.AppThemeOptions
 import com.escodro.domain.usecase.fake.PreferencesRepositoryFake
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Test
 
@@ -18,7 +18,7 @@ internal class AppThemeTest {
     private val loadAppTheme = LoadAppTheme(preferencesRepository)
 
     @Test
-    fun `test if theme is updated`() = runBlockingTest {
+    fun `test if theme is updated`() = runTest {
         updateAppTheme(AppThemeOptions.DARK)
 
         val result = loadAppTheme().first()
@@ -27,7 +27,7 @@ internal class AppThemeTest {
     }
 
     @Test
-    fun `test if last updated theme is the one valid`() = runBlockingTest {
+    fun `test if last updated theme is the one valid`() = runTest {
         updateAppTheme(AppThemeOptions.LIGHT)
         updateAppTheme(AppThemeOptions.SYSTEM)
         updateAppTheme(AppThemeOptions.DARK)

@@ -8,7 +8,7 @@ import com.escodro.domain.usecase.fake.GlanceInteractorFake
 import com.escodro.domain.usecase.fake.TaskRepositoryFake
 import com.escodro.domain.usecase.task.implementation.AddTaskImpl
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -39,13 +39,13 @@ internal class RescheduleFutureAlarmsTest {
         )
 
     @Before
-    fun setup() = runBlockingTest {
+    fun setup() = runTest {
         taskRepository.cleanTable()
         alarmInteractor.clear()
     }
 
     @Test
-    fun `test if future alarms are rescheduled`() = runBlockingTest {
+    fun `test if future alarms are rescheduled`() = runTest {
         val futureCalendar =
             calendarProvider.getCurrentCalendar().apply { add(Calendar.DAY_OF_MONTH, 15) }
         val task1 = Task(id = 1, title = "Task 1", dueDate = futureCalendar)
@@ -66,7 +66,7 @@ internal class RescheduleFutureAlarmsTest {
     }
 
     @Test
-    fun `test if completed tasks are not rescheduled`() = runBlockingTest {
+    fun `test if completed tasks are not rescheduled`() = runTest {
         val futureCalendar =
             calendarProvider.getCurrentCalendar().apply { add(Calendar.DAY_OF_MONTH, 15) }
         val task1 = Task(id = 1, completed = true, title = "Task 1", dueDate = futureCalendar)
@@ -87,7 +87,7 @@ internal class RescheduleFutureAlarmsTest {
     }
 
     @Test
-    fun `test if uncompleted tasks on the past are ignored`() = runBlockingTest {
+    fun `test if uncompleted tasks on the past are ignored`() = runTest {
         val pastCalendar = Calendar.getInstance().apply {
             time = calendarProvider.getCurrentCalendar().time
             add(Calendar.DAY_OF_MONTH, -15)
@@ -115,7 +115,7 @@ internal class RescheduleFutureAlarmsTest {
     }
 
     @Test
-    fun `test if missed repeating alarms are rescheduled`() = runBlockingTest {
+    fun `test if missed repeating alarms are rescheduled`() = runTest {
         val pastCalendar =
             calendarProvider.getCurrentCalendar().apply { add(Calendar.DAY_OF_MONTH, -1) }
         val task = Task(

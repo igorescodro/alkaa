@@ -8,7 +8,7 @@ import com.escodro.domain.usecase.fake.TaskRepositoryFake
 import com.escodro.domain.usecase.task.implementation.AddTaskImpl
 import com.escodro.domain.usecase.task.implementation.LoadTaskImpl
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -27,12 +27,12 @@ internal class UpdateTaskAsRepeatingTest {
     private val scheduleRepeatingUseCase = UpdateTaskAsRepeatingImpl(taskRepository)
 
     @Before
-    fun setup() = runBlockingTest {
+    fun setup() = runTest {
         taskRepository.cleanTable()
     }
 
     @Test
-    fun `test if task is updated with new interval`() = runBlockingTest {
+    fun `test if task is updated with new interval`() = runTest {
         val task = Task(id = 984L, title = "I'll be there for you")
         addTaskUseCase(task)
         val interval = AlarmInterval.WEEKLY
@@ -46,22 +46,21 @@ internal class UpdateTaskAsRepeatingTest {
     }
 
     @Test
-    fun `test if repeating state is cleared when update alarm interval to never`() =
-        runBlockingTest {
-            val task = Task(
-                id = 984L,
-                title = "nanana",
-                alarmInterval = AlarmInterval.YEARLY,
-                isRepeating = true
-            )
+    fun `test if repeating state is cleared when update alarm interval to never`() = runTest {
+        val task = Task(
+            id = 984L,
+            title = "nanana",
+            alarmInterval = AlarmInterval.YEARLY,
+            isRepeating = true
+        )
 
-            addTaskUseCase(task)
+        addTaskUseCase(task)
 
-            scheduleRepeatingUseCase(task.id, null)
+        scheduleRepeatingUseCase(task.id, null)
 
-            val result = getTaskUseCase(task.id)
-            require(result != null)
-            Assert.assertEquals(null, result.alarmInterval)
-            Assert.assertFalse(result.isRepeating)
-        }
+        val result = getTaskUseCase(task.id)
+        require(result != null)
+        Assert.assertEquals(null, result.alarmInterval)
+        Assert.assertFalse(result.isRepeating)
+    }
 }

@@ -15,7 +15,9 @@ import com.escodro.task.presentation.fake.UpdateTaskTitleFake
 import com.escodro.test.CoroutineTestRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.advanceUntilIdle
+import kotlinx.coroutines.test.runCurrent
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test
@@ -42,11 +44,11 @@ internal class TaskDetailViewModelTest {
         updateTaskDescription = updateDescription,
         updateTaskCategory = updateTaskCategory,
         taskMapper = taskMapper,
-        coroutineDebouncer = CoroutinesDebouncerFake(coroutineTestRule.testDispatcher)
+        coroutineDebouncer = CoroutinesDebouncerFake()
     )
 
     @Test
-    fun `test if when a task exist it returns the success state`() = runBlockingTest {
+    fun `test if when a task exist it returns the success state`() = runTest {
         // Given the viewModel is called to load the task info
         loadTask.taskToBeReturned = FAKE_DOMAIN_TASK
         val flow = viewModel.loadTaskInfo(TaskId(FAKE_DOMAIN_TASK.id))
@@ -61,7 +63,7 @@ internal class TaskDetailViewModelTest {
     }
 
     @Test
-    fun `test if when a task does not exist it returns the error state`() = runBlockingTest {
+    fun `test if when a task does not exist it returns the error state`() = runTest {
         // Given the viewModel is called to load the task info
         loadTask.taskToBeReturned = null
         val flow = viewModel.loadTaskInfo(TaskId(FAKE_DOMAIN_TASK.id))
@@ -74,7 +76,7 @@ internal class TaskDetailViewModelTest {
     }
 
     @Test
-    fun `test if when the update title is called, the field is updated`() = runBlockingTest {
+    fun `test if when the update title is called, the field is updated`() = runTest {
 
         // Given the viewModel is called to load the task info
         val taskId = TaskId(FAKE_DOMAIN_TASK.id)
@@ -84,7 +86,7 @@ internal class TaskDetailViewModelTest {
         // When the title is updated
         val newTitle = "title"
         viewModel.updateTitle(taskId = taskId, title = newTitle)
-        coroutineTestRule.testDispatcher.advanceUntilIdle() /* Advance typing debounce */
+        runCurrent() /* Advance typing debounce */
 
         // Then the task will be updated with given title
         Assert.assertTrue(updateTaskTitle.isTitleUpdated(FAKE_DOMAIN_TASK.id))
@@ -93,7 +95,7 @@ internal class TaskDetailViewModelTest {
     }
 
     @Test
-    fun `test if when the update description is called, the field is updated`() = runBlockingTest {
+    fun `test if when the update description is called, the field is updated`() = runTest {
 
         // Given the viewModel is called to load the task info
         val taskId = TaskId(FAKE_DOMAIN_TASK.id)
@@ -103,7 +105,7 @@ internal class TaskDetailViewModelTest {
         // When the description is updated
         val newDescription = "description"
         viewModel.updateDescription(taskId = taskId, description = newDescription)
-        coroutineTestRule.testDispatcher.advanceUntilIdle() /* Advance typing debounce */
+        advanceUntilIdle() /* Advance typing debounce */
 
         // Then the task will be updated with given description
         Assert.assertTrue(updateDescription.isDescriptionUpdated(FAKE_DOMAIN_TASK.id))
@@ -112,7 +114,7 @@ internal class TaskDetailViewModelTest {
     }
 
     @Test
-    fun `test if when update category is called, the category is updated`() = runBlockingTest {
+    fun `test if when update category is called, the category is updated`() = runTest {
         // Given the viewModel is called to load the categories
         val taskId = TaskId(FAKE_DOMAIN_TASK.id)
         loadTask.taskToBeReturned = FAKE_DOMAIN_TASK
@@ -129,20 +131,19 @@ internal class TaskDetailViewModelTest {
     }
 
     @Test
-    fun `test if when update category is called with null, the category is updated`() =
-        runBlockingTest {
+    fun `test if when update category is called with null, the category is updated`() = runTest {
 
-            // Given the viewModel is called to load the categories
-            val taskId = TaskId(FAKE_DOMAIN_TASK.id)
-            loadTask.taskToBeReturned = FAKE_DOMAIN_TASK
-            viewModel.loadTaskInfo(taskId)
+        // Given the viewModel is called to load the categories
+        val taskId = TaskId(FAKE_DOMAIN_TASK.id)
+        loadTask.taskToBeReturned = FAKE_DOMAIN_TASK
+        viewModel.loadTaskInfo(taskId)
 
-            // When the category id is updated
-            viewModel.updateCategory(taskId = taskId, categoryId = CategoryId(null))
+        // When the category id is updated
+        viewModel.updateCategory(taskId = taskId, categoryId = CategoryId(null))
 
-            // Then the task will be updated with given category id
-            Assert.assertTrue(updateTaskCategory.isCategoryUpdated(taskId.value))
-            val updatedCategoryId = updateTaskCategory.getUpdatedCategory(taskId.value)
-            Assert.assertNull(updatedCategoryId)
-        }
+        // Then the task will be updated with given category id
+        Assert.assertTrue(updateTaskCategory.isCategoryUpdated(taskId.value))
+        val updatedCategoryId = updateTaskCategory.getUpdatedCategory(taskId.value)
+        Assert.assertNull(updatedCategoryId)
+    }
 }

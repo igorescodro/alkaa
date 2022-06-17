@@ -48,7 +48,7 @@ test_barista = "4.2.0"
 
 # Quality
 ktlint = "0.45.2"
-detekt = "1.19.0"
+detekt = "1.20.0"
 
 [libraries]
 # Project

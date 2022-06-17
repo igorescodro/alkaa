@@ -29,7 +29,7 @@ compose_activity = "1.3.1"
 coroutines = "1.4.0"
 
 # Room
-room = "2.3.0"
+room = "2.4.2"
 
 # Koin
 koin = "3.2.0"

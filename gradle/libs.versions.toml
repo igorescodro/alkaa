@@ -7,7 +7,7 @@ android_target_sdk = "31"
 kotlin = "1.5.30"
 
 # General dependencies
-logging = "1.12.5"
+logging = "2.1.23"
 logback = "1.2.11"
 logcat = "0.1"
 

@@ -165,8 +165,8 @@ internal class TaskListGlanceWidget : GlanceAppWidget(), KoinComponent {
         }
     }
 
-    override suspend fun onDelete(glanceId: GlanceId) {
-        super.onDelete(glanceId)
+    override suspend fun onDelete(context: Context, glanceId: GlanceId) {
+        super.onDelete(context, glanceId)
         coroutineScope.cancel()
     }
 }

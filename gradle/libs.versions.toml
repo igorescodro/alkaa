@@ -17,7 +17,7 @@ constraint = "2.0.4"
 corektx = "1.8.0"
 playcore = "1.10.3"
 datastore = "1.0.0"
-glance = "1.0.0-alpha01"
+glance = "1.0.0-alpha03"
 
 # Compose
 compose = "1.0.3"

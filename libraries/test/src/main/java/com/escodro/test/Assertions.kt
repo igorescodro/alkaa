@@ -13,7 +13,7 @@ import androidx.compose.ui.test.assert
  * @param lines number of lines
  */
 fun SemanticsNodeInteraction.assertLines(lines: Int): SemanticsNodeInteraction =
-    assert(hasLines(lines))
+    assert(Filters.hasLines(lines))
 
 /**
  * Assert if the node is with the "Checked" value.

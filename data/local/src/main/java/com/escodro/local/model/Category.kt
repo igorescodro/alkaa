@@ -13,7 +13,10 @@ import androidx.room.PrimaryKey
  */
 @Entity
 data class Category(
-    @ColumnInfo(name = "category_id") @PrimaryKey(autoGenerate = true) var id: Long = 0,
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "category_id")
+    var id: Long = 0,
+
     @ColumnInfo(name = "category_name") var name: String,
     @ColumnInfo(name = "category_color") var color: String
 )

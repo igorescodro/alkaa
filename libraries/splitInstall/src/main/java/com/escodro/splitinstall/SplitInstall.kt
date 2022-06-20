@@ -1,3 +1,5 @@
+/* ktlint-disable filename */
+
 package com.escodro.splitinstall
 
 import android.content.Context
@@ -82,7 +84,7 @@ fun LoadFeature(
 
 private fun isFeatureInstalled(
     manager: SplitInstallManager,
-    featureName: String,
+    featureName: String
 ): Boolean {
     val isFeatureInstalled = manager.installedModules.contains(featureName)
     logcat(TAG) { "load = [$featureName] - isFeatureInstalled = $isFeatureInstalled" }

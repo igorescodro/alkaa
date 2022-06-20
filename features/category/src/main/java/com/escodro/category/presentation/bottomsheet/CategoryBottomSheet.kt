@@ -84,7 +84,7 @@ private fun CategorySheetLoader(
     editViewModel: CategoryEditViewModel = getViewModel(),
     bottomSheetState: CategoryBottomSheetState,
     colorList: List<Color>,
-    onHideBottomSheet: () -> Unit,
+    onHideBottomSheet: () -> Unit
 ) {
     val onSaveCategory: (CategoryBottomSheetState) -> Unit = if (bottomSheetState.isEditing()) {
         { editCategory -> editViewModel.updateCategory(editCategory.toCategory()) }
@@ -116,7 +116,6 @@ private fun CategorySheetContent(
 ) {
     Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.SpaceAround) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-
             var openDialog by rememberSaveable { mutableStateOf(false) }
             val focusRequester = remember { FocusRequester() }
 

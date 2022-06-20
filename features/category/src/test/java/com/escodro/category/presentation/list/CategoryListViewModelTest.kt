@@ -27,7 +27,6 @@ internal class CategoryListViewModelTest {
     @Test
     fun `test if when there is categories created than it returns the success state with them`() =
         runTest {
-
             // Given the viewModel is called to load the categories
             loadAllCategories.categoriesToBeReturned = FAKE_DOMAIN_CATEGORY_LIST
             val flow = viewModel.loadCategories()

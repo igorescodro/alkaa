@@ -56,8 +56,9 @@ internal fun AddTaskLoader(
         verticalArrangement = Arrangement.SpaceAround
     ) {
         var taskInputText by rememberSaveable { mutableStateOf("") }
-        val categoryState by remember(categoryViewModel) { categoryViewModel }.loadCategories()
-            .collectAsState(initial = CategoryState.Empty)
+        val categoryState by remember(categoryViewModel) {
+            categoryViewModel
+        }.loadCategories().collectAsState(initial = CategoryState.Empty)
         var currentCategory by rememberSaveable { mutableStateOf<CategoryId?>(null) }
         val focusRequester = remember { FocusRequester() }
 

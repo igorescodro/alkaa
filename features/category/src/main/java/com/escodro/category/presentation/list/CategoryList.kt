@@ -81,8 +81,9 @@ private fun CategoryListLoader(
     onItemClick: (Category) -> Unit,
     onAddClick: () -> Unit
 ) {
-    val viewState by remember(viewModel) { viewModel.loadCategories() }
-        .collectAsState(initial = CategoryState.Loading)
+    val viewState by remember(viewModel) {
+        viewModel.loadCategories()
+    }.collectAsState(initial = CategoryState.Loading)
 
     CategoryListScaffold(
         modifier = modifier,

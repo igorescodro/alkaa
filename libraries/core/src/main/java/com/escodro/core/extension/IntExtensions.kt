@@ -1,3 +1,4 @@
+/* ktlint-disable filename */
 package com.escodro.core.extension
 
 /**

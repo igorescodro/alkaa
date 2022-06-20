@@ -1,3 +1,5 @@
+/* ktlint-disable filename */
+
 package com.escodro.designsystem
 
 import androidx.compose.foundation.isSystemInDarkTheme

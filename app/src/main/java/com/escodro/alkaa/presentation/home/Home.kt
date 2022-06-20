@@ -60,7 +60,7 @@ fun Home(onTaskClick: (Long) -> Unit, onAboutClick: () -> Unit, onTrackerClick: 
         onTaskClick = onTaskClick,
         onAboutClick = onAboutClick,
         onTrackerClick = onTrackerClick,
-        setCurrentSection = setCurrentSection,
+        setCurrentSection = setCurrentSection
     )
 
     Crossfade(currentSection) { homeSection ->

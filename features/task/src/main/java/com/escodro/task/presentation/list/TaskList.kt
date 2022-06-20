@@ -68,7 +68,7 @@ private fun TaskListLoader(
     onItemClick: (Long) -> Unit,
     onAddClick: () -> Unit,
     taskListViewModel: TaskListViewModel = getViewModel(),
-    categoryViewModel: CategoryListViewModel = getViewModel(),
+    categoryViewModel: CategoryListViewModel = getViewModel()
 ) {
     val (currentCategory, setCategory) = rememberSaveable { mutableStateOf<CategoryId?>(null) }
 
@@ -76,8 +76,9 @@ private fun TaskListLoader(
         taskListViewModel.loadTaskList(currentCategory?.value)
     }.collectAsState(initial = TaskListViewState.Loading)
 
-    val categoryViewState by remember(categoryViewModel) { categoryViewModel.loadCategories() }
-        .collectAsState(initial = CategoryState.Loading)
+    val categoryViewState by remember(categoryViewModel) {
+        categoryViewModel.loadCategories()
+    }.collectAsState(initial = CategoryState.Loading)
 
     val taskHandler = TaskStateHandler(
         state = taskViewState,
@@ -89,13 +90,13 @@ private fun TaskListLoader(
     val categoryHandler = CategoryStateHandler(
         state = categoryViewState,
         currentCategory = currentCategory,
-        onCategoryChange = setCategory,
+        onCategoryChange = setCategory
     )
 
     TaskListScaffold(
         taskHandler = taskHandler,
         categoryHandler = categoryHandler,
-        modifier = modifier,
+        modifier = modifier
     )
 }
 
@@ -103,7 +104,7 @@ private fun TaskListLoader(
 internal fun TaskListScaffold(
     taskHandler: TaskStateHandler,
     categoryHandler: CategoryStateHandler,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     val coroutineScope = rememberCoroutineScope()
     val scaffoldState = rememberScaffoldState()
@@ -238,7 +239,7 @@ fun TaskListScaffoldLoaded() {
         TaskListScaffold(
             taskHandler = TaskStateHandler(state = state),
             categoryHandler = CategoryStateHandler(),
-            modifier = Modifier,
+            modifier = Modifier
         )
     }
 }
@@ -254,7 +255,7 @@ fun TaskListScaffoldEmpty() {
         TaskListScaffold(
             taskHandler = TaskStateHandler(state = state),
             categoryHandler = CategoryStateHandler(),
-            modifier = Modifier,
+            modifier = Modifier
         )
     }
 }
@@ -270,7 +271,7 @@ fun TaskListScaffoldError() {
         TaskListScaffold(
             taskHandler = TaskStateHandler(state = state),
             categoryHandler = CategoryStateHandler(),
-            modifier = Modifier,
+            modifier = Modifier
         )
     }
 }

@@ -62,8 +62,9 @@ private fun SearchLoader(
     viewModel: SearchViewModel = getViewModel()
 ) {
     val (query, setQuery) = rememberSaveable { mutableStateOf("") }
-    val viewState by remember(viewModel, query) { viewModel.findTasksByName(query) }
-        .collectAsState(initial = SearchViewState.Loading)
+    val viewState by remember(viewModel, query) {
+        viewModel.findTasksByName(query)
+    }.collectAsState(initial = SearchViewState.Loading)
 
     SearchScaffold(
         viewState = viewState,
@@ -149,7 +150,6 @@ private fun SearchItem(task: TaskSearchItem, onItemClick: (Long) -> Unit) {
             .clickable { onItemClick(task.id) },
         verticalArrangement = Arrangement.Center
     ) {
-
         val textDecoration: TextDecoration
         val circleColor: Color
 

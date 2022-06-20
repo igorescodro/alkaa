@@ -137,7 +137,7 @@ private fun AlarmSet(date: Calendar?, onRemoveClick: () -> Unit) {
     Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
         Text(
             text = date?.format() ?: "",
-            color = MaterialTheme.colors.onSecondary,
+            color = MaterialTheme.colors.onSecondary
         )
         IconButton(onClick = onRemoveClick) {
             Icon(
@@ -210,7 +210,7 @@ private fun AlarmListItem(
                         .find { it.index == index } ?: AlarmInterval.NEVER
                 onIntervalSelect(interval)
                 showDialog.value = false
-            },
+            }
     )
 }
 
@@ -218,7 +218,7 @@ private fun AlarmListItem(
 private fun AlarmPermissionDialog(
     context: Context,
     isDialogOpen: Boolean,
-    onCloseDialog: () -> Unit,
+    onCloseDialog: () -> Unit
 ) {
     val arguments = DialogArguments(
         title = stringResource(id = R.string.task_alarm_permission_dialog_title),

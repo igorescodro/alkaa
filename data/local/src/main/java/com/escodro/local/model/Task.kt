@@ -33,7 +33,10 @@ import java.util.Calendar
     indices = [Index(value = ["task_category_id"])]
 )
 data class Task(
-    @ColumnInfo(name = "task_id") @PrimaryKey(autoGenerate = true) var id: Long = 0,
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "task_id")
+    var id: Long = 0,
+
     @ColumnInfo(name = "task_is_completed") var completed: Boolean = false,
     @ColumnInfo(name = "task_title") var title: String,
     @ColumnInfo(name = "task_description") var description: String? = null,

@@ -77,7 +77,6 @@ internal class TaskDetailViewModelTest {
 
     @Test
     fun `test if when the update title is called, the field is updated`() = runTest {
-
         // Given the viewModel is called to load the task info
         val taskId = TaskId(FAKE_DOMAIN_TASK.id)
         loadTask.taskToBeReturned = FAKE_DOMAIN_TASK
@@ -96,7 +95,6 @@ internal class TaskDetailViewModelTest {
 
     @Test
     fun `test if when the update description is called, the field is updated`() = runTest {
-
         // Given the viewModel is called to load the task info
         val taskId = TaskId(FAKE_DOMAIN_TASK.id)
         loadTask.taskToBeReturned = FAKE_DOMAIN_TASK
@@ -132,7 +130,6 @@ internal class TaskDetailViewModelTest {
 
     @Test
     fun `test if when update category is called with null, the category is updated`() = runTest {
-
         // Given the viewModel is called to load the categories
         val taskId = TaskId(FAKE_DOMAIN_TASK.id)
         loadTask.taskToBeReturned = FAKE_DOMAIN_TASK

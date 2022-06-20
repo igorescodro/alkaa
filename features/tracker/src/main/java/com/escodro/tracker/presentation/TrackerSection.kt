@@ -41,8 +41,9 @@ internal fun TrackerSection(onUpPress: () -> Unit) {
 
 @Composable
 internal fun TrackerLoader(viewModel: TrackerViewModel = getViewModel(), onUpPress: () -> Unit) {
-    val data by remember { viewModel.loadTracker() }
-        .collectAsState(initial = TrackerViewState.Loading)
+    val data by remember {
+        viewModel.loadTracker()
+    }.collectAsState(initial = TrackerViewState.Loading)
 
     Scaffold(topBar = { AlkaaToolbar(onUpPress = onUpPress) }) {
         Crossfade(data) { state ->

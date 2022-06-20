@@ -137,7 +137,7 @@ internal class TaskListGlanceWidget : GlanceAppWidget(), KoinComponent {
                         .height(24.dp),
                     style = TextStyle(
                         color = ColorProvider(Color.DarkGray),
-                        fontSize = TextUnit(14f, TextUnitType.Sp),
+                        fontSize = TextUnit(14f, TextUnitType.Sp)
                     ),
                     maxLines = 1
                 )

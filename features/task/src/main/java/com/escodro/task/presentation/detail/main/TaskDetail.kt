@@ -64,12 +64,14 @@ private fun TaskDetailLoader(
 ) {
     val id = TaskId(taskId)
     val detailViewState by
-    remember(detailViewModel, taskId) { detailViewModel.loadTaskInfo(taskId = id) }
-        .collectAsState(initial = TaskDetailState.Loading)
+    remember(detailViewModel, taskId) {
+        detailViewModel.loadTaskInfo(taskId = id)
+    }.collectAsState(initial = TaskDetailState.Loading)
 
     val categoryViewState by
-    remember(categoryViewModel, taskId) { categoryViewModel.loadCategories() }
-        .collectAsState(initial = CategoryState.Loading)
+    remember(categoryViewModel, taskId) {
+        categoryViewModel.loadCategories()
+    }.collectAsState(initial = CategoryState.Loading)
 
     val taskDetailActions = TaskDetailActions(
         onTitleChange = { title -> detailViewModel.updateTitle(id, title) },
@@ -121,7 +123,7 @@ private fun TaskDetailContent(
             TaskTitleTextField(text = task.title, onTitleChange = actions.onTitleChange)
             TaskDetailSectionContent(
                 imageVector = Icons.Outlined.Bookmark,
-                contentDescription = R.string.task_detail_cd_icon_category,
+                contentDescription = R.string.task_detail_cd_icon_category
             ) {
                 CategorySelection(
                     state = categoryViewState,

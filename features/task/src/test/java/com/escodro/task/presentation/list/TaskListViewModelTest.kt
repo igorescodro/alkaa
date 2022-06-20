@@ -39,7 +39,6 @@ internal class TaskListViewModelTest {
 
     @Test
     fun `test if when there are uncompleted items, they are returned`() = runTest {
-
         // Given the use case returns the list with uncompleted tasks
         val numberOfEntries = 14
         loadUncompletedTasks.returnValues(numberOfEntries)
@@ -55,7 +54,6 @@ internal class TaskListViewModelTest {
 
     @Test
     fun `test if when there are no uncompleted items, a empty list is returned`() = runTest {
-
         // Given the use case returns an empty list
         loadUncompletedTasks.clean()
         val flow = viewModel.loadTaskList()
@@ -69,7 +67,6 @@ internal class TaskListViewModelTest {
 
     @Test
     fun `test if when load tasks fails, the error state is returned`() = runTest {
-
         // Given the use case returns error
         loadUncompletedTasks.throwError = true
         val flow = viewModel.loadTaskList()

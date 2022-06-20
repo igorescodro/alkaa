@@ -65,7 +65,7 @@ fun DefaultIconTextContent(
             text = stringResource(id = header),
             style = MaterialTheme.typography.h6,
             textAlign = TextAlign.Center,
-            color = MaterialTheme.colors.onSecondary,
+            color = MaterialTheme.colors.onSecondary
         )
     }
 }

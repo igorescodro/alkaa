@@ -25,7 +25,6 @@ internal class SearchViewModelTest {
 
     @Test
     fun `check if loaded state is returned when there are tasks`() = runTest {
-
         // Given the viewModel is called to search tasks
         val numberOfValues = 10
         searchTasksByName.returnValues(numberOfValues)
@@ -42,7 +41,6 @@ internal class SearchViewModelTest {
 
     @Test
     fun `check if empty state is returned when there are no tasks`() = runTest() {
-
         // Given the viewModel is called to search tasks but don't match the query
         searchTasksByName.returnValues(0)
         val flow = viewModel.findTasksByName("bla bla")

@@ -19,8 +19,8 @@ import com.escodro.local.model.Category
 import com.escodro.local.provider.DaoProvider
 import com.escodro.task.presentation.category.ChipNameKey
 import com.escodro.test.DisableAnimationsRule
+import com.escodro.test.Events
 import com.escodro.test.assertIsChecked
-import com.escodro.test.setDateTime
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Rule
@@ -131,7 +131,7 @@ internal class TaskFlowTest : KoinTest {
 
             // Set alarm to 2021-04-15 - 17:00:00
             val calendar = Calendar.getInstance().apply { timeInMillis = 1_650_042_000 }
-            setDateTime(calendar)
+            Events.setDateTime(calendar)
             pressBack()
 
             // Reopen the task and validate if the alarm is on
@@ -149,7 +149,7 @@ internal class TaskFlowTest : KoinTest {
 
             // Set alarm to 2021-04-15 - 17:00:00
             val calendar = Calendar.getInstance().apply { timeInMillis = 1_650_042_000 }
-            setDateTime(calendar)
+            Events.setDateTime(calendar)
 
             // Set repeating randomly
             val alarmArray =

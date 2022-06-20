@@ -102,9 +102,15 @@ internal fun RelativeDateText(calendar: Calendar?) {
 
     val context = LocalContext.current
     val time = calendar.time.time
-    val stringTime = DateUtils.getRelativeDateTimeString(
-        context, time, DateUtils.DAY_IN_MILLIS, DateUtils.DAY_IN_MILLIS, 0
-    ).toString()
+    val stringTime = DateUtils
+        .getRelativeDateTimeString(
+            context,
+            time,
+            DateUtils.DAY_IN_MILLIS,
+            DateUtils.DAY_IN_MILLIS,
+            0
+        )
+        .toString()
 
     Text(
         text = stringTime,

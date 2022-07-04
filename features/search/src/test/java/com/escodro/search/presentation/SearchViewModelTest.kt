@@ -5,7 +5,6 @@ import com.escodro.search.mapper.TaskSearchMapper
 import com.escodro.test.CoroutineTestRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Rule
@@ -34,7 +33,6 @@ internal class SearchViewModelTest {
         val state = flow.first()
 
         // Then the state contain the queried task
-        advanceUntilIdle()
         require(state is SearchViewState.Loaded)
         Assert.assertEquals(numberOfValues, state.taskList.size)
     }

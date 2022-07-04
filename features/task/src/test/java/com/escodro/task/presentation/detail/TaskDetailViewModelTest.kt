@@ -15,8 +15,6 @@ import com.escodro.task.presentation.fake.UpdateTaskTitleFake
 import com.escodro.test.CoroutineTestRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.test.advanceUntilIdle
-import kotlinx.coroutines.test.runCurrent
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Rule
@@ -85,7 +83,6 @@ internal class TaskDetailViewModelTest {
         // When the title is updated
         val newTitle = "title"
         viewModel.updateTitle(taskId = taskId, title = newTitle)
-        runCurrent() /* Advance typing debounce */
 
         // Then the task will be updated with given title
         Assert.assertTrue(updateTaskTitle.isTitleUpdated(FAKE_DOMAIN_TASK.id))
@@ -103,7 +100,6 @@ internal class TaskDetailViewModelTest {
         // When the description is updated
         val newDescription = "description"
         viewModel.updateDescription(taskId = taskId, description = newDescription)
-        advanceUntilIdle() /* Advance typing debounce */
 
         // Then the task will be updated with given description
         Assert.assertTrue(updateDescription.isDescriptionUpdated(FAKE_DOMAIN_TASK.id))

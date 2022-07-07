@@ -1,9 +1,6 @@
 package com.escodro.task.presentation.detail.alarm
 
-import android.content.Context
-import android.content.Intent
-import android.os.Build
-import android.provider.Settings
+import android.Manifest
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -38,13 +35,14 @@ import androidx.compose.ui.window.Dialog
 import com.escodro.core.extension.format
 import com.escodro.core.view.DateTimePickerDialog
 import com.escodro.designsystem.AlkaaTheme
-import com.escodro.designsystem.components.AlkaaDialog
-import com.escodro.designsystem.components.DialogArguments
 import com.escodro.task.R
 import com.escodro.task.model.AlarmInterval
 import com.escodro.task.presentation.detail.TaskDetailSectionContent
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.rememberPermissionState
 import java.util.Calendar
 
+@OptIn(ExperimentalPermissionsApi::class)
 @Composable
 internal fun AlarmSelection(
     calendar: Calendar?,
@@ -57,11 +55,21 @@ internal fun AlarmSelection(
     var date by remember { mutableStateOf(calendar) }
     var alarmInterval by remember { mutableStateOf(interval) }
 
-    var showPermissionDialog by remember { mutableStateOf(false) }
+    var showAlarmPermDialog by remember { mutableStateOf(false) }
     AlarmPermissionDialog(
         context = context,
-        isDialogOpen = showPermissionDialog,
-        onCloseDialog = { showPermissionDialog = false }
+        isDialogOpen = showAlarmPermDialog,
+        onCloseDialog = { showAlarmPermDialog = false }
+    )
+
+    val notificationPermissionState = rememberPermissionState(
+        permission = Manifest.permission.POST_NOTIFICATIONS
+    )
+    var showNotificationPermDialog by remember { mutableStateOf(false) }
+    NotificationPermissionDialog(
+        permissionState = notificationPermissionState,
+        isDialogOpen = showNotificationPermDialog,
+        onCloseDialog = { showNotificationPermDialog = false }
     )
 
     Column {
@@ -69,30 +77,22 @@ internal fun AlarmSelection(
             modifier = Modifier
                 .height(56.dp)
                 .clickable {
-                    if (hasAlarmPermission()) {
+                    if (hasAlarmPermission() && notificationPermissionState.hasPermission) {
                         DateTimePickerDialog(context) { calendar ->
                             date = calendar
                             onAlarmUpdate(calendar)
                         }.show()
                     } else {
-                        showPermissionDialog = true
+                        showAlarmPermDialog = !hasAlarmPermission()
+                        showNotificationPermDialog = !notificationPermissionState.hasPermission
                     }
                 },
             imageVector = Icons.Outlined.Alarm,
             contentDescription = R.string.task_detail_cd_icon_alarm
         ) {
-            Column {
-                if (date == null) {
-                    NoAlarmSet()
-                } else {
-                    AlarmSet(
-                        date = date,
-                        onRemoveClick = {
-                            date = null
-                            onAlarmUpdate(null)
-                        }
-                    )
-                }
+            AlarmInfo(date) {
+                date = null
+                onAlarmUpdate(null)
             }
         }
         AlarmIntervalSelection(
@@ -103,6 +103,23 @@ internal fun AlarmSelection(
                 onIntervalSelect(interval)
             }
         )
+    }
+}
+
+@Composable
+private fun AlarmInfo(
+    date: Calendar?,
+    onRemoveDate: () -> Unit
+) {
+    Column {
+        if (date == null) {
+            NoAlarmSet()
+        } else {
+            AlarmSet(
+                date = null,
+                onRemoveClick = onRemoveDate
+            )
+        }
     }
 }
 
@@ -209,35 +226,6 @@ private fun AlarmListItem(
                 onIntervalSelect(interval)
                 showDialog.value = false
             }
-    )
-}
-
-@Composable
-private fun AlarmPermissionDialog(
-    context: Context,
-    isDialogOpen: Boolean,
-    onCloseDialog: () -> Unit
-) {
-    val arguments = DialogArguments(
-        title = stringResource(id = R.string.task_alarm_permission_dialog_title),
-        text = stringResource(id = R.string.task_alarm_permission_dialog_text),
-        confirmText = stringResource(id = R.string.task_alarm_permission_dialog_confirm),
-        dismissText = stringResource(id = R.string.task_alarm_permission_dialog_cancel),
-        onConfirmAction = {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                val intent = Intent().apply {
-                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                    action = Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM
-                }
-                context.startActivity(intent)
-                onCloseDialog()
-            }
-        }
-    )
-    AlkaaDialog(
-        arguments = arguments,
-        isDialogOpen = isDialogOpen,
-        onDismissRequest = onCloseDialog
     )
 }
 

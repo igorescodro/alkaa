@@ -1,7 +1,7 @@
 package com.escodro.alarmapi
 
 /**
- * Handles [android.Manifest.permission.SCHEDULE_EXACT_ALARM] verification.
+ * Handles all the alarm-related permission verifications.
  */
 interface AlarmPermission {
 
@@ -11,4 +11,11 @@ interface AlarmPermission {
      * @return `true` if the permission is granted, `false` otherwise
      */
     fun hasExactAlarmPermission(): Boolean
+
+    /**
+     * Verifies if the [android.Manifest.permission.POST_NOTIFICATIONS] is granted.
+     *
+     * @return `true` if the permission is granted, `false` otherwise
+     */
+    fun hasNotificationPermission(): Boolean
 }

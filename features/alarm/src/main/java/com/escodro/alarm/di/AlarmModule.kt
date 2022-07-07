@@ -22,7 +22,7 @@ val alarmModule = module {
 
     factory { TaskNotificationScheduler(androidContext()) }
     factory { TaskNotificationChannel(androidContext()) }
-    factory { TaskNotification(androidContext(), get()) }
+    factory { TaskNotification(androidContext(), get(), get()) }
 
     factory { TaskMapper() }
 
@@ -30,5 +30,5 @@ val alarmModule = module {
     factory<NotificationInteractor> { NotificationInteractorImpl(get(), get()) }
 
     factory<AndroidVersion> { AndroidVersionImpl() }
-    factory<AlarmPermission> { AlarmPermissionImpl(get(), get()) }
+    factory<AlarmPermission> { AlarmPermissionImpl(androidContext(), get(), get()) }
 }

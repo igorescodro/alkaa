@@ -17,6 +17,7 @@ dependencies {
 
     implementation(libs.koin.android)
     implementation(libs.koin.compose)
+    implementation(libs.accompanist.permission)
 
     testImplementation(libs.test.corektx)
     androidTestImplementation(libs.compose.activity)

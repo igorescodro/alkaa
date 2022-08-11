@@ -20,7 +20,7 @@ datastore = "1.0.0"
 glance = "1.0.0-alpha03"
 
 # Compose
-compose = "1.1.1"
+compose = "1.2.1"
 compose_nav = "2.5.1"
 compose_viewmodel = "2.5.1"
 compose_activity = "1.5.1"

@@ -1,6 +1,7 @@
 package com.escodro.task.presentation.detail.alarm
 
-import android.Manifest
+import android.Manifest.permission.POST_NOTIFICATIONS
+import android.content.Context
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -20,10 +21,8 @@ import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material.icons.outlined.Repeat
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -39,6 +38,7 @@ import com.escodro.task.R
 import com.escodro.task.model.AlarmInterval
 import com.escodro.task.presentation.detail.TaskDetailSectionContent
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.PermissionState
 import com.google.accompanist.permissions.rememberPermissionState
 import java.util.Calendar
 
@@ -52,54 +52,84 @@ internal fun AlarmSelection(
     hasAlarmPermission: () -> Boolean
 ) {
     val context = LocalContext.current
-    var date by remember { mutableStateOf(calendar) }
-    var alarmInterval by remember { mutableStateOf(interval) }
+    val permissionState = rememberPermissionState(permission = POST_NOTIFICATIONS)
+    val state = rememberAlarmSelectionState(calendar = calendar, alarmInterval = interval)
 
-    var showAlarmPermDialog by remember { mutableStateOf(false) }
+    // Exact Alarm permission dialog
     AlarmPermissionDialog(
         context = context,
-        isDialogOpen = showAlarmPermDialog,
-        onCloseDialog = { showAlarmPermDialog = false }
+        isDialogOpen = state.showExactAlarmDialog,
+        onCloseDialog = { state.showExactAlarmDialog = false }
     )
 
-    val notificationPermissionState = rememberPermissionState(
-        permission = Manifest.permission.POST_NOTIFICATIONS
-    )
-    var showNotificationPermDialog by remember { mutableStateOf(false) }
+    // Notification permission dialog
     NotificationPermissionDialog(
-        permissionState = notificationPermissionState,
-        isDialogOpen = showNotificationPermDialog,
-        onCloseDialog = { showNotificationPermDialog = false }
+        permissionState = permissionState,
+        isDialogOpen = state.showNotificationDialog,
+        onCloseDialog = { state.showNotificationDialog = false }
     )
 
+    // Rationale permission dialog
+    RationalePermissionDialog(
+        context = context,
+        isDialogOpen = state.showRationaleDialog,
+        onCloseDialog = { state.showRationaleDialog = false }
+    )
+
+    AlarmSelectionContent(
+        context = context,
+        state = state,
+        permissionState = permissionState,
+        hasAlarmPermission = hasAlarmPermission,
+        onAlarmUpdate = onAlarmUpdate,
+        onIntervalSelect = onIntervalSelect
+    )
+}
+
+@OptIn(ExperimentalPermissionsApi::class)
+@Composable
+internal fun AlarmSelectionContent(
+    context: Context,
+    state: AlarmSelectionState,
+    permissionState: PermissionState,
+    hasAlarmPermission: () -> Boolean,
+    onAlarmUpdate: (Calendar?) -> Unit,
+    onIntervalSelect: (AlarmInterval) -> Unit
+) {
     Column {
         TaskDetailSectionContent(
             modifier = Modifier
                 .height(56.dp)
                 .clickable {
-                    if (hasAlarmPermission() && notificationPermissionState.hasPermission) {
-                        DateTimePickerDialog(context) { calendar ->
-                            date = calendar
-                            onAlarmUpdate(calendar)
-                        }.show()
-                    } else {
-                        showAlarmPermDialog = !hasAlarmPermission()
-                        showNotificationPermDialog = !notificationPermissionState.hasPermission
+                    when {
+                        hasAlarmPermission() && permissionState.hasPermission -> {
+                            DateTimePickerDialog(context) { calendar ->
+                                state.date = calendar
+                                onAlarmUpdate(calendar)
+                            }.show()
+                        }
+                        permissionState.shouldShowRationale -> {
+                            state.showRationaleDialog = true
+                        }
+                        else -> {
+                            state.showExactAlarmDialog = !hasAlarmPermission()
+                            state.showNotificationDialog = !permissionState.hasPermission
+                        }
                     }
                 },
             imageVector = Icons.Outlined.Alarm,
             contentDescription = R.string.task_detail_cd_icon_alarm
         ) {
-            AlarmInfo(date) {
-                date = null
+            AlarmInfo(state.date) {
+                state.date = null
                 onAlarmUpdate(null)
             }
         }
         AlarmIntervalSelection(
-            date = date,
-            alarmInterval = alarmInterval,
+            date = state.date,
+            alarmInterval = state.alarmInterval,
             onIntervalSelect = { interval ->
-                alarmInterval = interval
+                state.alarmInterval = interval
                 onIntervalSelect(interval)
             }
         )

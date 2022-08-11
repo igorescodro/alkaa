@@ -14,9 +14,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.GridCells
-import androidx.compose.foundation.lazy.LazyVerticalGrid
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
@@ -129,7 +129,7 @@ private fun CategoryListScaffold(
 private fun CategoryListContent(categoryList: List<Category>, onItemClick: (Category) -> Unit) {
     BoxWithConstraints(modifier = Modifier.padding(start = 8.dp, end = 8.dp)) {
         val cellCount: Int = max(2F, maxWidth.value / 250).roundToInt()
-        LazyVerticalGrid(cells = GridCells.Fixed(cellCount)) {
+        LazyVerticalGrid(columns = GridCells.Fixed(cellCount)) {
             items(
                 items = categoryList,
                 itemContent = { category ->

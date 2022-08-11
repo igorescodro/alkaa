@@ -205,9 +205,7 @@ private fun AlarmListItem(
             .padding(horizontal = 16.dp, vertical = 8.dp)
             .clickable {
                 val interval =
-                    AlarmInterval
-                        .values()
-                        .find { it.index == index } ?: AlarmInterval.NEVER
+                    AlarmInterval.values().find { it.index == index } ?: AlarmInterval.NEVER
                 onIntervalSelect(interval)
                 showDialog.value = false
             }

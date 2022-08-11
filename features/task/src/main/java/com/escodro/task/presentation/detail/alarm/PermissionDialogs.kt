@@ -2,6 +2,7 @@ package com.escodro.task.presentation.detail.alarm
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.provider.Settings
 import androidx.compose.runtime.Composable
@@ -55,6 +56,34 @@ internal fun NotificationPermissionDialog(
         dismissText = stringResource(id = R.string.task_notification_permission_dialog_cancel),
         onConfirmAction = {
             permissionState.launchPermissionRequest()
+            onCloseDialog()
+        }
+    )
+    AlkaaDialog(
+        arguments = arguments,
+        isDialogOpen = isDialogOpen,
+        onDismissRequest = onCloseDialog
+    )
+}
+
+@Composable
+internal fun RationalePermissionDialog(
+    context: Context,
+    isDialogOpen: Boolean,
+    onCloseDialog: () -> Unit
+) {
+    val arguments = DialogArguments(
+        title = stringResource(id = R.string.task_notification_rationale_dialog_title),
+        text = stringResource(id = R.string.task_notification_rationale_dialog_text),
+        confirmText = stringResource(id = R.string.task_notification_rationale_dialog_confirm),
+        dismissText = stringResource(id = R.string.task_notification_rationale_dialog_cancel),
+        onConfirmAction = {
+            val intent = Intent().apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+                data = Uri.fromParts("package", context.packageName, null)
+            }
+            context.startActivity(intent)
             onCloseDialog()
         }
     )

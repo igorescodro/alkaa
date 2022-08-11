@@ -35,7 +35,7 @@ room = "2.4.3"
 koin = "3.2.0"
 
 # Accompanist
-accompanist = "0.23.1"
+accompanist = "0.25.1"
 
 # Test
 test_junit = "4.13.2"

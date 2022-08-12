@@ -39,7 +39,9 @@ import com.escodro.task.model.AlarmInterval
 import com.escodro.task.presentation.detail.TaskDetailSectionContent
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionState
+import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
+import com.google.accompanist.permissions.shouldShowRationale
 import java.util.Calendar
 
 @OptIn(ExperimentalPermissionsApi::class)
@@ -102,18 +104,18 @@ internal fun AlarmSelectionContent(
                 .height(56.dp)
                 .clickable {
                     when {
-                        hasAlarmPermission() && permissionState.hasPermission -> {
+                        hasAlarmPermission() && permissionState.status.isGranted -> {
                             DateTimePickerDialog(context) { calendar ->
                                 state.date = calendar
                                 onAlarmUpdate(calendar)
                             }.show()
                         }
-                        permissionState.shouldShowRationale -> {
+                        permissionState.status.shouldShowRationale -> {
                             state.showRationaleDialog = true
                         }
                         else -> {
                             state.showExactAlarmDialog = !hasAlarmPermission()
-                            state.showNotificationDialog = !permissionState.hasPermission
+                            state.showNotificationDialog = !permissionState.status.isGranted
                         }
                     }
                 },

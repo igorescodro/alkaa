@@ -1,20 +1,26 @@
 package com.escodro.alkaa
 
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
 import androidx.annotation.StringRes
 import androidx.compose.ui.test.hasSetTextAction
-import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.junit4.createEmptyComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
+import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
+import com.adevinta.android.barista.rule.flaky.AllowFlaky
+import com.adevinta.android.barista.rule.flaky.FlakyTestRule
 import com.escodro.alkaa.fake.FAKE_TASKS
 import com.escodro.alkaa.navigation.NavGraph
 import com.escodro.designsystem.AlkaaTheme
 import com.escodro.local.provider.DaoProvider
 import com.escodro.test.DisableAnimationsRule
 import kotlinx.coroutines.runBlocking
+import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -27,7 +33,12 @@ internal class SearchFlowTest : KoinTest {
     private val daoProvider: DaoProvider by inject()
 
     @get:Rule
-    val composeTestRule = createComposeRule()
+    val composeTestRule = createEmptyComposeRule()
+
+    @get:Rule
+    val flakyRule = FlakyTestRule()
+
+    private lateinit var scenario: ActivityScenario<ComponentActivity>
 
     @get:Rule
     val disableAnimationsRule = DisableAnimationsRule()
@@ -36,6 +47,8 @@ internal class SearchFlowTest : KoinTest {
 
     @Before
     fun setup() {
+        scenario = ActivityScenario.launch(ComponentActivity::class.java)
+
         runBlocking {
             // Clean all existing tasks
             daoProvider.getTaskDao().cleanTable()
@@ -44,13 +57,20 @@ internal class SearchFlowTest : KoinTest {
             FAKE_TASKS.forEach { task -> daoProvider.getTaskDao().insertTask(task) }
         }
 
-        composeTestRule.setContent {
-            AlkaaTheme {
-                NavGraph()
+        scenario.onActivity { activity ->
+            activity.setContent {
+                AlkaaTheme {
+                    NavGraph()
+                }
             }
         }
 
         navigateToSearch()
+    }
+
+    @After
+    fun tearDown() {
+        scenario.close()
     }
 
     @Test
@@ -84,6 +104,7 @@ internal class SearchFlowTest : KoinTest {
     }
 
     @Test
+    @AllowFlaky(attempts = 5)
     fun test_noTasksAreShownWithInvalidQuery() {
         with(composeTestRule) {
             onNode(hasSetTextAction()).performTextInput("query")

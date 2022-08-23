@@ -1,16 +1,21 @@
 package com.escodro.alkaa
 
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
 import androidx.annotation.StringRes
 import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.hasSetTextAction
 import androidx.compose.ui.test.junit4.ComposeTestRule
-import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.junit4.createEmptyComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.test.performTextReplacement
+import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
+import com.adevinta.android.barista.rule.flaky.AllowFlaky
+import com.adevinta.android.barista.rule.flaky.FlakyTestRule
 import com.escodro.alkaa.fake.CoroutinesDebouncerFake
 import com.escodro.alkaa.navigation.NavGraph
 import com.escodro.core.coroutines.CoroutineDebouncer
@@ -22,6 +27,7 @@ import com.escodro.test.DisableAnimationsRule
 import com.escodro.test.Events
 import com.escodro.test.assertIsChecked
 import kotlinx.coroutines.runBlocking
+import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -36,7 +42,12 @@ internal class TaskFlowTest : KoinTest {
     private val daoProvider: DaoProvider by inject()
 
     @get:Rule
-    val composeTestRule = createComposeRule()
+    val composeTestRule = createEmptyComposeRule()
+
+    @get:Rule
+    val flakyRule = FlakyTestRule()
+
+    private lateinit var scenario: ActivityScenario<ComponentActivity>
 
     @get:Rule
     val disableAnimationsRule = DisableAnimationsRule()
@@ -45,6 +56,7 @@ internal class TaskFlowTest : KoinTest {
 
     @Before
     fun setup() {
+        scenario = ActivityScenario.launch(ComponentActivity::class.java)
         // Clean all existing tasks and categories
         runBlocking {
             with(daoProvider) {
@@ -60,11 +72,18 @@ internal class TaskFlowTest : KoinTest {
         // Replace Debouncer with a Immediate Executor
         declare<CoroutineDebouncer> { CoroutinesDebouncerFake() }
 
-        composeTestRule.setContent {
-            AlkaaTheme {
-                NavGraph()
+        scenario.onActivity { activity ->
+            activity.setContent {
+                AlkaaTheme {
+                    NavGraph()
+                }
             }
         }
+    }
+
+    @After
+    fun tearDown() {
+        scenario.close()
     }
 
     @Test
@@ -106,6 +125,7 @@ internal class TaskFlowTest : KoinTest {
     }
 
     @Test
+    @AllowFlaky(attempts = 5)
     fun test_selectCategory() {
         val taskName = "What the hell?"
         addAndOpenTask(taskName)

@@ -6,7 +6,7 @@ import com.escodro.domain.usecase.category.implementation.LoadCategoryImpl
 import com.escodro.domain.usecase.category.implementation.UpdateCategoryImpl
 import com.escodro.domain.usecase.fake.CategoryRepositoryFake
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -23,12 +23,12 @@ internal class UpdateCategoryTest {
     private val updateCategoryUseCase = UpdateCategoryImpl(categoryRepository)
 
     @Before
-    fun setup() = runBlockingTest {
+    fun setup() = runTest {
         categoryRepository.cleanTable()
     }
 
     @Test
-    fun `test if category is updated`() = runBlockingTest {
+    fun `test if category is updated`() = runTest {
         val category = Category(id = 24, name = "toys", color = "#04206F")
         addCategoryUseCase(category)
 

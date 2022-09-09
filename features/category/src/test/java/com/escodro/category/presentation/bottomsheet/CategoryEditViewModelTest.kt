@@ -7,11 +7,13 @@ import com.escodro.category.fake.LoadCategoryFake
 import com.escodro.category.fake.UpdateCategoryFake
 import com.escodro.category.mapper.CategoryMapper
 import com.escodro.categoryapi.model.Category
+import com.escodro.test.CoroutineTestRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -28,6 +30,9 @@ internal class CategoryEditViewModelTest {
     private val viewModel =
         CategoryEditViewModel(loadCategoryFake, updateCategory, deleteCategory, mapper)
 
+    @get:Rule
+    val coroutinesRule = CoroutineTestRule()
+
     @Before
     fun setup() {
         updateCategory.clear()
@@ -35,7 +40,7 @@ internal class CategoryEditViewModelTest {
     }
 
     @Test
-    fun `test if category is loaded when the id is valid`() = runBlockingTest {
+    fun `test if category is loaded when the id is valid`() = runTest {
         // Given the task is correctly returned
         loadCategoryFake.categoryToBeReturned = FAKE_DOMAIN_CATEGORY
         val flow = viewModel.loadCategory(FAKE_DOMAIN_CATEGORY.id)
@@ -50,7 +55,7 @@ internal class CategoryEditViewModelTest {
     }
 
     @Test
-    fun `test if category is empty when the id is not valid`() = runBlockingTest {
+    fun `test if category is empty when the id is not valid`() = runTest {
         // Given the task id is invalid
         loadCategoryFake.categoryToBeReturned = null
         val flow = viewModel.loadCategory(666L)

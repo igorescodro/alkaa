@@ -1,6 +1,5 @@
 plugins {
-    id(GradlePlugin.ANDROID_LIBRARY)
-    id(GradlePlugin.COMPOSE)
+    id("com.escodro.android-compose")
 }
 
 dependencies {
@@ -8,8 +7,8 @@ dependencies {
     implementation(projects.libraries.core)
     implementation(projects.libraries.designsystem)
 
-    implementation(Deps.koin.android)
-    implementation(Deps.koin.compose)
+    implementation(libs.koin.android)
+    implementation(libs.koin.compose)
 
     testImplementation(projects.libraries.test)
     androidTestImplementation(projects.libraries.test)

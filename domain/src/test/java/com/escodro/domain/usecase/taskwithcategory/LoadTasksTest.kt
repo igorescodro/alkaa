@@ -8,7 +8,7 @@ import com.escodro.domain.usecase.fake.TaskWithCategoryRepositoryFake
 import com.escodro.domain.usecase.taskwithcategory.implementation.LoadUncompletedTasksImpl
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Assert
 import org.junit.Before
@@ -29,7 +29,7 @@ internal class LoadTasksTest {
     private val loadUncompletedTasksUseCase = LoadUncompletedTasksImpl(taskWithCategoryRepository)
 
     @Before
-    fun setup() = runBlockingTest {
+    fun setup() = runTest {
         val category1 = Category(id = 1, name = "cat1", color = "#FFFFFF")
         val category2 = Category(id = 2, name = "cat2", color = "#000000")
         categoryRepository.insertCategory(listOf(category1, category2))
@@ -43,13 +43,13 @@ internal class LoadTasksTest {
     }
 
     @After
-    fun tearDown() = runBlockingTest {
+    fun tearDown() = runTest {
         taskRepository.cleanTable()
         categoryRepository.cleanTable()
     }
 
     @Test
-    fun `test if completed tasks are filtered`() = runBlockingTest {
+    fun `test if completed tasks are filtered`() = runTest {
         val completedTasks = loadCompletedTasksUseCase().first()
 
         Assert.assertEquals(2, completedTasks.size)
@@ -59,7 +59,7 @@ internal class LoadTasksTest {
     }
 
     @Test
-    fun `test if uncompleted tasks are filtered`() = runBlockingTest {
+    fun `test if uncompleted tasks are filtered`() = runTest {
         val uncompletedTasks = loadUncompletedTasksUseCase().first()
 
         Assert.assertEquals(2, uncompletedTasks.size)
@@ -69,7 +69,7 @@ internal class LoadTasksTest {
     }
 
     @Test
-    fun `test if uncompleted tasks are filtered by category`() = runBlockingTest {
+    fun `test if uncompleted tasks are filtered by category`() = runTest {
         val uncompletedTasksByCategory = loadUncompletedTasksUseCase(2L).first()
 
         Assert.assertEquals(1, uncompletedTasksByCategory.size)

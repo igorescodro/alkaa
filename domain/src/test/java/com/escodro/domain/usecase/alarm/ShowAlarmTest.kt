@@ -9,7 +9,7 @@ import com.escodro.domain.usecase.fake.NotificationInteractorFake
 import com.escodro.domain.usecase.fake.TaskRepositoryFake
 import com.escodro.domain.usecase.task.implementation.AddTaskImpl
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -36,14 +36,14 @@ internal class ShowAlarmTest {
         ShowAlarm(taskRepository, notificationInteractor, scheduleNextAlarmUseCase)
 
     @Before
-    fun setup() = runBlockingTest {
+    fun setup() = runTest {
         taskRepository.cleanTable()
         alarmInteractor.clear()
         notificationInteractor.clear()
     }
 
     @Test
-    fun `test if alarm is shown when task is not yet completed`() = runBlockingTest {
+    fun `test if alarm is shown when task is not yet completed`() = runTest {
         val task = Task(1, title = "should show", completed = false)
         addTaskUseCase(task)
 
@@ -53,7 +53,7 @@ internal class ShowAlarmTest {
     }
 
     @Test
-    fun `test if alarm is ignored when task is already completed`() = runBlockingTest {
+    fun `test if alarm is ignored when task is already completed`() = runTest {
         val task = Task(2, title = "should not show", completed = true)
         addTaskUseCase(task)
 
@@ -63,7 +63,7 @@ internal class ShowAlarmTest {
     }
 
     @Test
-    fun `test if next alarm is scheduled when task is repeating`() = runBlockingTest {
+    fun `test if next alarm is scheduled when task is repeating`() = runTest {
         val calendar = calendarProvider.getCurrentCalendar()
         val task = Task(
             3,
@@ -80,7 +80,7 @@ internal class ShowAlarmTest {
     }
 
     @Test
-    fun `test if next alarm is not scheduled when task is not repeating`() = runBlockingTest {
+    fun `test if next alarm is not scheduled when task is not repeating`() = runTest {
         val task = Task(4, title = "should not repeat", isRepeating = false)
         addTaskUseCase(task)
 
@@ -90,7 +90,7 @@ internal class ShowAlarmTest {
     }
 
     @Test
-    fun `test if next alarm is not scheduled when task is completed`() = runBlockingTest {
+    fun `test if next alarm is not scheduled when task is completed`() = runTest {
         val task = Task(4, title = "it is already completed", isRepeating = true, completed = true)
         addTaskUseCase(task)
 

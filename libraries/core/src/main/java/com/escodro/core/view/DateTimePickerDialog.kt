@@ -19,7 +19,8 @@ class DateTimePickerDialog(context: Context, private val onDateChanged: (Calenda
 
     init {
         datePickerDialog = DatePickerDialog(
-            context, getDateListener(),
+            context,
+            getDateListener(),
             calendar.get(Calendar.YEAR),
             calendar.get(Calendar.MONTH),
             calendar.get(Calendar.DAY_OF_MONTH)

@@ -14,12 +14,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.GridCells
-import androidx.compose.foundation.lazy.LazyVerticalGrid
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.FabPosition
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
@@ -38,10 +37,12 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.escodro.category.R
+import com.escodro.category.presentation.semantics.color
 import com.escodro.categoryapi.model.Category
 import com.escodro.categoryapi.presentation.CategoryListViewModel
 import com.escodro.categoryapi.presentation.CategoryState
@@ -59,7 +60,6 @@ import kotlin.math.roundToInt
  * @param modifier the decorator
  * @param onShowBottomSheet function to be called when the bottom sheet is shown
  */
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun CategoryListSection(
     modifier: Modifier,
@@ -79,8 +79,9 @@ private fun CategoryListLoader(
     onItemClick: (Long?) -> Unit,
     onAddClick: () -> Unit
 ) {
-    val viewState by remember(viewModel) { viewModel.loadCategories() }
-        .collectAsState(initial = CategoryState.Loading)
+    val viewState by remember(viewModel) {
+        viewModel.loadCategories()
+    }.collectAsState(initial = CategoryState.Loading)
 
     CategoryListScaffold(
         modifier = modifier,
@@ -126,7 +127,7 @@ private fun CategoryListScaffold(
 private fun CategoryListContent(categoryList: List<Category>, onItemClick: (Long?) -> Unit) {
     BoxWithConstraints(modifier = Modifier.padding(start = 8.dp, end = 8.dp)) {
         val cellCount: Int = max(2F, maxWidth.value / 250).roundToInt()
-        LazyVerticalGrid(cells = GridCells.Fixed(cellCount)) {
+        LazyVerticalGrid(columns = GridCells.Fixed(cellCount)) {
             items(
                 items = categoryList,
                 itemContent = { category ->
@@ -184,6 +185,7 @@ private fun CategoryCircleIndicator(size: Dp, color: Int, alpha: Float = 1F) {
             .size(size)
             .clip(CircleShape)
             .alpha(alpha)
+            .semantics { this.color = Color(color) }
             .background(Color(color))
     )
 }

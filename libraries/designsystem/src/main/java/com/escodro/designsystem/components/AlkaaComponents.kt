@@ -65,7 +65,7 @@ fun DefaultIconTextContent(
             text = stringResource(id = header),
             style = MaterialTheme.typography.h6,
             textAlign = TextAlign.Center,
-            color = MaterialTheme.colors.onSecondary,
+            color = MaterialTheme.colors.onSecondary
         )
     }
 }
@@ -89,7 +89,7 @@ fun AlkaaToolbar(onUpPress: () -> Unit) {
         IconButton(onClick = onUpPress, modifier = Modifier.align(Alignment.CenterVertically)) {
             Icon(
                 imageVector = Icons.Rounded.ArrowBack,
-                contentDescription = stringResource(id = R.string.back_arrow_content_description)
+                contentDescription = stringResource(id = R.string.back_arrow_cd)
             )
         }
     }

@@ -1,7 +1,6 @@
 plugins {
-    id(GradlePlugin.ANDROID_LIBRARY)
-    id(GradlePlugin.COMPOSE)
-    id(GradlePlugin.PARCELIZE)
+    id("com.escodro.android-compose")
+    id("kotlin-parcelize")
 }
 
 dependencies {
@@ -13,6 +12,6 @@ dependencies {
     testImplementation(projects.libraries.test)
     androidTestImplementation(projects.libraries.test)
 
-    implementation(Deps.koin.android)
-    implementation(Deps.koin.compose)
+    implementation(libs.koin.android)
+    implementation(libs.koin.compose)
 }

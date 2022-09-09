@@ -7,7 +7,7 @@ import com.escodro.tracker.presentation.TrackerViewModel
 import com.escodro.tracker.presentation.TrackerViewState
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -28,7 +28,7 @@ internal class TrackerViewModelTest {
     }
 
     @Test
-    fun `check if show state was called`() = runBlockingTest {
+    fun `check if show state was called`() = runTest {
         // Given the use case returns the list with completed tasks by period
         loadCompletedTasksByPeriod.returnDefaultValues()
         val flow = viewModel.loadTracker()
@@ -41,7 +41,7 @@ internal class TrackerViewModelTest {
     }
 
     @Test
-    fun `check if empty state was called`() = runBlockingTest {
+    fun `check if empty state was called`() = runTest {
         // Given the use case returns an empty list with completed tasks by period
         loadCompletedTasksByPeriod.clearList()
         val flow = viewModel.loadTracker()
@@ -54,7 +54,7 @@ internal class TrackerViewModelTest {
     }
 
     @Test
-    fun `check if error state was called`() = runBlockingTest {
+    fun `check if error state was called`() = runTest {
         // Given the use case returns an empty list with completed tasks by period
         loadCompletedTasksByPeriod.throwError = true
         val flow = viewModel.loadTracker()

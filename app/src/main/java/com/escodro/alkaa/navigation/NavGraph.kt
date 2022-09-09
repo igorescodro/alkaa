@@ -48,7 +48,6 @@ fun NavGraph(startDestination: String = Destinations.Home) {
 
     ModalBottomSheetLayout(bottomSheetNavigator) {
         AnimatedNavHost(navController = navController, startDestination = startDestination) {
-
             composable(
                 route = Destinations.Home,
                 deepLinks = listOf(navDeepLink { uriPattern = DestinationDeepLink.HomePattern }),
@@ -93,7 +92,7 @@ fun NavGraph(startDestination: String = Destinations.Home) {
                         AnimatedContentScope.SlideDirection.Right,
                         animationSpec = tween(700)
                     )
-                },
+                }
             ) { backStackEntry ->
                 val arguments = requireNotNull(backStackEntry.arguments)
                 TaskDetailSection(
@@ -103,7 +102,7 @@ fun NavGraph(startDestination: String = Destinations.Home) {
             }
 
             composable(
-                route = Destinations.About,
+                route = Destinations.About
             ) {
                 About(onUpPress = actions.navigateUp)
             }
@@ -123,7 +122,7 @@ fun NavGraph(startDestination: String = Destinations.Home) {
                     navDeepLink {
                         uriPattern = DestinationDeepLink.CategorySheetPattern
                     }
-                ),
+                )
             ) { backStackEntry ->
                 val id = backStackEntry.arguments?.getLong(DestinationArgs.CategoryId) ?: 0L
                 CategoryBottomSheet(

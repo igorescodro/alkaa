@@ -6,10 +6,9 @@ import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.GridCells
-import androidx.compose.foundation.lazy.LazyVerticalGrid
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.FabPosition
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
@@ -52,7 +51,6 @@ import java.util.Calendar
  * @param onItemClick action to be called when a item is clicked
  * @param onBottomShow action to be called when the bottom sheet is shown
  */
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun TaskListSection(
     modifier: Modifier = Modifier,
@@ -68,7 +66,7 @@ private fun TaskListLoader(
     onItemClick: (Long) -> Unit,
     onAddClick: () -> Unit,
     taskListViewModel: TaskListViewModel = getViewModel(),
-    categoryViewModel: CategoryListViewModel = getViewModel(),
+    categoryViewModel: CategoryListViewModel = getViewModel()
 ) {
     val (currentCategory, setCategory) = rememberSaveable { mutableStateOf<CategoryId?>(null) }
 
@@ -76,8 +74,9 @@ private fun TaskListLoader(
         taskListViewModel.loadTaskList(currentCategory?.value)
     }.collectAsState(initial = TaskListViewState.Loading)
 
-    val categoryViewState by remember(categoryViewModel) { categoryViewModel.loadCategories() }
-        .collectAsState(initial = CategoryState.Loading)
+    val categoryViewState by remember(categoryViewModel) {
+        categoryViewModel.loadCategories()
+    }.collectAsState(initial = CategoryState.Loading)
 
     val taskHandler = TaskStateHandler(
         state = taskViewState,
@@ -89,13 +88,13 @@ private fun TaskListLoader(
     val categoryHandler = CategoryStateHandler(
         state = categoryViewState,
         currentCategory = currentCategory,
-        onCategoryChange = setCategory,
+        onCategoryChange = setCategory
     )
 
     TaskListScaffold(
         taskHandler = taskHandler,
         categoryHandler = categoryHandler,
-        modifier = modifier,
+        modifier = modifier
     )
 }
 
@@ -103,7 +102,7 @@ private fun TaskListLoader(
 internal fun TaskListScaffold(
     taskHandler: TaskStateHandler,
     categoryHandler: CategoryStateHandler,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     val coroutineScope = rememberCoroutineScope()
     val scaffoldState = rememberScaffoldState()
@@ -179,7 +178,7 @@ private fun TaskListContent(
     BoxWithConstraints(modifier = Modifier.padding(start = 8.dp, end = 8.dp)) {
         val cellCount = if (this.maxHeight > maxWidth) 1 else 2
         LazyVerticalGrid(
-            cells = GridCells.Fixed(cellCount),
+            columns = GridCells.Fixed(cellCount),
             contentPadding = PaddingValues(bottom = 48.dp)
         ) {
             items(
@@ -214,7 +213,6 @@ private fun TaskListError() {
     )
 }
 
-@ExperimentalMaterialApi
 @Suppress("UndocumentedPublicFunction")
 @Preview
 @Composable
@@ -238,12 +236,11 @@ fun TaskListScaffoldLoaded() {
         TaskListScaffold(
             taskHandler = TaskStateHandler(state = state),
             categoryHandler = CategoryStateHandler(),
-            modifier = Modifier,
+            modifier = Modifier
         )
     }
 }
 
-@OptIn(ExperimentalMaterialApi::class)
 @Suppress("UndocumentedPublicFunction")
 @Preview
 @Composable
@@ -254,12 +251,11 @@ fun TaskListScaffoldEmpty() {
         TaskListScaffold(
             taskHandler = TaskStateHandler(state = state),
             categoryHandler = CategoryStateHandler(),
-            modifier = Modifier,
+            modifier = Modifier
         )
     }
 }
 
-@OptIn(ExperimentalMaterialApi::class)
 @Suppress("UndocumentedPublicFunction")
 @Preview
 @Composable
@@ -270,7 +266,7 @@ fun TaskListScaffoldError() {
         TaskListScaffold(
             taskHandler = TaskStateHandler(state = state),
             categoryHandler = CategoryStateHandler(),
-            modifier = Modifier,
+            modifier = Modifier
         )
     }
 }

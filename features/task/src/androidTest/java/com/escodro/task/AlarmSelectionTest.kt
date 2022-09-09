@@ -13,10 +13,10 @@ import androidx.test.core.app.ActivityScenario
 import androidx.test.filters.SdkSuppress
 import androidx.test.platform.app.InstrumentationRegistry
 import com.escodro.designsystem.AlkaaTheme
-import com.escodro.task.espresso.setDateTime
 import com.escodro.task.model.AlarmInterval
 import com.escodro.task.presentation.detail.alarm.AlarmSelection
 import com.escodro.test.DisableAnimationsRule
+import com.escodro.test.Events
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -56,7 +56,7 @@ internal class AlarmSelectionTest {
 
         // Set alarm to 2021-04-15 - 17:00:00
         val calendar = Calendar.getInstance().apply { timeInMillis = 1_618_516_800_000 }
-        setDateTime(calendar)
+        Events.setDateTime(calendar)
 
         // Assert that the date is shown in the view
         composeTestRule.onNodeWithText(text = "15", substring = true).assertIsDisplayed()
@@ -83,7 +83,7 @@ internal class AlarmSelectionTest {
 
         // Set alarm to 2021-04-15 - 17:00:00
         val calendar = Calendar.getInstance().apply { timeInMillis = 1_618_516_800_000 }
-        setDateTime(calendar)
+        Events.setDateTime(calendar)
 
         // Click to remove the alarm
         val removeAlarmCd = context.getString(R.string.task_detail_cd_icon_remove_alarm)
@@ -108,7 +108,7 @@ internal class AlarmSelectionTest {
 
         // Set alarm to 2021-04-15 - 17:00:00
         val calendar = Calendar.getInstance().apply { timeInMillis = 1_618_516_800_000 }
-        setDateTime(calendar)
+        Events.setDateTime(calendar)
 
         // Assert that when clicking in each option, it is shown as selected
         val alarmArray = context.resources.getStringArray(R.array.task_alarm_repeating)

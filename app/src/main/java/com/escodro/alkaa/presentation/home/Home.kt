@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.BottomAppBar
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
@@ -50,7 +49,7 @@ fun Home(
         onTrackerClick = onTrackerClick,
         onTaskSheetOpen = onTaskSheetOpen,
         onCategorySheetOpen = onCategorySheetOpen,
-        setCurrentSection = setCurrentSection,
+        setCurrentSection = setCurrentSection
     )
 
     Crossfade(currentSection) { homeSection ->
@@ -63,7 +62,6 @@ fun Home(
     }
 }
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 private fun AlkaaHomeScaffold(
     homeSection: HomeSection,
@@ -88,12 +86,11 @@ private fun AlkaaHomeScaffold(
     )
 }
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 private fun AlkaaContent(
     homeSection: HomeSection,
     modifier: Modifier,
-    actions: HomeActions,
+    actions: HomeActions
 ) {
     when (homeSection) {
         HomeSection.Tasks ->
@@ -132,7 +129,6 @@ private fun AlkaaTopBar(currentSection: HomeSection) {
     }
 }
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 private fun AlkaaBottomNav(
     currentSection: HomeSection,

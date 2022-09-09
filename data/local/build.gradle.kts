@@ -1,6 +1,6 @@
 plugins {
-    id(GradlePlugin.ANDROID_LIBRARY)
-    id(GradlePlugin.KAPT)
+    id("com.escodro.android-library")
+    id("kotlin-kapt")
 }
 
 android {
@@ -21,15 +21,15 @@ dependencies {
     implementation(projects.libraries.core)
     implementation(projects.data.repository)
 
-    implementation(Deps.koin.android)
-    implementation(Deps.android.room.runtime)
-    implementation(Deps.android.room.ktx)
-    kapt(Deps.android.room.compiler)
+    implementation(libs.koin.android)
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    kapt(libs.androidx.room.compiler)
 
-    androidTestImplementation(Deps.test.runner)
-    androidTestImplementation(Deps.test.room)
+    androidTestImplementation(libs.test.runner)
+    androidTestImplementation(libs.androidx.room.test)
 
-    testImplementation(Deps.test.junit)
-    testImplementation(Deps.test.mockk)
-    testImplementation(Deps.coroutines.test)
+    testImplementation(libs.test.junit)
+    testImplementation(libs.test.mockk)
+    testImplementation(libs.coroutines.test)
 }

@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 internal fun LeadingIcon(
     imageVector: ImageVector,
     @StringRes contentDescription: Int,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     Icon(
         imageVector = imageVector,

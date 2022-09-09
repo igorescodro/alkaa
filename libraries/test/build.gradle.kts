@@ -1,5 +1,5 @@
 plugins {
-    id(GradlePlugin.ANDROID_LIBRARY)
+    id("com.escodro.android-library")
 }
 
 android {
@@ -18,11 +18,11 @@ android {
 dependencies {
     implementation(projects.libraries.core)
 
-    api(Deps.test.junit)
+    api(libs.test.junit)
 
-    api(Deps.coroutines.test)
+    api(libs.coroutines.test)
 
-    implementation(Deps.compose.uiTest) {
+    implementation(libs.compose.uitest) {
         exclude(group = "androidx.core", module = "core-ktx")
         exclude(group = "androidx.fragment", module = "fragment")
         exclude(group = "androidx.customview", module = "customview")
@@ -30,6 +30,7 @@ dependencies {
         exclude(group = "androidx.lifecycle", module = "lifecycle-runtime")
     }
 
-    implementation(Deps.test.core)
-    implementation(Deps.test.uiAutomator)
+    api(libs.test.core)
+    implementation(libs.test.uiautomator)
+    api(libs.test.barista)
 }

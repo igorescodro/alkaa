@@ -20,6 +20,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.semantics.SemanticsPropertyKey
+import androidx.compose.ui.semantics.SemanticsPropertyReceiver
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -54,7 +57,9 @@ internal fun TaskItem(
         Row {
             CardRibbon(colorInt = task.category?.color)
             RadioButton(
-                modifier = modifier.fillMaxHeight(),
+                modifier = modifier
+                    .fillMaxHeight()
+                    .semantics { checkboxName = task.task.title },
                 selected = task.task.completed,
                 onClick = { onCheckedChange(task) }
             )
@@ -97,9 +102,15 @@ internal fun RelativeDateText(calendar: Calendar?) {
 
     val context = LocalContext.current
     val time = calendar.time.time
-    val stringTime = DateUtils.getRelativeDateTimeString(
-        context, time, DateUtils.DAY_IN_MILLIS, DateUtils.DAY_IN_MILLIS, 0
-    ).toString()
+    val stringTime = DateUtils
+        .getRelativeDateTimeString(
+            context,
+            time,
+            DateUtils.DAY_IN_MILLIS,
+            DateUtils.DAY_IN_MILLIS,
+            0
+        )
+        .toString()
 
     Text(
         text = stringTime,
@@ -108,6 +119,12 @@ internal fun RelativeDateText(calendar: Calendar?) {
         maxLines = 1
     )
 }
+
+/**
+ * Semantics key for Checkbox naming.
+ */
+val CheckboxNameKey = SemanticsPropertyKey<String>("Checkbox")
+private var SemanticsPropertyReceiver.checkboxName by CheckboxNameKey
 
 @Suppress("UndocumentedPublicFunction")
 @Preview

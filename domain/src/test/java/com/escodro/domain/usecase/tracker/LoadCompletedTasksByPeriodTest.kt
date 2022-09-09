@@ -9,7 +9,7 @@ import com.escodro.domain.usecase.fake.TaskWithCategoryRepositoryFake
 import com.escodro.domain.usecase.tracker.implementation.LoadCompletedTasksByPeriodImpl
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Test
 import java.util.Calendar
@@ -27,7 +27,7 @@ internal class LoadCompletedTasksByPeriodTest {
     private val loadTrackerUseCase = LoadCompletedTasksByPeriodImpl(taskWithCategoryRepository)
 
     @Test
-    fun `test if completed tasks are returned in group`() = runBlockingTest {
+    fun `test if completed tasks are returned in group`() = runTest {
         val category1 = Category(1, "Category A", "#FFFFFF")
         val category2 = Category(2, "Category B", "#CCCCCC")
         val category3 = Category(3, "Category C", "#AAAAAA")
@@ -58,7 +58,7 @@ internal class LoadCompletedTasksByPeriodTest {
     }
 
     @Test
-    fun `test if only completed tasks are returned`() = runBlockingTest {
+    fun `test if only completed tasks are returned`() = runTest {
         val category1 = Category(1, "Category A", "#FFFFFF")
         val category2 = Category(2, "Category B", "#CCCCCC")
         val categoryList = listOf(category1, category2)
@@ -83,7 +83,7 @@ internal class LoadCompletedTasksByPeriodTest {
     }
 
     @Test
-    fun `test if completed tasks without category are considered`() = runBlockingTest {
+    fun `test if completed tasks without category are considered`() = runTest {
         val calendarIn = Calendar.getInstance().apply { add(Calendar.DAY_OF_MONTH, -10) }
         val task = Task(3, completed = true, title = "Lonely", completedDate = calendarIn)
         taskRepository.insertTask(task)

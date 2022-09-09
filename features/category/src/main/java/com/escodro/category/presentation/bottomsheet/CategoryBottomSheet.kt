@@ -40,9 +40,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.escodro.category.R
+import com.escodro.category.presentation.semantics.color
 import com.escodro.categoryapi.model.Category
 import com.escodro.designsystem.AlkaaTheme
 import com.escodro.designsystem.components.AlkaaDialog
@@ -75,7 +77,7 @@ fun CategoryBottomSheet(categoryId: Long, onHideBottomSheet: () -> Unit) {
 private fun CategoryNewSheetLoader(
     addViewModel: CategoryAddViewModel = getViewModel(),
     colorList: List<Color>,
-    onHideBottomSheet: () -> Unit,
+    onHideBottomSheet: () -> Unit
 ) {
     val sheetState by rememberSaveable(addViewModel) {
         mutableStateOf(CategoryBottomSheetState(emptyCategory()))
@@ -96,7 +98,7 @@ private fun CategoryEditSheetLoader(
     editViewModel: CategoryEditViewModel = getViewModel(),
     categoryId: Long,
     colorList: List<Color>,
-    onHideBottomSheet: () -> Unit,
+    onHideBottomSheet: () -> Unit
 ) {
     val categoryState by remember(editViewModel, categoryId) {
         editViewModel.loadCategory(categoryId = categoryId)
@@ -141,7 +143,6 @@ private fun CategorySheetContent(
         verticalArrangement = Arrangement.SpaceAround
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-
             var openDialog by rememberSaveable { mutableStateOf(false) }
             val focusRequester = remember { FocusRequester() }
 
@@ -172,7 +173,10 @@ private fun CategorySheetContent(
                         .height(64.dp)
                         .weight(1F)
                 ) {
-                    Icon(imageVector = Icons.Outlined.Delete, contentDescription = "")
+                    Icon(
+                        imageVector = Icons.Outlined.Delete,
+                        contentDescription = stringResource(id = R.string.category_cd_remove_category)
+                    )
                 }
             }
         }
@@ -267,6 +271,7 @@ private fun CategoryColorItem(
                 .size(32.dp)
                 .clip(CircleShape)
                 .background(color = color)
+                .semantics { this.color = color }
                 .selectable(
                     role = Role.RadioButton,
                     selected = isSelected,

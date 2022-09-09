@@ -7,7 +7,7 @@ import com.escodro.categoryapi.presentation.CategoryState
 import com.escodro.test.CoroutineTestRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test
@@ -26,8 +26,7 @@ internal class CategoryListViewModelTest {
 
     @Test
     fun `test if when there is categories created than it returns the success state with them`() =
-        runBlockingTest {
-
+        runTest {
             // Given the viewModel is called to load the categories
             loadAllCategories.categoriesToBeReturned = FAKE_DOMAIN_CATEGORY_LIST
             val flow = viewModel.loadCategories()
@@ -43,7 +42,7 @@ internal class CategoryListViewModelTest {
 
     @Test
     fun `test if when there is no categories created than it returns the success state with empty list`() =
-        runBlockingTest {
+        runTest {
             // Given the viewModel is called to load the categories
             loadAllCategories.categoriesToBeReturned = listOf()
             val flow = viewModel.loadCategories()

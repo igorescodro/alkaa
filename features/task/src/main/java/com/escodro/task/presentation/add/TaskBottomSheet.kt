@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -38,13 +37,11 @@ import org.koin.androidx.compose.getViewModel
 /**
  * Alkaa Add Task Bottom Sheet.
  */
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun AddTaskBottomSheet(onHideBottomSheet: () -> Unit) {
     AddTaskLoader(onHideBottomSheet = onHideBottomSheet)
 }
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 internal fun AddTaskLoader(
     addTaskViewModel: AddTaskViewModel = getViewModel(),
@@ -59,8 +56,9 @@ internal fun AddTaskLoader(
         verticalArrangement = Arrangement.SpaceAround
     ) {
         var taskInputText by rememberSaveable { mutableStateOf("") }
-        val categoryState by remember(categoryViewModel) { categoryViewModel }.loadCategories()
-            .collectAsState(initial = CategoryState.Empty)
+        val categoryState by remember(categoryViewModel) {
+            categoryViewModel
+        }.loadCategories().collectAsState(initial = CategoryState.Empty)
         var currentCategory by rememberSaveable { mutableStateOf<CategoryId?>(null) }
         val focusRequester = remember { FocusRequester() }
 
@@ -101,7 +99,6 @@ internal fun AddTaskLoader(
 
 private const val FocusDelay = 300L
 
-@OptIn(ExperimentalMaterialApi::class)
 @Suppress("UndocumentedPublicFunction")
 @Preview
 @Composable

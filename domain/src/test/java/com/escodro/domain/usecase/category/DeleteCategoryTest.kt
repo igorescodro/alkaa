@@ -6,7 +6,7 @@ import com.escodro.domain.usecase.category.implementation.DeleteCategoryImpl
 import com.escodro.domain.usecase.category.implementation.LoadCategoryImpl
 import com.escodro.domain.usecase.fake.CategoryRepositoryFake
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -23,12 +23,12 @@ class DeleteCategoryTest {
     private val loadCategory = LoadCategoryImpl(categoryRepository)
 
     @Before
-    fun setup() = runBlockingTest {
+    fun setup() = runTest {
         categoryRepository.cleanTable()
     }
 
     @Test
-    fun `test if category is deleted`() = runBlockingTest {
+    fun `test if category is deleted`() = runTest {
         val category = Category(id = 13, name = "books to read", color = "#FFAA00")
         addCategory(category)
         deleteCategory(category)

@@ -102,7 +102,7 @@ fun Context.getVersionName(): String {
     var packageInfo: PackageInfo? = null
     packageName.let {
         try {
-            packageInfo = packageManager.getPackageInfo(it, 0)
+            packageInfo = packageManager.getPackageInfo(it, PackageManager.PackageInfoFlags.of(0))
         } catch (e: PackageManager.NameNotFoundException) {
             logcat(LogPriority.ERROR) { e.asLog() }
         }

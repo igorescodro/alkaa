@@ -148,7 +148,7 @@ private fun AlarmInfo(
             NoAlarmSet()
         } else {
             AlarmSet(
-                date = null,
+                date = date,
                 onRemoveClick = onRemoveDate
             )
         }

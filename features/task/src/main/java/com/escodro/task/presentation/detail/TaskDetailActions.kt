@@ -11,5 +11,6 @@ internal data class TaskDetailActions(
     val onAlarmUpdate: (Calendar?) -> Unit = {},
     val onIntervalSelect: (AlarmInterval) -> Unit = {},
     val hasAlarmPermission: () -> Boolean = { false },
+    val shouldCheckNotificationPermission: Boolean = false,
     val onUpPress: () -> Unit = {}
 )

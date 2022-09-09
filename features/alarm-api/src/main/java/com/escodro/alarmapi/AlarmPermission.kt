@@ -18,4 +18,11 @@ interface AlarmPermission {
      * @return `true` if the permission is granted, `false` otherwise
      */
     fun hasNotificationPermission(): Boolean
+
+    /**
+     * Verifies if the [android.Manifest.permission.POST_NOTIFICATIONS] is supported and should be
+     * requested.
+     */
+    @Suppress("FunctionMaxLength")
+    fun shouldCheckNotificationPermission(): Boolean
 }

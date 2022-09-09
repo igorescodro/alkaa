@@ -80,6 +80,7 @@ private fun TaskDetailLoader(
         onAlarmUpdate = { calendar -> alarmViewModel.updateAlarm(id, calendar) },
         onIntervalSelect = { interval -> alarmViewModel.setRepeating(id, interval) },
         hasAlarmPermission = { alarmPermission.hasExactAlarmPermission() },
+        shouldCheckNotificationPermission = alarmPermission.shouldCheckNotificationPermission(),
         onUpPress = onUpPress
     )
 
@@ -140,7 +141,8 @@ private fun TaskDetailContent(
                 interval = task.alarmInterval,
                 onAlarmUpdate = actions.onAlarmUpdate,
                 onIntervalSelect = actions.onIntervalSelect,
-                hasAlarmPermission = actions.hasAlarmPermission
+                hasAlarmPermission = actions.hasAlarmPermission,
+                shouldCheckNotificationPermission = actions.shouldCheckNotificationPermission
             )
         }
     }

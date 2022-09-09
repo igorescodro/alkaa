@@ -24,4 +24,8 @@ internal class AlarmPermissionImpl(
         } else {
             true
         }
+
+    @Suppress("FunctionMaxLength")
+    override fun shouldCheckNotificationPermission(): Boolean =
+        androidVersion.currentVersion >= Build.VERSION_CODES.TIRAMISU
 }

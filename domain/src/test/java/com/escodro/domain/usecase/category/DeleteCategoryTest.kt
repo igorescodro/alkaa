@@ -3,6 +3,7 @@ package com.escodro.domain.usecase.category
 import com.escodro.domain.model.Category
 import com.escodro.domain.usecase.category.implementation.AddCategoryImpl
 import com.escodro.domain.usecase.category.implementation.DeleteCategoryImpl
+import com.escodro.domain.usecase.category.implementation.LoadCategoryImpl
 import com.escodro.domain.usecase.fake.CategoryRepositoryFake
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -19,7 +20,7 @@ class DeleteCategoryTest {
 
     private val deleteCategory = DeleteCategoryImpl(categoryRepository)
 
-    private val loadCategory = LoadCategory(categoryRepository)
+    private val loadCategory = LoadCategoryImpl(categoryRepository)
 
     @Before
     fun setup() = runTest {

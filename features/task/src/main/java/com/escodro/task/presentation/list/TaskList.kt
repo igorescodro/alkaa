@@ -9,8 +9,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.FabPosition
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
@@ -53,7 +51,6 @@ import java.util.Calendar
  * @param onItemClick action to be called when a item is clicked
  * @param onBottomShow action to be called when the bottom sheet is shown
  */
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun TaskListSection(
     modifier: Modifier = Modifier,
@@ -216,7 +213,6 @@ private fun TaskListError() {
     )
 }
 
-@ExperimentalMaterialApi
 @Suppress("UndocumentedPublicFunction")
 @Preview
 @Composable
@@ -245,7 +241,6 @@ fun TaskListScaffoldLoaded() {
     }
 }
 
-@OptIn(ExperimentalMaterialApi::class)
 @Suppress("UndocumentedPublicFunction")
 @Preview
 @Composable
@@ -261,7 +256,6 @@ fun TaskListScaffoldEmpty() {
     }
 }
 
-@OptIn(ExperimentalMaterialApi::class)
 @Suppress("UndocumentedPublicFunction")
 @Preview
 @Composable

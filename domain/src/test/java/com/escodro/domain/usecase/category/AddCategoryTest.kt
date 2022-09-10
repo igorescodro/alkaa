@@ -3,6 +3,7 @@ package com.escodro.domain.usecase.category
 import com.escodro.domain.model.Category
 import com.escodro.domain.usecase.category.implementation.AddCategoryImpl
 import com.escodro.domain.usecase.category.implementation.LoadAllCategoriesImpl
+import com.escodro.domain.usecase.category.implementation.LoadCategoryImpl
 import com.escodro.domain.usecase.fake.CategoryRepositoryFake
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
@@ -18,7 +19,7 @@ internal class AddCategoryTest {
 
     private val addCategoryUseCase = AddCategoryImpl(categoryRepository)
 
-    private val loadCategoryUseCase = LoadCategory(categoryRepository)
+    private val loadCategoryUseCase = LoadCategoryImpl(categoryRepository)
 
     private val loadAllCategoriesUseCase = LoadAllCategoriesImpl(categoryRepository)
 

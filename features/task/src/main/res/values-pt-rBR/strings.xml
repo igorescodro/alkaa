@@ -22,4 +22,12 @@
     <string name="task_alarm_permission_dialog_cancel">Agora não</string>
     <string name="task_alarm_permission_dialog_title">Alarmes e lembretes</string>
     <string name="task_alarm_permission_dialog_text">Para que os alarmes funcionem, o Alkaa precisa da permissão para definir alarmes e lembretes. Se essa permissão não for concedida, os alarmes existentes também não funcionarão.</string>
+    <string name="task_notification_permission_dialog_title">Notificações</string>
+    <string name="task_notification_permission_dialog_confirm">Dar permissão</string>
+    <string name="task_notification_permission_dialog_cancel">Agora não</string>
+    <string name="task_notification_permission_dialog_text">Para que os alarmes sejam notificados, o Alkaa precisa da permissão para enviar notificações. Se essa permissão não for concedida, os alarmes existentes também não funcionarão.</string>
+    <string name="task_notification_rationale_dialog_title">Notificações</string>
+    <string name="task_notification_rationale_dialog_text">Não é possível configurar alarmes sem permissão de notificação. Se você deseja utilizar essa funcionalidade, por favor, vá até as configurações do app e a conceda manualmente.</string>
+    <string name="task_notification_rationale_dialog_confirm">Vamos lá</string>
+    <string name="task_notification_rationale_dialog_cancel">Ignorar</string>
 </resources>

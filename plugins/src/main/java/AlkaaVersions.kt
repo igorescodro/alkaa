@@ -9,8 +9,8 @@ object AlkaaVersions {
     const val versionCode = 20102
     const val versionName = "2.1.2"
 
-    const val compileSdk = 32
-    const val targetSdk = 32
+    const val compileSdk = 33
+    const val targetSdk = 33
     const val minSdk = 24
     val javaCompileVersion = JavaVersion.VERSION_11
     val javaLanguageVersion: JavaLanguageVersion = JavaLanguageVersion.of(11)

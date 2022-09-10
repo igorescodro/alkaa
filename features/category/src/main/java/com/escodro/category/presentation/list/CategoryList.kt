@@ -19,7 +19,6 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.FabPosition
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
@@ -61,11 +60,10 @@ import kotlin.math.roundToInt
  * @param modifier the decorator
  * @param onShowBottomSheet function to be called when the bottom sheet is shown
  */
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun CategoryListSection(
     modifier: Modifier,
-    onShowBottomSheet: (Category?) -> Unit
+    onShowBottomSheet: (Long?) -> Unit
 ) {
     CategoryListLoader(
         modifier = modifier,
@@ -78,7 +76,7 @@ fun CategoryListSection(
 private fun CategoryListLoader(
     modifier: Modifier,
     viewModel: CategoryListViewModel = getViewModel(),
-    onItemClick: (Category) -> Unit,
+    onItemClick: (Long?) -> Unit,
     onAddClick: () -> Unit
 ) {
     val viewState by remember(viewModel) {
@@ -97,7 +95,7 @@ private fun CategoryListLoader(
 private fun CategoryListScaffold(
     modifier: Modifier,
     viewState: CategoryState,
-    onItemClick: (Category) -> Unit,
+    onItemClick: (Long?) -> Unit,
     onAddClick: () -> Unit
 ) {
     BoxWithConstraints {
@@ -126,7 +124,7 @@ private fun CategoryListScaffold(
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 @Suppress("MagicNumber")
-private fun CategoryListContent(categoryList: List<Category>, onItemClick: (Category) -> Unit) {
+private fun CategoryListContent(categoryList: List<Category>, onItemClick: (Long?) -> Unit) {
     BoxWithConstraints(modifier = Modifier.padding(start = 8.dp, end = 8.dp)) {
         val cellCount: Int = max(2F, maxWidth.value / 250).roundToInt()
         LazyVerticalGrid(columns = GridCells.Fixed(cellCount)) {
@@ -144,14 +142,14 @@ private fun CategoryListContent(categoryList: List<Category>, onItemClick: (Cate
 private fun CategoryItem(
     modifier: Modifier = Modifier,
     category: Category,
-    onItemClick: (Category) -> Unit
+    onItemClick: (Long) -> Unit
 ) {
     Card(
         elevation = 4.dp,
         modifier = modifier
             .fillMaxWidth()
             .padding(all = 8.dp)
-            .clickable { onItemClick(category) }
+            .clickable { onItemClick(category.id) }
     ) {
         Column(
             verticalArrangement = Arrangement.Center,

@@ -20,6 +20,7 @@ import com.escodro.domain.usecase.category.UpdateCategory
 import com.escodro.domain.usecase.category.implementation.AddCategoryImpl
 import com.escodro.domain.usecase.category.implementation.DeleteCategoryImpl
 import com.escodro.domain.usecase.category.implementation.LoadAllCategoriesImpl
+import com.escodro.domain.usecase.category.implementation.LoadCategoryImpl
 import com.escodro.domain.usecase.category.implementation.UpdateCategoryImpl
 import com.escodro.domain.usecase.preferences.LoadAppTheme
 import com.escodro.domain.usecase.preferences.UpdateAppTheme
@@ -69,7 +70,7 @@ val domainModule = module {
     // Category Use Cases
     factory<DeleteCategory> { DeleteCategoryImpl(get()) }
     factory<LoadAllCategories> { LoadAllCategoriesImpl(get()) }
-    factory { LoadCategory(get()) }
+    factory<LoadCategory> { LoadCategoryImpl(get()) }
     factory<AddCategory> { AddCategoryImpl(get()) }
     factory<UpdateCategory> { UpdateCategoryImpl(get()) }
 

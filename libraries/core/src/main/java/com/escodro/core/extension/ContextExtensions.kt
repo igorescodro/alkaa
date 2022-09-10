@@ -9,6 +9,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
+import android.os.Build
 import androidx.annotation.ColorRes
 import androidx.core.app.AlarmManagerCompat
 import androidx.core.net.toUri
@@ -102,7 +103,11 @@ fun Context.getVersionName(): String {
     var packageInfo: PackageInfo? = null
     packageName.let {
         try {
-            packageInfo = packageManager.getPackageInfo(it, PackageManager.PackageInfoFlags.of(0))
+            packageInfo = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                packageManager.getPackageInfo(it, PackageManager.PackageInfoFlags.of(0))
+            } else {
+                packageManager.getPackageInfo(it, 0)
+            }
         } catch (e: PackageManager.NameNotFoundException) {
             logcat(LogPriority.ERROR) { e.asLog() }
         }

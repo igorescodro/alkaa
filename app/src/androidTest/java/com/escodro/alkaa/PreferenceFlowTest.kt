@@ -1,33 +1,25 @@
 package com.escodro.alkaa
 
 import androidx.annotation.StringRes
-import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.test.platform.app.InstrumentationRegistry
 import com.escodro.alkaa.navigation.NavGraph
 import com.escodro.core.extension.getVersionName
-import com.escodro.test.DisableAnimationsRule
+import com.escodro.test.FlakyTest
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import com.escodro.core.R as CoreR
 import com.escodro.preference.R as PrefR
 
-internal class PreferenceFlowTest {
-
-    @get:Rule
-    val composeTestRule = createComposeRule()
-
-    @get:Rule
-    val disableAnimationsRule = DisableAnimationsRule()
+internal class PreferenceFlowTest : FlakyTest() {
 
     private val context = InstrumentationRegistry.getInstrumentation().targetContext
 
     @Before
     fun setup() {
-        composeTestRule.setContent {
+        setContent {
             NavGraph()
         }
         navigateToPreferences()

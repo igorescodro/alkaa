@@ -14,7 +14,7 @@ internal class UpdateTaskStatusAction : ActionCallback, KoinComponent {
 
     private val glanceInteractor: GlanceInteractor by inject()
 
-    override suspend fun onRun(context: Context, glanceId: GlanceId, parameters: ActionParameters) {
+    override suspend fun onAction(context: Context, glanceId: GlanceId, parameters: ActionParameters) {
         val taskId = parameters[TaskIdKey]?.toLong() ?: return
         viewModel.updateTaskAsCompleted(taskId)
         glanceInteractor.onTaskListUpdated()

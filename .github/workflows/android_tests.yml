@@ -23,8 +23,5 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v2
 
-      - name: Verify Emulator version
-        run: /Users/runner/Library/Android/sdk/emulator/emulator -version
-
       - name: Run instrumented tests
         run: ./gradlew alkaaDevicesGroupDebugAndroidTest -Pandroid.testoptions.manageddevices.emulator.gpu="swiftshader_indirect"

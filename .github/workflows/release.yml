@@ -1,0 +1,65 @@
+name: Release Alkaa
+on:
+  push:
+    tags:
+      - '*'
+
+env:
+  ALKAA_KEY_ALIAS: ${{ secrets.ALKAA_KEY_ALIAS }}
+  ALKAA_KEY_PASSWORD: ${{ secrets.ALKAA_KEY_PASSWORD }}
+  ALKAA_KEY_STORE_PASSWORD: ${{ secrets.ALKAA_KEY_STORE_PASSWORD }}
+
+jobs:
+  github-release:
+    name: "Release Alkaa on GitHub"
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+
+      - name: Build with Gradle
+        run: ./gradlew assemble
+
+      - name: GitHub Release
+        uses: marvinpinto/action-automatic-releases@latest
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: false
+          automatic_release_tag: latest
+          files: |
+            ./app/build/outputs/apk/debug/*.apk
+            ./app/build/outputs/apk/release/*.apk
+
+  google-play-release:
+    name: "Release Alkaa on Google Play"
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+
+      - name: Build with Gradle
+        run: ./gradlew bundleRelease
+
+      - name: Google Play Release
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.SERVICE_ACCOUNT_JSON }}
+          packageName: com.escodro.alkaa
+          releaseFiles: ./app/build/outputs/bundle/release/*.aab
+          track: production
+          status: draft
+          whatsNewDirectory: ./assets/whatsnew

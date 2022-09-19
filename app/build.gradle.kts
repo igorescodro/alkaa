@@ -21,10 +21,20 @@ android {
         setProperty("archivesBaseName", "${parent?.name?.capitalize()}-$versionName")
     }
 
+    signingConfigs {
+        create("release") {
+            keyAlias = System.getenv("ALKAA_KEY_ALIAS")
+            keyPassword = System.getenv("ALKAA_KEY_PASSWORD")
+            storeFile = file("../config/signing/alkaa-keystore")
+            storePassword = System.getenv("ALKAA_KEY_STORE_PASSWORD")
+        }
+    }
+
     buildTypes {
         getByName("release") {
             isMinifyEnabled = true
             proguardFiles("proguard-android.txt", "proguard-rules.pro")
+            signingConfig = signingConfigs.getByName("release")
         }
     }
 

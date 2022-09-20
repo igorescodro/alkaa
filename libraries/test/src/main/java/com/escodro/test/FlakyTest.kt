@@ -4,10 +4,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.test.junit4.createEmptyComposeRule
-import androidx.test.core.app.ActivityScenario
+import androidx.test.ext.junit.rules.ActivityScenarioRule
 import com.adevinta.android.barista.rule.flaky.FlakyTestRule
-import org.junit.After
-import org.junit.Before
 import org.junit.Rule
 
 /**
@@ -17,28 +15,19 @@ import org.junit.Rule
  * able to reproduce it locally. So, the silver tape solution here is basically try to execute it
  * again and hope that the Activity is on the right state.
  */
-open class FlakyTest {
+abstract class FlakyTest {
 
-    @get:Rule
+    @get:Rule(order = 0)
+    val scenarioRule = ActivityScenarioRule(ComponentActivity::class.java)
+
+    @get:Rule(order = 1)
     val composeTestRule = createEmptyComposeRule()
 
-    @get:Rule
+    @get:Rule(order = 2)
     val flakyRule = FlakyTestRule().apply { allowFlakyAttemptsByDefault(defaultAttempts = 10) }
 
-    @get:Rule
+    @get:Rule(order = 2)
     val disableAnimationsRule = DisableAnimationsRule()
-
-    private lateinit var scenario: ActivityScenario<ComponentActivity>
-
-    @Before
-    fun createScenario() {
-        scenario = ActivityScenario.launch(ComponentActivity::class.java)
-    }
-
-    @After
-    fun closeScenario() {
-        scenario.close()
-    }
 
     /**
      * Loads the Compose content in the UI for testing.
@@ -46,7 +35,7 @@ open class FlakyTest {
      * @param content the content to be loaded
      */
     fun setContent(content: @Composable () -> Unit) {
-        scenario.onActivity { activity ->
+        scenarioRule.scenario.onActivity { activity ->
             activity.setContent {
                 content()
             }

@@ -7,7 +7,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  androidTest:
+  android-test:
     runs-on: macos-latest
 
     steps:
@@ -24,12 +24,7 @@ jobs:
         uses: android-actions/setup-android@v2
 
       - name: Run instrumented tests
-        #run: ./gradlew alkaaDevicesGroupDebugAndroidTest -Pandroid.testoptions.manageddevices.emulator.gpu="swiftshader_indirect"
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 30
-          target: google_atd
-          script: ./gradlew app:connectedAndroidTest
+        run: ./gradlew alkaaDevicesGroupDebugAndroidTest -Pandroid.testoptions.manageddevices.emulator.gpu="swiftshader_indirect"
 
       - name: Save Test Results
         uses: actions/upload-artifact@v3

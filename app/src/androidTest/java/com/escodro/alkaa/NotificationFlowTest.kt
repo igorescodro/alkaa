@@ -67,8 +67,8 @@ internal class NotificationFlowTest : FlakyTest(), KoinTest {
         // Validate the notification info
         with(notificationManager!!.activeNotifications.first()) {
             assertEquals(id.toInt(), this.id)
-            assertEquals(name, this.notification.extras[Notification.EXTRA_TEXT])
-            assertEquals(appName, this.notification.extras[Notification.EXTRA_TITLE])
+            assertEquals(name, this.notification.extras.getString(Notification.EXTRA_TEXT))
+            assertEquals(appName, this.notification.extras.getString(Notification.EXTRA_TITLE))
         }
     }
 
@@ -77,7 +77,6 @@ internal class NotificationFlowTest : FlakyTest(), KoinTest {
         // Insert a task
         val id = 13L
         val name = "Click here for a surprise"
-        val appName = context.getString(com.escodro.core.R.string.app_name)
         insertTask(id, name)
 
         // Wait until the notification is launched
@@ -109,7 +108,7 @@ internal class NotificationFlowTest : FlakyTest(), KoinTest {
 
         // Validate the notification has the updated title
         with(notificationManager!!.activeNotifications.first()) {
-            assertEquals(updatedTitle, this.notification.extras[Notification.EXTRA_TEXT])
+            assertEquals(updatedTitle, this.notification.extras.getString(Notification.EXTRA_TEXT))
         }
     }
 

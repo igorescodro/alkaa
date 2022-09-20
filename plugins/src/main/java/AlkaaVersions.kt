@@ -6,8 +6,8 @@ val VersionCatalog.composeVersion: String
     get() = findVersion("compose_compiler").get().requiredVersion
 
 object AlkaaVersions {
-    const val versionCode = 20102
-    const val versionName = "2.1.2"
+    const val versionCode = 20103
+    const val versionName = "2.1.3"
 
     const val compileSdk = 33
     const val targetSdk = 33

@@ -22,3 +22,7 @@ jobs:
 
       - name: Build with Gradle
         run: ./gradlew clean build test --no-daemon --parallel build
+        env:
+          ALKAA_KEY_ALIAS: ${{ secrets.ALKAA_KEY_ALIAS }}
+          ALKAA_KEY_PASSWORD: ${{ secrets.ALKAA_KEY_PASSWORD }}
+          ALKAA_KEY_STORE_PASSWORD: ${{ secrets.ALKAA_KEY_STORE_PASSWORD }}

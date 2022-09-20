@@ -11,7 +11,7 @@ env:
 
 jobs:
   github-release:
-    name: "Release Alkaa on GitHub"
+    name: "Release on GitHub"
     runs-on: "ubuntu-latest"
 
     steps:
@@ -32,13 +32,12 @@ jobs:
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           prerelease: false
-          automatic_release_tag: latest
           files: |
             ./app/build/outputs/apk/debug/*.apk
             ./app/build/outputs/apk/release/*.apk
 
   google-play-release:
-    name: "Release Alkaa on Google Play"
+    name: "Release on Google Play"
     runs-on: "ubuntu-latest"
 
     steps:
@@ -61,5 +60,5 @@ jobs:
           packageName: com.escodro.alkaa
           releaseFiles: ./app/build/outputs/bundle/release/*.aab
           track: production
-          status: draft
+          status: completed
           whatsNewDirectory: ./assets/whatsnew

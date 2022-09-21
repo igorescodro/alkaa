@@ -3,6 +3,7 @@ package com.escodro.alkaa
 import androidx.annotation.StringRes
 import androidx.compose.ui.test.assertIsSelected
 import androidx.compose.ui.test.hasSetTextAction
+import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
@@ -15,11 +16,12 @@ import com.escodro.core.coroutines.CoroutineDebouncer
 import com.escodro.designsystem.AlkaaTheme
 import com.escodro.local.model.Category
 import com.escodro.local.provider.DaoProvider
+import com.escodro.test.DisableAnimationsRule
 import com.escodro.test.Events
-import com.escodro.test.FlakyTest
 import com.escodro.test.onChip
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.koin.test.KoinTest
 import org.koin.test.inject
@@ -27,9 +29,15 @@ import org.koin.test.mock.declare
 import java.util.Calendar
 import com.escodro.task.R as TaskR
 
-internal class TaskFlowTest : FlakyTest(), KoinTest {
+internal class TaskFlowTest : KoinTest {
 
     private val daoProvider: DaoProvider by inject()
+
+    @get:Rule
+    val composeTestRule = createComposeRule()
+
+    @get:Rule
+    val disableAnimationsRule = DisableAnimationsRule()
 
     private val context = InstrumentationRegistry.getInstrumentation().targetContext
 
@@ -50,7 +58,7 @@ internal class TaskFlowTest : FlakyTest(), KoinTest {
         // Replace Debouncer with a Immediate Executor
         declare<CoroutineDebouncer> { CoroutinesDebouncerFake() }
 
-        setContent {
+        composeTestRule.setContent {
             AlkaaTheme {
                 NavGraph()
             }

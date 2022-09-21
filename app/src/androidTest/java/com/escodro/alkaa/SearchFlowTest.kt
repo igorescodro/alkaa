@@ -2,6 +2,7 @@ package com.escodro.alkaa
 
 import androidx.annotation.StringRes
 import androidx.compose.ui.test.hasSetTextAction
+import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
@@ -12,17 +13,24 @@ import com.escodro.alkaa.fake.FAKE_TASKS
 import com.escodro.alkaa.navigation.NavGraph
 import com.escodro.designsystem.AlkaaTheme
 import com.escodro.local.provider.DaoProvider
-import com.escodro.test.FlakyTest
+import com.escodro.test.DisableAnimationsRule
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.koin.test.KoinTest
 import org.koin.test.inject
 import com.escodro.search.R as SearchR
 
-internal class SearchFlowTest : FlakyTest(), KoinTest {
+internal class SearchFlowTest : KoinTest {
 
     private val daoProvider: DaoProvider by inject()
+
+    @get:Rule
+    val composeTestRule = createComposeRule()
+
+    @get:Rule
+    val disableAnimationsRule = DisableAnimationsRule()
 
     private val context = InstrumentationRegistry.getInstrumentation().targetContext
 
@@ -36,7 +44,7 @@ internal class SearchFlowTest : FlakyTest(), KoinTest {
             FAKE_TASKS.forEach { task -> daoProvider.getTaskDao().insertTask(task) }
         }
 
-        setContent {
+        composeTestRule.setContent {
             AlkaaTheme {
                 NavGraph()
             }

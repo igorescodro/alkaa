@@ -5,6 +5,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.hasSetTextAction
 import androidx.compose.ui.test.junit4.ComposeTestRule
+import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
@@ -15,17 +16,24 @@ import com.escodro.alkaa.navigation.NavGraph
 import com.escodro.category.presentation.semantics.ColorKey
 import com.escodro.designsystem.AlkaaTheme
 import com.escodro.local.provider.DaoProvider
-import com.escodro.test.FlakyTest
+import com.escodro.test.DisableAnimationsRule
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.koin.test.KoinTest
 import org.koin.test.inject
 import com.escodro.category.R as CategoryR
 
-internal class CategoryFlowTest : FlakyTest(), KoinTest {
+internal class CategoryFlowTest : KoinTest {
 
     private val daoProvider: DaoProvider by inject()
+
+    @get:Rule
+    val composeTestRule = createComposeRule()
+
+    @get:Rule
+    val disableAnimationsRule = DisableAnimationsRule()
 
     private val context = InstrumentationRegistry.getInstrumentation().targetContext
 
@@ -36,7 +44,7 @@ internal class CategoryFlowTest : FlakyTest(), KoinTest {
             daoProvider.getCategoryDao().cleanTable()
         }
 
-        setContent {
+        composeTestRule.setContent {
             AlkaaTheme {
                 NavGraph()
             }

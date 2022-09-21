@@ -15,7 +15,7 @@ import org.junit.Rule
  * able to reproduce it locally. So, the silver tape solution here is basically try to execute it
  * again and hope that the Activity is on the right state.
  */
-abstract class FlakyTest {
+open class FlakyTest {
 
     @get:Rule(order = 0)
     val scenarioRule = ActivityScenarioRule(ComponentActivity::class.java)
@@ -26,7 +26,7 @@ abstract class FlakyTest {
     @get:Rule(order = 2)
     val flakyRule = FlakyTestRule().apply { allowFlakyAttemptsByDefault(defaultAttempts = 10) }
 
-    @get:Rule(order = 2)
+    @get:Rule(order = 3)
     val disableAnimationsRule = DisableAnimationsRule()
 
     /**

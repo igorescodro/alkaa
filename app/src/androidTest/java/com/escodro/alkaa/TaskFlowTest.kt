@@ -19,7 +19,8 @@ import com.escodro.local.provider.DaoProvider
 import com.escodro.test.DisableAnimationsRule
 import com.escodro.test.Events
 import com.escodro.test.onChip
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -29,6 +30,7 @@ import org.koin.test.mock.declare
 import java.util.Calendar
 import com.escodro.task.R as TaskR
 
+@OptIn(ExperimentalCoroutinesApi::class)
 internal class TaskFlowTest : KoinTest {
 
     private val daoProvider: DaoProvider by inject()
@@ -44,7 +46,7 @@ internal class TaskFlowTest : KoinTest {
     @Before
     fun setup() {
         // Clean all existing tasks and categories
-        runBlocking {
+        runTest {
             with(daoProvider) {
                 getTaskDao().cleanTable()
                 getCategoryDao().cleanTable()

@@ -14,7 +14,8 @@ import com.escodro.alkaa.navigation.NavGraph
 import com.escodro.designsystem.AlkaaTheme
 import com.escodro.local.provider.DaoProvider
 import com.escodro.test.DisableAnimationsRule
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -22,6 +23,7 @@ import org.koin.test.KoinTest
 import org.koin.test.inject
 import com.escodro.search.R as SearchR
 
+@OptIn(ExperimentalCoroutinesApi::class)
 internal class SearchFlowTest : KoinTest {
 
     private val daoProvider: DaoProvider by inject()
@@ -36,7 +38,7 @@ internal class SearchFlowTest : KoinTest {
 
     @Before
     fun setup() {
-        runBlocking {
+        runTest {
             // Clean all existing tasks
             daoProvider.getTaskDao().cleanTable()
 

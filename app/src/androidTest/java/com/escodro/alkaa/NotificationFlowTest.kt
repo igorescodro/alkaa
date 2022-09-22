@@ -16,7 +16,8 @@ import com.escodro.local.model.Task
 import com.escodro.local.provider.DaoProvider
 import com.escodro.task.R
 import com.escodro.test.DisableAnimationsRule
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -28,6 +29,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 import com.escodro.alarm.R as AlarmR
 
+@OptIn(ExperimentalCoroutinesApi::class)
 internal class NotificationFlowTest : KoinTest {
 
     private val daoProvider: DaoProvider by inject()
@@ -45,7 +47,7 @@ internal class NotificationFlowTest : KoinTest {
     @Before
     fun setup() {
         // Clean all existing tasks and categories
-        runBlocking {
+        runTest {
             daoProvider.getTaskDao().cleanTable()
         }
         composeTestRule.setContent {
@@ -61,7 +63,7 @@ internal class NotificationFlowTest : KoinTest {
     }
 
     @Test
-    fun test_notificationIsShown() {
+    fun test_notificationIsShown() = runTest {
         // Insert a task
         val id = 12L
         val name = "Don't believe me?"
@@ -81,7 +83,7 @@ internal class NotificationFlowTest : KoinTest {
     }
 
     @Test
-    fun test_whenNotificationIsClickedOpensTaskDetails() {
+    fun test_whenNotificationIsClickedOpensTaskDetails() = runTest {
         // Insert a task
         val id = 13L
         val name = "Click here for a surprise"
@@ -102,7 +104,7 @@ internal class NotificationFlowTest : KoinTest {
     }
 
     @Test
-    fun test_taskUpdateReflectsInNotification() = runBlocking {
+    fun test_taskUpdateReflectsInNotification() = runTest {
         // Insert and update a task
         val task = insertTask(name = "Hi, I'm a PC")
         val updatedTitle = "Hi, I'm a Mac"
@@ -121,7 +123,7 @@ internal class NotificationFlowTest : KoinTest {
     }
 
     @Test
-    fun test_taskCompletedIsNotNotified() = runBlocking {
+    fun test_taskCompletedIsNotNotified() = runTest {
         // Insert a task and updated it as "completed"
         val task = insertTask(name = "Shhh! I wasn't here!")
 
@@ -136,7 +138,7 @@ internal class NotificationFlowTest : KoinTest {
     }
 
     @Test
-    fun test_completeTaskViaNotification() = runBlocking {
+    fun test_completeTaskViaNotification() = runTest {
         // Insert a task
         val id = 3333L
         val name = "You complete me!"
@@ -157,7 +159,7 @@ internal class NotificationFlowTest : KoinTest {
     }
 
     @Test
-    fun test_snoozeTaskViaNotification() = runBlocking {
+    fun test_snoozeTaskViaNotification() = runTest {
         // Insert a task
         val id = 9999L
         val name = "I need to sleep more..."
@@ -189,7 +191,7 @@ internal class NotificationFlowTest : KoinTest {
     }
 
     @Test
-    fun test_ifNonRepeatingTaskDoesNotHaveBothButtons() {
+    fun test_ifNonRepeatingTaskDoesNotHaveBothButtons() = runTest {
         // Insert a normal task
         insertTask(name = "The way it is")
 
@@ -209,11 +211,11 @@ internal class NotificationFlowTest : KoinTest {
     private fun string(@StringRes resId: Int): String =
         context.getString(resId)
 
-    private fun insertTask(
+    private suspend fun insertTask(
         id: Long = 15L,
         name: String,
         calendar: Calendar = Calendar.getInstance()
-    ): Task = runBlocking {
+    ): Task =
         with(Task(id = id, title = name)) {
             calendar.add(Calendar.SECOND, 1)
             dueDate = calendar
@@ -221,9 +223,8 @@ internal class NotificationFlowTest : KoinTest {
             scheduleAlarm(this.id, this.dueDate!!)
             this
         }
-    }
 
-    private fun insertRepeatingTask(name: String) = runBlocking {
+    private fun insertRepeatingTask(name: String) = runTest {
         with(Task(id = 1000, title = name)) {
             val calendar = Calendar.getInstance()
             calendar.add(Calendar.SECOND, 2)
@@ -232,7 +233,6 @@ internal class NotificationFlowTest : KoinTest {
             alarmInterval = AlarmInterval.HOURLY
             daoProvider.getTaskDao().insertTask(this)
             scheduleAlarm(this.id, this.dueDate!!)
-            this
         }
     }
 }

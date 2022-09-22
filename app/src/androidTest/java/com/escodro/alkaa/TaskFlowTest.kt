@@ -163,6 +163,7 @@ internal class TaskFlowTest : KoinTest {
             pressBack()
 
             // Reopen the task and validate if the alarm is on
+            waitUntilExists(hasText(taskName))
             onNodeWithText(text = taskName, useUnmergedTree = true).performClick()
             onNodeWithText(alarmArray[0]).assertDoesNotExist()
         }

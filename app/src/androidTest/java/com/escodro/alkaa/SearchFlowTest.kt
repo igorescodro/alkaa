@@ -15,7 +15,6 @@ import com.escodro.alkaa.navigation.NavGraph
 import com.escodro.designsystem.AlkaaTheme
 import com.escodro.local.provider.DaoProvider
 import com.escodro.test.DisableAnimationsRule
-import com.escodro.test.waitUntilExists
 import com.escodro.test.waitUntilNotExists
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -77,9 +76,6 @@ internal class SearchFlowTest : KoinTest {
             val query = FAKE_TASKS.first().title
             onNode(hasSetTextAction()).performTextInput(query)
             onAllNodesWithText(text = query, useUnmergedTree = true)[1].assertExists()
-
-            // Wait until the task is shown
-            waitUntilExists(hasText(FAKE_TASKS[0].title))
 
             // Drop the first task and validate others are not shown
             FAKE_TASKS.drop(1).forEach { task ->

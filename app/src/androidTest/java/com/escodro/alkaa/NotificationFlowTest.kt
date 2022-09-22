@@ -3,6 +3,7 @@ package com.escodro.alkaa
 import android.app.Notification
 import androidx.annotation.StringRes
 import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
@@ -16,6 +17,8 @@ import com.escodro.local.model.Task
 import com.escodro.local.provider.DaoProvider
 import com.escodro.task.R
 import com.escodro.test.DisableAnimationsRule
+import com.escodro.test.waitUntilExists
+import com.escodro.test.waitUntilNotExists
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.After
@@ -96,6 +99,9 @@ internal class NotificationFlowTest : KoinTest {
         // Run the PendingIntent in the notification
         notificationManager!!.activeNotifications.first().notification.contentIntent.send()
 
+        // Wait until the title is displayed
+        composeTestRule.waitUntilExists(hasText(name))
+
         // Validate the task detail was opened
         composeTestRule.onNodeWithText(name).assertIsDisplayed()
         composeTestRule
@@ -151,8 +157,10 @@ internal class NotificationFlowTest : KoinTest {
         // Run the PendingIntent in the "Done" action button
         notificationManager!!.activeNotifications.first().notification.actions[1].actionIntent.send()
 
+        // Wait until the task is complete and no longer visible
+        composeTestRule.waitUntilNotExists(hasText(name))
+
         // Validate the task is now updated as "completed"
-        Thread.sleep(300)
         val task = daoProvider.getTaskDao().getTaskById(id)
 
         assertTrue(task!!.completed)

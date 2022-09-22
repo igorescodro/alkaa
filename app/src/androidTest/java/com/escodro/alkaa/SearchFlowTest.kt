@@ -2,6 +2,7 @@ package com.escodro.alkaa
 
 import androidx.annotation.StringRes
 import androidx.compose.ui.test.hasSetTextAction
+import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithContentDescription
@@ -14,6 +15,8 @@ import com.escodro.alkaa.navigation.NavGraph
 import com.escodro.designsystem.AlkaaTheme
 import com.escodro.local.provider.DaoProvider
 import com.escodro.test.DisableAnimationsRule
+import com.escodro.test.waitUntilExists
+import com.escodro.test.waitUntilNotExists
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
@@ -75,7 +78,8 @@ internal class SearchFlowTest : KoinTest {
             onNode(hasSetTextAction()).performTextInput(query)
             onAllNodesWithText(text = query, useUnmergedTree = true)[1].assertExists()
 
-            Thread.sleep(1000)
+            // Wait until the task is shown
+            waitUntilExists(hasText(FAKE_TASKS[0].title))
 
             // Drop the first task and validate others are not shown
             FAKE_TASKS.drop(1).forEach { task ->
@@ -90,7 +94,8 @@ internal class SearchFlowTest : KoinTest {
         with(composeTestRule) {
             onNode(hasSetTextAction()).performTextInput("query")
 
-            Thread.sleep(1000)
+            // Wait until the first task is not visible
+            waitUntilNotExists(hasText(FAKE_TASKS[0].title))
 
             FAKE_TASKS.forEach { task ->
                 // Validate all tasks are shown

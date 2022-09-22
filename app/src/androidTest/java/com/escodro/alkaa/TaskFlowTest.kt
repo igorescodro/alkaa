@@ -3,6 +3,7 @@ package com.escodro.alkaa
 import androidx.annotation.StringRes
 import androidx.compose.ui.test.assertIsSelected
 import androidx.compose.ui.test.hasSetTextAction
+import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
@@ -11,6 +12,7 @@ import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.test.performTextReplacement
 import androidx.test.platform.app.InstrumentationRegistry
 import com.escodro.alkaa.fake.CoroutinesDebouncerFake
+import com.escodro.alkaa.model.HomeSection
 import com.escodro.alkaa.navigation.NavGraph
 import com.escodro.core.coroutines.CoroutineDebouncer
 import com.escodro.designsystem.AlkaaTheme
@@ -19,6 +21,7 @@ import com.escodro.local.provider.DaoProvider
 import com.escodro.test.DisableAnimationsRule
 import com.escodro.test.Events
 import com.escodro.test.onChip
+import com.escodro.test.waitUntilExists
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
@@ -188,6 +191,7 @@ internal class TaskFlowTest : KoinTest {
         ).performClick()
 
         // Wait the list to be loaded
-        Thread.sleep(1000)
+        val taskTitle = context.getString(HomeSection.Tasks.title)
+        composeTestRule.waitUntilExists(hasText(taskTitle))
     }
 }

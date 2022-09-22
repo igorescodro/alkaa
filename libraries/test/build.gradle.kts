@@ -22,7 +22,7 @@ dependencies {
 
     api(libs.coroutines.test)
 
-    implementation(libs.compose.uitest) {
+    implementation(libs.bundles.composetest) {
         exclude(group = "androidx.core", module = "core-ktx")
         exclude(group = "androidx.fragment", module = "fragment")
         exclude(group = "androidx.customview", module = "customview")

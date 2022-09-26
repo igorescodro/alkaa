@@ -114,6 +114,7 @@ private fun CategoryItemChip(
                         onCategoryChange(newCategory?.id)
                     }
                 )
+                .padding(horizontal = 8.dp)
         ) {
             Text(
                 modifier = Modifier.padding(8.dp),

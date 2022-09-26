@@ -3,6 +3,7 @@ package com.escodro.tracker.presentation
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -47,8 +48,8 @@ internal fun TrackerLoader(viewModel: TrackerViewModel = getViewModel(), onUpPre
         viewModel.loadTracker()
     }.collectAsState(initial = TrackerViewState.Loading)
 
-    Scaffold(topBar = { AlkaaToolbar(onUpPress = onUpPress) }) {
-        Crossfade(data) { state ->
+    Scaffold(topBar = { AlkaaToolbar(onUpPress = onUpPress) }) { paddingValues ->
+        Crossfade(targetState = data, modifier = Modifier.padding(paddingValues)) { state ->
             when (state) {
                 TrackerViewState.Empty -> TrackerEmpty()
                 is TrackerViewState.Error -> TrackerError()
@@ -115,7 +116,7 @@ private fun TaskTrackerInfoCard(list: List<Tracker.CategoryInfo>, modifier: Modi
         .getQuantityString(R.plurals.tracker_message_title, taskCount, taskCount)
 
     ElevatedCard(modifier = modifier.fillMaxWidth()) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
+        Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxSize()) {
             Icon(
                 imageVector = Icons.Default.DynamicFeed,
                 contentDescription = stringResource(id = R.string.tracker_cp_info_icon),

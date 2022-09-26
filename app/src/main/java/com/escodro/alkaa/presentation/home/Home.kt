@@ -119,8 +119,9 @@ private fun AlkaaTopBar(currentSection: HomeSection) {
     CenterAlignedTopAppBar(
         title = {
             Text(
-                style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Thin),
-                text = stringResource(currentSection.title)
+                style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Light),
+                text = stringResource(currentSection.title),
+                color = MaterialTheme.colorScheme.tertiary
             )
         }
     )

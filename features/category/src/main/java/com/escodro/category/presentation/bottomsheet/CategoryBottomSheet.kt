@@ -139,6 +139,7 @@ private fun CategorySheetContent(
         modifier = Modifier
             .fillMaxWidth()
             .height(256.dp)
+            .background(MaterialTheme.colorScheme.surface) // Accompanist does not support M3 yet
             .padding(16.dp),
         verticalArrangement = Arrangement.SpaceAround
     ) {

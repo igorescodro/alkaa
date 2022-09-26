@@ -200,7 +200,7 @@ private fun TaskDescriptionTextField(text: String?, onDescriptionChange: (String
             onDescriptionChange(it.text)
             textState.value = it
         },
-        textStyle = MaterialTheme.typography.bodyMedium,
+        textStyle = MaterialTheme.typography.bodyLarge,
         colors = TextFieldDefaults.textFieldColors(
             containerColor = MaterialTheme.colorScheme.surface
         )

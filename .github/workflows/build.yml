@@ -2,19 +2,27 @@ name: build
 
 on: [ push ]
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Setup Java
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v3
         with:
           java-version: '11'
           distribution: 'adopt'
 
       - name: Build with Gradle
         run: ./gradlew clean build test --no-daemon --parallel build
+        env:
+          ALKAA_KEY_ALIAS: ${{ secrets.ALKAA_KEY_ALIAS }}
+          ALKAA_KEY_PASSWORD: ${{ secrets.ALKAA_KEY_PASSWORD }}
+          ALKAA_KEY_STORE_PASSWORD: ${{ secrets.ALKAA_KEY_STORE_PASSWORD }}

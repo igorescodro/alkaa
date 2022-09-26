@@ -10,7 +10,7 @@ import com.escodro.domain.usecase.task.implementation.AddTaskImpl
 import com.escodro.domain.usecase.task.implementation.LoadTaskImpl
 import com.escodro.domain.usecase.task.implementation.UpdateTaskStatusImpl
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -45,7 +45,7 @@ internal class CompleteTaskTest {
     private val getTaskUseCase = LoadTaskImpl(taskRepository)
 
     @Before
-    fun setup() = runBlockingTest {
+    fun setup() = runTest {
         taskRepository.cleanTable()
         alarmInteractor.clear()
         glanceInteractor.clean()
@@ -53,7 +53,7 @@ internal class CompleteTaskTest {
     }
 
     @Test
-    fun `test if a task is updated as completed`() = runBlockingTest {
+    fun `test if a task is updated as completed`() = runTest {
         val task = Task(id = 18, title = "buy soy milk", completed = false)
         addTaskUseCase(task)
         completeTaskUseCase(task)
@@ -65,7 +65,7 @@ internal class CompleteTaskTest {
     }
 
     @Test
-    fun `test if a task is updated as completed by id`() = runBlockingTest {
+    fun `test if a task is updated as completed by id`() = runTest {
         val task = Task(id = 17, title = "change smartphone", completed = false)
         addTaskUseCase(task)
         completeTaskUseCase(task.id)
@@ -77,7 +77,7 @@ internal class CompleteTaskTest {
     }
 
     @Test
-    fun `test if a task is updated as uncompleted`() = runBlockingTest {
+    fun `test if a task is updated as uncompleted`() = runTest {
         val task = Task(id = 18, title = "buy soy milk", completed = false)
         addTaskUseCase(task)
         uncompleteTaskUseCase(task)
@@ -89,7 +89,7 @@ internal class CompleteTaskTest {
     }
 
     @Test
-    fun `test if the completed status is inverted`() = runBlockingTest {
+    fun `test if the completed status is inverted`() = runTest {
         val task1 = Task(id = 99, title = "watch tech talk", completed = true)
         val task2 = Task(id = 88, title = "write paper", completed = false)
 
@@ -109,7 +109,7 @@ internal class CompleteTaskTest {
     }
 
     @Test
-    fun `test if the alarm is canceled when the task is completed`() = runBlockingTest {
+    fun `test if the alarm is canceled when the task is completed`() = runTest {
         val task = Task(id = 19, title = "sato's meeting", completed = false)
         addTaskUseCase(task)
         completeTaskUseCase(task)
@@ -118,7 +118,7 @@ internal class CompleteTaskTest {
     }
 
     @Test
-    fun `test if the notification is dismissed when the task is completed`() = runBlockingTest {
+    fun `test if the notification is dismissed when the task is completed`() = runTest {
         val task = Task(id = 20, title = "scrum master dog", completed = false)
         addTaskUseCase(task)
         completeTaskUseCase(task)
@@ -127,7 +127,7 @@ internal class CompleteTaskTest {
     }
 
     @Test
-    fun `test if the glance was notified`() = runBlockingTest {
+    fun `test if the glance was notified`() = runTest {
         val task = Task(id = 15, title = "this title", description = "this desc")
         addTaskUseCase(task)
 

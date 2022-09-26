@@ -18,11 +18,11 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Card
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.outlined.ThumbUp
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.Icon
@@ -39,10 +39,12 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.escodro.category.R
+import com.escodro.category.presentation.semantics.color
 import com.escodro.categoryapi.model.Category
 import com.escodro.categoryapi.presentation.CategoryListViewModel
 import com.escodro.categoryapi.presentation.CategoryState
@@ -60,7 +62,6 @@ import kotlin.math.roundToInt
  * @param modifier the decorator
  * @param onShowBottomSheet function to be called when the bottom sheet is shown
  */
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun CategoryListSection(
     modifier: Modifier,
@@ -80,8 +81,9 @@ private fun CategoryListLoader(
     onItemClick: (Long?) -> Unit,
     onAddClick: () -> Unit
 ) {
-    val viewState by remember(viewModel) { viewModel.loadCategories() }
-        .collectAsState(initial = CategoryState.Loading)
+    val viewState by remember(viewModel) {
+        viewModel.loadCategories()
+    }.collectAsState(initial = CategoryState.Loading)
 
     CategoryListScaffold(
         modifier = modifier,
@@ -91,8 +93,8 @@ private fun CategoryListLoader(
     )
 }
 
-@Composable
 @OptIn(ExperimentalMaterial3Api::class)
+@Composable
 private fun CategoryListScaffold(
     modifier: Modifier,
     viewState: CategoryState,
@@ -145,9 +147,8 @@ private fun CategoryItem(
     category: Category,
     onItemClick: (Long) -> Unit
 ) {
-    Card(
-        elevation = 4.dp,
-        backgroundColor = MaterialTheme.colorScheme.surfaceVariant,
+    ElevatedCard(
+        elevation = CardDefaults.elevatedCardElevation(4.dp),
         modifier = modifier
             .fillMaxWidth()
             .padding(all = 8.dp)
@@ -187,6 +188,7 @@ private fun CategoryCircleIndicator(size: Dp, color: Int, alpha: Float = 1F) {
             .size(size)
             .clip(CircleShape)
             .alpha(alpha)
+            .semantics { this.color = Color(color) }
             .background(Color(color))
     )
 }

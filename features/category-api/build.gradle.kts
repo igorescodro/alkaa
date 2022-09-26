@@ -1,9 +1,9 @@
 plugins {
-    id(GradlePlugin.ANDROID_LIBRARY)
-    id(GradlePlugin.PARCELIZE)
+    id("com.escodro.android-library")
+    id("kotlin-parcelize")
 }
 
 dependencies {
-    implementation(Deps.coroutines.core)
-    implementation(Deps.koin.android)
+    implementation(libs.coroutines.core)
+    implementation(libs.koin.android)
 }

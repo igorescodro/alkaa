@@ -1,0 +1,189 @@
+package com.escodro.alkaa
+
+import androidx.annotation.StringRes
+import androidx.compose.ui.test.SemanticsMatcher
+import androidx.compose.ui.test.hasSetTextAction
+import androidx.compose.ui.test.junit4.ComposeTestRule
+import androidx.compose.ui.test.onNodeWithContentDescription
+import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performTextInput
+import androidx.compose.ui.test.performTextReplacement
+import androidx.test.platform.app.InstrumentationRegistry
+import com.escodro.alkaa.fake.CoroutinesDebouncerFake
+import com.escodro.alkaa.navigation.NavGraph
+import com.escodro.core.coroutines.CoroutineDebouncer
+import com.escodro.designsystem.AlkaaTheme
+import com.escodro.local.model.Category
+import com.escodro.local.provider.DaoProvider
+import com.escodro.task.presentation.category.ChipNameKey
+import com.escodro.test.Events
+import com.escodro.test.FlakyTest
+import com.escodro.test.assertIsChecked
+import kotlinx.coroutines.runBlocking
+import org.junit.Before
+import org.junit.Test
+import org.koin.test.KoinTest
+import org.koin.test.inject
+import org.koin.test.mock.declare
+import java.util.Calendar
+import com.escodro.task.R as TaskR
+
+internal class TaskFlowTest : FlakyTest(), KoinTest {
+
+    private val daoProvider: DaoProvider by inject()
+
+    private val context = InstrumentationRegistry.getInstrumentation().targetContext
+
+    @Before
+    fun setup() {
+        // Clean all existing tasks and categories
+        runBlocking {
+            with(daoProvider) {
+                getTaskDao().cleanTable()
+                getCategoryDao().cleanTable()
+
+                getCategoryDao().insertCategory(Category(name = "Books", color = "#cc5a71"))
+                getCategoryDao().insertCategory(Category(name = "Music", color = "#58a4b0"))
+                getCategoryDao().insertCategory(Category(name = "Shared", color = "#519872"))
+            }
+        }
+
+        // Replace Debouncer with a Immediate Executor
+        declare<CoroutineDebouncer> { CoroutinesDebouncerFake() }
+
+        setContent {
+            AlkaaTheme {
+                NavGraph()
+            }
+        }
+    }
+
+    @Test
+    fun test_addAndOpenTask() {
+        // Add and open a task
+        addAndOpenTask("Happy Hour (remote)")
+    }
+
+    @Test
+    fun test_editTaskName() {
+        addAndOpenTask("Watter planttes")
+
+        with(composeTestRule) {
+            // Edit the name of the task
+            val newName = "Water plants"
+            onAllNodes(hasSetTextAction())[0].performTextReplacement(newName)
+            pressBack()
+
+            // Validate if the new name is shown
+            onNodeWithText(text = newName, useUnmergedTree = true).assertExists()
+        }
+    }
+
+    @Test
+    fun test_addTaskDescription() {
+        val taskName = "Listen to music"
+        addAndOpenTask(taskName)
+
+        with(composeTestRule) {
+            // Add a description
+            val description = "Phoebe Bridgers"
+            onAllNodes(hasSetTextAction())[1].performTextReplacement(description)
+            pressBack()
+
+            // Reopen the task and validate if the description is save
+            onNodeWithText(text = taskName, useUnmergedTree = true).performClick()
+            onNodeWithText(text = description, useUnmergedTree = true).assertExists()
+        }
+    }
+
+    @Test
+    fun test_selectCategory() {
+        val taskName = "What the hell?"
+        addAndOpenTask(taskName)
+
+        with(composeTestRule) {
+            // Select a category
+            val category = "Music"
+            onChip(category).performClick()
+            pressBack()
+
+            // Reopen the task and validate if the category is selected
+            onNodeWithText(text = taskName, useUnmergedTree = true).performClick()
+            onChip(category).assertIsChecked()
+        }
+    }
+
+    @Test
+    fun test_alarmIsSaved() {
+        val taskName = "Wake wake! It's time for school!"
+        addAndOpenTask(taskName)
+        with(composeTestRule) {
+            onNodeWithText(string(TaskR.string.task_detail_alarm_no_alarm)).performClick()
+
+            // Set alarm to 2021-04-15 - 17:00:00
+            val calendar = Calendar.getInstance().apply { timeInMillis = 1_650_042_000 }
+            Events.setDateTime(calendar)
+            pressBack()
+
+            // Reopen the task and validate if the alarm is on
+            onNodeWithText(text = taskName, useUnmergedTree = true).performClick()
+            onNodeWithText(string(TaskR.string.task_detail_alarm_no_alarm)).assertDoesNotExist()
+        }
+    }
+
+    @Test
+    fun test_alarmIntervalIsSaved() {
+        val taskName = "Morning is here..."
+        addAndOpenTask(taskName)
+        with(composeTestRule) {
+            onNodeWithText(string(TaskR.string.task_detail_alarm_no_alarm)).performClick()
+
+            // Set alarm to 2021-04-15 - 17:00:00
+            val calendar = Calendar.getInstance().apply { timeInMillis = 1_650_042_000 }
+            Events.setDateTime(calendar)
+
+            // Set repeating randomly
+            val alarmArray =
+                context.resources.getStringArray(com.escodro.task.R.array.task_alarm_repeating)
+            onNodeWithText(alarmArray[0]).performClick()
+            onNodeWithText(alarmArray.last()).performClick()
+
+            pressBack()
+
+            // Reopen the task and validate if the alarm is on
+            onNodeWithText(text = taskName, useUnmergedTree = true).performClick()
+            onNodeWithText(alarmArray[0]).assertDoesNotExist()
+        }
+    }
+
+    private fun addAndOpenTask(taskName: String) {
+        with(composeTestRule) {
+            onNodeWithContentDescription(
+                string(TaskR.string.task_cd_add_task),
+                useUnmergedTree = true
+            ).performClick()
+            onNode(hasSetTextAction()).performTextInput(taskName)
+            onNodeWithText(string(TaskR.string.task_add_save)).performClick()
+            onNodeWithText(text = taskName, useUnmergedTree = true).performClick()
+            onNodeWithText(text = taskName, useUnmergedTree = true).assertExists()
+        }
+    }
+
+    private fun string(@StringRes resId: Int): String =
+        context.getString(resId)
+
+    private fun pressBack() {
+        composeTestRule.onNodeWithContentDescription(
+            string(TaskR.string.back_arrow_cd),
+            useUnmergedTree = true
+        ).performClick()
+
+        // Wait the list to be loaded
+        Thread.sleep(1000)
+    }
+
+    private fun ComposeTestRule.onChip(chipName: String) = onNode(
+        SemanticsMatcher.expectValue(ChipNameKey, chipName)
+    )
+}

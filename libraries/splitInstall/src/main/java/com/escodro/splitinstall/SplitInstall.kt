@@ -1,3 +1,5 @@
+/* ktlint-disable filename */
+
 package com.escodro.splitinstall
 
 import android.content.Context
@@ -6,9 +8,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.AlertDialog
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Text
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
@@ -82,7 +84,7 @@ fun LoadFeature(
 
 private fun isFeatureInstalled(
     manager: SplitInstallManager,
-    featureName: String,
+    featureName: String
 ): Boolean {
     val isFeatureInstalled = manager.installedModules.contains(featureName)
     logcat(TAG) { "load = [$featureName] - isFeatureInstalled = $isFeatureInstalled" }

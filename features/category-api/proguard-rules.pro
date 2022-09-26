@@ -20,4 +20,4 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
--keepnames class * implements android.os.Parcelable
+-keepnames class * implements android.os.Parcelable*

@@ -10,16 +10,17 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.rounded.ArrowBack
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.SmallTopAppBar
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -64,7 +65,7 @@ fun DefaultIconTextContent(
             text = stringResource(id = header),
             style = MaterialTheme.typography.bodyLarge,
             textAlign = TextAlign.Center,
-            color = MaterialTheme.colorScheme.outline,
+            color = MaterialTheme.colorScheme.outline
         )
     }
 }
@@ -82,15 +83,16 @@ fun AlkaaLoadingContent() {
  *
  * @param onUpPress function to be called when the back/up button is clicked
  */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AlkaaToolbar(onUpPress: () -> Unit) {
-    SmallTopAppBar(
+    TopAppBar(
         title = {},
         navigationIcon = {
             IconButton(onClick = onUpPress) {
                 Icon(
                     imageVector = Icons.Rounded.ArrowBack,
-                    contentDescription = stringResource(id = R.string.back_arrow_content_description)
+                    contentDescription = stringResource(id = R.string.back_arrow_cd)
                 )
             }
         }
@@ -121,7 +123,7 @@ fun AddFloatingButton(@StringRes contentDescription: Int, onClick: () -> Unit) {
  * @param onTextChange function to update text
  * @param modifier text field modifier
  */
-@OptIn(ExperimentalComposeUiApi::class)
+@OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun AlkaaInputTextField(
     label: String,

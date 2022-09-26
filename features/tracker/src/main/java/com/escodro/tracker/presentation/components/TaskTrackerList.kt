@@ -35,7 +35,7 @@ internal fun TaskTrackerList(list: List<Tracker.CategoryInfo>, modifier: Modifie
 
 @Composable
 @Suppress("MagicNumber")
-private fun TrackerItem(item: Tracker.CategoryInfo, modifier: Modifier = Modifier) {
+private fun TrackerItem(item: Tracker.CategoryInfo) {
     val tint = item.color?.let { Color(it) } ?: MaterialTheme.colorScheme.outline
     val name = item.name ?: stringResource(id = R.string.tracker_name_no_category)
     Row(

@@ -2,9 +2,9 @@ package com.escodro.alkaa.presentation.home
 
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.animateColorAsState
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.BottomAppBar
-import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -20,7 +20,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.escodro.alkaa.model.HomeSection
 import com.escodro.category.presentation.list.CategoryListSection
 import com.escodro.designsystem.AlkaaTheme
@@ -37,11 +36,10 @@ fun Home(
     onAboutClick: () -> Unit,
     onTrackerClick: () -> Unit,
     onTaskSheetOpen: () -> Unit,
-    onCategorySheetOpen: (Long?) -> Unit,
+    onCategorySheetOpen: (Long?) -> Unit
 ) {
     val (currentSection, setCurrentSection) = rememberSaveable { mutableStateOf(HomeSection.Tasks) }
     val navItems = HomeSection.values().toList()
-    val homeModifier = Modifier.padding(bottom = 56.dp)
 
     val actions = HomeActions(
         onTaskClick = onTaskClick,
@@ -49,33 +47,31 @@ fun Home(
         onTrackerClick = onTrackerClick,
         onTaskSheetOpen = onTaskSheetOpen,
         onCategorySheetOpen = onCategorySheetOpen,
-        setCurrentSection = setCurrentSection,
+        setCurrentSection = setCurrentSection
     )
 
     Crossfade(currentSection) { homeSection ->
         AlkaaHomeScaffold(
             homeSection = homeSection,
-            modifier = homeModifier,
             navItems = navItems,
             actions = actions
         )
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
-@OptIn(ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class)
 private fun AlkaaHomeScaffold(
     homeSection: HomeSection,
-    modifier: Modifier,
     navItems: List<HomeSection>,
-    actions: HomeActions,
+    actions: HomeActions
 ) {
     Scaffold(
         topBar = {
             AlkaaTopBar(currentSection = homeSection)
         },
-        content = {
-            AlkaaContent(homeSection, modifier, actions)
+        content = { paddingValues ->
+            AlkaaContent(homeSection, Modifier.padding(paddingValues), actions)
         },
         bottomBar = {
             AlkaaBottomNav(
@@ -87,12 +83,11 @@ private fun AlkaaHomeScaffold(
     )
 }
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 private fun AlkaaContent(
     homeSection: HomeSection,
     modifier: Modifier,
-    actions: HomeActions,
+    actions: HomeActions
 ) {
     when (homeSection) {
         HomeSection.Tasks ->
@@ -118,26 +113,26 @@ private fun AlkaaContent(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun AlkaaTopBar(currentSection: HomeSection) {
     CenterAlignedTopAppBar(
         title = {
             Text(
                 style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Thin),
-                text = stringResource(currentSection.title),
+                text = stringResource(currentSection.title)
             )
         }
     )
 }
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 private fun AlkaaBottomNav(
     currentSection: HomeSection,
     onSectionSelect: (HomeSection) -> Unit,
-    items: List<HomeSection>,
+    items: List<HomeSection>
 ) {
-    BottomAppBar(backgroundColor = MaterialTheme.colorScheme.background) {
+    BottomAppBar(containerColor = MaterialTheme.colorScheme.background) {
         items.forEach { section ->
             val selected = section == currentSection
             val colorState = animateColorAsState(
@@ -162,7 +157,7 @@ private fun AlkaaBottomIcon(
     section: HomeSection,
     tint: Color,
     onSectionSelect: (HomeSection) -> Unit,
-    modifier: Modifier,
+    modifier: Modifier
 ) {
     val title = stringResource(section.title)
     IconButton(

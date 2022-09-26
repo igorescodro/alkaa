@@ -4,8 +4,7 @@ import android.os.Parcelable
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.TextField
-import androidx.compose.material.TextFieldDefaults
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Description
 import androidx.compose.material.icons.outlined.Bookmark
@@ -14,6 +13,8 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -65,12 +66,14 @@ private fun TaskDetailLoader(
 ) {
     val id = TaskId(taskId)
     val detailViewState by
-    remember(detailViewModel, taskId) { detailViewModel.loadTaskInfo(taskId = id) }
-        .collectAsState(initial = TaskDetailState.Loading)
+    remember(detailViewModel, taskId) {
+        detailViewModel.loadTaskInfo(taskId = id)
+    }.collectAsState(initial = TaskDetailState.Loading)
 
     val categoryViewState by
-    remember(categoryViewModel, taskId) { categoryViewModel.loadCategories() }
-        .collectAsState(initial = CategoryState.Loading)
+    remember(categoryViewModel, taskId) {
+        categoryViewModel.loadCategories()
+    }.collectAsState(initial = CategoryState.Loading)
 
     val taskDetailActions = TaskDetailActions(
         onTitleChange = { title -> detailViewModel.updateTitle(id, title) },
@@ -79,6 +82,7 @@ private fun TaskDetailLoader(
         onAlarmUpdate = { calendar -> alarmViewModel.updateAlarm(id, calendar) },
         onIntervalSelect = { interval -> alarmViewModel.setRepeating(id, interval) },
         hasAlarmPermission = { alarmPermission.hasExactAlarmPermission() },
+        shouldCheckNotificationPermission = alarmPermission.shouldCheckNotificationPermission(),
         onUpPress = onUpPress
     )
 
@@ -96,8 +100,11 @@ internal fun TaskDetailRouter(
     categoryViewState: CategoryState,
     actions: TaskDetailActions
 ) {
-    Scaffold(topBar = { AlkaaToolbar(onUpPress = actions.onUpPress) }) {
-        Crossfade(detailViewState) { state ->
+    Scaffold(topBar = { AlkaaToolbar(onUpPress = actions.onUpPress) }) { paddingValues ->
+        Crossfade(
+            targetState = detailViewState,
+            modifier = Modifier.padding(paddingValues)
+        ) { state ->
             when (state) {
                 TaskDetailState.Loading -> AlkaaLoadingContent()
                 TaskDetailState.Error -> TaskDetailError()
@@ -123,7 +130,7 @@ private fun TaskDetailContent(
             TaskTitleTextField(text = task.title, onTitleChange = actions.onTitleChange)
             TaskDetailSectionContent(
                 imageVector = Icons.Outlined.Bookmark,
-                contentDescription = R.string.task_detail_cd_icon_category,
+                contentDescription = R.string.task_detail_cd_icon_category
             ) {
                 CategorySelection(
                     state = categoryViewState,
@@ -140,7 +147,8 @@ private fun TaskDetailContent(
                 interval = task.alarmInterval,
                 onAlarmUpdate = actions.onAlarmUpdate,
                 onIntervalSelect = actions.onIntervalSelect,
-                hasAlarmPermission = actions.hasAlarmPermission
+                hasAlarmPermission = actions.hasAlarmPermission,
+                shouldCheckNotificationPermission = actions.shouldCheckNotificationPermission
             )
         }
     }
@@ -155,6 +163,7 @@ private fun TaskDetailError() {
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun TaskTitleTextField(text: String, onTitleChange: (String) -> Unit) {
     val textState = remember { mutableStateOf(TextFieldValue(text)) }
@@ -166,13 +175,14 @@ private fun TaskTitleTextField(text: String, onTitleChange: (String) -> Unit) {
             onTitleChange(it.text)
             textState.value = it
         },
-        textStyle = MaterialTheme.typography.headlineSmall,
+        textStyle = MaterialTheme.typography.headlineMedium,
         colors = TextFieldDefaults.textFieldColors(
-            backgroundColor = MaterialTheme.colorScheme.surface
+            containerColor = MaterialTheme.colorScheme.surface
         )
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun TaskDescriptionTextField(text: String?, onDescriptionChange: (String) -> Unit) {
     val textState = remember { mutableStateOf(TextFieldValue(text ?: "")) }
@@ -192,7 +202,7 @@ private fun TaskDescriptionTextField(text: String?, onDescriptionChange: (String
         },
         textStyle = MaterialTheme.typography.bodyMedium,
         colors = TextFieldDefaults.textFieldColors(
-            backgroundColor = MaterialTheme.colorScheme.surface
+            containerColor = MaterialTheme.colorScheme.surface
         )
     )
 }

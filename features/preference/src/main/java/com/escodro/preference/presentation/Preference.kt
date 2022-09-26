@@ -181,7 +181,7 @@ private fun Separator() {
             .padding(bottom = 8.dp)
             .height(1.dp)
             .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.onSecondary.copy(alpha = 0.7F))
+            .background(MaterialTheme.colorScheme.outline.copy(alpha = 0.7F))
     )
 }
 

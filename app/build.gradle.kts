@@ -1,31 +1,40 @@
-import extensions.addComposeConfig
-import extensions.addComposeDependencies
+import com.android.build.api.dsl.ManagedVirtualDevice
 
 plugins {
-    id(GradlePlugin.ANDROID_APPLICATION)
-    id(GradlePlugin.KOTLIN_ANDROID)
-    id(GradlePlugin.KOTLIN_QUALITY)
-    id(GradlePlugin.PARCELIZE)
+    id("com.android.application")
+    id("kotlin-android")
+    id("com.escodro.kotlin-quality")
+    id("kotlin-parcelize")
 }
 
 android {
     defaultConfig {
         applicationId = "com.escodro.alkaa"
-        versionCode = Releases.versionCode
-        versionName = Releases.versionName
+        versionCode = AlkaaVersions.versionCode
+        versionName = AlkaaVersions.versionName
 
-        compileSdk = Versions.compileSdk
-        minSdk = Versions.minSdk
-        targetSdk = Versions.targetSdk
+        compileSdk = AlkaaVersions.compileSdk
+        minSdk = AlkaaVersions.minSdk
+        targetSdk = AlkaaVersions.targetSdk
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         setProperty("archivesBaseName", "${parent?.name?.capitalize()}-$versionName")
+    }
+
+    signingConfigs {
+        create("release") {
+            keyAlias = System.getenv("ALKAA_KEY_ALIAS")
+            keyPassword = System.getenv("ALKAA_KEY_PASSWORD")
+            storeFile = file("../config/signing/alkaa-keystore")
+            storePassword = System.getenv("ALKAA_KEY_STORE_PASSWORD")
+        }
     }
 
     buildTypes {
         getByName("release") {
             isMinifyEnabled = true
             proguardFiles("proguard-android.txt", "proguard-rules.pro")
+            signingConfig = signingConfigs.getByName("release")
         }
     }
 
@@ -42,14 +51,45 @@ android {
     setDynamicFeatures(setOf(":features:tracker"))
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = AlkaaVersions.javaCompileVersion
+        targetCompatibility = AlkaaVersions.javaCompileVersion
     }
 
-    addComposeConfig()
+    buildFeatures {
+        compose = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
+    }
+
+    packagingOptions {
+        resources.excludes.apply {
+            add("META-INF/AL2.0")
+            add("META-INF/LGPL2.1")
+        }
+    }
 
     testOptions {
-        unitTests.isReturnDefaultValues = true
+        managedDevices {
+            devices {
+                add(
+                    create<ManagedVirtualDevice>("pixel2api30") {
+                        device = "Pixel 2"
+                        apiLevel = 30
+                        systemImageSource = "aosp-atd"
+                    }
+                )
+            }
+            groups {
+                create("alkaaDevices").apply {
+                    targetDevices.addAll(
+                        listOf(devices.getByName("pixel2api30"))
+                    )
+                }
+                unitTests.isReturnDefaultValues = true
+            }
+        }
     }
 }
 
@@ -70,13 +110,23 @@ dependencies {
     implementation(projects.features.search)
     implementation(projects.features.glance)
 
-    implementation(Deps.logcat)
-    implementation(Deps.compose.navigation)
-    implementation(Deps.compose.activity)
-    implementation(Deps.accompanist.animation)
-    implementation(Deps.accompanist.material)
-    implementation(Deps.android.playCore)
-    implementation(Deps.koin.android)
+    implementation(libs.logcat)
+    implementation(libs.compose.navigation)
+    implementation(libs.compose.activity)
+    implementation(libs.accompanist.animation)
+    implementation(libs.accompanist.material)
+    implementation(libs.androidx.playcore)
+    implementation(libs.koin.android)
 
-    addComposeDependencies()
+    implementation(libs.bundles.compose)
+
+    androidTestImplementation(projects.libraries.test)
+    androidTestImplementation(libs.koin.test)
+    androidTestImplementation(libs.bundles.composetest) {
+        exclude(group = "androidx.core", module = "core-ktx")
+        exclude(group = "androidx.fragment", module = "fragment")
+        exclude(group = "androidx.customview", module = "customview")
+        exclude(group = "androidx.activity", module = "activity")
+        exclude(group = "androidx.lifecycle", module = "lifecycle-runtime")
+    }
 }

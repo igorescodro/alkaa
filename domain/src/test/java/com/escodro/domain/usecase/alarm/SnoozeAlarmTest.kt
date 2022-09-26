@@ -5,7 +5,7 @@ import com.escodro.domain.usecase.fake.AlarmInteractorFake
 import com.escodro.domain.usecase.fake.CalendarProviderFake
 import com.escodro.domain.usecase.fake.NotificationInteractorFake
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -26,13 +26,13 @@ internal class SnoozeAlarmTest {
     private val baseTask = Task(id = 2345L, title = "it's time")
 
     @Before
-    fun setup() = runBlockingTest {
+    fun setup() = runTest {
         alarmInteractor.clear()
         notificationInteractor.clear()
     }
 
     @Test
-    fun `test if task is snoozed`() = runBlockingTest {
+    fun `test if task is snoozed`() = runTest {
         val snoozeTime = 15
 
         snoozeAlarmUseCase(baseTask.id, snoozeTime)
@@ -46,7 +46,7 @@ internal class SnoozeAlarmTest {
     }
 
     @Test(expected = IllegalArgumentException::class)
-    fun `test if error is shown when snoozing with negative number`() = runBlockingTest {
+    fun `test if error is shown when snoozing with negative number`() = runTest {
         snoozeAlarmUseCase(baseTask.id, -15)
     }
 

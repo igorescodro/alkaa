@@ -2,22 +2,39 @@ name: instrumented tests
 
 on: [ push ]
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  build:
+  androidTest:
     runs-on: macos-latest
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Setup Java
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v3
         with:
           java-version: '11'
           distribution: 'adopt'
 
-      - name: Android Emulator Runner
-        uses: ReactiveCircus/android-emulator-runner@v2.24.0
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v2
+
+      - name: Run instrumented tests
+        #run: ./gradlew alkaaDevicesGroupDebugAndroidTest -Pandroid.testoptions.manageddevices.emulator.gpu="swiftshader_indirect"
+        uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 29
-          script: ./gradlew connectedCheck --stacktrace
+          api-level: 30
+          target: google_atd
+          script: ./gradlew app:connectedAndroidTest
+
+      - name: Save Test Results
+        uses: actions/upload-artifact@v2
+        if: ${{ always() }}
+        with:
+          name: test-results
+          path: /Users/runner/work/alkaa/alkaa/app/build/reports/androidTests/managedDevice/
+          retention-days: 7

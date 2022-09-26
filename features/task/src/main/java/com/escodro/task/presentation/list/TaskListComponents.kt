@@ -12,7 +12,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
@@ -21,6 +22,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.semantics.SemanticsPropertyKey
+import androidx.compose.ui.semantics.SemanticsPropertyReceiver
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -45,9 +49,8 @@ internal fun TaskItem(
     onItemClick: (Long) -> Unit,
     onCheckedChange: (TaskWithCategory) -> Unit
 ) {
-    Card(
-        elevation = 4.dp,
-        backgroundColor = MaterialTheme.colorScheme.surfaceVariant,
+    ElevatedCard(
+        elevation = CardDefaults.elevatedCardElevation(4.dp),
         modifier = modifier
             .fillMaxWidth()
             .padding(all = 8.dp)
@@ -57,7 +60,9 @@ internal fun TaskItem(
         Row {
             CardRibbon(colorInt = task.category?.color)
             RadioButton(
-                modifier = modifier.fillMaxHeight(),
+                modifier = modifier
+                    .fillMaxHeight()
+                    .semantics { checkboxName = task.task.title },
                 selected = task.task.completed,
                 onClick = { onCheckedChange(task) }
             )
@@ -100,9 +105,15 @@ internal fun RelativeDateText(calendar: Calendar?) {
 
     val context = LocalContext.current
     val time = calendar.time.time
-    val stringTime = DateUtils.getRelativeDateTimeString(
-        context, time, DateUtils.DAY_IN_MILLIS, DateUtils.DAY_IN_MILLIS, 0
-    ).toString()
+    val stringTime = DateUtils
+        .getRelativeDateTimeString(
+            context,
+            time,
+            DateUtils.DAY_IN_MILLIS,
+            DateUtils.DAY_IN_MILLIS,
+            0
+        )
+        .toString()
 
     Text(
         text = stringTime,
@@ -111,6 +122,12 @@ internal fun RelativeDateText(calendar: Calendar?) {
         maxLines = 1
     )
 }
+
+/**
+ * Semantics key for Checkbox naming.
+ */
+val CheckboxNameKey = SemanticsPropertyKey<String>("Checkbox")
+private var SemanticsPropertyReceiver.checkboxName by CheckboxNameKey
 
 @Suppress("UndocumentedPublicFunction")
 @Preview

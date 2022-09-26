@@ -1,3 +1,5 @@
+/* ktlint-disable filename */
+
 package com.escodro.designsystem
 
 import android.os.Build
@@ -36,7 +38,7 @@ private val AlkaaLightColorScheme = lightColorScheme(
     onSurfaceVariant = md_theme_light_onSurfaceVariant,
     outline = md_theme_light_outline,
     inverseOnSurface = md_theme_light_inverseOnSurface,
-    inverseSurface = md_theme_light_inverseSurface,
+    inverseSurface = md_theme_light_inverseSurface
 )
 private val AlkaaDarkColorScheme = darkColorScheme(
 
@@ -64,7 +66,7 @@ private val AlkaaDarkColorScheme = darkColorScheme(
     onSurfaceVariant = md_theme_dark_onSurfaceVariant,
     outline = md_theme_dark_outline,
     inverseOnSurface = md_theme_dark_inverseOnSurface,
-    inverseSurface = md_theme_dark_inverseSurface,
+    inverseSurface = md_theme_dark_inverseSurface
 )
 
 /**

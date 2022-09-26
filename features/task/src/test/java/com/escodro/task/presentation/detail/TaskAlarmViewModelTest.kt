@@ -8,12 +8,14 @@ import com.escodro.task.presentation.fake.CancelAlarmFake
 import com.escodro.task.presentation.fake.ScheduleAlarmFake
 import com.escodro.task.presentation.fake.UpdateTaskAsRepeatingFake
 import com.escodro.test.CoroutineTestRule
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test
 import java.util.Calendar
 
+@OptIn(ExperimentalCoroutinesApi::class)
 internal class TaskAlarmViewModelTest {
 
     @get:Rule
@@ -31,7 +33,7 @@ internal class TaskAlarmViewModelTest {
         TaskAlarmViewModel(scheduleAlarm, updateTaskAsRepeating, cancelAlarm, alarmIntervalMapper)
 
     @Test
-    fun `test if alarm is set`() = runBlockingTest {
+    fun `test if alarm is set`() = runTest {
         // Given the alarm to be set
         val taskId = 123L
         val alarm = Calendar.getInstance()
@@ -45,7 +47,7 @@ internal class TaskAlarmViewModelTest {
     }
 
     @Test
-    fun `test if alarm is set as repeating`() = runBlockingTest {
+    fun `test if alarm is set as repeating`() = runTest {
         // Given the alarm to be set with interval
         val taskId = 123L
         val alarmInterval = AlarmInterval.WEEKLY
@@ -60,7 +62,7 @@ internal class TaskAlarmViewModelTest {
     }
 
     @Test
-    fun `test if alarm is removed`() = runBlockingTest {
+    fun `test if alarm is removed`() = runTest {
         // Given the alarm to be removed
         val taskId = 123L
 

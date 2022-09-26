@@ -9,8 +9,7 @@ import com.escodro.domain.usecase.fake.TaskRepositoryFake
 import com.escodro.domain.usecase.task.implementation.AddTaskImpl
 import com.escodro.domain.usecase.task.implementation.LoadTaskImpl
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -37,43 +36,43 @@ internal class ScheduleNextAlarmTest {
     private val baseTask = Task(1, title = "alarm task")
 
     @Before
-    fun setup() = runBlockingTest {
+    fun setup() = runTest {
         taskRepository.cleanTable()
         alarmInteractor.clear()
     }
 
     @Test(expected = IllegalArgumentException::class)
-    fun `test if fails if not repeating`() = runBlockingTest {
+    fun `test if fails if not repeating`() = runTest {
         val task = baseTask.copy(isRepeating = false)
         scheduleNextAlarmUseCase(task)
     }
 
     @Test(expected = IllegalArgumentException::class)
-    fun `test if fails if not repeating with valid due date`() = runBlockingTest {
+    fun `test if fails if not repeating with valid due date`() = runTest {
         val task = baseTask.copy(isRepeating = false, dueDate = Calendar.getInstance())
         scheduleNextAlarmUseCase(task)
     }
 
     @Test(expected = IllegalArgumentException::class)
-    fun `test if fails if no due date`() = runBlocking {
+    fun `test if fails if no due date`() = runTest {
         val task = baseTask.copy(dueDate = null)
         scheduleNextAlarmUseCase(task)
     }
 
     @Test(expected = IllegalArgumentException::class)
-    fun `test if fails if no due date but it is repeating`() = runBlocking {
+    fun `test if fails if no due date but it is repeating`() = runTest {
         val task = baseTask.copy(isRepeating = true, dueDate = null)
         scheduleNextAlarmUseCase(task)
     }
 
     @Test(expected = IllegalArgumentException::class)
-    fun `test if fails if no alarm interval`() = runBlocking {
+    fun `test if fails if no alarm interval`() = runTest {
         val task = baseTask.copy(dueDate = null, alarmInterval = null)
         scheduleNextAlarmUseCase(task)
     }
 
     @Test
-    fun `test if alarm is updated to next hour`() = runBlockingTest {
+    fun `test if alarm is updated to next hour`() = runTest {
         val calendar = calendarProvider.getCurrentCalendar()
         val task = baseTask.copy(
             dueDate = calendar,
@@ -95,7 +94,7 @@ internal class ScheduleNextAlarmTest {
     }
 
     @Test
-    fun `test if alarm is updated to next day`() = runBlockingTest {
+    fun `test if alarm is updated to next day`() = runTest {
         val calendar = calendarProvider.getCurrentCalendar()
         val task = baseTask.copy(
             dueDate = calendar,
@@ -117,7 +116,7 @@ internal class ScheduleNextAlarmTest {
     }
 
     @Test
-    fun `test if alarm is updated to next week`() = runBlockingTest {
+    fun `test if alarm is updated to next week`() = runTest {
         val calendar = calendarProvider.getCurrentCalendar()
         val task = baseTask.copy(
             dueDate = calendar,
@@ -139,7 +138,7 @@ internal class ScheduleNextAlarmTest {
     }
 
     @Test
-    fun `test if alarm is updated to next month`() = runBlockingTest {
+    fun `test if alarm is updated to next month`() = runTest {
         val calendar = calendarProvider.getCurrentCalendar()
         val task = baseTask.copy(
             dueDate = calendar,
@@ -161,7 +160,7 @@ internal class ScheduleNextAlarmTest {
     }
 
     @Test
-    fun `test if alarm is updated to next year`() = runBlockingTest {
+    fun `test if alarm is updated to next year`() = runTest {
         val calendar = calendarProvider.getCurrentCalendar()
         val task = baseTask.copy(
             dueDate = calendar,
@@ -183,7 +182,7 @@ internal class ScheduleNextAlarmTest {
     }
 
     @Test
-    fun `test if new alarm is scheduled`() = runBlockingTest {
+    fun `test if new alarm is scheduled`() = runTest {
         val task = baseTask.copy(
             isRepeating = true,
             dueDate = Calendar.getInstance(),
@@ -197,7 +196,7 @@ internal class ScheduleNextAlarmTest {
     }
 
     @Test
-    fun `test if missed repeating alarm is set on future`() = runBlockingTest {
+    fun `test if missed repeating alarm is set on future`() = runTest {
         val pastCalendar = Calendar.getInstance().apply { add(Calendar.HOUR, -5) }
         val task = baseTask.copy(
             dueDate = pastCalendar,

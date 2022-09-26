@@ -6,11 +6,11 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.Card
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DynamicFeed
 import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material.icons.outlined.DataUsage
+import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -43,8 +43,9 @@ internal fun TrackerSection(onUpPress: () -> Unit) {
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 internal fun TrackerLoader(viewModel: TrackerViewModel = getViewModel(), onUpPress: () -> Unit) {
-    val data by remember { viewModel.loadTracker() }
-        .collectAsState(initial = TrackerViewState.Loading)
+    val data by remember {
+        viewModel.loadTracker()
+    }.collectAsState(initial = TrackerViewState.Loading)
 
     Scaffold(topBar = { AlkaaToolbar(onUpPress = onUpPress) }) {
         Crossfade(data) { state ->
@@ -113,10 +114,7 @@ private fun TaskTrackerInfoCard(list: List<Tracker.CategoryInfo>, modifier: Modi
     val message = LocalContext.current.resources
         .getQuantityString(R.plurals.tracker_message_title, taskCount, taskCount)
 
-    Card(
-        modifier = modifier.fillMaxWidth(),
-        backgroundColor = MaterialTheme.colorScheme.surfaceVariant
-    ) {
+    ElevatedCard(modifier = modifier.fillMaxWidth()) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Icon(
                 imageVector = Icons.Default.DynamicFeed,

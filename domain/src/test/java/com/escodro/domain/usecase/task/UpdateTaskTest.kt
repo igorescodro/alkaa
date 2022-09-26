@@ -10,7 +10,7 @@ import com.escodro.domain.usecase.task.implementation.UpdateTaskDescriptionImpl
 import com.escodro.domain.usecase.task.implementation.UpdateTaskImpl
 import com.escodro.domain.usecase.task.implementation.UpdateTaskTitleImpl
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -43,7 +43,7 @@ internal class UpdateTaskTest {
     }
 
     @Test
-    fun `test if task is updated`() = runBlockingTest {
+    fun `test if task is updated`() = runTest {
         val task = Task(id = 15, title = "its funny", description = "indeed")
         addTaskUseCase(task)
 
@@ -55,7 +55,7 @@ internal class UpdateTaskTest {
     }
 
     @Test
-    fun `test if task title is updated`() = runBlockingTest {
+    fun `test if task title is updated`() = runTest {
         val task = Task(id = 15, title = "its funny", description = "indeed")
         addTaskUseCase(task)
 
@@ -67,7 +67,7 @@ internal class UpdateTaskTest {
     }
 
     @Test
-    fun `test if task description is updated`() = runBlockingTest {
+    fun `test if task description is updated`() = runTest {
         val task = Task(id = 15, title = "its funny", description = "indeed")
         addTaskUseCase(task)
 
@@ -79,7 +79,7 @@ internal class UpdateTaskTest {
     }
 
     @Test
-    fun `test if task category is updated`() = runBlockingTest {
+    fun `test if task category is updated`() = runTest {
         val task = Task(id = 15, title = "its funny", categoryId = null)
         addTaskUseCase(task)
 
@@ -91,7 +91,7 @@ internal class UpdateTaskTest {
     }
 
     @Test
-    fun `test if the glance was notified`() = runBlockingTest {
+    fun `test if the glance was notified`() = runTest {
         val task = Task(id = 15, title = "this title", description = "this desc")
         addTaskUseCase(task)
 

@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.TextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.ExitToApp
@@ -24,6 +23,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -62,8 +62,9 @@ private fun SearchLoader(
     viewModel: SearchViewModel = getViewModel()
 ) {
     val (query, setQuery) = rememberSaveable { mutableStateOf("") }
-    val viewState by remember(viewModel, query) { viewModel.findTasksByName(query) }
-        .collectAsState(initial = SearchViewState.Loading)
+    val viewState by remember(viewModel, query) {
+        viewModel.findTasksByName(query)
+    }.collectAsState(initial = SearchViewState.Loading)
 
     SearchScaffold(
         viewState = viewState,
@@ -84,7 +85,7 @@ internal fun SearchScaffold(
     setQuery: (String) -> Unit
 ) {
     Scaffold(
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize()
     ) {
         Column(modifier = Modifier.fillMaxWidth()) {
             SearchTextField(query, onTextChange = setQuery)
@@ -103,6 +104,7 @@ internal fun SearchScaffold(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun SearchTextField(text: String, onTextChange: (String) -> Unit) {
     TextField(
@@ -148,7 +150,6 @@ private fun SearchItem(task: TaskSearchItem, onItemClick: (Long) -> Unit) {
             .clickable { onItemClick(task.id) },
         verticalArrangement = Arrangement.Center
     ) {
-
         val textDecoration: TextDecoration
         val circleColor: Color
 

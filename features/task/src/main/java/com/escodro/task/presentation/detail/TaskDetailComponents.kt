@@ -19,12 +19,12 @@ import androidx.compose.ui.unit.dp
 internal fun LeadingIcon(
     imageVector: ImageVector,
     @StringRes contentDescription: Int,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     Icon(
         imageVector = imageVector,
         contentDescription = stringResource(id = contentDescription),
-        tint = MaterialTheme.colorScheme.onSurface.copy(alpha = TrailingLeadingAlpha),
+        tint = MaterialTheme.colorScheme.primary.copy(alpha = TrailingLeadingAlpha),
         modifier = modifier
     )
 }
@@ -52,4 +52,4 @@ internal fun TaskDetailSectionContent(
     }
 }
 
-private const val TrailingLeadingAlpha = 0.54f
+private const val TrailingLeadingAlpha = 0.50f

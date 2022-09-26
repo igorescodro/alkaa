@@ -1,3 +1,3 @@
 plugins {
-    id(GradlePlugin.ANDROID_LIBRARY)
+    id("com.escodro.android-library")
 }

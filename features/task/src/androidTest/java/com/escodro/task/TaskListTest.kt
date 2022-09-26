@@ -1,6 +1,5 @@
 package com.escodro.task
 
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
@@ -69,14 +68,13 @@ internal class TaskListTest {
         composeTestRule.onNodeWithText(text = task.title, useUnmergedTree = true).assertExists()
     }
 
-    @OptIn(ExperimentalMaterialApi::class)
     private fun loadTaskList(state: TaskListViewState) {
         composeTestRule.setContent {
             AlkaaTheme {
                 TaskListScaffold(
                     taskHandler = TaskStateHandler(state = state),
                     categoryHandler = CategoryStateHandler(),
-                    modifier = Modifier,
+                    modifier = Modifier
                 )
             }
         }

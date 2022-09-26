@@ -9,13 +9,15 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material.icons.outlined.ThumbUp
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -50,12 +52,11 @@ import java.util.Calendar
  * @param onItemClick action to be called when a item is clicked
  * @param onBottomShow action to be called when the bottom sheet is shown
  */
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun TaskListSection(
     modifier: Modifier = Modifier,
     onItemClick: (Long) -> Unit,
-    onBottomShow: () -> Unit,
+    onBottomShow: () -> Unit
 ) {
     TaskListLoader(modifier = modifier, onItemClick = onItemClick, onAddClick = onBottomShow)
 }
@@ -66,7 +67,7 @@ private fun TaskListLoader(
     onItemClick: (Long) -> Unit,
     onAddClick: () -> Unit,
     taskListViewModel: TaskListViewModel = getViewModel(),
-    categoryViewModel: CategoryListViewModel = getViewModel(),
+    categoryViewModel: CategoryListViewModel = getViewModel()
 ) {
     val (currentCategory, setCategory) = rememberSaveable { mutableStateOf<CategoryId?>(null) }
 
@@ -74,8 +75,9 @@ private fun TaskListLoader(
         taskListViewModel.loadTaskList(currentCategory?.value)
     }.collectAsState(initial = TaskListViewState.Loading)
 
-    val categoryViewState by remember(categoryViewModel) { categoryViewModel.loadCategories() }
-        .collectAsState(initial = CategoryState.Loading)
+    val categoryViewState by remember(categoryViewModel) {
+        categoryViewModel.loadCategories()
+    }.collectAsState(initial = CategoryState.Loading)
 
     val taskHandler = TaskStateHandler(
         state = taskViewState,
@@ -87,38 +89,36 @@ private fun TaskListLoader(
     val categoryHandler = CategoryStateHandler(
         state = categoryViewState,
         currentCategory = currentCategory,
-        onCategoryChange = setCategory,
+        onCategoryChange = setCategory
     )
 
     TaskListScaffold(
         taskHandler = taskHandler,
         categoryHandler = categoryHandler,
-        modifier = modifier,
+        modifier = modifier
     )
 }
 
-@Composable
 @OptIn(ExperimentalMaterial3Api::class)
+@Composable
 internal fun TaskListScaffold(
     taskHandler: TaskStateHandler,
     categoryHandler: CategoryStateHandler,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     val coroutineScope = rememberCoroutineScope()
-    // val scaffoldState = rememberScaffoldState()
+    val snackbarHostState = remember { SnackbarHostState() }
 
     val snackbarTitle = stringResource(id = R.string.task_snackbar_message_complete)
     val snackbarButton = stringResource(id = R.string.task_snackbar_button_undo)
 
-    // TODO re-enable the SnackBar behavior when M3 supports it
     val onShowSnackbar: (TaskWithCategory) -> Unit = { taskWithCategory ->
         coroutineScope.launch {
             val message = String.format(snackbarTitle, taskWithCategory.task.title)
-            // when (scaffoldState.snackbarHostState.showSnackbar(message, snackbarButton)) {
-            //     SnackbarResult.Dismissed -> { /* Do nothing */
-            //     }
-            //     SnackbarResult.ActionPerformed -> taskHandler.onCheckedChange(taskWithCategory)
-            // }
+            when (snackbarHostState.showSnackbar(message, snackbarButton)) {
+                SnackbarResult.Dismissed -> {} // Do nothing
+                SnackbarResult.ActionPerformed -> taskHandler.onCheckedChange(taskWithCategory)
+            }
         }
     }
 
@@ -126,7 +126,7 @@ internal fun TaskListScaffold(
         val fabPosition = if (this.maxHeight > maxWidth) FabPosition.Center else FabPosition.End
         Scaffold(
             modifier = modifier.fillMaxSize(),
-            // scaffoldState = scaffoldState,
+            snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
             topBar = { TaskFilter(categoryHandler = categoryHandler) },
             floatingActionButton = {
                 AddFloatingButton(
@@ -135,8 +135,11 @@ internal fun TaskListScaffold(
                 )
             },
             floatingActionButtonPosition = fabPosition
-        ) {
-            Crossfade(taskHandler.state) { state ->
+        ) { paddingValues ->
+            Crossfade(
+                targetState = taskHandler.state,
+                modifier = Modifier.padding(paddingValues)
+            ) { state ->
                 when (state) {
                     TaskListViewState.Loading -> AlkaaLoadingContent()
                     is TaskListViewState.Error -> TaskListError()
@@ -173,7 +176,7 @@ private fun TaskFilter(categoryHandler: CategoryStateHandler) {
 private fun TaskListContent(
     taskList: List<TaskWithCategory>,
     onItemClick: (Long) -> Unit,
-    onCheckedChange: (TaskWithCategory) -> Unit,
+    onCheckedChange: (TaskWithCategory) -> Unit
 ) {
     BoxWithConstraints(modifier = Modifier.padding(start = 8.dp, end = 8.dp)) {
         val cellCount = if (this.maxHeight > maxWidth) 1 else 2
@@ -213,7 +216,6 @@ private fun TaskListError() {
     )
 }
 
-@ExperimentalMaterialApi
 @Suppress("UndocumentedPublicFunction")
 @Preview
 @Composable
@@ -237,12 +239,11 @@ fun TaskListScaffoldLoaded() {
         TaskListScaffold(
             taskHandler = TaskStateHandler(state = state),
             categoryHandler = CategoryStateHandler(),
-            modifier = Modifier,
+            modifier = Modifier
         )
     }
 }
 
-@OptIn(ExperimentalMaterialApi::class)
 @Suppress("UndocumentedPublicFunction")
 @Preview
 @Composable
@@ -253,12 +254,11 @@ fun TaskListScaffoldEmpty() {
         TaskListScaffold(
             taskHandler = TaskStateHandler(state = state),
             categoryHandler = CategoryStateHandler(),
-            modifier = Modifier,
+            modifier = Modifier
         )
     }
 }
 
-@OptIn(ExperimentalMaterialApi::class)
 @Suppress("UndocumentedPublicFunction")
 @Preview
 @Composable
@@ -269,7 +269,7 @@ fun TaskListScaffoldError() {
         TaskListScaffold(
             taskHandler = TaskStateHandler(state = state),
             categoryHandler = CategoryStateHandler(),
-            modifier = Modifier,
+            modifier = Modifier
         )
     }
 }

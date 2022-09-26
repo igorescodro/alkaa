@@ -1,7 +1,7 @@
 plugins {
-    id(GradlePlugin.ANDROID_LIBRARY)
+    id("com.escodro.android-library")
 }
 
 dependencies {
-    implementation(Deps.android.ktx)
+    implementation(libs.androidx.corektx)
 }

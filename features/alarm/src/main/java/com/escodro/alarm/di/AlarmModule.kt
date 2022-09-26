@@ -9,6 +9,8 @@ import com.escodro.alarm.notification.TaskNotificationScheduler
 import com.escodro.alarm.permission.AlarmPermissionImpl
 import com.escodro.alarm.permission.AndroidVersion
 import com.escodro.alarm.permission.AndroidVersionImpl
+import com.escodro.alarm.permission.PermissionChecker
+import com.escodro.alarm.permission.PermissionCheckerImpl
 import com.escodro.alarmapi.AlarmPermission
 import com.escodro.domain.interactor.AlarmInteractor
 import com.escodro.domain.interactor.NotificationInteractor
@@ -22,7 +24,7 @@ val alarmModule = module {
 
     factory { TaskNotificationScheduler(androidContext()) }
     factory { TaskNotificationChannel(androidContext()) }
-    factory { TaskNotification(androidContext(), get()) }
+    factory { TaskNotification(androidContext(), get(), get()) }
 
     factory { TaskMapper() }
 
@@ -30,5 +32,6 @@ val alarmModule = module {
     factory<NotificationInteractor> { NotificationInteractorImpl(get(), get()) }
 
     factory<AndroidVersion> { AndroidVersionImpl() }
+    factory<PermissionChecker> { PermissionCheckerImpl(androidContext()) }
     factory<AlarmPermission> { AlarmPermissionImpl(get(), get()) }
 }

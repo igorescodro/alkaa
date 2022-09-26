@@ -8,4 +8,8 @@ internal class AndroidVersionFake : AndroidVersion {
 
     override val currentVersion: Int
         get() = version
+
+    fun clean() {
+        version = 0
+    }
 }

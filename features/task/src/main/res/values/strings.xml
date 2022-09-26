@@ -28,4 +28,14 @@
     <string name="task_alarm_permission_dialog_text">In order to alarms work, Alkaa needs the permission to set alarms and reminders. If this permission is not granted, the existing alarms will not work as well.</string>
     <string name="task_alarm_permission_dialog_confirm">Grant permission</string>
     <string name="task_alarm_permission_dialog_cancel">Not now</string>
+
+    <string name="task_notification_permission_dialog_title">Notifications</string>
+    <string name="task_notification_permission_dialog_text">In order to notify the alarms, Alkaa needs the permission to launch notifications. If this permission is not granted, the existing alarms will not work as well.</string>
+    <string name="task_notification_permission_dialog_confirm">Grant permission</string>
+    <string name="task_notification_permission_dialog_cancel">Not now</string>
+
+    <string name="task_notification_rationale_dialog_title">Notifications</string>
+    <string name="task_notification_rationale_dialog_text">It\'s not possible to set alarms without notification permission. If you want to use this feature, please go to app settings and grant it manually.</string>
+    <string name="task_notification_rationale_dialog_confirm">Take me there</string>
+    <string name="task_notification_rationale_dialog_cancel">Ignore</string>
 </resources>

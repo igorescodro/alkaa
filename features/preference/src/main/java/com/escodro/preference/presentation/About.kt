@@ -47,13 +47,13 @@ import java.util.Locale
 fun About(onUpPress: () -> Unit) {
     Scaffold(
         topBar = { AlkaaToolbar(onUpPress = onUpPress) },
-        content = { AboutContent() }
+        content = { paddingValues -> AboutContent(modifier = Modifier.padding(paddingValues)) }
     )
 }
 
 @Composable
-private fun AboutContent() {
-    Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+private fun AboutContent(modifier: Modifier) {
+    Column(modifier = modifier.verticalScroll(rememberScrollState())) {
         ContentHeader()
         Text(
             text = stringResource(id = R.string.about_description),

@@ -3,6 +3,7 @@ package com.escodro.alkaa
 import android.app.Notification
 import androidx.annotation.StringRes
 import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.test.platform.app.InstrumentationRegistry
@@ -14,10 +15,12 @@ import com.escodro.local.model.AlarmInterval
 import com.escodro.local.model.Task
 import com.escodro.local.provider.DaoProvider
 import com.escodro.task.R
-import com.escodro.test.FlakyTest
+import com.escodro.test.DisableAnimationsRule
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.koin.test.KoinTest
 import org.koin.test.inject
@@ -26,11 +29,18 @@ import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 import com.escodro.alarm.R as AlarmR
 
-internal class NotificationFlowTest : FlakyTest(), KoinTest {
+@OptIn(ExperimentalCoroutinesApi::class)
+internal class NotificationFlowTest : KoinTest {
 
     private val daoProvider: DaoProvider by inject()
 
     private val scheduleAlarm: ScheduleAlarm by inject()
+
+    @get:Rule
+    val composeTestRule = createComposeRule()
+
+    @get:Rule
+    val disableAnimationsRule = DisableAnimationsRule()
 
     private val context = InstrumentationRegistry.getInstrumentation().targetContext
 
@@ -40,7 +50,7 @@ internal class NotificationFlowTest : FlakyTest(), KoinTest {
         runBlocking {
             daoProvider.getTaskDao().cleanTable()
         }
-        setContent {
+        composeTestRule.setContent {
             AlkaaTheme {
                 NavGraph()
             }

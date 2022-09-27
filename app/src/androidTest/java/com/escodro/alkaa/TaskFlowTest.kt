@@ -1,9 +1,8 @@
 package com.escodro.alkaa
 
 import androidx.annotation.StringRes
-import androidx.compose.ui.test.SemanticsMatcher
+import androidx.compose.ui.test.assertIsSelected
 import androidx.compose.ui.test.hasSetTextAction
-import androidx.compose.ui.test.junit4.ComposeTestRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
@@ -16,10 +15,9 @@ import com.escodro.core.coroutines.CoroutineDebouncer
 import com.escodro.designsystem.AlkaaTheme
 import com.escodro.local.model.Category
 import com.escodro.local.provider.DaoProvider
-import com.escodro.task.presentation.category.ChipNameKey
 import com.escodro.test.Events
 import com.escodro.test.FlakyTest
-import com.escodro.test.assertIsChecked
+import com.escodro.test.onChip
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
@@ -110,7 +108,7 @@ internal class TaskFlowTest : FlakyTest(), KoinTest {
 
             // Reopen the task and validate if the category is selected
             onNodeWithText(text = taskName, useUnmergedTree = true).performClick()
-            onChip(category).assertIsChecked()
+            onChip(category).assertIsSelected()
         }
     }
 
@@ -182,8 +180,4 @@ internal class TaskFlowTest : FlakyTest(), KoinTest {
         // Wait the list to be loaded
         Thread.sleep(1000)
     }
-
-    private fun ComposeTestRule.onChip(chipName: String) = onNode(
-        SemanticsMatcher.expectValue(ChipNameKey, chipName)
-    )
 }

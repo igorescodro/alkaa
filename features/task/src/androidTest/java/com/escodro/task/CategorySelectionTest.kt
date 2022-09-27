@@ -1,7 +1,7 @@
 package com.escodro.task
 
-import androidx.compose.ui.test.SemanticsMatcher
-import androidx.compose.ui.test.junit4.ComposeTestRule
+import androidx.compose.ui.test.assertIsNotSelected
+import androidx.compose.ui.test.assertIsSelected
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
@@ -10,9 +10,7 @@ import com.escodro.categoryapi.model.Category
 import com.escodro.categoryapi.presentation.CategoryState
 import com.escodro.designsystem.AlkaaTheme
 import com.escodro.task.presentation.category.CategorySelection
-import com.escodro.task.presentation.category.ChipNameKey
-import com.escodro.test.assertIsChecked
-import com.escodro.test.assertIsUnchecked
+import com.escodro.test.onChip
 import org.junit.Rule
 import org.junit.Test
 
@@ -36,9 +34,9 @@ internal class CategorySelectionTest {
         composeTestRule.onNodeWithText(text = category1.name).performClick()
 
         // Then only the clicked category is checked
-        composeTestRule.onChip(category1.name).assertIsChecked()
-        composeTestRule.onChip(category2.name).assertIsUnchecked()
-        composeTestRule.onChip(category3.name).assertIsUnchecked()
+        composeTestRule.onChip(category1.name).assertIsSelected()
+        composeTestRule.onChip(category2.name).assertIsNotSelected()
+        composeTestRule.onChip(category3.name).assertIsNotSelected()
     }
 
     @Test
@@ -56,9 +54,9 @@ internal class CategorySelectionTest {
         composeTestRule.onNodeWithText(text = category3.name).performClick()
 
         // Then only the last clicked category is checked
-        composeTestRule.onChip(category1.name).assertIsUnchecked()
-        composeTestRule.onChip(category2.name).assertIsUnchecked()
-        composeTestRule.onChip(category3.name).assertIsChecked()
+        composeTestRule.onChip(category1.name).assertIsNotSelected()
+        composeTestRule.onChip(category2.name).assertIsNotSelected()
+        composeTestRule.onChip(category3.name).assertIsSelected()
     }
 
     @Test
@@ -73,9 +71,9 @@ internal class CategorySelectionTest {
         loadCategorySelection(categoryList, category2.id)
 
         // Then only the given category is checked
-        composeTestRule.onChip(category1.name).assertIsUnchecked()
-        composeTestRule.onChip(category2.name).assertIsChecked()
-        composeTestRule.onChip(category3.name).assertIsUnchecked()
+        composeTestRule.onChip(category1.name).assertIsNotSelected()
+        composeTestRule.onChip(category2.name).assertIsSelected()
+        composeTestRule.onChip(category3.name).assertIsNotSelected()
     }
 
     @Test
@@ -92,9 +90,9 @@ internal class CategorySelectionTest {
         composeTestRule.onNodeWithText(text = category1.name).performClick()
 
         // Then no chip are checked in the list
-        composeTestRule.onChip(category1.name).assertIsUnchecked()
-        composeTestRule.onChip(category2.name).assertIsUnchecked()
-        composeTestRule.onChip(category3.name).assertIsUnchecked()
+        composeTestRule.onChip(category1.name).assertIsNotSelected()
+        composeTestRule.onChip(category2.name).assertIsNotSelected()
+        composeTestRule.onChip(category3.name).assertIsNotSelected()
     }
 
     @Test
@@ -126,8 +124,4 @@ internal class CategorySelectionTest {
             }
         }
     }
-
-    private fun ComposeTestRule.onChip(chipName: String) = onNode(
-        SemanticsMatcher.expectValue(ChipNameKey, chipName)
-    )
 }

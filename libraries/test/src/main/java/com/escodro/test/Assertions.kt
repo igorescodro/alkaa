@@ -1,8 +1,7 @@
+/* ktlint-disable filename */
+
 package com.escodro.test
 
-import androidx.compose.ui.semantics.SemanticsProperties
-import androidx.compose.ui.state.ToggleableState
-import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.SemanticsNodeInteraction
 import androidx.compose.ui.test.assert
 
@@ -14,17 +13,3 @@ import androidx.compose.ui.test.assert
  */
 fun SemanticsNodeInteraction.assertLines(lines: Int): SemanticsNodeInteraction =
     assert(Filters.hasLines(lines))
-
-/**
- * Assert if the node is with the "Checked" value.
- */
-fun SemanticsNodeInteraction.assertIsChecked() = assert(
-    SemanticsMatcher.expectValue(SemanticsProperties.ToggleableState, ToggleableState.On)
-)
-
-/**
- * Assert if the node is with the "Unchecked" value.
- */
-fun SemanticsNodeInteraction.assertIsUnchecked() = assert(
-    SemanticsMatcher.expectValue(SemanticsProperties.ToggleableState, ToggleableState.Off)
-)

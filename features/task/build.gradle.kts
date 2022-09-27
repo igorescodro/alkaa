@@ -20,6 +20,5 @@ dependencies {
     implementation(libs.accompanist.permission)
 
     testImplementation(libs.test.corektx)
-    androidTestImplementation(libs.compose.activity)
     androidTestImplementation(libs.test.barista)
 }

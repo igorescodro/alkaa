@@ -1,30 +1,25 @@
 package com.escodro.task.presentation.category
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.selection.toggleable
-import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.Surface
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FilterChip
+import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.semantics.SemanticsPropertyKey
-import androidx.compose.ui.semantics.SemanticsPropertyReceiver
-import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.escodro.categoryapi.model.Category
@@ -64,17 +59,18 @@ private fun LoadedCategoryList(
     onCategoryChange: (CategoryId) -> Unit
 ) {
     val currentItem = categoryList.find { category -> category.id == currentCategory }
-    val selectedState = remember { mutableStateOf(currentItem) }
+    var selectedState by remember { mutableStateOf(currentItem?.id) }
     LazyRow {
         items(
             items = categoryList,
             itemContent = { category ->
-                val isSelected = category == selectedState.value
                 CategoryItemChip(
                     category = category,
-                    isSelected = isSelected,
-                    selectedState,
-                    onCategoryChange = { id -> onCategoryChange(CategoryId(id)) }
+                    isSelected = selectedState == category.id,
+                    onSelectChange = { id ->
+                        selectedState = id
+                        onCategoryChange(CategoryId(id))
+                    }
                 )
             }
         )
@@ -89,69 +85,27 @@ private fun EmptyCategoryList() {
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun CategoryItemChip(
     category: Category,
     isSelected: Boolean = false,
-    selectedState: MutableState<Category?>,
-    onCategoryChange: (Long?) -> Unit
+    onSelectChange: (Long?) -> Unit
 ) {
-    Surface(
+    FilterChip(
+        selected = isSelected,
+        label = { Text(text = category.name) },
         modifier = Modifier.padding(end = 8.dp),
-        shape = CircleShape,
-        color = if (isSelected) Color(category.color) else MaterialTheme.colorScheme.background,
-        border = chipBorder(isSelected)
-    ) {
-        Row(
-            modifier = Modifier
-                .semantics { chipName = category.name }
-                .toggleable(
-                    value = isSelected,
-                    role = Role.RadioButton,
-                    onValueChange = {
-                        val newCategory = toggleChip(selectedState, category)
-                        selectedState.value = newCategory
-                        onCategoryChange(newCategory?.id)
-                    }
-                )
-                .padding(horizontal = 8.dp)
-        ) {
-            Text(
-                modifier = Modifier.padding(8.dp),
-                color = if (isSelected) {
-                    MaterialTheme.colorScheme.background
-                } else {
-                    MaterialTheme.colorScheme.outline
-                },
-                text = category.name
-            )
+        colors = FilterChipDefaults.filterChipColors(
+            selectedContainerColor = Color(category.color),
+            selectedLabelColor = MaterialTheme.colorScheme.background
+        ),
+        onClick = {
+            val id = if (isSelected) null else category.id
+            onSelectChange(id)
         }
-    }
+    )
 }
-
-@Composable
-private fun chipBorder(isChipSelected: Boolean): BorderStroke =
-    if (isChipSelected) {
-        BorderStroke(1.dp, Color.Transparent)
-    } else {
-        BorderStroke(1.dp, SolidColor(MaterialTheme.colorScheme.outline))
-    }
-
-private fun toggleChip(
-    selectedState: MutableState<Category?>,
-    category: Category
-): Category? =
-    if (selectedState.value == category) {
-        null
-    } else {
-        category
-    }
-
-/**
- * Semantic Property for the Chip.
- */
-val ChipNameKey = SemanticsPropertyKey<String>("ChipNameKey")
-private var SemanticsPropertyReceiver.chipName by ChipNameKey
 
 @Suppress("UndocumentedPublicFunction")
 @Preview

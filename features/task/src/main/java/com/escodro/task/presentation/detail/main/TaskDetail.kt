@@ -4,15 +4,17 @@ import android.os.Parcelable
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Surface
-import androidx.compose.material.TextField
-import androidx.compose.material.TextFieldDefaults
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Description
 import androidx.compose.material.icons.outlined.Bookmark
 import androidx.compose.material.icons.outlined.Close
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -92,13 +94,17 @@ private fun TaskDetailLoader(
 }
 
 @Composable
+@OptIn(ExperimentalMaterial3Api::class)
 internal fun TaskDetailRouter(
     detailViewState: TaskDetailState,
     categoryViewState: CategoryState,
     actions: TaskDetailActions
 ) {
-    Scaffold(topBar = { AlkaaToolbar(onUpPress = actions.onUpPress) }) {
-        Crossfade(detailViewState) { state ->
+    Scaffold(topBar = { AlkaaToolbar(onUpPress = actions.onUpPress) }) { paddingValues ->
+        Crossfade(
+            targetState = detailViewState,
+            modifier = Modifier.padding(paddingValues)
+        ) { state ->
             when (state) {
                 TaskDetailState.Loading -> AlkaaLoadingContent()
                 TaskDetailState.Error -> TaskDetailError()
@@ -119,7 +125,7 @@ private fun TaskDetailContent(
     categoryViewState: CategoryState,
     actions: TaskDetailActions
 ) {
-    Surface(color = MaterialTheme.colors.background) {
+    Surface(color = MaterialTheme.colorScheme.background) {
         Column {
             TaskTitleTextField(text = task.title, onTitleChange = actions.onTitleChange)
             TaskDetailSectionContent(
@@ -157,6 +163,7 @@ private fun TaskDetailError() {
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun TaskTitleTextField(text: String, onTitleChange: (String) -> Unit) {
     val textState = remember { mutableStateOf(TextFieldValue(text)) }
@@ -168,11 +175,14 @@ private fun TaskTitleTextField(text: String, onTitleChange: (String) -> Unit) {
             onTitleChange(it.text)
             textState.value = it
         },
-        textStyle = MaterialTheme.typography.h4,
-        colors = TextFieldDefaults.textFieldColors(backgroundColor = MaterialTheme.colors.surface)
+        textStyle = MaterialTheme.typography.headlineMedium,
+        colors = TextFieldDefaults.textFieldColors(
+            containerColor = MaterialTheme.colorScheme.surface
+        )
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun TaskDescriptionTextField(text: String?, onDescriptionChange: (String) -> Unit) {
     val textState = remember { mutableStateOf(TextFieldValue(text ?: "")) }
@@ -190,8 +200,10 @@ private fun TaskDescriptionTextField(text: String?, onDescriptionChange: (String
             onDescriptionChange(it.text)
             textState.value = it
         },
-        textStyle = MaterialTheme.typography.body1,
-        colors = TextFieldDefaults.textFieldColors(backgroundColor = MaterialTheme.colors.surface)
+        textStyle = MaterialTheme.typography.bodyLarge,
+        colors = TextFieldDefaults.textFieldColors(
+            containerColor = MaterialTheme.colorScheme.surface
+        )
     )
 }
 

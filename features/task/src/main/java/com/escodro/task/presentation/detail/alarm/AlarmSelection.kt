@@ -5,10 +5,10 @@ import android.content.Context
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.height
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Alarm
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -140,7 +140,7 @@ internal fun AlarmSelectionContent(
 @Preview
 @Composable
 fun AlarmSetSelectionPreview() {
-    Surface(color = MaterialTheme.colors.background) {
+    Surface(color = MaterialTheme.colorScheme.background) {
         AlkaaTheme {
             AlarmSelection(
                 Calendar.getInstance(),
@@ -158,7 +158,7 @@ fun AlarmSetSelectionPreview() {
 @Preview
 @Composable
 fun AlarmNotSetSelectionPreview() {
-    Surface(color = MaterialTheme.colors.background) {
+    Surface(color = MaterialTheme.colorScheme.background) {
         AlkaaTheme {
             AlarmSelection(
                 null,

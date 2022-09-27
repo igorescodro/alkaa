@@ -122,6 +122,7 @@ dependencies {
 
     androidTestImplementation(projects.libraries.test)
     androidTestImplementation(libs.koin.test)
+    androidTestImplementation(libs.test.hamcrest)
     androidTestImplementation(libs.bundles.composetest) {
         exclude(group = "androidx.core", module = "core-ktx")
         exclude(group = "androidx.fragment", module = "fragment")

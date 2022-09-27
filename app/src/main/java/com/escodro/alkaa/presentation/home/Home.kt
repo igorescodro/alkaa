@@ -2,25 +2,24 @@ package com.escodro.alkaa.presentation.home
 
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.animateColorAsState
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.BottomAppBar
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.escodro.alkaa.model.HomeSection
 import com.escodro.category.presentation.list.CategoryListSection
 import com.escodro.designsystem.AlkaaTheme
@@ -41,7 +40,6 @@ fun Home(
 ) {
     val (currentSection, setCurrentSection) = rememberSaveable { mutableStateOf(HomeSection.Tasks) }
     val navItems = HomeSection.values().toList()
-    val homeModifier = Modifier.padding(bottom = 56.dp)
 
     val actions = HomeActions(
         onTaskClick = onTaskClick,
@@ -55,17 +53,16 @@ fun Home(
     Crossfade(currentSection) { homeSection ->
         AlkaaHomeScaffold(
             homeSection = homeSection,
-            modifier = homeModifier,
             navItems = navItems,
             actions = actions
         )
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
 private fun AlkaaHomeScaffold(
     homeSection: HomeSection,
-    modifier: Modifier,
     navItems: List<HomeSection>,
     actions: HomeActions
 ) {
@@ -73,8 +70,8 @@ private fun AlkaaHomeScaffold(
         topBar = {
             AlkaaTopBar(currentSection = homeSection)
         },
-        content = {
-            AlkaaContent(homeSection, modifier, actions)
+        content = { paddingValues ->
+            AlkaaContent(homeSection, Modifier.padding(paddingValues), actions)
         },
         bottomBar = {
             AlkaaBottomNav(
@@ -116,17 +113,18 @@ private fun AlkaaContent(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun AlkaaTopBar(currentSection: HomeSection) {
-    TopAppBar(backgroundColor = MaterialTheme.colors.background, elevation = 0.dp) {
-        Box(modifier = Modifier.fillMaxSize()) {
+    CenterAlignedTopAppBar(
+        title = {
             Text(
-                modifier = Modifier.align(Alignment.Center),
-                style = MaterialTheme.typography.h5,
-                text = stringResource(currentSection.title)
+                style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Light),
+                text = stringResource(currentSection.title),
+                color = MaterialTheme.colorScheme.tertiary
             )
         }
-    }
+    )
 }
 
 @Composable
@@ -135,14 +133,14 @@ private fun AlkaaBottomNav(
     onSectionSelect: (HomeSection) -> Unit,
     items: List<HomeSection>
 ) {
-    BottomAppBar(backgroundColor = MaterialTheme.colors.background) {
+    BottomAppBar(containerColor = MaterialTheme.colorScheme.background) {
         items.forEach { section ->
             val selected = section == currentSection
             val colorState = animateColorAsState(
                 if (selected) {
-                    MaterialTheme.colors.primary
+                    MaterialTheme.colorScheme.primary
                 } else {
-                    MaterialTheme.colors.onSecondary
+                    MaterialTheme.colorScheme.outline
                 }
             )
             AlkaaBottomIcon(

@@ -9,14 +9,15 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.material.FabPosition
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.SnackbarResult
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material.icons.outlined.ThumbUp
-import androidx.compose.material.rememberScaffoldState
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FabPosition
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -98,6 +99,7 @@ private fun TaskListLoader(
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun TaskListScaffold(
     taskHandler: TaskStateHandler,
@@ -105,7 +107,7 @@ internal fun TaskListScaffold(
     modifier: Modifier = Modifier
 ) {
     val coroutineScope = rememberCoroutineScope()
-    val scaffoldState = rememberScaffoldState()
+    val snackbarHostState = remember { SnackbarHostState() }
 
     val snackbarTitle = stringResource(id = R.string.task_snackbar_message_complete)
     val snackbarButton = stringResource(id = R.string.task_snackbar_button_undo)
@@ -113,9 +115,8 @@ internal fun TaskListScaffold(
     val onShowSnackbar: (TaskWithCategory) -> Unit = { taskWithCategory ->
         coroutineScope.launch {
             val message = String.format(snackbarTitle, taskWithCategory.task.title)
-            when (scaffoldState.snackbarHostState.showSnackbar(message, snackbarButton)) {
-                SnackbarResult.Dismissed -> { /* Do nothing */
-                }
+            when (snackbarHostState.showSnackbar(message, snackbarButton)) {
+                SnackbarResult.Dismissed -> {} // Do nothing
                 SnackbarResult.ActionPerformed -> taskHandler.onCheckedChange(taskWithCategory)
             }
         }
@@ -125,8 +126,7 @@ internal fun TaskListScaffold(
         val fabPosition = if (this.maxHeight > maxWidth) FabPosition.Center else FabPosition.End
         Scaffold(
             modifier = modifier.fillMaxSize(),
-            scaffoldState = scaffoldState,
-            backgroundColor = MaterialTheme.colors.background,
+            snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
             topBar = { TaskFilter(categoryHandler = categoryHandler) },
             floatingActionButton = {
                 AddFloatingButton(
@@ -135,8 +135,11 @@ internal fun TaskListScaffold(
                 )
             },
             floatingActionButtonPosition = fabPosition
-        ) {
-            Crossfade(taskHandler.state) { state ->
+        ) { paddingValues ->
+            Crossfade(
+                targetState = taskHandler.state,
+                modifier = Modifier.padding(paddingValues)
+            ) { state ->
                 when (state) {
                     TaskListViewState.Loading -> AlkaaLoadingContent()
                     is TaskListViewState.Error -> TaskListError()

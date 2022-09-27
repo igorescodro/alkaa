@@ -27,7 +27,7 @@ internal class MainActivity : ComponentActivity() {
             val isDarkTheme = rememberIsDarkTheme()
             updateTheme(isDarkTheme)
 
-            AlkaaTheme(darkTheme = isDarkTheme) {
+            AlkaaTheme(isDarkTheme = isDarkTheme) {
                 NavGraph()
             }
         }

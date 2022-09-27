@@ -2,7 +2,7 @@ package com.escodro.glance.presentation
 
 import android.content.Context
 import android.content.Intent
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -69,7 +69,7 @@ internal class TaskListGlanceWidget : GlanceAppWidget(), KoinComponent {
                 .fillMaxSize()
                 .cornerRadius(12.dp)
                 .appWidgetBackground()
-                .background(color = MaterialTheme.colors.background)
+                .background(color = MaterialTheme.colorScheme.background)
                 .padding(8.dp)
         ) {
             Row(

@@ -8,8 +8,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -106,8 +106,8 @@ private fun PreferenceTitle(title: String) {
     ) {
         Text(
             text = title.uppercase(Locale.getDefault()),
-            style = MaterialTheme.typography.body2.copy(fontWeight = FontWeight.Bold),
-            color = MaterialTheme.colors.primary
+            style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold),
+            color = MaterialTheme.colorScheme.primary
         )
     }
 }
@@ -181,7 +181,7 @@ private fun Separator() {
             .padding(bottom = 8.dp)
             .height(1.dp)
             .fillMaxWidth()
-            .background(MaterialTheme.colors.onSecondary.copy(alpha = 0.7F))
+            .background(MaterialTheme.colorScheme.outline.copy(alpha = 0.7F))
     )
 }
 

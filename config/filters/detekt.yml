@@ -8,6 +8,8 @@ comments:
     active: false
   CommentOverPrivateProperty:
     active: false
+  UndocumentedPublicProperty:
+    excludes: ['**/designsystem/**']
 
 style:
   DataClassShouldBeImmutable:

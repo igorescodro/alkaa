@@ -6,10 +6,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -52,6 +52,7 @@ internal fun AddTaskLoader(
         modifier = Modifier
             .fillMaxWidth()
             .height(256.dp)
+            .background(MaterialTheme.colorScheme.surface) // Accompanist does not support M3 yet
             .padding(16.dp),
         verticalArrangement = Arrangement.SpaceAround
     ) {
@@ -108,7 +109,7 @@ fun TaskListScaffoldError() {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(256.dp)
-                .background(MaterialTheme.colors.background)
+                .background(MaterialTheme.colorScheme.background)
         ) {
             AddTaskBottomSheet(onHideBottomSheet = {})
         }

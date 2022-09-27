@@ -12,10 +12,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.RadioButton
-import androidx.compose.material.Text
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.RadioButton
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -39,6 +41,7 @@ import java.util.Calendar
  * @param onItemClick the action to be done when the item is clicked
  * @param onCheckedChange action to be called when the checked value changes
  */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun TaskItem(
     modifier: Modifier = Modifier,
@@ -46,8 +49,8 @@ internal fun TaskItem(
     onItemClick: (Long) -> Unit,
     onCheckedChange: (TaskWithCategory) -> Unit
 ) {
-    Card(
-        elevation = 4.dp,
+    ElevatedCard(
+        elevation = CardDefaults.elevatedCardElevation(4.dp),
         modifier = modifier
             .fillMaxWidth()
             .padding(all = 8.dp)
@@ -67,7 +70,7 @@ internal fun TaskItem(
             Column(modifier = modifier.fillMaxHeight(), verticalArrangement = Arrangement.Center) {
                 Text(
                     text = task.task.title,
-                    style = MaterialTheme.typography.body1,
+                    style = MaterialTheme.typography.bodyLarge,
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 1
                 )
@@ -82,7 +85,7 @@ internal fun CardRibbon(colorInt: Int?, modifier: Modifier = Modifier) {
     val ribbonColor = if (colorInt != null) {
         Color(colorInt)
     } else {
-        MaterialTheme.colors.background
+        MaterialTheme.colorScheme.surfaceVariant
     }
 
     Spacer(
@@ -114,7 +117,7 @@ internal fun RelativeDateText(calendar: Calendar?) {
 
     Text(
         text = stringTime,
-        style = MaterialTheme.typography.body2,
+        style = MaterialTheme.typography.bodySmall,
         overflow = TextOverflow.Ellipsis,
         maxLines = 1
     )

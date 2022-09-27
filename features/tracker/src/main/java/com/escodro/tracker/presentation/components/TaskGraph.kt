@@ -8,7 +8,7 @@ import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.Canvas
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -29,7 +29,7 @@ internal fun TaskGraph(list: List<Tracker.CategoryInfo>, modifier: Modifier = Mo
             .apply { targetState = AnimatedCircleProgress.END }
     }
 
-    val defaultColor = MaterialTheme.colors.onSecondary
+    val defaultColor = MaterialTheme.colorScheme.outline
     val stroke = with(LocalDensity.current) { Stroke(32.dp.toPx()) }
     val transition = updateTransition(currentState, label = LabelUpdateTransition)
     val angleOffset by angleOffset(transition)

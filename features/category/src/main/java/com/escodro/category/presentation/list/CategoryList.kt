@@ -18,15 +18,17 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Card
-import androidx.compose.material.FabPosition
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.outlined.ThumbUp
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FabPosition
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -91,6 +93,7 @@ private fun CategoryListLoader(
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun CategoryListScaffold(
     modifier: Modifier,
@@ -144,8 +147,8 @@ private fun CategoryItem(
     category: Category,
     onItemClick: (Long) -> Unit
 ) {
-    Card(
-        elevation = 4.dp,
+    ElevatedCard(
+        elevation = CardDefaults.elevatedCardElevation(4.dp),
         modifier = modifier
             .fillMaxWidth()
             .padding(all = 8.dp)
@@ -173,7 +176,7 @@ private fun CategoryItemIcon(color: Int) {
         Icon(
             imageVector = Icons.Default.Bookmark,
             contentDescription = stringResource(id = R.string.category_icon_cd),
-            tint = MaterialTheme.colors.background
+            tint = MaterialTheme.colorScheme.background
         )
     }
 }

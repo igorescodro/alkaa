@@ -3,18 +3,20 @@ package com.escodro.tracker.presentation
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.Card
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DynamicFeed
 import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material.icons.outlined.DataUsage
+import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -40,13 +42,14 @@ internal fun TrackerSection(onUpPress: () -> Unit) {
 }
 
 @Composable
+@OptIn(ExperimentalMaterial3Api::class)
 internal fun TrackerLoader(viewModel: TrackerViewModel = getViewModel(), onUpPress: () -> Unit) {
     val data by remember {
         viewModel.loadTracker()
     }.collectAsState(initial = TrackerViewState.Loading)
 
-    Scaffold(topBar = { AlkaaToolbar(onUpPress = onUpPress) }) {
-        Crossfade(data) { state ->
+    Scaffold(topBar = { AlkaaToolbar(onUpPress = onUpPress) }) { paddingValues ->
+        Crossfade(targetState = data, modifier = Modifier.padding(paddingValues)) { state ->
             when (state) {
                 TrackerViewState.Empty -> TrackerEmpty()
                 is TrackerViewState.Error -> TrackerError()
@@ -112,8 +115,8 @@ private fun TaskTrackerInfoCard(list: List<Tracker.CategoryInfo>, modifier: Modi
     val message = LocalContext.current.resources
         .getQuantityString(R.plurals.tracker_message_title, taskCount, taskCount)
 
-    Card(modifier = modifier.fillMaxWidth()) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
+    ElevatedCard(modifier = modifier.fillMaxWidth()) {
+        Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxSize()) {
             Icon(
                 imageVector = Icons.Default.DynamicFeed,
                 contentDescription = stringResource(id = R.string.tracker_cp_info_icon),
@@ -124,12 +127,12 @@ private fun TaskTrackerInfoCard(list: List<Tracker.CategoryInfo>, modifier: Modi
             Column(modifier = Modifier.weight(3F)) {
                 Text(
                     text = message,
-                    style = MaterialTheme.typography.subtitle1,
+                    style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold
                 )
                 Text(
                     text = stringResource(id = R.string.tracker_message_description),
-                    style = MaterialTheme.typography.body2
+                    style = MaterialTheme.typography.bodyMedium
                 )
             }
         }

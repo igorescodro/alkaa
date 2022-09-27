@@ -14,15 +14,15 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Delete
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -139,6 +139,7 @@ private fun CategorySheetContent(
         modifier = Modifier
             .fillMaxWidth()
             .height(256.dp)
+            .background(MaterialTheme.colorScheme.surface) // Accompanist does not support M3 yet
             .padding(16.dp),
         verticalArrangement = Arrangement.SpaceAround
     ) {
@@ -244,14 +245,14 @@ private fun CategorySaveButton(currentColor: Color, onClick: () -> Unit) {
     val colorState = animateColorAsState(targetValue = currentColor)
     Button(
         onClick = onClick,
-        colors = ButtonDefaults.buttonColors(backgroundColor = colorState.value),
+        colors = ButtonDefaults.buttonColors(containerColor = colorState.value),
         modifier = Modifier
             .fillMaxWidth()
             .height(48.dp)
     ) {
         Text(
             text = stringResource(id = R.string.category_sheet_save),
-            color = MaterialTheme.colors.background
+            color = MaterialTheme.colorScheme.background
         )
     }
 }
@@ -283,7 +284,7 @@ private fun CategoryColorItem(
                 modifier = Modifier
                     .size(16.dp)
                     .clip(CircleShape)
-                    .background(MaterialTheme.colors.background)
+                    .background(MaterialTheme.colorScheme.background)
             )
         }
     }

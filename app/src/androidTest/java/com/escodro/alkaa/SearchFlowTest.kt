@@ -77,6 +77,9 @@ internal class SearchFlowTest : KoinTest {
             onNode(hasSetTextAction()).performTextInput(query)
             onAllNodesWithText(text = query, useUnmergedTree = true)[1].assertExists()
 
+            // Wait until the other second item is no longer visible
+            waitUntilNotExists(hasText(FAKE_TASKS[1].title))
+
             // Drop the first task and validate others are not shown
             FAKE_TASKS.drop(1).forEach { task ->
                 // Validate all tasks are shown

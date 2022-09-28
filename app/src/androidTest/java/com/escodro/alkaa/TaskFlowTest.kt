@@ -120,6 +120,7 @@ internal class TaskFlowTest : KoinTest {
             pressBack()
 
             // Reopen the task and validate if the category is selected
+            waitUntilExists(hasText(taskName))
             onNodeWithText(text = taskName, useUnmergedTree = true).performClick()
             onChip(category).assertIsSelected()
         }

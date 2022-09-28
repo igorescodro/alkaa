@@ -71,6 +71,7 @@ android {
     }
 
     testOptions {
+        execution = "ANDROIDX_TEST_ORCHESTRATOR"
         managedDevices {
             devices {
                 add(
@@ -119,6 +120,8 @@ dependencies {
     implementation(libs.koin.android)
 
     implementation(libs.bundles.compose)
+
+    androidTestUtil(libs.test.orchestrator)
 
     androidTestImplementation(projects.libraries.test)
     androidTestImplementation(libs.koin.test)

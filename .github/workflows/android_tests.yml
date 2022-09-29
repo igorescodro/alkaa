@@ -24,12 +24,25 @@ jobs:
         uses: android-actions/setup-android@v2
 
       - name: Run instrumented tests
-        run: ./gradlew alkaaDevicesGroupDebugAndroidTest -Pandroid.testoptions.manageddevices.emulator.gpu="swiftshader_indirect"
+        # run: ./gradlew alkaaDevicesGroupDebugAndroidTest -Pandroid.testoptions.manageddevices.emulator.gpu="swiftshader_indirect"
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 30
+          arch: x86_64
+          disable-animations: true
+          disk-size: 2000M
+          heap-size: 600M
+          script: |
+            adb logcat -c
+            adb logcat > logcat.txt &
+            ./gradlew app:connectedAndroidTest --stacktrace
 
       - name: Save Test Results
         uses: actions/upload-artifact@v3
         if: ${{ always() }}
         with:
           name: test-results
-          path: /Users/runner/work/alkaa/alkaa/app/build/reports/androidTests/managedDevice/
+          path: |
+            /Users/runner/work/alkaa/alkaa/app/build/reports/androidTests/
+            ./logcat.txt
           retention-days: 7

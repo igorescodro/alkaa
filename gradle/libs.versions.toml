@@ -47,7 +47,7 @@ test_barista = "4.2.0"
 test_hamcrest = "2.2"
 
 # Quality
-ktlint = "0.46.1"
+ktlint = "0.47.0"
 detekt = "1.21.0"
 
 [libraries]

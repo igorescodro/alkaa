@@ -12,5 +12,5 @@ internal enum class CategoryColors(val value: Color) {
     YELLOW(Color(0xFFFFCA28)),
     GREEN(Color(0xFF9CCC65)),
     BLUE(Color(0xFF42A5F5)),
-    TEAL(Color(0xFF26A69A)),
+    TEAL(Color(0xFF26A69A))
 }

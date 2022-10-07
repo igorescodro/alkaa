@@ -3,6 +3,7 @@ package com.escodro.alkaa
 import androidx.annotation.StringRes
 import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.hasSetTextAction
+import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.ComposeTestRule
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
@@ -17,6 +18,8 @@ import com.escodro.local.model.Category
 import com.escodro.local.provider.DaoProvider
 import com.escodro.task.presentation.list.CheckboxNameKey
 import com.escodro.test.DisableAnimationsRule
+import com.escodro.test.waitUntilExists
+import com.escodro.test.waitUntilNotExists
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
@@ -100,14 +103,17 @@ internal class TaskListFlowTest : KoinTest {
             onAllNodesWithText("Work")[1].performClick()
             onNode(hasSetTextAction()).performTextInput(taskName)
             onNodeWithText(string(TaskR.string.task_add_save)).performClick()
+            waitUntilExists(hasText(taskName))
             onNodeWithText(text = taskName, useUnmergedTree = true).assertExists()
 
             // Click in the Work filter and validate if still visible
             onAllNodesWithText("Work")[0].performClick()
+            waitUntilExists(hasText(taskName))
             onNodeWithText(text = taskName, useUnmergedTree = true).assertExists()
 
             // Click in the Shopping List filter and validate if task is no longer visible
             onAllNodesWithText("Music")[0].performClick()
+            waitUntilNotExists(hasText(taskName))
             onNodeWithText(text = taskName, useUnmergedTree = true).assertDoesNotExist()
         }
     }

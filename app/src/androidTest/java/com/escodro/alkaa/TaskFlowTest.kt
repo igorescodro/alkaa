@@ -103,6 +103,7 @@ internal class TaskFlowTest : KoinTest {
             pressBack()
 
             // Reopen the task and validate if the description is save
+            waitUntilExists(hasText(taskName))
             onNodeWithText(text = taskName, useUnmergedTree = true).performClick()
             onNodeWithText(text = description, useUnmergedTree = true).assertExists()
         }
@@ -139,6 +140,7 @@ internal class TaskFlowTest : KoinTest {
             pressBack()
 
             // Reopen the task and validate if the alarm is on
+            waitUntilExists(hasText(taskName))
             onNodeWithText(text = taskName, useUnmergedTree = true).performClick()
             onNodeWithText(string(TaskR.string.task_detail_alarm_no_alarm)).assertDoesNotExist()
         }

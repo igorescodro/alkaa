@@ -53,7 +53,7 @@ jobs:
           script: |
             adb logcat -c
             adb logcat > logcat.txt &
-            ./gradlew app:connectedAndroidTest --stacktrace
+            ./gradlew connectedAndroidTest --stacktrace
 
       - name: Save Test Results
         uses: actions/upload-artifact@v3

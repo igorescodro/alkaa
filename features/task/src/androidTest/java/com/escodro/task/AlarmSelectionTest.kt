@@ -151,20 +151,6 @@ internal class AlarmSelectionTest {
         composeTestRule.onNodeWithText(dialogTitle).assertIsDisplayed()
     }
 
-    @Test
-    fun test_whenNotificationPermissionIsNotGrantedDialogIsShown() {
-        // Load the alarm section component without permission
-        loadAlarmSelection(shouldAskForNotificationPermission = true)
-
-        // Click in the alarm item
-        val noAlarmString = context.getString(R.string.task_detail_alarm_no_alarm)
-        composeTestRule.onNodeWithText(noAlarmString).performClick()
-
-        // Assert that the alarm item is not set again
-        val dialogTitle = context.getString(R.string.task_notification_permission_dialog_title)
-        composeTestRule.onNodeWithText(dialogTitle).assertIsDisplayed()
-    }
-
     private fun loadAlarmSelection(
         hasExactAlarmPermission: Boolean = true,
         shouldAskForNotificationPermission: Boolean = false

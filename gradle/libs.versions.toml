@@ -22,7 +22,7 @@ compose_compiler = "1.2.0"
 compose_nav = "2.5.2"
 compose_viewmodel = "2.5.1"
 compose_activity = "1.6.0"
-compose_material3 = "1.0.0-beta03"
+compose_material3 = "1.0.0-rc01"
 
 # Coroutines
 coroutines = "1.6.4"

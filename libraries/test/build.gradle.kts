@@ -1,6 +1,5 @@
 plugins {
     id("com.escodro.android-library")
-    id("com.escodro.android-compose")
 }
 
 android {
@@ -23,7 +22,6 @@ dependencies {
 
     api(libs.coroutines.test)
 
-    api(libs.compose.activity)
     implementation(libs.bundles.composetest) {
         exclude(group = "androidx.core", module = "core-ktx")
         exclude(group = "androidx.fragment", module = "fragment")

@@ -3,6 +3,8 @@ package com.escodro.alkaa
 import androidx.annotation.StringRes
 import androidx.compose.ui.test.assertIsSelected
 import androidx.compose.ui.test.hasSetTextAction
+import androidx.compose.ui.test.hasText
+import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
@@ -10,16 +12,20 @@ import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.test.performTextReplacement
 import androidx.test.platform.app.InstrumentationRegistry
 import com.escodro.alkaa.fake.CoroutinesDebouncerFake
+import com.escodro.alkaa.model.HomeSection
 import com.escodro.alkaa.navigation.NavGraph
 import com.escodro.core.coroutines.CoroutineDebouncer
 import com.escodro.designsystem.AlkaaTheme
 import com.escodro.local.model.Category
 import com.escodro.local.provider.DaoProvider
+import com.escodro.test.DisableAnimationsRule
 import com.escodro.test.Events
-import com.escodro.test.FlakyTest
 import com.escodro.test.onChip
-import kotlinx.coroutines.runBlocking
+import com.escodro.test.waitUntilExists
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runTest
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.koin.test.KoinTest
 import org.koin.test.inject
@@ -27,16 +33,23 @@ import org.koin.test.mock.declare
 import java.util.Calendar
 import com.escodro.task.R as TaskR
 
-internal class TaskFlowTest : FlakyTest(), KoinTest {
+@OptIn(ExperimentalCoroutinesApi::class)
+internal class TaskFlowTest : KoinTest {
 
     private val daoProvider: DaoProvider by inject()
+
+    @get:Rule
+    val composeTestRule = createComposeRule()
+
+    @get:Rule
+    val disableAnimationsRule = DisableAnimationsRule()
 
     private val context = InstrumentationRegistry.getInstrumentation().targetContext
 
     @Before
     fun setup() {
         // Clean all existing tasks and categories
-        runBlocking {
+        runTest {
             with(daoProvider) {
                 getTaskDao().cleanTable()
                 getCategoryDao().cleanTable()
@@ -50,7 +63,7 @@ internal class TaskFlowTest : FlakyTest(), KoinTest {
         // Replace Debouncer with a Immediate Executor
         declare<CoroutineDebouncer> { CoroutinesDebouncerFake() }
 
-        setContent {
+        composeTestRule.setContent {
             AlkaaTheme {
                 NavGraph()
             }
@@ -90,6 +103,7 @@ internal class TaskFlowTest : FlakyTest(), KoinTest {
             pressBack()
 
             // Reopen the task and validate if the description is save
+            waitUntilExists(hasText(taskName))
             onNodeWithText(text = taskName, useUnmergedTree = true).performClick()
             onNodeWithText(text = description, useUnmergedTree = true).assertExists()
         }
@@ -107,6 +121,7 @@ internal class TaskFlowTest : FlakyTest(), KoinTest {
             pressBack()
 
             // Reopen the task and validate if the category is selected
+            waitUntilExists(hasText(taskName))
             onNodeWithText(text = taskName, useUnmergedTree = true).performClick()
             onChip(category).assertIsSelected()
         }
@@ -125,6 +140,7 @@ internal class TaskFlowTest : FlakyTest(), KoinTest {
             pressBack()
 
             // Reopen the task and validate if the alarm is on
+            waitUntilExists(hasText(taskName))
             onNodeWithText(text = taskName, useUnmergedTree = true).performClick()
             onNodeWithText(string(TaskR.string.task_detail_alarm_no_alarm)).assertDoesNotExist()
         }
@@ -150,6 +166,7 @@ internal class TaskFlowTest : FlakyTest(), KoinTest {
             pressBack()
 
             // Reopen the task and validate if the alarm is on
+            waitUntilExists(hasText(taskName))
             onNodeWithText(text = taskName, useUnmergedTree = true).performClick()
             onNodeWithText(alarmArray[0]).assertDoesNotExist()
         }
@@ -178,6 +195,7 @@ internal class TaskFlowTest : FlakyTest(), KoinTest {
         ).performClick()
 
         // Wait the list to be loaded
-        Thread.sleep(1000)
+        val taskTitle = context.getString(HomeSection.Tasks.title)
+        composeTestRule.waitUntilExists(hasText(taskTitle))
     }
 }

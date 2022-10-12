@@ -3,6 +3,8 @@ package com.escodro.alkaa
 import android.app.Notification
 import androidx.annotation.StringRes
 import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.hasText
+import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.test.platform.app.InstrumentationRegistry
@@ -14,10 +16,14 @@ import com.escodro.local.model.AlarmInterval
 import com.escodro.local.model.Task
 import com.escodro.local.provider.DaoProvider
 import com.escodro.task.R
-import com.escodro.test.FlakyTest
-import kotlinx.coroutines.runBlocking
+import com.escodro.test.DisableAnimationsRule
+import com.escodro.test.waitUntilExists
+import com.escodro.test.waitUntilNotExists
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.koin.test.KoinTest
 import org.koin.test.inject
@@ -26,21 +32,28 @@ import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 import com.escodro.alarm.R as AlarmR
 
-internal class NotificationFlowTest : FlakyTest(), KoinTest {
+@OptIn(ExperimentalCoroutinesApi::class)
+internal class NotificationFlowTest : KoinTest {
 
     private val daoProvider: DaoProvider by inject()
 
     private val scheduleAlarm: ScheduleAlarm by inject()
+
+    @get:Rule
+    val composeTestRule = createComposeRule()
+
+    @get:Rule
+    val disableAnimationsRule = DisableAnimationsRule()
 
     private val context = InstrumentationRegistry.getInstrumentation().targetContext
 
     @Before
     fun setup() {
         // Clean all existing tasks and categories
-        runBlocking {
+        runTest {
             daoProvider.getTaskDao().cleanTable()
         }
-        setContent {
+        composeTestRule.setContent {
             AlkaaTheme {
                 NavGraph()
             }
@@ -53,7 +66,7 @@ internal class NotificationFlowTest : FlakyTest(), KoinTest {
     }
 
     @Test
-    fun test_notificationIsShown() {
+    fun test_notificationIsShown() = runTest {
         // Insert a task
         val id = 12L
         val name = "Don't believe me?"
@@ -67,17 +80,16 @@ internal class NotificationFlowTest : FlakyTest(), KoinTest {
         // Validate the notification info
         with(notificationManager!!.activeNotifications.first()) {
             assertEquals(id.toInt(), this.id)
-            assertEquals(name, this.notification.extras[Notification.EXTRA_TEXT])
-            assertEquals(appName, this.notification.extras[Notification.EXTRA_TITLE])
+            assertEquals(name, this.notification.extras.getString(Notification.EXTRA_TEXT))
+            assertEquals(appName, this.notification.extras.getString(Notification.EXTRA_TITLE))
         }
     }
 
     @Test
-    fun test_whenNotificationIsClickedOpensTaskDetails() {
+    fun test_whenNotificationIsClickedOpensTaskDetails() = runTest {
         // Insert a task
         val id = 13L
         val name = "Click here for a surprise"
-        val appName = context.getString(com.escodro.core.R.string.app_name)
         insertTask(id, name)
 
         // Wait until the notification is launched
@@ -87,6 +99,9 @@ internal class NotificationFlowTest : FlakyTest(), KoinTest {
         // Run the PendingIntent in the notification
         notificationManager!!.activeNotifications.first().notification.contentIntent.send()
 
+        // Wait until the title is displayed
+        composeTestRule.waitUntilExists(hasText(name))
+
         // Validate the task detail was opened
         composeTestRule.onNodeWithText(name).assertIsDisplayed()
         composeTestRule
@@ -95,7 +110,7 @@ internal class NotificationFlowTest : FlakyTest(), KoinTest {
     }
 
     @Test
-    fun test_taskUpdateReflectsInNotification() = runBlocking {
+    fun test_taskUpdateReflectsInNotification() = runTest {
         // Insert and update a task
         val task = insertTask(name = "Hi, I'm a PC")
         val updatedTitle = "Hi, I'm a Mac"
@@ -109,12 +124,12 @@ internal class NotificationFlowTest : FlakyTest(), KoinTest {
 
         // Validate the notification has the updated title
         with(notificationManager!!.activeNotifications.first()) {
-            assertEquals(updatedTitle, this.notification.extras[Notification.EXTRA_TEXT])
+            assertEquals(updatedTitle, this.notification.extras.getString(Notification.EXTRA_TEXT))
         }
     }
 
     @Test
-    fun test_taskCompletedIsNotNotified() = runBlocking {
+    fun test_taskCompletedIsNotNotified() = runTest {
         // Insert a task and updated it as "completed"
         val task = insertTask(name = "Shhh! I wasn't here!")
 
@@ -129,7 +144,7 @@ internal class NotificationFlowTest : FlakyTest(), KoinTest {
     }
 
     @Test
-    fun test_completeTaskViaNotification() = runBlocking {
+    fun test_completeTaskViaNotification() = runTest {
         // Insert a task
         val id = 3333L
         val name = "You complete me!"
@@ -142,15 +157,17 @@ internal class NotificationFlowTest : FlakyTest(), KoinTest {
         // Run the PendingIntent in the "Done" action button
         notificationManager!!.activeNotifications.first().notification.actions[1].actionIntent.send()
 
+        // Wait until the task is complete and no longer visible
+        composeTestRule.waitUntilNotExists(hasText(name))
+
         // Validate the task is now updated as "completed"
-        Thread.sleep(300)
         val task = daoProvider.getTaskDao().getTaskById(id)
 
         assertTrue(task!!.completed)
     }
 
     @Test
-    fun test_snoozeTaskViaNotification() = runBlocking {
+    fun test_snoozeTaskViaNotification() = runTest {
         // Insert a task
         val id = 9999L
         val name = "I need to sleep more..."
@@ -182,7 +199,7 @@ internal class NotificationFlowTest : FlakyTest(), KoinTest {
     }
 
     @Test
-    fun test_ifNonRepeatingTaskDoesNotHaveBothButtons() {
+    fun test_ifNonRepeatingTaskDoesNotHaveBothButtons() = runTest {
         // Insert a normal task
         insertTask(name = "The way it is")
 
@@ -202,11 +219,11 @@ internal class NotificationFlowTest : FlakyTest(), KoinTest {
     private fun string(@StringRes resId: Int): String =
         context.getString(resId)
 
-    private fun insertTask(
+    private suspend fun insertTask(
         id: Long = 15L,
         name: String,
         calendar: Calendar = Calendar.getInstance()
-    ): Task = runBlocking {
+    ): Task =
         with(Task(id = id, title = name)) {
             calendar.add(Calendar.SECOND, 1)
             dueDate = calendar
@@ -214,9 +231,8 @@ internal class NotificationFlowTest : FlakyTest(), KoinTest {
             scheduleAlarm(this.id, this.dueDate!!)
             this
         }
-    }
 
-    private fun insertRepeatingTask(name: String) = runBlocking {
+    private fun insertRepeatingTask(name: String) = runTest {
         with(Task(id = 1000, title = name)) {
             val calendar = Calendar.getInstance()
             calendar.add(Calendar.SECOND, 2)
@@ -225,7 +241,6 @@ internal class NotificationFlowTest : FlakyTest(), KoinTest {
             alarmInterval = AlarmInterval.HOURLY
             daoProvider.getTaskDao().insertTask(this)
             scheduleAlarm(this.id, this.dueDate!!)
-            this
         }
     }
 }

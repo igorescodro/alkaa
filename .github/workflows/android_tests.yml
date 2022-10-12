@@ -7,8 +7,14 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  androidTest:
+  android-test:
     runs-on: macos-latest
+    timeout-minutes: 80
+
+    strategy:
+      fail-fast: false
+      matrix:
+        api-level: [ 24, 26, 28, 29, 30 ]
 
     steps:
       - name: Checkout
@@ -23,18 +29,38 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v2
 
+      - name: Determine emulator target
+        id: determine-target
+        env:
+          API_LEVEL: ${{ matrix.api-level }}
+        run: |
+          TARGET="default"
+          if [ "$API_LEVEL" -ge "29" ]; then
+            TARGET="google_apis"
+          fi
+          echo "::set-output name=TARGET::$TARGET"
+
       - name: Run instrumented tests
-        #run: ./gradlew alkaaDevicesGroupDebugAndroidTest -Pandroid.testoptions.manageddevices.emulator.gpu="swiftshader_indirect"
+        # run: ./gradlew alkaaDevicesGroupDebugAndroidTest -Pandroid.testoptions.manageddevices.emulator.gpu="swiftshader_indirect"
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 30
-          target: google_atd
-          script: ./gradlew app:connectedAndroidTest
+          api-level: ${{ matrix.api-level }}
+          target: ${{ steps.determine-target.outputs.TARGET }}
+          profile: Galaxy Nexus
+          disable-animations: true
+          disk-size: 2000M
+          heap-size: 600M
+          script: |
+            adb logcat -c
+            adb logcat > logcat.txt &
+            ./gradlew connectedAndroidTest --stacktrace
 
       - name: Save Test Results
         uses: actions/upload-artifact@v3
         if: ${{ always() }}
         with:
           name: test-results
-          path: /Users/runner/work/alkaa/alkaa/app/build/reports/androidTests/managedDevice/
+          path: |
+            /Users/runner/work/alkaa/alkaa/app/build/reports/androidTests/
+            ./logcat.txt
           retention-days: 7

@@ -1,24 +1,49 @@
 package com.escodro.task
 
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.test.junit4.createEmptyComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
 import com.escodro.designsystem.AlkaaTheme
 import com.escodro.task.fake.PermissionStateFake
 import com.escodro.task.presentation.detail.alarm.AlarmSelectionContent
 import com.escodro.task.presentation.detail.alarm.AlarmSelectionState
-import com.escodro.test.FlakyTest
+import com.escodro.test.DisableAnimationsRule
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionState
 import com.google.accompanist.permissions.PermissionStatus
+import org.junit.After
 import org.junit.Assert
+import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 
 @OptIn(ExperimentalPermissionsApi::class)
-internal class AlarmPermissionFlowTest : FlakyTest() {
+internal class AlarmPermissionFlowTest {
+
+    @get:Rule
+    val composeTestRule = createEmptyComposeRule()
+
+    @get:Rule
+    val disableAnimationsRule = DisableAnimationsRule()
 
     private val context = InstrumentationRegistry.getInstrumentation().targetContext
+
+    private lateinit var scenario: ActivityScenario<ComponentActivity>
+
+    @Before
+    fun setup() {
+        scenario = ActivityScenario.launch(ComponentActivity::class.java)
+    }
+
+    @After
+    fun tearDown() {
+        scenario.close()
+    }
 
     @Test
     fun test_notificationPermissionGrantedDoesNotShowDialog() {
@@ -123,16 +148,18 @@ internal class AlarmPermissionFlowTest : FlakyTest() {
         permissionState: PermissionState,
         hasAlarmPermission: Boolean
     ) {
-        setContent {
-            AlkaaTheme {
-                AlarmSelectionContent(
-                    context = LocalContext.current,
-                    state = state,
-                    permissionState = permissionState,
-                    hasAlarmPermission = { hasAlarmPermission },
-                    onAlarmUpdate = {},
-                    onIntervalSelect = {}
-                )
+        scenario.onActivity { activity ->
+            activity.setContent {
+                AlkaaTheme {
+                    AlarmSelectionContent(
+                        context = LocalContext.current,
+                        state = state,
+                        permissionState = permissionState,
+                        hasAlarmPermission = { hasAlarmPermission },
+                        onAlarmUpdate = {},
+                        onIntervalSelect = {}
+                    )
+                }
             }
         }
     }

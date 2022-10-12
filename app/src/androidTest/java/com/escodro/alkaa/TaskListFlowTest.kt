@@ -3,7 +3,9 @@ package com.escodro.alkaa
 import androidx.annotation.StringRes
 import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.hasSetTextAction
+import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.ComposeTestRule
+import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
@@ -15,24 +17,35 @@ import com.escodro.designsystem.AlkaaTheme
 import com.escodro.local.model.Category
 import com.escodro.local.provider.DaoProvider
 import com.escodro.task.presentation.list.CheckboxNameKey
-import com.escodro.test.FlakyTest
-import kotlinx.coroutines.runBlocking
+import com.escodro.test.DisableAnimationsRule
+import com.escodro.test.waitUntilExists
+import com.escodro.test.waitUntilNotExists
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runTest
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.koin.test.KoinTest
 import org.koin.test.inject
 import com.escodro.task.R as TaskR
 
-internal class TaskListFlowTest : FlakyTest(), KoinTest {
+@OptIn(ExperimentalCoroutinesApi::class)
+internal class TaskListFlowTest : KoinTest {
 
     private val daoProvider: DaoProvider by inject()
+
+    @get:Rule
+    val composeTestRule = createComposeRule()
+
+    @get:Rule
+    val disableAnimationsRule = DisableAnimationsRule()
 
     private val context = InstrumentationRegistry.getInstrumentation().targetContext
 
     @Before
     fun setup() {
         // Clean all existing tasks and categories
-        runBlocking {
+        runTest {
             with(daoProvider) {
                 getTaskDao().cleanTable()
                 getCategoryDao().cleanTable()
@@ -42,7 +55,7 @@ internal class TaskListFlowTest : FlakyTest(), KoinTest {
                 getCategoryDao().insertCategory(Category(name = "Work", color = "#519872"))
             }
         }
-        setContent {
+        composeTestRule.setContent {
             AlkaaTheme {
                 NavGraph()
             }
@@ -90,14 +103,17 @@ internal class TaskListFlowTest : FlakyTest(), KoinTest {
             onAllNodesWithText("Work")[1].performClick()
             onNode(hasSetTextAction()).performTextInput(taskName)
             onNodeWithText(string(TaskR.string.task_add_save)).performClick()
+            waitUntilExists(hasText(taskName))
             onNodeWithText(text = taskName, useUnmergedTree = true).assertExists()
 
             // Click in the Work filter and validate if still visible
             onAllNodesWithText("Work")[0].performClick()
+            waitUntilExists(hasText(taskName))
             onNodeWithText(text = taskName, useUnmergedTree = true).assertExists()
 
             // Click in the Shopping List filter and validate if task is no longer visible
             onAllNodesWithText("Music")[0].performClick()
+            waitUntilNotExists(hasText(taskName))
             onNodeWithText(text = taskName, useUnmergedTree = true).assertDoesNotExist()
         }
     }

@@ -1,22 +1,47 @@
 package com.escodro.task
 
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
 import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.junit4.createEmptyComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.test.core.app.ActivityScenario
 import androidx.test.platform.app.InstrumentationRegistry
 import com.escodro.designsystem.AlkaaTheme
 import com.escodro.task.model.AlarmInterval
 import com.escodro.task.presentation.detail.alarm.AlarmSelection
+import com.escodro.test.DisableAnimationsRule
 import com.escodro.test.Events
-import com.escodro.test.FlakyTest
+import org.junit.After
+import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import java.util.Calendar
 
-internal class AlarmSelectionTest : FlakyTest() {
+internal class AlarmSelectionTest {
+
+    @get:Rule
+    val composeTestRule = createEmptyComposeRule()
+
+    @get:Rule
+    val disableAnimationsRule = DisableAnimationsRule()
 
     private val context = InstrumentationRegistry.getInstrumentation().targetContext
+
+    private lateinit var scenario: ActivityScenario<ComponentActivity>
+
+    @Before
+    fun setup() {
+        scenario = ActivityScenario.launch(ComponentActivity::class.java)
+    }
+
+    @After
+    fun tearDown() {
+        scenario.close()
+    }
 
     @Test
     fun test_addAlarm() {
@@ -126,34 +151,22 @@ internal class AlarmSelectionTest : FlakyTest() {
         composeTestRule.onNodeWithText(dialogTitle).assertIsDisplayed()
     }
 
-    @Test
-    fun test_whenNotificationPermissionIsNotGrantedDialogIsShown() {
-        // Load the alarm section component without permission
-        loadAlarmSelection(shouldAskForNotificationPermission = true)
-
-        // Click in the alarm item
-        val noAlarmString = context.getString(R.string.task_detail_alarm_no_alarm)
-        composeTestRule.onNodeWithText(noAlarmString).performClick()
-
-        // Assert that the alarm item is not set again
-        val dialogTitle = context.getString(R.string.task_notification_permission_dialog_title)
-        composeTestRule.onNodeWithText(dialogTitle).assertIsDisplayed()
-    }
-
     private fun loadAlarmSelection(
         hasExactAlarmPermission: Boolean = true,
         shouldAskForNotificationPermission: Boolean = false
     ) {
-        setContent {
-            AlkaaTheme {
-                AlarmSelection(
-                    calendar = null,
-                    interval = AlarmInterval.NEVER,
-                    onAlarmUpdate = {},
-                    onIntervalSelect = {},
-                    hasAlarmPermission = { hasExactAlarmPermission },
-                    shouldCheckNotificationPermission = shouldAskForNotificationPermission
-                )
+        scenario.onActivity { activity ->
+            activity.setContent {
+                AlkaaTheme {
+                    AlarmSelection(
+                        calendar = null,
+                        interval = AlarmInterval.NEVER,
+                        onAlarmUpdate = {},
+                        onIntervalSelect = {},
+                        hasAlarmPermission = { hasExactAlarmPermission },
+                        shouldCheckNotificationPermission = shouldAskForNotificationPermission
+                    )
+                }
             }
         }
     }
@@ -162,16 +175,18 @@ internal class AlarmSelectionTest : FlakyTest() {
         calendar: Calendar,
         alarmInterval: AlarmInterval
     ) {
-        setContent {
-            AlkaaTheme {
-                AlarmSelection(
-                    calendar = calendar,
-                    interval = alarmInterval,
-                    onAlarmUpdate = {},
-                    onIntervalSelect = {},
-                    hasAlarmPermission = { true },
-                    shouldCheckNotificationPermission = false
-                )
+        scenario.onActivity { activity ->
+            activity.setContent {
+                AlkaaTheme {
+                    AlarmSelection(
+                        calendar = calendar,
+                        interval = alarmInterval,
+                        onAlarmUpdate = {},
+                        onIntervalSelect = {},
+                        hasAlarmPermission = { true },
+                        shouldCheckNotificationPermission = false
+                    )
+                }
             }
         }
     }

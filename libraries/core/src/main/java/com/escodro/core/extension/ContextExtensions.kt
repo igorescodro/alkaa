@@ -99,6 +99,7 @@ fun Context.openUrl(url: String) {
  *
  * @return the version name of the application.
  */
+@Suppress("Deprecation") // SDK below Tiramisu needs to access the deprecated version
 fun Context.getVersionName(): String {
     var packageInfo: PackageInfo? = null
     packageName.let {

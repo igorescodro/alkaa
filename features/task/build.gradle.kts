@@ -14,6 +14,7 @@ dependencies {
     androidTestImplementation(projects.libraries.test)
 
     implementation(libs.androidx.playcore)
+    implementation(libs.compose.activity)
 
     implementation(libs.koin.android)
     implementation(libs.koin.compose)

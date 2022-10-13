@@ -47,12 +47,14 @@ import java.util.Locale
 fun PreferenceSection(
     modifier: Modifier = Modifier,
     onAboutClick: () -> Unit,
-    onTrackerClick: () -> Unit
+    onTrackerClick: () -> Unit,
+    onOpenSourceClick: () -> Unit
 ) {
     PreferenceLoader(
         modifier = modifier,
         onAboutClick = onAboutClick,
-        onTrackerClick = onTrackerClick
+        onTrackerClick = onTrackerClick,
+        onOpenSourceClick = onOpenSourceClick
     )
 }
 
@@ -61,6 +63,7 @@ private fun PreferenceLoader(
     modifier: Modifier = Modifier,
     onAboutClick: () -> Unit,
     onTrackerClick: () -> Unit,
+    onOpenSourceClick: () -> Unit,
     viewModel: PreferenceViewModel = getViewModel()
 ) {
     val theme by remember(viewModel) {
@@ -71,6 +74,7 @@ private fun PreferenceLoader(
         modifier = modifier,
         onAboutClick = onAboutClick,
         onTrackerClick = onTrackerClick,
+        onOpenSourceClick = onOpenSourceClick,
         theme = theme,
         onThemeUpdate = viewModel::updateTheme
     )
@@ -81,6 +85,7 @@ internal fun PreferenceContent(
     modifier: Modifier = Modifier,
     onAboutClick: () -> Unit,
     onTrackerClick: () -> Unit,
+    onOpenSourceClick: () -> Unit,
     theme: AppThemeOptions,
     onThemeUpdate: (AppThemeOptions) -> Unit
 ) {
@@ -90,7 +95,8 @@ internal fun PreferenceContent(
         Separator()
         PreferenceTitle(title = stringResource(id = R.string.preference_title_settings))
         ThemeItem(currentTheme = theme, onThemeUpdate = onThemeUpdate)
-        AboutItem(onAboutClick)
+        AboutItem(onAboutClick = onAboutClick)
+        OpenSourceLibraryItem(onOpenSourceClick = onOpenSourceClick)
         VersionItem()
     }
 }
@@ -150,6 +156,14 @@ private fun AboutItem(onAboutClick: () -> Unit) {
 }
 
 @Composable
+fun OpenSourceLibraryItem(onOpenSourceClick: () -> Unit) {
+    PreferenceItem(
+        title = stringResource(id = R.string.preference_title_open_source),
+        onItemClick = onOpenSourceClick
+    )
+}
+
+@Composable
 @Suppress("MagicNumber")
 private fun VersionItem() {
     val title = stringResource(id = R.string.preference_title_version)
@@ -192,6 +206,6 @@ private const val EasterEggUrl = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
 @Composable
 fun PreferencePreview() {
     AlkaaTheme {
-        PreferenceSection(onAboutClick = {}, onTrackerClick = {})
+        PreferenceSection(onAboutClick = {}, onTrackerClick = {}, onOpenSourceClick = {})
     }
 }

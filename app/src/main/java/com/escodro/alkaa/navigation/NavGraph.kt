@@ -20,6 +20,7 @@ import com.escodro.navigation.DestinationArgs
 import com.escodro.navigation.DestinationDeepLink
 import com.escodro.navigation.Destinations
 import com.escodro.preference.presentation.About
+import com.escodro.preference.presentation.OpenSource
 import com.escodro.splitinstall.LoadFeature
 import com.escodro.task.presentation.add.AddTaskBottomSheet
 import com.escodro.task.presentation.detail.main.TaskDetailSection
@@ -68,6 +69,7 @@ fun NavGraph(startDestination: String = Destinations.Home) {
                     onTaskClick = actions.openTaskDetail,
                     onAboutClick = actions.openAbout,
                     onTrackerClick = actions.openTracker,
+                    onOpenSourceClick = actions.openOpenSourceLicense,
                     onTaskSheetOpen = actions.openTaskBottomSheet,
                     onCategorySheetOpen = actions.openCategoryBottomSheet
                 )
@@ -101,10 +103,12 @@ fun NavGraph(startDestination: String = Destinations.Home) {
                 )
             }
 
-            composable(
-                route = Destinations.About
-            ) {
+            composable(route = Destinations.About) {
                 About(onUpPress = actions.navigateUp)
+            }
+
+            composable(route = Destinations.OpenSource) {
+                OpenSource(onUpPress = actions.navigateUp)
             }
 
             bottomSheet(Destinations.BottomSheet.Task) {
@@ -162,6 +166,10 @@ internal data class Actions(val navController: NavHostController, val context: C
 
     val openTracker: () -> Unit = {
         navController.navigate(Destinations.Tracker)
+    }
+
+    val openOpenSourceLicense: () -> Unit = {
+        navController.navigate(Destinations.OpenSource)
     }
 
     val openTaskBottomSheet: () -> Unit = {

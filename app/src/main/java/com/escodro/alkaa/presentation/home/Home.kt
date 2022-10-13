@@ -35,6 +35,7 @@ fun Home(
     onTaskClick: (Long) -> Unit,
     onAboutClick: () -> Unit,
     onTrackerClick: () -> Unit,
+    onOpenSourceClick: () -> Unit,
     onTaskSheetOpen: () -> Unit,
     onCategorySheetOpen: (Long?) -> Unit
 ) {
@@ -45,6 +46,7 @@ fun Home(
         onTaskClick = onTaskClick,
         onAboutClick = onAboutClick,
         onTrackerClick = onTrackerClick,
+        onOpenSourceClick = onOpenSourceClick,
         onTaskSheetOpen = onTaskSheetOpen,
         onCategorySheetOpen = onCategorySheetOpen,
         setCurrentSection = setCurrentSection
@@ -108,7 +110,8 @@ private fun AlkaaContent(
             PreferenceSection(
                 modifier = modifier,
                 onAboutClick = actions.onAboutClick,
-                onTrackerClick = actions.onTrackerClick
+                onTrackerClick = actions.onTrackerClick,
+                onOpenSourceClick = actions.onOpenSourceClick
             )
     }
 }

@@ -121,6 +121,35 @@ private fun TrackerItem(onTrackerClick: () -> Unit) {
 }
 
 @Composable
+private fun ThemeItem(
+    currentTheme: AppThemeOptions,
+    onThemeUpdate: (AppThemeOptions) -> Unit
+) {
+    var isDialogOpen by remember { mutableStateOf(false) }
+
+    PreferenceItem(
+        title = stringResource(id = R.string.preference_title_app_theme),
+        description = stringResource(id = currentTheme.titleRes),
+        onItemClick = { isDialogOpen = true }
+    )
+
+    AppThemeDialog(
+        isDialogOpen = isDialogOpen,
+        onDismissRequest = { isDialogOpen = false },
+        currentTheme = currentTheme,
+        onThemeUpdate = onThemeUpdate
+    )
+}
+
+@Composable
+private fun AboutItem(onAboutClick: () -> Unit) {
+    PreferenceItem(
+        title = stringResource(id = R.string.preference_title_about),
+        onItemClick = onAboutClick
+    )
+}
+
+@Composable
 @Suppress("MagicNumber")
 private fun VersionItem() {
     val title = stringResource(id = R.string.preference_title_version)
@@ -143,35 +172,6 @@ private fun VersionItem() {
     }
 
     PreferenceItem(title = title, description = version, onItemClick = onClick)
-}
-
-@Composable
-private fun AboutItem(onAboutClick: () -> Unit) {
-    PreferenceItem(
-        title = stringResource(id = R.string.preference_title_about),
-        onItemClick = onAboutClick
-    )
-}
-
-@Composable
-private fun ThemeItem(
-    currentTheme: AppThemeOptions,
-    onThemeUpdate: (AppThemeOptions) -> Unit
-) {
-    var isDialogOpen by remember { mutableStateOf(false) }
-
-    PreferenceItem(
-        title = stringResource(id = R.string.preference_title_app_theme),
-        description = stringResource(id = currentTheme.titleRes),
-        onItemClick = { isDialogOpen = true }
-    )
-
-    AppThemeDialog(
-        isDialogOpen = isDialogOpen,
-        onDismissRequest = { isDialogOpen = false },
-        currentTheme = currentTheme,
-        onThemeUpdate = onThemeUpdate
-    )
 }
 
 @Composable

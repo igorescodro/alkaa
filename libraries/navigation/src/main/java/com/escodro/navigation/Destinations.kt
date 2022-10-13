@@ -26,7 +26,7 @@ object Destinations {
     const val About = "about"
 
     /**
-     * Open Source Libraries destination
+     * Open Source Libraries destination.
      */
     const val OpenSource = "open_source"
 

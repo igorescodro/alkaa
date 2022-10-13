@@ -30,6 +30,7 @@ import com.escodro.task.presentation.list.TaskListSection
 /**
  * Alkaa Home screen.
  */
+@Suppress("LongParameterList")
 @Composable
 fun Home(
     onTaskClick: (Long) -> Unit,

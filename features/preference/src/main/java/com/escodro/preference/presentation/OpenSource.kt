@@ -31,7 +31,7 @@ private fun OpenSourceContent(modifier: Modifier) {
             backgroundColor = MaterialTheme.colorScheme.background,
             contentColor = MaterialTheme.colorScheme.onBackground,
             badgeContentColor = MaterialTheme.colorScheme.onPrimary,
-            badgeBackgroundColor = MaterialTheme.colorScheme.primary,
+            badgeBackgroundColor = MaterialTheme.colorScheme.primary
         ),
         onLibraryClick = {} // Library is not working properly and crashing when clicked
     )

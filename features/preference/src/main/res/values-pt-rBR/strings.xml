@@ -11,5 +11,6 @@
     <string name="preference_system_default_theme">Padrão do sistema</string>
     <string name="preference_title_features">Funcionalidades</string>
     <string name="preference_title_settings">Preferências</string>
+    <string name="preference_title_open_source">Licenças de código aberto</string>
 
 </resources>

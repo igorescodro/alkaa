@@ -5,6 +5,7 @@ plugins {
     id("kotlin-android")
     id("com.escodro.kotlin-quality")
     id("kotlin-parcelize")
+    id("com.mikepenz.aboutlibraries.plugin")
 }
 
 android {

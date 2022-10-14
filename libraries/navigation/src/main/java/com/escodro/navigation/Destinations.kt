@@ -26,6 +26,11 @@ object Destinations {
     const val About = "about"
 
     /**
+     * Open Source Libraries destination.
+     */
+    const val OpenSource = "open_source"
+
+    /**
      * Task Tracker dynamic feature destination.
      */
     const val Tracker = "tracker"

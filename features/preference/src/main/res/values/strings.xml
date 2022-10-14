@@ -13,5 +13,6 @@
     <string name="preference_system_default_theme">System default</string>
     <string name="preference_title_features">Features</string>
     <string name="preference_title_settings">Settings</string>
+    <string name="preference_title_open_source">Open source licenses</string>
 
 </resources>

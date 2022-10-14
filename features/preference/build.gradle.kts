@@ -9,6 +9,7 @@ dependencies {
 
     implementation(libs.koin.android)
     implementation(libs.koin.compose)
+    implementation(libs.aboutlibraries.ui)
 
     testImplementation(projects.libraries.test)
     androidTestImplementation(projects.libraries.test)

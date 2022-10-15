@@ -52,7 +52,7 @@ ktlint = "0.47.1"
 detekt = "1.21.0"
 
 # License
-aboutlibraries = "10.5.0"
+aboutlibraries = "10.5.1"
 
 [libraries]
 # Project

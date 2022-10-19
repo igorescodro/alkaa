@@ -29,6 +29,7 @@ internal fun AlarmPermissionDialog(
                 val intent = Intent().apply {
                     flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     action = Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM
+                    data = Uri.fromParts("package", context.packageName, null)
                 }
                 context.startActivity(intent)
                 onCloseDialog()

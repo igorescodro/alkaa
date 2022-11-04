@@ -2,6 +2,7 @@ package com.escodro.alkaa
 
 import androidx.annotation.StringRes
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
@@ -44,6 +45,17 @@ internal class PreferenceFlowTest {
         with(composeTestRule) {
             onNodeWithText(string(PrefR.string.preference_title_about)).performClick()
             onNodeWithText(string(CoreR.string.app_name), ignoreCase = true).assertExists()
+        }
+    }
+
+    @Test
+    fun test_openOpenSourceLicense() {
+        with(composeTestRule) {
+            onNodeWithText(string(PrefR.string.preference_title_open_source)).performClick()
+
+            // This library is very likely to appear
+            onAllNodesWithText("AboutLibraries Library")[0].performClick()
+            onNodeWithText("OK").performClick()
         }
     }
 

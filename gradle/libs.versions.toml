@@ -31,7 +31,7 @@ coroutines = "1.6.4"
 room = "2.4.3"
 
 # Koin
-koin = "3.2.0"
+koin = "3.2.2"
 
 # Accompanist
 accompanist = "0.25.1"

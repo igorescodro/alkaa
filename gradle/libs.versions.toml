@@ -4,7 +4,7 @@ android_gradle_plugin = "7.3.1"
 kotlin = "1.7.0"
 
 # General dependencies
-logging = "3.0.2"
+logging = "3.0.4"
 logback = "1.2.11"
 logcat = "0.1"
 

@@ -13,8 +13,6 @@ jobs:
 
     strategy:
       fail-fast: false
-      matrix:
-        api-level: [ 24, 26, 28, 29, 30 ]
 
     steps:
       - name: Checkout
@@ -29,23 +27,11 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v2
 
-      - name: Determine emulator target
-        id: determine-target
-        env:
-          API_LEVEL: ${{ matrix.api-level }}
-        run: |
-          TARGET="default"
-          if [ "$API_LEVEL" -ge "29" ]; then
-            TARGET="google_apis"
-          fi
-          echo "::set-output name=TARGET::$TARGET"
-
       - name: Run instrumented tests
         # run: ./gradlew alkaaDevicesGroupDebugAndroidTest -Pandroid.testoptions.manageddevices.emulator.gpu="swiftshader_indirect"
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: ${{ matrix.api-level }}
-          target: ${{ steps.determine-target.outputs.TARGET }}
+          api-level: 24
           profile: Galaxy Nexus
           disable-animations: true
           disk-size: 2000M

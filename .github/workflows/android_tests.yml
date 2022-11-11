@@ -1,6 +1,12 @@
 name: instrumented tests
 
-on: [ push ]
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '**.md'
+  pull_request:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}

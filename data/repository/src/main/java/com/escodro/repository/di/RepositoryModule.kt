@@ -15,6 +15,9 @@ import com.escodro.repository.mapper.AppThemeOptionsMapper
 import com.escodro.repository.mapper.CategoryMapper
 import com.escodro.repository.mapper.TaskMapper
 import com.escodro.repository.mapper.TaskWithCategoryMapper
+import org.koin.core.module.dsl.factoryOf
+import org.koin.core.module.dsl.singleOf
+import org.koin.dsl.bind
 import org.koin.dsl.module
 
 /**
@@ -23,16 +26,16 @@ import org.koin.dsl.module
 val repositoryModule = module {
 
     // Repositories
-    single<TaskRepository> { TaskRepositoryImpl(get(), get()) }
-    single<CategoryRepository> { CategoryRepositoryImpl(get(), get()) }
-    single<TaskWithCategoryRepository> { TaskWithCategoryRepositoryImpl(get(), get()) }
-    single<SearchRepository> { SearchRepositoryImpl(get(), get()) }
-    single<PreferencesRepository> { PreferencesRepositoryImpl(get(), get()) }
+    singleOf(::TaskRepositoryImpl) bind TaskRepository::class
+    singleOf(::CategoryRepositoryImpl) bind CategoryRepository::class
+    singleOf(::TaskWithCategoryRepositoryImpl) bind TaskWithCategoryRepository::class
+    singleOf(::SearchRepositoryImpl) bind SearchRepository::class
+    singleOf(::PreferencesRepositoryImpl) bind PreferencesRepository::class
 
     // Mappers
-    factory { AlarmIntervalMapper() }
-    factory { TaskMapper(get()) }
-    factory { CategoryMapper() }
-    factory { TaskWithCategoryMapper(get(), get()) }
-    factory { AppThemeOptionsMapper() }
+    factoryOf(::AlarmIntervalMapper)
+    factoryOf(::TaskMapper)
+    factoryOf(::CategoryMapper)
+    factoryOf(::TaskWithCategoryMapper)
+    factoryOf(::AppThemeOptionsMapper)
 }

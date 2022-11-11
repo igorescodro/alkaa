@@ -3,7 +3,9 @@ package com.escodro.datastore.di
 import com.escodro.datastore.datasource.PreferencesDataSourceImpl
 import com.escodro.datastore.mapper.AppThemeOptionsMapper
 import com.escodro.repository.datasource.PreferencesDataSource
-import org.koin.android.ext.koin.androidContext
+import org.koin.core.module.dsl.factoryOf
+import org.koin.core.module.dsl.singleOf
+import org.koin.dsl.bind
 import org.koin.dsl.module
 
 /**
@@ -12,8 +14,8 @@ import org.koin.dsl.module
 val dataStoreModule = module {
 
     // Data Source
-    factory<PreferencesDataSource> { PreferencesDataSourceImpl(androidContext(), get()) }
+    singleOf(::PreferencesDataSourceImpl) bind PreferencesDataSource::class
 
     // Mappers
-    factory { AppThemeOptionsMapper() }
+    factoryOf(::AppThemeOptionsMapper)
 }

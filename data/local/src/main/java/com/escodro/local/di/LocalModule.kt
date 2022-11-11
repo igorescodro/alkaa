@@ -14,6 +14,9 @@ import com.escodro.repository.datasource.CategoryDataSource
 import com.escodro.repository.datasource.SearchDataSource
 import com.escodro.repository.datasource.TaskDataSource
 import com.escodro.repository.datasource.TaskWithCategoryDataSource
+import org.koin.core.module.dsl.factoryOf
+import org.koin.core.module.dsl.singleOf
+import org.koin.dsl.bind
 import org.koin.dsl.module
 
 /**
@@ -22,18 +25,18 @@ import org.koin.dsl.module
 val localModule = module {
 
     // Data Sources
-    single<TaskDataSource> { TaskLocalDataSource(get(), get()) }
-    single<CategoryDataSource> { CategoryLocalDataSource(get(), get()) }
-    single<TaskWithCategoryDataSource> { TaskWithCategoryLocalDataSource(get(), get()) }
-    single<SearchDataSource> { SearchLocalDataSource(get(), get()) }
+    singleOf(::TaskLocalDataSource) bind TaskDataSource::class
+    singleOf(::CategoryLocalDataSource) bind CategoryDataSource::class
+    singleOf(::TaskWithCategoryLocalDataSource) bind TaskWithCategoryDataSource::class
+    singleOf(::SearchLocalDataSource) bind SearchDataSource::class
 
     // Mappers
-    factory { AlarmIntervalMapper() }
-    factory { TaskMapper(get()) }
-    factory { CategoryMapper() }
-    factory { TaskWithCategoryMapper(get(), get()) }
+    factoryOf(::AlarmIntervalMapper)
+    factoryOf(::TaskMapper)
+    factoryOf(::CategoryMapper)
+    factoryOf(::TaskWithCategoryMapper)
 
     // Providers
-    single { DatabaseProvider(get(), get()) }
-    single { DaoProvider(get()) }
+    singleOf(::DatabaseProvider)
+    singleOf(::DaoProvider)
 }

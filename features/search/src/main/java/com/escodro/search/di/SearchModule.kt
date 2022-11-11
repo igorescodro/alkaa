@@ -2,7 +2,8 @@ package com.escodro.search.di
 
 import com.escodro.search.mapper.TaskSearchMapper
 import com.escodro.search.presentation.SearchViewModel
-import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.androidx.viewmodel.dsl.viewModelOf
+import org.koin.core.module.dsl.factoryOf
 import org.koin.dsl.module
 
 /**
@@ -11,8 +12,8 @@ import org.koin.dsl.module
 val searchModule = module {
 
     // Presentation
-    viewModel { SearchViewModel(get(), get()) }
+    viewModelOf(::SearchViewModel)
 
     // Mappers
-    factory { TaskSearchMapper() }
+    factoryOf(::TaskSearchMapper)
 }

@@ -8,7 +8,8 @@ import com.escodro.task.presentation.add.AddTaskViewModel
 import com.escodro.task.presentation.detail.alarm.TaskAlarmViewModel
 import com.escodro.task.presentation.detail.main.TaskDetailViewModel
 import com.escodro.task.presentation.list.TaskListViewModel
-import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.androidx.viewmodel.dsl.viewModelOf
+import org.koin.core.module.dsl.factoryOf
 import org.koin.dsl.module
 
 /**
@@ -17,14 +18,14 @@ import org.koin.dsl.module
 val taskModule = module {
 
     // Presentation
-    viewModel { TaskListViewModel(get(), get(), get()) }
-    viewModel { TaskDetailViewModel(get(), get(), get(), get(), get(), get()) }
-    viewModel { TaskAlarmViewModel(get(), get(), get(), get()) }
-    viewModel { AddTaskViewModel(get()) }
+    viewModelOf(::TaskListViewModel)
+    viewModelOf(::TaskDetailViewModel)
+    viewModelOf(::TaskAlarmViewModel)
+    viewModelOf(::AddTaskViewModel)
 
     // Mappers
-    factory { AlarmIntervalMapper() }
-    factory { TaskMapper(get()) }
-    factory { TaskWithCategoryMapper(get(), get()) }
-    factory { CategoryMapper() }
+    factoryOf(::AlarmIntervalMapper)
+    factoryOf(::TaskMapper)
+    factoryOf(::TaskWithCategoryMapper)
+    factoryOf(::CategoryMapper)
 }

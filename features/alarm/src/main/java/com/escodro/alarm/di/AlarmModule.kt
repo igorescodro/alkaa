@@ -14,7 +14,8 @@ import com.escodro.alarm.permission.PermissionCheckerImpl
 import com.escodro.alarmapi.AlarmPermission
 import com.escodro.domain.interactor.AlarmInteractor
 import com.escodro.domain.interactor.NotificationInteractor
-import org.koin.android.ext.koin.androidContext
+import org.koin.core.module.dsl.factoryOf
+import org.koin.dsl.bind
 import org.koin.dsl.module
 
 /**
@@ -22,16 +23,16 @@ import org.koin.dsl.module
  */
 val alarmModule = module {
 
-    factory { TaskNotificationScheduler(androidContext()) }
-    factory { TaskNotificationChannel(androidContext()) }
-    factory { TaskNotification(androidContext(), get(), get()) }
+    factoryOf(::TaskNotificationScheduler)
+    factoryOf(::TaskNotificationChannel)
+    factoryOf(::TaskNotification)
 
-    factory { TaskMapper() }
+    factoryOf(::TaskMapper)
 
-    factory<AlarmInteractor> { AlarmInteractorImpl(get()) }
-    factory<NotificationInteractor> { NotificationInteractorImpl(get(), get()) }
+    factoryOf(::AlarmInteractorImpl) bind AlarmInteractor::class
+    factoryOf(::NotificationInteractorImpl) bind NotificationInteractor::class
 
-    factory<AndroidVersion> { AndroidVersionImpl() }
-    factory<PermissionChecker> { PermissionCheckerImpl(androidContext()) }
-    factory<AlarmPermission> { AlarmPermissionImpl(get(), get()) }
+    factoryOf(::AndroidVersionImpl) bind AndroidVersion::class
+    factoryOf(::PermissionCheckerImpl) bind PermissionChecker::class
+    factoryOf(::AlarmPermissionImpl) bind AlarmPermission::class
 }

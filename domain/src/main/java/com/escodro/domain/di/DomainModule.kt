@@ -48,6 +48,8 @@ import com.escodro.domain.usecase.taskwithcategory.LoadUncompletedTasks
 import com.escodro.domain.usecase.taskwithcategory.implementation.LoadUncompletedTasksImpl
 import com.escodro.domain.usecase.tracker.LoadCompletedTasksByPeriod
 import com.escodro.domain.usecase.tracker.implementation.LoadCompletedTasksByPeriodImpl
+import org.koin.core.module.dsl.factoryOf
+import org.koin.dsl.bind
 import org.koin.dsl.module
 
 /**
@@ -56,47 +58,47 @@ import org.koin.dsl.module
 val domainModule = module {
 
     // Task Use Cases
-    factory<AddTask> { AddTaskImpl(get(), get()) }
-    factory { CompleteTask(get(), get(), get(), get()) }
-    factory { UncompleteTask(get()) }
-    factory<UpdateTaskStatus> { UpdateTaskStatusImpl(get(), get(), get(), get()) }
-    factory { DeleteTask(get(), get()) }
-    factory<LoadTask> { LoadTaskImpl(get()) }
-    factory<UpdateTask> { UpdateTaskImpl(get(), get()) }
-    factory<UpdateTaskTitle> { UpdateTaskTitleImpl(get(), get(), get()) }
-    factory<UpdateTaskDescription> { UpdateTaskDescriptionImpl(get(), get()) }
-    factory<UpdateTaskCategory> { UpdateTaskCategoryImpl(get(), get()) }
+    factoryOf(::AddTaskImpl) bind AddTask::class
+    factoryOf(::CompleteTask)
+    factoryOf(::UncompleteTask)
+    factoryOf(::UpdateTaskStatusImpl) bind UpdateTaskStatus::class
+    factoryOf(::DeleteTask)
+    factoryOf(::LoadTaskImpl) bind LoadTask::class
+    factoryOf(::UpdateTaskImpl) bind UpdateTask::class
+    factoryOf(::UpdateTaskTitleImpl) bind UpdateTaskTitle::class
+    factoryOf(::UpdateTaskDescriptionImpl) bind UpdateTaskDescription::class
+    factoryOf(::UpdateTaskCategoryImpl) bind UpdateTaskCategory::class
 
     // Category Use Cases
-    factory<DeleteCategory> { DeleteCategoryImpl(get()) }
-    factory<LoadAllCategories> { LoadAllCategoriesImpl(get()) }
-    factory<LoadCategory> { LoadCategoryImpl(get()) }
-    factory<AddCategory> { AddCategoryImpl(get()) }
-    factory<UpdateCategory> { UpdateCategoryImpl(get()) }
+    factory<DeleteCategory> { DeleteCategoryImpl(get()) } bind DeleteCategory::class
+    factory<LoadAllCategories> { LoadAllCategoriesImpl(get()) } bind LoadAllCategories::class
+    factory<LoadCategory> { LoadCategoryImpl(get()) } bind LoadCategory::class
+    factory<AddCategory> { AddCategoryImpl(get()) } bind AddCategory::class
+    factory<UpdateCategory> { UpdateCategoryImpl(get()) } bind UpdateCategory::class
 
     // Search Use Cases
-    factory<SearchTasksByName> { SearchTasksByNameImpl(get()) }
+    factory<SearchTasksByName> { SearchTasksByNameImpl(get()) } bind SearchTasksByName::class
 
     // Task With Category Use Cases
-    factory { LoadCompletedTasks(get()) }
-    factory<LoadUncompletedTasks> { LoadUncompletedTasksImpl(get()) }
+    factoryOf(::LoadCompletedTasks)
+    factoryOf(::LoadUncompletedTasksImpl) bind LoadUncompletedTasks::class
 
     // Alarm Use Cases
-    factory<CancelAlarm> { CancelAlarmImpl(get(), get()) }
-    factory { RescheduleFutureAlarms(get(), get(), get(), get()) }
-    factory<ScheduleAlarm> { ScheduleAlarmImpl(get(), get()) }
-    factory { ScheduleNextAlarm(get(), get(), get()) }
-    factory { ShowAlarm(get(), get(), get()) }
-    factory { SnoozeAlarm(get(), get(), get()) }
-    factory<UpdateTaskAsRepeating> { UpdateTaskAsRepeatingImpl(get()) }
+    factoryOf(::CancelAlarmImpl) bind CancelAlarm::class
+    factoryOf(::RescheduleFutureAlarms)
+    factoryOf(::ScheduleAlarmImpl) bind ScheduleAlarm::class
+    factoryOf(::ScheduleNextAlarm)
+    factoryOf(::ShowAlarm)
+    factoryOf(::SnoozeAlarm)
+    factoryOf(::UpdateTaskAsRepeatingImpl) bind UpdateTaskAsRepeating::class
 
     // Tracker Use Cases
-    factory<LoadCompletedTasksByPeriod> { LoadCompletedTasksByPeriodImpl(get()) }
+    factoryOf(::LoadCompletedTasksByPeriodImpl) bind LoadCompletedTasksByPeriod::class
 
     // Preferences Use Cases
-    factory { UpdateAppTheme(get()) }
-    factory { LoadAppTheme(get()) }
+    factoryOf(::UpdateAppTheme)
+    factoryOf(::LoadAppTheme)
 
     // Providers
-    factory<CalendarProvider> { CalendarProviderImpl() }
+    factoryOf(::CalendarProviderImpl) bind CalendarProvider::class
 }

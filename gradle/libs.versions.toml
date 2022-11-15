@@ -1,7 +1,7 @@
 [versions]
 # Project
 android_gradle_plugin = "7.3.1"
-kotlin = "1.7.0"
+kotlin = "1.7.20"
 
 # General dependencies
 logging = "3.0.4"
@@ -17,8 +17,8 @@ datastore = "1.0.0"
 glance = "1.0.0-alpha03"
 
 # Compose
-compose = "1.2.1"
-compose_compiler = "1.2.0"
+compose = "1.3.1"
+compose_compiler = "1.3.2"
 compose_nav = "2.5.3"
 compose_viewmodel = "2.5.1"
 compose_activity = "1.6.1"
@@ -34,7 +34,7 @@ room = "2.4.3"
 koin = "3.2.2"
 
 # Accompanist
-accompanist = "0.25.1"
+accompanist = "0.27.0"
 
 # Test
 test_junit = "4.13.2"

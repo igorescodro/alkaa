@@ -32,6 +32,7 @@ room = "2.4.3"
 
 # Koin
 koin = "3.2.2"
+koin_android = "3.3.0"
 
 # Accompanist
 accompanist = "0.27.0"
@@ -95,8 +96,8 @@ androidx_room_test = { module = "androidx.room:room-testing", version.ref = "roo
 
 #Koin
 koin_core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
-koin_android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
-koin_compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin" }
+koin_android = { module = "io.insert-koin:koin-android", version.ref = "koin_android" }
+koin_compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin_android" }
 koin_test = { module = "io.insert-koin:koin-test", version.ref = "koin" }
 
 # Accompanist

@@ -43,7 +43,7 @@ test_core = "1.4.0"
 test_mockk = "1.13.2"
 test_uiautomator = "2.2.0"
 test_junitext = "1.1.4"
-test_barista = "4.2.0"
+test_barista = "4.3.0"
 test_hamcrest = "2.2"
 test_orchestrator = "1.4.2"
 

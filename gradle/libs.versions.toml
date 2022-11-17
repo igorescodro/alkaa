@@ -7,6 +7,7 @@ kotlin = "1.7.20"
 logging = "3.0.4"
 logback = "1.2.11"
 logcat = "0.1"
+serialization = "1.4.1"
 
 # AndroidX
 material = "1.7.0"
@@ -15,6 +16,7 @@ corektx = "1.9.0"
 playcore = "1.10.3"
 datastore = "1.0.0"
 glance = "1.0.0-alpha05"
+workmanager = "2.7.1"
 
 # Compose
 compose = "1.3.1"
@@ -64,6 +66,7 @@ kotlin_gradle_plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", v
 logging = { module = "io.github.microutils:kotlin-logging", version.ref = "logging" }
 logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
 logcat = { module = "com.squareup.logcat:logcat", version.ref = "logcat" }
+serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }
 
 # AndroidX
 androidx_material = { module = "com.google.android.material:material", version.ref = "material" }
@@ -71,6 +74,7 @@ androidx_corektx = { module = "androidx.core:core-ktx", version.ref = "corektx" 
 androidx_playcore = { module = "com.google.android.play:core", version.ref = "playcore" }
 androidx_datastore = { module = "androidx.datastore:datastore-preferences", version.ref = "datastore" }
 androidx_glance = { module = "androidx.glance:glance-appwidget", version.ref = "glance" }
+androidx_workmanager = { module = "androidx.work:work-runtime-ktx", version.ref = "workmanager" }
 
 compose_ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
 compose_material = { module = "androidx.compose.material:material", version.ref = "compose" }

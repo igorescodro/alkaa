@@ -1,14 +1,13 @@
 package com.escodro.task.presentation.list
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.escodro.domain.usecase.task.UpdateTaskStatus
 import com.escodro.domain.usecase.taskwithcategory.LoadUncompletedTasks
 import com.escodro.task.mapper.TaskWithCategoryMapper
 import com.escodro.task.model.TaskWithCategory
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -20,6 +19,7 @@ import kotlinx.coroutines.launch
 internal class TaskListViewModel(
     private val loadAllTasksUseCase: LoadUncompletedTasks,
     private val updateTaskStatusUseCase: UpdateTaskStatus,
+    private val applicationScope: CoroutineScope,
     private val taskWithCategoryMapper: TaskWithCategoryMapper
 ) : ViewModel() {
 
@@ -37,7 +37,7 @@ internal class TaskListViewModel(
             }
     }
 
-    fun updateTaskStatus(item: TaskWithCategory) = viewModelScope.launch {
+    fun updateTaskStatus(item: TaskWithCategory) = applicationScope.launch {
         updateTaskStatusUseCase(item.task.id)
     }
 }

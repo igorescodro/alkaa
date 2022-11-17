@@ -10,6 +10,7 @@ import com.escodro.categoryapi.model.Category
 import com.escodro.test.CoroutineTestRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Before
@@ -19,6 +20,9 @@ import org.junit.Test
 @OptIn(ExperimentalCoroutinesApi::class)
 internal class CategoryEditViewModelTest {
 
+    @get:Rule
+    val coroutinesRule = CoroutineTestRule()
+
     private val loadCategoryFake = LoadCategoryFake()
 
     private val updateCategory = UpdateCategoryFake()
@@ -27,11 +31,13 @@ internal class CategoryEditViewModelTest {
 
     private val mapper = CategoryMapper()
 
-    private val viewModel =
-        CategoryEditViewModel(loadCategoryFake, updateCategory, deleteCategory, mapper)
-
-    @get:Rule
-    val coroutinesRule = CoroutineTestRule()
+    private val viewModel = CategoryEditViewModel(
+        loadCategoryUseCase = loadCategoryFake,
+        updateCategoryUseCase = updateCategory,
+        deleteCategoryUseCase = deleteCategory,
+        applicationScope = TestScope(coroutinesRule.testDispatcher),
+        mapper = mapper
+    )
 
     @Before
     fun setup() {

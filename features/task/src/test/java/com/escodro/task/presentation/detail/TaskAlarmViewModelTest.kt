@@ -9,6 +9,7 @@ import com.escodro.task.presentation.fake.ScheduleAlarmFake
 import com.escodro.task.presentation.fake.UpdateTaskAsRepeatingFake
 import com.escodro.test.CoroutineTestRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Rule
@@ -29,8 +30,13 @@ internal class TaskAlarmViewModelTest {
 
     private val alarmIntervalMapper = AlarmIntervalMapper()
 
-    private val viewModel =
-        TaskAlarmViewModel(scheduleAlarm, updateTaskAsRepeating, cancelAlarm, alarmIntervalMapper)
+    private val viewModel = TaskAlarmViewModel(
+        scheduleAlarmUseCase = scheduleAlarm,
+        updateTaskAsRepeatingUseCase = updateTaskAsRepeating,
+        cancelAlarmUseCase = cancelAlarm,
+        applicationScope = TestScope(coroutineTestRule.testDispatcher),
+        alarmIntervalMapper = alarmIntervalMapper
+    )
 
     @Test
     fun `test if alarm is set`() = runTest {

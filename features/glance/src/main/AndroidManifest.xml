@@ -4,7 +4,7 @@
 
     <application>
         <receiver
-            android:name=".presentation.TaskListGlanceReceiver"
+            android:name=".data.TaskListGlanceReceiver"
             android:exported="false">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />

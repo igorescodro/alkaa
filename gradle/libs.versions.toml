@@ -8,6 +8,7 @@ logging = "3.0.4"
 logback = "1.2.11"
 logcat = "0.1"
 serialization = "1.4.1"
+kotlinx_collections_immutable = "0.3.5"
 
 # AndroidX
 material = "1.7.0"
@@ -68,6 +69,8 @@ logging = { module = "io.github.microutils:kotlin-logging", version.ref = "loggi
 logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
 logcat = { module = "com.squareup.logcat:logcat", version.ref = "logcat" }
 serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }
+kotlinx_collections_immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "kotlinx_collections_immutable" }
+
 
 # AndroidX
 androidx_material = { module = "com.google.android.material:material", version.ref = "material" }

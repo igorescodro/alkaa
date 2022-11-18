@@ -53,6 +53,7 @@ test_orchestrator = "1.4.2"
 # Quality
 ktlint = "0.47.1"
 detekt = "1.21.0"
+composerules = "0.0.24"
 
 # License
 aboutlibraries = "10.5.1"
@@ -124,6 +125,7 @@ test_orchestrator = { module = "androidx.test:orchestrator", version.ref = "test
 # Quality
 ktlint = { module = "com.pinterest:ktlint", version.ref = "ktlint" }
 detekt = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }
+composerules = { module = "com.twitter.compose.rules:detekt", version.ref = "composerules" }
 
 # License
 aboutlibraries_plugin = { module = "com.mikepenz.aboutlibraries.plugin:aboutlibraries-plugin", version.ref = "aboutlibraries" }

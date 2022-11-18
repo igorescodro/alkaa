@@ -12,6 +12,12 @@ val libs: VersionCatalog = extensions.getByType<VersionCatalogsExtension>().name
 android {
     androidConfig()
     proguardConfig()
+
+    packagingOptions {
+        resources.excludes.apply {
+            add("META-INF/INDEX.LIST")
+        }
+    }
 }
 
 dependencies {

@@ -25,10 +25,11 @@ dependencies {
 
     implementation(libs.koin.android)
     implementation(libs.koin.compose)
-    implementation(libs.coroutines.core)
+    implementation(libs.kotlinx.coroutines.core)
     implementation(libs.compose.activity)
 
     implementation(libs.bundles.compose)
+    implementation(libs.kotlinx.collections.immutable)
 
     androidTestImplementation(libs.bundles.composetest) {
         exclude(group = "androidx.core", module = "core-ktx")

@@ -36,18 +36,18 @@ import java.util.Calendar
 /**
  * Alkaa Task Item.
  *
- * @param modifier the decorator
  * @param task the task item to be rendered
  * @param onItemClick the action to be done when the item is clicked
  * @param onCheckedChange action to be called when the checked value changes
+ * @param modifier the decorator
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun TaskItem(
-    modifier: Modifier = Modifier,
     task: TaskWithCategory,
     onItemClick: (Long) -> Unit,
-    onCheckedChange: (TaskWithCategory) -> Unit
+    onCheckedChange: (TaskWithCategory) -> Unit,
+    modifier: Modifier = Modifier
 ) {
     ElevatedCard(
         elevation = CardDefaults.elevatedCardElevation(4.dp),
@@ -60,14 +60,14 @@ internal fun TaskItem(
         Row {
             CardRibbon(colorInt = task.category?.color)
             RadioButton(
-                modifier = modifier
+                modifier = Modifier
                     .fillMaxHeight()
                     .semantics { checkboxName = task.task.title },
                 selected = task.task.completed,
                 onClick = { onCheckedChange(task) }
             )
             Spacer(Modifier.width(8.dp))
-            Column(modifier = modifier.fillMaxHeight(), verticalArrangement = Arrangement.Center) {
+            Column(modifier = Modifier.fillMaxHeight(), verticalArrangement = Arrangement.Center) {
                 Text(
                     text = task.task.title,
                     style = MaterialTheme.typography.bodyLarge,

@@ -23,9 +23,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.escodro.tracker.R
 import com.escodro.tracker.model.Tracker
+import kotlinx.collections.immutable.ImmutableList
 
 @Composable
-internal fun TaskTrackerList(list: List<Tracker.CategoryInfo>, modifier: Modifier = Modifier) {
+internal fun TaskTrackerList(
+    list: ImmutableList<Tracker.CategoryInfo>,
+    modifier: Modifier = Modifier
+) {
     LazyColumn(modifier = modifier) {
         items(list) { item ->
             TrackerItem(item)

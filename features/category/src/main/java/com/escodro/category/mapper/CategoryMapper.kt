@@ -2,13 +2,15 @@ package com.escodro.category.mapper
 
 import android.graphics.Color
 import com.escodro.core.extension.toStringColor
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toImmutableList
 import com.escodro.categoryapi.model.Category as ViewCategory
 import com.escodro.domain.model.Category as DomainCategory
 
 internal class CategoryMapper {
 
-    fun toView(domainCategoryList: List<DomainCategory>): List<ViewCategory> =
-        domainCategoryList.map { toView(it) }
+    fun toView(domainCategoryList: List<DomainCategory>): ImmutableList<ViewCategory> =
+        domainCategoryList.map { toView(it) }.toImmutableList()
 
     fun toView(domainCategory: DomainCategory): ViewCategory =
         ViewCategory(

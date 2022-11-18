@@ -34,6 +34,7 @@ import com.escodro.tracker.R
 import com.escodro.tracker.model.Tracker
 import com.escodro.tracker.presentation.components.TaskGraph
 import com.escodro.tracker.presentation.components.TaskTrackerList
+import kotlinx.collections.immutable.ImmutableList
 import org.koin.androidx.compose.getViewModel
 
 @Composable
@@ -110,7 +111,10 @@ private fun TrackerError() {
 
 @Composable
 @Suppress("MagicNumber")
-private fun TaskTrackerInfoCard(list: List<Tracker.CategoryInfo>, modifier: Modifier = Modifier) {
+private fun TaskTrackerInfoCard(
+    list: ImmutableList<Tracker.CategoryInfo>,
+    modifier: Modifier = Modifier
+) {
     val taskCount = list.sumOf { item -> item.taskCount }
     val message = LocalContext.current.resources
         .getQuantityString(R.plurals.tracker_message_title, taskCount, taskCount)

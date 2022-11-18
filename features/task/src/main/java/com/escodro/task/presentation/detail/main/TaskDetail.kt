@@ -39,6 +39,7 @@ import com.escodro.task.presentation.detail.TaskDetailActions
 import com.escodro.task.presentation.detail.TaskDetailSectionContent
 import com.escodro.task.presentation.detail.alarm.AlarmSelection
 import com.escodro.task.presentation.detail.alarm.TaskAlarmViewModel
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.parcelize.Parcelize
 import org.koin.androidx.compose.get
 import org.koin.androidx.compose.getViewModel
@@ -226,7 +227,7 @@ fun TaskDetailPreview() {
     val category2 = Category(name = "Books", color = android.graphics.Color.RED)
     val category3 = Category(name = "Movies", color = android.graphics.Color.MAGENTA)
 
-    val categories = listOf(category1, category2, category3)
+    val categories = persistentListOf(category1, category2, category3)
 
     AlkaaTheme {
         TaskDetailContent(

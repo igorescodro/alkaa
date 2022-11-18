@@ -42,6 +42,8 @@ import com.escodro.designsystem.components.AlkaaLoadingContent
 import com.escodro.designsystem.components.DefaultIconTextContent
 import com.escodro.search.R
 import com.escodro.search.model.TaskSearchItem
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import org.koin.androidx.compose.getViewModel
 
 /**
@@ -57,8 +59,8 @@ fun SearchSection(modifier: Modifier = Modifier, onItemClick: (Long) -> Unit) {
 
 @Composable
 private fun SearchLoader(
-    modifier: Modifier = Modifier,
     onItemClick: (Long) -> Unit,
+    modifier: Modifier = Modifier,
     viewModel: SearchViewModel = getViewModel()
 ) {
     val (query, setQuery) = rememberSaveable { mutableStateOf("") }
@@ -78,11 +80,11 @@ private fun SearchLoader(
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 internal fun SearchScaffold(
-    modifier: Modifier = Modifier,
     viewState: SearchViewState,
     onItemClick: (Long) -> Unit,
     query: String,
-    setQuery: (String) -> Unit
+    setQuery: (String) -> Unit,
+    modifier: Modifier = Modifier
 ) {
     Scaffold(
         modifier = modifier.fillMaxSize()
@@ -132,7 +134,10 @@ private fun SearchEmptyContent() {
 }
 
 @Composable
-private fun SearchListContent(taskList: List<TaskSearchItem>, onItemClick: (Long) -> Unit) {
+private fun SearchListContent(
+    taskList: ImmutableList<TaskSearchItem>,
+    onItemClick: (Long) -> Unit
+) {
     LazyColumn {
         items(
             items = taskList,
@@ -198,7 +203,7 @@ fun SearchLoadedListPreview() {
         isRepeating = true
     )
 
-    val taskList = listOf(task1, task2)
+    val taskList = persistentListOf(task1, task2)
 
     AlkaaTheme {
         SearchScaffold(

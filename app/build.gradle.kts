@@ -121,6 +121,7 @@ dependencies {
     implementation(libs.koin.android)
 
     implementation(libs.bundles.compose)
+    implementation(libs.kotlinx.collections.immutable)
 
     androidTestUtil(libs.test.orchestrator)
 

@@ -20,10 +20,11 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import com.escodro.tracker.model.Tracker
+import kotlinx.collections.immutable.ImmutableList
 
 @Composable
 @Suppress("MagicNumber")
-internal fun TaskGraph(list: List<Tracker.CategoryInfo>, modifier: Modifier = Modifier) {
+internal fun TaskGraph(list: ImmutableList<Tracker.CategoryInfo>, modifier: Modifier = Modifier) {
     val currentState = remember {
         MutableTransitionState(AnimatedCircleProgress.START)
             .apply { targetState = AnimatedCircleProgress.END }

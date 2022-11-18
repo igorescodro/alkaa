@@ -8,7 +8,7 @@ dependencies {
     implementation(projects.libraries.navigation)
     implementation(projects.domain)
 
-    implementation(libs.coroutines.core)
+    implementation(libs.kotlinx.coroutines.core)
     implementation(libs.koin.android)
 
     testImplementation(libs.test.junit)

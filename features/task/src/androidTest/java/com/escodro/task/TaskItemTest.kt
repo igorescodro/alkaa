@@ -66,10 +66,15 @@ internal class TaskItemTest {
             .assertLines(lines = 1)
     }
 
-    private fun loadItemView(item: TaskWithCategory, onItemClicked: (Long) -> Unit) {
+    private fun loadItemView(item: TaskWithCategory, onItemClick: (Long) -> Unit) {
         composeTestRule.setContent {
             AlkaaTheme {
-                TaskItem(Modifier, item, onItemClicked, onCheckedChange = {})
+                TaskItem(
+                    task = item,
+                    modifier = Modifier,
+                    onItemClick = onItemClick,
+                    onCheckedChange = {}
+                )
             }
         }
     }

@@ -6,5 +6,5 @@ dependencies {
     implementation(projects.domain)
 
     implementation(libs.koin.core)
-    implementation(libs.coroutines.core)
+    implementation(libs.kotlinx.coroutines.core)
 }

@@ -9,6 +9,7 @@ import com.escodro.designsystem.AlkaaTheme
 import com.escodro.search.model.TaskSearchItem
 import com.escodro.search.presentation.SearchScaffold
 import com.escodro.search.presentation.SearchViewState
+import kotlinx.collections.immutable.persistentListOf
 import org.junit.Rule
 import org.junit.Test
 
@@ -39,7 +40,7 @@ internal class SearchSectionTest {
         // Given a success state
         val item1 = TaskSearchItem(1, false, "Buy cocoa", Color.Yellow, false)
         val item2 = TaskSearchItem(1, false, "Send gift", Color.Green, false)
-        val queryList = listOf(item1, item2)
+        val queryList = persistentListOf(item1, item2)
         val state = SearchViewState.Loaded(queryList)
 
         // When the view is loaded

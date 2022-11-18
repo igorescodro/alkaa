@@ -10,6 +10,7 @@ import com.escodro.task.model.Task
 import com.escodro.task.presentation.detail.TaskDetailActions
 import com.escodro.task.presentation.detail.main.TaskDetailRouter
 import com.escodro.task.presentation.detail.main.TaskDetailState
+import kotlinx.collections.immutable.persistentListOf
 import org.junit.Rule
 import org.junit.Test
 
@@ -59,7 +60,7 @@ internal class TaskDetailTest {
             AlkaaTheme {
                 TaskDetailRouter(
                     detailViewState = state,
-                    categoryViewState = CategoryState.Loaded(listOf()),
+                    categoryViewState = CategoryState.Loaded(persistentListOf()),
                     actions = TaskDetailActions()
                 )
             }

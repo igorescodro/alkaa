@@ -24,17 +24,17 @@ import org.koin.androidx.compose.getViewModel
 /**
  * Alkaa Preference Section.
  *
- * @param modifier the decorator
  * @param onAboutClick function to be called when the about item is clicked
  * @param onTrackerClick function to be called when the tracker item is clicked
  * @param onOpenSourceClick function to be called when the open source item is clicked
+ * @param modifier Compose modifier
  */
 @Composable
 fun PreferenceSection(
-    modifier: Modifier = Modifier,
     onAboutClick: () -> Unit,
     onTrackerClick: () -> Unit,
-    onOpenSourceClick: () -> Unit
+    onOpenSourceClick: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     PreferenceLoader(
         modifier = modifier,
@@ -46,10 +46,10 @@ fun PreferenceSection(
 
 @Composable
 private fun PreferenceLoader(
-    modifier: Modifier = Modifier,
     onAboutClick: () -> Unit,
     onTrackerClick: () -> Unit,
     onOpenSourceClick: () -> Unit,
+    modifier: Modifier = Modifier,
     viewModel: PreferenceViewModel = getViewModel()
 ) {
     val theme by remember(viewModel) {
@@ -69,12 +69,12 @@ private fun PreferenceLoader(
 @Suppress("LongParameterList")
 @Composable
 internal fun PreferenceContent(
-    modifier: Modifier = Modifier,
     onAboutClick: () -> Unit,
     onTrackerClick: () -> Unit,
     onOpenSourceClick: () -> Unit,
     theme: AppThemeOptions,
-    onThemeUpdate: (AppThemeOptions) -> Unit
+    onThemeUpdate: (AppThemeOptions) -> Unit,
+    modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier.fillMaxSize()) {
         PreferenceTitle(title = stringResource(id = R.string.preference_title_features))

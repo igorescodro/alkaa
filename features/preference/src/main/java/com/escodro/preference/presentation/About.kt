@@ -44,15 +44,16 @@ import java.util.Locale
  */
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-fun About(onUpPress: () -> Unit) {
+fun About(onUpPress: () -> Unit, modifier: Modifier = Modifier) {
     Scaffold(
         topBar = { AlkaaToolbar(onUpPress = onUpPress) },
-        content = { paddingValues -> AboutContent(modifier = Modifier.padding(paddingValues)) }
+        content = { paddingValues -> AboutContent(modifier = Modifier.padding(paddingValues)) },
+        modifier = modifier
     )
 }
 
 @Composable
-private fun AboutContent(modifier: Modifier) {
+private fun AboutContent(modifier: Modifier = Modifier) {
     Column(modifier = modifier.verticalScroll(rememberScrollState())) {
         ContentHeader()
         Text(

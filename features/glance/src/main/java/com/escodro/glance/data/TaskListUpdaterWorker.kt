@@ -12,6 +12,7 @@ import androidx.work.WorkManager
 import androidx.work.WorkerParameters
 import com.escodro.glance.model.Task
 import com.escodro.glance.presentation.TaskListGlanceWidget
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.first
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -41,7 +42,7 @@ internal class TaskListUpdaterWorker(
                 context = context,
                 definition = TaskListStateDefinition,
                 glanceId = it,
-                updateState = { list }
+                updateState = { list.toImmutableList() }
             )
             TaskListGlanceWidget().updateAll(context)
         }

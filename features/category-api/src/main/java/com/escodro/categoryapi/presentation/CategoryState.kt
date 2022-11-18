@@ -1,6 +1,7 @@
 package com.escodro.categoryapi.presentation
 
 import com.escodro.categoryapi.model.Category
+import kotlinx.collections.immutable.ImmutableList
 
 /**
  * Represents the states of [CategoryListViewModel].
@@ -17,7 +18,7 @@ sealed class CategoryState {
      *
      * @property categoryList the loaded category list
      */
-    data class Loaded(val categoryList: List<Category>) : CategoryState()
+    data class Loaded(val categoryList: ImmutableList<Category>) : CategoryState()
 
     /**
      * Empty state, there are no categories to be shown.

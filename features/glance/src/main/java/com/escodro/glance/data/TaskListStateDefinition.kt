@@ -7,6 +7,8 @@ import androidx.datastore.dataStore
 import androidx.datastore.dataStoreFile
 import androidx.glance.state.GlanceStateDefinition
 import com.escodro.glance.model.Task
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
@@ -23,13 +25,16 @@ import java.io.OutputStream
  * layers would make it confusing and the use cases would need to know from which datasource the
  * data is available. There is no pretty solution for now.
  */
-internal object TaskListStateDefinition : GlanceStateDefinition<List<Task>> {
+internal object TaskListStateDefinition : GlanceStateDefinition<ImmutableList<Task>> {
 
     private const val DATA_STORE_FILENAME = "taskList"
 
     private val Context.datastore by dataStore(DATA_STORE_FILENAME, TaskListSerializer)
 
-    override suspend fun getDataStore(context: Context, fileKey: String): DataStore<List<Task>> =
+    override suspend fun getDataStore(
+        context: Context,
+        fileKey: String
+    ): DataStore<ImmutableList<Task>> =
         context.datastore
 
     override fun getLocation(context: Context, fileKey: String): File =
@@ -39,15 +44,15 @@ internal object TaskListStateDefinition : GlanceStateDefinition<List<Task>> {
      * Custom serializer to write and read data from [DataStore].
      */
     @OptIn(ExperimentalSerializationApi::class)
-    object TaskListSerializer : Serializer<List<Task>> {
+    object TaskListSerializer : Serializer<ImmutableList<Task>> {
 
-        override val defaultValue: List<Task>
-            get() = emptyList()
+        override val defaultValue: ImmutableList<Task>
+            get() = persistentListOf()
 
-        override suspend fun readFrom(input: InputStream): List<Task> =
+        override suspend fun readFrom(input: InputStream): ImmutableList<Task> =
             Json.decodeFromStream(input)
 
-        override suspend fun writeTo(t: List<Task>, output: OutputStream) =
+        override suspend fun writeTo(t: ImmutableList<Task>, output: OutputStream) =
             Json.encodeToStream(t, output)
     }
 }

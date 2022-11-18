@@ -41,6 +41,8 @@ import com.escodro.task.model.Task
 import com.escodro.task.model.TaskWithCategory
 import com.escodro.task.presentation.category.CategorySelection
 import com.escodro.task.presentation.detail.main.CategoryId
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.getViewModel
 import java.util.Calendar
@@ -48,24 +50,24 @@ import java.util.Calendar
 /**
  * Alkaa Task Section.
  *
- * @param modifier the decorator
  * @param onItemClick action to be called when a item is clicked
  * @param onBottomShow action to be called when the bottom sheet is shown
+ * @param modifier the decorator
  */
 @Composable
 fun TaskListSection(
-    modifier: Modifier = Modifier,
     onItemClick: (Long) -> Unit,
-    onBottomShow: () -> Unit
+    onBottomShow: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     TaskListLoader(modifier = modifier, onItemClick = onItemClick, onAddClick = onBottomShow)
 }
 
 @Composable
 private fun TaskListLoader(
-    modifier: Modifier = Modifier,
     onItemClick: (Long) -> Unit,
     onAddClick: () -> Unit,
+    modifier: Modifier = Modifier,
     taskListViewModel: TaskListViewModel = getViewModel(),
     categoryViewModel: CategoryListViewModel = getViewModel()
 ) {
@@ -174,7 +176,7 @@ private fun TaskFilter(categoryHandler: CategoryStateHandler) {
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun TaskListContent(
-    taskList: List<TaskWithCategory>,
+    taskList: ImmutableList<TaskWithCategory>,
     onItemClick: (Long) -> Unit,
     onCheckedChange: (TaskWithCategory) -> Unit
 ) {
@@ -227,7 +229,7 @@ fun TaskListScaffoldLoaded() {
     val category1 = Category(name = "Books", color = android.graphics.Color.GREEN)
     val category2 = Category(name = "Reminders", color = android.graphics.Color.MAGENTA)
 
-    val taskList = listOf(
+    val taskList = persistentListOf(
         TaskWithCategory(task = task1, category = category1),
         TaskWithCategory(task = task2, category = category2),
         TaskWithCategory(task = task3, category = null)

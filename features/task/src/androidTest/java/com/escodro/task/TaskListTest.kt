@@ -13,6 +13,7 @@ import com.escodro.task.presentation.list.CategoryStateHandler
 import com.escodro.task.presentation.list.TaskListScaffold
 import com.escodro.task.presentation.list.TaskListViewState
 import com.escodro.task.presentation.list.TaskStateHandler
+import kotlinx.collections.immutable.toImmutableList
 import org.junit.Rule
 import org.junit.Test
 
@@ -59,7 +60,7 @@ internal class TaskListTest {
         val task = Task(title = "Buy milk", dueDate = null)
         val category = Category(name = "Books", color = android.graphics.Color.GREEN)
         val taskList = listOf(TaskWithCategory(task = task, category = category))
-        val state = TaskListViewState.Loaded(taskList)
+        val state = TaskListViewState.Loaded(taskList.toImmutableList())
 
         // When the view is loaded
         loadTaskList(state)

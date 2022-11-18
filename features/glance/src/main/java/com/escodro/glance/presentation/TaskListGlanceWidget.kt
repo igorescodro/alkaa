@@ -4,9 +4,6 @@ import android.content.Context
 import android.content.Intent
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.ExperimentalUnitApi
 import androidx.compose.ui.unit.TextUnit
@@ -26,8 +23,8 @@ import androidx.glance.appwidget.appWidgetBackground
 import androidx.glance.appwidget.cornerRadius
 import androidx.glance.appwidget.lazy.LazyColumn
 import androidx.glance.appwidget.lazy.items
-import androidx.glance.appwidget.updateAll
 import androidx.glance.background
+import androidx.glance.currentState
 import androidx.glance.layout.Alignment
 import androidx.glance.layout.Box
 import androidx.glance.layout.Column
@@ -37,33 +34,31 @@ import androidx.glance.layout.fillMaxWidth
 import androidx.glance.layout.height
 import androidx.glance.layout.padding
 import androidx.glance.layout.size
+import androidx.glance.state.GlanceStateDefinition
 import androidx.glance.text.Text
 import androidx.glance.text.TextStyle
 import androidx.glance.unit.ColorProvider
 import com.escodro.glance.R
+import com.escodro.glance.data.TaskListStateDefinition
 import com.escodro.glance.model.Task
 import com.escodro.navigation.DestinationDeepLink
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 
 internal class TaskListGlanceWidget : GlanceAppWidget(), KoinComponent {
 
-    private val context: Context by inject()
-
-    private val viewModel: TaskListGlanceViewModel by inject()
-
     private val coroutineScope: CoroutineScope = MainScope()
 
-    private var taskList by mutableStateOf<List<Task>>(emptyList())
+    /**
+     * Custom implementation of [GlanceStateDefinition] to save and store data for this widget.
+     */
+    override val stateDefinition: GlanceStateDefinition<List<Task>> = TaskListStateDefinition
 
-    @OptIn(ExperimentalUnitApi::class)
     @Composable
     override fun Content() {
+        val taskList = currentState<List<Task>>()
         Column(
             modifier = GlanceModifier
                 .fillMaxSize()
@@ -86,7 +81,7 @@ internal class TaskListGlanceWidget : GlanceAppWidget(), KoinComponent {
             if (taskList.isEmpty()) {
                 EmptyListContent()
             } else {
-                TaskListContent()
+                TaskListContent(taskList = taskList)
             }
         }
     }
@@ -99,7 +94,7 @@ internal class TaskListGlanceWidget : GlanceAppWidget(), KoinComponent {
     }
 
     @Composable
-    private fun TaskListContent() {
+    private fun TaskListContent(taskList: List<Task>) {
         LazyColumn(modifier = GlanceModifier.padding(top = 12.dp)) {
             items(items = taskList) { task ->
                 TaskItem(task = task)
@@ -150,20 +145,6 @@ internal class TaskListGlanceWidget : GlanceAppWidget(), KoinComponent {
 
     private fun getTaskIntent(taskId: Long): Intent =
         Intent(Intent.ACTION_VIEW, DestinationDeepLink.getTaskDetailUri(taskId))
-
-    /**
-     * Loads the data and requests the GlanceAppWidget to be updated. This is needed since it is not
-     * possible to use traditional compose methods to keep updating an App Widget.
-     *
-     * For more information about this behavior, please access:
-     * https://issuetracker.google.com/issues/211022821
-     */
-    fun loadData() {
-        coroutineScope.launch {
-            taskList = viewModel.loadTaskList().first()
-            updateAll(context)
-        }
-    }
 
     override suspend fun onDelete(context: Context, glanceId: GlanceId) {
         super.onDelete(context, glanceId)

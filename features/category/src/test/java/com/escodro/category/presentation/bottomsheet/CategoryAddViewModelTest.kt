@@ -7,6 +7,7 @@ import com.escodro.categoryapi.model.Category
 import com.escodro.core.extension.toStringColor
 import com.escodro.test.CoroutineTestRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.TestScope
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
@@ -15,14 +16,18 @@ import org.junit.Test
 @OptIn(ExperimentalCoroutinesApi::class)
 internal class CategoryAddViewModelTest {
 
+    @get:Rule
+    val coroutinesRule = CoroutineTestRule()
+
     private val addCategory = AddCategoryFake()
 
     private val categoryMapper = CategoryMapper()
 
-    private val viewModel = CategoryAddViewModel(addCategory, categoryMapper)
-
-    @get:Rule
-    val coroutinesRule = CoroutineTestRule()
+    private val viewModel = CategoryAddViewModel(
+        addCategoryUseCase = addCategory,
+        applicationScope = TestScope(coroutinesRule.testDispatcher),
+        categoryMapper
+    )
 
     @Before
     fun setup() {

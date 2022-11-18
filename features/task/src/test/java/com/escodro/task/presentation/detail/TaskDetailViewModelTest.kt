@@ -15,6 +15,7 @@ import com.escodro.task.presentation.fake.UpdateTaskTitleFake
 import com.escodro.test.CoroutineTestRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Rule
@@ -42,7 +43,8 @@ internal class TaskDetailViewModelTest {
         updateTaskDescription = updateDescription,
         updateTaskCategory = updateTaskCategory,
         taskMapper = taskMapper,
-        coroutineDebouncer = CoroutinesDebouncerFake()
+        coroutineDebouncer = CoroutinesDebouncerFake(),
+        applicationScope = TestScope(coroutineTestRule.testDispatcher)
     )
 
     @Test

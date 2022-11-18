@@ -8,16 +8,19 @@ import com.escodro.domain.usecase.task.UpdateTaskCategory
 import com.escodro.domain.usecase.task.UpdateTaskDescription
 import com.escodro.domain.usecase.task.UpdateTaskTitle
 import com.escodro.task.mapper.TaskMapper
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 
+@Suppress("LongParameterList")
 internal class TaskDetailViewModel(
     private val loadTaskUseCase: LoadTask,
     private val updateTaskTitle: UpdateTaskTitle,
     private val updateTaskDescription: UpdateTaskDescription,
     private val updateTaskCategory: UpdateTaskCategory,
     private val coroutineDebouncer: CoroutineDebouncer,
+    private val applicationScope: CoroutineScope,
     private val taskMapper: TaskMapper
 ) : ViewModel() {
 
@@ -43,7 +46,7 @@ internal class TaskDetailViewModel(
         }
 
     fun updateCategory(taskId: TaskId, categoryId: CategoryId) =
-        viewModelScope.launch {
+        applicationScope.launch {
             updateTaskCategory(taskId = taskId.value, categoryId = categoryId.value)
         }
 }

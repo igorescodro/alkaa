@@ -4,6 +4,7 @@ import com.escodro.task.presentation.detail.main.CategoryId
 import com.escodro.task.presentation.fake.AddTaskFake
 import com.escodro.test.CoroutineTestRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.TestScope
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
@@ -12,12 +13,15 @@ import org.junit.Test
 @OptIn(ExperimentalCoroutinesApi::class)
 internal class AddTaskViewModelTest {
 
-    private val addTask = AddTaskFake()
-
-    private val viewModel = AddTaskViewModel(addTask)
-
     @get:Rule
     val coroutineTestRule = CoroutineTestRule()
+
+    private val addTask = AddTaskFake()
+
+    private val viewModel = AddTaskViewModel(
+        addTaskUseCase = addTask,
+        applicationScope = TestScope(coroutineTestRule.testDispatcher)
+    )
 
     @Before
     fun setup() {

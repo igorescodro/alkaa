@@ -3,6 +3,7 @@ package com.escodro.tracker.mapper
 import android.graphics.Color
 import com.escodro.domain.model.TaskWithCategory
 import com.escodro.tracker.model.Tracker
+import kotlinx.collections.immutable.toImmutableList
 
 /**
  * Maps Tracker between View and Domain.
@@ -19,7 +20,7 @@ internal class TrackerMapper {
     internal fun toTracker(list: List<TaskWithCategory>): Tracker.Info {
         val count = list.count()
         val categories = list.groupBy { task -> task.category?.id }.map { toCategory(it, count) }
-        return Tracker.Info(categories)
+        return Tracker.Info(categories.toImmutableList())
     }
 
     private fun toCategory(

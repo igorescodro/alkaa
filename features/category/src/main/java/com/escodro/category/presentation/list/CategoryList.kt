@@ -52,6 +52,7 @@ import com.escodro.designsystem.AlkaaTheme
 import com.escodro.designsystem.components.AddFloatingButton
 import com.escodro.designsystem.components.AlkaaLoadingContent
 import com.escodro.designsystem.components.DefaultIconTextContent
+import kotlinx.collections.immutable.ImmutableList
 import org.koin.androidx.compose.getViewModel
 import kotlin.math.max
 import kotlin.math.roundToInt
@@ -64,7 +65,7 @@ import kotlin.math.roundToInt
  */
 @Composable
 fun CategoryListSection(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     onShowBottomSheet: (Long?) -> Unit
 ) {
     CategoryListLoader(
@@ -76,10 +77,10 @@ fun CategoryListSection(
 
 @Composable
 private fun CategoryListLoader(
-    modifier: Modifier,
-    viewModel: CategoryListViewModel = getViewModel(),
     onItemClick: (Long?) -> Unit,
-    onAddClick: () -> Unit
+    onAddClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: CategoryListViewModel = getViewModel()
 ) {
     val viewState by remember(viewModel) {
         viewModel.loadCategories()
@@ -96,10 +97,10 @@ private fun CategoryListLoader(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun CategoryListScaffold(
-    modifier: Modifier,
     viewState: CategoryState,
     onItemClick: (Long?) -> Unit,
-    onAddClick: () -> Unit
+    onAddClick: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     BoxWithConstraints {
         val fabPosition = if (this.maxHeight > maxWidth) FabPosition.Center else FabPosition.End
@@ -127,7 +128,10 @@ private fun CategoryListScaffold(
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 @Suppress("MagicNumber")
-private fun CategoryListContent(categoryList: List<Category>, onItemClick: (Long?) -> Unit) {
+private fun CategoryListContent(
+    categoryList: ImmutableList<Category>,
+    onItemClick: (Long?) -> Unit
+) {
     BoxWithConstraints(modifier = Modifier.padding(start = 8.dp, end = 8.dp)) {
         val cellCount: Int = max(2F, maxWidth.value / 250).roundToInt()
         LazyVerticalGrid(columns = GridCells.Fixed(cellCount)) {
@@ -143,9 +147,9 @@ private fun CategoryListContent(categoryList: List<Category>, onItemClick: (Long
 
 @Composable
 private fun CategoryItem(
-    modifier: Modifier = Modifier,
     category: Category,
-    onItemClick: (Long) -> Unit
+    onItemClick: (Long) -> Unit,
+    modifier: Modifier = Modifier
 ) {
     ElevatedCard(
         elevation = CardDefaults.elevatedCardElevation(4.dp),
@@ -157,7 +161,7 @@ private fun CategoryItem(
         Column(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 24.dp)
         ) {

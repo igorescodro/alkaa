@@ -17,7 +17,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -57,14 +56,18 @@ internal fun AlarmIntervalSelection(
     alarmInterval: AlarmInterval?,
     onIntervalSelect: (AlarmInterval) -> Unit
 ) {
-    val showDialog = remember { mutableStateOf(false) }
+    val (showDialog, setDialogValue) = remember { mutableStateOf(false) }
     if (date != null) {
-        AlarmIntervalDialog(showDialog) { interval -> onIntervalSelect(interval) }
+        AlarmIntervalDialog(
+            showDialog = showDialog,
+            setDialogValue = setDialogValue,
+            onIntervalSelect = { interval -> onIntervalSelect(interval) }
+        )
 
         TaskDetailSectionContent(
             modifier = Modifier
                 .height(56.dp)
-                .clickable { showDialog.value = true },
+                .clickable { setDialogValue(true) },
             imageVector = Icons.Outlined.Repeat,
             contentDescription = R.string.task_detail_cd_icon_repeat_alarm
         ) {
@@ -107,14 +110,15 @@ private fun NoAlarmSet() {
 
 @Composable
 private fun AlarmIntervalDialog(
-    showDialog: MutableState<Boolean>,
+    showDialog: Boolean,
+    setDialogValue: (Boolean) -> Unit,
     onIntervalSelect: (AlarmInterval) -> Unit
 ) {
-    if (showDialog.value.not()) {
+    if (!showDialog) {
         return
     }
 
-    Dialog(onDismissRequest = { showDialog.value = false }) {
+    Dialog(onDismissRequest = { setDialogValue(false) }) {
         Surface(
             color = MaterialTheme.colorScheme.background,
             modifier = Modifier.fillMaxWidth()
@@ -127,7 +131,7 @@ private fun AlarmIntervalDialog(
                         AlarmListItem(
                             title = title,
                             index = index,
-                            showDialog = showDialog,
+                            setDialogValue = setDialogValue,
                             onIntervalSelect = onIntervalSelect
                         )
                     }
@@ -141,7 +145,7 @@ private fun AlarmIntervalDialog(
 private fun AlarmListItem(
     title: String,
     index: Int,
-    showDialog: MutableState<Boolean>,
+    setDialogValue: (Boolean) -> Unit,
     onIntervalSelect: (AlarmInterval) -> Unit
 ) {
     Text(
@@ -152,7 +156,7 @@ private fun AlarmListItem(
                 val interval =
                     AlarmInterval.values().find { it.index == index } ?: AlarmInterval.NEVER
                 onIntervalSelect(interval)
-                showDialog.value = false
+                setDialogValue(false)
             }
     )
 }
@@ -163,7 +167,8 @@ private fun AlarmListItem(
 fun AlarmIntervalDialogPreview() {
     AlkaaTheme {
         AlarmIntervalDialog(
-            showDialog = remember { mutableStateOf(true) },
+            showDialog = true,
+            setDialogValue = {},
             onIntervalSelect = {}
         )
     }

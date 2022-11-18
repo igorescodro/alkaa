@@ -74,18 +74,19 @@ fun DefaultIconTextContent(
  * Basic loading screen to be used when the screen is loading, making the transition smoother.
  */
 @Composable
-fun AlkaaLoadingContent() {
-    Box(modifier = Modifier.fillMaxSize(), content = {})
+fun AlkaaLoadingContent(modifier: Modifier = Modifier) {
+    Box(modifier = modifier.fillMaxSize(), content = {})
 }
 
 /**
  * TopAppBar for screens that need a back button.
  *
  * @param onUpPress function to be called when the back/up button is clicked
+ * @param modifier Compose modifier
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AlkaaToolbar(onUpPress: () -> Unit) {
+fun AlkaaToolbar(onUpPress: () -> Unit, modifier: Modifier = Modifier) {
     TopAppBar(
         title = {},
         navigationIcon = {
@@ -95,7 +96,8 @@ fun AlkaaToolbar(onUpPress: () -> Unit) {
                     contentDescription = stringResource(id = R.string.back_arrow_cd)
                 )
             }
-        }
+        },
+        modifier = modifier
     )
 }
 
@@ -103,11 +105,20 @@ fun AlkaaToolbar(onUpPress: () -> Unit) {
  * Floating Action button do add new elements.
  *
  * @param contentDescription string resource to describe the add button
+ * @param modifier Compose modifier
  * @param onClick function to be called on the click
  */
 @Composable
-fun AddFloatingButton(@StringRes contentDescription: Int, onClick: () -> Unit) {
-    FloatingActionButton(containerColor = MaterialTheme.colorScheme.primary, onClick = onClick) {
+fun AddFloatingButton(
+    @StringRes contentDescription: Int,
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit
+) {
+    FloatingActionButton(
+        containerColor = MaterialTheme.colorScheme.primary,
+        modifier = modifier,
+        onClick = onClick
+    ) {
         Icon(
             imageVector = Icons.Outlined.Add,
             contentDescription = stringResource(id = contentDescription)
@@ -129,7 +140,7 @@ fun AlkaaInputTextField(
     label: String,
     text: String,
     onTextChange: (String) -> Unit,
-    modifier: Modifier
+    modifier: Modifier = Modifier
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
 

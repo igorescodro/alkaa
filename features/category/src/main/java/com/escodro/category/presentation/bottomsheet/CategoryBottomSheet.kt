@@ -50,6 +50,8 @@ import com.escodro.designsystem.AlkaaTheme
 import com.escodro.designsystem.components.AlkaaDialog
 import com.escodro.designsystem.components.AlkaaInputTextField
 import com.escodro.designsystem.components.DialogArguments
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.delay
 import org.koin.androidx.compose.getViewModel
 
@@ -58,7 +60,7 @@ import org.koin.androidx.compose.getViewModel
  */
 @Composable
 fun CategoryBottomSheet(categoryId: Long, onHideBottomSheet: () -> Unit) {
-    val colorList = CategoryColors.values().map { it.value }
+    val colorList = CategoryColors.values().map { it.value }.toImmutableList()
     if (categoryId == 0L) {
         CategoryNewSheetLoader(
             colorList = colorList,
@@ -75,9 +77,9 @@ fun CategoryBottomSheet(categoryId: Long, onHideBottomSheet: () -> Unit) {
 
 @Composable
 private fun CategoryNewSheetLoader(
-    addViewModel: CategoryAddViewModel = getViewModel(),
-    colorList: List<Color>,
-    onHideBottomSheet: () -> Unit
+    colorList: ImmutableList<Color>,
+    onHideBottomSheet: () -> Unit,
+    addViewModel: CategoryAddViewModel = getViewModel()
 ) {
     val sheetState by rememberSaveable(addViewModel) {
         mutableStateOf(CategoryBottomSheetState(emptyCategory()))
@@ -95,10 +97,10 @@ private fun CategoryNewSheetLoader(
 
 @Composable
 private fun CategoryEditSheetLoader(
-    editViewModel: CategoryEditViewModel = getViewModel(),
     categoryId: Long,
-    colorList: List<Color>,
-    onHideBottomSheet: () -> Unit
+    colorList: ImmutableList<Color>,
+    onHideBottomSheet: () -> Unit,
+    editViewModel: CategoryEditViewModel = getViewModel()
 ) {
     val categoryState by remember(editViewModel, categoryId) {
         editViewModel.loadCategory(categoryId = categoryId)
@@ -131,7 +133,7 @@ private fun CategoryEditSheetLoader(
 @Suppress("MagicNumber")
 private fun CategorySheetContent(
     state: CategoryBottomSheetState,
-    colorList: List<Color>,
+    colorList: ImmutableList<Color>,
     onCategoryChange: (CategoryBottomSheetState) -> Unit,
     onCategoryRemove: (Category) -> Unit = {}
 ) {
@@ -197,7 +199,7 @@ private fun CategorySheetContent(
 
 @Composable
 private fun CategoryColorSelector(
-    colorList: List<Color>,
+    colorList: ImmutableList<Color>,
     value: Color,
     onColorChange: (Color) -> Unit
 ) {
@@ -305,7 +307,7 @@ fun CategorySheetContentPreview() {
             val state = CategoryBottomSheetState(category)
             CategorySheetContent(
                 state = state,
-                colorList = CategoryColors.values().map { it.value },
+                colorList = CategoryColors.values().map { it.value }.toImmutableList(),
                 onCategoryChange = {},
                 onCategoryRemove = {}
             )

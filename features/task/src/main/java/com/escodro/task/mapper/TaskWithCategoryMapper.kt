@@ -1,5 +1,7 @@
 package com.escodro.task.mapper
 
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toImmutableList
 import com.escodro.domain.model.TaskWithCategory as DomainTaskWithCategory
 import com.escodro.task.model.TaskWithCategory as ViewTaskWithCategory
 
@@ -18,8 +20,8 @@ internal class TaskWithCategoryMapper(
      *
      * @return the converted list of Task With Category
      */
-    fun toView(localTaskList: List<DomainTaskWithCategory>): List<ViewTaskWithCategory> =
-        localTaskList.map { toView(it) }
+    fun toView(localTaskList: List<DomainTaskWithCategory>): ImmutableList<ViewTaskWithCategory> =
+        localTaskList.map { toView(it) }.toImmutableList()
 
     private fun toView(localTask: DomainTaskWithCategory): ViewTaskWithCategory =
         ViewTaskWithCategory(

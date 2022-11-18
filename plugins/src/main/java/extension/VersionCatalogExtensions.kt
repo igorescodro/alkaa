@@ -12,6 +12,12 @@ internal val VersionCatalog.ktlint: Provider<MinimalExternalModuleDependency>
 internal val VersionCatalog.playcore: Provider<MinimalExternalModuleDependency>
     get() = getLibrary("androidx.playcore")
 
+internal val VersionCatalog.kotlinxCollectionsImmutable: Provider<MinimalExternalModuleDependency>
+    get() = getLibrary("kotlinx.collections.immutable")
+
+internal val VersionCatalog.composeRules: Provider<MinimalExternalModuleDependency>
+    get() = getLibrary("composerules")
+
 internal val VersionCatalog.composeBundle: Provider<ExternalModuleDependencyBundle>
     get() = getBundle("compose")
 

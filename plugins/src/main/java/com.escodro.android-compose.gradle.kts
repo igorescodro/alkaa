@@ -19,6 +19,7 @@ android {
 dependencies {
     implementation(libs.logcat)
     implementation(libs.composeBundle)
+    implementation(libs.kotlinxCollectionsImmutable)
 
     androidTestImplementation(libs.composeTestBundle) {
         exclude(group = "androidx.core", module = "core-ktx")

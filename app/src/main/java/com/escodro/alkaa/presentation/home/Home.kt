@@ -26,6 +26,8 @@ import com.escodro.designsystem.AlkaaTheme
 import com.escodro.preference.presentation.PreferenceSection
 import com.escodro.search.presentation.SearchSection
 import com.escodro.task.presentation.list.TaskListSection
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toImmutableList
 
 /**
  * Alkaa Home screen.
@@ -41,7 +43,7 @@ fun Home(
     onCategorySheetOpen: (Long?) -> Unit
 ) {
     val (currentSection, setCurrentSection) = rememberSaveable { mutableStateOf(HomeSection.Tasks) }
-    val navItems = HomeSection.values().toList()
+    val navItems = HomeSection.values().toList().toImmutableList()
 
     val actions = HomeActions(
         onTaskClick = onTaskClick,
@@ -66,7 +68,7 @@ fun Home(
 @Composable
 private fun AlkaaHomeScaffold(
     homeSection: HomeSection,
-    navItems: List<HomeSection>,
+    navItems: ImmutableList<HomeSection>,
     actions: HomeActions
 ) {
     Scaffold(
@@ -74,7 +76,11 @@ private fun AlkaaHomeScaffold(
             AlkaaTopBar(currentSection = homeSection)
         },
         content = { paddingValues ->
-            AlkaaContent(homeSection, Modifier.padding(paddingValues), actions)
+            AlkaaContent(
+                homeSection = homeSection,
+                modifier = Modifier.padding(paddingValues),
+                actions = actions
+            )
         },
         bottomBar = {
             AlkaaBottomNav(
@@ -89,8 +95,8 @@ private fun AlkaaHomeScaffold(
 @Composable
 private fun AlkaaContent(
     homeSection: HomeSection,
-    modifier: Modifier,
-    actions: HomeActions
+    actions: HomeActions,
+    modifier: Modifier = Modifier
 ) {
     when (homeSection) {
         HomeSection.Tasks ->
@@ -135,7 +141,7 @@ private fun AlkaaTopBar(currentSection: HomeSection) {
 private fun AlkaaBottomNav(
     currentSection: HomeSection,
     onSectionSelect: (HomeSection) -> Unit,
-    items: List<HomeSection>
+    items: ImmutableList<HomeSection>
 ) {
     BottomAppBar(containerColor = MaterialTheme.colorScheme.background) {
         items.forEach { section ->
@@ -162,7 +168,7 @@ private fun AlkaaBottomIcon(
     section: HomeSection,
     tint: Color,
     onSectionSelect: (HomeSection) -> Unit,
-    modifier: Modifier
+    modifier: Modifier = Modifier
 ) {
     val title = stringResource(section.title)
     IconButton(
@@ -190,7 +196,7 @@ fun AlkaaBottomNavPreview() {
         AlkaaBottomNav(
             currentSection = HomeSection.Tasks,
             onSectionSelect = {},
-            items = HomeSection.values().toList()
+            items = HomeSection.values().toList().toImmutableList()
         )
     }
 }

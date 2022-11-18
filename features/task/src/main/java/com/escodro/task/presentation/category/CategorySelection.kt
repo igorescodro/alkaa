@@ -28,6 +28,8 @@ import com.escodro.designsystem.AlkaaTheme
 import com.escodro.designsystem.components.AlkaaLoadingContent
 import com.escodro.task.R
 import com.escodro.task.presentation.detail.main.CategoryId
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 
 @Composable
 internal fun CategorySelection(
@@ -54,7 +56,7 @@ internal fun CategorySelection(
 
 @Composable
 private fun LoadedCategoryList(
-    categoryList: List<Category>,
+    categoryList: ImmutableList<Category>,
     currentCategory: Long?,
     onCategoryChange: (CategoryId) -> Unit
 ) {
@@ -114,7 +116,7 @@ fun CategorySelectionListPreview() {
     val category1 = Category(name = "Groceries", color = android.graphics.Color.BLUE)
     val category2 = Category(name = "Books", color = android.graphics.Color.RED)
     val category3 = Category(name = "Movies", color = android.graphics.Color.GREEN)
-    val categories = listOf(category1, category2, category3)
+    val categories = persistentListOf(category1, category2, category3)
 
     AlkaaTheme {
         Surface(color = MaterialTheme.colorScheme.background) {

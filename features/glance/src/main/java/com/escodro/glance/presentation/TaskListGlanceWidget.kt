@@ -42,6 +42,7 @@ import com.escodro.glance.R
 import com.escodro.glance.data.TaskListStateDefinition
 import com.escodro.glance.model.Task
 import com.escodro.navigation.DestinationDeepLink
+import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
@@ -54,11 +55,11 @@ internal class TaskListGlanceWidget : GlanceAppWidget(), KoinComponent {
     /**
      * Custom implementation of [GlanceStateDefinition] to save and store data for this widget.
      */
-    override val stateDefinition: GlanceStateDefinition<List<Task>> = TaskListStateDefinition
+    override val stateDefinition: GlanceStateDefinition<ImmutableList<Task>> = TaskListStateDefinition
 
     @Composable
     override fun Content() {
-        val taskList = currentState<List<Task>>()
+        val taskList = currentState<ImmutableList<Task>>()
         Column(
             modifier = GlanceModifier
                 .fillMaxSize()
@@ -94,7 +95,7 @@ internal class TaskListGlanceWidget : GlanceAppWidget(), KoinComponent {
     }
 
     @Composable
-    private fun TaskListContent(taskList: List<Task>) {
+    private fun TaskListContent(taskList: ImmutableList<Task>) {
         LazyColumn(modifier = GlanceModifier.padding(top = 12.dp)) {
             items(items = taskList) { task ->
                 TaskItem(task = task)

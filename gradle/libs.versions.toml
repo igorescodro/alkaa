@@ -8,7 +8,7 @@ ksp = "1.7.21-1.0.8"
 
 # General dependencies
 logging = "3.0.4"
-logback = "1.2.11"
+logback = "1.4.4"
 logcat = "0.1"
 
 # KotlinX

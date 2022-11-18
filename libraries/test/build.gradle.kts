@@ -20,7 +20,7 @@ dependencies {
 
     api(libs.test.junit)
 
-    api(libs.coroutines.test)
+    api(libs.kotlinx.coroutines.test)
 
     implementation(libs.bundles.composetest) {
         exclude(group = "androidx.core", module = "core-ktx")

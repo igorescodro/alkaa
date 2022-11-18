@@ -5,6 +5,6 @@ plugins {
 dependencies {
     implementation(libs.androidx.corektx)
     implementation(libs.androidx.material)
-    implementation(libs.coroutines.core)
+    implementation(libs.kotlinx.coroutines.core)
     implementation(libs.koin.android)
 }

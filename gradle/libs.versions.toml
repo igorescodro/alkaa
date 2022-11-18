@@ -7,7 +7,10 @@ kotlin = "1.7.20"
 logging = "3.0.4"
 logback = "1.2.11"
 logcat = "0.1"
-serialization = "1.4.1"
+
+# KotlinX
+kotlinx_coroutines = "1.6.4"
+kotlinx_serialization = "1.4.1"
 kotlinx_collections_immutable = "0.3.5"
 
 # AndroidX
@@ -26,9 +29,6 @@ compose_nav = "2.5.3"
 compose_viewmodel = "2.5.1"
 compose_activity = "1.6.1"
 compose_material3 = "1.0.1"
-
-# Coroutines
-coroutines = "1.6.4"
 
 # Room
 room = "2.4.3"
@@ -68,9 +68,12 @@ kotlin_gradle_plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", v
 logging = { module = "io.github.microutils:kotlin-logging", version.ref = "logging" }
 logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
 logcat = { module = "com.squareup.logcat:logcat", version.ref = "logcat" }
-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }
-kotlinx_collections_immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "kotlinx_collections_immutable" }
 
+# KotlinX
+kotlinx_coroutines_core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx_coroutines" }
+kotlinx_coroutines_test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx_coroutines" }
+kotlinx_serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx_serialization" }
+kotlinx_collections_immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "kotlinx_collections_immutable" }
 
 # AndroidX
 androidx_material = { module = "com.google.android.material:material", version.ref = "material" }
@@ -91,10 +94,6 @@ compose_material3 = { module = "androidx.compose.material3:material3", version.r
 compose_uitest = { module = "androidx.compose.ui:ui-test", version.ref = "compose" }
 compose_junit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "compose" }
 compose_manifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "compose" }
-
-# Coroutines
-coroutines_core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
-coroutines_test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
 
 # Room
 androidx_room_runtime = { module = "androidx.room:room-runtime", version.ref = "room" }

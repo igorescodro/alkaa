@@ -4,7 +4,7 @@ plugins {
 }
 
 dependencies {
-    implementation(libs.coroutines.core)
     implementation(libs.koin.android)
+    implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.collections.immutable)
 }

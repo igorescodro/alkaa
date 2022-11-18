@@ -13,6 +13,6 @@ dependencies {
 
     // Unwanted dependencies to keep all the Glance-related logic on this module
     implementation(libs.androidx.workmanager)
-    implementation(libs.serialization)
+    implementation(libs.kotlinx.serialization)
     implementation(libs.androidx.datastore)
 }

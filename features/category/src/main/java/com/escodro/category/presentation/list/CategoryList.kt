@@ -1,7 +1,6 @@
 package com.escodro.category.presentation.list
 
 import androidx.compose.animation.Crossfade
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -125,7 +124,6 @@ private fun CategoryListScaffold(
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 @Suppress("MagicNumber")
 private fun CategoryListContent(

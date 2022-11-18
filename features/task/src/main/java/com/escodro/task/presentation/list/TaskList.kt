@@ -1,7 +1,6 @@
 package com.escodro.task.presentation.list
 
 import androidx.compose.animation.Crossfade
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -173,7 +172,6 @@ private fun TaskFilter(categoryHandler: CategoryStateHandler) {
     )
 }
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun TaskListContent(
     taskList: ImmutableList<TaskWithCategory>,

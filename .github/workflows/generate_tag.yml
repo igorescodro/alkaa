@@ -1,0 +1,22 @@
+name: create tag
+
+on:
+  workflow_dispatch:
+    inputs:
+      tagname:
+        description: 'Tag name'
+        required: true
+        default: 'v1.0.0'
+        type: string
+
+jobs:
+  - name: Create tag
+      uses: actions/github-script@v5
+      with:
+        script: |
+          github.rest.git.createRef({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            ref: inputs.tagname,
+            sha: context.sha
+          })

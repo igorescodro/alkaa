@@ -53,7 +53,7 @@ test_orchestrator = "1.4.2"
 
 # Quality
 ktlint = "0.47.1"
-detekt = "1.21.0"
+detekt = "1.22.0"
 composerules = "0.0.24"
 
 # License

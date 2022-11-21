@@ -56,9 +56,7 @@ fun LoadFeature(
     onDismiss: () -> Unit,
     onFeatureReady: () -> Unit
 ) {
-    if (featureName.isEmpty()) {
-        throw IllegalArgumentException("Feature name not provided")
-    }
+    require(featureName.isNotEmpty()) { "Feature name not provided" }
 
     val manager = remember(featureName) { SplitInstallManagerFactory.create(context) }
     val isFeatureReady =

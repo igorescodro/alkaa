@@ -9,7 +9,7 @@ import androidx.compose.ui.test.performClick
 import androidx.test.platform.app.InstrumentationRegistry
 import com.escodro.alkaa.navigation.NavGraph
 import com.escodro.core.extension.getVersionName
-import com.escodro.test.DisableAnimationsRule
+import com.escodro.test.rule.DisableAnimationsRule
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test

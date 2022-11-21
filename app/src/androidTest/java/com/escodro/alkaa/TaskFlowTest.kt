@@ -18,10 +18,10 @@ import com.escodro.core.coroutines.CoroutineDebouncer
 import com.escodro.designsystem.AlkaaTheme
 import com.escodro.local.model.Category
 import com.escodro.local.provider.DaoProvider
-import com.escodro.test.DisableAnimationsRule
-import com.escodro.test.Events
-import com.escodro.test.onChip
-import com.escodro.test.waitUntilExists
+import com.escodro.test.rule.DisableAnimationsRule
+import com.escodro.test.espresso.Events
+import com.escodro.test.extension.onChip
+import com.escodro.test.extension.waitUntilExists
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Before

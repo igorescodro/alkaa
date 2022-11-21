@@ -1,6 +1,6 @@
 /* ktlint-disable filename */
 
-package com.escodro.test
+package com.escodro.test.semantics
 
 import androidx.compose.ui.test.SemanticsNodeInteraction
 import androidx.compose.ui.test.assert

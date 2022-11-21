@@ -2,7 +2,7 @@ package com.escodro.task.presentation.add
 
 import com.escodro.task.presentation.detail.main.CategoryId
 import com.escodro.task.presentation.fake.AddTaskFake
-import com.escodro.test.CoroutineTestRule
+import com.escodro.test.rule.CoroutineTestRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestScope
 import org.junit.Assert

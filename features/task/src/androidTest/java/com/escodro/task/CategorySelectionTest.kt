@@ -10,7 +10,7 @@ import com.escodro.categoryapi.model.Category
 import com.escodro.categoryapi.presentation.CategoryState
 import com.escodro.designsystem.AlkaaTheme
 import com.escodro.task.presentation.category.CategorySelection
-import com.escodro.test.onChip
+import com.escodro.test.extension.onChip
 import kotlinx.collections.immutable.toImmutableList
 import org.junit.Rule
 import org.junit.Test

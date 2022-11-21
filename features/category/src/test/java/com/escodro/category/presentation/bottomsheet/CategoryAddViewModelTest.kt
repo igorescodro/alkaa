@@ -5,7 +5,7 @@ import com.escodro.category.fake.AddCategoryFake
 import com.escodro.category.mapper.CategoryMapper
 import com.escodro.categoryapi.model.Category
 import com.escodro.core.extension.toStringColor
-import com.escodro.test.CoroutineTestRule
+import com.escodro.test.rule.CoroutineTestRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestScope
 import org.junit.Assert

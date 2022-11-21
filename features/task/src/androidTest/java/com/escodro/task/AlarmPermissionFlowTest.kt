@@ -12,7 +12,7 @@ import com.escodro.designsystem.AlkaaTheme
 import com.escodro.task.fake.PermissionStateFake
 import com.escodro.task.presentation.detail.alarm.AlarmSelectionContent
 import com.escodro.task.presentation.detail.alarm.AlarmSelectionState
-import com.escodro.test.DisableAnimationsRule
+import com.escodro.test.rule.DisableAnimationsRule
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionState
 import com.google.accompanist.permissions.PermissionStatus

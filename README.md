@@ -15,8 +15,7 @@ available on Google Play! :heart:
 
 The current version of Alkaa was also completely migrate to **Jetpack Compose**!
 
-
-<img src="https://play-lh.googleusercontent.com/tzN8wqrM0YpcCbsFP9ttzln48nf2bz8EUcUtrAjf2v7YheAz3SNg5Xz36zJVuVjghBY=w1920-h995" width="186">  <img src="https://play-lh.googleusercontent.com/_W5kBODa9LQVTp0T0eviIWs-ajD3yiX-VdJKwogMGQpBI2eUrjThwvI1TNzyggQSlLA=w1920-h995" width="186">  <img src="https://play-lh.googleusercontent.com/mkhrcsfHAK8pPEKkUIMaq0FWYD8MYR6oYzhDB8l2jtX6XQXcUneed1TRWXAhtt_YMcA=w1920-h995" width="186">  <img src="https://play-lh.googleusercontent.com/041NuKD-ODmBsEMW9sgzIL6cWf4RRDPV_uVOkCo031YY8vTImw-uEdv6bU_buxBTr9MR=w1920-h995" width="186"> 
+<img src="https://play-lh.googleusercontent.com/W76J3O4OvtqiBvGePEL2Czt_Jl52SIcm38SK2m7Jzbq83RdzvDStd1Qn5NoAp3ffEibn=w5120-h2880-rw" width="186">  <img src="https://play-lh.googleusercontent.com/CRRgxRGMLXykBlehra9LNOmCedbAhRjAEbU5QFx0hTXpE6m4P6YXoRv78rd5T22-LEA=w5120-h2880-rw" width="186">  <img src="https://play-lh.googleusercontent.com/XYlsapSwCTNFPNZmFRI9-e5Joc9h5ZprpU8X_eA8Gpcwm2E2ZLOWc7kNi028UoZR0N8=w5120-h2880-rw" width="186">  <img src="https://play-lh.googleusercontent.com/XBjXPeuFkG_lhrbH392LD_wACYpPx69aRP4W2h2oxlvmDYwXDK2ZSEQXGl6pyo-jTfaX=w5120-h2880-rw" width="186">
 
 ## 📦 Download
 
@@ -34,11 +33,12 @@ One of the main goals of Alkaa is too use all the latest libraries and tools ava
 - Asynchronous processing using [Coroutines](https://kotlin.github.io/kotlinx.coroutines/)
 - [Dynamic delivery](https://developer.android.com/guide/playcore/feature-delivery) for the _Task
   Tracker_ feature
+- Widgets using [Jetpack Glance](https://developer.android.com/jetpack/androidx/releases/glance)
 - Dependency injection with [Koin](https://insert-koin.io)
 - Database using [Room](https://developer.android.com/topic/libraries/architecture/room)
 
 For more dependencies used in project, please access the
-[Dependency File](https://github.com/igorescodro/alkaa/blob/main/buildSrc/src/main/java/Dependencies.kt)
+[Dependency File](https://github.com/igorescodro/alkaa/blob/main/gradle/libs.versions.toml)
 
 If you want to check the previous version of Alkaa, please take a look at
 the [last V1 release](https://github.com/igorescodro/alkaa/tree/v1.7.0)
@@ -47,6 +47,7 @@ the [last V1 release](https://github.com/igorescodro/alkaa/tree/v1.7.0)
 
 - [klint](https://github.com/shyiko/ktlint)
 - [detekt](https://github.com/arturbosch/detekt)
+- [compose-rules](https://github.com/twitter/compose-rules)
 - [lint](https://developer.android.com/studio/write/lint)
 - [codebeat](https://codebeat.co)
 - [CodeFactor](https://www.codefactor.io/)
@@ -67,7 +68,9 @@ Let's take a look in each major module of the application:
 * **domain** - The modules containing the most important part of the application: the business
   logic. This module depends only on itself and all interaction it does is via _dependency
   inversion_.
-* **data** - The module containing the data (local, remote, light etc) from the app
+* **data** - The module containing the data (local, remote, light etc) from the app.
+* ** libraries** - The module with useful small libraries for the project, such as design system,
+* navigation, test etc.
 
 This type of architecture protects the most important modules in the app. To achieve this, all the
 dependency points to the center, and the modules are organized in a way that

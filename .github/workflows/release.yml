@@ -1,8 +1,12 @@
 name: Release Alkaa
 on:
-  push:
-    tags:
-      - '*'
+  workflow_dispatch:
+    inputs:
+      tagname:
+        description: 'Version name'
+        required: true
+        default: 'v1.0.0'
+        type: string
 
 env:
   ALKAA_KEY_ALIAS: ${{ secrets.ALKAA_KEY_ALIAS }}
@@ -10,6 +14,21 @@ env:
   ALKAA_KEY_STORE_PASSWORD: ${{ secrets.ALKAA_KEY_STORE_PASSWORD }}
 
 jobs:
+  create-tag:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Create tag
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: 'refs/tags/${{ github.event.inputs.tagname }}',
+              sha: context.sha
+            })
+
   github-release:
     name: "Release on GitHub"
     runs-on: "ubuntu-latest"

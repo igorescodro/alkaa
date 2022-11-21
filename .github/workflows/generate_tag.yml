@@ -21,6 +21,6 @@ jobs:
             github.rest.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              ref: inputs.tagname,
+              ref: github.event.inputs.tagname,
               sha: context.sha
             })

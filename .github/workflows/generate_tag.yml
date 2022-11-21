@@ -10,13 +10,17 @@ on:
         type: string
 
 jobs:
-  - name: Create tag
-      uses: actions/github-script@v5
-      with:
-        script: |
-          github.rest.git.createRef({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            ref: inputs.tagname,
-            sha: context.sha
-          })
+  create-tag:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Create tag
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: inputs.tagname,
+              sha: context.sha
+            })

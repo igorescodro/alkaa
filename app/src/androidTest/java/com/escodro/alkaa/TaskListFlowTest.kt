@@ -17,9 +17,9 @@ import com.escodro.designsystem.AlkaaTheme
 import com.escodro.local.model.Category
 import com.escodro.local.provider.DaoProvider
 import com.escodro.task.presentation.list.CheckboxNameKey
-import com.escodro.test.rule.DisableAnimationsRule
 import com.escodro.test.extension.waitUntilExists
 import com.escodro.test.extension.waitUntilNotExists
+import com.escodro.test.rule.DisableAnimationsRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Before

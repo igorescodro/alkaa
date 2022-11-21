@@ -1,4 +1,4 @@
-name: instrumented tests
+name: Run instrumented tests
 
 on:
   push:

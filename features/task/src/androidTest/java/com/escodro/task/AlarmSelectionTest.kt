@@ -13,8 +13,8 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.escodro.designsystem.AlkaaTheme
 import com.escodro.task.model.AlarmInterval
 import com.escodro.task.presentation.detail.alarm.AlarmSelection
-import com.escodro.test.DisableAnimationsRule
-import com.escodro.test.Events
+import com.escodro.test.espresso.Events
+import com.escodro.test.rule.DisableAnimationsRule
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule

@@ -4,7 +4,7 @@ import com.escodro.category.fake.FAKE_DOMAIN_CATEGORY_LIST
 import com.escodro.category.fake.LoadAllCategoriesFake
 import com.escodro.category.mapper.CategoryMapper
 import com.escodro.categoryapi.presentation.CategoryState
-import com.escodro.test.CoroutineTestRule
+import com.escodro.test.rule.CoroutineTestRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest

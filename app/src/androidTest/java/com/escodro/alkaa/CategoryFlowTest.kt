@@ -16,7 +16,7 @@ import com.escodro.alkaa.navigation.NavGraph
 import com.escodro.category.presentation.semantics.ColorKey
 import com.escodro.designsystem.AlkaaTheme
 import com.escodro.local.provider.DaoProvider
-import com.escodro.test.DisableAnimationsRule
+import com.escodro.test.rule.DisableAnimationsRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Before

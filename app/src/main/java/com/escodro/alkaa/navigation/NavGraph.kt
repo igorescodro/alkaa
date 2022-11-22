@@ -9,6 +9,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
+import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.dialog
@@ -38,7 +39,6 @@ import com.google.accompanist.navigation.material.rememberBottomSheetNavigator
  * @param startDestination the start destination of the graph
  */
 @OptIn(ExperimentalAnimationApi::class, ExperimentalMaterialNavigationApi::class)
-@Suppress("LongMethod", "MagicNumber")
 @Composable
 fun NavGraph(startDestination: String = Destinations.Home) {
     val bottomSheetNavigator = rememberBottomSheetNavigator()
@@ -49,107 +49,134 @@ fun NavGraph(startDestination: String = Destinations.Home) {
 
     ModalBottomSheetLayout(bottomSheetNavigator) {
         AnimatedNavHost(navController = navController, startDestination = startDestination) {
-            composable(
-                route = Destinations.Home,
-                deepLinks = listOf(navDeepLink { uriPattern = DestinationDeepLink.HomePattern }),
-                enterTransition = {
-                    slideIntoContainer(
-                        AnimatedContentScope.SlideDirection.Right,
-                        animationSpec = tween(700)
-                    )
-                },
-                exitTransition = {
-                    slideOutOfContainer(
-                        AnimatedContentScope.SlideDirection.Left,
-                        animationSpec = tween(700)
-                    )
-                }
-            ) {
-                Home(
-                    onTaskClick = actions.openTaskDetail,
-                    onAboutClick = actions.openAbout,
-                    onTrackerClick = actions.openTracker,
-                    onOpenSourceClick = actions.openOpenSourceLicense,
-                    onTaskSheetOpen = actions.openTaskBottomSheet,
-                    onCategorySheetOpen = actions.openCategoryBottomSheet
-                )
-            }
+            homeGraph(actions)
+            taskGraph(actions)
+            preferencesGraph(actions)
+            categoryGraph(actions)
+            trackerGraph(context, actions)
+        }
+    }
+}
 
-            composable(
-                route = "${Destinations.TaskDetail}/{${DestinationArgs.TaskId}}",
-                arguments = listOf(navArgument(DestinationArgs.TaskId) { type = NavType.LongType }),
-                deepLinks = listOf(
-                    navDeepLink {
-                        uriPattern = DestinationDeepLink.TaskDetailPattern
-                    }
-                ),
-                enterTransition = {
-                    slideIntoContainer(
-                        AnimatedContentScope.SlideDirection.Left,
-                        animationSpec = tween(700)
-                    )
-                },
-                exitTransition = {
-                    slideOutOfContainer(
-                        AnimatedContentScope.SlideDirection.Right,
-                        animationSpec = tween(700)
-                    )
-                }
-            ) { backStackEntry ->
-                val arguments = requireNotNull(backStackEntry.arguments)
-                TaskDetailSection(
-                    taskId = arguments.getLong(DestinationArgs.TaskId),
-                    onUpPress = actions.navigateUp
-                )
-            }
+@OptIn(ExperimentalAnimationApi::class)
+@Suppress("MagicNumber")
+private fun NavGraphBuilder.homeGraph(actions: Actions) {
+    composable(
+        route = Destinations.Home,
+        deepLinks = listOf(navDeepLink { uriPattern = DestinationDeepLink.HomePattern }),
+        enterTransition = {
+            slideIntoContainer(
+                AnimatedContentScope.SlideDirection.Right,
+                animationSpec = tween(700)
+            )
+        },
+        exitTransition = {
+            slideOutOfContainer(
+                AnimatedContentScope.SlideDirection.Left,
+                animationSpec = tween(700)
+            )
+        }
+    ) {
+        Home(
+            onTaskClick = actions.openTaskDetail,
+            onAboutClick = actions.openAbout,
+            onTrackerClick = actions.openTracker,
+            onOpenSourceClick = actions.openOpenSourceLicense,
+            onTaskSheetOpen = actions.openTaskBottomSheet,
+            onCategorySheetOpen = actions.openCategoryBottomSheet
+        )
+    }
+}
 
-            composable(route = Destinations.About) {
-                About(onUpPress = actions.navigateUp)
+@OptIn(ExperimentalAnimationApi::class, ExperimentalMaterialNavigationApi::class)
+@Suppress("MagicNumber")
+private fun NavGraphBuilder.taskGraph(actions: Actions) {
+    composable(
+        route = "${Destinations.TaskDetail}/{${DestinationArgs.TaskId}}",
+        arguments = listOf(navArgument(DestinationArgs.TaskId) { type = NavType.LongType }),
+        deepLinks = listOf(
+            navDeepLink {
+                uriPattern = DestinationDeepLink.TaskDetailPattern
             }
+        ),
+        enterTransition = {
+            slideIntoContainer(
+                AnimatedContentScope.SlideDirection.Left,
+                animationSpec = tween(700)
+            )
+        },
+        exitTransition = {
+            slideOutOfContainer(
+                AnimatedContentScope.SlideDirection.Right,
+                animationSpec = tween(700)
+            )
+        }
+    ) { backStackEntry ->
+        val arguments = requireNotNull(backStackEntry.arguments)
+        TaskDetailSection(
+            taskId = arguments.getLong(DestinationArgs.TaskId),
+            onUpPress = actions.navigateUp
+        )
+    }
 
-            composable(route = Destinations.OpenSource) {
-                OpenSource(onUpPress = actions.navigateUp)
-            }
+    bottomSheet(Destinations.BottomSheet.Task) {
+        AddTaskBottomSheet(actions.navigateUp)
+    }
+}
 
-            bottomSheet(Destinations.BottomSheet.Task) {
-                AddTaskBottomSheet(actions.navigateUp)
+@OptIn(ExperimentalMaterialNavigationApi::class)
+@Suppress("MagicNumber")
+private fun NavGraphBuilder.categoryGraph(actions: Actions) {
+    bottomSheet(
+        route = "${Destinations.BottomSheet.Category}/{${DestinationArgs.CategoryId}}",
+        arguments = listOf(
+            navArgument(DestinationArgs.CategoryId) {
+                type = NavType.LongType
             }
+        ),
+        deepLinks = listOf(
+            navDeepLink {
+                uriPattern = DestinationDeepLink.CategorySheetPattern
+            }
+        )
+    ) { backStackEntry ->
+        val id = backStackEntry.arguments?.getLong(DestinationArgs.CategoryId) ?: 0L
+        CategoryBottomSheet(
+            categoryId = id,
+            onHideBottomSheet = actions.navigateUp
+        )
+    }
+}
 
-            bottomSheet(
-                route = "${Destinations.BottomSheet.Category}/{${DestinationArgs.CategoryId}}",
-                arguments = listOf(
-                    navArgument(DestinationArgs.CategoryId) {
-                        type = NavType.LongType
-                    }
-                ),
-                deepLinks = listOf(
-                    navDeepLink {
-                        uriPattern = DestinationDeepLink.CategorySheetPattern
-                    }
-                )
-            ) { backStackEntry ->
-                val id = backStackEntry.arguments?.getLong(DestinationArgs.CategoryId) ?: 0L
-                CategoryBottomSheet(
-                    categoryId = id,
-                    onHideBottomSheet = actions.navigateUp
-                )
-            }
+@OptIn(ExperimentalAnimationApi::class)
+@Suppress("MagicNumber")
+private fun NavGraphBuilder.preferencesGraph(actions: Actions) {
+    composable(route = Destinations.About) {
+        About(onUpPress = actions.navigateUp)
+    }
 
-            dialog(Destinations.Tracker) {
-                LoadFeature(
-                    context = context,
-                    featureName = FeatureTracker,
-                    onDismiss = actions.navigateUp
-                ) {
-                    // Workaround to be able to use Dynamic Feature with Compose
-                    // https://issuetracker.google.com/issues/183677219
-                    val intent = Intent(Intent.ACTION_VIEW).apply {
-                        data = Uri.parse(TrackerDeepLink)
-                        `package` = context.packageName
-                    }
-                    context.startActivity(intent)
-                }
+    composable(route = Destinations.OpenSource) {
+        OpenSource(onUpPress = actions.navigateUp)
+    }
+}
+
+private fun NavGraphBuilder.trackerGraph(
+    context: Context,
+    actions: Actions
+) {
+    dialog(Destinations.Tracker) {
+        LoadFeature(
+            context = context,
+            featureName = FeatureTracker,
+            onDismiss = actions.navigateUp
+        ) {
+            // Workaround to be able to use Dynamic Feature with Compose
+            // https://issuetracker.google.com/issues/183677219
+            val intent = Intent(Intent.ACTION_VIEW).apply {
+                data = Uri.parse(TrackerDeepLink)
+                `package` = context.packageName
             }
+            context.startActivity(intent)
         }
     }
 }

@@ -7,7 +7,7 @@ import com.escodro.designsystem.AlkaaTheme
 import com.escodro.task.model.Task
 import com.escodro.task.model.TaskWithCategory
 import com.escodro.task.presentation.list.TaskItem
-import com.escodro.test.assertLines
+import com.escodro.test.semantics.assertLines
 import org.junit.Rule
 import org.junit.Test
 import java.util.Calendar

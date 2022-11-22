@@ -1,4 +1,4 @@
-package com.escodro.test
+package com.escodro.test.rule
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi

@@ -1,6 +1,6 @@
 /* ktlint-disable filename */
 
-package com.escodro.test
+package com.escodro.test.extension
 
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.SemanticsProperties

@@ -12,7 +12,7 @@ import com.escodro.task.presentation.fake.LoadTaskFake
 import com.escodro.task.presentation.fake.UpdateTaskCategoryFake
 import com.escodro.task.presentation.fake.UpdateTaskDescriptionFake
 import com.escodro.task.presentation.fake.UpdateTaskTitleFake
-import com.escodro.test.CoroutineTestRule
+import com.escodro.test.rule.CoroutineTestRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.TestScope

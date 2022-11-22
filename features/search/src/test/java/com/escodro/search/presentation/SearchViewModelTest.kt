@@ -2,7 +2,7 @@ package com.escodro.search.presentation
 
 import com.escodro.search.fake.SearchTaskByNameFake
 import com.escodro.search.mapper.TaskSearchMapper
-import com.escodro.test.CoroutineTestRule
+import com.escodro.test.rule.CoroutineTestRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest

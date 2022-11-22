@@ -1,4 +1,4 @@
-package com.escodro.test
+package com.escodro.test.espresso
 
 import com.adevinta.android.barista.interaction.BaristaPickerInteractions.setDateOnPicker
 import com.adevinta.android.barista.interaction.BaristaPickerInteractions.setTimeOnPicker

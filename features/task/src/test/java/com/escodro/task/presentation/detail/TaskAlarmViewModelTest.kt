@@ -7,7 +7,7 @@ import com.escodro.task.presentation.detail.main.TaskId
 import com.escodro.task.presentation.fake.CancelAlarmFake
 import com.escodro.task.presentation.fake.ScheduleAlarmFake
 import com.escodro.task.presentation.fake.UpdateTaskAsRepeatingFake
-import com.escodro.test.CoroutineTestRule
+import com.escodro.test.rule.CoroutineTestRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.runTest

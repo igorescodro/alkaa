@@ -1,6 +1,6 @@
 package com.escodro.tracker
 
-import com.escodro.test.CoroutineTestRule
+import com.escodro.test.rule.CoroutineTestRule
 import com.escodro.tracker.fake.LoadCompletedTasksByPeriodFake
 import com.escodro.tracker.mapper.TrackerMapper
 import com.escodro.tracker.presentation.TrackerViewModel

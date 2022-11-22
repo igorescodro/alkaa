@@ -7,7 +7,7 @@ import com.escodro.category.fake.LoadCategoryFake
 import com.escodro.category.fake.UpdateCategoryFake
 import com.escodro.category.mapper.CategoryMapper
 import com.escodro.categoryapi.model.Category
-import com.escodro.test.CoroutineTestRule
+import com.escodro.test.rule.CoroutineTestRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.TestScope

@@ -1,14 +1,14 @@
 plugins {
     id("com.escodro.android-library")
-    id("kotlin-kapt")
+    alias(libs.plugins.ksp)
 }
 
 android {
     defaultConfig {
         javaCompileOptions {
-            annotationProcessorOptions {
-                arguments["room.schemaLocation"] = "$projectDir/schemas"
-                arguments["room.incremental"] = "true"
+            ksp {
+                arg("room.schemaLocation", "$projectDir/schemas")
+                arg("room.incremental", "true")
             }
         }
     }
@@ -24,7 +24,7 @@ dependencies {
     implementation(libs.koin.android)
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
-    kapt(libs.androidx.room.compiler)
+    ksp(libs.androidx.room.compiler)
 
     androidTestImplementation(libs.test.junitext)
     androidTestImplementation(libs.test.runner)

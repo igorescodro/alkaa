@@ -3,6 +3,9 @@
 android_gradle_plugin = "7.3.1"
 kotlin = "1.7.20"
 
+# Plugins
+ksp = "1.7.21-1.0.8"
+
 # General dependencies
 logging = "3.0.4"
 logback = "1.2.11"
@@ -136,4 +139,7 @@ aboutlibraries_ui = { module = "com.mikepenz:aboutlibraries-compose", version.re
 [bundles]
 compose = ["compose.ui", "compose.material", "compose.tooling", "compose.icons", "compose.material3"]
 composetest = ["compose.uitest", "compose.junit4", "compose.manifest"]
+
+[plugins]
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 

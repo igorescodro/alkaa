@@ -60,7 +60,7 @@ detekt = "1.22.0"
 composerules = "0.0.26"
 
 # License
-aboutlibraries = "10.5.1"
+aboutlibraries = "10.5.2"
 
 [libraries]
 # Project

@@ -4,7 +4,7 @@ android_gradle_plugin = "7.3.1"
 kotlin = "1.7.20"
 
 # Plugins
-ksp = "1.7.21-1.0.8"
+ksp = "1.7.22-1.0.8"
 
 # General dependencies
 logging = "3.0.4"

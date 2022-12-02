@@ -21,6 +21,7 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
+import org.koin.core.module.Module
 
 /**
  * Alkaa [Application] class.
@@ -35,22 +36,24 @@ class AlkaaApp : Application() {
         startKoin {
             androidLogger(Level.NONE)
             androidContext(this@AlkaaApp)
-            modules(
-                appModule +
-                    coreModule +
-                    taskModule +
-                    alarmModule +
-                    categoryModule +
-                    searchModule +
-                    glanceModule +
-                    preferenceModule +
-                    domainModule +
-                    repositoryModule +
-                    localModule +
-                    dataStoreModule
-            )
+            modules(getAllModules())
         }
     }
+
+    internal fun getAllModules(): List<Module> = listOf(
+        appModule,
+        coreModule,
+        taskModule,
+        alarmModule,
+        categoryModule,
+        searchModule,
+        glanceModule,
+        preferenceModule,
+        domainModule,
+        repositoryModule,
+        localModule,
+        dataStoreModule
+    )
 
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base)

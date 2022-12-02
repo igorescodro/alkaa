@@ -125,6 +125,9 @@ dependencies {
 
     androidTestUtil(libs.test.orchestrator)
 
+    testImplementation(libs.koin.test)
+    testImplementation(libs.test.mockk)
+
     androidTestImplementation(projects.libraries.test)
     androidTestImplementation(libs.koin.test)
     androidTestImplementation(libs.test.hamcrest)

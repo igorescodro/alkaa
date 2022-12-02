@@ -6,6 +6,7 @@ dependencies {
     implementation(projects.features.alarmApi)
     implementation(projects.libraries.core)
     implementation(projects.libraries.navigation)
+    implementation(projects.libraries.core)
     implementation(projects.domain)
 
     implementation(libs.kotlinx.coroutines.core)

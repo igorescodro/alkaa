@@ -38,24 +38,26 @@ import androidx.glance.state.GlanceStateDefinition
 import androidx.glance.text.Text
 import androidx.glance.text.TextStyle
 import androidx.glance.unit.ColorProvider
+import com.escodro.core.coroutines.ApplicationScope
 import com.escodro.glance.R
 import com.escodro.glance.data.TaskListStateDefinition
 import com.escodro.glance.model.Task
 import com.escodro.navigation.DestinationDeepLink
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
 import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 internal class TaskListGlanceWidget : GlanceAppWidget(), KoinComponent {
 
-    private val coroutineScope: CoroutineScope = MainScope()
+    private val coroutineScope: CoroutineScope by inject(qualifier = ApplicationScope)
 
     /**
      * Custom implementation of [GlanceStateDefinition] to save and store data for this widget.
      */
-    override val stateDefinition: GlanceStateDefinition<ImmutableList<Task>> = TaskListStateDefinition
+    override val stateDefinition: GlanceStateDefinition<ImmutableList<Task>> =
+        TaskListStateDefinition
 
     @Composable
     override fun Content() {

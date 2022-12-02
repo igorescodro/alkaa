@@ -4,6 +4,7 @@ import android.app.AlarmManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import com.escodro.core.coroutines.ApplicationScope
 import com.escodro.domain.usecase.alarm.RescheduleFutureAlarms
 import com.escodro.domain.usecase.alarm.ShowAlarm
 import com.escodro.domain.usecase.alarm.SnoozeAlarm
@@ -20,7 +21,7 @@ import org.koin.core.component.inject
  */
 internal class TaskReceiver : BroadcastReceiver(), KoinComponent {
 
-    private val coroutineScope: CoroutineScope by inject()
+    private val coroutineScope: CoroutineScope by inject(qualifier = ApplicationScope)
 
     private val completeTaskUseCase: CompleteTask by inject()
 

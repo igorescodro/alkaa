@@ -17,7 +17,13 @@ import org.koin.dsl.module
  */
 val categoryModule = module {
     viewModelOf(::CategoryListViewModelImpl) bind CategoryListViewModel::class
-    viewModelOf(::CategoryAddViewModel)
+    viewModel {
+        CategoryAddViewModel(
+            addCategoryUseCase = get(),
+            applicationScope = get(ApplicationScope),
+            categoryMapper = get()
+        )
+    }
     viewModel {
         CategoryEditViewModel(
             loadCategoryUseCase = get(),

@@ -1,3 +1,6 @@
+plugins {
+    alias(libs.plugins.dependencyanalysis)
+}
 buildscript {
     repositories {
         mavenCentral()

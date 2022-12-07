@@ -5,6 +5,7 @@ kotlin = "1.7.20"
 
 # Plugins
 ksp = "1.7.22-1.0.8"
+dependencyanalysis = "1.17.0"
 
 # General dependencies
 logging = "3.0.4"
@@ -142,4 +143,5 @@ composetest = ["compose.uitest", "compose.junit4", "compose.manifest"]
 
 [plugins]
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+dependencyanalysis = {id = "com.autonomousapps.dependency-analysis", version.ref = "dependencyanalysis"}
 

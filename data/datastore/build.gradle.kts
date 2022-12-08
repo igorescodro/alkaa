@@ -2,9 +2,9 @@ plugins {
     id("com.escodro.android-library")
 }
 
-dependencies{
+dependencies {
     implementation(projects.data.repository)
 
-    implementation(libs.koin.android)
+    implementation(libs.koin.core)
     implementation(libs.androidx.datastore)
 }

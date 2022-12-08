@@ -15,7 +15,6 @@ import com.escodro.repository.datasource.CategoryDataSource
 import com.escodro.repository.datasource.SearchDataSource
 import com.escodro.repository.datasource.TaskDataSource
 import com.escodro.repository.datasource.TaskWithCategoryDataSource
-import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.bind
@@ -39,6 +38,6 @@ val localModule = module {
     factoryOf(::TaskWithCategoryMapper)
 
     // Providers
-    single { DatabaseProvider(context = androidContext(), coroutineScope = get(ApplicationScope)) }
+    single { DatabaseProvider(context = get(), coroutineScope = get(ApplicationScope)) }
     singleOf(::DaoProvider)
 }

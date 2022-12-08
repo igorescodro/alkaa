@@ -5,6 +5,7 @@ kotlin = "1.7.20"
 
 # Plugins
 ksp = "1.7.22-1.0.8"
+dependencyanalysis = "1.17.0"
 
 # General dependencies
 logging = "3.0.4"
@@ -17,6 +18,8 @@ kotlinx_serialization = "1.4.1"
 kotlinx_collections_immutable = "0.3.5"
 
 # AndroidX
+core = "1.9.0"
+appcompat = "1.5.0"
 material = "1.7.0"
 constraint = "2.0.4"
 corektx = "1.9.0"
@@ -24,6 +27,7 @@ playcore = "1.10.3"
 datastore = "1.0.0"
 glance = "1.0.0-alpha05"
 workmanager = "2.7.1"
+lifecycle_viewmodel = "2.5.1"
 
 # Compose
 compose = "1.3.1"
@@ -51,7 +55,6 @@ test_mockk = "1.13.3"
 test_uiautomator = "2.2.0"
 test_junitext = "1.1.4"
 test_barista = "4.3.0"
-test_hamcrest = "2.2"
 test_orchestrator = "1.4.2"
 
 # Quality
@@ -79,16 +82,18 @@ kotlinx_serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-
 kotlinx_collections_immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "kotlinx_collections_immutable" }
 
 # AndroidX
+androidx_core = { module = "androidx.core:core", version.ref = "core" }
+androidx_appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
 androidx_material = { module = "com.google.android.material:material", version.ref = "material" }
 androidx_corektx = { module = "androidx.core:core-ktx", version.ref = "corektx" }
 androidx_playcore = { module = "com.google.android.play:core", version.ref = "playcore" }
 androidx_datastore = { module = "androidx.datastore:datastore-preferences", version.ref = "datastore" }
 androidx_glance = { module = "androidx.glance:glance-appwidget", version.ref = "glance" }
 androidx_workmanager = { module = "androidx.work:work-runtime-ktx", version.ref = "workmanager" }
+androidx_lifecycle_viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel", version.ref = "lifecycle_viewmodel" }
 
 compose_ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
-compose_material = { module = "androidx.compose.material:material", version.ref = "compose" }
-compose_tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
+compose_toolingpreview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
 compose_icons = { module = "androidx.compose.material:material-icons-extended", version.ref = "compose" }
 compose_navigation = { module = "androidx.navigation:navigation-compose", version.ref = "compose_nav" }
 compose_viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "compose_viewmodel" }
@@ -124,7 +129,6 @@ test_uiautomator = { module = "androidx.test.uiautomator:uiautomator", version.r
 test_junitext = { module = "androidx.test.ext:junit", version.ref = "test_junitext" }
 test_mockk = { module = "io.mockk:mockk", version.ref = "test_mockk" }
 test_barista = { module = "com.adevinta.android:barista", version.ref = "test_barista" }
-test_hamcrest = { module = "org.hamcrest:hamcrest", version.ref = "test_hamcrest" }
 test_orchestrator = { module = "androidx.test:orchestrator", version.ref = "test_orchestrator" }
 
 # Quality
@@ -137,9 +141,11 @@ aboutlibraries_plugin = { module = "com.mikepenz.aboutlibraries.plugin:aboutlibr
 aboutlibraries_ui = { module = "com.mikepenz:aboutlibraries-compose", version.ref = "aboutlibraries" }
 
 [bundles]
-compose = ["compose.ui", "compose.material", "compose.tooling", "compose.icons", "compose.material3"]
+compose = ["compose.ui", "compose.toolingpreview", "compose.icons", "compose.material3"]
 composetest = ["compose.uitest", "compose.junit4", "compose.manifest"]
 
 [plugins]
+kotlin_serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+dependencyanalysis = {id = "com.autonomousapps.dependency-analysis", version.ref = "dependencyanalysis"}
 

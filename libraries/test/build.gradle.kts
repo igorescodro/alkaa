@@ -16,8 +16,6 @@ android {
 }
 
 dependencies {
-    implementation(projects.libraries.core)
-
     api(libs.test.junit)
 
     api(libs.kotlinx.coroutines.test)
@@ -30,7 +28,6 @@ dependencies {
         exclude(group = "androidx.lifecycle", module = "lifecycle-runtime")
     }
 
-    api(libs.test.core)
     implementation(libs.test.uiautomator)
-    api(libs.test.barista)
+    implementation(libs.test.barista)
 }

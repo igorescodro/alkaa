@@ -21,8 +21,8 @@ dependencies {
     implementation(projects.libraries.core)
     implementation(projects.data.repository)
 
-    implementation(libs.koin.android)
-    implementation(libs.androidx.room.runtime)
+    implementation(libs.koin.core)
+    api(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
     ksp(libs.androidx.room.compiler)
 

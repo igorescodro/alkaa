@@ -1,0 +1,57 @@
+name: Run instrumented tests (AER)
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '**.md'
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  android-test:
+    runs-on: macos-latest
+    timeout-minutes: 80
+
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v2
+
+      - name: Run instrumented tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 24
+          profile: Galaxy Nexus
+          disable-animations: true
+          disk-size: 2000M
+          heap-size: 600M
+          script: |
+            adb logcat -c
+            adb logcat > logcat.txt &
+            ./gradlew connectedAndroidTest --stacktrace
+
+      - name: Save Test Results
+        uses: actions/upload-artifact@v3
+        if: ${{ always() }}
+        with:
+          name: test-results
+          path: |
+            /Users/runner/work/alkaa/alkaa/app/build/reports/androidTests/
+            ./logcat.txt
+          retention-days: 7

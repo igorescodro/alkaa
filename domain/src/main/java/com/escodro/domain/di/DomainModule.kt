@@ -70,14 +70,14 @@ val domainModule = module {
     factoryOf(::UpdateTaskCategoryImpl) bind UpdateTaskCategory::class
 
     // Category Use Cases
-    factory<DeleteCategory> { DeleteCategoryImpl(get()) } bind DeleteCategory::class
-    factory<LoadAllCategories> { LoadAllCategoriesImpl(get()) } bind LoadAllCategories::class
-    factory<LoadCategory> { LoadCategoryImpl(get()) } bind LoadCategory::class
-    factory<AddCategory> { AddCategoryImpl(get()) } bind AddCategory::class
-    factory<UpdateCategory> { UpdateCategoryImpl(get()) } bind UpdateCategory::class
+    factoryOf(::DeleteCategoryImpl) bind DeleteCategory::class
+    factoryOf(::LoadAllCategoriesImpl) bind LoadAllCategories::class
+    factoryOf(::LoadCategoryImpl) bind LoadCategory::class
+    factoryOf(::AddCategoryImpl) bind AddCategory::class
+    factoryOf(::UpdateCategoryImpl) bind UpdateCategory::class
 
     // Search Use Cases
-    factory<SearchTasksByName> { SearchTasksByNameImpl(get()) } bind SearchTasksByName::class
+    factoryOf(::SearchTasksByNameImpl) bind SearchTasksByName::class
 
     // Task With Category Use Cases
     factoryOf(::LoadCompletedTasks)

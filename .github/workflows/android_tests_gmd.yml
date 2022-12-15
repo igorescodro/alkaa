@@ -1,4 +1,4 @@
-name: Run instrumented tests
+name: Run instrumented tests (GMD)
 
 on:
   push:
@@ -34,18 +34,7 @@ jobs:
         uses: android-actions/setup-android@v2
 
       - name: Run instrumented tests
-        # run: ./gradlew alkaaDevicesGroupDebugAndroidTest -Pandroid.testoptions.manageddevices.emulator.gpu="swiftshader_indirect"
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 24
-          profile: Galaxy Nexus
-          disable-animations: true
-          disk-size: 2000M
-          heap-size: 600M
-          script: |
-            adb logcat -c
-            adb logcat > logcat.txt &
-            ./gradlew connectedAndroidTest --stacktrace
+        run: ./gradlew alkaaDevicesGroupDebugAndroidTest -Pandroid.testoptions.manageddevices.emulator.gpu="swiftshader_indirect"
 
       - name: Save Test Results
         uses: actions/upload-artifact@v3

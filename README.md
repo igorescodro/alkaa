@@ -1,5 +1,6 @@
 ![build](https://github.com/igorescodro/alkaa/actions/workflows/build.yml/badge.svg)
-![instrumented tests](https://github.com/igorescodro/alkaa/actions/workflows/android_tests.yml/badge.svg)
+![instrumented tests](https://github.com/igorescodro/alkaa/actions/workflows/android_tests_gmd.yml/badge.svg)
+![instrumented tests](https://github.com/igorescodro/alkaa/actions/workflows/android_tests_aer.yml/badge.svg)
 <a href="https://ktlint.github.io/"><img src="https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg" alt="ktlint"></a>
 [![codebeat badge](https://codebeat.co/badges/5dce2515-5fa7-4885-bfab-2a2905d84ee5)](https://codebeat.co/projects/github-com-igorescodro-alkaa-main)
 [![CodeFactor](https://www.codefactor.io/repository/github/igorescodro/alkaa/badge/main)](https://www.codefactor.io/repository/github/igorescodro/alkaa/overview/main)
@@ -69,7 +70,7 @@ Let's take a look in each major module of the application:
   logic. This module depends only on itself and all interaction it does is via _dependency
   inversion_.
 * **data** - The module containing the data (local, remote, light etc) from the app.
-* ** libraries** - The module with useful small libraries for the project, such as design system,
+* **libraries** - The module with useful small libraries for the project, such as design system,
 * navigation, test etc.
 
 This type of architecture protects the most important modules in the app. To achieve this, all the

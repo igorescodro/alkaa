@@ -42,7 +42,8 @@ compose_icons = "1.3.1"
 room = "2.4.3"
 
 # Koin
-koin = "3.2.2"
+koin_core = "3.3.0"
+koin_compose = "3.4.0"
 koin_android = "3.3.1"
 
 # Accompanist
@@ -111,10 +112,10 @@ androidx_room_ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 androidx_room_test = { module = "androidx.room:room-testing", version.ref = "room" }
 
 #Koin
-koin_core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
+koin_core = { module = "io.insert-koin:koin-core", version.ref = "koin_core" }
 koin_android = { module = "io.insert-koin:koin-android", version.ref = "koin_android" }
-koin_compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin_android" }
-koin_test = { module = "io.insert-koin:koin-test", version.ref = "koin" }
+koin_compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin_compose" }
+koin_test = { module = "io.insert-koin:koin-test", version.ref = "koin_core" }
 
 # Accompanist
 accompanist_animation = { module = "com.google.accompanist:accompanist-navigation-animation", version.ref = "accompanist" }

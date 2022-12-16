@@ -25,7 +25,7 @@ internal class TrackerMapper {
 
     private fun toCategory(
         map: Map.Entry<Long?, List<TaskWithCategory>>,
-        totalCount: Int
+        totalCount: Int,
     ): Tracker.CategoryInfo {
         val first = map.value.first()
         val taskCount = map.value.size
@@ -33,7 +33,7 @@ internal class TrackerMapper {
             name = first.category?.name,
             color = first.category?.color?.let { color -> Color.parseColor(color) },
             taskCount = taskCount,
-            percentage = taskCount.toFloat() / totalCount
+            percentage = taskCount.toFloat() / totalCount,
         )
     }
 }

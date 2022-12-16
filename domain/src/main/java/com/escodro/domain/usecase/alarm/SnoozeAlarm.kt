@@ -12,7 +12,7 @@ import java.util.Calendar
 class SnoozeAlarm(
     private val calendarProvider: CalendarProvider,
     private val notificationInteractor: NotificationInteractor,
-    private val alarmInteractor: AlarmInteractor
+    private val alarmInteractor: AlarmInteractor,
 ) {
 
     /**

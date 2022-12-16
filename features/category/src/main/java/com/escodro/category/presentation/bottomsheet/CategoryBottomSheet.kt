@@ -64,13 +64,13 @@ fun CategoryBottomSheet(categoryId: Long, onHideBottomSheet: () -> Unit) {
     if (categoryId == 0L) {
         CategoryNewSheetLoader(
             colorList = colorList,
-            onHideBottomSheet = onHideBottomSheet
+            onHideBottomSheet = onHideBottomSheet,
         )
     } else {
         CategoryEditSheetLoader(
             categoryId = categoryId,
             colorList = colorList,
-            onHideBottomSheet = onHideBottomSheet
+            onHideBottomSheet = onHideBottomSheet,
         )
     }
 }
@@ -79,7 +79,7 @@ fun CategoryBottomSheet(categoryId: Long, onHideBottomSheet: () -> Unit) {
 private fun CategoryNewSheetLoader(
     colorList: ImmutableList<Color>,
     onHideBottomSheet: () -> Unit,
-    addViewModel: CategoryAddViewModel = getViewModel()
+    addViewModel: CategoryAddViewModel = getViewModel(),
 ) {
     val sheetState by rememberSaveable(addViewModel) {
         mutableStateOf(CategoryBottomSheetState(emptyCategory()))
@@ -91,7 +91,7 @@ private fun CategoryNewSheetLoader(
         onCategoryChange = { updatedState ->
             addViewModel.addCategory(updatedState.toCategory())
             onHideBottomSheet()
-        }
+        },
     )
 }
 
@@ -100,7 +100,7 @@ private fun CategoryEditSheetLoader(
     categoryId: Long,
     colorList: ImmutableList<Color>,
     onHideBottomSheet: () -> Unit,
-    editViewModel: CategoryEditViewModel = getViewModel()
+    editViewModel: CategoryEditViewModel = getViewModel(),
 ) {
     val categoryState by remember(editViewModel, categoryId) {
         editViewModel.loadCategory(categoryId = categoryId)
@@ -125,7 +125,7 @@ private fun CategoryEditSheetLoader(
         onCategoryRemove = {
             editViewModel.deleteCategory(it)
             onHideBottomSheet()
-        }
+        },
     )
 }
 
@@ -135,7 +135,7 @@ private fun CategorySheetContent(
     state: CategoryBottomSheetState,
     colorList: ImmutableList<Color>,
     onCategoryChange: (CategoryBottomSheetState) -> Unit,
-    onCategoryRemove: (Category) -> Unit = {}
+    onCategoryRemove: (Category) -> Unit = {},
 ) {
     Column(
         modifier = Modifier
@@ -143,7 +143,7 @@ private fun CategorySheetContent(
             .height(256.dp)
             .background(MaterialTheme.colorScheme.surface) // Accompanist does not support M3 yet
             .padding(16.dp),
-        verticalArrangement = Arrangement.SpaceAround
+        verticalArrangement = Arrangement.SpaceAround,
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             var openDialog by rememberSaveable { mutableStateOf(false) }
@@ -158,7 +158,7 @@ private fun CategorySheetContent(
                 categoryName = state.name,
                 isDialogOpen = openDialog,
                 onCloseDialog = { openDialog = false },
-                onActionConfirm = { onCategoryRemove(state.toCategory()) }
+                onActionConfirm = { onCategoryRemove(state.toCategory()) },
             )
 
             AlkaaInputTextField(
@@ -167,18 +167,18 @@ private fun CategorySheetContent(
                 onTextChange = { state.name = it },
                 modifier = Modifier
                     .weight(5F)
-                    .focusRequester(focusRequester)
+                    .focusRequester(focusRequester),
             )
             if (state.isEditing()) {
                 IconButton(
                     onClick = { openDialog = true },
                     modifier = Modifier
                         .height(64.dp)
-                        .weight(1F)
+                        .weight(1F),
                 ) {
                     Icon(
                         imageVector = Icons.Outlined.Delete,
-                        contentDescription = stringResource(id = R.string.category_cd_remove_category)
+                        contentDescription = stringResource(id = R.string.category_cd_remove_category),
                     )
                 }
             }
@@ -187,12 +187,12 @@ private fun CategorySheetContent(
         CategoryColorSelector(
             colorList = colorList,
             value = Color(state.color),
-            onColorChange = { state.color = it.toArgb() }
+            onColorChange = { state.color = it.toArgb() },
         )
 
         CategorySaveButton(
             currentColor = Color(state.color),
-            onClick = { onCategoryChange(state) }
+            onClick = { onCategoryChange(state) },
         )
     }
 }
@@ -201,19 +201,19 @@ private fun CategorySheetContent(
 private fun CategoryColorSelector(
     colorList: ImmutableList<Color>,
     value: Color,
-    onColorChange: (Color) -> Unit
+    onColorChange: (Color) -> Unit,
 ) {
     LazyRow(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top = 16.dp)
+            .padding(top = 16.dp),
     ) {
         items(
             items = colorList,
             itemContent = { color ->
                 val optionSelected = color == value
                 CategoryColorItem(color, optionSelected, onClick = { onColorChange(color) })
-            }
+            },
         )
     }
 }
@@ -223,7 +223,7 @@ private fun RemoveCategoryDialog(
     categoryName: String,
     isDialogOpen: Boolean,
     onCloseDialog: () -> Unit,
-    onActionConfirm: () -> Unit
+    onActionConfirm: () -> Unit,
 ) {
     val arguments = DialogArguments(
         title = stringResource(id = R.string.category_dialog_remove_title),
@@ -233,12 +233,12 @@ private fun RemoveCategoryDialog(
         onConfirmAction = {
             onActionConfirm()
             onCloseDialog()
-        }
+        },
     )
     AlkaaDialog(
         arguments = arguments,
         isDialogOpen = isDialogOpen,
-        onDismissRequest = onCloseDialog
+        onDismissRequest = onCloseDialog,
     )
 }
 
@@ -250,11 +250,11 @@ private fun CategorySaveButton(currentColor: Color, onClick: () -> Unit) {
         colors = ButtonDefaults.buttonColors(containerColor = colorState.value),
         modifier = Modifier
             .fillMaxWidth()
-            .height(48.dp)
+            .height(48.dp),
     ) {
         Text(
             text = stringResource(id = R.string.category_sheet_save),
-            color = MaterialTheme.colorScheme.background
+            color = MaterialTheme.colorScheme.background,
         )
     }
 }
@@ -263,11 +263,11 @@ private fun CategorySaveButton(currentColor: Color, onClick: () -> Unit) {
 private fun CategoryColorItem(
     color: Color,
     isSelected: Boolean,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     Box(
         contentAlignment = Alignment.Center,
-        modifier = Modifier.padding(horizontal = 8.dp)
+        modifier = Modifier.padding(horizontal = 8.dp),
     ) {
         Box(
             modifier = Modifier
@@ -278,15 +278,15 @@ private fun CategoryColorItem(
                 .selectable(
                     role = Role.RadioButton,
                     selected = isSelected,
-                    onClick = onClick
-                )
+                    onClick = onClick,
+                ),
         )
         if (isSelected) {
             Box(
                 modifier = Modifier
                     .size(16.dp)
                     .clip(CircleShape)
-                    .background(MaterialTheme.colorScheme.background)
+                    .background(MaterialTheme.colorScheme.background),
             )
         }
     }
@@ -294,7 +294,7 @@ private fun CategoryColorItem(
 
 private fun emptyCategory() = Category(
     name = "",
-    color = CategoryColors.values()[0].value.toArgb()
+    color = CategoryColors.values()[0].value.toArgb(),
 )
 
 @Suppress("UndocumentedPublicFunction")
@@ -309,7 +309,7 @@ fun CategorySheetContentPreview() {
                 state = state,
                 colorList = CategoryColors.values().map { it.value }.toImmutableList(),
                 onCategoryChange = {},
-                onCategoryRemove = {}
+                onCategoryRemove = {},
             )
         }
     }

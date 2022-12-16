@@ -46,7 +46,7 @@ fun AddTaskBottomSheet(onHideBottomSheet: () -> Unit) {
 internal fun AddTaskLoader(
     addTaskViewModel: AddTaskViewModel = getViewModel(),
     categoryViewModel: CategoryListViewModel = getViewModel(),
-    onHideBottomSheet: () -> Unit
+    onHideBottomSheet: () -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -54,7 +54,7 @@ internal fun AddTaskLoader(
             .height(256.dp)
             .background(MaterialTheme.colorScheme.surface) // Accompanist does not support M3 yet
             .padding(16.dp),
-        verticalArrangement = Arrangement.SpaceAround
+        verticalArrangement = Arrangement.SpaceAround,
     ) {
         var taskInputText by rememberSaveable { mutableStateOf("") }
         val categoryState by remember(categoryViewModel) {
@@ -74,13 +74,13 @@ internal fun AddTaskLoader(
             onTextChange = { text -> taskInputText = text },
             modifier = Modifier
                 .fillMaxWidth()
-                .focusRequester(focusRequester)
+                .focusRequester(focusRequester),
         )
 
         CategorySelection(
             state = categoryState,
             currentCategory = currentCategory?.value,
-            onCategoryChange = { categoryId -> currentCategory = categoryId }
+            onCategoryChange = { categoryId -> currentCategory = categoryId },
         )
 
         Button(
@@ -91,7 +91,7 @@ internal fun AddTaskLoader(
                 addTaskViewModel.addTask(taskInputText, currentCategory)
                 taskInputText = ""
                 onHideBottomSheet()
-            }
+            },
         ) {
             Text(stringResource(id = R.string.task_add_save))
         }
@@ -109,7 +109,7 @@ fun TaskListScaffoldError() {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(256.dp)
-                .background(MaterialTheme.colorScheme.background)
+                .background(MaterialTheme.colorScheme.background),
         ) {
             AddTaskBottomSheet(onHideBottomSheet = {})
         }

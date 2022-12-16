@@ -46,7 +46,7 @@ internal fun AlarmSelection(
     onAlarmUpdate: (Calendar?) -> Unit,
     onIntervalSelect: (AlarmInterval) -> Unit,
     hasAlarmPermission: () -> Boolean,
-    shouldCheckNotificationPermission: Boolean
+    shouldCheckNotificationPermission: Boolean,
 ) {
     val context = LocalContext.current
     val permissionState = if (shouldCheckNotificationPermission) {
@@ -60,21 +60,21 @@ internal fun AlarmSelection(
     AlarmPermissionDialog(
         context = context,
         isDialogOpen = state.showExactAlarmDialog,
-        onCloseDialog = { state.showExactAlarmDialog = false }
+        onCloseDialog = { state.showExactAlarmDialog = false },
     )
 
     // Notification permission dialog
     NotificationPermissionDialog(
         permissionState = permissionState,
         isDialogOpen = state.showNotificationDialog,
-        onCloseDialog = { state.showNotificationDialog = false }
+        onCloseDialog = { state.showNotificationDialog = false },
     )
 
     // Rationale permission dialog
     RationalePermissionDialog(
         context = context,
         isDialogOpen = state.showRationaleDialog,
-        onCloseDialog = { state.showRationaleDialog = false }
+        onCloseDialog = { state.showRationaleDialog = false },
     )
 
     AlarmSelectionContent(
@@ -83,7 +83,7 @@ internal fun AlarmSelection(
         permissionState = permissionState,
         hasAlarmPermission = hasAlarmPermission,
         onAlarmUpdate = onAlarmUpdate,
-        onIntervalSelect = onIntervalSelect
+        onIntervalSelect = onIntervalSelect,
     )
 }
 
@@ -96,7 +96,7 @@ internal fun AlarmSelectionContent(
     permissionState: PermissionState,
     hasAlarmPermission: () -> Boolean,
     onAlarmUpdate: (Calendar?) -> Unit,
-    onIntervalSelect: (AlarmInterval) -> Unit
+    onIntervalSelect: (AlarmInterval) -> Unit,
 ) {
     Column {
         TaskDetailSectionContent(
@@ -118,7 +118,7 @@ internal fun AlarmSelectionContent(
                     }
                 },
             imageVector = Icons.Outlined.Alarm,
-            contentDescription = R.string.task_detail_cd_icon_alarm
+            contentDescription = R.string.task_detail_cd_icon_alarm,
         ) {
             AlarmInfo(state.date) {
                 state.date = null
@@ -131,7 +131,7 @@ internal fun AlarmSelectionContent(
             onIntervalSelect = { interval ->
                 state.alarmInterval = interval
                 onIntervalSelect(interval)
-            }
+            },
         )
     }
 }
@@ -148,7 +148,7 @@ fun AlarmSetSelectionPreview() {
                 onAlarmUpdate = {},
                 onIntervalSelect = {},
                 hasAlarmPermission = { true },
-                shouldCheckNotificationPermission = true
+                shouldCheckNotificationPermission = true,
             )
         }
     }
@@ -166,7 +166,7 @@ fun AlarmNotSetSelectionPreview() {
                 onAlarmUpdate = {},
                 onIntervalSelect = {},
                 hasAlarmPermission = { true },
-                shouldCheckNotificationPermission = true
+                shouldCheckNotificationPermission = true,
             )
         }
     }

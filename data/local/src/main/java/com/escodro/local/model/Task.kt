@@ -27,10 +27,10 @@ import java.util.Calendar
             entity = Category::class,
             parentColumns = ["category_id"],
             childColumns = ["task_category_id"],
-            onDelete = ForeignKey.CASCADE
-        )
+            onDelete = ForeignKey.CASCADE,
+        ),
     ],
-    indices = [Index(value = ["task_category_id"])]
+    indices = [Index(value = ["task_category_id"])],
 )
 data class Task(
     @PrimaryKey(autoGenerate = true)
@@ -45,5 +45,5 @@ data class Task(
     @ColumnInfo(name = "task_creation_date") var creationDate: Calendar? = null,
     @ColumnInfo(name = "task_completed_date") var completedDate: Calendar? = null,
     @ColumnInfo(name = "task_is_repeating") var isRepeating: Boolean = false,
-    @ColumnInfo(name = "task_alarm_interval") var alarmInterval: AlarmInterval? = null
+    @ColumnInfo(name = "task_alarm_interval") var alarmInterval: AlarmInterval? = null,
 )

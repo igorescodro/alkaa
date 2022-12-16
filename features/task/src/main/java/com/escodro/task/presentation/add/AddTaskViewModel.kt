@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 
 internal class AddTaskViewModel(
     private val addTaskUseCase: AddTask,
-    private val applicationScope: CoroutineScope
+    private val applicationScope: CoroutineScope,
 ) : ViewModel() {
 
     fun addTask(title: String, categoryId: CategoryId?) {

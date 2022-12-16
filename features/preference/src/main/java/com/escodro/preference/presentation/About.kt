@@ -48,7 +48,7 @@ fun About(onUpPress: () -> Unit, modifier: Modifier = Modifier) {
     Scaffold(
         topBar = { AlkaaToolbar(onUpPress = onUpPress) },
         content = { paddingValues -> AboutContent(modifier = Modifier.padding(paddingValues)) },
-        modifier = modifier
+        modifier = modifier,
     )
 }
 
@@ -60,7 +60,7 @@ private fun AboutContent(modifier: Modifier = Modifier) {
             text = stringResource(id = R.string.about_description),
             style = MaterialTheme.typography.bodyMedium,
             lineHeight = 32.sp,
-            modifier = Modifier.padding(16.dp)
+            modifier = Modifier.padding(16.dp),
         )
         ContentCallToAction()
     }
@@ -74,8 +74,8 @@ private fun ContentHeader() {
         targetValue = MaterialTheme.colorScheme.tertiary,
         animationSpec = infiniteRepeatable(
             animation = tween(durationMillis = 10_000, easing = LinearEasing),
-            repeatMode = RepeatMode.Reverse
-        )
+            repeatMode = RepeatMode.Reverse,
+        ),
     )
 
     Box(
@@ -83,14 +83,14 @@ private fun ContentHeader() {
         modifier = Modifier
             .fillMaxWidth()
             .height(200.dp)
-            .background(color = color)
+            .background(color = color),
     ) {
         val appName = stringResource(id = R.string.app_name).lowercase(Locale.getDefault())
         Text(
             text = appName,
             style = MaterialTheme.typography.displayLarge.copy(
-                color = MaterialTheme.colorScheme.surface
-            )
+                color = MaterialTheme.colorScheme.surface,
+            ),
         )
     }
 }
@@ -101,13 +101,13 @@ private fun ContentCallToAction() {
         contentAlignment = Alignment.Center,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 16.dp)
+            .padding(vertical = 16.dp),
     ) {
         val context = LocalContext.current
         Button(onClick = { context.openUrl(ProjectUrl) }) {
             Icon(
                 imageVector = Icons.Default.Person,
-                contentDescription = stringResource(id = R.string.about_cd_github)
+                contentDescription = stringResource(id = R.string.about_cd_github),
             )
             Spacer(modifier = Modifier.width(12.dp))
             Text(text = stringResource(id = R.string.about_button_project))

@@ -13,7 +13,7 @@ import androidx.compose.ui.test.hasText
  * Finds a semantic node containing a Material Chip based on the label text.
  */
 fun SemanticsNodeInteractionsProvider.onChip(labelText: String) = onNode(
-    withRole(Role.Checkbox).and(hasText(labelText))
+    withRole(Role.Checkbox).and(hasText(labelText)),
 )
 
 private fun withRole(role: Role): SemanticsMatcher {

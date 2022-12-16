@@ -33,7 +33,7 @@ internal object TaskListStateDefinition : GlanceStateDefinition<ImmutableList<Ta
 
     override suspend fun getDataStore(
         context: Context,
-        fileKey: String
+        fileKey: String,
     ): DataStore<ImmutableList<Task>> =
         context.datastore
 

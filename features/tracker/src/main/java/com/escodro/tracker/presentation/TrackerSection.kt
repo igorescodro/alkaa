@@ -71,20 +71,20 @@ private fun TrackerLoadedContent(trackerInfo: Tracker.Info) {
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(3F)
-                .padding(24.dp)
+                .padding(24.dp),
         )
         TaskTrackerList(
             list = categoryList,
             modifier = Modifier
                 .fillMaxWidth()
-                .weight(2F)
+                .weight(2F),
         )
         TaskTrackerInfoCard(
             list = categoryList,
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(1F)
-                .padding(24.dp)
+                .padding(24.dp),
         )
     }
 }
@@ -95,7 +95,7 @@ private fun TrackerEmpty() {
         icon = Icons.Outlined.DataUsage,
         iconContentDescription = R.string.tracker_cd_empty,
         header = R.string.tracker_header_empty,
-        modifier = Modifier.padding(16.dp)
+        modifier = Modifier.padding(16.dp),
     )
 }
 
@@ -105,7 +105,7 @@ private fun TrackerError() {
         icon = Icons.Outlined.Close,
         iconContentDescription = R.string.tracker_cd_error,
         header = R.string.tracker_header_error,
-        modifier = Modifier.padding(16.dp)
+        modifier = Modifier.padding(16.dp),
     )
 }
 
@@ -113,7 +113,7 @@ private fun TrackerError() {
 @Suppress("MagicNumber")
 private fun TaskTrackerInfoCard(
     list: ImmutableList<Tracker.CategoryInfo>,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val taskCount = list.sumOf { item -> item.taskCount }
     val message = LocalContext.current.resources
@@ -126,17 +126,17 @@ private fun TaskTrackerInfoCard(
                 contentDescription = stringResource(id = R.string.tracker_cp_info_icon),
                 modifier = Modifier
                     .weight(1F)
-                    .size(36.dp)
+                    .size(36.dp),
             )
             Column(modifier = Modifier.weight(3F)) {
                 Text(
                     text = message,
                     style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
                 )
                 Text(
                     text = stringResource(id = R.string.tracker_message_description),
-                    style = MaterialTheme.typography.bodyMedium
+                    style = MaterialTheme.typography.bodyMedium,
                 )
             }
         }

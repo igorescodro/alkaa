@@ -19,13 +19,13 @@ import androidx.compose.ui.unit.dp
 internal fun LeadingIcon(
     imageVector: ImageVector,
     @StringRes contentDescription: Int,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Icon(
         imageVector = imageVector,
         contentDescription = stringResource(id = contentDescription),
         tint = MaterialTheme.colorScheme.primary.copy(alpha = TrailingLeadingAlpha),
-        modifier = modifier
+        modifier = modifier,
     )
 }
 
@@ -34,17 +34,17 @@ internal fun TaskDetailSectionContent(
     imageVector: ImageVector,
     @StringRes contentDescription: Int,
     modifier: Modifier = Modifier,
-    content: @Composable BoxScope.() -> Unit
+    content: @Composable BoxScope.() -> Unit,
 ) {
     Row(
         modifier = modifier
             .fillMaxWidth()
             .padding(start = 12.dp),
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         LeadingIcon(
             imageVector = imageVector,
-            contentDescription = contentDescription
+            contentDescription = contentDescription,
         )
         Box(modifier = Modifier.padding(start = 16.dp)) {
             content()

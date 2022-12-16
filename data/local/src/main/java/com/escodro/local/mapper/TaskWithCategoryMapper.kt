@@ -8,7 +8,7 @@ import com.escodro.repository.model.TaskWithCategory as RepoTaskWithCategory
  */
 internal class TaskWithCategoryMapper(
     private val taskMapper: TaskMapper,
-    private val categoryMapper: CategoryMapper
+    private val categoryMapper: CategoryMapper,
 ) {
 
     /**
@@ -24,6 +24,6 @@ internal class TaskWithCategoryMapper(
     private fun toRepo(localTask: LocalTaskWithCategory): RepoTaskWithCategory =
         RepoTaskWithCategory(
             task = taskMapper.toRepo(localTask.task),
-            category = localTask.category?.let { categoryMapper.toRepo(it) }
+            category = localTask.category?.let { categoryMapper.toRepo(it) },
         )
 }

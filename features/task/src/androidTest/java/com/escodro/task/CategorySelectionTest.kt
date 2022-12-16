@@ -104,7 +104,7 @@ internal class CategorySelectionTest {
                 CategorySelection(
                     state = CategoryState.Empty,
                     currentCategory = null,
-                    onCategoryChange = { }
+                    onCategoryChange = { },
                 )
             }
         }
@@ -120,7 +120,7 @@ internal class CategorySelectionTest {
                 CategorySelection(
                     state = CategoryState.Loaded(categories.toImmutableList()),
                     currentCategory = currentCategory,
-                    onCategoryChange = { }
+                    onCategoryChange = { },
                 )
             }
         }

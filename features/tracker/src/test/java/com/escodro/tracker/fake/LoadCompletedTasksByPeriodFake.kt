@@ -32,7 +32,7 @@ internal class LoadCompletedTasksByPeriodFake : LoadCompletedTasksByPeriod {
             TaskWithCategory(task = task1, category = category1),
             TaskWithCategory(task = task2, category = category2),
             TaskWithCategory(task = task3, category = null),
-            TaskWithCategory(task = task4, category = category1)
+            TaskWithCategory(task = task4, category = category1),
         )
 
         returnList = taskList

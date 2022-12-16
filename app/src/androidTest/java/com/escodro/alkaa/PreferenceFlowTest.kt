@@ -62,7 +62,7 @@ internal class PreferenceFlowTest {
     private fun navigateToPreferences() {
         composeTestRule.onNodeWithContentDescription(
             label = string(R.string.home_title_settings),
-            useUnmergedTree = true
+            useUnmergedTree = true,
         ).performClick()
     }
 

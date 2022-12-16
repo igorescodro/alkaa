@@ -45,7 +45,8 @@ internal class TaskReceiver : BroadcastReceiver(), KoinComponent {
             COMPLETE_ACTION -> getTaskId(intent)?.let { completeTaskUseCase(it) }
             SNOOZE_ACTION -> getTaskId(intent)?.let { snoozeAlarmUseCase(it) }
             Intent.ACTION_BOOT_COMPLETED,
-            AlarmManager.ACTION_SCHEDULE_EXACT_ALARM_PERMISSION_STATE_CHANGED -> rescheduleUseCase()
+            AlarmManager.ACTION_SCHEDULE_EXACT_ALARM_PERMISSION_STATE_CHANGED,
+            -> rescheduleUseCase()
             else -> logcat(LogPriority.ERROR) { "Action not supported" }
         }
 

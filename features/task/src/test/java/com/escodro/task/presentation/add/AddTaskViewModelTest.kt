@@ -20,7 +20,7 @@ internal class AddTaskViewModelTest {
 
     private val viewModel = AddTaskViewModel(
         addTaskUseCase = addTask,
-        applicationScope = TestScope(coroutineTestRule.testDispatcher)
+        applicationScope = TestScope(coroutineTestRule.testDispatcher),
     )
 
     @Before

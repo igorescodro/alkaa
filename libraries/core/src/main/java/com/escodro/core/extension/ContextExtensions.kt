@@ -36,7 +36,7 @@ private const val InvalidVersion = "x.x.x"
 fun Context.setExactAlarm(
     triggerAtMillis: Long,
     operation: PendingIntent?,
-    type: Int = AlarmManager.RTC_WAKEUP
+    type: Int = AlarmManager.RTC_WAKEUP,
 ) {
     val currentTime = Calendar.getInstance().timeInMillis
     if (triggerAtMillis <= currentTime) {

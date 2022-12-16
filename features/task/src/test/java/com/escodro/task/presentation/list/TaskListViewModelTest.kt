@@ -33,7 +33,7 @@ internal class TaskListViewModelTest {
         loadAllTasksUseCase = loadUncompletedTasks,
         updateTaskStatusUseCase = updateTaskStatus,
         applicationScope = TestScope(coroutinesRule.testDispatcher),
-        taskWithCategoryMapper = mapper
+        taskWithCategoryMapper = mapper,
     )
 
     @Before

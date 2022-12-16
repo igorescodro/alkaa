@@ -20,7 +20,7 @@ internal class TaskListViewModel(
     private val loadAllTasksUseCase: LoadUncompletedTasks,
     private val updateTaskStatusUseCase: UpdateTaskStatus,
     private val applicationScope: CoroutineScope,
-    private val taskWithCategoryMapper: TaskWithCategoryMapper
+    private val taskWithCategoryMapper: TaskWithCategoryMapper,
 ) : ViewModel() {
 
     fun loadTaskList(categoryId: Long? = null): Flow<TaskListViewState> = flow {

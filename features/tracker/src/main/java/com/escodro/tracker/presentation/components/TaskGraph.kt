@@ -53,7 +53,7 @@ internal fun TaskGraph(list: ImmutableList<Tracker.CategoryInfo>, modifier: Modi
                 topLeft = topLeft,
                 size = size,
                 useCenter = false,
-                style = stroke
+                style = stroke,
             )
             startAngle += sweep
         }
@@ -68,10 +68,10 @@ private fun shift(transition: Transition<AnimatedCircleProgress>) =
             tween(
                 delayMillis = 500,
                 durationMillis = 900,
-                easing = CubicBezierEasing(0f, 0.75f, 0.35f, 0.85f)
+                easing = CubicBezierEasing(0f, 0.75f, 0.35f, 0.85f),
             )
         },
-        label = LabelShiftAnimation
+        label = LabelShiftAnimation,
     ) { progress ->
         if (progress == AnimatedCircleProgress.START) {
             0f
@@ -88,10 +88,10 @@ private fun angleOffset(transition: Transition<AnimatedCircleProgress>) =
             tween(
                 delayMillis = 500,
                 durationMillis = 900,
-                easing = LinearOutSlowInEasing
+                easing = LinearOutSlowInEasing,
             )
         },
-        label = LabelAngleOffsetAnimation
+        label = LabelAngleOffsetAnimation,
     ) { progress ->
         if (progress == AnimatedCircleProgress.START) {
             0f

@@ -6,5 +6,5 @@ val FAKE_TASKS = listOf(
     Task(title = "Buy soy milk"),
     Task(title = "Watch Parks and Recreations"),
     Task(title = "Listen to Maggie Rogers"),
-    Task(title = "Ron's birthday")
+    Task(title = "Ron's birthday"),
 )

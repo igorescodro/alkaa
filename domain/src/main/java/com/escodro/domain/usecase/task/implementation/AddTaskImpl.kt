@@ -8,7 +8,7 @@ import mu.KLogging
 
 internal class AddTaskImpl(
     private val taskRepository: TaskRepository,
-    private val glanceInteractor: GlanceInteractor
+    private val glanceInteractor: GlanceInteractor,
 ) : AddTask {
 
     override suspend operator fun invoke(task: Task) {

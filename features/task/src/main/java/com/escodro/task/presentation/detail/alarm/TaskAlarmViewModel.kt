@@ -16,7 +16,7 @@ internal class TaskAlarmViewModel(
     private val updateTaskAsRepeatingUseCase: UpdateTaskAsRepeating,
     private val cancelAlarmUseCase: CancelAlarm,
     private val applicationScope: CoroutineScope,
-    private val alarmIntervalMapper: AlarmIntervalMapper
+    private val alarmIntervalMapper: AlarmIntervalMapper,
 ) : ViewModel() {
 
     fun updateAlarm(taskId: TaskId, alarm: Calendar?) = applicationScope.launch {

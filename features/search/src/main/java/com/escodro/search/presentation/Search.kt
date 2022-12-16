@@ -61,7 +61,7 @@ fun SearchSection(modifier: Modifier = Modifier, onItemClick: (Long) -> Unit) {
 private fun SearchLoader(
     onItemClick: (Long) -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: SearchViewModel = getViewModel()
+    viewModel: SearchViewModel = getViewModel(),
 ) {
     val (query, setQuery) = rememberSaveable { mutableStateOf("") }
     val viewState by remember(viewModel, query) {
@@ -73,7 +73,7 @@ private fun SearchLoader(
         modifier = modifier,
         onItemClick = onItemClick,
         query = query,
-        setQuery = setQuery
+        setQuery = setQuery,
     )
 }
 
@@ -84,10 +84,10 @@ internal fun SearchScaffold(
     onItemClick: (Long) -> Unit,
     query: String,
     setQuery: (String) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Scaffold(
-        modifier = modifier.fillMaxSize()
+        modifier = modifier.fillMaxSize(),
     ) {
         Column(modifier = Modifier.fillMaxWidth()) {
             SearchTextField(query, onTextChange = setQuery)
@@ -98,7 +98,7 @@ internal fun SearchScaffold(
                     SearchViewState.Empty -> SearchEmptyContent()
                     is SearchViewState.Loaded -> SearchListContent(
                         taskList = state.taskList,
-                        onItemClick = onItemClick
+                        onItemClick = onItemClick,
                     )
                 }
             }
@@ -115,12 +115,12 @@ private fun SearchTextField(text: String, onTextChange: (String) -> Unit) {
         trailingIcon = {
             Icon(
                 imageVector = Icons.Default.Search,
-                contentDescription = stringResource(id = R.string.search_cd_icon)
+                contentDescription = stringResource(id = R.string.search_cd_icon),
             )
         },
         modifier = Modifier
             .fillMaxWidth()
-            .padding(12.dp)
+            .padding(12.dp),
     )
 }
 
@@ -129,19 +129,19 @@ private fun SearchEmptyContent() {
     DefaultIconTextContent(
         icon = Icons.Outlined.ExitToApp,
         iconContentDescription = R.string.search_cd_empty_list,
-        header = R.string.search_header_empty
+        header = R.string.search_header_empty,
     )
 }
 
 @Composable
 private fun SearchListContent(
     taskList: ImmutableList<TaskSearchItem>,
-    onItemClick: (Long) -> Unit
+    onItemClick: (Long) -> Unit,
 ) {
     LazyColumn {
         items(
             items = taskList,
-            itemContent = { task -> SearchItem(task = task, onItemClick = onItemClick) }
+            itemContent = { task -> SearchItem(task = task, onItemClick = onItemClick) },
         )
     }
 }
@@ -153,7 +153,7 @@ private fun SearchItem(task: TaskSearchItem, onItemClick: (Long) -> Unit) {
             .height(48.dp)
             .fillMaxWidth()
             .clickable { onItemClick(task.id) },
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.Center,
     ) {
         val textDecoration: TextDecoration
         val circleColor: Color
@@ -171,7 +171,7 @@ private fun SearchItem(task: TaskSearchItem, onItemClick: (Long) -> Unit) {
                 modifier = Modifier
                     .size(24.dp)
                     .clip(CircleShape)
-                    .background(circleColor)
+                    .background(circleColor),
             )
             Text(
                 text = task.title,
@@ -179,7 +179,7 @@ private fun SearchItem(task: TaskSearchItem, onItemClick: (Long) -> Unit) {
                 modifier = Modifier
                     .padding(horizontal = 12.dp)
                     .fillMaxWidth()
-                    .height(24.dp)
+                    .height(24.dp),
             )
         }
     }
@@ -193,14 +193,14 @@ fun SearchLoadedListPreview() {
         completed = true,
         title = "Call Me By Your Name",
         categoryColor = Color.Green,
-        isRepeating = false
+        isRepeating = false,
     )
 
     val task2 = TaskSearchItem(
         completed = false,
         title = "The Crown",
         categoryColor = Color.White,
-        isRepeating = true
+        isRepeating = true,
     )
 
     val taskList = persistentListOf(task1, task2)
@@ -211,7 +211,7 @@ fun SearchLoadedListPreview() {
             viewState = SearchViewState.Loaded(taskList),
             onItemClick = {},
             query = "",
-            setQuery = {}
+            setQuery = {},
         )
     }
 }
@@ -226,7 +226,7 @@ fun SearchEmptyListPreview() {
             viewState = SearchViewState.Empty,
             onItemClick = {},
             query = "",
-            setQuery = {}
+            setQuery = {},
         )
     }
 }

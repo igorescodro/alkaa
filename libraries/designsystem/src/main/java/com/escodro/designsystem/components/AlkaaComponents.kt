@@ -47,25 +47,25 @@ fun DefaultIconTextContent(
     icon: ImageVector,
     @StringRes iconContentDescription: Int,
     @StringRes header: Int,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Icon(
             imageVector = icon,
             contentDescription = stringResource(id = iconContentDescription),
             modifier = Modifier.size(64.dp),
-            tint = MaterialTheme.colorScheme.primary
+            tint = MaterialTheme.colorScheme.primary,
         )
         Spacer(modifier = Modifier.height(24.dp))
         Text(
             text = stringResource(id = header),
             style = MaterialTheme.typography.bodyLarge,
             textAlign = TextAlign.Center,
-            color = MaterialTheme.colorScheme.outline
+            color = MaterialTheme.colorScheme.outline,
         )
     }
 }
@@ -93,11 +93,11 @@ fun AlkaaToolbar(onUpPress: () -> Unit, modifier: Modifier = Modifier) {
             IconButton(onClick = onUpPress) {
                 Icon(
                     imageVector = Icons.Rounded.ArrowBack,
-                    contentDescription = stringResource(id = R.string.back_arrow_cd)
+                    contentDescription = stringResource(id = R.string.back_arrow_cd),
                 )
             }
         },
-        modifier = modifier
+        modifier = modifier,
     )
 }
 
@@ -112,16 +112,16 @@ fun AlkaaToolbar(onUpPress: () -> Unit, modifier: Modifier = Modifier) {
 fun AddFloatingButton(
     @StringRes contentDescription: Int,
     modifier: Modifier = Modifier,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     FloatingActionButton(
         containerColor = MaterialTheme.colorScheme.primary,
         modifier = modifier,
-        onClick = onClick
+        onClick = onClick,
     ) {
         Icon(
             imageVector = Icons.Outlined.Add,
-            contentDescription = stringResource(id = contentDescription)
+            contentDescription = stringResource(id = contentDescription),
         )
     }
 }
@@ -140,7 +140,7 @@ fun AlkaaInputTextField(
     label: String,
     text: String,
     onTextChange: (String) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
 
@@ -150,6 +150,6 @@ fun AlkaaInputTextField(
         onValueChange = onTextChange,
         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
         keyboardActions = KeyboardActions(onDone = { keyboardController?.hide() }),
-        modifier = modifier
+        modifier = modifier,
     )
 }

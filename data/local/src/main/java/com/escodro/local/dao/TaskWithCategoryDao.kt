@@ -18,7 +18,7 @@ interface TaskWithCategoryDao {
      */
     @Query(
         """SELECT * FROM task
-            LEFT JOIN category ON task_category_id = category_id"""
+            LEFT JOIN category ON task_category_id = category_id""",
     )
     fun findAllTasksWithCategory(): Flow<List<TaskWithCategory>>
 
@@ -32,7 +32,7 @@ interface TaskWithCategoryDao {
     @Query(
         """SELECT * FROM task
             LEFT JOIN category ON task_category_id = category_id
-            WHERE task_category_id = :categoryId"""
+            WHERE task_category_id = :categoryId""",
     )
     fun findAllTasksWithCategoryId(categoryId: Long): Flow<List<TaskWithCategory>>
 
@@ -48,7 +48,7 @@ interface TaskWithCategoryDao {
             LEFT JOIN category ON task_category_id = category_id
             WHERE task_title LIKE :query
             ORDER BY task_is_completed
-        """
+        """,
     )
     fun findTaskByName(query: String): Flow<List<TaskWithCategory>>
 }

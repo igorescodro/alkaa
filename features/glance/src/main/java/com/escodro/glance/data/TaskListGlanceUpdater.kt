@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.map
 internal class TaskListGlanceUpdater(
     private val loadAllTasksUseCase: LoadUncompletedTasks,
     private val updateTaskStatus: UpdateTaskStatus,
-    private val taskMapper: TaskMapper
+    private val taskMapper: TaskMapper,
 ) {
 
     fun loadTaskList(categoryId: Long? = null): Flow<List<Task>> =

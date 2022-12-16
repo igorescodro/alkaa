@@ -36,7 +36,7 @@ import java.util.Calendar
 @Composable
 internal fun AlarmInfo(
     date: Calendar?,
-    onRemoveDate: () -> Unit
+    onRemoveDate: () -> Unit,
 ) {
     Column {
         if (date == null) {
@@ -44,7 +44,7 @@ internal fun AlarmInfo(
         } else {
             AlarmSet(
                 date = date,
-                onRemoveClick = onRemoveDate
+                onRemoveClick = onRemoveDate,
             )
         }
     }
@@ -54,14 +54,14 @@ internal fun AlarmInfo(
 internal fun AlarmIntervalSelection(
     date: Calendar?,
     alarmInterval: AlarmInterval?,
-    onIntervalSelect: (AlarmInterval) -> Unit
+    onIntervalSelect: (AlarmInterval) -> Unit,
 ) {
     val (showDialog, setDialogValue) = remember { mutableStateOf(false) }
     if (date != null) {
         AlarmIntervalDialog(
             showDialog = showDialog,
             setDialogValue = setDialogValue,
-            onIntervalSelect = { interval -> onIntervalSelect(interval) }
+            onIntervalSelect = { interval -> onIntervalSelect(interval) },
         )
 
         TaskDetailSectionContent(
@@ -69,12 +69,12 @@ internal fun AlarmIntervalSelection(
                 .height(56.dp)
                 .clickable { setDialogValue(true) },
             imageVector = Icons.Outlined.Repeat,
-            contentDescription = R.string.task_detail_cd_icon_repeat_alarm
+            contentDescription = R.string.task_detail_cd_icon_repeat_alarm,
         ) {
             val index = alarmInterval?.index ?: 0
             Text(
                 text = stringArrayResource(id = R.array.task_alarm_repeating)[index],
-                color = MaterialTheme.colorScheme.outline
+                color = MaterialTheme.colorScheme.outline,
             )
         }
     }
@@ -85,14 +85,14 @@ private fun AlarmSet(date: Calendar?, onRemoveClick: () -> Unit) {
     Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
         Text(
             text = date?.format() ?: "",
-            color = MaterialTheme.colorScheme.outline
+            color = MaterialTheme.colorScheme.outline,
         )
         IconButton(onClick = onRemoveClick) {
             Icon(
                 imageVector = Icons.Outlined.Close,
                 contentDescription = stringResource(
-                    id = R.string.task_detail_cd_icon_remove_alarm
-                )
+                    id = R.string.task_detail_cd_icon_remove_alarm,
+                ),
             )
         }
     }
@@ -103,7 +103,7 @@ private fun NoAlarmSet() {
     Row(verticalAlignment = Alignment.CenterVertically) {
         Text(
             text = stringResource(id = R.string.task_detail_alarm_no_alarm),
-            color = MaterialTheme.colorScheme.outline
+            color = MaterialTheme.colorScheme.outline,
         )
     }
 }
@@ -112,7 +112,7 @@ private fun NoAlarmSet() {
 private fun AlarmIntervalDialog(
     showDialog: Boolean,
     setDialogValue: (Boolean) -> Unit,
-    onIntervalSelect: (AlarmInterval) -> Unit
+    onIntervalSelect: (AlarmInterval) -> Unit,
 ) {
     if (!showDialog) {
         return
@@ -121,7 +121,7 @@ private fun AlarmIntervalDialog(
     Dialog(onDismissRequest = { setDialogValue(false) }) {
         Surface(
             color = MaterialTheme.colorScheme.background,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         ) {
             val intervalList = stringArrayResource(id = R.array.task_alarm_repeating)
             LazyColumn(modifier = Modifier.padding(24.dp)) {
@@ -132,9 +132,9 @@ private fun AlarmIntervalDialog(
                             title = title,
                             index = index,
                             setDialogValue = setDialogValue,
-                            onIntervalSelect = onIntervalSelect
+                            onIntervalSelect = onIntervalSelect,
                         )
-                    }
+                    },
                 )
             }
         }
@@ -146,7 +146,7 @@ private fun AlarmListItem(
     title: String,
     index: Int,
     setDialogValue: (Boolean) -> Unit,
-    onIntervalSelect: (AlarmInterval) -> Unit
+    onIntervalSelect: (AlarmInterval) -> Unit,
 ) {
     Text(
         text = title,
@@ -157,7 +157,7 @@ private fun AlarmListItem(
                     AlarmInterval.values().find { it.index == index } ?: AlarmInterval.NEVER
                 onIntervalSelect(interval)
                 setDialogValue(false)
-            }
+            },
     )
 }
 
@@ -169,7 +169,7 @@ fun AlarmIntervalDialogPreview() {
         AlarmIntervalDialog(
             showDialog = true,
             setDialogValue = {},
-            onIntervalSelect = {}
+            onIntervalSelect = {},
         )
     }
 }

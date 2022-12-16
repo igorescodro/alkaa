@@ -153,7 +153,7 @@ internal class AlarmSelectionTest {
 
     private fun loadAlarmSelection(
         hasExactAlarmPermission: Boolean = true,
-        shouldAskForNotificationPermission: Boolean = false
+        shouldAskForNotificationPermission: Boolean = false,
     ) {
         scenario.onActivity { activity ->
             activity.setContent {
@@ -164,7 +164,7 @@ internal class AlarmSelectionTest {
                         onAlarmUpdate = {},
                         onIntervalSelect = {},
                         hasAlarmPermission = { hasExactAlarmPermission },
-                        shouldCheckNotificationPermission = shouldAskForNotificationPermission
+                        shouldCheckNotificationPermission = shouldAskForNotificationPermission,
                     )
                 }
             }
@@ -173,7 +173,7 @@ internal class AlarmSelectionTest {
 
     private fun loadAlarmSelection(
         calendar: Calendar,
-        alarmInterval: AlarmInterval
+        alarmInterval: AlarmInterval,
     ) {
         scenario.onActivity { activity ->
             activity.setContent {
@@ -184,7 +184,7 @@ internal class AlarmSelectionTest {
                         onAlarmUpdate = {},
                         onIntervalSelect = {},
                         hasAlarmPermission = { true },
-                        shouldCheckNotificationPermission = false
+                        shouldCheckNotificationPermission = false,
                     )
                 }
             }

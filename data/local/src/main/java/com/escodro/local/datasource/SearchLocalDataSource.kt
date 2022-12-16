@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.map
 
 internal class SearchLocalDataSource(
     daoProvider: DaoProvider,
-    private val taskWithCategoryMapper: TaskWithCategoryMapper
+    private val taskWithCategoryMapper: TaskWithCategoryMapper,
 ) : SearchDataSource {
 
     private val taskWithCategoryDao = daoProvider.getTaskWithCategoryDao()

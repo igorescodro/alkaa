@@ -15,7 +15,7 @@ internal class CategoryEditViewModel(
     private val updateCategoryUseCase: UpdateCategory,
     private val deleteCategoryUseCase: DeleteCategory,
     private val applicationScope: CoroutineScope,
-    private val mapper: CategoryMapper
+    private val mapper: CategoryMapper,
 ) : ViewModel() {
 
     fun loadCategory(categoryId: Long) = flow {

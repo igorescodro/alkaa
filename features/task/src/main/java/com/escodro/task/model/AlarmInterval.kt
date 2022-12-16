@@ -36,5 +36,5 @@ enum class AlarmInterval(val index: Int?) {
     /**
      * Represents a interval of 1 year.
      */
-    YEARLY(5)
+    YEARLY(5),
 }

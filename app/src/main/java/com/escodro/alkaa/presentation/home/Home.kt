@@ -39,7 +39,7 @@ fun Home(
     onTrackerClick: () -> Unit,
     onOpenSourceClick: () -> Unit,
     onTaskSheetOpen: () -> Unit,
-    onCategorySheetOpen: (Long?) -> Unit
+    onCategorySheetOpen: (Long?) -> Unit,
 ) {
     val (currentSection, setCurrentSection) = rememberSaveable { mutableStateOf(HomeSection.Tasks) }
     val navItems = HomeSection.values().toList().toImmutableList()
@@ -51,14 +51,14 @@ fun Home(
         onOpenSourceClick = onOpenSourceClick,
         onTaskSheetOpen = onTaskSheetOpen,
         onCategorySheetOpen = onCategorySheetOpen,
-        setCurrentSection = setCurrentSection
+        setCurrentSection = setCurrentSection,
     )
 
     Crossfade(currentSection) { homeSection ->
         AlkaaHomeScaffold(
             homeSection = homeSection,
             navItems = navItems,
-            actions = actions
+            actions = actions,
         )
     }
 }
@@ -68,7 +68,7 @@ fun Home(
 private fun AlkaaHomeScaffold(
     homeSection: HomeSection,
     navItems: ImmutableList<HomeSection>,
-    actions: HomeActions
+    actions: HomeActions,
 ) {
     Scaffold(
         topBar = {
@@ -78,16 +78,16 @@ private fun AlkaaHomeScaffold(
             AlkaaContent(
                 homeSection = homeSection,
                 modifier = Modifier.padding(paddingValues),
-                actions = actions
+                actions = actions,
             )
         },
         bottomBar = {
             AlkaaBottomNav(
                 currentSection = homeSection,
                 onSectionSelect = actions.setCurrentSection,
-                items = navItems
+                items = navItems,
             )
-        }
+        },
     )
 }
 
@@ -95,21 +95,21 @@ private fun AlkaaHomeScaffold(
 private fun AlkaaContent(
     homeSection: HomeSection,
     actions: HomeActions,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     when (homeSection) {
         HomeSection.Tasks ->
             TaskListSection(
                 modifier = modifier,
                 onItemClick = actions.onTaskClick,
-                onBottomShow = actions.onTaskSheetOpen
+                onBottomShow = actions.onTaskSheetOpen,
             )
         HomeSection.Search ->
             SearchSection(modifier = modifier, onItemClick = actions.onTaskClick)
         HomeSection.Categories ->
             CategoryListSection(
                 modifier = modifier,
-                onShowBottomSheet = actions.onCategorySheetOpen
+                onShowBottomSheet = actions.onCategorySheetOpen,
 
             )
         HomeSection.Settings ->
@@ -117,7 +117,7 @@ private fun AlkaaContent(
                 modifier = modifier,
                 onAboutClick = actions.onAboutClick,
                 onTrackerClick = actions.onTrackerClick,
-                onOpenSourceClick = actions.onOpenSourceClick
+                onOpenSourceClick = actions.onOpenSourceClick,
             )
     }
 }
@@ -130,9 +130,9 @@ private fun AlkaaTopBar(currentSection: HomeSection) {
             Text(
                 style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Light),
                 text = stringResource(currentSection.title),
-                color = MaterialTheme.colorScheme.tertiary
+                color = MaterialTheme.colorScheme.tertiary,
             )
-        }
+        },
     )
 }
 
@@ -140,7 +140,7 @@ private fun AlkaaTopBar(currentSection: HomeSection) {
 private fun AlkaaBottomNav(
     currentSection: HomeSection,
     onSectionSelect: (HomeSection) -> Unit,
-    items: ImmutableList<HomeSection>
+    items: ImmutableList<HomeSection>,
 ) {
     BottomAppBar(containerColor = MaterialTheme.colorScheme.background) {
         items.forEach { section ->
@@ -150,13 +150,13 @@ private fun AlkaaBottomNav(
                     MaterialTheme.colorScheme.primary
                 } else {
                     MaterialTheme.colorScheme.outline
-                }
+                },
             )
             AlkaaBottomIcon(
                 section = section,
                 tint = colorState.value,
                 onSectionSelect = onSectionSelect,
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(1f),
             )
         }
     }
@@ -167,12 +167,12 @@ private fun AlkaaBottomIcon(
     section: HomeSection,
     tint: Color,
     onSectionSelect: (HomeSection) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val title = stringResource(section.title)
     IconButton(
         onClick = { onSectionSelect(section) },
-        modifier = modifier
+        modifier = modifier,
     ) {
         Icon(imageVector = section.icon, tint = tint, contentDescription = title)
     }
@@ -195,7 +195,7 @@ fun AlkaaBottomNavPreview() {
         AlkaaBottomNav(
             currentSection = HomeSection.Tasks,
             onSectionSelect = {},
-            items = HomeSection.values().toList().toImmutableList()
+            items = HomeSection.values().toList().toImmutableList(),
         )
     }
 }

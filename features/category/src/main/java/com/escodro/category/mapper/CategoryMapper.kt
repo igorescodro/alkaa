@@ -16,13 +16,13 @@ internal class CategoryMapper {
         ViewCategory(
             id = domainCategory.id,
             name = domainCategory.name,
-            color = Color.parseColor(domainCategory.color)
+            color = Color.parseColor(domainCategory.color),
         )
 
     fun toDomain(viewCategory: ViewCategory): DomainCategory =
         DomainCategory(
             id = viewCategory.id,
             name = viewCategory.name,
-            color = viewCategory.color.toStringColor()
+            color = viewCategory.color.toStringColor(),
         )
 }

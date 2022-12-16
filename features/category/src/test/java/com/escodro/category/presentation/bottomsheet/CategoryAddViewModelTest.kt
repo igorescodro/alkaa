@@ -26,7 +26,7 @@ internal class CategoryAddViewModelTest {
     private val viewModel = CategoryAddViewModel(
         addCategoryUseCase = addCategory,
         applicationScope = TestScope(coroutinesRule.testDispatcher),
-        categoryMapper
+        categoryMapper,
     )
 
     @Before

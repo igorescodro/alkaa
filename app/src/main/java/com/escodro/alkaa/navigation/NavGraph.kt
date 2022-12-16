@@ -67,15 +67,15 @@ private fun NavGraphBuilder.homeGraph(actions: Actions) {
         enterTransition = {
             slideIntoContainer(
                 AnimatedContentScope.SlideDirection.Right,
-                animationSpec = tween(700)
+                animationSpec = tween(700),
             )
         },
         exitTransition = {
             slideOutOfContainer(
                 AnimatedContentScope.SlideDirection.Left,
-                animationSpec = tween(700)
+                animationSpec = tween(700),
             )
-        }
+        },
     ) {
         Home(
             onTaskClick = actions.openTaskDetail,
@@ -83,7 +83,7 @@ private fun NavGraphBuilder.homeGraph(actions: Actions) {
             onTrackerClick = actions.openTracker,
             onOpenSourceClick = actions.openOpenSourceLicense,
             onTaskSheetOpen = actions.openTaskBottomSheet,
-            onCategorySheetOpen = actions.openCategoryBottomSheet
+            onCategorySheetOpen = actions.openCategoryBottomSheet,
         )
     }
 }
@@ -97,25 +97,25 @@ private fun NavGraphBuilder.taskGraph(actions: Actions) {
         deepLinks = listOf(
             navDeepLink {
                 uriPattern = DestinationDeepLink.TaskDetailPattern
-            }
+            },
         ),
         enterTransition = {
             slideIntoContainer(
                 AnimatedContentScope.SlideDirection.Left,
-                animationSpec = tween(700)
+                animationSpec = tween(700),
             )
         },
         exitTransition = {
             slideOutOfContainer(
                 AnimatedContentScope.SlideDirection.Right,
-                animationSpec = tween(700)
+                animationSpec = tween(700),
             )
-        }
+        },
     ) { backStackEntry ->
         val arguments = requireNotNull(backStackEntry.arguments)
         TaskDetailSection(
             taskId = arguments.getLong(DestinationArgs.TaskId),
-            onUpPress = actions.navigateUp
+            onUpPress = actions.navigateUp,
         )
     }
 
@@ -132,18 +132,18 @@ private fun NavGraphBuilder.categoryGraph(actions: Actions) {
         arguments = listOf(
             navArgument(DestinationArgs.CategoryId) {
                 type = NavType.LongType
-            }
+            },
         ),
         deepLinks = listOf(
             navDeepLink {
                 uriPattern = DestinationDeepLink.CategorySheetPattern
-            }
-        )
+            },
+        ),
     ) { backStackEntry ->
         val id = backStackEntry.arguments?.getLong(DestinationArgs.CategoryId) ?: 0L
         CategoryBottomSheet(
             categoryId = id,
-            onHideBottomSheet = actions.navigateUp
+            onHideBottomSheet = actions.navigateUp,
         )
     }
 }
@@ -162,13 +162,13 @@ private fun NavGraphBuilder.preferencesGraph(actions: Actions) {
 
 private fun NavGraphBuilder.trackerGraph(
     context: Context,
-    actions: Actions
+    actions: Actions,
 ) {
     dialog(Destinations.Tracker) {
         LoadFeature(
             context = context,
             featureName = FeatureTracker,
-            onDismiss = actions.navigateUp
+            onDismiss = actions.navigateUp,
         ) {
             // Workaround to be able to use Dynamic Feature with Compose
             // https://issuetracker.google.com/issues/183677219

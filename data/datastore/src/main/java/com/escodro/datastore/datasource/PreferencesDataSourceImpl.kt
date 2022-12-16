@@ -13,7 +13,7 @@ import com.escodro.datastore.model.AppThemeOptions as DataStoreThemeOptions
 
 internal class PreferencesDataSourceImpl(
     private val context: Context,
-    private val mapper: AppThemeOptionsMapper
+    private val mapper: AppThemeOptionsMapper,
 ) : PreferencesDataSource {
 
     override suspend fun updateAppTheme(theme: AppThemeOptions) {

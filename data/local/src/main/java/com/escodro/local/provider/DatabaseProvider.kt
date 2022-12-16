@@ -19,7 +19,7 @@ import kotlinx.coroutines.launch
  */
 class DatabaseProvider(
     private val context: Context,
-    private val coroutineScope: CoroutineScope
+    private val coroutineScope: CoroutineScope,
 ) {
 
     private var database: TaskDatabase? = null
@@ -54,15 +54,15 @@ class DatabaseProvider(
         listOf(
             Category(
                 name = context.getString(R.string.category_default_personal),
-                color = context.getStringColor(R.color.blue)
+                color = context.getStringColor(R.color.blue),
             ),
             Category(
                 name = context.getString(R.string.category_default_work),
-                color = context.getStringColor(R.color.green)
+                color = context.getStringColor(R.color.green),
             ),
             Category(
                 name = context.getString(R.string.category_default_shopping),
-                color = context.getStringColor(R.color.orange)
-            )
+                color = context.getStringColor(R.color.orange),
+            ),
         )
 }

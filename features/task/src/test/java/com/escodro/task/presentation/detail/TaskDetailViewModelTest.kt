@@ -44,7 +44,7 @@ internal class TaskDetailViewModelTest {
         updateTaskCategory = updateTaskCategory,
         taskMapper = taskMapper,
         coroutineDebouncer = CoroutinesDebouncerFake(),
-        applicationScope = TestScope(coroutineTestRule.testDispatcher)
+        applicationScope = TestScope(coroutineTestRule.testDispatcher),
     )
 
     @Test

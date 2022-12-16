@@ -63,18 +63,18 @@ private fun TaskDetailLoader(
     detailViewModel: TaskDetailViewModel = getViewModel(),
     categoryViewModel: CategoryListViewModel = getViewModel(),
     alarmViewModel: TaskAlarmViewModel = getViewModel(),
-    alarmPermission: AlarmPermission = get()
+    alarmPermission: AlarmPermission = get(),
 ) {
     val id = TaskId(taskId)
     val detailViewState by
-    remember(detailViewModel, taskId) {
-        detailViewModel.loadTaskInfo(taskId = id)
-    }.collectAsState(initial = TaskDetailState.Loading)
+        remember(detailViewModel, taskId) {
+            detailViewModel.loadTaskInfo(taskId = id)
+        }.collectAsState(initial = TaskDetailState.Loading)
 
     val categoryViewState by
-    remember(categoryViewModel, taskId) {
-        categoryViewModel.loadCategories()
-    }.collectAsState(initial = CategoryState.Loading)
+        remember(categoryViewModel, taskId) {
+            categoryViewModel.loadCategories()
+        }.collectAsState(initial = CategoryState.Loading)
 
     val taskDetailActions = TaskDetailActions(
         onTitleChange = { title -> detailViewModel.updateTitle(id, title) },
@@ -84,13 +84,13 @@ private fun TaskDetailLoader(
         onIntervalSelect = { interval -> alarmViewModel.setRepeating(id, interval) },
         hasAlarmPermission = { alarmPermission.hasExactAlarmPermission() },
         shouldCheckNotificationPermission = alarmPermission.shouldCheckNotificationPermission(),
-        onUpPress = onUpPress
+        onUpPress = onUpPress,
     )
 
     TaskDetailRouter(
         detailViewState = detailViewState,
         categoryViewState = categoryViewState,
-        actions = taskDetailActions
+        actions = taskDetailActions,
     )
 }
 
@@ -99,12 +99,12 @@ private fun TaskDetailLoader(
 internal fun TaskDetailRouter(
     detailViewState: TaskDetailState,
     categoryViewState: CategoryState,
-    actions: TaskDetailActions
+    actions: TaskDetailActions,
 ) {
     Scaffold(topBar = { AlkaaToolbar(onUpPress = actions.onUpPress) }) { paddingValues ->
         Crossfade(
             targetState = detailViewState,
-            modifier = Modifier.padding(paddingValues)
+            modifier = Modifier.padding(paddingValues),
         ) { state ->
             when (state) {
                 TaskDetailState.Loading -> AlkaaLoadingContent()
@@ -113,7 +113,7 @@ internal fun TaskDetailRouter(
                     TaskDetailContent(
                         task = state.task,
                         categoryViewState = categoryViewState,
-                        actions = actions
+                        actions = actions,
                     )
             }
         }
@@ -124,24 +124,24 @@ internal fun TaskDetailRouter(
 private fun TaskDetailContent(
     task: Task,
     categoryViewState: CategoryState,
-    actions: TaskDetailActions
+    actions: TaskDetailActions,
 ) {
     Surface(color = MaterialTheme.colorScheme.background) {
         Column {
             TaskTitleTextField(text = task.title, onTitleChange = actions.onTitleChange)
             TaskDetailSectionContent(
                 imageVector = Icons.Outlined.Bookmark,
-                contentDescription = R.string.task_detail_cd_icon_category
+                contentDescription = R.string.task_detail_cd_icon_category,
             ) {
                 CategorySelection(
                     state = categoryViewState,
                     currentCategory = task.categoryId,
-                    onCategoryChange = actions.onCategoryChange
+                    onCategoryChange = actions.onCategoryChange,
                 )
             }
             TaskDescriptionTextField(
                 text = task.description,
-                onDescriptionChange = actions.onDescriptionChange
+                onDescriptionChange = actions.onDescriptionChange,
             )
             AlarmSelection(
                 calendar = task.dueDate,
@@ -149,7 +149,7 @@ private fun TaskDetailContent(
                 onAlarmUpdate = actions.onAlarmUpdate,
                 onIntervalSelect = actions.onIntervalSelect,
                 hasAlarmPermission = actions.hasAlarmPermission,
-                shouldCheckNotificationPermission = actions.shouldCheckNotificationPermission
+                shouldCheckNotificationPermission = actions.shouldCheckNotificationPermission,
             )
         }
     }
@@ -160,7 +160,7 @@ private fun TaskDetailError() {
     DefaultIconTextContent(
         icon = Icons.Outlined.Close,
         iconContentDescription = R.string.task_detail_cd_error,
-        header = R.string.task_detail_header_error
+        header = R.string.task_detail_header_error,
     )
 }
 
@@ -178,8 +178,8 @@ private fun TaskTitleTextField(text: String, onTitleChange: (String) -> Unit) {
         },
         textStyle = MaterialTheme.typography.headlineMedium,
         colors = TextFieldDefaults.textFieldColors(
-            containerColor = MaterialTheme.colorScheme.surface
-        )
+            containerColor = MaterialTheme.colorScheme.surface,
+        ),
     )
 }
 
@@ -193,7 +193,7 @@ private fun TaskDescriptionTextField(text: String?, onDescriptionChange: (String
         leadingIcon = {
             LeadingIcon(
                 imageVector = Icons.Default.Description,
-                contentDescription = R.string.task_detail_cd_icon_description
+                contentDescription = R.string.task_detail_cd_icon_description,
             )
         },
         value = textState.value,
@@ -203,8 +203,8 @@ private fun TaskDescriptionTextField(text: String?, onDescriptionChange: (String
         },
         textStyle = MaterialTheme.typography.bodyLarge,
         colors = TextFieldDefaults.textFieldColors(
-            containerColor = MaterialTheme.colorScheme.surface
-        )
+            containerColor = MaterialTheme.colorScheme.surface,
+        ),
     )
 }
 
@@ -233,7 +233,7 @@ fun TaskDetailPreview() {
         TaskDetailContent(
             task = task,
             categoryViewState = CategoryState.Loaded(categories),
-            actions = TaskDetailActions()
+            actions = TaskDetailActions(),
         )
     }
 }

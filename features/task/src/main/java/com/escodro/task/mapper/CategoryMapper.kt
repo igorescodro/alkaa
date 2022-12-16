@@ -10,6 +10,6 @@ internal class CategoryMapper {
         ViewCategory(
             id = domainCategory.id,
             name = domainCategory.name,
-            color = Color.parseColor(domainCategory.color)
+            color = Color.parseColor(domainCategory.color),
         )
 }

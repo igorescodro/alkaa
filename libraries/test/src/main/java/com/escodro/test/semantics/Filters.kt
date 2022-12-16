@@ -13,7 +13,7 @@ internal object Filters {
      */
     internal fun hasLines(lines: Int): SemanticsMatcher =
         SemanticsMatcher(
-            description = "Has $lines lines"
+            description = "Has $lines lines",
         ) { node ->
             node.config.getOrNull(SemanticsProperties.Text)?.get(0)?.text?.lines()?.size == lines
         }

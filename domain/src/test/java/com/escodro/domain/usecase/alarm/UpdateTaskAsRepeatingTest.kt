@@ -51,7 +51,7 @@ internal class UpdateTaskAsRepeatingTest {
             id = 984L,
             title = "nanana",
             alarmInterval = AlarmInterval.YEARLY,
-            isRepeating = true
+            isRepeating = true,
         )
 
         addTaskUseCase(task)

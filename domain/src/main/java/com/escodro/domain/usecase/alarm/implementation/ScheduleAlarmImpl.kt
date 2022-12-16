@@ -7,7 +7,7 @@ import java.util.Calendar
 
 internal class ScheduleAlarmImpl(
     private val taskRepository: TaskRepository,
-    private val alarmInteractor: AlarmInteractor
+    private val alarmInteractor: AlarmInteractor,
 ) : ScheduleAlarm {
 
     /**

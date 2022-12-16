@@ -15,7 +15,7 @@ import androidx.appcompat.app.AlertDialog
  */
 fun AlertDialog.Builder.items(
     @ArrayRes resArray: Int,
-    func: AlertDialog.Builder.(item: Int) -> Unit
+    func: AlertDialog.Builder.(item: Int) -> Unit,
 ) {
     setItems(resArray) { _, item -> func(item) }
 }
@@ -32,7 +32,7 @@ fun AlertDialog.Builder.items(
 fun Context.dialog(
     @StringRes titleRes: Int,
     @StringRes message: Int? = null,
-    builder: AlertDialog.Builder.() -> Unit
+    builder: AlertDialog.Builder.() -> Unit,
 ): AlertDialog.Builder =
     AlertDialog.Builder(this).apply {
         setTitle(titleRes)
@@ -50,7 +50,7 @@ fun Context.dialog(
  */
 fun AlertDialog.Builder.positiveButton(
     @StringRes resTitle: Int,
-    func: AlertDialog.Builder.() -> Unit
+    func: AlertDialog.Builder.() -> Unit,
 ) {
     setPositiveButton(resTitle) { _: DialogInterface?, _: Int -> func() }
 }
@@ -65,7 +65,7 @@ fun AlertDialog.Builder.positiveButton(
  */
 fun AlertDialog.Builder.negativeButton(
     @StringRes resTitle: Int,
-    func: AlertDialog.Builder.() -> Unit
+    func: AlertDialog.Builder.() -> Unit,
 ) {
     setNegativeButton(resTitle) { _: DialogInterface?, _: Int -> func() }
 }

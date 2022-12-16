@@ -53,7 +53,7 @@ internal class AlarmPermissionFlowTest {
         loadAlarmSelectionContent(
             state = state,
             permissionState = permissionState,
-            hasAlarmPermission = true
+            hasAlarmPermission = true,
         )
 
         val noAlarmString = context.getString(R.string.task_detail_alarm_no_alarm)
@@ -73,7 +73,7 @@ internal class AlarmPermissionFlowTest {
         loadAlarmSelectionContent(
             state = state,
             permissionState = permissionState,
-            hasAlarmPermission = true
+            hasAlarmPermission = true,
         )
 
         val noAlarmString = context.getString(R.string.task_detail_alarm_no_alarm)
@@ -93,7 +93,7 @@ internal class AlarmPermissionFlowTest {
         loadAlarmSelectionContent(
             state = state,
             permissionState = permissionState,
-            hasAlarmPermission = true
+            hasAlarmPermission = true,
         )
 
         val noAlarmString = context.getString(R.string.task_detail_alarm_no_alarm)
@@ -112,7 +112,7 @@ internal class AlarmPermissionFlowTest {
         loadAlarmSelectionContent(
             state = state,
             permissionState = permissionState,
-            hasAlarmPermission = false
+            hasAlarmPermission = false,
         )
 
         val noAlarmString = context.getString(R.string.task_detail_alarm_no_alarm)
@@ -132,7 +132,7 @@ internal class AlarmPermissionFlowTest {
         loadAlarmSelectionContent(
             state = state,
             permissionState = permissionState,
-            hasAlarmPermission = false
+            hasAlarmPermission = false,
         )
 
         val noAlarmString = context.getString(R.string.task_detail_alarm_no_alarm)
@@ -146,7 +146,7 @@ internal class AlarmPermissionFlowTest {
     private fun loadAlarmSelectionContent(
         state: AlarmSelectionState,
         permissionState: PermissionState,
-        hasAlarmPermission: Boolean
+        hasAlarmPermission: Boolean,
     ) {
         scenario.onActivity { activity ->
             activity.setContent {
@@ -157,7 +157,7 @@ internal class AlarmPermissionFlowTest {
                         permissionState = permissionState,
                         hasAlarmPermission = { hasAlarmPermission },
                         onAlarmUpdate = {},
-                        onIntervalSelect = {}
+                        onIntervalSelect = {},
                     )
                 }
             }

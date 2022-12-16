@@ -6,5 +6,5 @@ internal data class TaskStateHandler(
     val state: TaskListViewState = TaskListViewState.Empty,
     val onCheckedChange: (TaskWithCategory) -> Unit = {},
     val onItemClick: (Long) -> Unit = {},
-    val onAddClick: () -> Unit = {}
+    val onAddClick: () -> Unit = {},
 )

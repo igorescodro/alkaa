@@ -176,7 +176,7 @@ internal class TaskFlowTest : KoinTest {
         with(composeTestRule) {
             onNodeWithContentDescription(
                 string(TaskR.string.task_cd_add_task),
-                useUnmergedTree = true
+                useUnmergedTree = true,
             ).performClick()
             onNode(hasSetTextAction()).performTextInput(taskName)
             onNodeWithText(string(TaskR.string.task_add_save)).performClick()
@@ -191,7 +191,7 @@ internal class TaskFlowTest : KoinTest {
     private fun pressBack() {
         composeTestRule.onNodeWithContentDescription(
             string(TaskR.string.back_arrow_cd),
-            useUnmergedTree = true
+            useUnmergedTree = true,
         ).performClick()
 
         // Wait the list to be loaded

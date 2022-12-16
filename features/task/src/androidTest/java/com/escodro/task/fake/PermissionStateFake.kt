@@ -6,7 +6,7 @@ import com.google.accompanist.permissions.PermissionStatus
 
 @OptIn(ExperimentalPermissionsApi::class)
 internal class PermissionStateFake(
-    private val fakeStatus: PermissionStatus
+    private val fakeStatus: PermissionStatus,
 ) : PermissionState {
 
     override val permission: String

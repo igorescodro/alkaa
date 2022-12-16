@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.flow
 
 internal class CategoryListViewModelImpl(
     private val loadAllCategories: LoadAllCategories,
-    private val categoryMapper: CategoryMapper
+    private val categoryMapper: CategoryMapper,
 ) : CategoryListViewModel() {
 
     override fun loadCategories(): Flow<CategoryState> = flow {

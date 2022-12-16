@@ -45,7 +45,7 @@ internal fun TaskItem(
     task: TaskWithCategory,
     onItemClick: (Long) -> Unit,
     onCheckedChange: (TaskWithCategory) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     ElevatedCard(
         elevation = CardDefaults.elevatedCardElevation(4.dp),
@@ -53,7 +53,7 @@ internal fun TaskItem(
             .fillMaxWidth()
             .padding(all = 8.dp)
             .height(74.dp)
-            .clickable { onItemClick(task.task.id) }
+            .clickable { onItemClick(task.task.id) },
     ) {
         Row {
             CardRibbon(colorInt = task.category?.color)
@@ -62,7 +62,7 @@ internal fun TaskItem(
                     .fillMaxHeight()
                     .semantics { checkboxName = task.task.title },
                 selected = task.task.completed,
-                onClick = { onCheckedChange(task) }
+                onClick = { onCheckedChange(task) },
             )
             Spacer(Modifier.width(8.dp))
             Column(modifier = Modifier.fillMaxHeight(), verticalArrangement = Arrangement.Center) {
@@ -70,7 +70,7 @@ internal fun TaskItem(
                     text = task.task.title,
                     style = MaterialTheme.typography.bodyLarge,
                     overflow = TextOverflow.Ellipsis,
-                    maxLines = 1
+                    maxLines = 1,
                 )
                 RelativeDateText(calendar = task.task.dueDate)
             }
@@ -91,7 +91,7 @@ internal fun CardRibbon(colorInt: Int?, modifier: Modifier = Modifier) {
             .width(18.dp)
             .fillMaxHeight()
             .padding(end = 8.dp)
-            .background(ribbonColor)
+            .background(ribbonColor),
     )
 }
 
@@ -109,7 +109,7 @@ internal fun RelativeDateText(calendar: Calendar?) {
             time,
             DateUtils.DAY_IN_MILLIS,
             DateUtils.DAY_IN_MILLIS,
-            0
+            0,
         )
         .toString()
 
@@ -117,7 +117,7 @@ internal fun RelativeDateText(calendar: Calendar?) {
         text = stringTime,
         style = MaterialTheme.typography.bodySmall,
         overflow = TextOverflow.Ellipsis,
-        maxLines = 1
+        maxLines = 1,
     )
 }
 
@@ -139,6 +139,6 @@ fun TaskItemPreview() {
         modifier = Modifier,
         task = taskWithCategory,
         onCheckedChange = {},
-        onItemClick = {}
+        onItemClick = {},
     )
 }

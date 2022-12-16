@@ -36,18 +36,18 @@ internal fun CategorySelection(
     state: CategoryState,
     currentCategory: Long?,
     onCategoryChange: (CategoryId) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Box(
         modifier = modifier.height(56.dp),
-        contentAlignment = Alignment.CenterStart
+        contentAlignment = Alignment.CenterStart,
     ) {
         when (state) {
             CategoryState.Loading -> AlkaaLoadingContent()
             is CategoryState.Loaded -> LoadedCategoryList(
                 categoryList = state.categoryList,
                 currentCategory = currentCategory,
-                onCategoryChange = onCategoryChange
+                onCategoryChange = onCategoryChange,
             )
             CategoryState.Empty -> EmptyCategoryList()
         }
@@ -58,7 +58,7 @@ internal fun CategorySelection(
 private fun LoadedCategoryList(
     categoryList: ImmutableList<Category>,
     currentCategory: Long?,
-    onCategoryChange: (CategoryId) -> Unit
+    onCategoryChange: (CategoryId) -> Unit,
 ) {
     val currentItem = categoryList.find { category -> category.id == currentCategory }
     var selectedState by remember { mutableStateOf(currentItem?.id) }
@@ -72,9 +72,9 @@ private fun LoadedCategoryList(
                     onSelectChange = { id ->
                         selectedState = id
                         onCategoryChange(CategoryId(id))
-                    }
+                    },
                 )
-            }
+            },
         )
     }
 }
@@ -83,7 +83,7 @@ private fun LoadedCategoryList(
 private fun EmptyCategoryList() {
     Text(
         text = stringResource(id = R.string.task_detail_category_empty_list),
-        color = MaterialTheme.colorScheme.outline
+        color = MaterialTheme.colorScheme.outline,
     )
 }
 
@@ -92,7 +92,7 @@ private fun EmptyCategoryList() {
 private fun CategoryItemChip(
     category: Category,
     isSelected: Boolean = false,
-    onSelectChange: (Long?) -> Unit
+    onSelectChange: (Long?) -> Unit,
 ) {
     FilterChip(
         selected = isSelected,
@@ -100,12 +100,12 @@ private fun CategoryItemChip(
         modifier = Modifier.padding(end = 8.dp),
         colors = FilterChipDefaults.filterChipColors(
             selectedContainerColor = Color(category.color),
-            selectedLabelColor = MaterialTheme.colorScheme.background
+            selectedLabelColor = MaterialTheme.colorScheme.background,
         ),
         onClick = {
             val id = if (isSelected) null else category.id
             onSelectChange(id)
-        }
+        },
     )
 }
 
@@ -123,7 +123,7 @@ fun CategorySelectionListPreview() {
             CategorySelection(
                 state = CategoryState.Loaded(categories),
                 currentCategory = category2.id,
-                onCategoryChange = {}
+                onCategoryChange = {},
             )
         }
     }
@@ -138,7 +138,7 @@ fun CategorySelectionEmptyPreview() {
             CategorySelection(
                 state = CategoryState.Empty,
                 currentCategory = null,
-                onCategoryChange = {}
+                onCategoryChange = {},
             )
         }
     }

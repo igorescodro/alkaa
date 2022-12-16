@@ -7,7 +7,7 @@ import com.escodro.alarmapi.AlarmPermission
 
 internal class AlarmPermissionImpl(
     private val permissionChecker: PermissionChecker,
-    private val androidVersion: AndroidVersion
+    private val androidVersion: AndroidVersion,
 ) : AlarmPermission {
 
     @SuppressLint("NewApi")

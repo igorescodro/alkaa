@@ -43,7 +43,7 @@ internal class PreferenceSectionTest {
                     onTrackerClick = { },
                     onOpenSourceClick = { },
                     theme = AppThemeOptions.SYSTEM,
-                    onThemeUpdate = { }
+                    onThemeUpdate = { },
                 )
             }
         }

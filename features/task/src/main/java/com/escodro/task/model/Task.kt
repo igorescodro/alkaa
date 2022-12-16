@@ -26,5 +26,5 @@ data class Task(
     val creationDate: Calendar? = null,
     val completedDate: Calendar? = null,
     val isRepeating: Boolean = false,
-    val alarmInterval: AlarmInterval? = null
+    val alarmInterval: AlarmInterval? = null,
 )

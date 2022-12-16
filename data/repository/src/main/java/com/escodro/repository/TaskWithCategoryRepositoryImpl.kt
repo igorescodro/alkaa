@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.map
 
 internal class TaskWithCategoryRepositoryImpl(
     private val dataSource: TaskWithCategoryDataSource,
-    private val mapper: TaskWithCategoryMapper
+    private val mapper: TaskWithCategoryMapper,
 ) : TaskWithCategoryRepository {
 
     override fun findAllTasksWithCategory(): Flow<List<TaskWithCategory>> =

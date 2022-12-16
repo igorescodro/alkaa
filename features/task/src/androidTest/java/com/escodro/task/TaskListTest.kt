@@ -75,7 +75,7 @@ internal class TaskListTest {
                 TaskListScaffold(
                     taskHandler = TaskStateHandler(state = state),
                     categoryHandler = CategoryStateHandler(),
-                    modifier = Modifier
+                    modifier = Modifier,
                 )
             }
         }

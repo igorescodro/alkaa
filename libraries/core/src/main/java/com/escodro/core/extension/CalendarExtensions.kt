@@ -15,7 +15,7 @@ fun Calendar.format(): String {
     val dateFormat = DateFormat.getDateTimeInstance(
         DateFormat.LONG,
         DateFormat.SHORT,
-        Locale.getDefault()
+        Locale.getDefault(),
     )
     return dateFormat.format(time)
 }

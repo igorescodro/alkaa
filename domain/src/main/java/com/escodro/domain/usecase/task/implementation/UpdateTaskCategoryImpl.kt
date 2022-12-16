@@ -6,7 +6,7 @@ import com.escodro.domain.usecase.task.UpdateTaskCategory
 
 internal class UpdateTaskCategoryImpl(
     private val loadTask: LoadTask,
-    private val updateTask: UpdateTask
+    private val updateTask: UpdateTask,
 ) : UpdateTaskCategory {
 
     override suspend fun invoke(taskId: Long, categoryId: Long?) {

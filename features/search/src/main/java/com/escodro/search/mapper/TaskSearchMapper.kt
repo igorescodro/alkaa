@@ -17,7 +17,7 @@ internal class TaskSearchMapper {
             completed = taskWithCategory.task.completed,
             title = taskWithCategory.task.title,
             categoryColor = getColor(taskWithCategory.category?.color),
-            isRepeating = taskWithCategory.task.isRepeating
+            isRepeating = taskWithCategory.task.isRepeating,
         )
 
     private fun getColor(color: String?): Color? {

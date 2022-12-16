@@ -21,7 +21,7 @@ val categoryModule = module {
         CategoryAddViewModel(
             addCategoryUseCase = get(),
             applicationScope = get(ApplicationScope),
-            categoryMapper = get()
+            categoryMapper = get(),
         )
     }
     viewModel {
@@ -30,7 +30,7 @@ val categoryModule = module {
             updateCategoryUseCase = get(),
             deleteCategoryUseCase = get(),
             applicationScope = get(ApplicationScope),
-            mapper = get()
+            mapper = get(),
         )
     }
 

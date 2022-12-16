@@ -17,10 +17,10 @@ import com.escodro.alkaa.R
  */
 enum class HomeSection(
     @StringRes val title: Int,
-    val icon: ImageVector
+    val icon: ImageVector,
 ) {
     Tasks(R.string.home_title_tasks, Icons.Outlined.Check),
     Search(R.string.home_title_search, Icons.Outlined.Search),
     Categories(R.string.home_title_categories, Icons.Outlined.Bookmark),
-    Settings(R.string.home_title_settings, Icons.Outlined.MoreHoriz)
+    Settings(R.string.home_title_settings, Icons.Outlined.MoreHoriz),
 }

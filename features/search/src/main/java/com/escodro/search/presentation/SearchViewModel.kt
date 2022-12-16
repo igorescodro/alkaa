@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.flow
 
 internal class SearchViewModel(
     private val findTaskUseCase: SearchTasksByName,
-    private val mapper: TaskSearchMapper
+    private val mapper: TaskSearchMapper,
 ) : ViewModel() {
 
     fun findTasksByName(name: String = ""): Flow<SearchViewState> = flow {

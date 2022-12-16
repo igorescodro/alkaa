@@ -12,5 +12,5 @@ internal data class TaskDetailActions(
     val onIntervalSelect: (AlarmInterval) -> Unit = {},
     val hasAlarmPermission: () -> Boolean = { false },
     val shouldCheckNotificationPermission: Boolean = false,
-    val onUpPress: () -> Unit = {}
+    val onUpPress: () -> Unit = {},
 )

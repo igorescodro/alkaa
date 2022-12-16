@@ -13,7 +13,7 @@ class CompleteTask(
     private val taskRepository: TaskRepository,
     private val alarmInteractor: AlarmInteractor,
     private val notificationInteractor: NotificationInteractor,
-    private val calendarProvider: CalendarProvider
+    private val calendarProvider: CalendarProvider,
 ) {
 
     /**

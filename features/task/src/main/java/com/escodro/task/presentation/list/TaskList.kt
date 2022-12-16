@@ -57,7 +57,7 @@ import java.util.Calendar
 fun TaskListSection(
     onItemClick: (Long) -> Unit,
     onBottomShow: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     TaskListLoader(modifier = modifier, onItemClick = onItemClick, onAddClick = onBottomShow)
 }
@@ -68,7 +68,7 @@ private fun TaskListLoader(
     onAddClick: () -> Unit,
     modifier: Modifier = Modifier,
     taskListViewModel: TaskListViewModel = getViewModel(),
-    categoryViewModel: CategoryListViewModel = getViewModel()
+    categoryViewModel: CategoryListViewModel = getViewModel(),
 ) {
     val (currentCategory, setCategory) = rememberSaveable { mutableStateOf<CategoryId?>(null) }
 
@@ -84,19 +84,19 @@ private fun TaskListLoader(
         state = taskViewState,
         onCheckedChange = taskListViewModel::updateTaskStatus,
         onItemClick = onItemClick,
-        onAddClick = onAddClick
+        onAddClick = onAddClick,
     )
 
     val categoryHandler = CategoryStateHandler(
         state = categoryViewState,
         currentCategory = currentCategory,
-        onCategoryChange = setCategory
+        onCategoryChange = setCategory,
     )
 
     TaskListScaffold(
         taskHandler = taskHandler,
         categoryHandler = categoryHandler,
-        modifier = modifier
+        modifier = modifier,
     )
 }
 
@@ -105,7 +105,7 @@ private fun TaskListLoader(
 internal fun TaskListScaffold(
     taskHandler: TaskStateHandler,
     categoryHandler: CategoryStateHandler,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val coroutineScope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
@@ -132,14 +132,14 @@ internal fun TaskListScaffold(
             floatingActionButton = {
                 AddFloatingButton(
                     contentDescription = R.string.task_cd_add_task,
-                    onClick = { taskHandler.onAddClick() }
+                    onClick = { taskHandler.onAddClick() },
                 )
             },
-            floatingActionButtonPosition = fabPosition
+            floatingActionButtonPosition = fabPosition,
         ) { paddingValues ->
             Crossfade(
                 targetState = taskHandler.state,
-                modifier = Modifier.padding(paddingValues)
+                modifier = Modifier.padding(paddingValues),
             ) { state ->
                 when (state) {
                     TaskListViewState.Loading -> AlkaaLoadingContent()
@@ -152,7 +152,7 @@ internal fun TaskListScaffold(
                             onCheckedChange = { taskWithCategory ->
                                 taskHandler.onCheckedChange(taskWithCategory)
                                 onShowSnackbar(taskWithCategory)
-                            }
+                            },
                         )
                     }
                     TaskListViewState.Empty -> TaskListEmpty()
@@ -168,7 +168,7 @@ private fun TaskFilter(categoryHandler: CategoryStateHandler) {
         state = categoryHandler.state,
         currentCategory = categoryHandler.currentCategory?.value,
         onCategoryChange = categoryHandler.onCategoryChange,
-        modifier = Modifier.padding(start = 16.dp)
+        modifier = Modifier.padding(start = 16.dp),
     )
 }
 
@@ -176,13 +176,13 @@ private fun TaskFilter(categoryHandler: CategoryStateHandler) {
 private fun TaskListContent(
     taskList: ImmutableList<TaskWithCategory>,
     onItemClick: (Long) -> Unit,
-    onCheckedChange: (TaskWithCategory) -> Unit
+    onCheckedChange: (TaskWithCategory) -> Unit,
 ) {
     BoxWithConstraints(modifier = Modifier.padding(start = 8.dp, end = 8.dp)) {
         val cellCount = if (this.maxHeight > maxWidth) 1 else 2
         LazyVerticalGrid(
             columns = GridCells.Fixed(cellCount),
-            contentPadding = PaddingValues(bottom = 48.dp)
+            contentPadding = PaddingValues(bottom = 48.dp),
         ) {
             items(
                 items = taskList,
@@ -190,9 +190,9 @@ private fun TaskListContent(
                     TaskItem(
                         task = task,
                         onItemClick = onItemClick,
-                        onCheckedChange = onCheckedChange
+                        onCheckedChange = onCheckedChange,
                     )
-                }
+                },
             )
         }
     }
@@ -203,7 +203,7 @@ private fun TaskListEmpty() {
     DefaultIconTextContent(
         icon = Icons.Outlined.ThumbUp,
         iconContentDescription = R.string.task_list_cd_empty_list,
-        header = R.string.task_list_header_empty
+        header = R.string.task_list_header_empty,
     )
 }
 
@@ -212,7 +212,7 @@ private fun TaskListError() {
     DefaultIconTextContent(
         icon = Icons.Outlined.Close,
         iconContentDescription = R.string.task_list_cd_error,
-        header = R.string.task_list_header_error
+        header = R.string.task_list_header_error,
     )
 }
 
@@ -230,7 +230,7 @@ fun TaskListScaffoldLoaded() {
     val taskList = persistentListOf(
         TaskWithCategory(task = task1, category = category1),
         TaskWithCategory(task = task2, category = category2),
-        TaskWithCategory(task = task3, category = null)
+        TaskWithCategory(task = task3, category = null),
     )
 
     val state = TaskListViewState.Loaded(items = taskList)
@@ -239,7 +239,7 @@ fun TaskListScaffoldLoaded() {
         TaskListScaffold(
             taskHandler = TaskStateHandler(state = state),
             categoryHandler = CategoryStateHandler(),
-            modifier = Modifier
+            modifier = Modifier,
         )
     }
 }
@@ -254,7 +254,7 @@ fun TaskListScaffoldEmpty() {
         TaskListScaffold(
             taskHandler = TaskStateHandler(state = state),
             categoryHandler = CategoryStateHandler(),
-            modifier = Modifier
+            modifier = Modifier,
         )
     }
 }
@@ -269,7 +269,7 @@ fun TaskListScaffoldError() {
         TaskListScaffold(
             taskHandler = TaskStateHandler(state = state),
             categoryHandler = CategoryStateHandler(),
-            modifier = Modifier
+            modifier = Modifier,
         )
     }
 }

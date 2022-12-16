@@ -18,5 +18,5 @@ enum class AppThemeOptions {
     /**
      * System-based app theme.
      */
-    SYSTEM
+    SYSTEM,
 }

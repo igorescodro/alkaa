@@ -10,7 +10,7 @@ import mu.KLogging
  */
 class DeleteTask(
     private val taskRepository: TaskRepository,
-    private val alarmInteractor: AlarmInteractor
+    private val alarmInteractor: AlarmInteractor,
 ) {
 
     /**

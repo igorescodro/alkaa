@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.map
 
 internal class PreferencesRepositoryImpl(
     private val dataSource: PreferencesDataSource,
-    private val mapper: AppThemeOptionsMapper
+    private val mapper: AppThemeOptionsMapper,
 ) : PreferencesRepository {
 
     override suspend fun updateAppTheme(theme: AppThemeOptions) =

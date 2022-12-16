@@ -28,7 +28,7 @@ import kotlinx.collections.immutable.ImmutableList
 @Composable
 internal fun TaskTrackerList(
     list: ImmutableList<Tracker.CategoryInfo>,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     LazyColumn(modifier = modifier) {
         items(list) { item ->
@@ -47,7 +47,7 @@ private fun TrackerItem(item: Tracker.CategoryInfo) {
         modifier = Modifier
             .padding(horizontal = 16.dp)
             .fillMaxWidth()
-            .height(48.dp)
+            .height(48.dp),
     ) {
         Icon(
             imageVector = Icons.Default.CheckCircle,
@@ -55,14 +55,14 @@ private fun TrackerItem(item: Tracker.CategoryInfo) {
             tint = tint,
             modifier = Modifier
                 .size(32.dp)
-                .weight(1F)
+                .weight(1F),
         )
         Text(text = name, modifier = Modifier.weight(4F))
         Text(
             text = item.taskCount.toString(),
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center,
-            modifier = Modifier.weight(1F)
+            modifier = Modifier.weight(1F),
         )
     }
 }
@@ -75,7 +75,7 @@ fun TrackerItemPreview() {
         name = "Useless stuff to buy",
         color = android.graphics.Color.RED,
         taskCount = 16,
-        percentage = 0.88f
+        percentage = 0.88f,
     )
     TrackerItem(item)
 }

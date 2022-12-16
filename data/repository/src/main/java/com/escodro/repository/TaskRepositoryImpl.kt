@@ -7,7 +7,7 @@ import com.escodro.repository.mapper.TaskMapper
 
 internal class TaskRepositoryImpl(
     private val taskDataSource: TaskDataSource,
-    private val taskMapper: TaskMapper
+    private val taskMapper: TaskMapper,
 ) : TaskRepository {
     override suspend fun insertTask(task: Task) =
         taskDataSource.insertTask(taskMapper.toRepo(task))

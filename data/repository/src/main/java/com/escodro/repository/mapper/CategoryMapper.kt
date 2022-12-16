@@ -19,7 +19,7 @@ internal class CategoryMapper {
         DomainCategory(
             id = repoCategory.id,
             name = repoCategory.name,
-            color = repoCategory.color
+            color = repoCategory.color,
         )
 
     /**
@@ -43,7 +43,7 @@ internal class CategoryMapper {
         RepoCategory(
             id = localCategory.id,
             name = localCategory.name,
-            color = localCategory.color
+            color = localCategory.color,
         )
 
     /**

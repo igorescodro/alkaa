@@ -65,12 +65,12 @@ import kotlin.math.roundToInt
 @Composable
 fun CategoryListSection(
     modifier: Modifier = Modifier,
-    onShowBottomSheet: (Long?) -> Unit
+    onShowBottomSheet: (Long?) -> Unit,
 ) {
     CategoryListLoader(
         modifier = modifier,
         onItemClick = onShowBottomSheet,
-        onAddClick = { onShowBottomSheet(null) }
+        onAddClick = { onShowBottomSheet(null) },
     )
 }
 
@@ -79,7 +79,7 @@ private fun CategoryListLoader(
     onItemClick: (Long?) -> Unit,
     onAddClick: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: CategoryListViewModel = getViewModel()
+    viewModel: CategoryListViewModel = getViewModel(),
 ) {
     val viewState by remember(viewModel) {
         viewModel.loadCategories()
@@ -89,7 +89,7 @@ private fun CategoryListLoader(
         modifier = modifier,
         viewState = viewState,
         onItemClick = onItemClick,
-        onAddClick = onAddClick
+        onAddClick = onAddClick,
     )
 }
 
@@ -99,7 +99,7 @@ private fun CategoryListScaffold(
     viewState: CategoryState,
     onItemClick: (Long?) -> Unit,
     onAddClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     BoxWithConstraints {
         val fabPosition = if (this.maxHeight > maxWidth) FabPosition.Center else FabPosition.End
@@ -108,10 +108,10 @@ private fun CategoryListScaffold(
             floatingActionButton = {
                 AddFloatingButton(
                     contentDescription = R.string.category_cd_add_category,
-                    onClick = { onAddClick() }
+                    onClick = { onAddClick() },
                 )
             },
-            floatingActionButtonPosition = fabPosition
+            floatingActionButtonPosition = fabPosition,
         ) {
             Crossfade(viewState) { state ->
                 when (state) {
@@ -128,7 +128,7 @@ private fun CategoryListScaffold(
 @Suppress("MagicNumber")
 private fun CategoryListContent(
     categoryList: ImmutableList<Category>,
-    onItemClick: (Long?) -> Unit
+    onItemClick: (Long?) -> Unit,
 ) {
     BoxWithConstraints(modifier = Modifier.padding(start = 8.dp, end = 8.dp)) {
         val cellCount: Int = max(2F, maxWidth.value / 250).roundToInt()
@@ -137,7 +137,7 @@ private fun CategoryListContent(
                 items = categoryList,
                 itemContent = { category ->
                     CategoryItem(category = category, onItemClick = onItemClick)
-                }
+                },
             )
         }
     }
@@ -147,21 +147,21 @@ private fun CategoryListContent(
 private fun CategoryItem(
     category: Category,
     onItemClick: (Long) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     ElevatedCard(
         elevation = CardDefaults.elevatedCardElevation(4.dp),
         modifier = modifier
             .fillMaxWidth()
             .padding(all = 8.dp)
-            .clickable { onItemClick(category.id) }
+            .clickable { onItemClick(category.id) },
     ) {
         Column(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(vertical = 24.dp)
+                .padding(vertical = 24.dp),
         ) {
             CategoryItemIcon(category.color)
             Spacer(modifier = Modifier.height(16.dp))
@@ -178,7 +178,7 @@ private fun CategoryItemIcon(color: Int) {
         Icon(
             imageVector = Icons.Default.Bookmark,
             contentDescription = stringResource(id = R.string.category_icon_cd),
-            tint = MaterialTheme.colorScheme.background
+            tint = MaterialTheme.colorScheme.background,
         )
     }
 }
@@ -191,7 +191,7 @@ private fun CategoryCircleIndicator(size: Dp, color: Int, alpha: Float = 1F) {
             .clip(CircleShape)
             .alpha(alpha)
             .semantics { this.color = Color(color) }
-            .background(Color(color))
+            .background(Color(color)),
     )
 }
 
@@ -200,7 +200,7 @@ private fun CategoryListEmpty() {
     DefaultIconTextContent(
         icon = Icons.Outlined.ThumbUp,
         iconContentDescription = R.string.category_list_cd_empty_list,
-        header = R.string.category_list_header_empty
+        header = R.string.category_list_header_empty,
     )
 }
 
@@ -211,7 +211,7 @@ fun AboutPreview() {
     AlkaaTheme {
         CategoryItem(
             category = Category(name = "Movies", color = android.graphics.Color.RED),
-            onItemClick = { }
+            onItemClick = { },
         )
     }
 }

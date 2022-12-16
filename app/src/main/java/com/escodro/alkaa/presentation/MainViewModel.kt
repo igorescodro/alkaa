@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.map
 
 internal class MainViewModel(
     private val loadAppTheme: LoadAppTheme,
-    private val mapper: AppThemeOptionsMapper
+    private val mapper: AppThemeOptionsMapper,
 ) : ViewModel() {
 
     fun loadCurrentTheme(): Flow<AppThemeOptions> = loadAppTheme().map { mapper.toViewData(it) }

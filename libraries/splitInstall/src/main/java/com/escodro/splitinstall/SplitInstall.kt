@@ -54,7 +54,7 @@ fun LoadFeature(
     context: Context,
     featureName: String,
     onDismiss: () -> Unit,
-    onFeatureReady: () -> Unit
+    onFeatureReady: () -> Unit,
 ) {
     require(featureName.isNotEmpty()) { "Feature name not provided" }
 
@@ -71,7 +71,7 @@ fun LoadFeature(
             featureName = featureName,
             manager = manager,
             onDismiss = onDismiss,
-            setState = { state = it }
+            setState = { state = it },
         )
         FeatureReady -> {
             onDismiss()
@@ -82,7 +82,7 @@ fun LoadFeature(
 
 private fun isFeatureInstalled(
     manager: SplitInstallManager,
-    featureName: String
+    featureName: String,
 ): Boolean {
     val isFeatureInstalled = manager.installedModules.contains(featureName)
     logcat(TAG) { "load = [$featureName] - isFeatureInstalled = $isFeatureInstalled" }
@@ -99,7 +99,7 @@ private fun RequestDownload(setState: (SplitInstallState) -> Unit, onDismiss: ()
         text = stringResource(id = R.string.split_confirmation_install_description),
         confirmText = stringResource(id = R.string.split_confirmation_install_accept),
         dismissText = stringResource(id = R.string.split_confirmation_install_deny),
-        onConfirmAction = { setState(Downloading) }
+        onConfirmAction = { setState(Downloading) },
     )
     AlkaaDialog(
         arguments = arguments,
@@ -107,7 +107,7 @@ private fun RequestDownload(setState: (SplitInstallState) -> Unit, onDismiss: ()
         onDismissRequest = {
             isDialogOpen = false
             onDismiss()
-        }
+        },
     )
 }
 
@@ -116,7 +116,7 @@ private fun DownloadFeature(
     featureName: String,
     manager: SplitInstallManager,
     onDismiss: () -> Unit,
-    setState: (SplitInstallState) -> Unit
+    setState: (SplitInstallState) -> Unit,
 ) {
     var isDialogOpen by rememberSaveable { mutableStateOf(true) }
     DisposableEffect(featureName) {
@@ -161,14 +161,14 @@ private fun DownloadDialog() {
                     contentAlignment = Alignment.Center,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 32.dp)
+                        .padding(top = 32.dp),
                 ) {
                     CircularProgressIndicator(modifier = Modifier.size(64.dp))
                 }
             }
         },
         confirmButton = { /* Shows nothing */ },
-        dismissButton = { /* Shows nothing */ }
+        dismissButton = { /* Shows nothing */ },
     )
 }
 

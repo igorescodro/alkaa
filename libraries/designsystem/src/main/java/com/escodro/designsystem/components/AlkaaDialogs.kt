@@ -19,7 +19,7 @@ import com.escodro.designsystem.AlkaaTheme
 fun AlkaaDialog(
     arguments: DialogArguments,
     isDialogOpen: Boolean,
-    onDismissRequest: () -> Unit
+    onDismissRequest: () -> Unit,
 ) {
     if (isDialogOpen) {
         AlertDialog(
@@ -35,7 +35,7 @@ fun AlkaaDialog(
                 OutlinedButton(onClick = onDismissRequest) {
                     Text(text = arguments.dismissText)
                 }
-            }
+            },
         )
     }
 }
@@ -54,7 +54,7 @@ data class DialogArguments(
     val text: String,
     val confirmText: String,
     val dismissText: String,
-    val onConfirmAction: () -> Unit
+    val onConfirmAction: () -> Unit,
 )
 
 @Suppress("UndocumentedPublicFunction")
@@ -67,7 +67,7 @@ fun DialogPreview() {
             text = "Are you sure that do you want to do something regrettable?",
             confirmText = "Regret",
             dismissText = "Cancel",
-            onConfirmAction = {}
+            onConfirmAction = {},
         )
 
         AlkaaDialog(arguments = arguments, isDialogOpen = true, onDismissRequest = {})

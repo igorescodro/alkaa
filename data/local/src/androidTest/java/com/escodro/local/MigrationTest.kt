@@ -30,7 +30,7 @@ class MigrationTest {
         InstrumentationRegistry.getInstrumentation(),
         TaskDatabase::class.java,
         listOf(),
-        FrameworkSQLiteOpenHelperFactory()
+        FrameworkSQLiteOpenHelperFactory(),
     )
 
     @Test
@@ -145,7 +145,7 @@ class MigrationTest {
         Room.databaseBuilder(
             InstrumentationRegistry.getInstrumentation().targetContext,
             TaskDatabase::class.java,
-            TEST_DB
+            TEST_DB,
         ).addMigrations(*allMigrations).build().apply {
             openHelper.writableDatabase
             close()

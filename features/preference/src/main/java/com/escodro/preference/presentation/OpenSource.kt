@@ -20,7 +20,7 @@ fun OpenSource(onUpPress: () -> Unit, modifier: Modifier = Modifier) {
     Scaffold(
         topBar = { AlkaaToolbar(onUpPress = onUpPress) },
         content = { paddingValues -> OpenSourceContent(modifier = Modifier.padding(paddingValues)) },
-        modifier = modifier
+        modifier = modifier,
     )
 }
 
@@ -32,7 +32,7 @@ private fun OpenSourceContent(modifier: Modifier = Modifier) {
             backgroundColor = MaterialTheme.colorScheme.background,
             contentColor = MaterialTheme.colorScheme.onBackground,
             badgeContentColor = MaterialTheme.colorScheme.onPrimary,
-            badgeBackgroundColor = MaterialTheme.colorScheme.primary
-        )
+            badgeBackgroundColor = MaterialTheme.colorScheme.primary,
+        ),
     )
 }

@@ -109,7 +109,7 @@ internal class SearchFlowTest : KoinTest {
     private fun navigateToSearch() {
         composeTestRule.onNodeWithContentDescription(
             label = string(R.string.home_title_search),
-            useUnmergedTree = true
+            useUnmergedTree = true,
         ).performClick()
     }
 

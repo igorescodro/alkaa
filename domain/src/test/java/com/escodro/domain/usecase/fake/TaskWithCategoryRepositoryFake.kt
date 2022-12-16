@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.flow
 
 internal class TaskWithCategoryRepositoryFake(
     private val taskRepository: TaskRepositoryFake,
-    private val categoryRepository: CategoryRepositoryFake
+    private val categoryRepository: CategoryRepositoryFake,
 ) : TaskWithCategoryRepository {
 
     override fun findAllTasksWithCategory(): Flow<List<TaskWithCategory>> =

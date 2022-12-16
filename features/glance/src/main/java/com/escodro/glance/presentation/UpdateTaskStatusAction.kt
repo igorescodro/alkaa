@@ -18,7 +18,7 @@ internal class UpdateTaskStatusAction : ActionCallback, KoinComponent {
     override suspend fun onAction(
         context: Context,
         glanceId: GlanceId,
-        parameters: ActionParameters
+        parameters: ActionParameters,
     ) {
         val taskId = parameters[TaskIdKey]?.toLong() ?: return
         viewModel.updateTaskAsCompleted(taskId)

@@ -48,7 +48,7 @@ internal class ThemePreferenceTest {
                     onTrackerClick = { },
                     onOpenSourceClick = {},
                     theme = theme,
-                    onThemeUpdate = { theme = it }
+                    onThemeUpdate = { theme = it },
                 )
             }
         }

@@ -70,7 +70,7 @@ internal class ShowAlarmTest {
             title = "should repeat",
             isRepeating = true,
             dueDate = calendar,
-            alarmInterval = AlarmInterval.YEARLY
+            alarmInterval = AlarmInterval.YEARLY,
         )
         addTaskUseCase(task)
 

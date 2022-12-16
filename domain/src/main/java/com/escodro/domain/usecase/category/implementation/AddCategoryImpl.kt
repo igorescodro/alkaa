@@ -6,7 +6,7 @@ import com.escodro.domain.usecase.category.AddCategory
 import mu.KLogging
 
 internal class AddCategoryImpl(
-    private val categoryRepository: CategoryRepository
+    private val categoryRepository: CategoryRepository,
 ) : AddCategory {
 
     override suspend operator fun invoke(category: Category) {

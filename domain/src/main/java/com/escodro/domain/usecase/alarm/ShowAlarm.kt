@@ -10,7 +10,7 @@ import mu.KLogging
 class ShowAlarm(
     private val taskRepository: TaskRepository,
     private val notificationInteractor: NotificationInteractor,
-    private val scheduleNextAlarm: ScheduleNextAlarm
+    private val scheduleNextAlarm: ScheduleNextAlarm,
 ) {
 
     /**

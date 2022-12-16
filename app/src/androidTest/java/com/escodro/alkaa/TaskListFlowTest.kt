@@ -130,12 +130,12 @@ internal class TaskListFlowTest : KoinTest {
     private fun clickAddTask() {
         composeTestRule.onNodeWithContentDescription(
             string(TaskR.string.task_cd_add_task),
-            useUnmergedTree = true
+            useUnmergedTree = true,
         ).performClick()
     }
 
     private fun ComposeTestRule.onCheckbox(name: String) = onNode(
-        SemanticsMatcher.expectValue(CheckboxNameKey, name)
+        SemanticsMatcher.expectValue(CheckboxNameKey, name),
     )
 
     private fun string(@StringRes resId: Int): String =

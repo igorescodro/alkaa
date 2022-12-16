@@ -9,5 +9,5 @@ internal data class HomeActions(
     val onOpenSourceClick: () -> Unit = {},
     val onTaskSheetOpen: () -> Unit = {},
     val onCategorySheetOpen: (Long?) -> Unit = {},
-    val setCurrentSection: (HomeSection) -> Unit = {}
+    val setCurrentSection: (HomeSection) -> Unit = {},
 )

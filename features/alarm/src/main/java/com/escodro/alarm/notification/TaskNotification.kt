@@ -19,7 +19,7 @@ import logcat.logcat
 internal class TaskNotification(
     private val context: Context,
     private val channel: TaskNotificationChannel,
-    private val alarmPermission: AlarmPermission
+    private val alarmPermission: AlarmPermission,
 ) {
 
     /**
@@ -78,14 +78,14 @@ internal class TaskNotification(
     private fun buildPendingIntent(task: Task): PendingIntent {
         val openTaskIntent = Intent(
             Intent.ACTION_VIEW,
-            DestinationDeepLink.getTaskDetailUri(task.id)
+            DestinationDeepLink.getTaskDetailUri(task.id),
         )
 
         return TaskStackBuilder.create(context).run {
             addNextIntentWithParentStack(openTaskIntent)
             getPendingIntent(
                 REQUEST_CODE_OPEN_TASK,
-                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
             )
         }
     }
@@ -105,7 +105,7 @@ internal class TaskNotification(
     private fun getIntent(
         task: Task,
         intentAction: String,
-        requestCode: Int
+        requestCode: Int,
     ): PendingIntent {
         val receiverIntent = Intent(context, TaskReceiver::class.java).apply {
             action = intentAction
@@ -117,7 +117,7 @@ internal class TaskNotification(
                 context,
                 requestCode,
                 receiverIntent,
-                PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE
+                PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE,
             )
     }
 

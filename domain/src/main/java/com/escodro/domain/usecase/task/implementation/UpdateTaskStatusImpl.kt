@@ -10,7 +10,7 @@ internal class UpdateTaskStatusImpl(
     private val taskRepository: TaskRepository,
     private val glanceInteractor: GlanceInteractor,
     private val completeTask: CompleteTask,
-    private val uncompleteTask: UncompleteTask
+    private val uncompleteTask: UncompleteTask,
 ) : UpdateTaskStatus {
 
     override suspend operator fun invoke(taskId: Long) {

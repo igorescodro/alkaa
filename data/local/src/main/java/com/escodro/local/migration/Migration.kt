@@ -35,12 +35,12 @@ val MIGRATION_3_4 = object : Migration(3, 4) {
             "CREATE TABLE IF NOT EXISTS Category " +
                 "(`category_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
                 "`category_name` TEXT NOT NULL, " +
-                "`category_color` TEXT NOT NULL)"
+                "`category_color` TEXT NOT NULL)",
         )
         database.execSQL(
             "INSERT INTO Category(category_id, category_name, category_color) " +
                 "SELECT category_id, category_name, category_color " +
-                "FROM Category_temp"
+                "FROM Category_temp",
         )
         database.execSQL("DROP TABLE Category_temp;")
     }

@@ -58,7 +58,7 @@ internal class SearchSectionTest {
                     viewState = state,
                     onItemClick = {},
                     query = "",
-                    setQuery = {}
+                    setQuery = {},
                 )
             }
         }

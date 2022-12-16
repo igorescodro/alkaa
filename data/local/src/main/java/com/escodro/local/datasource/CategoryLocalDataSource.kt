@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.map
  */
 internal class CategoryLocalDataSource(
     daoProvider: DaoProvider,
-    private val categoryMapper: CategoryMapper
+    private val categoryMapper: CategoryMapper,
 ) : CategoryDataSource {
 
     private val categoryDao = daoProvider.getCategoryDao()

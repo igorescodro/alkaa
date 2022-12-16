@@ -35,7 +35,7 @@ internal class TaskAlarmViewModelTest {
         updateTaskAsRepeatingUseCase = updateTaskAsRepeating,
         cancelAlarmUseCase = cancelAlarm,
         applicationScope = TestScope(coroutineTestRule.testDispatcher),
-        alarmIntervalMapper = alarmIntervalMapper
+        alarmIntervalMapper = alarmIntervalMapper,
     )
 
     @Test

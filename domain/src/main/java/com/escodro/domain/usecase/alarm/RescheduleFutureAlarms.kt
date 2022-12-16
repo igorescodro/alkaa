@@ -14,7 +14,7 @@ class RescheduleFutureAlarms(
     private val taskRepository: TaskRepository,
     private val alarmInteractor: AlarmInteractor,
     private val calendarProvider: CalendarProvider,
-    private val scheduleNextAlarm: ScheduleNextAlarm
+    private val scheduleNextAlarm: ScheduleNextAlarm,
 ) {
 
     /**

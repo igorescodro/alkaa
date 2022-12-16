@@ -17,6 +17,6 @@ interface CoroutineDebouncer {
     operator fun invoke(
         delay: Long = 300,
         coroutineScope: CoroutineScope,
-        function: suspend () -> Unit
+        function: suspend () -> Unit,
     )
 }

@@ -8,7 +8,7 @@ import logcat.logcat
 
 internal class NotificationInteractorImpl(
     private val taskNotification: TaskNotification,
-    private val taskMapper: TaskMapper
+    private val taskMapper: TaskMapper,
 ) : NotificationInteractor {
 
     override fun show(task: Task) {

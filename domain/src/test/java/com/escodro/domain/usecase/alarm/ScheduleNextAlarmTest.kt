@@ -77,7 +77,7 @@ internal class ScheduleNextAlarmTest {
         val task = baseTask.copy(
             dueDate = calendar,
             isRepeating = true,
-            alarmInterval = AlarmInterval.HOURLY
+            alarmInterval = AlarmInterval.HOURLY,
         )
         addTaskUseCase(task)
         scheduleNextAlarmUseCase(task)
@@ -99,7 +99,7 @@ internal class ScheduleNextAlarmTest {
         val task = baseTask.copy(
             dueDate = calendar,
             isRepeating = true,
-            alarmInterval = AlarmInterval.DAILY
+            alarmInterval = AlarmInterval.DAILY,
         )
         addTaskUseCase(task)
         scheduleNextAlarmUseCase(task)
@@ -121,7 +121,7 @@ internal class ScheduleNextAlarmTest {
         val task = baseTask.copy(
             dueDate = calendar,
             isRepeating = true,
-            alarmInterval = AlarmInterval.WEEKLY
+            alarmInterval = AlarmInterval.WEEKLY,
         )
         addTaskUseCase(task)
         scheduleNextAlarmUseCase(task)
@@ -143,7 +143,7 @@ internal class ScheduleNextAlarmTest {
         val task = baseTask.copy(
             dueDate = calendar,
             isRepeating = true,
-            alarmInterval = AlarmInterval.MONTHLY
+            alarmInterval = AlarmInterval.MONTHLY,
         )
         addTaskUseCase(task)
         scheduleNextAlarmUseCase(task)
@@ -165,7 +165,7 @@ internal class ScheduleNextAlarmTest {
         val task = baseTask.copy(
             dueDate = calendar,
             isRepeating = true,
-            alarmInterval = AlarmInterval.YEARLY
+            alarmInterval = AlarmInterval.YEARLY,
         )
         addTaskUseCase(task)
         scheduleNextAlarmUseCase(task)
@@ -186,7 +186,7 @@ internal class ScheduleNextAlarmTest {
         val task = baseTask.copy(
             isRepeating = true,
             dueDate = Calendar.getInstance(),
-            alarmInterval = AlarmInterval.DAILY
+            alarmInterval = AlarmInterval.DAILY,
         )
 
         addTaskUseCase(task)
@@ -202,7 +202,7 @@ internal class ScheduleNextAlarmTest {
             dueDate = pastCalendar,
             completed = true,
             isRepeating = true,
-            alarmInterval = AlarmInterval.HOURLY
+            alarmInterval = AlarmInterval.HOURLY,
         )
 
         addTaskUseCase(task)

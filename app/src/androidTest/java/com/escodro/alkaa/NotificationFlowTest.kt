@@ -222,7 +222,7 @@ internal class NotificationFlowTest : KoinTest {
     private suspend fun insertTask(
         id: Long = 15L,
         name: String,
-        calendar: Calendar = Calendar.getInstance()
+        calendar: Calendar = Calendar.getInstance(),
     ): Task =
         with(Task(id = id, title = name)) {
             calendar.add(Calendar.SECOND, 1)

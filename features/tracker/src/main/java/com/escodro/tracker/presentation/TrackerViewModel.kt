@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.map
 
 internal class TrackerViewModel(
     private val loadCompletedTasksByPeriod: LoadCompletedTasksByPeriod,
-    private val trackerMapper: TrackerMapper
+    private val trackerMapper: TrackerMapper,
 ) : ViewModel() {
 
     fun loadTracker(): Flow<TrackerViewState> = flow {

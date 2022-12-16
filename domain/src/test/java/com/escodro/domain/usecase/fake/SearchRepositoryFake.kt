@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.map
 
 internal class SearchRepositoryFake(
     taskRepository: TaskRepositoryFake,
-    categoryRepository: CategoryRepositoryFake = CategoryRepositoryFake()
+    categoryRepository: CategoryRepositoryFake = CategoryRepositoryFake(),
 ) : SearchRepository {
 
     private val taskWithCategoryRepository =

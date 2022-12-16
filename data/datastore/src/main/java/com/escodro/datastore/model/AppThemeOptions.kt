@@ -20,5 +20,5 @@ enum class AppThemeOptions(val id: Int) {
     /**
      * System-based app theme.
      */
-    SYSTEM(2)
+    SYSTEM(2),
 }

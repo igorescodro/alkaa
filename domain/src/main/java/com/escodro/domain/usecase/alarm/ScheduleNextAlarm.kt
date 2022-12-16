@@ -19,7 +19,7 @@ import java.util.Calendar
 class ScheduleNextAlarm(
     private val taskRepository: TaskRepository,
     private val alarmInteractor: AlarmInteractor,
-    private val calendarProvider: CalendarProvider
+    private val calendarProvider: CalendarProvider,
 ) {
 
     /**

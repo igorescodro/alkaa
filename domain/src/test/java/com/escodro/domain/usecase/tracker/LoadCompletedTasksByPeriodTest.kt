@@ -51,7 +51,7 @@ internal class LoadCompletedTasksByPeriodTest {
         val assertList = listOf(
             TaskWithCategory(t2, category2),
             TaskWithCategory(t3, category2),
-            TaskWithCategory(t5, category3)
+            TaskWithCategory(t5, category3),
         )
 
         Assert.assertEquals(assertList, trackerTasks)
@@ -76,7 +76,7 @@ internal class LoadCompletedTasksByPeriodTest {
         val trackerTasks = loadTrackerUseCase().first()
 
         val assertList = listOf(
-            TaskWithCategory(t4, category2)
+            TaskWithCategory(t4, category2),
         )
 
         Assert.assertEquals(assertList, trackerTasks)

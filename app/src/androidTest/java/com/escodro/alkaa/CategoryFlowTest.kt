@@ -87,7 +87,7 @@ internal class CategoryFlowTest : KoinTest {
             // Open it again and removes it
             onNodeWithText(name).performClick()
             onNodeWithContentDescription(
-                string(CategoryR.string.category_cd_remove_category)
+                string(CategoryR.string.category_cd_remove_category),
             ).performClick()
             onNodeWithText(string(CategoryR.string.category_dialog_remove_confirm)).performClick()
 
@@ -117,7 +117,7 @@ internal class CategoryFlowTest : KoinTest {
         with(composeTestRule) {
             onNodeWithContentDescription(
                 string(CategoryR.string.category_cd_add_category),
-                useUnmergedTree = true
+                useUnmergedTree = true,
             ).performClick()
             onNode(hasSetTextAction()).performTextInput(name)
             onNodeWithText(string(CategoryR.string.category_sheet_save)).performClick()
@@ -128,7 +128,7 @@ internal class CategoryFlowTest : KoinTest {
     private fun navigateToCategory() {
         composeTestRule.onNodeWithContentDescription(
             label = string(R.string.home_title_categories),
-            useUnmergedTree = true
+            useUnmergedTree = true,
         ).performClick()
     }
 
@@ -136,6 +136,6 @@ internal class CategoryFlowTest : KoinTest {
         context.getString(resId)
 
     private fun ComposeTestRule.onCategoryColorItem(color: Color) = onNode(
-        SemanticsMatcher.expectValue(ColorKey, color)
+        SemanticsMatcher.expectValue(ColorKey, color),
     )
 }

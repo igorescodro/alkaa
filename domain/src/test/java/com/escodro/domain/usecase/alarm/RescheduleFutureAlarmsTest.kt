@@ -35,7 +35,7 @@ internal class RescheduleFutureAlarmsTest {
             taskRepository,
             alarmInteractor,
             calendarProvider,
-            scheduleNextAlarmUseCase
+            scheduleNextAlarmUseCase,
         )
 
     @Before
@@ -123,7 +123,7 @@ internal class RescheduleFutureAlarmsTest {
             title = "lost",
             dueDate = pastCalendar,
             isRepeating = true,
-            alarmInterval = AlarmInterval.DAILY
+            alarmInterval = AlarmInterval.DAILY,
         )
 
         addTaskUseCase(task)

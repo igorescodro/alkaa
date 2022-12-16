@@ -6,7 +6,7 @@ import com.escodro.domain.usecase.task.UpdateTaskDescription
 
 internal class UpdateTaskDescriptionImpl(
     private val loadTask: LoadTask,
-    private val updateTask: UpdateTask
+    private val updateTask: UpdateTask,
 ) : UpdateTaskDescription {
 
     override suspend fun invoke(taskId: Long, description: String) {

@@ -10,5 +10,5 @@ internal data class TaskSearchItem(
     val completed: Boolean,
     val title: String,
     val categoryColor: Color?,
-    val isRepeating: Boolean
+    val isRepeating: Boolean,
 )

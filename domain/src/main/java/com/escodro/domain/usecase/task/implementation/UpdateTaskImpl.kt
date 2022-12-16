@@ -10,7 +10,7 @@ import com.escodro.domain.usecase.task.UpdateTask
  */
 internal class UpdateTaskImpl(
     private val taskRepository: TaskRepository,
-    private val glanceInteractor: GlanceInteractor
+    private val glanceInteractor: GlanceInteractor,
 ) : UpdateTask {
 
     override suspend operator fun invoke(task: Task) {

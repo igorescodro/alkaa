@@ -18,5 +18,5 @@ enum class SplitInstallState {
     /**
      * The dynamic feature is ready to be opened.
      */
-    FeatureReady
+    FeatureReady,
 }

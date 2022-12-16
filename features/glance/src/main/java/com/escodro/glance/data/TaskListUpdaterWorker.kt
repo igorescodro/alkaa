@@ -23,7 +23,7 @@ import org.koin.core.component.inject
  */
 internal class TaskListUpdaterWorker(
     private val context: Context,
-    workerParameters: WorkerParameters
+    workerParameters: WorkerParameters,
 ) : CoroutineWorker(context, workerParameters), KoinComponent {
 
     private val viewModel: TaskListGlanceUpdater by inject()
@@ -42,7 +42,7 @@ internal class TaskListUpdaterWorker(
                 context = context,
                 definition = TaskListStateDefinition,
                 glanceId = it,
-                updateState = { list.toImmutableList() }
+                updateState = { list.toImmutableList() },
             )
             TaskListGlanceWidget().updateAll(context)
         }
@@ -58,7 +58,7 @@ internal class TaskListUpdaterWorker(
             manager.enqueueUniqueWork(
                 uniqueWorkName,
                 ExistingWorkPolicy.KEEP,
-                requestBuilder.build()
+                requestBuilder.build(),
             )
         }
 

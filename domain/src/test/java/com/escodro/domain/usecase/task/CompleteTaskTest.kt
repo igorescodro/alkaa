@@ -39,7 +39,7 @@ internal class CompleteTaskTest {
         taskRepository,
         glanceInteractor,
         completeTaskUseCase,
-        uncompleteTaskUseCase
+        uncompleteTaskUseCase,
     )
 
     private val getTaskUseCase = LoadTaskImpl(taskRepository)

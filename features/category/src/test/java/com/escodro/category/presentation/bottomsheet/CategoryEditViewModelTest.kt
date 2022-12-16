@@ -36,7 +36,7 @@ internal class CategoryEditViewModelTest {
         updateCategoryUseCase = updateCategory,
         deleteCategoryUseCase = deleteCategory,
         applicationScope = TestScope(coroutinesRule.testDispatcher),
-        mapper = mapper
+        mapper = mapper,
     )
 
     @Before

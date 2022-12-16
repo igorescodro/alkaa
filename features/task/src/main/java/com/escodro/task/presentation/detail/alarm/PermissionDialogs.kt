@@ -17,7 +17,7 @@ import com.google.accompanist.permissions.PermissionState
 internal fun AlarmPermissionDialog(
     context: Context,
     isDialogOpen: Boolean,
-    onCloseDialog: () -> Unit
+    onCloseDialog: () -> Unit,
 ) {
     val arguments = DialogArguments(
         title = stringResource(id = R.string.task_alarm_permission_dialog_title),
@@ -33,12 +33,12 @@ internal fun AlarmPermissionDialog(
                 context.startActivity(intent)
                 onCloseDialog()
             }
-        }
+        },
     )
     AlkaaDialog(
         arguments = arguments,
         isDialogOpen = isDialogOpen,
-        onDismissRequest = onCloseDialog
+        onDismissRequest = onCloseDialog,
     )
 }
 
@@ -47,7 +47,7 @@ internal fun AlarmPermissionDialog(
 internal fun NotificationPermissionDialog(
     permissionState: PermissionState,
     isDialogOpen: Boolean,
-    onCloseDialog: () -> Unit
+    onCloseDialog: () -> Unit,
 ) {
     val arguments = DialogArguments(
         title = stringResource(id = R.string.task_notification_permission_dialog_title),
@@ -57,12 +57,12 @@ internal fun NotificationPermissionDialog(
         onConfirmAction = {
             permissionState.launchPermissionRequest()
             onCloseDialog()
-        }
+        },
     )
     AlkaaDialog(
         arguments = arguments,
         isDialogOpen = isDialogOpen,
-        onDismissRequest = onCloseDialog
+        onDismissRequest = onCloseDialog,
     )
 }
 
@@ -70,7 +70,7 @@ internal fun NotificationPermissionDialog(
 internal fun RationalePermissionDialog(
     context: Context,
     isDialogOpen: Boolean,
-    onCloseDialog: () -> Unit
+    onCloseDialog: () -> Unit,
 ) {
     val arguments = DialogArguments(
         title = stringResource(id = R.string.task_notification_rationale_dialog_title),
@@ -85,11 +85,11 @@ internal fun RationalePermissionDialog(
             }
             context.startActivity(intent)
             onCloseDialog()
-        }
+        },
     )
     AlkaaDialog(
         arguments = arguments,
         isDialogOpen = isDialogOpen,
-        onDismissRequest = onCloseDialog
+        onDismissRequest = onCloseDialog,
     )
 }

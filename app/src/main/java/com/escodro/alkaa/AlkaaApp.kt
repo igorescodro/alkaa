@@ -52,7 +52,7 @@ class AlkaaApp : Application() {
         domainModule,
         repositoryModule,
         localModule,
-        dataStoreModule
+        dataStoreModule,
     )
 
     override fun attachBaseContext(base: Context?) {

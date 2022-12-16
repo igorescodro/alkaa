@@ -34,13 +34,13 @@ fun PreferenceSection(
     onAboutClick: () -> Unit,
     onTrackerClick: () -> Unit,
     onOpenSourceClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     PreferenceLoader(
         modifier = modifier,
         onAboutClick = onAboutClick,
         onTrackerClick = onTrackerClick,
-        onOpenSourceClick = onOpenSourceClick
+        onOpenSourceClick = onOpenSourceClick,
     )
 }
 
@@ -50,7 +50,7 @@ private fun PreferenceLoader(
     onTrackerClick: () -> Unit,
     onOpenSourceClick: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: PreferenceViewModel = getViewModel()
+    viewModel: PreferenceViewModel = getViewModel(),
 ) {
     val theme by remember(viewModel) {
         viewModel.loadCurrentTheme()
@@ -62,7 +62,7 @@ private fun PreferenceLoader(
         onTrackerClick = onTrackerClick,
         onOpenSourceClick = onOpenSourceClick,
         theme = theme,
-        onThemeUpdate = viewModel::updateTheme
+        onThemeUpdate = viewModel::updateTheme,
     )
 }
 
@@ -74,7 +74,7 @@ internal fun PreferenceContent(
     onOpenSourceClick: () -> Unit,
     theme: AppThemeOptions,
     onThemeUpdate: (AppThemeOptions) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier.fillMaxSize()) {
         PreferenceTitle(title = stringResource(id = R.string.preference_title_features))
@@ -95,7 +95,7 @@ private fun Separator() {
             .padding(bottom = 8.dp)
             .height(1.dp)
             .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.outline.copy(alpha = 0.7F))
+            .background(MaterialTheme.colorScheme.outline.copy(alpha = 0.7F)),
     )
 }
 

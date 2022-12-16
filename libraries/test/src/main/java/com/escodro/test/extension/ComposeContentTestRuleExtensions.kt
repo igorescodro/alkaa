@@ -10,18 +10,18 @@ import androidx.compose.ui.test.junit4.ComposeContentTestRule
  */
 fun ComposeContentTestRule.waitUntilExists(
     matcher: SemanticsMatcher,
-    timeoutMillis: Long = 3_000L
+    timeoutMillis: Long = 3_000L,
 ) = waitUntilNodeCount(matcher = matcher, count = 1, timeoutMillis = timeoutMillis)
 
 fun ComposeContentTestRule.waitUntilNotExists(
     matcher: SemanticsMatcher,
-    timeoutMillis: Long = 3_000L
+    timeoutMillis: Long = 3_000L,
 ) = waitUntilNodeCount(matcher = matcher, count = 0, timeoutMillis = timeoutMillis)
 
 private fun ComposeContentTestRule.waitUntilNodeCount(
     matcher: SemanticsMatcher,
     count: Int,
-    timeoutMillis: Long = 3_000L
+    timeoutMillis: Long = 3_000L,
 ) = waitUntil(timeoutMillis) {
     onAllNodes(matcher).fetchSemanticsNodes().size == count
 }

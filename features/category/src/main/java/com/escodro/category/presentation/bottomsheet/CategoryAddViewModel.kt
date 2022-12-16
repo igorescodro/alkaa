@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 internal class CategoryAddViewModel(
     private val addCategoryUseCase: AddCategory,
     private val applicationScope: CoroutineScope,
-    private val categoryMapper: CategoryMapper
+    private val categoryMapper: CategoryMapper,
 ) : ViewModel() {
 
     fun addCategory(category: Category) {

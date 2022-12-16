@@ -43,7 +43,7 @@ internal class TaskDetailTest {
             title = "Call John",
             description = "I can't forget his birthday again",
             dueDate = null,
-            categoryId = 10L
+            categoryId = 10L,
         )
         val state = TaskDetailState.Loaded(task)
 
@@ -61,7 +61,7 @@ internal class TaskDetailTest {
                 TaskDetailRouter(
                     detailViewState = state,
                     categoryViewState = CategoryState.Loaded(persistentListOf()),
-                    actions = TaskDetailActions()
+                    actions = TaskDetailActions(),
                 )
             }
         }

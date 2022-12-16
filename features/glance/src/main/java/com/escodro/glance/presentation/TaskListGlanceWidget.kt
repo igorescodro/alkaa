@@ -68,17 +68,17 @@ internal class TaskListGlanceWidget : GlanceAppWidget(), KoinComponent {
                 .cornerRadius(12.dp)
                 .appWidgetBackground()
                 .background(color = MaterialTheme.colorScheme.background)
-                .padding(8.dp)
+                .padding(8.dp),
         ) {
             Row(
                 modifier = GlanceModifier.fillMaxWidth().height(32.dp),
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 Image(
                     provider = ImageProvider(R.drawable.ic_alkaa_icon),
                     contentDescription = "",
                     modifier = GlanceModifier.size(32.dp)
-                        .clickable(actionStartActivity(getHomeIntent()))
+                        .clickable(actionStartActivity(getHomeIntent())),
                 )
             }
             if (taskList.isEmpty()) {
@@ -114,18 +114,18 @@ internal class TaskListGlanceWidget : GlanceAppWidget(), KoinComponent {
                 .height(32.dp)
                 .fillMaxWidth()
                 .clickable(actionStartActivity(getTaskIntent(task.id))),
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Row(
                 modifier = GlanceModifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 CheckBox(
                     checked = false,
                     onCheckedChange = actionRunCallback<UpdateTaskStatusAction>(
-                        actionParametersOf(TaskIdKey to task.id.toString())
+                        actionParametersOf(TaskIdKey to task.id.toString()),
                     ),
-                    modifier = GlanceModifier.size(32.dp)
+                    modifier = GlanceModifier.size(32.dp),
                 )
                 Text(
                     text = task.title,
@@ -135,9 +135,9 @@ internal class TaskListGlanceWidget : GlanceAppWidget(), KoinComponent {
                         .height(24.dp),
                     style = TextStyle(
                         color = ColorProvider(Color.DarkGray),
-                        fontSize = TextUnit(14f, TextUnitType.Sp)
+                        fontSize = TextUnit(14f, TextUnitType.Sp),
                     ),
-                    maxLines = 1
+                    maxLines = 1,
                 )
             }
         }

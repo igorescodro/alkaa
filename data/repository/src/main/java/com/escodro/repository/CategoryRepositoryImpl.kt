@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.map
 
 internal class CategoryRepositoryImpl(
     private val categoryDataSource: CategoryDataSource,
-    private val categoryMapper: CategoryMapper
+    private val categoryMapper: CategoryMapper,
 ) : CategoryRepository {
 
     override suspend fun insertCategory(category: Category) =

@@ -6,7 +6,7 @@ import com.escodro.domain.usecase.alarm.UpdateTaskAsRepeating
 import mu.KLogging
 
 internal class UpdateTaskAsRepeatingImpl(
-    private val taskRepository: TaskRepository
+    private val taskRepository: TaskRepository,
 ) : UpdateTaskAsRepeating {
 
     override suspend operator fun invoke(taskId: Long, interval: AlarmInterval?) {

@@ -12,7 +12,7 @@ internal class CoroutineDebouncerImpl : CoroutineDebouncer {
     override operator fun invoke(
         delay: Long,
         coroutineScope: CoroutineScope,
-        function: suspend () -> Unit
+        function: suspend () -> Unit,
     ) {
         debounceJob?.cancel()
         debounceJob = coroutineScope.launch {

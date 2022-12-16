@@ -6,7 +6,7 @@ import com.escodro.domain.usecase.search.SearchTasksByName
 import kotlinx.coroutines.flow.Flow
 
 internal class SearchTasksByNameImpl(
-    private val searchRepository: SearchRepository
+    private val searchRepository: SearchRepository,
 ) : SearchTasksByName {
 
     /**

@@ -35,7 +35,7 @@ import java.util.Locale
 internal fun PreferenceItem(
     title: String,
     description: String? = null,
-    onItemClick: () -> Unit = { }
+    onItemClick: () -> Unit = { },
 ) {
     Column(
         modifier = Modifier
@@ -43,16 +43,16 @@ internal fun PreferenceItem(
             .padding(start = 32.dp, top = 8.dp, end = 16.dp, bottom = 8.dp)
             .fillMaxWidth()
             .height(48.dp),
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.Center,
     ) {
         Text(
             text = title,
-            style = MaterialTheme.typography.bodyMedium
+            style = MaterialTheme.typography.bodyMedium,
         )
         if (description != null) {
             Text(
                 text = description,
-                style = MaterialTheme.typography.bodySmall
+                style = MaterialTheme.typography.bodySmall,
             )
         }
     }
@@ -65,12 +65,12 @@ internal fun PreferenceTitle(title: String) {
             .fillMaxWidth()
             .padding(start = 32.dp, end = 16.dp)
             .height(32.dp),
-        contentAlignment = Alignment.CenterStart
+        contentAlignment = Alignment.CenterStart,
     ) {
         Text(
             text = title.uppercase(Locale.getDefault()),
             style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold),
-            color = MaterialTheme.colorScheme.primary
+            color = MaterialTheme.colorScheme.primary,
         )
     }
 }
@@ -79,28 +79,28 @@ internal fun PreferenceTitle(title: String) {
 internal fun TrackerItem(onTrackerClick: () -> Unit) {
     PreferenceItem(
         title = stringResource(id = R.string.preference_title_tracker),
-        onItemClick = onTrackerClick
+        onItemClick = onTrackerClick,
     )
 }
 
 @Composable
 internal fun ThemeItem(
     currentTheme: AppThemeOptions,
-    onThemeUpdate: (AppThemeOptions) -> Unit
+    onThemeUpdate: (AppThemeOptions) -> Unit,
 ) {
     var isDialogOpen by remember { mutableStateOf(false) }
 
     PreferenceItem(
         title = stringResource(id = R.string.preference_title_app_theme),
         description = stringResource(id = currentTheme.titleRes),
-        onItemClick = { isDialogOpen = true }
+        onItemClick = { isDialogOpen = true },
     )
 
     AppThemeDialog(
         isDialogOpen = isDialogOpen,
         onDismissRequest = { isDialogOpen = false },
         currentTheme = currentTheme,
-        onThemeUpdate = onThemeUpdate
+        onThemeUpdate = onThemeUpdate,
     )
 }
 
@@ -108,7 +108,7 @@ internal fun ThemeItem(
 internal fun AboutItem(onAboutClick: () -> Unit) {
     PreferenceItem(
         title = stringResource(id = R.string.preference_title_about),
-        onItemClick = onAboutClick
+        onItemClick = onAboutClick,
     )
 }
 
@@ -116,7 +116,7 @@ internal fun AboutItem(onAboutClick: () -> Unit) {
 internal fun OpenSourceLibraryItem(onOpenSourceClick: () -> Unit) {
     PreferenceItem(
         title = stringResource(id = R.string.preference_title_open_source),
-        onItemClick = onOpenSourceClick
+        onItemClick = onOpenSourceClick,
     )
 }
 

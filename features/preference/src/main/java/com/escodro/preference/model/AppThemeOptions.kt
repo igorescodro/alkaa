@@ -24,5 +24,5 @@ enum class AppThemeOptions(val id: Int, @StringRes val titleRes: Int) {
     /**
      * System-based app theme.
      */
-    SYSTEM(2, R.string.preference_system_default_theme)
+    SYSTEM(2, R.string.preference_system_default_theme),
 }

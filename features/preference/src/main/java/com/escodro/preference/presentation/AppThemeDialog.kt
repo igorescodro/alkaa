@@ -23,7 +23,7 @@ internal fun AppThemeDialog(
     isDialogOpen: Boolean,
     onDismissRequest: () -> Unit,
     currentTheme: AppThemeOptions,
-    onThemeUpdate: (AppThemeOptions) -> Unit
+    onThemeUpdate: (AppThemeOptions) -> Unit,
 ) {
     if (isDialogOpen) {
         AlertDialog(
@@ -44,28 +44,28 @@ internal fun AppThemeDialog(
                                     onClick = {
                                         onThemeUpdate(item)
                                         onDismissRequest()
-                                    }
+                                    },
                                 ),
-                            verticalAlignment = Alignment.CenterVertically
+                            verticalAlignment = Alignment.CenterVertically,
                         ) {
                             RadioButton(
                                 selected = isSelected,
                                 onClick = {
                                     onThemeUpdate(item)
                                     onDismissRequest()
-                                }
+                                },
                             )
                             Text(
                                 text = stringResource(id = item.titleRes),
                                 style = MaterialTheme.typography.bodySmall,
-                                modifier = Modifier.padding(start = 16.dp)
+                                modifier = Modifier.padding(start = 16.dp),
                             )
                         }
                     }
                 }
             },
             confirmButton = { /* Shows nothing */ },
-            dismissButton = { /* Shows nothing */ }
+            dismissButton = { /* Shows nothing */ },
         )
     }
 }

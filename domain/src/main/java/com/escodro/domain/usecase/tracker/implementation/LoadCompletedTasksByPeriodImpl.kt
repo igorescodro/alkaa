@@ -11,7 +11,7 @@ import java.util.Calendar
  * Use case to get completed tasks in Tracker format for the last month from the database.
  */
 internal class LoadCompletedTasksByPeriodImpl(
-    private val repository: TaskWithCategoryRepository
+    private val repository: TaskWithCategoryRepository,
 ) : LoadCompletedTasksByPeriod {
 
     /**

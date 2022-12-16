@@ -19,6 +19,6 @@ internal sealed class Tracker {
         val name: String?,
         val color: Int?,
         val taskCount: Int,
-        val percentage: Float
+        val percentage: Float,
     )
 }

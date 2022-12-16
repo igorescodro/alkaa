@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.map
 
 internal class SearchRepositoryImpl(
     private val searchDataSource: SearchDataSource,
-    private val mapper: TaskWithCategoryMapper
+    private val mapper: TaskWithCategoryMapper,
 ) : SearchRepository {
 
     override suspend fun findTaskByName(query: String): Flow<List<TaskWithCategory>> =

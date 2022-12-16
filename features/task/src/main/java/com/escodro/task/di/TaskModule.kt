@@ -24,7 +24,7 @@ val taskModule = module {
             loadAllTasksUseCase = get(),
             updateTaskStatusUseCase = get(),
             applicationScope = get(ApplicationScope),
-            taskWithCategoryMapper = get()
+            taskWithCategoryMapper = get(),
         )
     }
     viewModel {
@@ -35,7 +35,7 @@ val taskModule = module {
             updateTaskCategory = get(),
             coroutineDebouncer = get(),
             applicationScope = get(ApplicationScope),
-            taskMapper = get()
+            taskMapper = get(),
         )
     }
     viewModel {
@@ -44,7 +44,7 @@ val taskModule = module {
             updateTaskAsRepeatingUseCase = get(),
             cancelAlarmUseCase = get(),
             applicationScope = get(ApplicationScope),
-            alarmIntervalMapper = get()
+            alarmIntervalMapper = get(),
         )
     }
     viewModel { AddTaskViewModel(addTaskUseCase = get(), applicationScope = get(ApplicationScope)) }

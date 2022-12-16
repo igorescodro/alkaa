@@ -9,5 +9,5 @@ enum class AlarmInterval {
     DAILY,
     WEEKLY,
     MONTHLY,
-    YEARLY
+    YEARLY,
 }

@@ -10,7 +10,7 @@ import com.escodro.task.model.TaskWithCategory as ViewTaskWithCategory
  */
 internal class TaskWithCategoryMapper(
     private val taskMapper: TaskMapper,
-    private val categoryMapper: CategoryMapper
+    private val categoryMapper: CategoryMapper,
 ) {
 
     /**
@@ -26,6 +26,6 @@ internal class TaskWithCategoryMapper(
     private fun toView(localTask: DomainTaskWithCategory): ViewTaskWithCategory =
         ViewTaskWithCategory(
             task = taskMapper.toView(localTask.task),
-            category = localTask.category?.let { categoryMapper.toView(it) }
+            category = localTask.category?.let { categoryMapper.toView(it) },
         )
 }

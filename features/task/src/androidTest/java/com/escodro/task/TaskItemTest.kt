@@ -73,7 +73,7 @@ internal class TaskItemTest {
                     task = item,
                     modifier = Modifier,
                     onItemClick = onItemClick,
-                    onCheckedChange = {}
+                    onCheckedChange = {},
                 )
             }
         }

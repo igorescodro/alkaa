@@ -17,7 +17,7 @@ val preferenceModule = module {
             updateThemeUseCase = get(),
             loadAppTheme = get(),
             applicationScope = get(ApplicationScope),
-            mapper = get()
+            mapper = get(),
         )
     }
 

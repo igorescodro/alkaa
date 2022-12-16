@@ -12,7 +12,7 @@ import kotlinx.parcelize.Parcelize
 @Stable
 @Parcelize
 internal class CategoryBottomSheetState(
-    private val category: Category
+    private val category: Category,
 ) : Parcelable {
 
     @IgnoredOnParcel
@@ -31,6 +31,6 @@ internal class CategoryBottomSheetState(
         Category(
             id = id,
             name = name,
-            color = color
+            color = color,
         )
 }

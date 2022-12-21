@@ -1,6 +1,5 @@
 package com.escodro.glance.presentation
 
-import android.content.Context
 import android.content.Intent
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -9,7 +8,6 @@ import androidx.compose.ui.unit.ExperimentalUnitApi
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
-import androidx.glance.GlanceId
 import androidx.glance.GlanceModifier
 import androidx.glance.Image
 import androidx.glance.ImageProvider
@@ -38,21 +36,15 @@ import androidx.glance.state.GlanceStateDefinition
 import androidx.glance.text.Text
 import androidx.glance.text.TextStyle
 import androidx.glance.unit.ColorProvider
-import com.escodro.core.coroutines.ApplicationScope
 import com.escodro.glance.R
 import com.escodro.glance.data.TaskListStateDefinition
 import com.escodro.glance.model.Task
 import com.escodro.navigation.DestinationDeepLink
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.cancel
 import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 
 internal class TaskListGlanceWidget : GlanceAppWidget(), KoinComponent {
-
-    private val coroutineScope: CoroutineScope by inject(qualifier = ApplicationScope)
 
     /**
      * Custom implementation of [GlanceStateDefinition] to save and store data for this widget.
@@ -149,9 +141,4 @@ internal class TaskListGlanceWidget : GlanceAppWidget(), KoinComponent {
 
     private fun getTaskIntent(taskId: Long): Intent =
         Intent(Intent.ACTION_VIEW, DestinationDeepLink.getTaskDetailUri(taskId))
-
-    override suspend fun onDelete(context: Context, glanceId: GlanceId) {
-        super.onDelete(context, glanceId)
-        coroutineScope.cancel()
-    }
 }

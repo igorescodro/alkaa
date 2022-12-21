@@ -14,6 +14,7 @@ import androidx.compose.material.icons.outlined.ThumbUp
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
@@ -116,7 +117,12 @@ internal fun TaskListScaffold(
     val onShowSnackbar: (TaskWithCategory) -> Unit = { taskWithCategory ->
         coroutineScope.launch {
             val message = String.format(snackbarTitle, taskWithCategory.task.title)
-            when (snackbarHostState.showSnackbar(message, snackbarButton)) {
+            val snackbarResult = snackbarHostState.showSnackbar(
+                message = message,
+                actionLabel = snackbarButton,
+                duration = SnackbarDuration.Short,
+            )
+            when (snackbarResult) {
                 SnackbarResult.Dismissed -> {} // Do nothing
                 SnackbarResult.ActionPerformed -> taskHandler.onCheckedChange(taskWithCategory)
             }

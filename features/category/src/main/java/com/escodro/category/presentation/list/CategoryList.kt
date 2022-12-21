@@ -112,12 +112,16 @@ private fun CategoryListScaffold(
                 )
             },
             floatingActionButtonPosition = fabPosition,
-        ) {
+        ) { padding ->
             Crossfade(viewState) { state ->
                 when (state) {
-                    CategoryState.Loading -> AlkaaLoadingContent()
-                    CategoryState.Empty -> CategoryListEmpty()
-                    is CategoryState.Loaded -> CategoryListContent(state.categoryList, onItemClick)
+                    CategoryState.Loading -> AlkaaLoadingContent(modifier = Modifier.padding(padding))
+                    CategoryState.Empty -> CategoryListEmpty(modifier = Modifier.padding(padding))
+                    is CategoryState.Loaded -> CategoryListContent(
+                        categoryList = state.categoryList,
+                        onItemClick = onItemClick,
+                        modifier = Modifier.padding(padding),
+                    )
                 }
             }
         }
@@ -129,8 +133,9 @@ private fun CategoryListScaffold(
 private fun CategoryListContent(
     categoryList: ImmutableList<Category>,
     onItemClick: (Long?) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
-    BoxWithConstraints(modifier = Modifier.padding(start = 8.dp, end = 8.dp)) {
+    BoxWithConstraints(modifier = modifier.padding(start = 8.dp, end = 8.dp)) {
         val cellCount: Int = max(2F, maxWidth.value / 250).roundToInt()
         LazyVerticalGrid(columns = GridCells.Fixed(cellCount)) {
             items(
@@ -196,11 +201,12 @@ private fun CategoryCircleIndicator(size: Dp, color: Int, alpha: Float = 1F) {
 }
 
 @Composable
-private fun CategoryListEmpty() {
+private fun CategoryListEmpty(modifier: Modifier = Modifier) {
     DefaultIconTextContent(
         icon = Icons.Outlined.ThumbUp,
         iconContentDescription = R.string.category_list_cd_empty_list,
         header = R.string.category_list_header_empty,
+        modifier = modifier,
     )
 }
 

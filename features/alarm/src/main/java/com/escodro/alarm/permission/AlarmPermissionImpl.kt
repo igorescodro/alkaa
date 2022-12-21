@@ -18,6 +18,7 @@ internal class AlarmPermissionImpl(
             true
         }
 
+    @SuppressLint("NewApi")
     override fun hasNotificationPermission(): Boolean =
         if (androidVersion.currentVersion >= Build.VERSION_CODES.TIRAMISU) {
             permissionChecker.checkPermission(Manifest.permission.POST_NOTIFICATIONS)

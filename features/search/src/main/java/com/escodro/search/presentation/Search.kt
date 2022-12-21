@@ -88,8 +88,12 @@ internal fun SearchScaffold(
 ) {
     Scaffold(
         modifier = modifier.fillMaxSize(),
-    ) {
-        Column(modifier = Modifier.fillMaxWidth()) {
+    ) { padding ->
+        Column(
+            modifier = Modifier
+                .padding(padding)
+                .fillMaxWidth(),
+        ) {
             SearchTextField(query, onTextChange = setQuery)
 
             Crossfade(viewState) { state ->

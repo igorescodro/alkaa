@@ -76,6 +76,7 @@ private val AlkaaDarkColorScheme = darkColorScheme(
  * @param isDynamicColor determine if the Android 12+ dynamic color is enabled
  * @param content composable function
  */
+@Suppress("NewApi")
 @Composable
 fun AlkaaTheme(
     isDarkTheme: Boolean = isSystemInDarkTheme(),

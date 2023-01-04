@@ -37,7 +37,7 @@ import java.util.Calendar
  * @param hasAlarmPermission lambda to check if Exact Alarm permission is granted
  * @param shouldCheckNotificationPermission `true` if the notification permission should be ask
  */
-@Suppress("LongParameterList")
+@Suppress("LongParameterList", "NewApi")
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 internal fun AlarmSelection(

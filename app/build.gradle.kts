@@ -1,4 +1,5 @@
 import com.android.build.api.dsl.ManagedVirtualDevice
+import com.android.build.gradle.internal.tasks.factory.dependsOn
 
 plugins {
     id("com.android.application")
@@ -47,6 +48,8 @@ android {
 
         lintConfig = file("${rootDir}/config/filters/lint.xml")
         htmlOutput = file("${buildDir}/reports/lint.html")
+
+        project.tasks.check.dependsOn("lint")
     }
 
     setDynamicFeatures(setOf(":features:tracker"))

@@ -1,9 +1,8 @@
 package com.escodro.preference.di
 
-import com.escodro.core.coroutines.ApplicationScope
 import com.escodro.preference.AppThemeOptionsMapper
 import com.escodro.preference.presentation.PreferenceViewModel
-import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.core.module.dsl.factoryOf
 import org.koin.dsl.module
 
@@ -12,14 +11,7 @@ import org.koin.dsl.module
  */
 val preferenceModule = module {
 
-    viewModel {
-        PreferenceViewModel(
-            updateThemeUseCase = get(),
-            loadAppTheme = get(),
-            applicationScope = get(ApplicationScope),
-            mapper = get(),
-        )
-    }
+    viewModelOf(::PreferenceViewModel)
 
     factoryOf(::AppThemeOptionsMapper)
 }

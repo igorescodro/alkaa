@@ -4,10 +4,10 @@ import android.graphics.Color
 import com.escodro.category.fake.AddCategoryFake
 import com.escodro.category.mapper.CategoryMapper
 import com.escodro.categoryapi.model.Category
+import com.escodro.core.coroutines.AppCoroutineScope
 import com.escodro.core.extension.toStringColor
 import com.escodro.test.rule.CoroutineTestRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.TestScope
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
@@ -25,7 +25,7 @@ internal class CategoryAddViewModelTest {
 
     private val viewModel = CategoryAddViewModel(
         addCategoryUseCase = addCategory,
-        applicationScope = TestScope(coroutinesRule.testDispatcher),
+        applicationScope = AppCoroutineScope(context = coroutinesRule.testDispatcher),
         categoryMapper,
     )
 

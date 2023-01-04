@@ -1,5 +1,6 @@
 package com.escodro.task.presentation.detail
 
+import com.escodro.core.coroutines.AppCoroutineScope
 import com.escodro.task.mapper.AlarmIntervalMapper
 import com.escodro.task.model.AlarmInterval
 import com.escodro.task.presentation.detail.alarm.TaskAlarmViewModel
@@ -9,7 +10,6 @@ import com.escodro.task.presentation.fake.ScheduleAlarmFake
 import com.escodro.task.presentation.fake.UpdateTaskAsRepeatingFake
 import com.escodro.test.rule.CoroutineTestRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Rule
@@ -34,7 +34,7 @@ internal class TaskAlarmViewModelTest {
         scheduleAlarmUseCase = scheduleAlarm,
         updateTaskAsRepeatingUseCase = updateTaskAsRepeating,
         cancelAlarmUseCase = cancelAlarm,
-        applicationScope = TestScope(coroutineTestRule.testDispatcher),
+        applicationScope = AppCoroutineScope(context = coroutineTestRule.testDispatcher),
         alarmIntervalMapper = alarmIntervalMapper,
     )
 

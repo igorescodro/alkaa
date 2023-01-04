@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.escodro.core.coroutines.AppCoroutineScope
 import com.escodro.core.extension.getStringColor
 import com.escodro.local.R
 import com.escodro.local.TaskDatabase
@@ -11,15 +12,13 @@ import com.escodro.local.migration.MIGRATION_1_2
 import com.escodro.local.migration.MIGRATION_2_3
 import com.escodro.local.migration.MIGRATION_3_4
 import com.escodro.local.model.Category
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
 
 /**
  * Repository with the [Room] database.
  */
 class DatabaseProvider(
     private val context: Context,
-    private val coroutineScope: CoroutineScope,
+    private val appScope: AppCoroutineScope,
 ) {
 
     private var database: TaskDatabase? = null
@@ -44,7 +43,7 @@ class DatabaseProvider(
         object : RoomDatabase.Callback() {
             override fun onCreate(db: SupportSQLiteDatabase) {
                 super.onCreate(db)
-                coroutineScope.launch {
+                appScope.launch {
                     database?.categoryDao()?.insertCategory(getDefaultCategoryList())
                 }
             }

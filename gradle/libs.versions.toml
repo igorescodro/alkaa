@@ -60,7 +60,7 @@ test_barista = "4.3.0"
 test_orchestrator = "1.4.2"
 
 # Quality
-ktlint = "0.48.0"
+ktlint = "0.48.1"
 detekt = "1.22.0"
 composerules = "0.0.26"
 

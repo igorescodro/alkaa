@@ -1,6 +1,5 @@
 package com.escodro.local.di
 
-import com.escodro.core.coroutines.ApplicationScope
 import com.escodro.local.datasource.CategoryLocalDataSource
 import com.escodro.local.datasource.SearchLocalDataSource
 import com.escodro.local.datasource.TaskLocalDataSource
@@ -38,6 +37,6 @@ val localModule = module {
     factoryOf(::TaskWithCategoryMapper)
 
     // Providers
-    single { DatabaseProvider(context = get(), coroutineScope = get(ApplicationScope)) }
+    singleOf(::DatabaseProvider)
     singleOf(::DaoProvider)
 }

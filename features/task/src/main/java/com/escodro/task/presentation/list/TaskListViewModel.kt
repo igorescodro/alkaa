@@ -1,16 +1,15 @@
 package com.escodro.task.presentation.list
 
 import androidx.lifecycle.ViewModel
+import com.escodro.core.coroutines.AppCoroutineScope
 import com.escodro.domain.usecase.task.UpdateTaskStatus
 import com.escodro.domain.usecase.taskwithcategory.LoadUncompletedTasks
 import com.escodro.task.mapper.TaskWithCategoryMapper
 import com.escodro.task.model.TaskWithCategory
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.launch
 
 /**
  * ViewModel responsible to handle the interaction between the presentation and business logic from
@@ -19,7 +18,7 @@ import kotlinx.coroutines.launch
 internal class TaskListViewModel(
     private val loadAllTasksUseCase: LoadUncompletedTasks,
     private val updateTaskStatusUseCase: UpdateTaskStatus,
-    private val applicationScope: CoroutineScope,
+    private val applicationScope: AppCoroutineScope,
     private val taskWithCategoryMapper: TaskWithCategoryMapper,
 ) : ViewModel() {
 

@@ -7,10 +7,10 @@ import com.escodro.category.fake.LoadCategoryFake
 import com.escodro.category.fake.UpdateCategoryFake
 import com.escodro.category.mapper.CategoryMapper
 import com.escodro.categoryapi.model.Category
+import com.escodro.core.coroutines.AppCoroutineScope
 import com.escodro.test.rule.CoroutineTestRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Before
@@ -35,7 +35,7 @@ internal class CategoryEditViewModelTest {
         loadCategoryUseCase = loadCategoryFake,
         updateCategoryUseCase = updateCategory,
         deleteCategoryUseCase = deleteCategory,
-        applicationScope = TestScope(coroutinesRule.testDispatcher),
+        applicationScope = AppCoroutineScope(context = coroutinesRule.testDispatcher),
         mapper = mapper,
     )
 

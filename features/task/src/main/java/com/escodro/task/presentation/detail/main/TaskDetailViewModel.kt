@@ -2,16 +2,15 @@ package com.escodro.task.presentation.detail.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.escodro.core.coroutines.AppCoroutineScope
 import com.escodro.core.coroutines.CoroutineDebouncer
 import com.escodro.domain.usecase.task.LoadTask
 import com.escodro.domain.usecase.task.UpdateTaskCategory
 import com.escodro.domain.usecase.task.UpdateTaskDescription
 import com.escodro.domain.usecase.task.UpdateTaskTitle
 import com.escodro.task.mapper.TaskMapper
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.launch
 
 @Suppress("LongParameterList")
 internal class TaskDetailViewModel(
@@ -20,7 +19,7 @@ internal class TaskDetailViewModel(
     private val updateTaskDescription: UpdateTaskDescription,
     private val updateTaskCategory: UpdateTaskCategory,
     private val coroutineDebouncer: CoroutineDebouncer,
-    private val applicationScope: CoroutineScope,
+    private val applicationScope: AppCoroutineScope,
     private val taskMapper: TaskMapper,
 ) : ViewModel() {
 

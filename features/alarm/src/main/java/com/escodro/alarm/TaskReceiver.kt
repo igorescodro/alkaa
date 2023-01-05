@@ -4,13 +4,11 @@ import android.app.AlarmManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import com.escodro.core.coroutines.ApplicationScope
+import com.escodro.core.coroutines.AppCoroutineScope
 import com.escodro.domain.usecase.alarm.RescheduleFutureAlarms
 import com.escodro.domain.usecase.alarm.ShowAlarm
 import com.escodro.domain.usecase.alarm.SnoozeAlarm
 import com.escodro.domain.usecase.task.CompleteTask
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
 import logcat.LogPriority
 import logcat.logcat
 import org.koin.core.component.KoinComponent
@@ -21,7 +19,7 @@ import org.koin.core.component.inject
  */
 internal class TaskReceiver : BroadcastReceiver(), KoinComponent {
 
-    private val coroutineScope: CoroutineScope by inject(qualifier = ApplicationScope)
+    private val appScope: AppCoroutineScope by inject()
 
     private val completeTaskUseCase: CompleteTask by inject()
 
@@ -34,7 +32,7 @@ internal class TaskReceiver : BroadcastReceiver(), KoinComponent {
     override fun onReceive(context: Context?, intent: Intent?) {
         logcat { "onReceive() - intent ${intent?.action}" }
 
-        coroutineScope.launch {
+        appScope.launch {
             handleIntent(intent)
         }
     }

@@ -1,5 +1,6 @@
 package com.escodro.task.presentation.list
 
+import com.escodro.core.coroutines.AppCoroutineScope
 import com.escodro.task.mapper.AlarmIntervalMapper
 import com.escodro.task.mapper.CategoryMapper
 import com.escodro.task.mapper.TaskMapper
@@ -10,7 +11,6 @@ import com.escodro.task.presentation.fake.UpdateTaskStatusFake
 import com.escodro.test.rule.CoroutineTestRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Before
@@ -32,7 +32,7 @@ internal class TaskListViewModelTest {
     private val viewModel = TaskListViewModel(
         loadAllTasksUseCase = loadUncompletedTasks,
         updateTaskStatusUseCase = updateTaskStatus,
-        applicationScope = TestScope(coroutinesRule.testDispatcher),
+        applicationScope = AppCoroutineScope(context = coroutinesRule.testDispatcher),
         taskWithCategoryMapper = mapper,
     )
 

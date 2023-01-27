@@ -6,6 +6,7 @@ import android.net.Uri
 import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.tween
+import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
@@ -36,11 +37,12 @@ import com.google.accompanist.navigation.material.rememberBottomSheetNavigator
 /**
  * Navigation Graph to control the Alkaa navigation.
  *
+ * @param windowSizeClass the window size class from current device
  * @param startDestination the start destination of the graph
  */
 @OptIn(ExperimentalAnimationApi::class, ExperimentalMaterialNavigationApi::class)
 @Composable
-fun NavGraph(startDestination: String = Destinations.Home) {
+fun NavGraph(windowSizeClass: WindowSizeClass, startDestination: String = Destinations.Home) {
     val bottomSheetNavigator = rememberBottomSheetNavigator()
     val navController = rememberAnimatedNavController(bottomSheetNavigator)
     val context = LocalContext.current
@@ -49,7 +51,7 @@ fun NavGraph(startDestination: String = Destinations.Home) {
 
     ModalBottomSheetLayout(bottomSheetNavigator) {
         AnimatedNavHost(navController = navController, startDestination = startDestination) {
-            homeGraph(actions)
+            homeGraph(windowSizeClass, actions)
             taskGraph(actions)
             preferencesGraph(actions)
             categoryGraph(actions)
@@ -60,7 +62,7 @@ fun NavGraph(startDestination: String = Destinations.Home) {
 
 @OptIn(ExperimentalAnimationApi::class)
 @Suppress("MagicNumber")
-private fun NavGraphBuilder.homeGraph(actions: Actions) {
+private fun NavGraphBuilder.homeGraph(windowSizeClass: WindowSizeClass, actions: Actions) {
     composable(
         route = Destinations.Home,
         deepLinks = listOf(navDeepLink { uriPattern = DestinationDeepLink.HomePattern }),
@@ -78,6 +80,7 @@ private fun NavGraphBuilder.homeGraph(actions: Actions) {
         },
     ) {
         Home(
+            windowSizeClass = windowSizeClass,
             onTaskClick = actions.openTaskDetail,
             onAboutClick = actions.openAbout,
             onTrackerClick = actions.openTracker,

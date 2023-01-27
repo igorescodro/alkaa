@@ -5,6 +5,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
+import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -18,6 +20,7 @@ import org.koin.androidx.viewmodel.ext.android.getViewModel
 /**
  * Main Alkaa Activity.
  */
+@OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 internal class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,7 +31,7 @@ internal class MainActivity : ComponentActivity() {
             updateTheme(isDarkTheme)
 
             AlkaaTheme(isDarkTheme = isDarkTheme) {
-                NavGraph()
+                NavGraph(windowSizeClass = calculateWindowSizeClass(activity = this))
             }
         }
     }

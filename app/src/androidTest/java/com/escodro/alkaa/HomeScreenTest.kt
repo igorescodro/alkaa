@@ -28,7 +28,7 @@ internal class HomeScreenTest {
     fun setup() {
         composeTestRule.setContent {
             AlkaaTheme {
-                NavGraph(windowSizeClass = WindowSizeClassFake.WindowSizeClassPhone)
+                NavGraph(windowSizeClass = WindowSizeClassFake.Phone)
             }
         }
     }

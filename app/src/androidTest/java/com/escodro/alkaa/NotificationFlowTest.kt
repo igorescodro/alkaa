@@ -9,8 +9,8 @@ import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.test.platform.app.InstrumentationRegistry
 import com.escodro.alkaa.navigation.NavGraph
+import com.escodro.alkaa.util.WindowSizeClassFake
 import com.escodro.core.extension.getNotificationManager
-import com.escodro.designsystem.AlkaaTheme
 import com.escodro.domain.usecase.alarm.ScheduleAlarm
 import com.escodro.local.model.AlarmInterval
 import com.escodro.local.model.Task
@@ -54,9 +54,7 @@ internal class NotificationFlowTest : KoinTest {
             daoProvider.getTaskDao().cleanTable()
         }
         composeTestRule.setContent {
-            AlkaaTheme {
-                NavGraph()
-            }
+            NavGraph(windowSizeClass = WindowSizeClassFake.Phone)
         }
     }
 

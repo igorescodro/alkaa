@@ -13,6 +13,7 @@ import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.test.performTextReplacement
 import androidx.test.platform.app.InstrumentationRegistry
 import com.escodro.alkaa.navigation.NavGraph
+import com.escodro.alkaa.util.WindowSizeClassFake
 import com.escodro.category.presentation.semantics.ColorKey
 import com.escodro.designsystem.AlkaaTheme
 import com.escodro.local.provider.DaoProvider
@@ -48,7 +49,7 @@ internal class CategoryFlowTest : KoinTest {
 
         composeTestRule.setContent {
             AlkaaTheme {
-                NavGraph()
+                NavGraph(windowSizeClass = WindowSizeClassFake.Phone)
             }
         }
         navigateToCategory()

@@ -12,6 +12,7 @@ import androidx.compose.ui.test.performTextInput
 import androidx.test.platform.app.InstrumentationRegistry
 import com.escodro.alkaa.fake.FAKE_TASKS
 import com.escodro.alkaa.navigation.NavGraph
+import com.escodro.alkaa.util.WindowSizeClassFake
 import com.escodro.designsystem.AlkaaTheme
 import com.escodro.local.provider.DaoProvider
 import com.escodro.test.extension.waitUntilNotExists
@@ -50,7 +51,7 @@ internal class SearchFlowTest : KoinTest {
 
         composeTestRule.setContent {
             AlkaaTheme {
-                NavGraph()
+                NavGraph(windowSizeClass = WindowSizeClassFake.Phone)
             }
         }
 

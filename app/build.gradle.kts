@@ -122,6 +122,8 @@ dependencies {
     implementation(libs.androidx.playcore)
     implementation(libs.koin.android)
 
+    implementation(libs.compose.windowsize)
+
     implementation(libs.bundles.compose)
     implementation(libs.kotlinx.collections.immutable)
 

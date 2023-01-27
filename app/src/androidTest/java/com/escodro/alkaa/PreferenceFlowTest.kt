@@ -8,6 +8,7 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.test.platform.app.InstrumentationRegistry
 import com.escodro.alkaa.navigation.NavGraph
+import com.escodro.alkaa.util.WindowSizeClassFake
 import com.escodro.core.extension.getVersionName
 import com.escodro.test.rule.DisableAnimationsRule
 import org.junit.Before
@@ -29,7 +30,7 @@ internal class PreferenceFlowTest {
     @Before
     fun setup() {
         composeTestRule.setContent {
-            NavGraph()
+            NavGraph(windowSizeClass = WindowSizeClassFake.Phone)
         }
         navigateToPreferences()
     }

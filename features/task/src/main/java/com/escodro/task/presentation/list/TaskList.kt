@@ -5,9 +5,8 @@ import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material.icons.outlined.ThumbUp
@@ -184,23 +183,20 @@ private fun TaskListContent(
     onItemClick: (Long) -> Unit,
     onCheckedChange: (TaskWithCategory) -> Unit,
 ) {
-    BoxWithConstraints(modifier = Modifier.padding(start = 8.dp, end = 8.dp)) {
-        val cellCount = if (this.maxHeight > maxWidth) 1 else 2
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(cellCount),
-            contentPadding = PaddingValues(bottom = 48.dp),
-        ) {
-            items(
-                items = taskList,
-                itemContent = { task ->
-                    TaskItem(
-                        task = task,
-                        onItemClick = onItemClick,
-                        onCheckedChange = onCheckedChange,
-                    )
-                },
-            )
-        }
+    LazyColumn(
+        contentPadding = PaddingValues(bottom = 48.dp),
+        modifier = Modifier.padding(start = 8.dp, end = 8.dp),
+    ) {
+        items(
+            items = taskList,
+            itemContent = { task ->
+                TaskItem(
+                    task = task,
+                    onItemClick = onItemClick,
+                    onCheckedChange = onCheckedChange,
+                )
+            },
+        )
     }
 }
 

@@ -1,12 +1,13 @@
 package com.escodro.alkaa
 
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithContentDescription
-import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.test.platform.app.InstrumentationRegistry
 import com.escodro.alkaa.model.HomeSection
 import com.escodro.alkaa.navigation.NavGraph
+import com.escodro.alkaa.util.WindowSizeClassFake
 import com.escodro.designsystem.AlkaaTheme
 import com.escodro.test.rule.DisableAnimationsRule
 import org.junit.Before
@@ -27,7 +28,7 @@ internal class HomeScreenTest {
     fun setup() {
         composeTestRule.setContent {
             AlkaaTheme {
-                NavGraph()
+                NavGraph(windowSizeClass = WindowSizeClassFake.Phone)
             }
         }
     }
@@ -40,7 +41,7 @@ internal class HomeScreenTest {
             // Click on each item and validate the title
             composeTestRule.onNodeWithContentDescription(label = title, useUnmergedTree = true)
                 .performClick()
-            composeTestRule.onNodeWithText(title).assertExists()
+            composeTestRule.onAllNodesWithText(title)[0].assertExists()
         }
     }
 }

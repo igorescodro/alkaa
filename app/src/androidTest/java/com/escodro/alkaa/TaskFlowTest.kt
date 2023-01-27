@@ -14,6 +14,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.escodro.alkaa.fake.CoroutinesDebouncerFake
 import com.escodro.alkaa.model.HomeSection
 import com.escodro.alkaa.navigation.NavGraph
+import com.escodro.alkaa.util.WindowSizeClassFake
 import com.escodro.core.coroutines.CoroutineDebouncer
 import com.escodro.designsystem.AlkaaTheme
 import com.escodro.local.model.Category
@@ -65,7 +66,7 @@ internal class TaskFlowTest : KoinTest {
 
         composeTestRule.setContent {
             AlkaaTheme {
-                NavGraph()
+                NavGraph(windowSizeClass = WindowSizeClassFake.Phone)
             }
         }
     }
@@ -195,7 +196,7 @@ internal class TaskFlowTest : KoinTest {
         ).performClick()
 
         // Wait the list to be loaded
-        val taskTitle = context.getString(HomeSection.Tasks.title)
-        composeTestRule.waitUntilExists(hasText(taskTitle))
+        val searchTitle = context.getString(HomeSection.Search.title)
+        composeTestRule.waitUntilExists(hasText(searchTitle))
     }
 }

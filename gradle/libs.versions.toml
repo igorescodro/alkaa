@@ -44,7 +44,7 @@ room = "2.5.1"
 
 # Koin
 koin_core = "3.3.3"
-koin_compose = "3.4.2"
+koin_compose = "3.4.3"
 koin_android = "3.3.3"
 
 # Accompanist

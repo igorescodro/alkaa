@@ -13,3 +13,6 @@ dependencies {
 
     androidTestImplementation(projects.libraries.test)
 }
+android {
+    namespace = "com.escodro.preference"
+}

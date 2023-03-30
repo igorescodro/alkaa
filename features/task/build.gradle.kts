@@ -20,3 +20,6 @@ dependencies {
     implementation(libs.koin.compose)
     implementation(libs.accompanist.permission)
 }
+android {
+    namespace = "com.escodro.task"
+}

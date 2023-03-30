@@ -7,3 +7,6 @@ dependencies {
 
     implementation(libs.androidx.playcore)
 }
+android {
+    namespace = "com.escodro.splitinstall"
+}

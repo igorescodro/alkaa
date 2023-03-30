@@ -15,3 +15,6 @@ dependencies {
     implementation(libs.koin.android)
     implementation(libs.koin.compose)
 }
+android {
+    namespace = "com.escodro.category"
+}

@@ -8,3 +8,6 @@ dependencies {
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.collections.immutable)
 }
+android {
+    namespace = "com.escodro.categoryapi"
+}

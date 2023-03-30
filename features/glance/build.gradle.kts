@@ -15,3 +15,6 @@ dependencies {
     implementation(libs.androidx.workmanager)
     implementation(libs.kotlinx.serialization)
 }
+android {
+    namespace = "com.escodro.glance"
+}

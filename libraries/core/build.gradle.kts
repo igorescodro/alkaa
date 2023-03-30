@@ -9,3 +9,6 @@ dependencies {
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.koin.core)
 }
+android {
+    namespace = "com.escodro.core"
+}

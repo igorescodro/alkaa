@@ -16,3 +16,6 @@ dependencies {
     testImplementation(libs.test.junit)
     testImplementation(libs.test.mockk)
 }
+android {
+    namespace = "com.escodro.alarm"
+}

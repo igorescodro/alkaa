@@ -12,6 +12,9 @@ val libs: VersionCatalog = extensions.getByType<VersionCatalogsExtension>().name
 android {
     androidConfig()
     proguardConfig()
+    kotlin {
+        jvmToolchain(JavaLanguageVersion.of(11).asInt())
+    }
 }
 
 dependencies {

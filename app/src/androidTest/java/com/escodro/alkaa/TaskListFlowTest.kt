@@ -1,6 +1,7 @@
 package com.escodro.alkaa
 
 import androidx.annotation.StringRes
+import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.hasSetTextAction
 import androidx.compose.ui.test.hasText
@@ -18,8 +19,6 @@ import com.escodro.designsystem.AlkaaTheme
 import com.escodro.local.model.Category
 import com.escodro.local.provider.DaoProvider
 import com.escodro.task.presentation.list.CheckboxNameKey
-import com.escodro.test.extension.waitUntilExists
-import com.escodro.test.extension.waitUntilNotExists
 import com.escodro.test.rule.DisableAnimationsRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -30,7 +29,7 @@ import org.koin.test.KoinTest
 import org.koin.test.inject
 import com.escodro.task.R as TaskR
 
-@OptIn(ExperimentalCoroutinesApi::class)
+@OptIn(ExperimentalCoroutinesApi::class, ExperimentalTestApi::class)
 internal class TaskListFlowTest : KoinTest {
 
     private val daoProvider: DaoProvider by inject()
@@ -104,17 +103,17 @@ internal class TaskListFlowTest : KoinTest {
             onAllNodesWithText("Work")[1].performClick()
             onNode(hasSetTextAction()).performTextInput(taskName)
             onNodeWithText(string(TaskR.string.task_add_save)).performClick()
-            waitUntilExists(hasText(taskName))
+            waitUntilAtLeastOneExists(hasText(taskName))
             onNodeWithText(text = taskName, useUnmergedTree = true).assertExists()
 
             // Click in the Work filter and validate if still visible
             onAllNodesWithText("Work")[0].performClick()
-            waitUntilExists(hasText(taskName))
+            waitUntilAtLeastOneExists(hasText(taskName))
             onNodeWithText(text = taskName, useUnmergedTree = true).assertExists()
 
             // Click in the Shopping List filter and validate if task is no longer visible
             onAllNodesWithText("Music")[0].performClick()
-            waitUntilNotExists(hasText(taskName))
+            waitUntilDoesNotExist(hasText(taskName))
             onNodeWithText(text = taskName, useUnmergedTree = true).assertDoesNotExist()
         }
     }

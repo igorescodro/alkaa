@@ -9,10 +9,6 @@ android {
             add("META-INF/LGPL2.1")
         }
     }
-
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
     namespace = "com.escodro.test"
 }
 

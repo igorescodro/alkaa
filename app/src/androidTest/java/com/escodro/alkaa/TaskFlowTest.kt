@@ -1,6 +1,7 @@
 package com.escodro.alkaa
 
 import androidx.annotation.StringRes
+import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.assertIsSelected
 import androidx.compose.ui.test.hasSetTextAction
 import androidx.compose.ui.test.hasText
@@ -21,7 +22,6 @@ import com.escodro.local.model.Category
 import com.escodro.local.provider.DaoProvider
 import com.escodro.test.espresso.Events
 import com.escodro.test.extension.onChip
-import com.escodro.test.extension.waitUntilExists
 import com.escodro.test.rule.DisableAnimationsRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -34,7 +34,7 @@ import org.koin.test.mock.declare
 import java.util.Calendar
 import com.escodro.task.R as TaskR
 
-@OptIn(ExperimentalCoroutinesApi::class)
+@OptIn(ExperimentalCoroutinesApi::class, ExperimentalTestApi::class)
 internal class TaskFlowTest : KoinTest {
 
     private val daoProvider: DaoProvider by inject()
@@ -104,7 +104,7 @@ internal class TaskFlowTest : KoinTest {
             pressBack()
 
             // Reopen the task and validate if the description is save
-            waitUntilExists(hasText(taskName))
+            waitUntilAtLeastOneExists(hasText(taskName))
             onNodeWithText(text = taskName, useUnmergedTree = true).performClick()
             onNodeWithText(text = description, useUnmergedTree = true).assertExists()
         }
@@ -122,7 +122,7 @@ internal class TaskFlowTest : KoinTest {
             pressBack()
 
             // Reopen the task and validate if the category is selected
-            waitUntilExists(hasText(taskName))
+            waitUntilAtLeastOneExists(hasText(taskName))
             onNodeWithText(text = taskName, useUnmergedTree = true).performClick()
             onChip(category).assertIsSelected()
         }
@@ -141,7 +141,7 @@ internal class TaskFlowTest : KoinTest {
             pressBack()
 
             // Reopen the task and validate if the alarm is on
-            waitUntilExists(hasText(taskName))
+            waitUntilAtLeastOneExists(hasText(taskName))
             onNodeWithText(text = taskName, useUnmergedTree = true).performClick()
             onNodeWithText(string(TaskR.string.task_detail_alarm_no_alarm)).assertDoesNotExist()
         }
@@ -167,7 +167,7 @@ internal class TaskFlowTest : KoinTest {
             pressBack()
 
             // Reopen the task and validate if the alarm is on
-            waitUntilExists(hasText(taskName))
+            waitUntilAtLeastOneExists(hasText(taskName))
             onNodeWithText(text = taskName, useUnmergedTree = true).performClick()
             onNodeWithText(alarmArray[0]).assertDoesNotExist()
         }
@@ -197,6 +197,6 @@ internal class TaskFlowTest : KoinTest {
 
         // Wait the list to be loaded
         val searchTitle = context.getString(HomeSection.Search.title)
-        composeTestRule.waitUntilExists(hasText(searchTitle))
+        composeTestRule.waitUntilAtLeastOneExists(hasText(searchTitle))
     }
 }

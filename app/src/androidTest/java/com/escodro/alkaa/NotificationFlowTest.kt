@@ -2,6 +2,7 @@ package com.escodro.alkaa
 
 import android.app.Notification
 import androidx.annotation.StringRes
+import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createComposeRule
@@ -16,8 +17,6 @@ import com.escodro.local.model.AlarmInterval
 import com.escodro.local.model.Task
 import com.escodro.local.provider.DaoProvider
 import com.escodro.task.R
-import com.escodro.test.extension.waitUntilExists
-import com.escodro.test.extension.waitUntilNotExists
 import com.escodro.test.rule.DisableAnimationsRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -32,7 +31,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 import com.escodro.alarm.R as AlarmR
 
-@OptIn(ExperimentalCoroutinesApi::class)
+@OptIn(ExperimentalCoroutinesApi::class, ExperimentalTestApi::class)
 internal class NotificationFlowTest : KoinTest {
 
     private val daoProvider: DaoProvider by inject()
@@ -98,7 +97,7 @@ internal class NotificationFlowTest : KoinTest {
         notificationManager!!.activeNotifications.first().notification.contentIntent.send()
 
         // Wait until the title is displayed
-        composeTestRule.waitUntilExists(hasText(name))
+        composeTestRule.waitUntilAtLeastOneExists(hasText(name))
 
         // Validate the task detail was opened
         composeTestRule.onNodeWithText(name).assertIsDisplayed()
@@ -156,7 +155,7 @@ internal class NotificationFlowTest : KoinTest {
         notificationManager!!.activeNotifications.first().notification.actions[1].actionIntent.send()
 
         // Wait until the task is complete and no longer visible
-        composeTestRule.waitUntilNotExists(hasText(name))
+        composeTestRule.waitUntilDoesNotExist(hasText(name))
 
         // Validate the task is now updated as "completed"
         val task = daoProvider.getTaskDao().getTaskById(id)

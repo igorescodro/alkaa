@@ -20,7 +20,7 @@ android {
         targetSdk = AlkaaVersions.targetSdk
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        setProperty("archivesBaseName", "${parent?.name?.capitalize()}-$versionName")
+        setProperty("archivesBaseName", "${parent?.name}-$versionName")
     }
 
     signingConfigs {

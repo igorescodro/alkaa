@@ -1,5 +1,6 @@
 plugins {
     id("com.escodro.kotlin-module")
+    id("com.android.lint")
 }
 
 dependencies {

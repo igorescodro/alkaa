@@ -48,7 +48,7 @@ koin_compose = "3.4.3"
 koin_android = "3.4.0"
 
 # Accompanist
-accompanist = "0.28.0"
+accompanist = "0.30.0"
 
 # Test
 test_junit = "4.13.2"

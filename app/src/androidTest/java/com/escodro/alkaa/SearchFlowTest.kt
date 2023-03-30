@@ -1,6 +1,7 @@
 package com.escodro.alkaa
 
 import androidx.annotation.StringRes
+import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.hasSetTextAction
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createComposeRule
@@ -15,7 +16,6 @@ import com.escodro.alkaa.navigation.NavGraph
 import com.escodro.alkaa.util.WindowSizeClassFake
 import com.escodro.designsystem.AlkaaTheme
 import com.escodro.local.provider.DaoProvider
-import com.escodro.test.extension.waitUntilNotExists
 import com.escodro.test.rule.DisableAnimationsRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -26,7 +26,7 @@ import org.koin.test.KoinTest
 import org.koin.test.inject
 import com.escodro.search.R as SearchR
 
-@OptIn(ExperimentalCoroutinesApi::class)
+@OptIn(ExperimentalCoroutinesApi::class, ExperimentalTestApi::class)
 internal class SearchFlowTest : KoinTest {
 
     private val daoProvider: DaoProvider by inject()
@@ -79,7 +79,7 @@ internal class SearchFlowTest : KoinTest {
             onAllNodesWithText(text = query, useUnmergedTree = true)[1].assertExists()
 
             // Wait until the other second item is no longer visible
-            waitUntilNotExists(hasText(FAKE_TASKS[1].title))
+            waitUntilDoesNotExist(hasText(FAKE_TASKS[1].title))
 
             // Drop the first task and validate others are not shown
             FAKE_TASKS.drop(1).forEach { task ->
@@ -95,7 +95,7 @@ internal class SearchFlowTest : KoinTest {
             onNode(hasSetTextAction()).performTextInput("query")
 
             // Wait until the first task is not visible
-            waitUntilNotExists(hasText(FAKE_TASKS[0].title))
+            waitUntilDoesNotExist(hasText(FAKE_TASKS[0].title))
 
             FAKE_TASKS.forEach { task ->
                 // Validate all tasks are shown

@@ -9,6 +9,7 @@ android {
             add("META-INF/LGPL2.1")
         }
     }
+    namespace = "com.escodro.test"
 }
 
 dependencies {

@@ -15,6 +15,7 @@ android {
     sourceSets {
         getByName("androidTest").assets.srcDirs("$projectDir/schemas")
     }
+    namespace = "com.escodro.local"
 }
 
 dependencies {

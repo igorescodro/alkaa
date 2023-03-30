@@ -5,3 +5,6 @@ plugins {
 dependencies {
     implementation(libs.androidx.corektx)
 }
+android {
+    namespace = "com.escodro.navigation"
+}

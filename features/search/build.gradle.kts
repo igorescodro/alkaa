@@ -12,3 +12,6 @@ dependencies {
     testImplementation(projects.libraries.test)
     androidTestImplementation(projects.libraries.test)
 }
+android {
+    namespace = "com.escodro.search"
+}

@@ -96,6 +96,7 @@ android {
             }
         }
     }
+    namespace = "com.escodro.alkaa"
 }
 
 dependencies {

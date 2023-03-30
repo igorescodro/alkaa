@@ -27,7 +27,7 @@ playcore = "1.10.3"
 datastore = "1.0.0"
 glance = "1.0.0-alpha05"
 workmanager = "2.8.1"
-lifecycle_viewmodel = "2.5.1"
+lifecycle_viewmodel = "2.6.1"
 
 # Compose
 compose = "1.4.0"

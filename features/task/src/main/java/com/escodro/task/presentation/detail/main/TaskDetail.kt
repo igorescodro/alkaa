@@ -41,8 +41,8 @@ import com.escodro.task.presentation.detail.alarm.AlarmSelection
 import com.escodro.task.presentation.detail.alarm.TaskAlarmViewModel
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.parcelize.Parcelize
-import org.koin.androidx.compose.get
 import org.koin.androidx.compose.getViewModel
+import org.koin.compose.koinInject
 
 /**
  * Alkaa Task Detail Section.
@@ -63,7 +63,7 @@ private fun TaskDetailLoader(
     detailViewModel: TaskDetailViewModel = getViewModel(),
     categoryViewModel: CategoryListViewModel = getViewModel(),
     alarmViewModel: TaskAlarmViewModel = getViewModel(),
-    alarmPermission: AlarmPermission = get(),
+    alarmPermission: AlarmPermission = koinInject(),
 ) {
     val id = TaskId(taskId)
     val detailViewState by

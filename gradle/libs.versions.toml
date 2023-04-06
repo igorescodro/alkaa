@@ -30,7 +30,7 @@ workmanager = "2.8.1"
 lifecycle_viewmodel = "2.6.1"
 
 # Compose
-compose = "1.4.0"
+compose = "1.4.1"
 compose_compiler = "1.4.4"
 compose_nav = "2.5.3"
 compose_viewmodel = "2.6.1"

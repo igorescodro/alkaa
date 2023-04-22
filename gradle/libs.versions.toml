@@ -5,7 +5,7 @@ kotlin = "1.8.10"
 
 # Plugins
 ksp = "1.8.10-1.0.9"
-dependencyanalysis = "1.19.0"
+dependencyanalysis = "1.20.0"
 
 # General dependencies
 logging = "3.0.5"

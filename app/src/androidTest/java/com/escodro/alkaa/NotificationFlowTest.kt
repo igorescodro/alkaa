@@ -16,7 +16,6 @@ import com.escodro.domain.usecase.alarm.ScheduleAlarm
 import com.escodro.local.model.AlarmInterval
 import com.escodro.local.model.Task
 import com.escodro.local.provider.DaoProvider
-import com.escodro.task.R
 import com.escodro.test.rule.DisableAnimationsRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -30,6 +29,7 @@ import java.util.Calendar
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 import com.escodro.alarm.R as AlarmR
+import com.escodro.designsystem.R as DesignSystemR
 
 @OptIn(ExperimentalCoroutinesApi::class, ExperimentalTestApi::class)
 internal class NotificationFlowTest : KoinTest {
@@ -102,7 +102,10 @@ internal class NotificationFlowTest : KoinTest {
         // Validate the task detail was opened
         composeTestRule.onNodeWithText(name).assertIsDisplayed()
         composeTestRule
-            .onNodeWithContentDescription(string(R.string.back_arrow_cd), useUnmergedTree = true)
+            .onNodeWithContentDescription(
+                string(DesignSystemR.string.back_arrow_cd),
+                useUnmergedTree = true,
+            )
             .assertIsDisplayed()
     }
 

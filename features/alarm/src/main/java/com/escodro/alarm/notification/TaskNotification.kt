@@ -68,7 +68,7 @@ internal class TaskNotification(
     private fun buildNotification(task: Task) =
         NotificationCompat.Builder(context, channel.getChannelId()).apply {
             setSmallIcon(R.drawable.ic_bookmark_check)
-            setContentTitle(context.getString(R.string.app_name))
+            setContentTitle(context.getString(R.string.content_app_name))
             setContentText(task.title)
             setContentIntent(buildPendingIntent(task))
             setAutoCancel(true)

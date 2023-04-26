@@ -13,7 +13,7 @@ android {
     androidConfig()
     proguardConfig()
     kotlin {
-        jvmToolchain(JavaLanguageVersion.of(11).asInt())
+        jvmToolchain(AlkaaVersions.javaLanguageVersion.asInt())
     }
 }
 

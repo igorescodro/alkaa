@@ -12,6 +12,6 @@ object AlkaaVersions {
     const val compileSdk = 33
     const val targetSdk = 33
     const val minSdk = 24
-    val javaCompileVersion = JavaVersion.VERSION_11
-    val javaLanguageVersion: JavaLanguageVersion = JavaLanguageVersion.of(11)
+    val javaCompileVersion = JavaVersion.VERSION_17
+    val javaLanguageVersion: JavaLanguageVersion = JavaLanguageVersion.of(17)
 }

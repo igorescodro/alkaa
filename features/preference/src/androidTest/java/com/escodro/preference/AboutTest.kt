@@ -21,7 +21,7 @@ internal class AboutTest {
         loadView()
 
         // Then the items are shown
-        val appName = context.getString(R.string.app_name)
+        val appName = context.getString(R.string.about_title)
         val description = context.getString(R.string.about_description)
         val button = context.getString(R.string.about_button_project)
         composeTestRule.onNodeWithText(text = appName, ignoreCase = true).assertExists()

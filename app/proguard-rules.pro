@@ -26,3 +26,5 @@
 }
 
 -keepnames class * implements android.os.Parcelable*
+
+-dontwarn javax.servlet.ServletContainerInitializer

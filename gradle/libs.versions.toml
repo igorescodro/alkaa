@@ -1,10 +1,10 @@
 [versions]
 # Project
 android_gradle_plugin = "8.0.0"
-kotlin = "1.8.10"
+kotlin = "1.8.20"
 
 # Plugins
-ksp = "1.8.10-1.0.9"
+ksp = "1.8.20-1.0.10"
 dependencyanalysis = "1.20.0"
 
 # General dependencies
@@ -31,7 +31,8 @@ lifecycle_viewmodel = "2.6.1"
 
 # Compose
 compose = "1.4.2"
-compose_compiler = "1.4.4"
+compose_compiler = "1.4.6"
+compose_bom = "2023.04.01"
 compose_nav = "2.5.3"
 compose_viewmodel = "2.6.1"
 compose_activity = "1.7.1"
@@ -95,17 +96,18 @@ androidx_glance = { module = "androidx.glance:glance-appwidget", version.ref = "
 androidx_workmanager = { module = "androidx.work:work-runtime-ktx", version.ref = "workmanager" }
 androidx_lifecycle_viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel", version.ref = "lifecycle_viewmodel" }
 
-compose_ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
-compose_toolingpreview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
-compose_icons = { module = "androidx.compose.material:material-icons-extended", version.ref = "compose_icons" }
-compose_navigation = { module = "androidx.navigation:navigation-compose", version.ref = "compose_nav" }
-compose_viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "compose_viewmodel" }
-compose_activity = { module = "androidx.activity:activity-compose", version.ref = "compose_activity" }
-compose_material3 = { module = "androidx.compose.material3:material3", version.ref = "compose_material3" }
-compose_uitest = { module = "androidx.compose.ui:ui-test", version.ref = "compose" }
-compose_junit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "compose" }
-compose_manifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "compose" }
-compose_windowsize = { module = "androidx.compose.material3:material3-window-size-class", version.ref = "compose_windowsize" }
+compose_bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose_bom" }
+compose_ui = { module = "androidx.compose.ui:ui" }
+compose_toolingpreview = { module = "androidx.compose.ui:ui-tooling-preview" }
+compose_icons = { module = "androidx.compose.material:material-icons-extended" }
+compose_navigation = { module = "androidx.navigation:navigation-compose" }
+compose_viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-compose" }
+compose_activity = { module = "androidx.activity:activity-compose" }
+compose_material3 = { module = "androidx.compose.material3:material3" }
+compose_uitest = { module = "androidx.compose.ui:ui-test" }
+compose_junit4 = { module = "androidx.compose.ui:ui-test-junit4" }
+compose_manifest = { module = "androidx.compose.ui:ui-test-manifest" }
+compose_windowsize = { module = "androidx.compose.material3:material3-window-size-class" }
 
 # Room
 androidx_room_runtime = { module = "androidx.room:room-runtime", version.ref = "room" }

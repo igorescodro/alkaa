@@ -115,6 +115,8 @@ dependencies {
     implementation(projects.features.search)
     implementation(projects.features.glance)
 
+    implementation(platform(libs.compose.bom))
+
     implementation(libs.logcat)
     implementation(libs.compose.navigation)
     implementation(libs.compose.activity)

@@ -19,6 +19,7 @@ android {
 dependencies {
     implementation(libs.logcat)
     implementation(libs.composeBundle)
+    implementation(platform(libs.composeBom))
     implementation(libs.kotlinxCollectionsImmutable)
 
     androidTestImplementation(libs.composeTestBundle) {

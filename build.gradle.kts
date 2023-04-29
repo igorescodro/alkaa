@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.dependencyanalysis)
-    id("io.github.gmazzo.test.aggregation.coverage") version "1.0.3"
-    id("io.github.gmazzo.test.aggregation.results") version "1.0.3"
+    id("io.github.gmazzo.test.aggregation.coverage") version "1.1.0"
+    id("io.github.gmazzo.test.aggregation.results") version "1.1.0"
 }
 
 buildscript {

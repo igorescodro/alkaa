@@ -15,6 +15,9 @@ internal val VersionCatalog.playcore: Provider<MinimalExternalModuleDependency>
 internal val VersionCatalog.kotlinxCollectionsImmutable: Provider<MinimalExternalModuleDependency>
     get() = getLibrary("kotlinx.collections.immutable")
 
+internal val VersionCatalog.composeBom: Provider<MinimalExternalModuleDependency>
+    get() = getLibrary("compose.bom")
+
 internal val VersionCatalog.composeRules: Provider<MinimalExternalModuleDependency>
     get() = getLibrary("composerules")
 

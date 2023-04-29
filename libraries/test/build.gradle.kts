@@ -17,6 +17,7 @@ dependencies {
 
     api(libs.kotlinx.coroutines.test)
 
+    implementation(platform(libs.compose.bom))
     implementation(libs.bundles.composetest) {
         exclude(group = "androidx.core", module = "core-ktx")
         exclude(group = "androidx.fragment", module = "fragment")

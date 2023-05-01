@@ -1,6 +1,6 @@
 [versions]
 # Project
-android_gradle_plugin = "8.0.0"
+android_gradle_plugin = "8.0.1"
 kotlin = "1.8.20"
 
 # Plugins

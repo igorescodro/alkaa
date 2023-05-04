@@ -29,7 +29,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '17'
-          distribution: 'adopt'
+          distribution: 'zulu'
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v2
@@ -73,13 +73,15 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '17'
-          distribution: 'adopt'
+          distribution: 'zulu'
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v2
 
       - name: Run instrumented tests
-        run: ./gradlew alkaaDevicesGroupDebugAndroidTest -Pandroid.testoptions.manageddevices.emulator.gpu="swiftshader_indirect"
+        run: ./gradlew cleanManagedDevices --unused-only &&
+          ./gradlew alkaaDevicesGroupDebugAndroidTest -Dorg.gradle.workers.max=1
+          -Pandroid.testoptions.manageddevices.emulator.gpu="swiftshader_indirect" -Pandroid.experimental.testOptions.managedDevices.emulator.showKernelLogging=true
 
       - name: Save Test Results
         uses: actions/upload-artifact@v3

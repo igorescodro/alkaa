@@ -4,7 +4,7 @@ android_gradle_plugin = "8.0.1"
 kotlin = "1.8.20"
 
 # Plugins
-ksp = "1.8.20-1.0.10"
+ksp = "1.8.21-1.0.11"
 dependencyanalysis = "1.20.0"
 
 # General dependencies

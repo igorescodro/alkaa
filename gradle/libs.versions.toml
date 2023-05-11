@@ -18,7 +18,7 @@ kotlinx_serialization = "1.5.0"
 kotlinx_collections_immutable = "0.3.5"
 
 # AndroidX
-core = "1.10.0"
+core = "1.10.1"
 appcompat = "1.6.1"
 material = "1.9.0"
 constraint = "2.0.4"

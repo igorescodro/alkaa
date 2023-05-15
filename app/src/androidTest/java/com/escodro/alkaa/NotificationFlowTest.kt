@@ -17,7 +17,6 @@ import com.escodro.local.model.AlarmInterval
 import com.escodro.local.model.Task
 import com.escodro.local.provider.DaoProvider
 import com.escodro.test.rule.DisableAnimationsRule
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Before
@@ -31,7 +30,7 @@ import kotlin.test.assertTrue
 import com.escodro.alarm.R as AlarmR
 import com.escodro.designsystem.R as DesignSystemR
 
-@OptIn(ExperimentalCoroutinesApi::class, ExperimentalTestApi::class)
+@OptIn(ExperimentalTestApi::class)
 internal class NotificationFlowTest : KoinTest {
 
     private val daoProvider: DaoProvider by inject()

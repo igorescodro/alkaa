@@ -18,7 +18,6 @@ import com.escodro.category.presentation.semantics.ColorKey
 import com.escodro.designsystem.AlkaaTheme
 import com.escodro.local.provider.DaoProvider
 import com.escodro.test.rule.DisableAnimationsRule
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Rule
@@ -27,7 +26,6 @@ import org.koin.test.KoinTest
 import org.koin.test.inject
 import com.escodro.category.R as CategoryR
 
-@OptIn(ExperimentalCoroutinesApi::class)
 internal class CategoryFlowTest : KoinTest {
 
     private val daoProvider: DaoProvider by inject()

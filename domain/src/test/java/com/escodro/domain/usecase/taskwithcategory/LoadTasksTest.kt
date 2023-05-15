@@ -6,7 +6,6 @@ import com.escodro.domain.usecase.fake.CategoryRepositoryFake
 import com.escodro.domain.usecase.fake.TaskRepositoryFake
 import com.escodro.domain.usecase.fake.TaskWithCategoryRepositoryFake
 import com.escodro.domain.usecase.taskwithcategory.implementation.LoadUncompletedTasksImpl
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.After
@@ -14,7 +13,6 @@ import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 
-@ExperimentalCoroutinesApi
 internal class LoadTasksTest {
 
     private val taskRepository = TaskRepositoryFake()

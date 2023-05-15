@@ -7,14 +7,12 @@ import com.escodro.domain.usecase.fake.CalendarProviderFake
 import com.escodro.domain.usecase.fake.GlanceInteractorFake
 import com.escodro.domain.usecase.fake.TaskRepositoryFake
 import com.escodro.domain.usecase.task.implementation.AddTaskImpl
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import java.util.Calendar
 
-@ExperimentalCoroutinesApi
 internal class RescheduleFutureAlarmsTest {
 
     private val taskRepository = TaskRepositoryFake()

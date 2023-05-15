@@ -9,13 +9,11 @@ import com.escodro.domain.usecase.fake.TaskRepositoryFake
 import com.escodro.domain.usecase.task.implementation.AddTaskImpl
 import com.escodro.domain.usecase.task.implementation.LoadTaskImpl
 import com.escodro.domain.usecase.task.implementation.UpdateTaskStatusImpl
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 
-@ExperimentalCoroutinesApi
 internal class CompleteTaskTest {
 
     private val taskRepository = TaskRepositoryFake()

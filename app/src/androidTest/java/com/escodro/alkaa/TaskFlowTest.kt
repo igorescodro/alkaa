@@ -23,7 +23,6 @@ import com.escodro.local.provider.DaoProvider
 import com.escodro.test.espresso.Events
 import com.escodro.test.extension.onChip
 import com.escodro.test.rule.DisableAnimationsRule
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Rule
@@ -35,7 +34,7 @@ import java.util.Calendar
 import com.escodro.designsystem.R as DesignSystemR
 import com.escodro.task.R as TaskR
 
-@OptIn(ExperimentalCoroutinesApi::class, ExperimentalTestApi::class)
+@OptIn(ExperimentalTestApi::class)
 internal class TaskFlowTest : KoinTest {
 
     private val daoProvider: DaoProvider by inject()

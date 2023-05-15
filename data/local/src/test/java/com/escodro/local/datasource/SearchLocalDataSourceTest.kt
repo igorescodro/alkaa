@@ -5,13 +5,11 @@ import com.escodro.local.provider.DaoProvider
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
 
-@OptIn(ExperimentalCoroutinesApi::class)
 internal class SearchLocalDataSourceTest {
 
     private val mockDaoProvider = mockk<DaoProvider>(relaxed = true)

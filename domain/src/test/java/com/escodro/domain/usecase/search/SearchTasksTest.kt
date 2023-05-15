@@ -4,14 +4,12 @@ import com.escodro.domain.model.Task
 import com.escodro.domain.usecase.fake.SearchRepositoryFake
 import com.escodro.domain.usecase.fake.TaskRepositoryFake
 import com.escodro.domain.usecase.search.implementation.SearchTasksByNameImpl
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 
-@ExperimentalCoroutinesApi
 internal class SearchTasksTest {
 
     private val taskRepository = TaskRepositoryFake()

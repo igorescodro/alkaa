@@ -2,13 +2,11 @@ package com.escodro.domain.usecase.preferences
 
 import com.escodro.domain.model.AppThemeOptions
 import com.escodro.domain.usecase.fake.PreferencesRepositoryFake
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Test
 
-@OptIn(ExperimentalCoroutinesApi::class)
 internal class AppThemeTest {
 
     private val preferencesRepository = PreferencesRepositoryFake()

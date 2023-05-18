@@ -1,5 +1,6 @@
 package com.escodro.glance.presentation
 
+import android.content.Context
 import android.content.Intent
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -8,6 +9,7 @@ import androidx.compose.ui.unit.ExperimentalUnitApi
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
+import androidx.glance.GlanceId
 import androidx.glance.GlanceModifier
 import androidx.glance.Image
 import androidx.glance.ImageProvider
@@ -21,6 +23,7 @@ import androidx.glance.appwidget.appWidgetBackground
 import androidx.glance.appwidget.cornerRadius
 import androidx.glance.appwidget.lazy.LazyColumn
 import androidx.glance.appwidget.lazy.items
+import androidx.glance.appwidget.provideContent
 import androidx.glance.background
 import androidx.glance.currentState
 import androidx.glance.layout.Alignment
@@ -52,8 +55,7 @@ internal class TaskListGlanceWidget : GlanceAppWidget(), KoinComponent {
     override val stateDefinition: GlanceStateDefinition<List<Task>> =
         TaskListStateDefinition
 
-    @Composable
-    override fun Content() {
+    override suspend fun provideGlance(context: Context, id: GlanceId) = provideContent {
         val taskList = currentState<List<Task>>().toImmutableList()
         Column(
             modifier = GlanceModifier

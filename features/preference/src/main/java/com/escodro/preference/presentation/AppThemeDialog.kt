@@ -27,7 +27,7 @@ internal fun AppThemeDialog(
 ) {
     if (isDialogOpen) {
         AlertDialog(
-            onDismissRequest = { /* Does not close */ },
+            onDismissRequest = onDismissRequest,
             title = { Text(text = stringResource(id = R.string.preference_title_app_theme)) },
             text = {
                 Column {

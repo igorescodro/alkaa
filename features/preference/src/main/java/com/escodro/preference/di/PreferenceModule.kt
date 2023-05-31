@@ -1,6 +1,6 @@
 package com.escodro.preference.di
 
-import com.escodro.preference.AppThemeOptionsMapper
+import com.escodro.preference.mapper.AppThemeOptionsMapper
 import com.escodro.preference.presentation.PreferenceViewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.core.module.dsl.factoryOf

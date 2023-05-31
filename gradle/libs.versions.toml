@@ -36,7 +36,7 @@ compose_bom = "2023.05.00"
 compose_nav = "2.5.3"
 compose_viewmodel = "2.6.1"
 compose_activity = "1.7.1"
-compose_material3 = "1.0.1"
+compose_material3 = "1.2.0-alpha02"
 compose_icons = "1.4.2"
 compose_windowsize = "1.0.1"
 
@@ -49,7 +49,7 @@ koin_compose = "3.4.4"
 koin_android = "3.4.0"
 
 # Accompanist
-accompanist = "0.30.1"
+accompanist = "0.31.3-beta"
 
 # Test
 test_junit = "4.13.2"
@@ -103,7 +103,7 @@ compose_icons = { module = "androidx.compose.material:material-icons-extended" }
 compose_navigation = { module = "androidx.navigation:navigation-compose" }
 compose_viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-compose" }
 compose_activity = { module = "androidx.activity:activity-compose" }
-compose_material3 = { module = "androidx.compose.material3:material3" }
+compose_material3 = { module = "androidx.compose.material3:material3", version.ref = "compose_material3" }
 compose_uitest = { module = "androidx.compose.ui:ui-test" }
 compose_junit4 = { module = "androidx.compose.ui:ui-test-junit4" }
 compose_manifest = { module = "androidx.compose.ui:ui-test-manifest" }

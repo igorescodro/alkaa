@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.tween
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
@@ -68,13 +69,13 @@ private fun NavGraphBuilder.homeGraph(windowSizeClass: WindowSizeClass, actions:
         deepLinks = listOf(navDeepLink { uriPattern = DestinationDeepLink.HomePattern }),
         enterTransition = {
             slideIntoContainer(
-                AnimatedContentScope.SlideDirection.Right,
+                AnimatedContentTransitionScope.SlideDirection.Right,
                 animationSpec = tween(700),
             )
         },
         exitTransition = {
             slideOutOfContainer(
-                AnimatedContentScope.SlideDirection.Left,
+                AnimatedContentTransitionScope.SlideDirection.Left,
                 animationSpec = tween(700),
             )
         },
@@ -104,13 +105,13 @@ private fun NavGraphBuilder.taskGraph(actions: Actions) {
         ),
         enterTransition = {
             slideIntoContainer(
-                AnimatedContentScope.SlideDirection.Left,
+                AnimatedContentTransitionScope.SlideDirection.Left,
                 animationSpec = tween(700),
             )
         },
         exitTransition = {
             slideOutOfContainer(
-                AnimatedContentScope.SlideDirection.Right,
+                AnimatedContentTransitionScope.SlideDirection.Right,
                 animationSpec = tween(700),
             )
         },

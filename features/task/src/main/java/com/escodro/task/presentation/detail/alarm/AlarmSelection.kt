@@ -10,21 +10,23 @@ import androidx.compose.material.icons.outlined.Alarm
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.escodro.core.view.DateTimePickerDialog
 import com.escodro.designsystem.AlkaaTheme
+import com.escodro.designsystem.components.AlkaaDateTimePicker
 import com.escodro.task.R
 import com.escodro.task.model.AlarmInterval
 import com.escodro.task.permission.PermissionStateFactory
 import com.escodro.task.presentation.detail.TaskDetailSectionContent
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionState
-import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
-import com.google.accompanist.permissions.shouldShowRationale
 import java.util.Calendar
 
 /**
@@ -98,24 +100,37 @@ internal fun AlarmSelectionContent(
     onAlarmUpdate: (Calendar?) -> Unit,
     onIntervalSelect: (AlarmInterval) -> Unit,
 ) {
+    var showDateTimeDialog by remember { mutableStateOf(false) }
+    if (showDateTimeDialog) {
+        AlkaaDateTimePicker(
+            showDialog = showDateTimeDialog,
+            onDismiss = { showDateTimeDialog = false },
+            onResult = { calendar ->
+                state.date = calendar
+                onAlarmUpdate(calendar)
+            })
+    }
+
     Column {
         TaskDetailSectionContent(
             modifier = Modifier
                 .height(56.dp)
                 .clickable {
-                    when {
-                        hasAlarmPermission() && permissionState.status.isGranted ->
-                            DateTimePickerDialog(context) { calendar ->
-                                state.date = calendar
-                                onAlarmUpdate(calendar)
-                            }.show()
-                        permissionState.status.shouldShowRationale ->
-                            state.showRationaleDialog = true
-                        else -> {
-                            state.showExactAlarmDialog = !hasAlarmPermission()
-                            state.showNotificationDialog = !permissionState.status.isGranted
-                        }
-                    }
+                    showDateTimeDialog = true
+                    // when {
+                    //     hasAlarmPermission() && permissionState.status.isGranted ->
+                    //         DateTimePickerDialog(context) { calendar ->
+                    //             state.date = calendar
+                    //             onAlarmUpdate(calendar)
+                    //         }.show()
+                    //     permissionState.status.shouldShowRationale ->
+                    //         state.showRationaleDialog = true
+                    //     else -> {
+                    //         state.showExactAlarmDialog = !hasAlarmPermission()
+                    //         state.showNotificationDialog = !permissionState.status.isGranted
+                    //     }
+                    // }
+
                 },
             imageVector = Icons.Outlined.Alarm,
             contentDescription = R.string.task_detail_cd_icon_alarm,

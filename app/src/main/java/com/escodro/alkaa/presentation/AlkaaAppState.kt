@@ -35,6 +35,12 @@ data class AlkaaAppState(private val windowSizeClass: WindowSizeClass) {
             windowSizeClass.heightSizeClass == WindowHeightSizeClass.Compact
 
     /**
+     * Verifies if the screen should show multiple panes.
+     */
+    val isMultiPane: Boolean
+        get() = windowSizeClass.widthSizeClass != WindowWidthSizeClass.Compact
+
+    /**
      * Verifies if the navigation rail should be shown.
      */
     val shouldShowNavRail: Boolean

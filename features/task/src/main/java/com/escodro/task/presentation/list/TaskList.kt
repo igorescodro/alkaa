@@ -57,9 +57,15 @@ import java.util.Calendar
 fun TaskListSection(
     onItemClick: (Long) -> Unit,
     onBottomShow: () -> Unit,
+    isMultiPane: Boolean,
     modifier: Modifier = Modifier,
 ) {
-    TaskListLoader(modifier = modifier, onItemClick = onItemClick, onAddClick = onBottomShow)
+    TaskListLoader(
+        modifier = modifier,
+        isMultiPane = isMultiPane,
+        onItemClick = onItemClick,
+        onAddClick = onBottomShow
+    )
 }
 
 @Composable
@@ -67,6 +73,7 @@ private fun TaskListLoader(
     onItemClick: (Long) -> Unit,
     onAddClick: () -> Unit,
     modifier: Modifier = Modifier,
+    isMultiPane: Boolean,
     taskListViewModel: TaskListViewModel = getViewModel(),
     categoryViewModel: CategoryListViewModel = getViewModel(),
 ) {
@@ -97,6 +104,7 @@ private fun TaskListLoader(
         taskHandler = taskHandler,
         categoryHandler = categoryHandler,
         modifier = modifier,
+        isMultiPane = isMultiPane,
     )
 }
 
@@ -106,6 +114,7 @@ internal fun TaskListScaffold(
     taskHandler: TaskStateHandler,
     categoryHandler: CategoryStateHandler,
     modifier: Modifier = Modifier,
+    isMultiPane: Boolean,
 ) {
     val coroutineScope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
@@ -130,38 +139,61 @@ internal fun TaskListScaffold(
 
     BoxWithConstraints {
         val fabPosition = if (this.maxHeight > maxWidth) FabPosition.Center else FabPosition.End
-        Scaffold(
-            modifier = modifier.fillMaxSize(),
-            snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
-            topBar = { TaskFilter(categoryHandler = categoryHandler) },
-            floatingActionButton = {
-                AddFloatingButton(
-                    contentDescription = R.string.task_cd_add_task,
-                    onClick = { taskHandler.onAddClick() },
-                )
-            },
-            floatingActionButtonPosition = fabPosition,
-        ) { paddingValues ->
-            Crossfade(
-                targetState = taskHandler.state,
-                modifier = Modifier.padding(paddingValues),
-            ) { state ->
-                when (state) {
-                    TaskListViewState.Loading -> AlkaaLoadingContent()
-                    is TaskListViewState.Error -> TaskListError()
-                    is TaskListViewState.Loaded -> {
-                        val taskList = state.items
-                        TaskListContent(
-                            taskList = taskList,
-                            onItemClick = taskHandler.onItemClick,
-                            onCheckedChange = { taskWithCategory ->
-                                taskHandler.onCheckedChange(taskWithCategory)
-                                onShowSnackbar(taskWithCategory)
-                            },
-                        )
-                    }
-                    TaskListViewState.Empty -> TaskListEmpty()
+        if (!isMultiPane) {
+            SinglePaneTaskList(
+                modifier = modifier,
+                snackbarHostState = snackbarHostState,
+                categoryHandler = categoryHandler,
+                taskHandler = taskHandler,
+                fabPosition = fabPosition,
+                onShowSnackbar = onShowSnackbar
+            )
+        }
+    }
+}
+
+@Composable
+@OptIn(ExperimentalMaterial3Api::class)
+private fun SinglePaneTaskList(
+    modifier: Modifier,
+    snackbarHostState: SnackbarHostState,
+    categoryHandler: CategoryStateHandler,
+    taskHandler: TaskStateHandler,
+    fabPosition: FabPosition,
+    onShowSnackbar: (TaskWithCategory) -> Unit,
+) {
+    Scaffold(
+        modifier = modifier.fillMaxSize(),
+        snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
+        topBar = { TaskFilter(categoryHandler = categoryHandler) },
+        floatingActionButton = {
+            AddFloatingButton(
+                contentDescription = R.string.task_cd_add_task,
+                onClick = { taskHandler.onAddClick() },
+            )
+        },
+        floatingActionButtonPosition = fabPosition,
+    ) { paddingValues ->
+        Crossfade(
+            targetState = taskHandler.state,
+            modifier = Modifier.padding(paddingValues),
+        ) { state ->
+            when (state) {
+                TaskListViewState.Loading -> AlkaaLoadingContent()
+                is TaskListViewState.Error -> TaskListError()
+                is TaskListViewState.Loaded -> {
+                    val taskList = state.items
+                    TaskListContent(
+                        taskList = taskList,
+                        onItemClick = taskHandler.onItemClick,
+                        onCheckedChange = { taskWithCategory ->
+                            taskHandler.onCheckedChange(taskWithCategory)
+                            onShowSnackbar(taskWithCategory)
+                        },
+                    )
                 }
+
+                TaskListViewState.Empty -> TaskListEmpty()
             }
         }
     }
@@ -242,6 +274,7 @@ fun TaskListScaffoldLoaded() {
             taskHandler = TaskStateHandler(state = state),
             categoryHandler = CategoryStateHandler(),
             modifier = Modifier,
+            isMultiPane = false
         )
     }
 }
@@ -257,6 +290,7 @@ fun TaskListScaffoldEmpty() {
             taskHandler = TaskStateHandler(state = state),
             categoryHandler = CategoryStateHandler(),
             modifier = Modifier,
+            isMultiPane = false
         )
     }
 }
@@ -272,6 +306,7 @@ fun TaskListScaffoldError() {
             taskHandler = TaskStateHandler(state = state),
             categoryHandler = CategoryStateHandler(),
             modifier = Modifier,
+            isMultiPane = false
         )
     }
 }

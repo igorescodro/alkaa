@@ -117,6 +117,7 @@ private fun AlkaaHomeScaffold(
                         homeSection = homeSection,
                         modifier = Modifier,
                         actions = actions,
+                        isMultiPane = appState.isMultiPane
                     )
                 }
             }
@@ -165,6 +166,7 @@ private fun AlkaaNavRail(
 private fun AlkaaContent(
     homeSection: HomeSection,
     actions: HomeActions,
+    isMultiPane: Boolean,
     modifier: Modifier = Modifier,
 ) {
     when (homeSection) {
@@ -173,6 +175,7 @@ private fun AlkaaContent(
                 modifier = modifier,
                 onItemClick = actions.onTaskClick,
                 onBottomShow = actions.onTaskSheetOpen,
+                isMultiPane = isMultiPane,
             )
 
         HomeSection.Search ->

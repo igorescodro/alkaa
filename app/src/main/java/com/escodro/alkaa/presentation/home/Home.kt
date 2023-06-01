@@ -19,7 +19,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.NavigationRail
 import androidx.compose.material3.NavigationRailItem
 import androidx.compose.material3.NavigationRailItemDefaults
@@ -175,13 +174,16 @@ private fun AlkaaContent(
                 onItemClick = actions.onTaskClick,
                 onBottomShow = actions.onTaskSheetOpen,
             )
+
         HomeSection.Search ->
             SearchSection(modifier = modifier, onItemClick = actions.onTaskClick)
+
         HomeSection.Categories ->
             CategoryListSection(
                 modifier = modifier,
                 onShowBottomSheet = actions.onCategorySheetOpen,
             )
+
         HomeSection.Settings ->
             PreferenceSection(
                 modifier = modifier,
@@ -221,13 +223,6 @@ private fun AlkaaBottomNav(
                 onClick = { onSectionSelect(section) },
                 icon = { Icon(imageVector = section.icon, contentDescription = title) },
                 label = { Text(title) },
-                colors = NavigationBarItemDefaults.colors(
-                    selectedIconColor = MaterialTheme.colorScheme.onPrimaryContainer,
-                    unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                    selectedTextColor = MaterialTheme.colorScheme.onPrimaryContainer,
-                    unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                    indicatorColor = MaterialTheme.colorScheme.primaryContainer,
-                ),
             )
         }
     }

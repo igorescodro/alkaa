@@ -1,4 +1,4 @@
-package com.escodro.preference
+package com.escodro.preference.mapper
 
 import com.escodro.domain.model.AppThemeOptions as DomainThemeOptions
 import com.escodro.preference.model.AppThemeOptions as ViewDataThemeOptions

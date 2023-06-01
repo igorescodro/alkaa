@@ -117,7 +117,7 @@ private fun AlkaaHomeScaffold(
                         homeSection = homeSection,
                         modifier = Modifier,
                         actions = actions,
-                        isMultiPane = appState.isMultiPane
+                        isMultiPane = appState.isMultiPane,
                     )
                 }
             }

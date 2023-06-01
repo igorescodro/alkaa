@@ -1,7 +1,7 @@
 [versions]
 # Project
 android_gradle_plugin = "8.0.1"
-kotlin = "1.8.20"
+kotlin = "1.8.21"
 
 # Plugins
 ksp = "1.8.21-1.0.11"

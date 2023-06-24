@@ -44,7 +44,7 @@ compose_windowsize = "1.0.1"
 room = "2.5.2"
 
 # Koin
-koin_core = "3.4.1"
+koin_core = "3.4.2"
 koin_compose = "3.4.5"
 koin_android = "3.4.2"
 

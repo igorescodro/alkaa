@@ -13,7 +13,7 @@ logback = "1.2.11"
 logcat = "0.1"
 
 # KotlinX
-kotlinx_coroutines = "1.7.1"
+kotlinx_coroutines = "1.7.2"
 kotlinx_serialization = "1.5.1"
 kotlinx_collections_immutable = "0.3.5"
 

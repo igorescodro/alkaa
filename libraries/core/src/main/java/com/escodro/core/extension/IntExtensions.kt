@@ -1,4 +1,5 @@
-/* ktlint-disable filename */
+@file:Suppress("Filename")
+
 package com.escodro.core.extension
 
 /**

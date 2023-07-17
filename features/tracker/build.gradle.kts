@@ -21,7 +21,7 @@ android {
 }
 
 dependencies {
-    implementation(projects.domain)
+    implementation(projects.shared)
     implementation(projects.libraries.designsystem)
 
     implementation(libs.koin.android)

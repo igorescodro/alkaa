@@ -7,7 +7,7 @@ dependencies {
     api(projects.features.categoryApi)
     implementation(projects.features.alarmApi)
     implementation(projects.libraries.core)
-    implementation(projects.domain)
+    implementation(projects.shared)
     implementation(projects.libraries.designsystem)
 
     testImplementation(projects.libraries.test)

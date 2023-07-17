@@ -6,7 +6,7 @@ plugins {
 dependencies {
     implementation(projects.libraries.core)
     implementation(projects.features.categoryApi)
-    implementation(projects.shared)
+    implementation(projects.domain)
     implementation(projects.libraries.designsystem)
 
     testImplementation(projects.libraries.test)

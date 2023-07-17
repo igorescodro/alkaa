@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-    implementation(projects.domain)
+    implementation(projects.shared)
     implementation(projects.libraries.core)
     implementation(projects.libraries.designsystem)
 

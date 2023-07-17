@@ -4,7 +4,7 @@ plugins {
 }
 
 dependencies {
-    implementation(projects.domain)
+    implementation(projects.shared)
     implementation(projects.libraries.navigation)
     implementation(projects.libraries.core)
 

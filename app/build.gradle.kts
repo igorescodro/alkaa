@@ -109,13 +109,14 @@ dependencies {
     implementation(projects.data.local)
     implementation(projects.data.datastore)
     implementation(projects.data.repository)
-    implementation(projects.domain)
     implementation(projects.features.task)
     implementation(projects.features.alarm)
     implementation(projects.features.category)
     implementation(projects.features.preference)
     implementation(projects.features.search)
     implementation(projects.features.glance)
+
+    implementation(projects.shared)
 
     implementation(platform(libs.compose.bom))
 

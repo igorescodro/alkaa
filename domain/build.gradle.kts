@@ -43,7 +43,7 @@ kotlin {
 }
 
 android {
-    namespace = "com.escodro.shared"
+    namespace = "com.escodro.domain"
     compileSdk = 33 // TODO move the versions to TOML and use it here
     defaultConfig {
         minSdk = 24 // TODO move the versions to TOML and use it here

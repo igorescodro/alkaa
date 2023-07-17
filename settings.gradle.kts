@@ -17,7 +17,7 @@ include(":libraries:splitInstall")
 include(":libraries:designsystem")
 include(":libraries:navigation")
 
-include(":shared")
+include(":domain")
 
 pluginManagement {
     repositories {

@@ -116,7 +116,7 @@ dependencies {
     implementation(projects.features.search)
     implementation(projects.features.glance)
 
-    implementation(projects.shared)
+    implementation(projects.domain)
 
     implementation(platform(libs.compose.bom))
 

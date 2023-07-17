@@ -7,7 +7,7 @@ dependencies {
     implementation(projects.libraries.core)
     implementation(projects.libraries.navigation)
     implementation(projects.libraries.core)
-    implementation(projects.shared)
+    implementation(projects.domain)
 
     implementation(libs.androidx.core)
     implementation(libs.kotlinx.coroutines.core)

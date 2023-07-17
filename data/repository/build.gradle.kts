@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-    implementation(projects.shared)
+    implementation(projects.domain)
 
     implementation(libs.koin.core)
     implementation(libs.kotlinx.coroutines.core)

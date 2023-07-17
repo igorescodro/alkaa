@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-    implementation(projects.shared)
+    implementation(projects.domain)
     implementation(projects.libraries.designsystem)
 
     implementation(libs.koin.android)

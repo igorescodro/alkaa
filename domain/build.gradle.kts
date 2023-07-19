@@ -32,6 +32,7 @@ kotlin {
                 implementation(libs.kotlinx.coroutines.core)
                 implementation(libs.logging)
                 implementation(libs.logback)
+                implementation(libs.kotlinx.datetime)
             }
         }
         val commonTest by getting {

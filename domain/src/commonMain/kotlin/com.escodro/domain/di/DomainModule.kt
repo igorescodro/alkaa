@@ -1,7 +1,7 @@
 package com.escodro.domain.di
 
-import com.escodro.domain.provider.CalendarProvider
-import com.escodro.domain.provider.CalendarProviderImpl
+import com.escodro.domain.provider.DateTimeProvider
+import com.escodro.domain.provider.DateTimeProviderImpl
 import com.escodro.domain.usecase.alarm.CancelAlarm
 import com.escodro.domain.usecase.alarm.RescheduleFutureAlarms
 import com.escodro.domain.usecase.alarm.ScheduleAlarm
@@ -100,5 +100,5 @@ val domainModule = module {
     factoryOf(::LoadAppTheme)
 
     // Providers
-    factoryOf(::CalendarProviderImpl) bind CalendarProvider::class
+    factoryOf(::DateTimeProviderImpl) bind DateTimeProvider::class
 }

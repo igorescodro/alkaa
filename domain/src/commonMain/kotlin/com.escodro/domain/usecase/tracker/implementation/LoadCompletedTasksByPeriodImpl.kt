@@ -5,7 +5,10 @@ import com.escodro.domain.repository.TaskWithCategoryRepository
 import com.escodro.domain.usecase.tracker.LoadCompletedTasksByPeriod
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import java.util.Calendar
+import kotlinx.datetime.Clock
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toInstant
+import kotlin.time.Duration.Companion.days
 
 /**
  * Use case to get completed tasks in Tracker format for the last month from the database.
@@ -25,8 +28,10 @@ internal class LoadCompletedTasksByPeriodImpl(
             }
 
     private fun filterByLastMonth(task: TaskWithCategory): Boolean {
-        val lastMonth = Calendar.getInstance().apply { add(Calendar.DAY_OF_MONTH, LAST_30_DAYS) }
-        return task.task.completedDate?.after(lastMonth) ?: false
+        val lastMonth = Clock.System.now().minus(LAST_30_DAYS.days)
+        val taskDate =
+            task.task.completedDate?.toInstant(TimeZone.currentSystemDefault()) ?: return false
+        return taskDate < lastMonth
     }
 
     companion object {

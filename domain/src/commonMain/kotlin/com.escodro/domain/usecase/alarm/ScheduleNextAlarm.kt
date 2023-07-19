@@ -8,10 +8,14 @@ import com.escodro.domain.model.AlarmInterval.MONTHLY
 import com.escodro.domain.model.AlarmInterval.WEEKLY
 import com.escodro.domain.model.AlarmInterval.YEARLY
 import com.escodro.domain.model.Task
-import com.escodro.domain.provider.CalendarProvider
+import com.escodro.domain.provider.DateTimeProvider
 import com.escodro.domain.repository.TaskRepository
-import mu.KLogging
-import java.util.Calendar
+import kotlinx.datetime.DateTimePeriod
+import kotlinx.datetime.Instant
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.plus
+import kotlinx.datetime.toInstant
+import mu.KotlinLogging
 
 /**
  * Schedules the next alarm entry or the missing ones in a repeating alarm.
@@ -19,8 +23,10 @@ import java.util.Calendar
 class ScheduleNextAlarm(
     private val taskRepository: TaskRepository,
     private val alarmInteractor: AlarmInteractor,
-    private val calendarProvider: CalendarProvider,
+    private val dateTimeProvider: DateTimeProvider,
 ) {
+
+    private val logger = KotlinLogging.logger {}
 
     /**
      * Schedules the next alarm.
@@ -32,24 +38,26 @@ class ScheduleNextAlarm(
         require(task.dueDate != null) { "Task has no due date" }
         require(task.alarmInterval != null) { "Task has no alarm interval" }
 
-        val currentTime = calendarProvider.getCurrentCalendar()
+        val currentTime = dateTimeProvider.getCurrentInstant()
+        val taskTime = task.dueDate.toInstant(TimeZone.currentSystemDefault())
         do {
-            updatedAlarmTime(task.dueDate, task.alarmInterval)
-        } while (currentTime.after(task.dueDate))
+            updatedAlarmTime(taskTime, task.alarmInterval)
+        } while (currentTime > taskTime)
 
         taskRepository.updateTask(task)
-        alarmInteractor.schedule(task.id, task.dueDate.time.time)
-        logger.debug { "ScheduleNextAlarm = Task = '${task.title}' at ${task.dueDate.time} " }
+        alarmInteractor.schedule(task.id, taskTime.toEpochMilliseconds())
+        logger.debug { "ScheduleNextAlarm = Task = '${task.title}' at $taskTime " }
     }
 
-    private fun updatedAlarmTime(calendar: Calendar, alarmInterval: AlarmInterval) =
-        when (alarmInterval) {
-            HOURLY -> calendar.apply { add(Calendar.HOUR, 1) }
-            DAILY -> calendar.apply { add(Calendar.DAY_OF_MONTH, 1) }
-            WEEKLY -> calendar.apply { add(Calendar.WEEK_OF_MONTH, 1) }
-            MONTHLY -> calendar.apply { add(Calendar.MONTH, 1) }
-            YEARLY -> calendar.apply { add(Calendar.YEAR, 1) }
+    private fun updatedAlarmTime(instant: Instant, alarmInterval: AlarmInterval) {
+        val timeZone = TimeZone.currentSystemDefault()
+        val period = when (alarmInterval) {
+            HOURLY -> DateTimePeriod(hours = 1)
+            DAILY -> DateTimePeriod(days = 1)
+            WEEKLY -> DateTimePeriod(days = 7)
+            MONTHLY -> DateTimePeriod(months = 1)
+            YEARLY -> DateTimePeriod(years = 1)
         }
-
-    companion object : KLogging()
+        instant.plus(period, timeZone)
+    }
 }

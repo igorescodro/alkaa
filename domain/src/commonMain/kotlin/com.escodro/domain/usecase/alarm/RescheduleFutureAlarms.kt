@@ -2,10 +2,13 @@ package com.escodro.domain.usecase.alarm
 
 import com.escodro.domain.interactor.AlarmInteractor
 import com.escodro.domain.model.Task
-import com.escodro.domain.provider.CalendarProvider
+import com.escodro.domain.provider.DateTimeProvider
 import com.escodro.domain.repository.TaskRepository
-import mu.KLogging
-import java.util.Calendar
+import kotlinx.datetime.Clock
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toInstant
+import mu.KotlinLogging
 
 /**
  * Use case to reschedule tasks scheduled in the future or missing repeating.
@@ -13,9 +16,11 @@ import java.util.Calendar
 class RescheduleFutureAlarms(
     private val taskRepository: TaskRepository,
     private val alarmInteractor: AlarmInteractor,
-    private val calendarProvider: CalendarProvider,
+    private val dateTimeProvider: DateTimeProvider,
     private val scheduleNextAlarm: ScheduleNextAlarm,
 ) {
+
+    private val logger = KotlinLogging.logger {}
 
     /**
      * Reschedule scheduled and misses repeating tasks.
@@ -29,18 +34,21 @@ class RescheduleFutureAlarms(
         missedRepeating.forEach { rescheduleRepeatingTask(it) }
     }
 
-    private fun isInFuture(calendar: Calendar?): Boolean {
-        val currentTime = calendarProvider.getCurrentCalendar()
-        return calendar?.after(currentTime) ?: false
+    private fun isInFuture(localDateTime: LocalDateTime?): Boolean {
+        val currentTime = dateTimeProvider.getCurrentInstant()
+        val givenTime = localDateTime?.toInstant(TimeZone.currentSystemDefault()) ?: return false
+        return givenTime > currentTime
     }
 
     private fun isMissedRepeating(task: Task): Boolean {
-        val currentTime = calendarProvider.getCurrentCalendar()
-        return task.isRepeating && task.dueDate?.before(currentTime) ?: false
+        val currentTime = Clock.System.now()
+        val givenTime = task.dueDate?.toInstant(TimeZone.currentSystemDefault()) ?: return false
+        return task.isRepeating && currentTime > givenTime
     }
 
     private fun rescheduleFutureTask(task: Task) {
-        val futureTime = task.dueDate?.time?.time ?: return
+        val futureTime = task.dueDate
+            ?.toInstant(TimeZone.currentSystemDefault())?.toEpochMilliseconds() ?: return
         alarmInteractor.schedule(task.id, futureTime)
         logger.debug { "Task '${task.title} rescheduled to '${task.dueDate}" }
     }
@@ -49,6 +57,4 @@ class RescheduleFutureAlarms(
         scheduleNextAlarm(task)
         logger.debug { "Repeating task '${task.title} rescheduled to '${task.dueDate}" }
     }
-
-    companion object : KLogging()
 }

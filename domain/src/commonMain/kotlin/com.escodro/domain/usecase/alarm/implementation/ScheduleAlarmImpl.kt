@@ -3,7 +3,9 @@ package com.escodro.domain.usecase.alarm.implementation
 import com.escodro.domain.interactor.AlarmInteractor
 import com.escodro.domain.repository.TaskRepository
 import com.escodro.domain.usecase.alarm.ScheduleAlarm
-import java.util.Calendar
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toInstant
 
 internal class ScheduleAlarmImpl(
     private val taskRepository: TaskRepository,
@@ -16,11 +18,13 @@ internal class ScheduleAlarmImpl(
      * @param taskId the alarm id
      * @param calendar the time to the alarm be scheduled
      */
-    override suspend operator fun invoke(taskId: Long, calendar: Calendar) {
+    override suspend operator fun invoke(taskId: Long, localDateTime: LocalDateTime) {
         val task = taskRepository.findTaskById(taskId) ?: return
-        val updatedTask = task.copy(dueDate = calendar)
+        val updatedTask = task.copy(dueDate = localDateTime)
         taskRepository.updateTask(updatedTask)
 
-        alarmInteractor.schedule(taskId, calendar.time.time)
+        alarmInteractor.schedule(
+            taskId, localDateTime.toInstant(TimeZone.currentSystemDefault()).toEpochMilliseconds()
+        )
     }
 }

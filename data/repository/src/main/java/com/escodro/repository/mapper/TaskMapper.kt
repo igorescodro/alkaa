@@ -1,5 +1,7 @@
 package com.escodro.repository.mapper
 
+import com.escodro.core.extension.toCalendar
+import com.escodro.core.extension.toLocalDateTime
 import com.escodro.domain.model.Task as DomainTask
 import com.escodro.repository.model.Task as RepoTask
 
@@ -22,9 +24,9 @@ internal class TaskMapper(private val alarmIntervalMapper: AlarmIntervalMapper) 
             title = repoTask.title,
             description = repoTask.description,
             categoryId = repoTask.categoryId,
-            dueDate = repoTask.dueDate,
-            creationDate = repoTask.creationDate,
-            completedDate = repoTask.completedDate,
+            dueDate = repoTask.dueDate?.toLocalDateTime(),
+            creationDate = repoTask.creationDate?.toLocalDateTime(),
+            completedDate = repoTask.completedDate?.toLocalDateTime(),
             isRepeating = repoTask.isRepeating,
             alarmInterval = repoTask.alarmInterval?.let { alarmIntervalMapper.toDomain(it) },
         )
@@ -53,9 +55,9 @@ internal class TaskMapper(private val alarmIntervalMapper: AlarmIntervalMapper) 
             title = domainTask.title,
             description = domainTask.description,
             categoryId = domainTask.categoryId,
-            dueDate = domainTask.dueDate,
-            creationDate = domainTask.creationDate,
-            completedDate = domainTask.completedDate,
+            dueDate = domainTask.dueDate?.toCalendar(),
+            creationDate = domainTask.creationDate?.toCalendar(),
+            completedDate = domainTask.completedDate?.toCalendar(),
             isRepeating = domainTask.isRepeating,
             alarmInterval = domainTask.alarmInterval?.let { alarmIntervalMapper.toRepo(it) },
         )

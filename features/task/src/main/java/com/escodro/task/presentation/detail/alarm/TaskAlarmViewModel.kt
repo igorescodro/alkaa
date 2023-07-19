@@ -8,6 +8,9 @@ import com.escodro.domain.usecase.alarm.UpdateTaskAsRepeating
 import com.escodro.task.mapper.AlarmIntervalMapper
 import com.escodro.task.model.AlarmInterval
 import com.escodro.task.presentation.detail.main.TaskId
+import kotlinx.datetime.Instant
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 import java.util.Calendar
 
 internal class TaskAlarmViewModel(
@@ -20,7 +23,10 @@ internal class TaskAlarmViewModel(
 
     fun updateAlarm(taskId: TaskId, alarm: Calendar?) = applicationScope.launch {
         if (alarm != null) {
-            scheduleAlarmUseCase(taskId.value, alarm)
+            scheduleAlarmUseCase(taskId.value, alarm.timeInMillis.let {
+                val instant = Instant.fromEpochMilliseconds(it)
+                instant.toLocalDateTime(TimeZone.currentSystemDefault())
+            })
         } else {
             cancelAlarmUseCase(taskId.value)
         }

@@ -2,6 +2,11 @@
 
 package com.escodro.core.extension
 
+import kotlinx.datetime.Instant
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toInstant
+import kotlinx.datetime.toLocalDateTime
 import java.text.DateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -18,4 +23,16 @@ fun Calendar.format(): String {
         Locale.getDefault(),
     )
     return dateFormat.format(time)
+}
+
+// TODO add doc
+fun LocalDateTime.toCalendar(): Calendar {
+    val instant = toInstant(TimeZone.currentSystemDefault()).toEpochMilliseconds()
+    return Calendar.getInstance().apply { timeInMillis = instant }
+}
+
+// TODO add doc
+fun Calendar.toLocalDateTime(): LocalDateTime {
+    val instant = Instant.fromEpochMilliseconds(timeInMillis)
+    return instant.toLocalDateTime(TimeZone.currentSystemDefault())
 }

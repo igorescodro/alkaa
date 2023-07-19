@@ -2,7 +2,7 @@ package com.escodro.domain.usecase.alarm
 
 import com.escodro.domain.interactor.NotificationInteractor
 import com.escodro.domain.repository.TaskRepository
-import mu.KLogging
+import mu.KotlinLogging
 
 /**
  * Use case to show an alarm.
@@ -12,6 +12,8 @@ class ShowAlarm(
     private val notificationInteractor: NotificationInteractor,
     private val scheduleNextAlarm: ScheduleNextAlarm,
 ) {
+
+    private val logger = KotlinLogging.logger {}
 
     /**
      * Shows the alarm.
@@ -33,6 +35,4 @@ class ShowAlarm(
             scheduleNextAlarm(task)
         }
     }
-
-    companion object : KLogging()
 }

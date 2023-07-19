@@ -9,6 +9,7 @@ dependencies {
     implementation(projects.libraries.core)
     implementation(projects.domain)
     implementation(projects.libraries.designsystem)
+    implementation(libs.kotlinx.datetime)
 
     testImplementation(projects.libraries.test)
     androidTestImplementation(projects.libraries.test)

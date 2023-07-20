@@ -132,6 +132,7 @@ dependencies {
 
     implementation(libs.bundles.compose)
     implementation(libs.kotlinx.collections.immutable)
+    implementation(libs.kotlinx.datetime)
 
     androidTestUtil(libs.test.orchestrator)
 

@@ -3,7 +3,7 @@ package com.escodro.domain.usecase.task
 import com.escodro.domain.interactor.AlarmInteractor
 import com.escodro.domain.model.Task
 import com.escodro.domain.repository.TaskRepository
-import mu.KLogging
+import mu.KotlinLogging
 
 /**
  * Use case to delete a task from the database.
@@ -12,6 +12,8 @@ class DeleteTask(
     private val taskRepository: TaskRepository,
     private val alarmInteractor: AlarmInteractor,
 ) {
+
+    private val logger = KotlinLogging.logger {}
 
     /**
      * Deletes a task.
@@ -25,6 +27,4 @@ class DeleteTask(
         taskRepository.deleteTask(task)
         alarmInteractor.cancel(task.id)
     }
-
-    companion object : KLogging()
 }

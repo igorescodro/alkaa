@@ -12,6 +12,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.escodro.alkaa.navigation.NavGraph
 import com.escodro.alkaa.util.WindowSizeClassFake
 import com.escodro.core.extension.getNotificationManager
+import com.escodro.core.extension.toLocalDateTime
 import com.escodro.domain.usecase.alarm.ScheduleAlarm
 import com.escodro.local.model.AlarmInterval
 import com.escodro.local.model.Task
@@ -227,7 +228,7 @@ internal class NotificationFlowTest : KoinTest {
             calendar.add(Calendar.SECOND, 1)
             dueDate = calendar
             daoProvider.getTaskDao().insertTask(this)
-            scheduleAlarm(this.id, this.dueDate!!)
+            scheduleAlarm(this.id, this.dueDate!!.toLocalDateTime())
             this
         }
 
@@ -239,7 +240,7 @@ internal class NotificationFlowTest : KoinTest {
             isRepeating = true
             alarmInterval = AlarmInterval.HOURLY
             daoProvider.getTaskDao().insertTask(this)
-            scheduleAlarm(this.id, this.dueDate!!)
+            scheduleAlarm(this.id, this.dueDate!!.toLocalDateTime())
         }
     }
 }

@@ -15,6 +15,7 @@ import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.plus
 import kotlinx.datetime.toInstant
+import kotlinx.datetime.toLocalDateTime
 import mu.KotlinLogging
 
 /**
@@ -39,17 +40,20 @@ class ScheduleNextAlarm(
         require(task.alarmInterval != null) { "Task has no alarm interval" }
 
         val currentTime = dateTimeProvider.getCurrentInstant()
-        val taskTime = task.dueDate.toInstant(TimeZone.currentSystemDefault())
+        var taskTime = task.dueDate.toInstant(TimeZone.currentSystemDefault())
         do {
-            updatedAlarmTime(taskTime, task.alarmInterval)
+            taskTime = updatedAlarmTime(taskTime, task.alarmInterval)
         } while (currentTime > taskTime)
 
-        taskRepository.updateTask(task)
-        alarmInteractor.schedule(task.id, taskTime.toEpochMilliseconds())
+        val updatedTask =
+            task.copy(dueDate = taskTime.toLocalDateTime(TimeZone.currentSystemDefault()))
+
+        taskRepository.updateTask(updatedTask)
+        alarmInteractor.schedule(updatedTask.id, taskTime.toEpochMilliseconds())
         logger.debug { "ScheduleNextAlarm = Task = '${task.title}' at $taskTime " }
     }
 
-    private fun updatedAlarmTime(instant: Instant, alarmInterval: AlarmInterval) {
+    private fun updatedAlarmTime(instant: Instant, alarmInterval: AlarmInterval): Instant {
         val timeZone = TimeZone.currentSystemDefault()
         val period = when (alarmInterval) {
             HOURLY -> DateTimePeriod(hours = 1)
@@ -58,6 +62,6 @@ class ScheduleNextAlarm(
             MONTHLY -> DateTimePeriod(months = 1)
             YEARLY -> DateTimePeriod(years = 1)
         }
-        instant.plus(period, timeZone)
+        return instant.plus(period, timeZone)
     }
 }

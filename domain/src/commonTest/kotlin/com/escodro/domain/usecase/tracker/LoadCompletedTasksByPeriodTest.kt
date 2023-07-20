@@ -9,8 +9,12 @@ import com.escodro.domain.usecase.fake.TaskWithCategoryRepositoryFake
 import com.escodro.domain.usecase.tracker.implementation.LoadCompletedTasksByPeriodImpl
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
+import kotlinx.datetime.Clock
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.time.Duration.Companion.days
 
 internal class LoadCompletedTasksByPeriodTest {
 
@@ -31,8 +35,9 @@ internal class LoadCompletedTasksByPeriodTest {
         val categoryList = listOf(category1, category2, category3)
         categoryRepository.insertCategory(categoryList)
 
-        val calendarIn = Calendar.getInstance().apply { add(Calendar.DAY_OF_MONTH, -15) }
-        val calendarOut = Calendar.getInstance().apply { add(Calendar.MONTH, -3) }
+        val instant = Clock.System.now()
+        val calendarIn = instant.minus(15.days).toLocalDateTime(TimeZone.currentSystemDefault())
+        val calendarOut = instant.minus(90.days).toLocalDateTime(TimeZone.currentSystemDefault())
 
         val t1 = Task(1, completed = false, title = "A", categoryId = 1)
         val t2 = Task(2, completed = true, title = "2", categoryId = 2, completedDate = calendarIn)
@@ -61,7 +66,8 @@ internal class LoadCompletedTasksByPeriodTest {
         val categoryList = listOf(category1, category2)
         categoryRepository.insertCategory(categoryList)
 
-        val calendarIn = Calendar.getInstance().apply { add(Calendar.DAY_OF_MONTH, -15) }
+        val instant = Clock.System.now()
+        val calendarIn = instant.minus(15.days).toLocalDateTime(TimeZone.currentSystemDefault())
 
         val t1 = Task(1, completed = false, title = "T", categoryId = 1)
         val t2 = Task(2, completed = false, title = "u", categoryId = 1, completedDate = calendarIn)
@@ -81,7 +87,8 @@ internal class LoadCompletedTasksByPeriodTest {
 
     @Test
     fun `test if completed tasks without category are considered`() = runTest {
-        val calendarIn = Calendar.getInstance().apply { add(Calendar.DAY_OF_MONTH, -10) }
+        val instant = Clock.System.now()
+        val calendarIn = instant.minus(10.days).toLocalDateTime(TimeZone.currentSystemDefault())
         val task = Task(3, completed = true, title = "Lonely", completedDate = calendarIn)
         taskRepository.insertTask(task)
 

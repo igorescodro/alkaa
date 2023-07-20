@@ -2,8 +2,8 @@ package com.escodro.domain.usecase.alarm
 
 import com.escodro.domain.model.AlarmInterval
 import com.escodro.domain.model.Task
-import com.escodro.domain.provider.CalendarProviderImpl
 import com.escodro.domain.usecase.fake.AlarmInteractorFake
+import com.escodro.domain.usecase.fake.DateTimeProviderFake
 import com.escodro.domain.usecase.fake.GlanceInteractorFake
 import com.escodro.domain.usecase.fake.NotificationInteractorFake
 import com.escodro.domain.usecase.fake.TaskRepositoryFake
@@ -24,12 +24,12 @@ internal class ShowAlarmTest {
 
     private val notificationInteractor = NotificationInteractorFake()
 
-    private val calendarProvider = CalendarProviderImpl()
+    private val datetimeProvider = DateTimeProviderFake()
 
     private val addTaskUseCase = AddTaskImpl(taskRepository, glanceInteractor)
 
     private val scheduleNextAlarmUseCase =
-        ScheduleNextAlarm(taskRepository, alarmInteractor, calendarProvider)
+        ScheduleNextAlarm(taskRepository, alarmInteractor, datetimeProvider)
 
     private val showAlarmUseCase =
         ShowAlarm(taskRepository, notificationInteractor, scheduleNextAlarmUseCase)
@@ -63,7 +63,7 @@ internal class ShowAlarmTest {
 
     @Test
     fun `test if next alarm is scheduled when task is repeating`() = runTest {
-        val calendar = calendarProvider.getCurrentCalendar()
+        val calendar = datetimeProvider.getCurrentLocalDateTime()
         val task = Task(
             3,
             title = "should repeat",

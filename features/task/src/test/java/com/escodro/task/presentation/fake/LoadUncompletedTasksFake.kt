@@ -7,7 +7,9 @@ import com.escodro.domain.usecase.taskwithcategory.LoadUncompletedTasks
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
-import java.util.Calendar
+import kotlinx.datetime.Clock
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 
 internal class LoadUncompletedTasksFake : LoadUncompletedTasks {
 
@@ -16,9 +18,10 @@ internal class LoadUncompletedTasksFake : LoadUncompletedTasks {
     var throwError: Boolean = false
 
     fun returnDefaultValues() {
+        val currentTime = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
         val task1 = Task(title = "Buy milk", dueDate = null)
-        val task2 = Task(title = "Call Mark", dueDate = Calendar.getInstance())
-        val task3 = Task(title = "Watch Moonlight", dueDate = Calendar.getInstance())
+        val task2 = Task(title = "Call Mark", dueDate = currentTime)
+        val task3 = Task(title = "Watch Moonlight", dueDate = currentTime)
         val task4 = Task(title = "Find Moo")
 
         val category1 = Category(id = 1, name = "Books", color = "#FF0000")

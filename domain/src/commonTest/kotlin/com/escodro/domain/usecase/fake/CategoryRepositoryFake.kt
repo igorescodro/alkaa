@@ -4,17 +4,16 @@ import com.escodro.domain.model.Category
 import com.escodro.domain.repository.CategoryRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
-import java.util.TreeMap
 
 internal class CategoryRepositoryFake : CategoryRepository {
 
-    private val categoryMap: TreeMap<Long, Category> = TreeMap()
+    private val categoryMap: MutableMap<Long, Category> = mutableMapOf()
 
     override suspend fun insertCategory(category: Category) {
         val id = if (category.id == 0L && categoryMap.isEmpty()) {
             1
         } else if (category.id == 0L) {
-            categoryMap.lastKey() + 1
+            categoryMap.entries.maxByOrNull { it.key }?.key?.plus(1) ?: 1
         } else {
             category.id
         }

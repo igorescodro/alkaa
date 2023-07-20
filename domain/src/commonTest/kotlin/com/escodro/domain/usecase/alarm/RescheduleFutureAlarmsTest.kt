@@ -3,16 +3,19 @@ package com.escodro.domain.usecase.alarm
 import com.escodro.domain.model.AlarmInterval
 import com.escodro.domain.model.Task
 import com.escodro.domain.usecase.fake.AlarmInteractorFake
-import com.escodro.domain.usecase.fake.CalendarProviderFake
+import com.escodro.domain.usecase.fake.DateTimeProviderFake
 import com.escodro.domain.usecase.fake.GlanceInteractorFake
 import com.escodro.domain.usecase.fake.TaskRepositoryFake
 import com.escodro.domain.usecase.task.implementation.AddTaskImpl
 import kotlinx.coroutines.test.runTest
-import java.util.Calendar
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 import kotlin.test.BeforeTest
+import kotlin.test.Ignore
 import kotlin.test.Test
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
+import kotlin.time.Duration.Companion.days
 
 internal class RescheduleFutureAlarmsTest {
 
@@ -22,18 +25,18 @@ internal class RescheduleFutureAlarmsTest {
 
     private val glanceInteractor = GlanceInteractorFake()
 
-    private val calendarProvider = CalendarProviderFake()
+    private val dateTimeProvider = DateTimeProviderFake()
 
     private val addTaskUseCase = AddTaskImpl(taskRepository, glanceInteractor)
 
     private val scheduleNextAlarmUseCase =
-        ScheduleNextAlarm(taskRepository, alarmInteractor, calendarProvider)
+        ScheduleNextAlarm(taskRepository, alarmInteractor, dateTimeProvider)
 
     private val rescheduleAlarmsUseCase =
         RescheduleFutureAlarms(
             taskRepository,
             alarmInteractor,
-            calendarProvider,
+            dateTimeProvider,
             scheduleNextAlarmUseCase,
         )
 
@@ -45,8 +48,8 @@ internal class RescheduleFutureAlarmsTest {
 
     @Test
     fun `test if future alarms are rescheduled`() = runTest {
-        val futureCalendar =
-            calendarProvider.getCurrentCalendar().apply { add(Calendar.DAY_OF_MONTH, 15) }
+        val futureCalendar = dateTimeProvider.getCurrentInstant()
+            .plus(15.days).toLocalDateTime(TimeZone.currentSystemDefault())
         val task1 = Task(id = 1, title = "Task 1", dueDate = futureCalendar)
         val task2 = Task(id = 2, title = "Task 2")
         val task3 = Task(id = 3, title = "Task 3", dueDate = futureCalendar)
@@ -66,8 +69,8 @@ internal class RescheduleFutureAlarmsTest {
 
     @Test
     fun `test if completed tasks are not rescheduled`() = runTest {
-        val futureCalendar =
-            calendarProvider.getCurrentCalendar().apply { add(Calendar.DAY_OF_MONTH, 15) }
+        val futureCalendar = dateTimeProvider.getCurrentInstant()
+            .plus(15.days).toLocalDateTime(TimeZone.currentSystemDefault())
         val task1 = Task(id = 1, completed = true, title = "Task 1", dueDate = futureCalendar)
         val task2 = Task(id = 2, completed = true, title = "Task 2", dueDate = futureCalendar)
         val task3 = Task(id = 3, completed = true, title = "Task 3", dueDate = futureCalendar)
@@ -87,14 +90,11 @@ internal class RescheduleFutureAlarmsTest {
 
     @Test
     fun `test if uncompleted tasks on the past are ignored`() = runTest {
-        val pastCalendar = Calendar.getInstance().apply {
-            time = calendarProvider.getCurrentCalendar().time
-            add(Calendar.DAY_OF_MONTH, -15)
-        }
-        val futureCalendar = Calendar.getInstance().apply {
-            time = calendarProvider.getCurrentCalendar().time
-            add(Calendar.DAY_OF_MONTH, 15)
-        }
+        val pastCalendar = dateTimeProvider.getCurrentInstant()
+            .minus(15.days).toLocalDateTime(TimeZone.currentSystemDefault())
+
+        val futureCalendar = dateTimeProvider.getCurrentInstant()
+            .plus(15.days).toLocalDateTime(TimeZone.currentSystemDefault())
 
         val task1 = Task(id = 1, title = "Title", dueDate = pastCalendar)
         val task2 = Task(id = 2, title = "Title", dueDate = pastCalendar)
@@ -115,8 +115,8 @@ internal class RescheduleFutureAlarmsTest {
 
     @Test
     fun `test if missed repeating alarms are rescheduled`() = runTest {
-        val pastCalendar =
-            calendarProvider.getCurrentCalendar().apply { add(Calendar.DAY_OF_MONTH, -1) }
+        val pastCalendar = dateTimeProvider.getCurrentInstant()
+            .minus(1.days).toLocalDateTime(TimeZone.currentSystemDefault())
         val task = Task(
             id = 1,
             title = "lost",

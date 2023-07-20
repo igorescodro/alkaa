@@ -2,15 +2,14 @@ package com.escodro.domain.usecase.fake
 
 import com.escodro.domain.model.Task
 import com.escodro.domain.repository.TaskRepository
-import java.util.TreeMap
 
 internal class TaskRepositoryFake : TaskRepository {
 
-    private val taskMap: TreeMap<Long, Task> = TreeMap()
+    private val taskMap: MutableMap<Long, Task> = mutableMapOf()
 
     override suspend fun insertTask(task: Task) {
         val id = if (task.id == 0L) {
-            taskMap.lastKey() + 1
+            taskMap.entries.maxByOrNull { it.key }?.key?.plus(1) ?: 1
         } else {
             task.id
         }

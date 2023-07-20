@@ -41,4 +41,5 @@ dependencies {
     }
 
     testImplementation(projects.libraries.test)
+    testImplementation(libs.kotlinx.datetime)
 }

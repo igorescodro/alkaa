@@ -8,7 +8,9 @@ import com.escodro.domain.usecase.fake.TaskRepositoryFake
 import com.escodro.domain.usecase.task.implementation.AddTaskImpl
 import com.escodro.domain.usecase.task.implementation.LoadTaskImpl
 import kotlinx.coroutines.test.runTest
-import java.util.Calendar
+import kotlinx.datetime.Clock
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -36,7 +38,7 @@ internal class ScheduleAlarmTest {
     @Test
     fun `test if alarm is scheduled`() = runTest {
         val task = Task(id = 1, title = "I need a alarm here")
-        val alarm = Calendar.getInstance()
+        val alarm = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
         addTaskUseCase(task)
 
         scheduleAlarmUseCase(task.id, alarm)

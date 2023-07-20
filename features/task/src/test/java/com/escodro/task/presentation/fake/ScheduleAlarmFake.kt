@@ -1,19 +1,19 @@
 package com.escodro.task.presentation.fake
 
 import com.escodro.domain.usecase.alarm.ScheduleAlarm
-import java.util.Calendar
+import kotlinx.datetime.LocalDateTime
 
 internal class ScheduleAlarmFake : ScheduleAlarm {
 
-    private val updatedMap = HashMap<Long, Calendar>()
+    private val updatedMap = HashMap<Long, LocalDateTime>()
 
-    override suspend fun invoke(taskId: Long, calendar: Calendar) {
-        updatedMap[taskId] = calendar
+    override suspend fun invoke(taskId: Long, localDateTime: LocalDateTime) {
+        updatedMap[taskId] = localDateTime
     }
 
     fun isAlarmScheduled(taskId: Long): Boolean =
         updatedMap.containsKey(taskId)
 
-    fun getScheduledAlarm(taskId: Long): Calendar? =
+    fun getScheduledAlarm(taskId: Long): LocalDateTime? =
         updatedMap[taskId]
 }

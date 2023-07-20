@@ -25,13 +25,17 @@ fun Calendar.format(): String {
     return dateFormat.format(time)
 }
 
-// TODO add doc
+/**
+ * Converts a [LocalDateTime] to [Calendar] using the current system [TimeZone].
+ */
 fun LocalDateTime.toCalendar(): Calendar {
     val instant = toInstant(TimeZone.currentSystemDefault()).toEpochMilliseconds()
     return Calendar.getInstance().apply { timeInMillis = instant }
 }
 
-// TODO add doc
+/**
+ * Converts a [Calendar] to [LocalDateTime] using the current system [TimeZone].
+ */
 fun Calendar.toLocalDateTime(): LocalDateTime {
     val instant = Instant.fromEpochMilliseconds(timeInMillis)
     return instant.toLocalDateTime(TimeZone.currentSystemDefault())

@@ -31,10 +31,10 @@ internal class LoadCompletedTasksByPeriodImpl(
         val lastMonth = Clock.System.now().minus(LAST_30_DAYS.days)
         val taskDate =
             task.task.completedDate?.toInstant(TimeZone.currentSystemDefault()) ?: return false
-        return taskDate < lastMonth
+        return taskDate > lastMonth
     }
 
     companion object {
-        private const val LAST_30_DAYS = -30
+        private const val LAST_30_DAYS = 30
     }
 }

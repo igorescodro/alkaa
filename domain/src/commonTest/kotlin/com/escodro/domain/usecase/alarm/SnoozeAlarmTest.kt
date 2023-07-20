@@ -2,17 +2,22 @@ package com.escodro.domain.usecase.alarm
 
 import com.escodro.domain.model.Task
 import com.escodro.domain.usecase.fake.AlarmInteractorFake
-import com.escodro.domain.usecase.fake.CalendarProviderFake
+import com.escodro.domain.usecase.fake.DateTimeProviderFake
 import com.escodro.domain.usecase.fake.NotificationInteractorFake
 import kotlinx.coroutines.test.runTest
-import java.util.Calendar
+import kotlinx.datetime.Clock
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toInstant
+import kotlinx.datetime.toLocalDateTime
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
+import kotlin.time.Duration.Companion.minutes
 
 internal class SnoozeAlarmTest {
 
-    private val calendarProvider = CalendarProviderFake()
+    private val calendarProvider = DateTimeProviderFake()
 
     private val notificationInteractor = NotificationInteractorFake()
 
@@ -35,17 +40,19 @@ internal class SnoozeAlarmTest {
 
         snoozeAlarmUseCase(baseTask.id, snoozeTime)
 
-        val calendarAssert = Calendar.getInstance().apply {
-            time = calendarProvider.getCurrentCalendar().time
-            add(Calendar.MINUTE, snoozeTime)
-        }
+        val calendarAssert = calendarProvider.getCurrentInstant().plus(snoozeTime.minutes)
+            .toLocalDateTime(TimeZone.currentSystemDefault())
+
         val result = alarmInteractor.getAlarmTime(baseTask.id)
-        assertEquals(calendarAssert.time.time, result)
+        val assert = calendarAssert.toInstant(TimeZone.currentSystemDefault()).toEpochMilliseconds()
+        assertEquals(assert, result)
     }
 
-    @Test(expected = IllegalArgumentException::class)
+    @Test
     fun `test if error is shown when snoozing with negative number`() = runTest {
-        snoozeAlarmUseCase(baseTask.id, -15)
+        assertFailsWith<IllegalArgumentException> {
+            snoozeAlarmUseCase(baseTask.id, -15)
+        }
     }
 
     @Test

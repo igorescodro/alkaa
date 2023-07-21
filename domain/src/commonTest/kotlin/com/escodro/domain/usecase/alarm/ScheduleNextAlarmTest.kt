@@ -59,7 +59,7 @@ internal class ScheduleNextAlarmTest {
     fun `test if fails if not repeating with valid due date`() = runTest {
         val task = baseTask.copy(
             isRepeating = false,
-            dueDate = datetimeProvider.getCurrentLocalDateTime()
+            dueDate = datetimeProvider.getCurrentLocalDateTime(),
         )
         assertFailsWith<IllegalArgumentException> {
             scheduleNextAlarmUseCase(task)
@@ -170,7 +170,6 @@ internal class ScheduleNextAlarmTest {
             .plus(DateTimePeriod(months = 1), TimeZone.currentSystemDefault())
             .toLocalDateTime(TimeZone.currentSystemDefault())
 
-
         assertEquals(assertCalendar, result.dueDate)
     }
 
@@ -191,7 +190,6 @@ internal class ScheduleNextAlarmTest {
         val assertCalendar = calendar.toInstant(TimeZone.currentSystemDefault())
             .plus(DateTimePeriod(years = 1), TimeZone.currentSystemDefault())
             .toLocalDateTime(TimeZone.currentSystemDefault())
-
 
         assertEquals(assertCalendar, result.dueDate)
     }

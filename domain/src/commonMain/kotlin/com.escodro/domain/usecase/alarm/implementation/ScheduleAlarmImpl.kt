@@ -16,7 +16,7 @@ internal class ScheduleAlarmImpl(
      * Schedules a new alarm.
      *
      * @param taskId the alarm id
-     * @param calendar the time to the alarm be scheduled
+     * @param localDateTime the time to the alarm be scheduled
      */
     override suspend operator fun invoke(taskId: Long, localDateTime: LocalDateTime) {
         val task = taskRepository.findTaskById(taskId) ?: return
@@ -24,7 +24,8 @@ internal class ScheduleAlarmImpl(
         taskRepository.updateTask(updatedTask)
 
         alarmInteractor.schedule(
-            taskId, localDateTime.toInstant(TimeZone.currentSystemDefault()).toEpochMilliseconds()
+            taskId,
+            localDateTime.toInstant(TimeZone.currentSystemDefault()).toEpochMilliseconds(),
         )
     }
 }

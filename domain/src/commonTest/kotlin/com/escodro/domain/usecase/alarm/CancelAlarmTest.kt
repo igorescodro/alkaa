@@ -35,7 +35,7 @@ class CancelAlarmTest {
     }
 
     @Test
-    fun `test if the alarm is canceled`() = runTest {
+    fun test_if_the_alarm_is_canceled() = runTest {
         val task = Task(id = 11, title = "reminder!")
         addTaskUseCase(task)
         cancelAlarmUseCase(task.id)
@@ -44,7 +44,7 @@ class CancelAlarmTest {
     }
 
     @Test
-    fun `test if alarm is removed from task`() = runTest {
+    fun test_if_alarm_is_removed_from_task() = runTest {
         val task = Task(id = 66, title = "tik tok on the clock")
         addTaskUseCase(task)
         cancelAlarmUseCase(task.id)

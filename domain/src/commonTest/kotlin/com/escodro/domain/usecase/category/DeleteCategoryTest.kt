@@ -26,7 +26,7 @@ class DeleteCategoryTest {
     }
 
     @Test
-    fun `test if category is deleted`() = runTest {
+    fun test_if_category_is_deleted() = runTest {
         val category = Category(id = 13, name = "books to read", color = "#FFAA00")
         addCategory(category)
         deleteCategory(category)

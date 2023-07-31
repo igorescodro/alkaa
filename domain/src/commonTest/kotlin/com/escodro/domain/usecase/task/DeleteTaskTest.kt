@@ -35,7 +35,7 @@ internal class DeleteTaskTest {
     }
 
     @Test
-    fun `test if task is deleted`() = runTest {
+    fun test_if_task_is_deleted() = runTest {
         val task = Task(id = 18, title = "coffee time")
         addTaskUseCase(task)
         deleteTaskUseCase(task)
@@ -46,7 +46,7 @@ internal class DeleteTaskTest {
     }
 
     @Test
-    fun `test if the alarm is canceled when the task is completed`() = runTest {
+    fun test_if_the_alarm_is_canceled_when_the_task_is_completed() = runTest {
         val task = Task(id = 19, title = "SOLID basics")
         addTaskUseCase(task)
         deleteTaskUseCase(task)
@@ -55,7 +55,7 @@ internal class DeleteTaskTest {
     }
 
     @Test
-    fun `test if the glance was notified`() = runTest {
+    fun test_if_the_glance_was_notified() = runTest {
         val task = Task(id = 15, title = "this title", description = "this desc")
         addTaskUseCase(task)
 

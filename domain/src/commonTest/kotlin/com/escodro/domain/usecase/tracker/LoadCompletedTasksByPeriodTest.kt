@@ -28,7 +28,7 @@ internal class LoadCompletedTasksByPeriodTest {
     private val loadTrackerUseCase = LoadCompletedTasksByPeriodImpl(taskWithCategoryRepository)
 
     @Test
-    fun `test if completed tasks are returned in group`() = runTest {
+    fun test_if_completed_tasks_are_returned_in_group() = runTest {
         val category1 = Category(1, "Category A", "#FFFFFF")
         val category2 = Category(2, "Category B", "#CCCCCC")
         val category3 = Category(3, "Category C", "#AAAAAA")
@@ -60,7 +60,7 @@ internal class LoadCompletedTasksByPeriodTest {
     }
 
     @Test
-    fun `test if only completed tasks are returned`() = runTest {
+    fun test_if_only_completed_tasks_are_returned() = runTest {
         val category1 = Category(1, "Category A", "#FFFFFF")
         val category2 = Category(2, "Category B", "#CCCCCC")
         val categoryList = listOf(category1, category2)
@@ -86,7 +86,7 @@ internal class LoadCompletedTasksByPeriodTest {
     }
 
     @Test
-    fun `test if completed tasks without category are considered`() = runTest {
+    fun test_if_completed_tasks_without_category_are_considered() = runTest {
         val instant = Clock.System.now()
         val calendarIn = instant.minus(10.days).toLocalDateTime(TimeZone.currentSystemDefault())
         val task = Task(3, completed = true, title = "Lonely", completedDate = calendarIn)

@@ -26,7 +26,7 @@ internal class UpdateCategoryTest {
     }
 
     @Test
-    fun `test if category is updated`() = runTest {
+    fun test_if_category_is_updated() = runTest {
         val category = Category(id = 24, name = "toys", color = "#04206F")
         addCategoryUseCase(category)
 

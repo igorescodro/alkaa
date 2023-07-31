@@ -36,7 +36,7 @@ internal class ScheduleAlarmTest {
     }
 
     @Test
-    fun `test if alarm is scheduled`() = runTest {
+    fun test_if_alarm_is_scheduled() = runTest {
         val task = Task(id = 1, title = "I need a alarm here")
         val alarm = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
         addTaskUseCase(task)

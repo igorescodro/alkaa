@@ -29,7 +29,7 @@ internal class AddTaskTest {
     }
 
     @Test
-    fun `test if task is correctly added`() = runTest {
+    fun test_if_task_is_correctly_added() = runTest {
         val task = Task(id = 15, title = "this title", description = "this desc")
         addTaskUseCase(task)
 
@@ -40,7 +40,7 @@ internal class AddTaskTest {
     }
 
     @Test
-    fun `test if task with empty title is not added`() = runTest {
+    fun test_if_task_with_empty_title_is_not_added() = runTest {
         val task = Task(id = 15, title = " ", description = "this desc")
         addTaskUseCase(task)
 
@@ -50,7 +50,7 @@ internal class AddTaskTest {
     }
 
     @Test
-    fun `test if the glance was notified`() = runTest {
+    fun test_if_the_glance_was_notified() = runTest {
         val task = Task(id = 15, title = "this title", description = "this desc")
         addTaskUseCase(task)
 

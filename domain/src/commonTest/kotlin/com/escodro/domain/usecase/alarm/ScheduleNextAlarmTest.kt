@@ -47,7 +47,7 @@ internal class ScheduleNextAlarmTest {
     }
 
     @Test
-    fun `test if fails if not repeating`() = runTest {
+    fun test_if_fails_if_not_repeating() = runTest {
         val task = baseTask.copy(isRepeating = false)
 
         assertFailsWith<IllegalArgumentException> {
@@ -56,7 +56,7 @@ internal class ScheduleNextAlarmTest {
     }
 
     @Test
-    fun `test if fails if not repeating with valid due date`() = runTest {
+    fun test_if_fails_if_not_repeating_with_valid_due_date() = runTest {
         val task = baseTask.copy(
             isRepeating = false,
             dueDate = datetimeProvider.getCurrentLocalDateTime(),
@@ -67,7 +67,7 @@ internal class ScheduleNextAlarmTest {
     }
 
     @Test
-    fun `test if fails if no due date`() = runTest {
+    fun test_if_fails_if_no_due_date() = runTest {
         val task = baseTask.copy(dueDate = null)
         assertFailsWith<IllegalArgumentException> {
             scheduleNextAlarmUseCase(task)
@@ -75,7 +75,7 @@ internal class ScheduleNextAlarmTest {
     }
 
     @Test
-    fun `test if fails if no due date but it is repeating`() = runTest {
+    fun test_if_fails_if_no_due_date_but_it_is_repeating() = runTest {
         val task = baseTask.copy(isRepeating = true, dueDate = null)
         assertFailsWith<IllegalArgumentException> {
             scheduleNextAlarmUseCase(task)
@@ -83,7 +83,7 @@ internal class ScheduleNextAlarmTest {
     }
 
     @Test
-    fun `test if fails if no alarm interval`() = runTest {
+    fun test_if_fails_if_no_alarm_interval() = runTest {
         val task = baseTask.copy(dueDate = null, alarmInterval = null)
         assertFailsWith<IllegalArgumentException> {
             scheduleNextAlarmUseCase(task)
@@ -91,7 +91,7 @@ internal class ScheduleNextAlarmTest {
     }
 
     @Test
-    fun `test if alarm is updated to next hour`() = runTest {
+    fun test_if_alarm_is_updated_to_next_hour() = runTest {
         val calendar = datetimeProvider.getCurrentLocalDateTime()
         val task = baseTask.copy(
             dueDate = calendar,
@@ -111,7 +111,7 @@ internal class ScheduleNextAlarmTest {
     }
 
     @Test
-    fun `test if alarm is updated to next day`() = runTest {
+    fun test_if_alarm_is_updated_to_next_day() = runTest {
         val calendar = datetimeProvider.getCurrentLocalDateTime()
         val task = baseTask.copy(
             dueDate = calendar,
@@ -132,7 +132,7 @@ internal class ScheduleNextAlarmTest {
     }
 
     @Test
-    fun `test if alarm is updated to next week`() = runTest {
+    fun test_if_alarm_is_updated_to_next_week() = runTest {
         val calendar = datetimeProvider.getCurrentLocalDateTime()
         val task = baseTask.copy(
             dueDate = calendar,
@@ -153,7 +153,7 @@ internal class ScheduleNextAlarmTest {
     }
 
     @Test
-    fun `test if alarm is updated to next month`() = runTest {
+    fun test_if_alarm_is_updated_to_next_month() = runTest {
         val calendar = datetimeProvider.getCurrentLocalDateTime()
         val task = baseTask.copy(
             dueDate = calendar,
@@ -174,7 +174,7 @@ internal class ScheduleNextAlarmTest {
     }
 
     @Test
-    fun `test if alarm is updated to next year`() = runTest {
+    fun test_if_alarm_is_updated_to_next_year() = runTest {
         val calendar = datetimeProvider.getCurrentLocalDateTime()
         val task = baseTask.copy(
             dueDate = calendar,
@@ -195,7 +195,7 @@ internal class ScheduleNextAlarmTest {
     }
 
     @Test
-    fun `test if new alarm is scheduled`() = runTest {
+    fun test_if_new_alarm_is_scheduled() = runTest {
         val task = baseTask.copy(
             isRepeating = true,
             dueDate = datetimeProvider.getCurrentLocalDateTime(),
@@ -209,7 +209,7 @@ internal class ScheduleNextAlarmTest {
     }
 
     @Test
-    fun `test if missed repeating alarm is set on future`() = runTest {
+    fun test_if_missed_repeating_alarm_is_set_on_future() = runTest {
         val pastCalendar = datetimeProvider.getCurrentInstant()
             .minus(5.hours).toLocalDateTime(TimeZone.currentSystemDefault())
 

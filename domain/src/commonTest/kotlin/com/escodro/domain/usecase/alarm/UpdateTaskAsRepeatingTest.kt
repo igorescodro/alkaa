@@ -32,7 +32,7 @@ internal class UpdateTaskAsRepeatingTest {
     }
 
     @Test
-    fun `test if task is updated with new interval`() = runTest {
+    fun test_if_task_is_updated_with_new_interval() = runTest {
         val task = Task(id = 984L, title = "I'll be there for you")
         addTaskUseCase(task)
         val interval = AlarmInterval.WEEKLY
@@ -46,7 +46,7 @@ internal class UpdateTaskAsRepeatingTest {
     }
 
     @Test
-    fun `test if repeating state is cleared when update alarm interval to never`() = runTest {
+    fun test_if_repeating_state_is_cleared_when_update_alarm_interval_to_never() = runTest {
         val task = Task(
             id = 984L,
             title = "nanana",

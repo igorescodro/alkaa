@@ -53,7 +53,7 @@ internal class CompleteTaskTest {
     }
 
     @Test
-    fun `test if a task is updated as completed`() = runTest {
+    fun test_if_a_task_is_updated_as_completed() = runTest {
         val task = Task(id = 18, title = "buy soy milk", completed = false)
         addTaskUseCase(task)
         completeTaskUseCase(task)
@@ -65,7 +65,7 @@ internal class CompleteTaskTest {
     }
 
     @Test
-    fun `test if a task is updated as completed by id`() = runTest {
+    fun test_if_a_task_is_updated_as_completed_by_id() = runTest {
         val task = Task(id = 17, title = "change smartphone", completed = false)
         addTaskUseCase(task)
         completeTaskUseCase(task.id)
@@ -77,7 +77,7 @@ internal class CompleteTaskTest {
     }
 
     @Test
-    fun `test if a task is updated as uncompleted`() = runTest {
+    fun test_if_a_task_is_updated_as_uncompleted() = runTest {
         val task = Task(id = 18, title = "buy soy milk", completed = false)
         addTaskUseCase(task)
         uncompleteTaskUseCase(task)
@@ -89,7 +89,7 @@ internal class CompleteTaskTest {
     }
 
     @Test
-    fun `test if the completed status is inverted`() = runTest {
+    fun test_if_the_completed_status_is_inverted() = runTest {
         val task1 = Task(id = 99, title = "watch tech talk", completed = true)
         val task2 = Task(id = 88, title = "write paper", completed = false)
 
@@ -109,7 +109,7 @@ internal class CompleteTaskTest {
     }
 
     @Test
-    fun `test if the alarm is canceled when the task is completed`() = runTest {
+    fun test_if_the_alarm_is_canceled_when_the_task_is_completed() = runTest {
         val task = Task(id = 19, title = "sato's meeting", completed = false)
         addTaskUseCase(task)
         completeTaskUseCase(task)
@@ -118,7 +118,7 @@ internal class CompleteTaskTest {
     }
 
     @Test
-    fun `test if the notification is dismissed when the task is completed`() = runTest {
+    fun test_if_the_notification_is_dismissed_when_the_task_is_completed() = runTest {
         val task = Task(id = 20, title = "scrum master dog", completed = false)
         addTaskUseCase(task)
         completeTaskUseCase(task)
@@ -127,7 +127,7 @@ internal class CompleteTaskTest {
     }
 
     @Test
-    fun `test if the glance was notified`() = runTest {
+    fun test_if_the_glance_was_notified() = runTest {
         val task = Task(id = 15, title = "this title", description = "this desc")
         addTaskUseCase(task)
 

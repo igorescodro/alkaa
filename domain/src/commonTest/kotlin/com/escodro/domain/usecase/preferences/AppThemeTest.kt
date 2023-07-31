@@ -16,7 +16,7 @@ internal class AppThemeTest {
     private val loadAppTheme = LoadAppTheme(preferencesRepository)
 
     @Test
-    fun `test if theme is updated`() = runTest {
+    fun test_if_theme_is_updated() = runTest {
         updateAppTheme(AppThemeOptions.DARK)
 
         val result = loadAppTheme().first()
@@ -25,7 +25,7 @@ internal class AppThemeTest {
     }
 
     @Test
-    fun `test if last updated theme is the one valid`() = runTest {
+    fun test_if_last_updated_theme_is_the_one_valid() = runTest {
         updateAppTheme(AppThemeOptions.LIGHT)
         updateAppTheme(AppThemeOptions.SYSTEM)
         updateAppTheme(AppThemeOptions.DARK)

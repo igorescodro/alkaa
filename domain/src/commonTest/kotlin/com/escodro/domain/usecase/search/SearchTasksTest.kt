@@ -31,7 +31,7 @@ internal class SearchTasksTest {
     }
 
     @Test
-    fun `test if search returns correct tasks`() = runTest {
+    fun test_if_search_returns_correct_tasks() = runTest {
         val query = "birthday"
         val taskList = searchTaskUseCase(query).first()
 
@@ -43,13 +43,13 @@ internal class SearchTasksTest {
     }
 
     @Test
-    fun `test if return list is empty when query is not found`() = runTest {
+    fun test_if_return_list_is_empty_when_query_is_not_found() = runTest {
         val taskList = searchTaskUseCase("pineapple")
         assertEquals(0, taskList.first().size)
     }
 
     @Test
-    fun `test if all tasks are returned when empty query is passed`() = runTest {
+    fun test_if_all_tasks_are_returned_when_empty_query_is_passed() = runTest {
         val taskList = searchTaskUseCase("")
         assertEquals(4, taskList.first().size)
     }

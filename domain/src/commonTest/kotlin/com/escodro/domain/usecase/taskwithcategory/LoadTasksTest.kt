@@ -49,7 +49,7 @@ internal class LoadTasksTest {
     }
 
     @Test
-    fun `test if completed tasks are filtered`() = runTest {
+    fun test_if_completed_tasks_are_filtered() = runTest {
         val completedTasks = loadCompletedTasksUseCase().first()
 
         assertEquals(2, completedTasks.size)
@@ -59,7 +59,7 @@ internal class LoadTasksTest {
     }
 
     @Test
-    fun `test if uncompleted tasks are filtered`() = runTest {
+    fun test_if_uncompleted_tasks_are_filtered() = runTest {
         val uncompletedTasks = loadUncompletedTasksUseCase().first()
 
         assertEquals(2, uncompletedTasks.size)
@@ -69,7 +69,7 @@ internal class LoadTasksTest {
     }
 
     @Test
-    fun `test if uncompleted tasks are filtered by category`() = runTest {
+    fun test_if_uncompleted_tasks_are_filtered_by_category() = runTest {
         val uncompletedTasksByCategory = loadUncompletedTasksUseCase(2L).first()
 
         assertEquals(1, uncompletedTasksByCategory.size)

@@ -42,7 +42,7 @@ internal class ShowAlarmTest {
     }
 
     @Test
-    fun `test if alarm is shown when task is not yet completed`() = runTest {
+    fun test_if_alarm_is_shown_when_task_is_not_yet_completed() = runTest {
         val task = Task(1, title = "should show", completed = false)
         addTaskUseCase(task)
 
@@ -52,7 +52,7 @@ internal class ShowAlarmTest {
     }
 
     @Test
-    fun `test if alarm is ignored when task is already completed`() = runTest {
+    fun test_if_alarm_is_ignored_when_task_is_already_completed() = runTest {
         val task = Task(2, title = "should not show", completed = true)
         addTaskUseCase(task)
 
@@ -62,7 +62,7 @@ internal class ShowAlarmTest {
     }
 
     @Test
-    fun `test if next alarm is scheduled when task is repeating`() = runTest {
+    fun test_if_next_alarm_is_scheduled_when_task_is_repeating() = runTest {
         val calendar = datetimeProvider.getCurrentLocalDateTime()
         val task = Task(
             3,
@@ -79,7 +79,7 @@ internal class ShowAlarmTest {
     }
 
     @Test
-    fun `test if next alarm is not scheduled when task is not repeating`() = runTest {
+    fun test_if_next_alarm_is_not_scheduled_when_task_is_not_repeating() = runTest {
         val task = Task(4, title = "should not repeat", isRepeating = false)
         addTaskUseCase(task)
 
@@ -89,7 +89,7 @@ internal class ShowAlarmTest {
     }
 
     @Test
-    fun `test if next alarm is not scheduled when task is completed`() = runTest {
+    fun test_if_next_alarm_is_not_scheduled_when_task_is_completed() = runTest {
         val task = Task(4, title = "it is already completed", isRepeating = true, completed = true)
         addTaskUseCase(task)
 

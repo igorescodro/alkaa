@@ -34,7 +34,7 @@ internal class SnoozeAlarmTest {
     }
 
     @Test
-    fun `test if task is snoozed`() = runTest {
+    fun test_if_task_is_snoozed() = runTest {
         val snoozeTime = 15
 
         snoozeAlarmUseCase(baseTask.id, snoozeTime)
@@ -48,14 +48,14 @@ internal class SnoozeAlarmTest {
     }
 
     @Test
-    fun `test if error is shown when snoozing with negative number`() = runTest {
+    fun test_if_error_is_shown_when_snoozing_with_negative_number() = runTest {
         assertFailsWith<IllegalArgumentException> {
             snoozeAlarmUseCase(baseTask.id, -15)
         }
     }
 
     @Test
-    fun `test if notification is dismissed`() {
+    fun test_if_notification_is_dismissed() {
         notificationInteractor.show(baseTask)
 
         snoozeAlarmUseCase(baseTask.id, 15)

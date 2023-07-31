@@ -42,7 +42,7 @@ internal class UpdateTaskTest {
     }
 
     @Test
-    fun `test if task is updated`() = runTest {
+    fun test_if_task_is_updated() = runTest {
         val task = Task(id = 15, title = "its funny", description = "indeed")
         addTaskUseCase(task)
 
@@ -54,7 +54,7 @@ internal class UpdateTaskTest {
     }
 
     @Test
-    fun `test if task title is updated`() = runTest {
+    fun test_if_task_title_is_updated() = runTest {
         val task = Task(id = 15, title = "its funny", description = "indeed")
         addTaskUseCase(task)
 
@@ -66,7 +66,7 @@ internal class UpdateTaskTest {
     }
 
     @Test
-    fun `test if task description is updated`() = runTest {
+    fun test_if_task_description_is_updated() = runTest {
         val task = Task(id = 15, title = "its funny", description = "indeed")
         addTaskUseCase(task)
 
@@ -78,7 +78,7 @@ internal class UpdateTaskTest {
     }
 
     @Test
-    fun `test if task category is updated`() = runTest {
+    fun test_if_task_category_is_updated() = runTest {
         val task = Task(id = 15, title = "its funny", categoryId = null)
         addTaskUseCase(task)
 
@@ -90,7 +90,7 @@ internal class UpdateTaskTest {
     }
 
     @Test
-    fun `test if the glance was notified`() = runTest {
+    fun test_if_the_glance_was_notified() = runTest {
         val task = Task(id = 15, title = "this title", description = "this desc")
         addTaskUseCase(task)
 

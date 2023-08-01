@@ -177,8 +177,10 @@ private fun TaskTitleTextField(text: String, onTitleChange: (String) -> Unit) {
             textState.value = it
         },
         textStyle = MaterialTheme.typography.headlineMedium,
-        colors = TextFieldDefaults.textFieldColors(
-            containerColor = MaterialTheme.colorScheme.surface,
+        colors = TextFieldDefaults.colors(
+            focusedContainerColor = MaterialTheme.colorScheme.surface,
+            unfocusedContainerColor = MaterialTheme.colorScheme.surface,
+            disabledContainerColor = MaterialTheme.colorScheme.surface,
         ),
     )
 }
@@ -202,8 +204,10 @@ private fun TaskDescriptionTextField(text: String?, onDescriptionChange: (String
             textState.value = it
         },
         textStyle = MaterialTheme.typography.bodyLarge,
-        colors = TextFieldDefaults.textFieldColors(
-            containerColor = MaterialTheme.colorScheme.surface,
+        colors = TextFieldDefaults.colors(
+            focusedContainerColor = MaterialTheme.colorScheme.surface,
+            unfocusedContainerColor = MaterialTheme.colorScheme.surface,
+            disabledContainerColor = MaterialTheme.colorScheme.surface,
         ),
     )
 }

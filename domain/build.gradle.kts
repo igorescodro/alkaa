@@ -47,8 +47,8 @@ kotlin {
 
 android {
     namespace = "com.escodro.domain"
-    compileSdk = 33 // TODO move the versions to TOML and use it here
+    compileSdk = Integer.parseInt(libs.versions.android.sdk.compile.get())
     defaultConfig {
-        minSdk = 24 // TODO move the versions to TOML and use it here
+        minSdk = Integer.parseInt(libs.versions.android.sdk.min.get())
     }
 }

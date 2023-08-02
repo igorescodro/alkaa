@@ -1,7 +1,12 @@
 [versions]
 # Project
+version_code = "20207"
+version_name = "2.2.7"
 android_gradle_plugin = "8.1.0"
 kotlin = "1.8.20"
+android_sdk_compile = "33"
+android_sdk_target = "33"
+android_sdk_min = "24"
 
 # Plugins
 ksp = "1.8.22-1.0.11"

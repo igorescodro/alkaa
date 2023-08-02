@@ -12,12 +12,12 @@ plugins {
 android {
     defaultConfig {
         applicationId = "com.escodro.alkaa"
-        versionCode = AlkaaVersions.versionCode
-        versionName = AlkaaVersions.versionName
+        versionCode = Integer.parseInt(libs.versions.version.code.get())
+        versionName = libs.versions.version.name.get()
 
-        compileSdk = AlkaaVersions.compileSdk
-        minSdk = AlkaaVersions.minSdk
-        targetSdk = AlkaaVersions.targetSdk
+        compileSdk = Integer.parseInt(libs.versions.android.sdk.compile.get())
+        minSdk = Integer.parseInt(libs.versions.android.sdk.min.get())
+        targetSdk = Integer.parseInt(libs.versions.android.sdk.target.get())
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         setProperty("archivesBaseName", "${parent?.name}-$versionName")
@@ -55,8 +55,8 @@ android {
     setDynamicFeatures(setOf(":features:tracker"))
 
     compileOptions {
-        sourceCompatibility = AlkaaVersions.javaCompileVersion
-        targetCompatibility = AlkaaVersions.javaCompileVersion
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     buildFeatures {

@@ -6,7 +6,7 @@ import com.android.build.api.dsl.LibraryExtension
 import composeVersion
 import org.gradle.api.artifacts.VersionCatalog
 
-fun CommonExtension<*, *, *, *>.androidConfig() {
+fun CommonExtension<*, *, *, *, *>.androidConfig() {
     defaultConfig {
         compileSdk = AlkaaVersions.compileSdk
         minSdk = AlkaaVersions.minSdk
@@ -18,7 +18,7 @@ fun CommonExtension<*, *, *, *>.androidConfig() {
     }
 }
 
-fun CommonExtension<*, *, *, *>.composeConfig(libs: VersionCatalog) {
+fun CommonExtension<*, *, *, *, *>.composeConfig(libs: VersionCatalog) {
     buildFeatures {
         compose = true
     }

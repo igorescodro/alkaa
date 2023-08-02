@@ -1,15 +1,14 @@
 package extension
 
-import AlkaaVersions
 import com.android.build.api.dsl.CommonExtension
 import com.android.build.api.dsl.LibraryExtension
-import composeVersion
 import org.gradle.api.artifacts.VersionCatalog
 
-fun CommonExtension<*, *, *, *>.androidConfig() {
+fun CommonExtension<*, *, *, *>.androidConfig(libs: VersionCatalog) {
+
     defaultConfig {
-        compileSdk = AlkaaVersions.compileSdk
-        minSdk = AlkaaVersions.minSdk
+        compileSdk = Integer.parseInt(libs.sdkCompile)
+        minSdk = Integer.parseInt(libs.sdkMin)
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 

@@ -9,7 +9,7 @@ plugins {
 val libs: VersionCatalog = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
 android {
-    androidConfig()
+    androidConfig(libs)
 }
 
 dependencies {

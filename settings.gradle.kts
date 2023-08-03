@@ -8,7 +8,6 @@ include(":features:preference")
 include(":features:tracker")
 include(":features:search")
 include(":features:glance")
-include(":domain")
 include(":data:repository")
 include(":data:local")
 include(":data:datastore")
@@ -17,6 +16,8 @@ include(":libraries:test")
 include(":libraries:splitInstall")
 include(":libraries:designsystem")
 include(":libraries:navigation")
+
+include(":domain")
 
 pluginManagement {
     repositories {

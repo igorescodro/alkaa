@@ -11,7 +11,7 @@ android {
         kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
     }
 
-    packagingOptions {
+    packaging {
         resources.excludes.apply {
             add("META-INF/AL2.0")
             add("META-INF/LGPL2.1")
@@ -41,4 +41,5 @@ dependencies {
     }
 
     testImplementation(projects.libraries.test)
+    testImplementation(libs.kotlinx.datetime)
 }

@@ -1,15 +1,14 @@
 package extension
 
-import AlkaaVersions
 import com.android.build.api.dsl.CommonExtension
 import com.android.build.api.dsl.LibraryExtension
-import composeVersion
 import org.gradle.api.artifacts.VersionCatalog
 
-fun CommonExtension<*, *, *, *>.androidConfig() {
+fun CommonExtension<*, *, *, *>.androidConfig(libs: VersionCatalog) {
+
     defaultConfig {
-        compileSdk = AlkaaVersions.compileSdk
-        minSdk = AlkaaVersions.minSdk
+        compileSdk = Integer.parseInt(libs.sdkCompile)
+        minSdk = Integer.parseInt(libs.sdkMin)
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -27,7 +26,7 @@ fun CommonExtension<*, *, *, *>.composeConfig(libs: VersionCatalog) {
         kotlinCompilerExtensionVersion = libs.composeVersion
     }
 
-    packagingOptions {
+    packaging {
         resources.excludes.apply {
             add("META-INF/AL2.0")
             add("META-INF/LGPL2.1")

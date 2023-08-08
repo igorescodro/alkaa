@@ -26,6 +26,7 @@ dependencies {
     api(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
     ksp(libs.androidx.room.compiler)
+    implementation(libs.kotlinx.datetime)
 
     androidTestImplementation(libs.test.junitext)
     androidTestImplementation(libs.test.runner)

@@ -1,6 +1,6 @@
 package com.escodro.repository.model
 
-import java.util.Calendar
+import kotlinx.datetime.LocalDateTime
 
 /**
  * Data class to represent a Task.
@@ -22,9 +22,9 @@ data class Task(
     val title: String,
     val description: String?,
     val categoryId: Long? = null,
-    val dueDate: Calendar? = null,
-    val creationDate: Calendar? = null,
-    val completedDate: Calendar? = null,
+    val dueDate: LocalDateTime? = null,
+    val creationDate: LocalDateTime? = null,
+    val completedDate: LocalDateTime? = null,
     val isRepeating: Boolean = false,
     val alarmInterval: AlarmInterval? = null,
 )

@@ -12,7 +12,7 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 
-private val AlkaaLightColorScheme = lightColorScheme(
+val AlkaaLightColorScheme = lightColorScheme(
 
     primary = md_theme_light_primary,
     onPrimary = md_theme_light_onPrimary,
@@ -40,7 +40,7 @@ private val AlkaaLightColorScheme = lightColorScheme(
     inverseOnSurface = md_theme_light_inverseOnSurface,
     inverseSurface = md_theme_light_inverseSurface,
 )
-private val AlkaaDarkColorScheme = darkColorScheme(
+val AlkaaDarkColorScheme = darkColorScheme(
 
     primary = md_theme_dark_primary,
     onPrimary = md_theme_dark_onPrimary,

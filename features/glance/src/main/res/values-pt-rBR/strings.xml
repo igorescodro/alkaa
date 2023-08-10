@@ -5,4 +5,6 @@
     <string name="glance_list_preview_item_1">Comprar leite</string>
     <string name="glance_list_preview_item_2">Assistir Ponyo</string>
     <string name="glance_list_preview_item_3">Ouvir Local Natives</string>
+    <string name="glance_heading">Sua tarefa</string>
+    <string name="glance_no_tasks">Nenhuma Tarefa</string>
 </resources>

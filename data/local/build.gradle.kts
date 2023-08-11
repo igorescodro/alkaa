@@ -23,14 +23,10 @@ dependencies {
     implementation(projects.data.repository)
 
     implementation(libs.koin.core)
-    api(libs.androidx.room.runtime)
-    implementation(libs.androidx.room.ktx)
-    ksp(libs.androidx.room.compiler)
     implementation(libs.kotlinx.datetime)
 
     androidTestImplementation(libs.test.junitext)
     androidTestImplementation(libs.test.runner)
-    androidTestImplementation(libs.androidx.room.test)
 
     testImplementation(libs.test.junit)
     testImplementation(libs.test.mockk)

@@ -1,25 +1,17 @@
 package com.escodro.local.dao
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy.Companion.REPLACE
-import androidx.room.Query
-import androidx.room.Update
-import com.escodro.local.model.Task
+import com.escodro.local.Task
 
 /**
  * DAO class to handle all [Task]-related database operations.
  */
-@Dao
-interface TaskDao {
+internal interface TaskDao {
 
     /**
      * Inserts a new task.
      *
      * @param task task to be added
      */
-    @Insert(onConflict = REPLACE)
     suspend fun insertTask(task: Task)
 
     /**
@@ -27,7 +19,6 @@ interface TaskDao {
      *
      * @param task task to be updated
      */
-    @Update
     suspend fun updateTask(task: Task)
 
     /**
@@ -35,13 +26,11 @@ interface TaskDao {
      *
      * @param task task to be deleted
      */
-    @Delete
     suspend fun deleteTask(task: Task)
 
     /**
      * Cleans the entire table.
      */
-    @Query("DELETE FROM task")
     suspend fun cleanTable()
 
     /**
@@ -49,7 +38,6 @@ interface TaskDao {
      *
      * @return all inserted tasks with due date
      */
-    @Query("SELECT * FROM task where task_due_date is not null")
     suspend fun findAllTasksWithDueDate(): List<Task>
 
     /**
@@ -59,6 +47,5 @@ interface TaskDao {
      *
      * @return selected task
      */
-    @Query("SELECT * FROM task WHERE task_id = :taskId")
     suspend fun getTaskById(taskId: Long): Task?
 }

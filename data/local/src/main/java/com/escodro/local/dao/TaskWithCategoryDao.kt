@@ -1,14 +1,11 @@
 package com.escodro.local.dao
 
-import androidx.room.Dao
-import androidx.room.Query
 import com.escodro.local.model.TaskWithCategory
 import kotlinx.coroutines.flow.Flow
 
 /**
  * DAO class to handle all [TaskWithCategory]-related database operations.
  */
-@Dao
 interface TaskWithCategoryDao {
 
     /**
@@ -16,10 +13,6 @@ interface TaskWithCategoryDao {
      *
      * @return all inserted tasks with category
      */
-    @Query(
-        """SELECT * FROM task
-            LEFT JOIN category ON task_category_id = category_id""",
-    )
     fun findAllTasksWithCategory(): Flow<List<TaskWithCategory>>
 
     /**
@@ -29,11 +22,6 @@ interface TaskWithCategoryDao {
      *
      * @return all inserted tasks with category
      */
-    @Query(
-        """SELECT * FROM task
-            LEFT JOIN category ON task_category_id = category_id
-            WHERE task_category_id = :categoryId""",
-    )
     fun findAllTasksWithCategoryId(categoryId: Long): Flow<List<TaskWithCategory>>
 
     /**
@@ -43,12 +31,5 @@ interface TaskWithCategoryDao {
      *
      * @return the list of tasks that match the given query
      */
-    @Query(
-        """SELECT * FROM task
-            LEFT JOIN category ON task_category_id = category_id
-            WHERE task_title LIKE :query
-            ORDER BY task_is_completed
-        """,
-    )
     fun findTaskByName(query: String): Flow<List<TaskWithCategory>>
 }

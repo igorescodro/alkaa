@@ -1,15 +1,15 @@
 package com.escodro.local.model
 
-import androidx.room.Embedded
-import androidx.room.Entity
+import com.escodro.local.Category
+import com.escodro.local.Task
 
 /**
- * [Entity] to represent a wrapper of [Task] and [Category].
+ * Custom entity to represent a wrapper of [Task] and [Category].
  *
  * @property task the associated task
  * @property category the associated category
  */
 data class TaskWithCategory(
-    @Embedded val task: Task,
-    @Embedded val category: Category? = null,
+    val task: Task,
+    val category: Category? = null,
 )

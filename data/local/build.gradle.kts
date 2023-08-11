@@ -28,9 +28,6 @@ dependencies {
     implementation(libs.koin.core)
     implementation(libs.kotlinx.datetime)
 
-    androidTestImplementation(libs.test.junitext)
-    androidTestImplementation(libs.test.runner)
-
     testImplementation(libs.test.junit)
     testImplementation(libs.test.mockk)
     testImplementation(libs.kotlinx.coroutines.test)

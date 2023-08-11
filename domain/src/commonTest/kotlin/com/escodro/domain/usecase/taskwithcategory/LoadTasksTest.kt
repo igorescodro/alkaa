@@ -32,7 +32,8 @@ internal class LoadTasksTest {
     fun setup() = runTest {
         val category1 = Category(id = 1, name = "cat1", color = "#FFFFFF")
         val category2 = Category(id = 2, name = "cat2", color = "#000000")
-        categoryRepository.insertCategory(listOf(category1, category2))
+        val categoryList = listOf(category1, category2)
+        categoryList.forEach { categoryRepository.insertCategory(it) }
 
         val task1 = Task(1, title = "Task 1", completed = false, categoryId = category2.id)
         val task2 = Task(2, title = "Task 2", completed = true, categoryId = category2.id)

@@ -21,10 +21,6 @@ internal class CategoryRepositoryFake : CategoryRepository {
         categoryMap[id] = category
     }
 
-    override suspend fun insertCategory(categoryList: List<Category>) {
-        categoryList.forEach { category -> insertCategory(category) }
-    }
-
     override suspend fun updateCategory(category: Category) {
         categoryMap[category.id] = category
     }

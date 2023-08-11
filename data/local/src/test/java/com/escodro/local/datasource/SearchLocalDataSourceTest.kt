@@ -1,7 +1,7 @@
 package com.escodro.local.datasource
 
+import com.escodro.local.dao.TaskWithCategoryDao
 import com.escodro.local.mapper.TaskWithCategoryMapper
-import com.escodro.local.provider.DaoProvider
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
@@ -12,21 +12,21 @@ import org.junit.Test
 
 internal class SearchLocalDataSourceTest {
 
-    private val mockDaoProvider = mockk<DaoProvider>(relaxed = true)
+    private val mockTaskWithCategoryDao = mockk<TaskWithCategoryDao>(relaxed = true)
 
     private val mockMapper = mockk<TaskWithCategoryMapper>(relaxed = true)
 
-    private val dataSource = SearchLocalDataSource(mockDaoProvider, mockMapper)
+    private val dataSource = SearchLocalDataSource(mockTaskWithCategoryDao, mockMapper)
 
     @Before
     fun setup() {
-        coEvery { mockDaoProvider.getTaskWithCategoryDao().findTaskByName(any()) } returns flow { }
+        coEvery { mockTaskWithCategoryDao.findTaskByName(any()) } returns flow { }
     }
 
     @Test
     fun `check if the query is enclosed with percent char`() = runTest {
         val query = "name"
         dataSource.findTaskByName(query)
-        coVerify { mockDaoProvider.getTaskWithCategoryDao().findTaskByName("%$query%") }
+        coVerify { mockTaskWithCategoryDao.findTaskByName("%$query%") }
     }
 }

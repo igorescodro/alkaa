@@ -1,6 +1,6 @@
 package com.escodro.local.mapper
 
-import com.escodro.local.model.Category as LocalCategory
+import com.escodro.local.Category as LocalCategory
 import com.escodro.repository.model.Category as RepoCategory
 
 /**
@@ -17,9 +17,9 @@ internal class CategoryMapper {
      */
     fun fromRepo(repoCategory: RepoCategory): LocalCategory =
         LocalCategory(
-            id = repoCategory.id,
-            name = repoCategory.name,
-            color = repoCategory.color,
+            category_id = repoCategory.id,
+            category_name = repoCategory.name,
+            category_color = repoCategory.color,
         )
 
     /**
@@ -41,9 +41,9 @@ internal class CategoryMapper {
      */
     fun toRepo(localCategory: LocalCategory): RepoCategory =
         RepoCategory(
-            id = localCategory.id,
-            name = localCategory.name,
-            color = localCategory.color,
+            id = localCategory.category_id,
+            name = localCategory.category_name,
+            color = localCategory.category_color,
         )
 
     /**

@@ -16,13 +16,6 @@ interface CategoryRepository {
     suspend fun insertCategory(category: Category)
 
     /**
-     * Inserts a new category list.
-     *
-     * @param categoryList list of category to be added
-     */
-    suspend fun insertCategory(categoryList: List<Category>)
-
-    /**
      * Updates the given category.
      *
      * @param category category to be updated

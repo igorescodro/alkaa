@@ -1,17 +1,17 @@
 package com.escodro.local.datasource
 
+import com.escodro.local.dao.TaskDao
 import com.escodro.local.mapper.TaskMapper
-import com.escodro.local.provider.DaoProvider
 import com.escodro.repository.datasource.TaskDataSource
 import com.escodro.repository.model.Task
 
 /**
  * Local implementation of [TaskDataSource].
  */
-internal class TaskLocalDataSource(daoProvider: DaoProvider, private val taskMapper: TaskMapper) :
-    TaskDataSource {
-
-    private val taskDao = daoProvider.getTaskDao()
+internal class TaskLocalDataSource(
+    private val taskDao: TaskDao,
+    private val taskMapper: TaskMapper,
+) : TaskDataSource {
 
     override suspend fun insertTask(task: Task) =
         taskDao.insertTask(taskMapper.toLocal(task))

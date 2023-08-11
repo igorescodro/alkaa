@@ -1,0 +1,57 @@
+import com.escodro.local.model.AlarmInterval;
+import kotlin.Boolean;
+import kotlinx.datetime.LocalDateTime;
+
+CREATE TABLE IF NOT EXISTS Task (
+`task_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+`task_is_completed` INTEGER AS Boolean NOT NULL,
+`task_title` TEXT NOT NULL,
+`task_description` TEXT,
+`task_category_id` INTEGER,
+`task_due_date` INTEGER AS LocalDateTime,
+`task_creation_date` INTEGER AS LocalDateTime,
+`task_completed_date` INTEGER AS LocalDateTime,
+`task_is_repeating` INTEGER AS Boolean NOT NULL,
+`task_alarm_interval` INTEGER AS AlarmInterval,
+FOREIGN KEY(`task_category_id`) REFERENCES `Category`(`category_id`) ON UPDATE NO ACTION ON DELETE CASCADE
+);
+
+CREATE INDEX IF NOT EXISTS `index_Task_task_category_id` ON Task (`task_category_id`);
+
+insert:
+INSERT INTO Task (
+task_is_completed,
+task_title,
+task_description,
+task_category_id,
+task_due_date,
+task_creation_date,
+task_completed_date,
+task_is_repeating,
+task_alarm_interval
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+update:
+UPDATE Task
+SET task_is_completed = ?,
+task_title = ?,
+task_description = ?,
+task_category_id = ?,
+task_due_date = ?,
+task_creation_date = ?,
+task_completed_date = ?,
+task_is_repeating = ?,
+task_alarm_interval = ?
+WHERE task_id = ?;
+
+delete:
+DELETE FROM Task WHERE task_id = ?;
+
+cleanTable:
+DELETE FROM Task;
+
+selectAllTasksWithDueDate:
+SELECT * FROM Task WHERE task_due_date IS NOT NULL;
+
+selectTaskById:
+SELECT * FROM Task WHERE task_id = ?;

@@ -55,6 +55,9 @@ koin_android = "3.4.3"
 # Accompanist
 accompanist = "0.30.1"
 
+# SQLDelight
+sqldelight = "2.0.0"
+
 # Test
 test_junit = "4.13.2"
 test_runner = "1.5.2"
@@ -125,6 +128,10 @@ accompanist_animation = { module = "com.google.accompanist:accompanist-navigatio
 accompanist_permission = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanist" }
 accompanist_material = { module = "com.google.accompanist:accompanist-navigation-material", version.ref = "accompanist" }
 
+# SQLDelight
+sqldelight_driver = { module = "app.cash.sqldelight:android-driver", version.ref = "sqldelight" }
+sqldelight_coroutines = { module = "app.cash.sqldelight:coroutines-extensions", version.ref = "sqldelight" }
+
 # Test
 test_junit = { module = "junit:junit", version.ref = "test_junit" }
 test_runner = { module = "androidx.test:runner", version.ref = "test_runner" }
@@ -153,4 +160,5 @@ composetest = ["compose.uitest", "compose.junit4", "compose.manifest"]
 kotlin_serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 dependencyanalysis = { id = "com.autonomousapps.dependency-analysis", version.ref = "dependencyanalysis" }
+sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
 

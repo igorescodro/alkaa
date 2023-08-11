@@ -1,0 +1,2 @@
+ALTER TABLE Task ADD COLUMN task_creation_date INTEGER;
+ALTER TABLE Task ADD COLUMN task_completed_date INTEGER;

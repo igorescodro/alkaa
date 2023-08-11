@@ -1,8 +1,6 @@
 package com.escodro.local.mapper
 
-import com.escodro.core.extension.toCalendar
-import com.escodro.core.extension.toLocalDateTime
-import com.escodro.local.model.Task as LocalTask
+import com.escodro.local.Task as LocalTask
 import com.escodro.repository.model.Task as RepoTask
 
 /**
@@ -19,16 +17,16 @@ internal class TaskMapper(private val alarmIntervalMapper: AlarmIntervalMapper) 
      */
     fun toLocal(repoTask: RepoTask): LocalTask =
         LocalTask(
-            id = repoTask.id,
-            completed = repoTask.completed,
-            title = repoTask.title,
-            description = repoTask.description,
-            categoryId = repoTask.categoryId,
-            dueDate = repoTask.dueDate?.toCalendar(),
-            creationDate = repoTask.creationDate?.toCalendar(),
-            completedDate = repoTask.completedDate?.toCalendar(),
-            isRepeating = repoTask.isRepeating,
-            alarmInterval = repoTask.alarmInterval?.let { alarmIntervalMapper.toLocal(it) },
+            task_id = repoTask.id,
+            task_is_completed = repoTask.completed,
+            task_title = repoTask.title,
+            task_description = repoTask.description,
+            task_category_id = repoTask.categoryId,
+            task_due_date = repoTask.dueDate,
+            task_creation_date = repoTask.creationDate,
+            task_completed_date = repoTask.completedDate,
+            task_is_repeating = repoTask.isRepeating,
+            task_alarm_interval = repoTask.alarmInterval?.let { alarmIntervalMapper.toLocal(it) },
         )
 
     /**
@@ -40,15 +38,15 @@ internal class TaskMapper(private val alarmIntervalMapper: AlarmIntervalMapper) 
      */
     fun toRepo(localTask: LocalTask): RepoTask =
         RepoTask(
-            id = localTask.id,
-            completed = localTask.completed,
-            title = localTask.title,
-            description = localTask.description,
-            categoryId = localTask.categoryId,
-            dueDate = localTask.dueDate?.toLocalDateTime(),
-            creationDate = localTask.creationDate?.toLocalDateTime(),
-            completedDate = localTask.completedDate?.toLocalDateTime(),
-            isRepeating = localTask.isRepeating,
-            alarmInterval = localTask.alarmInterval?.let { alarmIntervalMapper.toRepo(it) },
+            id = localTask.task_id,
+            completed = localTask.task_is_completed,
+            title = localTask.task_title,
+            description = localTask.task_description,
+            categoryId = localTask.task_category_id,
+            dueDate = localTask.task_due_date,
+            creationDate = localTask.task_creation_date,
+            completedDate = localTask.task_completed_date,
+            isRepeating = localTask.task_is_repeating,
+            alarmInterval = localTask.task_alarm_interval?.let { alarmIntervalMapper.toRepo(it) },
         )
 }

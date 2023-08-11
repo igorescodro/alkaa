@@ -1,15 +1,22 @@
 package com.escodro.local.di
 
+import com.escodro.local.dao.CategoryDao
+import com.escodro.local.dao.TaskDao
+import com.escodro.local.dao.TaskWithCategoryDao
+import com.escodro.local.dao.impl.CategoryDaoImpl
+import com.escodro.local.dao.impl.TaskDaoImpl
+import com.escodro.local.dao.impl.TaskWithCategoryDaoImpl
 import com.escodro.local.datasource.CategoryLocalDataSource
 import com.escodro.local.datasource.SearchLocalDataSource
 import com.escodro.local.datasource.TaskLocalDataSource
 import com.escodro.local.datasource.TaskWithCategoryLocalDataSource
 import com.escodro.local.mapper.AlarmIntervalMapper
 import com.escodro.local.mapper.CategoryMapper
+import com.escodro.local.mapper.SelectMapper
 import com.escodro.local.mapper.TaskMapper
 import com.escodro.local.mapper.TaskWithCategoryMapper
-import com.escodro.local.provider.DaoProvider
 import com.escodro.local.provider.DatabaseProvider
+import com.escodro.local.provider.DriverFactory
 import com.escodro.repository.datasource.CategoryDataSource
 import com.escodro.repository.datasource.SearchDataSource
 import com.escodro.repository.datasource.TaskDataSource
@@ -35,8 +42,14 @@ val localModule = module {
     factoryOf(::TaskMapper)
     factoryOf(::CategoryMapper)
     factoryOf(::TaskWithCategoryMapper)
+    factoryOf(::SelectMapper)
+
+    // DAOs
+    singleOf(::CategoryDaoImpl) bind CategoryDao::class
+    singleOf(::TaskDaoImpl) bind TaskDao::class
+    singleOf(::TaskWithCategoryDaoImpl) bind TaskWithCategoryDao::class
 
     // Providers
     singleOf(::DatabaseProvider)
-    singleOf(::DaoProvider)
+    singleOf(::DriverFactory)
 }

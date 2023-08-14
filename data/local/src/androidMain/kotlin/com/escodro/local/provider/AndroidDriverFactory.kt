@@ -12,7 +12,6 @@ import com.escodro.local.R
 /**
  * Provides the platform-specific [SqlDriver] to be used in the database.
  */
-@Suppress("NO_ACTUAL_FOR_EXPECT")
 internal class AndroidDriverFactory(
     private val context: Context,
     private val appCoroutineScope: AppCoroutineScope,

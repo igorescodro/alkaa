@@ -16,11 +16,11 @@ import com.escodro.local.mapper.SelectMapper
 import com.escodro.local.mapper.TaskMapper
 import com.escodro.local.mapper.TaskWithCategoryMapper
 import com.escodro.local.provider.DatabaseProvider
-import com.escodro.local.provider.DriverFactory
 import com.escodro.repository.datasource.CategoryDataSource
 import com.escodro.repository.datasource.SearchDataSource
 import com.escodro.repository.datasource.TaskDataSource
 import com.escodro.repository.datasource.TaskWithCategoryDataSource
+import org.koin.core.module.Module
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.bind
@@ -51,5 +51,10 @@ val localModule = module {
 
     // Providers
     singleOf(::DatabaseProvider)
-    singleOf(::DriverFactory)
+    includes(platformLocalModule)
 }
+
+/**
+ * Provides the platform-specific dependencies.
+ */
+internal expect val platformLocalModule: Module

@@ -104,6 +104,7 @@ dependencies {
     implementation(projects.libraries.splitInstall)
     implementation(projects.libraries.designsystem)
     implementation(projects.libraries.navigation)
+    implementation(projects.libraries.coroutines)
     implementation(projects.data.local)
     implementation(projects.data.datastore)
     implementation(projects.data.repository)

@@ -2,8 +2,8 @@ package com.escodro.task.presentation.detail.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.escodro.core.coroutines.AppCoroutineScope
-import com.escodro.core.coroutines.CoroutineDebouncer
+import com.escodro.coroutines.AppCoroutineScope
+import com.escodro.coroutines.CoroutineDebouncer
 import com.escodro.domain.usecase.task.LoadTask
 import com.escodro.domain.usecase.task.UpdateTaskCategory
 import com.escodro.domain.usecase.task.UpdateTaskDescription

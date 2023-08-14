@@ -1,7 +1,7 @@
 package com.escodro.preference.presentation
 
 import androidx.lifecycle.ViewModel
-import com.escodro.core.coroutines.AppCoroutineScope
+import com.escodro.coroutines.AppCoroutineScope
 import com.escodro.domain.usecase.preferences.LoadAppTheme
 import com.escodro.domain.usecase.preferences.UpdateAppTheme
 import com.escodro.preference.mapper.AppThemeOptionsMapper

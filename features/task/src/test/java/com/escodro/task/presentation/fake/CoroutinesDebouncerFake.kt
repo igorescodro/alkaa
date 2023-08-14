@@ -1,6 +1,6 @@
 package com.escodro.task.presentation.fake
 
-import com.escodro.core.coroutines.CoroutineDebouncer
+import com.escodro.coroutines.CoroutineDebouncer
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.test.runTest
 

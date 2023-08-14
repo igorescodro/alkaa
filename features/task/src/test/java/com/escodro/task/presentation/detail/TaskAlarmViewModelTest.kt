@@ -1,7 +1,7 @@
 package com.escodro.task.presentation.detail
 
-import com.escodro.core.coroutines.AppCoroutineScope
 import com.escodro.core.extension.toLocalDateTime
+import com.escodro.coroutines.AppCoroutineScope
 import com.escodro.task.mapper.AlarmIntervalMapper
 import com.escodro.task.model.AlarmInterval
 import com.escodro.task.presentation.detail.alarm.TaskAlarmViewModel

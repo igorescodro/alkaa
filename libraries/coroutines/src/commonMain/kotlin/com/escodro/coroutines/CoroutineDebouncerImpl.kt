@@ -1,4 +1,4 @@
-package com.escodro.core.coroutines
+package com.escodro.coroutines
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job

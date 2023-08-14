@@ -4,7 +4,7 @@ import android.app.AlarmManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import com.escodro.core.coroutines.AppCoroutineScope
+import com.escodro.coroutines.AppCoroutineScope
 import com.escodro.domain.usecase.alarm.RescheduleFutureAlarms
 import com.escodro.domain.usecase.alarm.ShowAlarm
 import com.escodro.domain.usecase.alarm.SnoozeAlarm

@@ -1,8 +1,8 @@
 package com.escodro.task.presentation.detail.alarm
 
 import androidx.lifecycle.ViewModel
-import com.escodro.core.coroutines.AppCoroutineScope
 import com.escodro.core.extension.toLocalDateTime
+import com.escodro.coroutines.AppCoroutineScope
 import com.escodro.domain.usecase.alarm.CancelAlarm
 import com.escodro.domain.usecase.alarm.ScheduleAlarm
 import com.escodro.domain.usecase.alarm.UpdateTaskAsRepeating

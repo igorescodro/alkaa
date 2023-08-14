@@ -1,36 +1,68 @@
 plugins {
-    id("com.escodro.android-library")
+    kotlin("multiplatform")
+    id("com.android.library")
+    id("com.escodro.kotlin-quality")
     alias(libs.plugins.ksp)
     alias(libs.plugins.sqldelight)
 }
 
-android {
-    defaultConfig {
-        javaCompileOptions {
-            ksp {
-                arg("room.schemaLocation", "$projectDir/schemas")
-                arg("room.incremental", "true")
+@OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
+kotlin {
+    targetHierarchy.default()
+
+    android {
+        compilations.all {
+            kotlinOptions {
+                jvmTarget = "1.8"
             }
         }
     }
-    sourceSets {
-        getByName("androidTest").assets.srcDirs("$projectDir/schemas")
+
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach {
+        it.binaries.framework {
+            baseName = "local"
+        }
     }
-    namespace = "com.escodro.local"
+
+    sourceSets {
+        val commonMain by getting {
+            dependencies {
+                implementation(projects.libraries.coroutines)
+                implementation(projects.data.repository)
+                implementation(libs.koin.core)
+                implementation(libs.kotlinx.datetime)
+                implementation(libs.sqldelight.coroutines)
+                implementation("app.cash.sqldelight:runtime:2.0.0")
+            }
+        }
+        val androidMain by getting {
+            dependencies {
+                implementation(libs.sqldelight.driver)
+            }
+        }
+        val commonTest by getting {
+            dependencies {
+                implementation(kotlin("test"))
+                implementation(libs.kotlinx.coroutines.test)
+            }
+        }
+    }
 }
 
+android {
+    namespace = "com.escodro.local"
+    compileSdk = Integer.parseInt(libs.versions.android.sdk.compile.get())
+    defaultConfig {
+        minSdk = Integer.parseInt(libs.versions.android.sdk.min.get())
+    }
+}
 dependencies {
-    implementation(projects.libraries.core)
-    implementation(projects.data.repository)
-
-    implementation(libs.sqldelight.driver)
-    implementation(libs.sqldelight.coroutines)
-    implementation(libs.koin.core)
-    implementation(libs.kotlinx.datetime)
-
-    testImplementation(libs.test.junit)
-    testImplementation(libs.test.mockk)
-    testImplementation(libs.kotlinx.coroutines.test)
+    implementation(project(mapOf("path" to ":libraries:coroutines")))
+    implementation(project(mapOf("path" to ":libraries:coroutines")))
 }
 
 sqldelight {

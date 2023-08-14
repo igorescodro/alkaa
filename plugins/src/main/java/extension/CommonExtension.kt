@@ -4,7 +4,7 @@ import com.android.build.api.dsl.CommonExtension
 import com.android.build.api.dsl.LibraryExtension
 import org.gradle.api.artifacts.VersionCatalog
 
-fun CommonExtension<*, *, *, *>.androidConfig(libs: VersionCatalog) {
+fun CommonExtension<*, *, *, *, *>.androidConfig(libs: VersionCatalog) {
 
     defaultConfig {
         compileSdk = Integer.parseInt(libs.sdkCompile)
@@ -17,7 +17,7 @@ fun CommonExtension<*, *, *, *>.androidConfig(libs: VersionCatalog) {
     }
 }
 
-fun CommonExtension<*, *, *, *>.composeConfig(libs: VersionCatalog) {
+fun CommonExtension<*, *, *, *, *>.composeConfig(libs: VersionCatalog) {
     buildFeatures {
         compose = true
     }

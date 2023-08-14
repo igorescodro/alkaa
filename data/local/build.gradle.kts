@@ -60,10 +60,6 @@ android {
         minSdk = Integer.parseInt(libs.versions.android.sdk.min.get())
     }
 }
-dependencies {
-    implementation(project(mapOf("path" to ":libraries:coroutines")))
-    implementation(project(mapOf("path" to ":libraries:coroutines")))
-}
 
 sqldelight {
     databases {

@@ -9,6 +9,7 @@ import com.escodro.local.mapper.SelectMapper
 import com.escodro.local.model.TaskWithCategory
 import com.escodro.local.provider.DatabaseProvider
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 

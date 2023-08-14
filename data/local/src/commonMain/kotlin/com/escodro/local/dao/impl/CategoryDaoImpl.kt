@@ -7,6 +7,7 @@ import com.escodro.local.CategoryQueries
 import com.escodro.local.dao.CategoryDao
 import com.escodro.local.provider.DatabaseProvider
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.Flow
 
 internal class CategoryDaoImpl(private val databaseProvider: DatabaseProvider) : CategoryDao {

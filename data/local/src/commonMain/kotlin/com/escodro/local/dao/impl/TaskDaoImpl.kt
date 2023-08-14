@@ -7,6 +7,7 @@ import com.escodro.local.TaskQueries
 import com.escodro.local.dao.TaskDao
 import com.escodro.local.provider.DatabaseProvider
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.first
 
 internal class TaskDaoImpl(private val databaseProvider: DatabaseProvider) : TaskDao {

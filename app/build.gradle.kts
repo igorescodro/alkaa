@@ -1,5 +1,6 @@
 import com.android.build.api.dsl.ManagedVirtualDevice
 import com.android.build.gradle.internal.tasks.factory.dependsOn
+import java.util.Properties
 
 plugins {
     id("com.android.application")
@@ -23,12 +24,17 @@ android {
         setProperty("archivesBaseName", "${parent?.name}-$versionName")
     }
 
+    val props = readProperties(file("../config/signing/signing.properties"))
     signingConfigs {
         create("release") {
             keyAlias = System.getenv("ALKAA_KEY_ALIAS")
+                .ifEmpty { props.getStringProperty("keyAlias") }
             keyPassword = System.getenv("ALKAA_KEY_PASSWORD")
-            storeFile = file("../config/signing/alkaa-keystore")
+                .ifEmpty { props.getStringProperty("keyPassword") }
+            storeFile = file(System.getenv("ALKAA_STORE_PATH")
+                .ifEmpty { props.getStringProperty("storePath") })
             storePassword = System.getenv("ALKAA_KEY_STORE_PASSWORD")
+                .ifEmpty { props.getStringProperty("storePassword") }
         }
     }
 
@@ -145,3 +151,12 @@ dependencies {
         exclude(group = "androidx.lifecycle", module = "lifecycle-runtime")
     }
 }
+
+fun readProperties(propertiesFile: File) = Properties().apply {
+    propertiesFile.inputStream().use { fis ->
+        load(fis)
+    }
+}
+
+fun Properties.getStringProperty(key: String): String =
+    getProperty(key) ?: throw IllegalStateException("Property $key not found")

@@ -24,17 +24,13 @@ android {
         setProperty("archivesBaseName", "${parent?.name}-$versionName")
     }
 
-    val props = readProperties(file("../config/signing/signing.properties"))
+    val properties = readProperties(file("../config/signing/signing.properties"))
     signingConfigs {
         create("release") {
-            keyAlias = System.getenv("ALKAA_KEY_ALIAS")
-                .ifEmpty { props.getStringProperty("keyAlias") }
-            keyPassword = System.getenv("ALKAA_KEY_PASSWORD")
-                .ifEmpty { props.getStringProperty("keyPassword") }
-            storeFile = file(System.getenv("ALKAA_STORE_PATH")
-                .ifEmpty { props.getStringProperty("storePath") })
-            storePassword = System.getenv("ALKAA_KEY_STORE_PASSWORD")
-                .ifEmpty { props.getStringProperty("storePassword") }
+            keyAlias = getSigningKey(properties, "ALKAA_KEY_ALIAS", "keyAlias")
+            keyPassword = getSigningKey(properties, "ALKAA_KEY_PASSWORD", "keyPassword")
+            storeFile = file(getSigningKey(properties, "ALKAA_STORE_PATH", "storePath"))
+            storePassword = getSigningKey(properties, "ALKAA_KEY_STORE_PASSWORD", "storePassword")
         }
     }
 
@@ -158,5 +154,9 @@ fun readProperties(propertiesFile: File) = Properties().apply {
     }
 }
 
-fun Properties.getStringProperty(key: String): String =
-    getProperty(key) ?: throw IllegalStateException("Property $key not found")
+fun getSigningKey(properties: Properties, secretKey: String, propertyKey: String): String =
+    if (!System.getenv(secretKey).isNullOrEmpty()) {
+        System.getenv(secretKey)
+    } else {
+        properties.getProperty(propertyKey)
+    }

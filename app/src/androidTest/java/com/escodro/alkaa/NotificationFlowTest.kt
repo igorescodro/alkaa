@@ -9,14 +9,15 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.test.platform.app.InstrumentationRegistry
+import com.escodro.alkaa.fake.FAKE_TASK
 import com.escodro.alkaa.navigation.NavGraph
 import com.escodro.alkaa.util.WindowSizeClassFake
 import com.escodro.core.extension.getNotificationManager
 import com.escodro.core.extension.toLocalDateTime
 import com.escodro.domain.usecase.alarm.ScheduleAlarm
+import com.escodro.local.Task
+import com.escodro.local.dao.TaskDao
 import com.escodro.local.model.AlarmInterval
-import com.escodro.local.model.Task
-import com.escodro.local.provider.DaoProvider
 import com.escodro.test.rule.DisableAnimationsRule
 import kotlinx.coroutines.test.runTest
 import org.junit.After
@@ -34,7 +35,7 @@ import com.escodro.designsystem.R as DesignSystemR
 @OptIn(ExperimentalTestApi::class)
 internal class NotificationFlowTest : KoinTest {
 
-    private val daoProvider: DaoProvider by inject()
+    private val taskDao: TaskDao by inject()
 
     private val scheduleAlarm: ScheduleAlarm by inject()
 
@@ -50,7 +51,7 @@ internal class NotificationFlowTest : KoinTest {
     fun setup() {
         // Clean all existing tasks and categories
         runTest {
-            daoProvider.getTaskDao().cleanTable()
+            taskDao.cleanTable()
         }
         composeTestRule.setContent {
             NavGraph(windowSizeClass = WindowSizeClassFake.Phone)
@@ -115,8 +116,8 @@ internal class NotificationFlowTest : KoinTest {
         val task = insertTask(name = "Hi, I'm a PC")
         val updatedTitle = "Hi, I'm a Mac"
 
-        val updatedTask = task.copy(title = updatedTitle)
-        daoProvider.getTaskDao().updateTask(updatedTask)
+        val updatedTask = task.copy(task_title = updatedTitle)
+        taskDao.updateTask(updatedTask)
 
         // Wait until the notification is launched
         val notificationManager = context.getNotificationManager()
@@ -133,8 +134,8 @@ internal class NotificationFlowTest : KoinTest {
         // Insert a task and updated it as "completed"
         val task = insertTask(name = "Shhh! I wasn't here!")
 
-        val updatedTask = task.copy(completed = true)
-        daoProvider.getTaskDao().updateTask(updatedTask)
+        val updatedTask = task.copy(task_is_completed = true)
+        taskDao.updateTask(updatedTask)
 
         // Wait for 7 seconds
         val notificationManager = context.getNotificationManager()
@@ -161,9 +162,9 @@ internal class NotificationFlowTest : KoinTest {
         composeTestRule.waitUntilDoesNotExist(hasText(name))
 
         // Validate the task is now updated as "completed"
-        val task = daoProvider.getTaskDao().getTaskById(id)
+        val task = taskDao.getTaskById(id)
 
-        assertTrue(task!!.completed)
+        assertTrue(task!!.task_is_completed)
     }
 
     @Test
@@ -223,24 +224,31 @@ internal class NotificationFlowTest : KoinTest {
         id: Long = 15L,
         name: String,
         calendar: Calendar = Calendar.getInstance(),
-    ): Task =
-        with(Task(id = id, title = name)) {
-            calendar.add(Calendar.SECOND, 1)
-            dueDate = calendar
-            daoProvider.getTaskDao().insertTask(this)
-            scheduleAlarm(this.id, this.dueDate!!.toLocalDateTime())
+    ): Task {
+        val dueDate = calendar.apply { add(Calendar.SECOND, 3) }.toLocalDateTime()
+        return with(FAKE_TASK.copy(task_id = id, task_title = name, task_due_date = dueDate)) {
+            taskDao.insertTask(this)
+            scheduleAlarm(this.task_id, this.task_due_date!!)
             this
         }
+    }
 
     private fun insertRepeatingTask(name: String) = runTest {
-        with(Task(id = 1000, title = name)) {
+        val dueDate = Calendar.getInstance().apply { add(Calendar.SECOND, 1) }.toLocalDateTime()
+
+        with(
+            FAKE_TASK.copy(
+                task_id = 1000,
+                task_title = name,
+                task_due_date = dueDate,
+                task_is_repeating = true,
+                task_alarm_interval = AlarmInterval.HOURLY,
+            ),
+        ) {
             val calendar = Calendar.getInstance()
             calendar.add(Calendar.SECOND, 2)
-            dueDate = calendar
-            isRepeating = true
-            alarmInterval = AlarmInterval.HOURLY
-            daoProvider.getTaskDao().insertTask(this)
-            scheduleAlarm(this.id, this.dueDate!!.toLocalDateTime())
+            taskDao.insertTask(this)
+            scheduleAlarm(this.task_id, this.task_due_date!!)
         }
     }
 }

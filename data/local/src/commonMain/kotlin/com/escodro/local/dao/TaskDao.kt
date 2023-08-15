@@ -5,7 +5,7 @@ import com.escodro.local.Task
 /**
  * DAO class to handle all [Task]-related database operations.
  */
-internal interface TaskDao {
+interface TaskDao {
 
     /**
      * Inserts a new task.

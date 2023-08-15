@@ -1,6 +1,6 @@
 package com.escodro.alkaa.fake
 
-import com.escodro.core.coroutines.CoroutineDebouncer
+import com.escodro.coroutines.CoroutineDebouncer
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope

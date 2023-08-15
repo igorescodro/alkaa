@@ -16,10 +16,11 @@ import com.escodro.alkaa.fake.CoroutinesDebouncerFake
 import com.escodro.alkaa.model.HomeSection
 import com.escodro.alkaa.navigation.NavGraph
 import com.escodro.alkaa.util.WindowSizeClassFake
-import com.escodro.core.coroutines.CoroutineDebouncer
+import com.escodro.coroutines.CoroutineDebouncer
 import com.escodro.designsystem.AlkaaTheme
-import com.escodro.local.model.Category
-import com.escodro.local.provider.DaoProvider
+import com.escodro.local.Category
+import com.escodro.local.dao.CategoryDao
+import com.escodro.local.dao.TaskDao
 import com.escodro.test.espresso.Events
 import com.escodro.test.extension.onChip
 import com.escodro.test.rule.DisableAnimationsRule
@@ -37,7 +38,9 @@ import com.escodro.task.R as TaskR
 @OptIn(ExperimentalTestApi::class)
 internal class TaskFlowTest : KoinTest {
 
-    private val daoProvider: DaoProvider by inject()
+    private val taskDao: TaskDao by inject()
+
+    private val categoryDao: CategoryDao by inject()
 
     @get:Rule
     val composeTestRule = createComposeRule()
@@ -51,14 +54,30 @@ internal class TaskFlowTest : KoinTest {
     fun setup() {
         // Clean all existing tasks and categories
         runTest {
-            with(daoProvider) {
-                getTaskDao().cleanTable()
-                getCategoryDao().cleanTable()
+            taskDao.cleanTable()
+            categoryDao.cleanTable()
 
-                getCategoryDao().insertCategory(Category(name = "Books", color = "#cc5a71"))
-                getCategoryDao().insertCategory(Category(name = "Music", color = "#58a4b0"))
-                getCategoryDao().insertCategory(Category(name = "Shared", color = "#519872"))
-            }
+            categoryDao.insertCategory(
+                Category(
+                    category_id = 11,
+                    category_name = "Books",
+                    category_color = "#cc5a71",
+                ),
+            )
+            categoryDao.insertCategory(
+                Category(
+                    category_id = 12,
+                    category_name = "Music",
+                    category_color = "#58a4b0",
+                ),
+            )
+            categoryDao.insertCategory(
+                Category(
+                    category_id = 13,
+                    category_name = "Shared",
+                    category_color = "#519872",
+                ),
+            )
         }
 
         // Replace Debouncer with a Immediate Executor

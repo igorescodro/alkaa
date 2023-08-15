@@ -33,7 +33,6 @@ internal class TaskListUpdaterWorker(
     private suspend fun updateWidgets(list: List<Task>) {
         TaskListStateDefinition.updateData(context, list)
         TaskListGlanceWidget().updateAll(context)
-
     }
 
     companion object {

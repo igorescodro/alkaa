@@ -24,7 +24,7 @@ internal class SearchLocalDataSourceTest {
     }
 
     @Test
-    fun `check if the query is enclosed with percent char`() = runTest {
+    fun test_if_the_query_is_enclosed_with_percent_char() = runTest {
         val query = "name"
 
         dataSource.findTaskByName(query)

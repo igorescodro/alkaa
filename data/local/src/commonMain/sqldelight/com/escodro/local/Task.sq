@@ -20,6 +20,7 @@ CREATE INDEX IF NOT EXISTS `index_Task_task_category_id` ON Task (`task_category
 
 insert:
 INSERT INTO Task (
+task_id,
 task_is_completed,
 task_title,
 task_description,
@@ -29,7 +30,7 @@ task_creation_date,
 task_completed_date,
 task_is_repeating,
 task_alarm_interval
-) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
+) VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?);
 
 update:
 UPDATE Task

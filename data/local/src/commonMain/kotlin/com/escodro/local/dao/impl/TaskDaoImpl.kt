@@ -16,7 +16,9 @@ internal class TaskDaoImpl(private val databaseProvider: DatabaseProvider) : Tas
         get() = databaseProvider.getInstance().taskQueries
 
     override suspend fun insertTask(task: Task) {
+        val id: Long? = task.task_id.takeIf { it > 0L } // Instrumentation test to force id
         taskQueries.insert(
+            task_id = id,
             task_is_completed = task.task_is_completed,
             task_title = task.task_title,
             task_description = task.task_description,

@@ -40,11 +40,9 @@ internal object TaskListStateDefinition : GlanceStateDefinition<List<Task>> {
         context.dataStoreFile(DATA_STORE_FILENAME)
 
     /**
-     * Updates the [DataStore] data
-     * @param context
-     * Context to get datastore
-     * @param newTasks
-     * List of new contents that are to be updated
+     * Updates the underlying [DataStore] data.
+     * @param context Context to get datastore
+     * @param newTasks List of new contents that are to be updated
      */
     suspend fun updateData(context: Context, newTasks: List<Task>) =
         getDataStore(context, DATA_STORE_FILENAME).updateData { newTasks }

@@ -11,21 +11,28 @@ import androidx.glance.material3.ColorProviders
 import com.escodro.designsystem.AlkaaDarkColorScheme
 import com.escodro.designsystem.AlkaaLightColorScheme
 
+/**
+ * Alkaa Glance Theme.
+ * @param context The [LocalContext] of the Glance Widget.
+ * @param dynamicColors Determines if the Android 12+ dynamic color is enabled
+ * @param content Composable function
+ */
 @Composable
 fun AlkaaGlanceTheme(
     context: Context = LocalContext.current,
     dynamicColors: Boolean = true,
-    content:  @Composable () -> Unit
+    content: @Composable () -> Unit
 ) {
-    val colorProvider = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && dynamicColors)
+    val colorProvider = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && dynamicColors) {
         ColorProviders(
             light = dynamicLightColorScheme(context),
             dark = dynamicDarkColorScheme(context)
         )
-    else ColorProviders(
-        light = AlkaaLightColorScheme,
-        dark = AlkaaDarkColorScheme
-    )
-
+    } else {
+        ColorProviders(
+            light = AlkaaLightColorScheme,
+            dark = AlkaaDarkColorScheme
+        )
+    }
     GlanceTheme(colors = colorProvider, content = content)
 }

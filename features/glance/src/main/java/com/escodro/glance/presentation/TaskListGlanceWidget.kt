@@ -64,11 +64,11 @@ internal class TaskListGlanceWidget : GlanceAppWidget() {
          * For lower versions adding a background with a  filled shape of same
          * background color and corner radius.
          */
-        val background = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
+        val background = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             GlanceModifier
                 .cornerRadius(10.dp)
                 .background(GlanceTheme.colors.background)
-        else GlanceModifier.background(ImageProvider(R.drawable.rounded_corners))
+        } else GlanceModifier.background(ImageProvider(R.drawable.rounded_corners))
 
         AlkaaGlanceTheme {
             Column(
@@ -115,8 +115,8 @@ internal class TaskListGlanceWidget : GlanceAppWidget() {
 
     @Composable
     private fun EmptyListContent(
+        modifier: GlanceModifier = GlanceModifier,
         context: Context = LocalContext.current,
-        modifier: GlanceModifier = GlanceModifier
     ) {
         Column(
             modifier = modifier.fillMaxSize(),

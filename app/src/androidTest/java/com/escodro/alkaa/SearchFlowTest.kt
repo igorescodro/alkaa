@@ -15,7 +15,7 @@ import com.escodro.alkaa.fake.FAKE_TASKS
 import com.escodro.alkaa.navigation.NavGraph
 import com.escodro.alkaa.util.WindowSizeClassFake
 import com.escodro.designsystem.AlkaaTheme
-import com.escodro.local.provider.DaoProvider
+import com.escodro.local.dao.TaskDao
 import com.escodro.test.rule.DisableAnimationsRule
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
@@ -28,7 +28,7 @@ import com.escodro.search.R as SearchR
 @OptIn(ExperimentalTestApi::class)
 internal class SearchFlowTest : KoinTest {
 
-    private val daoProvider: DaoProvider by inject()
+    private val taskDao: TaskDao by inject()
 
     @get:Rule
     val composeTestRule = createComposeRule()
@@ -42,10 +42,10 @@ internal class SearchFlowTest : KoinTest {
     fun setup() {
         runTest {
             // Clean all existing tasks
-            daoProvider.getTaskDao().cleanTable()
+            taskDao.cleanTable()
 
             // Add some fake tasks
-            FAKE_TASKS.forEach { task -> daoProvider.getTaskDao().insertTask(task) }
+            FAKE_TASKS.forEach { task -> taskDao.insertTask(task) }
         }
 
         composeTestRule.setContent {
@@ -64,7 +64,7 @@ internal class SearchFlowTest : KoinTest {
         with(composeTestRule) {
             FAKE_TASKS.forEach { task ->
                 // Validate all tasks are shown
-                onNodeWithText(text = task.title, useUnmergedTree = true).assertExists()
+                onNodeWithText(text = task.task_title, useUnmergedTree = true).assertExists()
             }
         }
     }
@@ -73,17 +73,17 @@ internal class SearchFlowTest : KoinTest {
     fun test_onlyMatchingQueryIsShown() {
         with(composeTestRule) {
             // Type the first task as query and validate it is shown in the list
-            val query = FAKE_TASKS.first().title
+            val query = FAKE_TASKS.first().task_title
             onNode(hasSetTextAction()).performTextInput(query)
             onAllNodesWithText(text = query, useUnmergedTree = true)[1].assertExists()
 
             // Wait until the other second item is no longer visible
-            waitUntilDoesNotExist(hasText(FAKE_TASKS[1].title))
+            waitUntilDoesNotExist(hasText(FAKE_TASKS[1].task_title))
 
             // Drop the first task and validate others are not shown
             FAKE_TASKS.drop(1).forEach { task ->
                 // Validate all tasks are shown
-                onNodeWithText(text = task.title, useUnmergedTree = true).assertDoesNotExist()
+                onNodeWithText(text = task.task_title, useUnmergedTree = true).assertDoesNotExist()
             }
         }
     }
@@ -94,11 +94,11 @@ internal class SearchFlowTest : KoinTest {
             onNode(hasSetTextAction()).performTextInput("query")
 
             // Wait until the first task is not visible
-            waitUntilDoesNotExist(hasText(FAKE_TASKS[0].title))
+            waitUntilDoesNotExist(hasText(FAKE_TASKS[0].task_title))
 
             FAKE_TASKS.forEach { task ->
                 // Validate all tasks are shown
-                onNodeWithText(text = task.title, useUnmergedTree = true).assertDoesNotExist()
+                onNodeWithText(text = task.task_title, useUnmergedTree = true).assertDoesNotExist()
             }
 
             onNodeWithContentDescription(string(SearchR.string.search_cd_empty_list)).assertExists()

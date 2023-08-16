@@ -33,7 +33,7 @@ internal class LoadCompletedTasksByPeriodTest {
         val category2 = Category(2, "Category B", "#CCCCCC")
         val category3 = Category(3, "Category C", "#AAAAAA")
         val categoryList = listOf(category1, category2, category3)
-        categoryRepository.insertCategory(categoryList)
+        categoryList.forEach { categoryRepository.insertCategory(it) }
 
         val instant = Clock.System.now()
         val calendarIn = instant.minus(15.days).toLocalDateTime(TimeZone.currentSystemDefault())
@@ -64,7 +64,7 @@ internal class LoadCompletedTasksByPeriodTest {
         val category1 = Category(1, "Category A", "#FFFFFF")
         val category2 = Category(2, "Category B", "#CCCCCC")
         val categoryList = listOf(category1, category2)
-        categoryRepository.insertCategory(categoryList)
+        categoryList.forEach { categoryRepository.insertCategory(it) }
 
         val instant = Clock.System.now()
         val calendarIn = instant.minus(15.days).toLocalDateTime(TimeZone.currentSystemDefault())

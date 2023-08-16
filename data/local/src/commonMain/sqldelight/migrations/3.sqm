@@ -1,0 +1,13 @@
+ALTER TABLE Category RENAME TO Category_temp;
+
+CREATE TABLE IF NOT EXISTS Category (
+`category_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+`category_name` TEXT NOT NULL,
+`category_color` TEXT NOT NULL
+);
+
+INSERT INTO Category(category_id, category_name, category_color)
+SELECT category_id, category_name, category_color
+FROM Category_temp;
+
+DROP TABLE Category_temp;

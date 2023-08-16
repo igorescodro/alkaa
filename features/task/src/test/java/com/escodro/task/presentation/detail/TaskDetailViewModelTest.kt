@@ -1,6 +1,6 @@
 package com.escodro.task.presentation.detail
 
-import com.escodro.core.coroutines.AppCoroutineScope
+import com.escodro.coroutines.AppCoroutineScope
 import com.escodro.task.mapper.AlarmIntervalMapper
 import com.escodro.task.mapper.TaskMapper
 import com.escodro.task.presentation.detail.main.CategoryId

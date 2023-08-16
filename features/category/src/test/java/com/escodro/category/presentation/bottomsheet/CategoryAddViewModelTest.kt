@@ -4,8 +4,8 @@ import android.graphics.Color
 import com.escodro.category.fake.AddCategoryFake
 import com.escodro.category.mapper.CategoryMapper
 import com.escodro.categoryapi.model.Category
-import com.escodro.core.coroutines.AppCoroutineScope
 import com.escodro.core.extension.toStringColor
+import com.escodro.coroutines.AppCoroutineScope
 import com.escodro.test.rule.CoroutineTestRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Assert

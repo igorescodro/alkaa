@@ -106,6 +106,7 @@ dependencies {
     implementation(projects.libraries.splitInstall)
     implementation(projects.libraries.designsystem)
     implementation(projects.libraries.navigation)
+    implementation(projects.libraries.coroutines)
     implementation(projects.data.local)
     implementation(projects.data.datastore)
     implementation(projects.data.repository)
@@ -141,6 +142,7 @@ dependencies {
 
     androidTestImplementation(projects.libraries.test)
     androidTestImplementation(libs.koin.test)
+    androidTestImplementation(libs.test.rules)
     androidTestImplementation(libs.bundles.composetest) {
         exclude(group = "androidx.core", module = "core-ktx")
         exclude(group = "androidx.fragment", module = "fragment")

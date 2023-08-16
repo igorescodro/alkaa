@@ -1,38 +1,69 @@
 plugins {
-    id("com.escodro.android-library")
+    kotlin("multiplatform")
+    id("com.android.library")
+    id("com.escodro.kotlin-quality")
     alias(libs.plugins.ksp)
+    alias(libs.plugins.sqldelight)
 }
 
-android {
-    defaultConfig {
-        javaCompileOptions {
-            ksp {
-                arg("room.schemaLocation", "$projectDir/schemas")
-                arg("room.incremental", "true")
+@OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
+kotlin {
+    targetHierarchy.default()
+
+    android {
+        compilations.all {
+            kotlinOptions {
+                jvmTarget = "1.8"
             }
         }
     }
-    sourceSets {
-        getByName("androidTest").assets.srcDirs("$projectDir/schemas")
+
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach {
+        it.binaries.framework {
+            baseName = "local"
+        }
     }
-    namespace = "com.escodro.local"
+
+    sourceSets {
+        val commonMain by getting {
+            dependencies {
+                implementation(projects.libraries.coroutines)
+                implementation(projects.data.repository)
+                implementation(libs.koin.core)
+                implementation(libs.kotlinx.datetime)
+                implementation(libs.sqldelight.coroutines)
+            }
+        }
+        val androidMain by getting {
+            dependencies {
+                implementation(libs.sqldelight.driver)
+            }
+        }
+        val commonTest by getting {
+            dependencies {
+                implementation(kotlin("test"))
+                implementation(libs.kotlinx.coroutines.test)
+            }
+        }
+    }
 }
 
-dependencies {
-    implementation(projects.libraries.core)
-    implementation(projects.data.repository)
+android {
+    namespace = "com.escodro.local"
+    compileSdk = Integer.parseInt(libs.versions.android.sdk.compile.get())
+    defaultConfig {
+        minSdk = Integer.parseInt(libs.versions.android.sdk.min.get())
+    }
+}
 
-    implementation(libs.koin.core)
-    api(libs.androidx.room.runtime)
-    implementation(libs.androidx.room.ktx)
-    ksp(libs.androidx.room.compiler)
-    implementation(libs.kotlinx.datetime)
-
-    androidTestImplementation(libs.test.junitext)
-    androidTestImplementation(libs.test.runner)
-    androidTestImplementation(libs.androidx.room.test)
-
-    testImplementation(libs.test.junit)
-    testImplementation(libs.test.mockk)
-    testImplementation(libs.kotlinx.coroutines.test)
+sqldelight {
+    databases {
+        create("AlkaaDatabase") {
+            packageName.set("com.escodro.local")
+        }
+    }
 }

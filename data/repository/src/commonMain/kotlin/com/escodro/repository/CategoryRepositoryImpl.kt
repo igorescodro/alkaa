@@ -15,9 +15,6 @@ internal class CategoryRepositoryImpl(
     override suspend fun insertCategory(category: Category) =
         categoryDataSource.insertCategory(categoryMapper.toRepo(category))
 
-    override suspend fun insertCategory(categoryList: List<Category>) =
-        categoryDataSource.insertCategory(categoryMapper.toRepo(categoryList))
-
     override suspend fun updateCategory(category: Category) =
         categoryDataSource.updateCategory(categoryMapper.toRepo(category))
 

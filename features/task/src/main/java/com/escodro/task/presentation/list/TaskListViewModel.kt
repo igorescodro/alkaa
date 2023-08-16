@@ -1,7 +1,7 @@
 package com.escodro.task.presentation.list
 
 import androidx.lifecycle.ViewModel
-import com.escodro.core.coroutines.AppCoroutineScope
+import com.escodro.coroutines.AppCoroutineScope
 import com.escodro.domain.usecase.task.UpdateTaskStatus
 import com.escodro.domain.usecase.taskwithcategory.LoadUncompletedTasks
 import com.escodro.task.mapper.TaskWithCategoryMapper

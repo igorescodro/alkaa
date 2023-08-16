@@ -1,6 +1,6 @@
 package com.escodro.task.presentation.add
 
-import com.escodro.core.coroutines.AppCoroutineScope
+import com.escodro.coroutines.AppCoroutineScope
 import com.escodro.task.presentation.detail.main.CategoryId
 import com.escodro.task.presentation.fake.AddTaskFake
 import com.escodro.test.rule.CoroutineTestRule

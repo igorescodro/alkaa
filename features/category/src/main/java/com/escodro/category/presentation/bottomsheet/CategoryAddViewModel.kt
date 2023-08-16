@@ -3,7 +3,7 @@ package com.escodro.category.presentation.bottomsheet
 import androidx.lifecycle.ViewModel
 import com.escodro.category.mapper.CategoryMapper
 import com.escodro.categoryapi.model.Category
-import com.escodro.core.coroutines.AppCoroutineScope
+import com.escodro.coroutines.AppCoroutineScope
 import com.escodro.domain.usecase.category.AddCategory
 
 internal class CategoryAddViewModel(

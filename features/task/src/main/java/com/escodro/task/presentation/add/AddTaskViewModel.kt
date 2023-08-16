@@ -1,7 +1,7 @@
 package com.escodro.task.presentation.add
 
 import androidx.lifecycle.ViewModel
-import com.escodro.core.coroutines.AppCoroutineScope
+import com.escodro.coroutines.AppCoroutineScope
 import com.escodro.domain.model.Task
 import com.escodro.domain.usecase.task.AddTask
 import com.escodro.task.presentation.detail.main.CategoryId

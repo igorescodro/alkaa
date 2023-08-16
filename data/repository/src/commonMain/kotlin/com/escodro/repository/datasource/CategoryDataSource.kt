@@ -16,13 +16,6 @@ interface CategoryDataSource {
     suspend fun insertCategory(category: Category)
 
     /**
-     * Inserts a new category list.
-     *
-     * @param category list of category to be added
-     */
-    suspend fun insertCategory(category: List<Category>)
-
-    /**
      * Updates the given category.
      *
      * @param category category to be updated

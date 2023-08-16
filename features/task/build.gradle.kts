@@ -7,6 +7,7 @@ dependencies {
     api(projects.features.categoryApi)
     implementation(projects.features.alarmApi)
     implementation(projects.libraries.core)
+    implementation(projects.libraries.coroutines)
     implementation(projects.domain)
     implementation(projects.libraries.designsystem)
     implementation(libs.kotlinx.datetime)

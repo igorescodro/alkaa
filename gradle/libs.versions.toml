@@ -30,7 +30,7 @@ material = "1.9.0"
 constraint = "2.0.4"
 corektx = "1.10.1"
 playcore = "1.10.3"
-datastore = "1.0.0"
+datastore = "1.1.0-alpha04"
 glance = "1.0.0-beta01"
 workmanager = "2.8.1"
 lifecycle_viewmodel = "2.6.1"
@@ -100,7 +100,7 @@ androidx_appcompat = { module = "androidx.appcompat:appcompat", version.ref = "a
 androidx_material = { module = "com.google.android.material:material", version.ref = "material" }
 androidx_corektx = { module = "androidx.core:core-ktx", version.ref = "corektx" }
 androidx_playcore = { module = "com.google.android.play:core", version.ref = "playcore" }
-androidx_datastore = { module = "androidx.datastore:datastore-preferences", version.ref = "datastore" }
+androidx_datastore = { module = "androidx.datastore:datastore-preferences-core", version.ref = "datastore" }
 androidx_glance = { module = "androidx.glance:glance-appwidget", version.ref = "glance" }
 androidx_workmanager = { module = "androidx.work:work-runtime-ktx", version.ref = "workmanager" }
 androidx_lifecycle_viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel", version.ref = "lifecycle_viewmodel" }

@@ -1,11 +1,28 @@
 package com.escodro.datastore
 
-import android.content.Context
 import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.preferencesDataStore
+import kotlinx.atomicfu.locks.SynchronizedObject
+import kotlinx.atomicfu.locks.synchronized
+import okio.Path.Companion.toPath
+
+private lateinit var dataStore: DataStore<Preferences>
+
+private val lock = SynchronizedObject()
 
 /**
- * Extension function to return a singleton of Alkaa DataStore settings.
+ * Gets the singleton DataStore instance, creating it if necessary.
  */
-val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "alkaa_settings")
+fun getDataStore(producePath: () -> String): DataStore<Preferences> =
+    synchronized(lock) {
+        if (::dataStore.isInitialized) {
+            dataStore
+        } else {
+            PreferenceDataStoreFactory.createWithPath(
+                produceFile = { producePath().toPath() },
+            ).also { dataStore = it }
+        }
+    }
+
+internal const val dataStoreFileName = "alkaa_settings.preferences_pb"

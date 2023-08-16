@@ -36,7 +36,6 @@ kotlin {
                 implementation(libs.koin.core)
                 implementation(libs.kotlinx.datetime)
                 implementation(libs.sqldelight.coroutines)
-                implementation("app.cash.sqldelight:runtime:2.0.0")
             }
         }
         val androidMain by getting {

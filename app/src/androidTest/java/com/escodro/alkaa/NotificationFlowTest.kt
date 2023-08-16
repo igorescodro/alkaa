@@ -1,5 +1,6 @@
 package com.escodro.alkaa
 
+import android.Manifest
 import android.app.Notification
 import androidx.annotation.StringRes
 import androidx.compose.ui.test.ExperimentalTestApi
@@ -9,6 +10,7 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.rule.GrantPermissionRule
 import com.escodro.alkaa.fake.FAKE_TASK
 import com.escodro.alkaa.navigation.NavGraph
 import com.escodro.alkaa.util.WindowSizeClassFake
@@ -44,6 +46,9 @@ internal class NotificationFlowTest : KoinTest {
 
     @get:Rule
     val disableAnimationsRule = DisableAnimationsRule()
+
+    @get:Rule
+    val runtimePermissionRule = GrantPermissionRule.grant(Manifest.permission.POST_NOTIFICATIONS)
 
     private val context = InstrumentationRegistry.getInstrumentation().targetContext
 

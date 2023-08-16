@@ -69,7 +69,7 @@ internal class TaskListFlowTest : KoinTest {
             categoryDao.insertCategory(
                 Category(
                     category_id = 13,
-                    category_name = "Shared",
+                    category_name = "Work",
                     category_color = "#519872",
                 ),
             )

@@ -67,6 +67,7 @@ test_uiautomator = "2.2.0"
 test_junitext = "1.1.5"
 test_barista = "4.3.0"
 test_orchestrator = "1.4.2"
+test_rules = "1.5.0"
 
 # Quality
 ktlint = "0.50.0"
@@ -142,6 +143,7 @@ test_junitext = { module = "androidx.test.ext:junit", version.ref = "test_junite
 test_mockk = { module = "io.mockk:mockk", version.ref = "test_mockk" }
 test_barista = { module = "com.adevinta.android:barista", version.ref = "test_barista" }
 test_orchestrator = { module = "androidx.test:orchestrator", version.ref = "test_orchestrator" }
+test_rules = { module = "androidx.test:rules", version.ref = "test_rules" }
 
 # Quality
 ktlint = { module = "com.pinterest:ktlint", version.ref = "ktlint" }

@@ -13,12 +13,12 @@ plugins {
 android {
     defaultConfig {
         applicationId = "com.escodro.alkaa"
-        versionCode = Integer.parseInt(libs.versions.version.code.get())
-        versionName = libs.versions.version.name.get()
+        versionCode = AlkaaVersions.versionCode
+        versionName = AlkaaVersions.versionName
 
-        compileSdk = Integer.parseInt(libs.versions.android.sdk.compile.get())
-        minSdk = Integer.parseInt(libs.versions.android.sdk.min.get())
-        targetSdk = Integer.parseInt(libs.versions.android.sdk.target.get())
+        compileSdk = AlkaaVersions.compileSdk
+        minSdk = AlkaaVersions.minSdk
+        targetSdk = AlkaaVersions.targetSdk
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         setProperty("archivesBaseName", "${parent?.name}-$versionName")
@@ -57,8 +57,8 @@ android {
     setDynamicFeatures(setOf(":features:tracker"))
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = AlkaaVersions.javaCompileVersion
+        targetCompatibility = AlkaaVersions.javaCompileVersion
     }
 
     buildFeatures {
@@ -106,18 +106,16 @@ dependencies {
     implementation(projects.libraries.splitInstall)
     implementation(projects.libraries.designsystem)
     implementation(projects.libraries.navigation)
-    implementation(projects.libraries.coroutines)
     implementation(projects.data.local)
     implementation(projects.data.datastore)
     implementation(projects.data.repository)
+    implementation(projects.domain)
     implementation(projects.features.task)
     implementation(projects.features.alarm)
     implementation(projects.features.category)
     implementation(projects.features.preference)
     implementation(projects.features.search)
     implementation(projects.features.glance)
-
-    implementation(projects.domain)
 
     implementation(platform(libs.compose.bom))
 
@@ -133,7 +131,6 @@ dependencies {
 
     implementation(libs.bundles.compose)
     implementation(libs.kotlinx.collections.immutable)
-    implementation(libs.kotlinx.datetime)
 
     androidTestUtil(libs.test.orchestrator)
 
@@ -142,7 +139,6 @@ dependencies {
 
     androidTestImplementation(projects.libraries.test)
     androidTestImplementation(libs.koin.test)
-    androidTestImplementation(libs.test.rules)
     androidTestImplementation(libs.bundles.composetest) {
         exclude(group = "androidx.core", module = "core-ktx")
         exclude(group = "androidx.fragment", module = "fragment")

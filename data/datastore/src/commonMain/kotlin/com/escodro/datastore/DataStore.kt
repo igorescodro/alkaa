@@ -12,7 +12,11 @@ private lateinit var dataStore: DataStore<Preferences>
 private val lock = SynchronizedObject()
 
 /**
- * Gets the singleton DataStore instance, creating it if necessary.
+ * Gets the [DataStore] instance.
+ *
+ * @param producePath function to produce the path to the data store file
+ *
+ * @return the [DataStore] instance
  */
 fun getDataStore(producePath: () -> String): DataStore<Preferences> =
     synchronized(lock) {

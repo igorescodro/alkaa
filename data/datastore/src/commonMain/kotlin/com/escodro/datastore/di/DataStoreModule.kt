@@ -3,6 +3,7 @@ package com.escodro.datastore.di
 import com.escodro.datastore.datasource.PreferencesDataSourceImpl
 import com.escodro.datastore.mapper.AppThemeOptionsMapper
 import com.escodro.repository.datasource.PreferencesDataSource
+import org.koin.core.module.Module
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.bind
@@ -18,4 +19,11 @@ val dataStoreModule = module {
 
     // Mappers
     factoryOf(::AppThemeOptionsMapper)
+
+    includes(platformDataStoreModule)
 }
+
+/**
+ * Provides the platform-specific dependencies.
+ */
+internal expect val platformDataStoreModule: Module

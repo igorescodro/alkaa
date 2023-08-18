@@ -81,17 +81,17 @@ android {
         managedDevices {
             devices {
                 add(
-                    create<ManagedVirtualDevice>("pixel2api27") {
-                        device = "Pixel 2"
-                        apiLevel = 27
-                        systemImageSource = "aosp"
+                    create<ManagedVirtualDevice>("pixel2api30") {
+                        device = "Pixel 4"
+                        apiLevel = 30
+                        systemImageSource = "aosp-atd"
                     }
                 )
             }
             groups {
                 create("alkaaDevices").apply {
                     targetDevices.addAll(
-                        listOf(devices.getByName("pixel2api27"))
+                        listOf(devices.getByName("pixel2api30"))
                     )
                 }
                 unitTests.isReturnDefaultValues = true

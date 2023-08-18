@@ -37,7 +37,7 @@ jobs:
       - name: Run instrumented tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 24
+          api-level: 31
           profile: Galaxy Nexus
           disable-animations: true
           disk-size: 2000M

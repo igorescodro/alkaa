@@ -39,6 +39,7 @@ jobs:
         with:
           api-level: 31
           profile: Galaxy Nexus
+          target: google_apis
           disable-animations: true
           disk-size: 2000M
           heap-size: 600M

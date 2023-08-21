@@ -1,9 +1,6 @@
 package com.escodro.glance.data
 
 import android.content.Context
-import androidx.glance.GlanceId
-import androidx.glance.appwidget.GlanceAppWidgetManager
-import androidx.glance.appwidget.state.updateAppWidgetState
 import androidx.glance.appwidget.updateAll
 import androidx.work.CoroutineWorker
 import androidx.work.ExistingWorkPolicy
@@ -12,7 +9,6 @@ import androidx.work.WorkManager
 import androidx.work.WorkerParameters
 import com.escodro.glance.model.Task
 import com.escodro.glance.presentation.TaskListGlanceWidget
-import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.first
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -26,26 +22,17 @@ internal class TaskListUpdaterWorker(
     workerParameters: WorkerParameters,
 ) : CoroutineWorker(context, workerParameters), KoinComponent {
 
-    private val viewModel: TaskListGlanceUpdater by inject()
+    private val glanceUpdater: TaskListGlanceUpdater by inject()
 
     override suspend fun doWork(): Result {
-        val manager = GlanceAppWidgetManager(context)
-        val glanceIds = manager.getGlanceIds(TaskListGlanceWidget::class.java)
-        val list = viewModel.loadTaskList().first()
-        updateWidgets(glanceIds, list)
+        val list = glanceUpdater.loadTaskList().first()
+        updateWidgets(list)
         return Result.success()
     }
 
-    private suspend fun updateWidgets(glanceIds: List<GlanceId>, list: List<Task>) {
-        glanceIds.forEach {
-            updateAppWidgetState(
-                context = context,
-                definition = TaskListStateDefinition,
-                glanceId = it,
-                updateState = { list.toImmutableList() },
-            )
-            TaskListGlanceWidget().updateAll(context)
-        }
+    private suspend fun updateWidgets(list: List<Task>) {
+        TaskListStateDefinition.updateData(context, list)
+        TaskListGlanceWidget().updateAll(context)
     }
 
     companion object {

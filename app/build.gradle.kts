@@ -118,6 +118,7 @@ dependencies {
     implementation(projects.features.glance)
 
     implementation(projects.domain)
+    implementation(projects.shared)
 
     implementation(platform(libs.compose.bom))
 

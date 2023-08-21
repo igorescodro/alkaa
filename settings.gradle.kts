@@ -19,9 +19,11 @@ include(":libraries:designsystem")
 include(":libraries:navigation")
 
 include(":domain")
+include(":shared")
 
 pluginManagement {
     repositories {
+        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
         gradlePluginPortal()
         mavenCentral()
         google()

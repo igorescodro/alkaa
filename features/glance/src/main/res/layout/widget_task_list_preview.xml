@@ -17,7 +17,7 @@
         <ImageView
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:contentDescription="@string/glance_preview_app_icon_content_description"
+            android:contentDescription="@string/glance_app_icon_content_description"
 
             android:src="@drawable/ic_alkaa_icon" />
 

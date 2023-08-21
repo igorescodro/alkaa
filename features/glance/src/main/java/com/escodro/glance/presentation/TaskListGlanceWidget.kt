@@ -80,7 +80,7 @@ internal class TaskListGlanceWidget : GlanceAppWidget() {
                 ) {
                     Image(
                         provider = ImageProvider(R.drawable.ic_alkaa_icon),
-                        contentDescription = "",
+                        contentDescription = context.getString(R.string.glance_app_icon_content_description),
                         modifier = GlanceModifier.size(32.dp)
                             .clickable(actionStartActivity(getHomeIntent())),
                     )
@@ -116,7 +116,7 @@ internal class TaskListGlanceWidget : GlanceAppWidget() {
         ) {
             Image(
                 provider = ImageProvider(R.drawable.ic_task_list),
-                contentDescription = "Blank Task List",
+                contentDescription = context.getString(R.string.glance_no_tasks_content_description),
                 colorFilter = ColorFilter.tint(GlanceTheme.colors.secondary),
                 modifier = GlanceModifier.size(48.dp),
             )

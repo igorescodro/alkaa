@@ -7,5 +7,6 @@
     <string name="glance_list_preview_item_3">Listen Local Natives</string>
     <string name="glance_heading">Your Tasks</string>
     <string name="glance_no_tasks">No Tasks</string>
-    <string name="glance_preview_app_icon_content_description">AppIcon</string>
+    <string name="glance_app_icon_content_description">App Icon</string>
+    <string name="glance_no_tasks_content_description">Blank Task List</string>
 </resources>

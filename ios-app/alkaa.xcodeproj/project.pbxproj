@@ -17,7 +17,7 @@
 		33158AC9BE65F4C296C12B14 /* Pods-alkaa.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alkaa.debug.xcconfig"; path = "Target Support Files/Pods-alkaa/Pods-alkaa.debug.xcconfig"; sourceTree = "<group>"; };
 		7C8CC3C5971FEF71505C0589 /* Pods_alkaa.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_alkaa.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3AD9DB0ACB470077D9DB8CE /* Pods-alkaa.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alkaa.release.xcconfig"; path = "Target Support Files/Pods-alkaa/Pods-alkaa.release.xcconfig"; sourceTree = "<group>"; };
-		D8AA52012A8FABB700A0D1F2 /* Alkaa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Alkaa.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D8AA52012A8FABB700A0D1F2 /* alkaa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = alkaa.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8AA52042A8FABB700A0D1F2 /* alkaaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = alkaaApp.swift; sourceTree = "<group>"; };
 		D8AA52062A8FABB700A0D1F2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D8AA52082A8FABB800A0D1F2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -65,7 +65,7 @@
 		D8AA52022A8FABB700A0D1F2 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D8AA52012A8FABB700A0D1F2 /* Alkaa.app */,
+				D8AA52012A8FABB700A0D1F2 /* alkaa.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -92,9 +92,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		D8AA52002A8FABB700A0D1F2 /* Alkaa */ = {
+		D8AA52002A8FABB700A0D1F2 /* alkaa */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D8AA520F2A8FABB800A0D1F2 /* Build configuration list for PBXNativeTarget "Alkaa" */;
+			buildConfigurationList = D8AA520F2A8FABB800A0D1F2 /* Build configuration list for PBXNativeTarget "alkaa" */;
 			buildPhases = (
 				6317523CA14BDA047041F8CB /* [CP] Check Pods Manifest.lock */,
 				D8AA52122A8FABD000A0D1F2 /* ShellScript */,
@@ -106,9 +106,9 @@
 			);
 			dependencies = (
 			);
-			name = Alkaa;
+			name = alkaa;
 			productName = alkaa;
-			productReference = D8AA52012A8FABB700A0D1F2 /* Alkaa.app */;
+			productReference = D8AA52012A8FABB700A0D1F2 /* alkaa.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -139,7 +139,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D8AA52002A8FABB700A0D1F2 /* Alkaa */,
+				D8AA52002A8FABB700A0D1F2 /* alkaa */,
 			);
 		};
 /* End PBXProject section */
@@ -353,6 +353,7 @@
 					"$(inherited)",
 					"-framework",
 					shared,
+					"-lsqlite3",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.escodro.alkaa.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -390,6 +391,7 @@
 					"$(inherited)",
 					"-framework",
 					shared,
+					"-lsqlite3",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.escodro.alkaa.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -411,7 +413,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D8AA520F2A8FABB800A0D1F2 /* Build configuration list for PBXNativeTarget "Alkaa" */ = {
+		D8AA520F2A8FABB800A0D1F2 /* Build configuration list for PBXNativeTarget "alkaa" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D8AA52102A8FABB800A0D1F2 /* Debug */,

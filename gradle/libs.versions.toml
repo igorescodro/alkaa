@@ -58,6 +58,9 @@ accompanist = "0.30.1"
 # SQLDelight
 sqldelight = "2.0.0"
 
+# Moko
+moko = "0.16.1"
+
 # Test
 test_junit = "4.13.2"
 test_runner = "1.5.2"
@@ -133,6 +136,9 @@ accompanist_material = { module = "com.google.accompanist:accompanist-navigation
 sqldelight_driver = { module = "app.cash.sqldelight:android-driver", version.ref = "sqldelight" }
 sqldelight_native = { module = "app.cash.sqldelight:native-driver", version.ref = "sqldelight" }
 sqldelight_coroutines = { module = "app.cash.sqldelight:coroutines-extensions", version.ref = "sqldelight" }
+
+# Moko
+moko_mvvm_core = { module = "dev.icerock.moko:mvvm-core", version.ref = "moko" }
 
 # Test
 test_junit = { module = "junit:junit", version.ref = "test_junit" }

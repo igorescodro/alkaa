@@ -27,6 +27,6 @@ internal class IosDataStore {
                 error = null,
             )
             requireNotNull(documentDirectory).path + "/$dataStoreFileName"
-        }
+        },
     )
 }

@@ -38,6 +38,13 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
+                implementation(projects.data.local)
+                implementation(projects.data.datastore)
+                implementation(projects.data.repository)
+                implementation(projects.domain)
+                implementation(projects.libraries.coroutines)
+
+                implementation(libs.koin.core)
                 implementation(projects.domain)
                 implementation(compose.runtime)
                 implementation(compose.foundation)

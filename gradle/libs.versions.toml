@@ -131,6 +131,7 @@ accompanist_material = { module = "com.google.accompanist:accompanist-navigation
 
 # SQLDelight
 sqldelight_driver = { module = "app.cash.sqldelight:android-driver", version.ref = "sqldelight" }
+sqldelight_native = { module = "app.cash.sqldelight:native-driver", version.ref = "sqldelight" }
 sqldelight_coroutines = { module = "app.cash.sqldelight:coroutines-extensions", version.ref = "sqldelight" }
 
 # Test

@@ -43,6 +43,11 @@ kotlin {
                 implementation(libs.sqldelight.driver)
             }
         }
+        val iosMain by getting {
+            dependencies {
+                implementation(libs.sqldelight.native)
+            }
+        }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))

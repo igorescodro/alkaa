@@ -5,7 +5,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 
 /**
- *
+ * Android implementation of [DataStore].
  */
 internal class AndroidDataStore(private val context: Context) {
 

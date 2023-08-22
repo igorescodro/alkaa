@@ -17,6 +17,7 @@ include(":libraries:test")
 include(":libraries:splitInstall")
 include(":libraries:designsystem")
 include(":libraries:navigation")
+include(":libraries:di")
 
 include(":domain")
 include(":shared")

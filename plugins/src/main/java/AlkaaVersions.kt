@@ -9,7 +9,7 @@ object AlkaaVersions {
     const val versionCode = 20207
     const val versionName = "2.2.7"
 
-    const val compileSdk = 33
+    const val compileSdk = 34
     const val targetSdk = 33
     const val minSdk = 24
     val javaCompileVersion = JavaVersion.VERSION_17

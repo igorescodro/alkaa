@@ -32,7 +32,7 @@ lifecycle_viewmodel = "2.6.1"
 # Compose
 compose = "1.4.2"
 compose_compiler = "1.4.6"
-compose_bom = "2023.06.01"
+compose_bom = "2023.08.00"
 compose_nav = "2.5.3"
 compose_viewmodel = "2.6.1"
 compose_activity = "1.7.1"
@@ -50,7 +50,7 @@ koin_compose = "3.4.6"
 koin_android = "3.4.3"
 
 # Accompanist
-accompanist = "0.30.1"
+accompanist = "0.32.0"
 
 # Test
 test_junit = "4.13.2"
@@ -124,7 +124,6 @@ koin_compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = 
 koin_test = { module = "io.insert-koin:koin-test", version.ref = "koin_test" }
 
 # Accompanist
-accompanist_animation = { module = "com.google.accompanist:accompanist-navigation-animation", version.ref = "accompanist" }
 accompanist_permission = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanist" }
 accompanist_material = { module = "com.google.accompanist:accompanist-navigation-material", version.ref = "accompanist" }
 

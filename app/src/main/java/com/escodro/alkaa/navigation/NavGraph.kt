@@ -3,8 +3,7 @@ package com.escodro.alkaa.navigation
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import androidx.compose.animation.AnimatedContentScope
-import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.core.tween
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.runtime.Composable
@@ -13,7 +12,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.dialog
+import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
 import com.escodro.alkaa.presentation.home.Home
@@ -26,9 +28,6 @@ import com.escodro.preference.presentation.OpenSource
 import com.escodro.splitinstall.LoadFeature
 import com.escodro.task.presentation.add.AddTaskBottomSheet
 import com.escodro.task.presentation.detail.main.TaskDetailSection
-import com.google.accompanist.navigation.animation.AnimatedNavHost
-import com.google.accompanist.navigation.animation.composable
-import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import com.google.accompanist.navigation.material.ModalBottomSheetLayout
 import com.google.accompanist.navigation.material.bottomSheet
@@ -40,17 +39,17 @@ import com.google.accompanist.navigation.material.rememberBottomSheetNavigator
  * @param windowSizeClass the window size class from current device
  * @param startDestination the start destination of the graph
  */
-@OptIn(ExperimentalAnimationApi::class, ExperimentalMaterialNavigationApi::class)
+@OptIn(ExperimentalMaterialNavigationApi::class)
 @Composable
 fun NavGraph(windowSizeClass: WindowSizeClass, startDestination: String = Destinations.Home) {
     val bottomSheetNavigator = rememberBottomSheetNavigator()
-    val navController = rememberAnimatedNavController(bottomSheetNavigator)
+    val navController = rememberNavController(bottomSheetNavigator)
     val context = LocalContext.current
 
     val actions = remember(navController) { Actions(navController, context) }
 
     ModalBottomSheetLayout(bottomSheetNavigator) {
-        AnimatedNavHost(navController = navController, startDestination = startDestination) {
+        NavHost(navController = navController, startDestination = startDestination) {
             homeGraph(windowSizeClass, actions)
             taskGraph(actions)
             preferencesGraph(actions)
@@ -60,7 +59,6 @@ fun NavGraph(windowSizeClass: WindowSizeClass, startDestination: String = Destin
     }
 }
 
-@OptIn(ExperimentalAnimationApi::class)
 @Suppress("MagicNumber")
 private fun NavGraphBuilder.homeGraph(windowSizeClass: WindowSizeClass, actions: Actions) {
     composable(
@@ -68,13 +66,13 @@ private fun NavGraphBuilder.homeGraph(windowSizeClass: WindowSizeClass, actions:
         deepLinks = listOf(navDeepLink { uriPattern = DestinationDeepLink.HomePattern }),
         enterTransition = {
             slideIntoContainer(
-                AnimatedContentScope.SlideDirection.Right,
+                AnimatedContentTransitionScope.SlideDirection.Right,
                 animationSpec = tween(700),
             )
         },
         exitTransition = {
             slideOutOfContainer(
-                AnimatedContentScope.SlideDirection.Left,
+                AnimatedContentTransitionScope.SlideDirection.Left,
                 animationSpec = tween(700),
             )
         },
@@ -91,7 +89,7 @@ private fun NavGraphBuilder.homeGraph(windowSizeClass: WindowSizeClass, actions:
     }
 }
 
-@OptIn(ExperimentalAnimationApi::class, ExperimentalMaterialNavigationApi::class)
+@OptIn(ExperimentalMaterialNavigationApi::class)
 @Suppress("MagicNumber")
 private fun NavGraphBuilder.taskGraph(actions: Actions) {
     composable(
@@ -104,13 +102,13 @@ private fun NavGraphBuilder.taskGraph(actions: Actions) {
         ),
         enterTransition = {
             slideIntoContainer(
-                AnimatedContentScope.SlideDirection.Left,
+                AnimatedContentTransitionScope.SlideDirection.Left,
                 animationSpec = tween(700),
             )
         },
         exitTransition = {
             slideOutOfContainer(
-                AnimatedContentScope.SlideDirection.Right,
+                AnimatedContentTransitionScope.SlideDirection.Right,
                 animationSpec = tween(700),
             )
         },
@@ -151,7 +149,6 @@ private fun NavGraphBuilder.categoryGraph(actions: Actions) {
     }
 }
 
-@OptIn(ExperimentalAnimationApi::class)
 @Suppress("MagicNumber")
 private fun NavGraphBuilder.preferencesGraph(actions: Actions) {
     composable(route = Destinations.About) {

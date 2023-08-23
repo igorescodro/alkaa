@@ -43,9 +43,6 @@ jobs:
           java-version: '17'
           distribution: 'adopt'
 
-      - name: Setup Gradle
-        uses: gradle/gradle-build-action@v2
-
       - name: Build with Gradle
         run: ./gradlew assemble
 
@@ -72,9 +69,6 @@ jobs:
         with:
           java-version: '17'
           distribution: 'adopt'
-
-      - name: Setup Gradle
-        uses: gradle/gradle-build-action@v2
 
       - name: Build with Gradle
         run: ./gradlew bundleRelease

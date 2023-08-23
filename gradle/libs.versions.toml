@@ -44,6 +44,7 @@ compose_activity = "1.7.1"
 compose_material3 = "1.0.1"
 compose_icons = "1.4.2"
 compose_windowsize = "1.0.1"
+jb_compose_compiler = "1.4.3"
 
 # Koin
 koin_core = "3.4.3"
@@ -169,4 +170,5 @@ kotlin_serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 dependencyanalysis = { id = "com.autonomousapps.dependency-analysis", version.ref = "dependencyanalysis" }
 sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
+compose = {id = "org.jetbrains.compose", version.ref = "jb_compose_compiler" }
 

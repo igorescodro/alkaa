@@ -9,4 +9,3 @@ fun AlkaaMultiplatformApp() {
         // Shine!
     }
 }
-

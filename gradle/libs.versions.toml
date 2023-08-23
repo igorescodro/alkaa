@@ -1,16 +1,16 @@
 [versions]
 # Project
-version_code = "20207"
-version_name = "2.2.7"
+version_code = "20300"
+version_name = "2.3.0"
 android_gradle_plugin = "8.1.1"
-kotlin = "1.8.20"
-android_sdk_compile = "33"
+kotlin = "1.9.0"
+android_sdk_compile = "34"
 android_sdk_target = "33"
 android_sdk_min = "24"
 
 # Plugins
-ksp = "1.8.22-1.0.11"
-dependencyanalysis = "1.20.0"
+ksp = "1.9.0-1.0.13"
+dependencyanalysis = "1.21.0"
 
 # General dependencies
 logging = "3.0.5"
@@ -19,7 +19,7 @@ logcat = "0.1"
 
 # KotlinX
 kotlinx_coroutines = "1.7.3"
-kotlinx_serialization = "1.5.1"
+kotlinx_serialization = "1.6.0"
 kotlinx_collections_immutable = "0.3.5"
 kotlinx_datetime = "0.4.0"
 
@@ -31,14 +31,13 @@ constraint = "2.0.4"
 corektx = "1.10.1"
 playcore = "1.10.3"
 datastore = "1.1.0-alpha04"
-glance = "1.0.0-beta01"
+glance = "1.0.0-rc01"
 workmanager = "2.8.1"
 lifecycle_viewmodel = "2.6.1"
 
 # Compose
-compose = "1.4.2"
-compose_compiler = "1.4.6"
-compose_bom = "2023.06.01"
+compose_compiler = "1.5.1"
+compose_bom = "2023.08.00"
 compose_nav = "2.5.3"
 compose_viewmodel = "2.6.1"
 compose_activity = "1.7.1"
@@ -53,7 +52,7 @@ koin_compose = "3.4.6"
 koin_android = "3.4.3"
 
 # Accompanist
-accompanist = "0.30.1"
+accompanist = "0.32.0"
 
 # SQLDelight
 sqldelight = "2.0.0"
@@ -105,6 +104,7 @@ androidx_corektx = { module = "androidx.core:core-ktx", version.ref = "corektx" 
 androidx_playcore = { module = "com.google.android.play:core", version.ref = "playcore" }
 androidx_datastore = { module = "androidx.datastore:datastore-preferences-core", version.ref = "datastore" }
 androidx_glance = { module = "androidx.glance:glance-appwidget", version.ref = "glance" }
+androidx_glance_material3 = { module = "androidx.glance:glance-material3", version.ref = "glance" }
 androidx_workmanager = { module = "androidx.work:work-runtime-ktx", version.ref = "workmanager" }
 androidx_lifecycle_viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel", version.ref = "lifecycle_viewmodel" }
 
@@ -128,7 +128,6 @@ koin_compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = 
 koin_test = { module = "io.insert-koin:koin-test", version.ref = "koin_test" }
 
 # Accompanist
-accompanist_animation = { module = "com.google.accompanist:accompanist-navigation-animation", version.ref = "accompanist" }
 accompanist_permission = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanist" }
 accompanist_material = { module = "com.google.accompanist:accompanist-navigation-material", version.ref = "accompanist" }
 

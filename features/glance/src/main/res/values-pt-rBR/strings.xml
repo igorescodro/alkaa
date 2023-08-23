@@ -5,4 +5,8 @@
     <string name="glance_list_preview_item_1">Comprar leite</string>
     <string name="glance_list_preview_item_2">Assistir Ponyo</string>
     <string name="glance_list_preview_item_3">Ouvir Local Natives</string>
+    <string name="glance_heading">Suas Tarefas</string>
+    <string name="glance_no_tasks">Nenhuma Tarefa</string>
+    <string name="glance_app_icon_content_description">Ícone do aplicativo</string>
+    <string name="glance_no_tasks_content_description">Lista de Tarefas Vazia</string>
 </resources>

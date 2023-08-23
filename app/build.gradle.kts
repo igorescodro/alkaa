@@ -49,7 +49,7 @@ android {
         checkDependencies = true
 
         lintConfig = file("${rootDir}/config/filters/lint.xml")
-        htmlOutput = file("${buildDir}/reports/lint.html")
+        htmlOutput = file("${layout.buildDirectory}/reports/lint.html")
 
         project.tasks.check.dependsOn("lint")
     }
@@ -125,7 +125,6 @@ dependencies {
     implementation(libs.logcat)
     implementation(libs.compose.navigation)
     implementation(libs.compose.activity)
-    implementation(libs.accompanist.animation)
     implementation(libs.accompanist.material)
     implementation(libs.androidx.playcore)
     implementation(libs.koin.android)

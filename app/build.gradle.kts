@@ -49,7 +49,7 @@ android {
         checkDependencies = true
 
         lintConfig = file("${rootDir}/config/filters/lint.xml")
-        htmlOutput = file("${buildDir}/reports/lint.html")
+        htmlOutput = file("${layout.buildDirectory}/reports/lint.html")
 
         project.tasks.check.dependsOn("lint")
     }

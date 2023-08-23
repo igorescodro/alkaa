@@ -19,7 +19,7 @@ tasks {
         mainClass.set("com.pinterest.ktlint.Main")
         args(
             "src/**/*.kt", "--reporter=plain", "--reporter=checkstyle," +
-                "output=${buildDir}/reports/ktlint.xml"
+                "output=${layout.buildDirectory}/reports/ktlint.xml"
         )
     }
 

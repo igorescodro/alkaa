@@ -1,68 +1,39 @@
+import extension.androidDependencies
+import extension.commonDependencies
+import extension.commonTestDependencies
+import extension.iosDependencies
+import extension.setFrameworkBaseName
+
 plugins {
-    kotlin("multiplatform")
-    id("com.android.library")
-    id("com.escodro.kotlin-quality")
+    id("com.escodro.multiplatform")
     alias(libs.plugins.ksp)
     alias(libs.plugins.sqldelight)
 }
 
-@OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
 kotlin {
-    targetHierarchy.default()
+    setFrameworkBaseName("local")
 
-    android {
-        compilations.all {
-            kotlinOptions {
-                jvmTarget = "1.8"
-            }
-        }
+    commonDependencies {
+        implementation(projects.libraries.coroutines)
+        implementation(projects.data.repository)
+        implementation(libs.koin.core)
+        implementation(libs.kotlinx.datetime)
+        implementation(libs.sqldelight.coroutines)
     }
-
-    listOf(
-        iosX64(),
-        iosArm64(),
-        iosSimulatorArm64()
-    ).forEach {
-        it.binaries.framework {
-            baseName = "local"
-        }
+    androidDependencies {
+        implementation(libs.sqldelight.driver)
     }
-
-    sourceSets {
-        val commonMain by getting {
-            dependencies {
-                implementation(projects.libraries.coroutines)
-                implementation(projects.data.repository)
-                implementation(libs.koin.core)
-                implementation(libs.kotlinx.datetime)
-                implementation(libs.sqldelight.coroutines)
-            }
-        }
-        val androidMain by getting {
-            dependencies {
-                implementation(libs.sqldelight.driver)
-            }
-        }
-        val iosMain by getting {
-            dependencies {
-                implementation(libs.sqldelight.native)
-            }
-        }
-        val commonTest by getting {
-            dependencies {
-                implementation(kotlin("test"))
-                implementation(libs.kotlinx.coroutines.test)
-            }
-        }
+    iosDependencies {
+        implementation(libs.sqldelight.native)
+    }
+    commonTestDependencies {
+        implementation(kotlin("test"))
+        implementation(libs.kotlinx.coroutines.test)
     }
 }
 
 android {
     namespace = "com.escodro.local"
-    compileSdk = Integer.parseInt(libs.versions.android.sdk.compile.get())
-    defaultConfig {
-        minSdk = Integer.parseInt(libs.versions.android.sdk.min.get())
-    }
 }
 
 sqldelight {

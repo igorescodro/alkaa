@@ -1,22 +1,13 @@
+import extension.commonDependencies
+import extension.commonTestDependencies
+
 plugins {
-    kotlin("multiplatform")
-    id("com.android.library")
-    id("org.jetbrains.compose") version "1.4.3"
+    id("com.escodro.multiplatform")
+    alias(libs.plugins.compose)
     kotlin("native.cocoapods")
 }
 
-@OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
 kotlin {
-    targetHierarchy.default()
-
-    android {
-        compilations.all {
-            kotlinOptions {
-                jvmTarget = "1.8"
-            }
-        }
-    }
-
     iosX64()
     iosArm64()
     iosSimulatorArm64()
@@ -35,34 +26,23 @@ kotlin {
             "['src/commonMain/resources/**', 'src/iosMain/resources/**']"
     }
 
-    sourceSets {
-        val commonMain by getting {
-            dependencies {
-                implementation(projects.data.local)
-                implementation(projects.data.datastore)
-                implementation(projects.data.repository)
-                implementation(projects.domain)
-                implementation(projects.libraries.coroutines)
+    commonDependencies {
+        implementation(projects.data.local)
+        implementation(projects.data.datastore)
+        implementation(projects.data.repository)
+        implementation(projects.domain)
+        implementation(projects.libraries.coroutines)
 
-                implementation(libs.koin.core)
-                implementation(projects.domain)
-                implementation(compose.runtime)
-                implementation(compose.foundation)
-                implementation(compose.material)
-            }
-        }
-        val commonTest by getting {
-            dependencies {
-                implementation(kotlin("test"))
-            }
-        }
+        implementation(libs.koin.core)
+        implementation(projects.domain)
+        implementation(compose.runtime)
+        implementation(compose.material)
+    }
+    commonTestDependencies {
+        implementation(kotlin("test"))
     }
 }
 
 android {
     namespace = "com.escodro.shared"
-    compileSdk = 33
-    defaultConfig {
-        minSdk = 24
-    }
 }

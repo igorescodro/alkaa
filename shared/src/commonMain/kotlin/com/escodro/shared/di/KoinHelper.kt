@@ -27,7 +27,7 @@ fun initKoin(appModule: Module = module { }) {
             repositoryModule,
             localModule,
             dataStoreModule,
-            coroutinesModule
+            coroutinesModule,
         )
     }
 }

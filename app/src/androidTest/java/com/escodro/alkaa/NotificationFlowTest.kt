@@ -32,7 +32,6 @@ import java.util.Calendar
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 import com.escodro.alarm.R as AlarmR
-import com.escodro.designsystem.R as DesignSystemR
 
 @OptIn(ExperimentalTestApi::class)
 internal class NotificationFlowTest : KoinTest {
@@ -109,7 +108,7 @@ internal class NotificationFlowTest : KoinTest {
         composeTestRule.onNodeWithText(name).assertIsDisplayed()
         composeTestRule
             .onNodeWithContentDescription(
-                string(DesignSystemR.string.back_arrow_cd),
+                "Back",
                 useUnmergedTree = true,
             )
             .assertIsDisplayed()

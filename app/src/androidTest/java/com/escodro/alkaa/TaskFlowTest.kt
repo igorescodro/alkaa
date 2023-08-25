@@ -32,7 +32,6 @@ import org.koin.test.KoinTest
 import org.koin.test.inject
 import org.koin.test.mock.declare
 import java.util.Calendar
-import com.escodro.designsystem.R as DesignSystemR
 import com.escodro.task.R as TaskR
 
 @OptIn(ExperimentalTestApi::class)
@@ -210,7 +209,7 @@ internal class TaskFlowTest : KoinTest {
 
     private fun pressBack() {
         composeTestRule.onNodeWithContentDescription(
-            string(DesignSystemR.string.back_arrow_cd),
+            "Back",
             useUnmergedTree = true,
         ).performClick()
 

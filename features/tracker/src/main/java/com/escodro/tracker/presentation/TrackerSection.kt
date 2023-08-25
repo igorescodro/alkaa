@@ -93,8 +93,8 @@ private fun TrackerLoadedContent(trackerInfo: Tracker.Info) {
 private fun TrackerEmpty() {
     DefaultIconTextContent(
         icon = Icons.Outlined.DataUsage,
-        iconContentDescription = R.string.tracker_cd_empty,
-        header = R.string.tracker_header_empty,
+        iconContentDescription = stringResource(id = R.string.tracker_cd_empty),
+        header = stringResource(id = R.string.tracker_header_empty),
         modifier = Modifier.padding(16.dp),
     )
 }
@@ -103,8 +103,8 @@ private fun TrackerEmpty() {
 private fun TrackerError() {
     DefaultIconTextContent(
         icon = Icons.Outlined.Close,
-        iconContentDescription = R.string.tracker_cd_error,
-        header = R.string.tracker_header_error,
+        iconContentDescription = stringResource(id = R.string.tracker_cd_error),
+        header = stringResource(id = R.string.tracker_header_error),
         modifier = Modifier.padding(16.dp),
     )
 }

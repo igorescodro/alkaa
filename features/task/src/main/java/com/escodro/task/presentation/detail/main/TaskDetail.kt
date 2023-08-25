@@ -21,6 +21,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import com.escodro.alarmapi.AlarmPermission
@@ -159,8 +160,8 @@ private fun TaskDetailContent(
 private fun TaskDetailError() {
     DefaultIconTextContent(
         icon = Icons.Outlined.Close,
-        iconContentDescription = R.string.task_detail_cd_error,
-        header = R.string.task_detail_header_error,
+        iconContentDescription = stringResource(id = R.string.task_detail_cd_error),
+        header = stringResource(id = R.string.task_detail_header_error),
     )
 }
 

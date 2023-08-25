@@ -44,13 +44,14 @@ compose_activity = "1.7.1"
 compose_material3 = "1.0.1"
 compose_icons = "1.4.2"
 compose_windowsize = "1.0.1"
-jb_compose_compiler = "1.4.3"
+jb_compose_compiler = "1.5.0-beta02"
 
 # Koin
 koin_core = "3.4.3"
 koin_test = "3.4.3"
 koin_compose = "3.4.6"
 koin_android = "3.4.3"
+koin_compose_jb = "1.0.4"
 
 # Accompanist
 accompanist = "0.32.0"
@@ -60,6 +61,9 @@ sqldelight = "2.0.0"
 
 # Moko
 moko = "0.16.1"
+
+# AtomicFU
+atomicfu = "0.22.0"
 
 # Test
 test_junit = "4.13.2"
@@ -84,6 +88,7 @@ aboutlibraries = "10.8.3"
 # Project
 android_gradle_plugin = { module = "com.android.tools.build:gradle", version.ref = "android_gradle_plugin" }
 kotlin_gradle_plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+kotlin_atomicfu = { module = "org.jetbrains.kotlinx:atomicfu-gradle-plugin", version.ref = "atomicfu" }
 
 # General dependencies
 logging = { module = "io.github.microutils:kotlin-logging", version.ref = "logging" }
@@ -127,6 +132,7 @@ koin_core = { module = "io.insert-koin:koin-core", version.ref = "koin_core" }
 koin_android = { module = "io.insert-koin:koin-android", version.ref = "koin_android" }
 koin_compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin_compose" }
 koin_test = { module = "io.insert-koin:koin-test", version.ref = "koin_test" }
+koin_compose_jb = { module = "io.insert-koin:koin-compose", version.ref = "koin_compose_jb" }
 
 # Accompanist
 accompanist_permission = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanist" }

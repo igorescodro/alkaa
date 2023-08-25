@@ -107,7 +107,7 @@ private fun CategoryListScaffold(
             modifier = modifier.fillMaxSize(),
             floatingActionButton = {
                 AddFloatingButton(
-                    contentDescription = R.string.category_cd_add_category,
+                    contentDescription = stringResource(id = R.string.category_cd_add_category),
                     onClick = { onAddClick() },
                 )
             },
@@ -204,8 +204,8 @@ private fun CategoryCircleIndicator(size: Dp, color: Int, alpha: Float = 1F) {
 private fun CategoryListEmpty(modifier: Modifier = Modifier) {
     DefaultIconTextContent(
         icon = Icons.Outlined.ThumbUp,
-        iconContentDescription = R.string.category_list_cd_empty_list,
-        header = R.string.category_list_header_empty,
+        iconContentDescription = stringResource(id = R.string.category_list_cd_empty_list),
+        header = stringResource(id = R.string.category_list_header_empty),
         modifier = modifier,
     )
 }

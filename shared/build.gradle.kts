@@ -22,8 +22,6 @@ kotlin {
             baseName = "shared"
             isStatic = true
         }
-        extraSpecAttributes["resources"] =
-            "['src/commonMain/resources/**', 'src/iosMain/resources/**']"
     }
 
     commonDependencies {
@@ -32,11 +30,12 @@ kotlin {
         implementation(projects.data.repository)
         implementation(projects.domain)
         implementation(projects.libraries.coroutines)
+        implementation(projects.libraries.designsystem)
 
         implementation(libs.koin.core)
         implementation(projects.domain)
         implementation(compose.runtime)
-        implementation(compose.material)
+        implementation(compose.material3)
     }
     commonTestDependencies {
         implementation(kotlin("test"))

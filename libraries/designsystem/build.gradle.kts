@@ -1,6 +1,22 @@
+import extension.commonDependencies
+import extension.setFrameworkBaseName
+
 plugins {
-    id("com.escodro.android-compose")
+    id("com.escodro.multiplatform")
+    alias(libs.plugins.compose)
 }
+
+kotlin {
+    setFrameworkBaseName("designsystem")
+
+    commonDependencies {
+        implementation(libs.koin.compose.jb)
+        implementation(compose.runtime)
+        implementation(compose.material)
+        implementation(compose.material3)
+    }
+}
+
 android {
     namespace = "com.escodro.designsystem"
 }

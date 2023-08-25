@@ -136,7 +136,7 @@ internal fun TaskListScaffold(
             topBar = { TaskFilter(categoryHandler = categoryHandler) },
             floatingActionButton = {
                 AddFloatingButton(
-                    contentDescription = R.string.task_cd_add_task,
+                    contentDescription = stringResource(id = R.string.task_cd_add_task),
                     onClick = { taskHandler.onAddClick() },
                 )
             },
@@ -204,8 +204,8 @@ private fun TaskListContent(
 private fun TaskListEmpty() {
     DefaultIconTextContent(
         icon = Icons.Outlined.ThumbUp,
-        iconContentDescription = R.string.task_list_cd_empty_list,
-        header = R.string.task_list_header_empty,
+        iconContentDescription = stringResource(id = R.string.task_list_cd_empty_list),
+        header = stringResource(id = R.string.task_list_header_empty),
     )
 }
 
@@ -213,8 +213,8 @@ private fun TaskListEmpty() {
 private fun TaskListError() {
     DefaultIconTextContent(
         icon = Icons.Outlined.Close,
-        iconContentDescription = R.string.task_list_cd_error,
-        header = R.string.task_list_header_error,
+        iconContentDescription = stringResource(id = R.string.task_list_cd_error),
+        header = stringResource(id = R.string.task_list_header_error),
     )
 }
 

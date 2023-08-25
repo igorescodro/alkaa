@@ -1,6 +1,5 @@
 package com.escodro.designsystem.components
 
-import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -27,11 +26,9 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.escodro.designsystem.R
 
 /**
  * Default content containing a icon and a text showing some full screen information.
@@ -45,8 +42,8 @@ import com.escodro.designsystem.R
 @Composable
 fun DefaultIconTextContent(
     icon: ImageVector,
-    @StringRes iconContentDescription: Int,
-    @StringRes header: Int,
+    iconContentDescription: String,
+    header: String,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -56,13 +53,13 @@ fun DefaultIconTextContent(
     ) {
         Icon(
             imageVector = icon,
-            contentDescription = stringResource(id = iconContentDescription),
+            contentDescription = iconContentDescription,
             modifier = Modifier.size(64.dp),
             tint = MaterialTheme.colorScheme.primary,
         )
         Spacer(modifier = Modifier.height(24.dp))
         Text(
-            text = stringResource(id = header),
+            text = header,
             style = MaterialTheme.typography.bodyLarge,
             textAlign = TextAlign.Center,
             color = MaterialTheme.colorScheme.outline,
@@ -93,7 +90,7 @@ fun AlkaaToolbar(onUpPress: () -> Unit, modifier: Modifier = Modifier) {
             IconButton(onClick = onUpPress) {
                 Icon(
                     imageVector = Icons.Rounded.ArrowBack,
-                    contentDescription = stringResource(id = R.string.back_arrow_cd),
+                    contentDescription = "Back", // TODO use localized string
                 )
             }
         },
@@ -110,7 +107,7 @@ fun AlkaaToolbar(onUpPress: () -> Unit, modifier: Modifier = Modifier) {
  */
 @Composable
 fun AddFloatingButton(
-    @StringRes contentDescription: Int,
+    contentDescription: String,
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
 ) {
@@ -121,7 +118,7 @@ fun AddFloatingButton(
     ) {
         Icon(
             imageVector = Icons.Outlined.Add,
-            contentDescription = stringResource(id = contentDescription),
+            contentDescription = contentDescription,
         )
     }
 }

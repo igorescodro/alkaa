@@ -51,6 +51,7 @@ koin_core = "3.4.3"
 koin_test = "3.4.3"
 koin_compose = "3.4.6"
 koin_android = "3.4.3"
+koin_compose_jb = "1.0.4"
 
 # Accompanist
 accompanist = "0.32.0"
@@ -127,6 +128,7 @@ koin_core = { module = "io.insert-koin:koin-core", version.ref = "koin_core" }
 koin_android = { module = "io.insert-koin:koin-android", version.ref = "koin_android" }
 koin_compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin_compose" }
 koin_test = { module = "io.insert-koin:koin-test", version.ref = "koin_test" }
+koin_compose_jb = { module = "io.insert-koin:koin-compose", version.ref = "koin_compose_jb" }
 
 # Accompanist
 accompanist_permission = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanist" }

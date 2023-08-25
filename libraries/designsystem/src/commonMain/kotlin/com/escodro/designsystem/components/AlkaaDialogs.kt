@@ -5,7 +5,6 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
 import com.escodro.designsystem.AlkaaTheme
 
 /**
@@ -58,7 +57,7 @@ data class DialogArguments(
 )
 
 @Suppress("UndocumentedPublicFunction")
-@Preview
+// @Preview TODO re-enable when Preview is available in KMM modules
 @Composable
 fun DialogPreview() {
     AlkaaTheme {

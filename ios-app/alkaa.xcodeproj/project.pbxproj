@@ -14,9 +14,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		33158AC9BE65F4C296C12B14 /* Pods-alkaa.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alkaa.debug.xcconfig"; path = "Target Support Files/Pods-alkaa/Pods-alkaa.debug.xcconfig"; sourceTree = "<group>"; };
-		7C8CC3C5971FEF71505C0589 /* Pods_alkaa.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_alkaa.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D3AD9DB0ACB470077D9DB8CE /* Pods-alkaa.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-alkaa.release.xcconfig"; path = "Target Support Files/Pods-alkaa/Pods-alkaa.release.xcconfig"; sourceTree = "<group>"; };
 		D8AA52012A8FABB700A0D1F2 /* alkaa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = alkaa.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8AA52042A8FABB700A0D1F2 /* alkaaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = alkaaApp.swift; sourceTree = "<group>"; };
 		D8AA52062A8FABB700A0D1F2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -35,19 +32,9 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		57F5D47EAF33409213080F83 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				7C8CC3C5971FEF71505C0589 /* Pods_alkaa.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		C7AE2E8DAF14D6D50F9AA112 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				33158AC9BE65F4C296C12B14 /* Pods-alkaa.debug.xcconfig */,
-				D3AD9DB0ACB470077D9DB8CE /* Pods-alkaa.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -58,7 +45,6 @@
 				D8AA52032A8FABB700A0D1F2 /* alkaa */,
 				D8AA52022A8FABB700A0D1F2 /* Products */,
 				C7AE2E8DAF14D6D50F9AA112 /* Pods */,
-				57F5D47EAF33409213080F83 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -96,7 +82,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D8AA520F2A8FABB800A0D1F2 /* Build configuration list for PBXNativeTarget "alkaa" */;
 			buildPhases = (
-				6317523CA14BDA047041F8CB /* [CP] Check Pods Manifest.lock */,
 				D8AA52122A8FABD000A0D1F2 /* ShellScript */,
 				D8AA51FD2A8FABB700A0D1F2 /* Sources */,
 				D8AA51FE2A8FABB700A0D1F2 /* Frameworks */,
@@ -157,28 +142,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		6317523CA14BDA047041F8CB /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-alkaa-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		D8AA52122A8FABD000A0D1F2 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -327,7 +290,6 @@
 		};
 		D8AA52102A8FABB800A0D1F2 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 33158AC9BE65F4C296C12B14 /* Pods-alkaa.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -365,7 +327,6 @@
 		};
 		D8AA52112A8FABB800A0D1F2 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D3AD9DB0ACB470077D9DB8CE /* Pods-alkaa.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

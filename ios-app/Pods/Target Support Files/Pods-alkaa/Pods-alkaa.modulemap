@@ -1,6 +1,0 @@
-framework module Pods_alkaa {
-  umbrella header "Pods-alkaa-umbrella.h"
-
-  export *
-  module * { export * }
-}

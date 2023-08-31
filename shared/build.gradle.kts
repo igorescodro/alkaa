@@ -4,7 +4,6 @@ import extension.commonTestDependencies
 plugins {
     id("com.escodro.multiplatform")
     alias(libs.plugins.compose)
-    kotlin("native.cocoapods")
 }
 
 kotlin {
@@ -12,13 +11,12 @@ kotlin {
     iosArm64()
     iosSimulatorArm64()
 
-    cocoapods {
-        version = "1.0.0"
-        summary = "Alkaa Multiplatform Module"
-        homepage = "https://github.com/igorescodro/alkaa"
-        ios.deploymentTarget = "14.1"
-        podfile = project.file("../ios-app/Podfile")
-        framework {
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach {
+        it.binaries.framework {
             baseName = "shared"
             isStatic = true
         }

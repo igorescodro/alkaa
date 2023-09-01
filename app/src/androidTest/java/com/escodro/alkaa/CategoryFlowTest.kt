@@ -16,7 +16,7 @@ import com.escodro.alkaa.navigation.NavGraph
 import com.escodro.alkaa.util.WindowSizeClassFake
 import com.escodro.category.presentation.semantics.ColorKey
 import com.escodro.designsystem.AlkaaTheme
-import com.escodro.local.provider.DaoProvider
+import com.escodro.local.dao.CategoryDao
 import com.escodro.test.rule.DisableAnimationsRule
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
@@ -28,7 +28,7 @@ import com.escodro.category.R as CategoryR
 
 internal class CategoryFlowTest : KoinTest {
 
-    private val daoProvider: DaoProvider by inject()
+    private val categoryDao: CategoryDao by inject()
 
     @get:Rule
     val composeTestRule = createComposeRule()
@@ -42,7 +42,7 @@ internal class CategoryFlowTest : KoinTest {
     fun setup() {
         runTest {
             // Clean all existing categories
-            daoProvider.getCategoryDao().cleanTable()
+            categoryDao.cleanTable()
         }
 
         composeTestRule.setContent {

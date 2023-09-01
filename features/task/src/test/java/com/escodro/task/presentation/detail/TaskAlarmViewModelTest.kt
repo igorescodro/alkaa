@@ -1,6 +1,7 @@
 package com.escodro.task.presentation.detail
 
-import com.escodro.core.coroutines.AppCoroutineScope
+import com.escodro.core.extension.toLocalDateTime
+import com.escodro.coroutines.AppCoroutineScope
 import com.escodro.task.mapper.AlarmIntervalMapper
 import com.escodro.task.model.AlarmInterval
 import com.escodro.task.presentation.detail.alarm.TaskAlarmViewModel
@@ -49,7 +50,7 @@ internal class TaskAlarmViewModelTest {
 
         // Then the alarm is set
         Assert.assertTrue(scheduleAlarm.isAlarmScheduled(taskId))
-        Assert.assertEquals(alarm, scheduleAlarm.getScheduledAlarm(taskId))
+        Assert.assertEquals(alarm.toLocalDateTime(), scheduleAlarm.getScheduledAlarm(taskId))
     }
 
     @Test

@@ -6,6 +6,7 @@ plugins {
 dependencies {
     implementation(projects.libraries.core)
     implementation(projects.features.categoryApi)
+    implementation(projects.libraries.coroutines)
     implementation(projects.domain)
     implementation(projects.libraries.designsystem)
 

@@ -1,5 +1,7 @@
 import extension.androidConfig
+import extension.composeBundle
 import extension.composeConfig
+import extension.composeTestBundle
 import extension.proguardConfig
 
 plugins {
@@ -11,7 +13,7 @@ plugins {
 val libs: VersionCatalog = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
 android {
-    androidConfig()
+    androidConfig(libs)
     proguardConfig()
     composeConfig(libs)
 }

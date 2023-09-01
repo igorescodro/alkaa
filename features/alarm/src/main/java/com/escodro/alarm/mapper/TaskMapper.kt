@@ -1,5 +1,6 @@
 package com.escodro.alarm.mapper
 
+import com.escodro.core.extension.toCalendar
 import com.escodro.alarm.model.Task as ViewTask
 import com.escodro.domain.model.Task as DomainTask
 
@@ -19,7 +20,7 @@ internal class TaskMapper {
         ViewTask(
             id = domainTask.id,
             title = domainTask.title,
-            dueDate = domainTask.dueDate,
+            dueDate = domainTask.dueDate?.toCalendar(),
             isCompleted = domainTask.completed,
         )
 }

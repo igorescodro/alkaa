@@ -132,8 +132,8 @@ private fun SearchTextField(text: String, onTextChange: (String) -> Unit) {
 private fun SearchEmptyContent() {
     DefaultIconTextContent(
         icon = Icons.Outlined.ExitToApp,
-        iconContentDescription = R.string.search_cd_empty_list,
-        header = R.string.search_header_empty,
+        iconContentDescription = stringResource(id = R.string.search_cd_empty_list),
+        header = stringResource(id = R.string.search_header_empty),
     )
 }
 

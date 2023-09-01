@@ -1,0 +1,17 @@
+selectAllTasksWithCategory:
+SELECT task.*, category.* FROM Task task
+LEFT JOIN Category category
+ON task_category_id = category_id;
+
+selectAllTasksWithCategoryId:
+SELECT task.*, category.* FROM Task task
+LEFT JOIN Category category
+ON task_category_id = category_id
+WHERE task_category_id = ?;
+
+selectTaskByName:
+SELECT * FROM Task task
+LEFT JOIN Category category
+ON task_category_id = category_id
+WHERE task_title LIKE :query
+ORDER BY task_is_completed;

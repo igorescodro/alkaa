@@ -5,9 +5,11 @@ plugins {
 dependencies {
     implementation(projects.features.alarmApi)
     implementation(projects.libraries.core)
+    implementation(projects.libraries.coroutines)
     implementation(projects.libraries.navigation)
     implementation(projects.libraries.core)
     implementation(projects.domain)
+    implementation(libs.kotlinx.datetime)
 
     implementation(libs.androidx.core)
     implementation(libs.kotlinx.coroutines.core)

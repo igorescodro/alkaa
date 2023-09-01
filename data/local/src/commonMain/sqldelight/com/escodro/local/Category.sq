@@ -1,0 +1,24 @@
+CREATE TABLE IF NOT EXISTS Category (
+`category_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+`category_name` TEXT NOT NULL,
+`category_color` TEXT NOT NULL
+);
+
+selectAll:
+SELECT * FROM Category;
+
+insert:
+INSERT INTO Category (category_name, category_color)
+VALUES (?, ?);
+
+update:
+UPDATE Category SET category_name = ?, category_color = ? WHERE category_id = ?;
+
+delete:
+DELETE FROM Category WHERE category_id = ?;
+
+cleanTable:
+DELETE FROM Category;
+
+selectByCategoryId:
+SELECT * FROM Category WHERE category_id = ?;

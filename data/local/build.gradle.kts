@@ -1,37 +1,45 @@
+import extension.androidDependencies
+import extension.commonDependencies
+import extension.commonTestDependencies
+import extension.iosDependencies
+import extension.setFrameworkBaseName
+
 plugins {
-    id("com.escodro.android-library")
+    id("com.escodro.multiplatform")
     alias(libs.plugins.ksp)
+    alias(libs.plugins.sqldelight)
+}
+
+kotlin {
+    setFrameworkBaseName("local")
+
+    commonDependencies {
+        implementation(projects.libraries.coroutines)
+        implementation(projects.data.repository)
+        implementation(libs.koin.core)
+        implementation(libs.kotlinx.datetime)
+        implementation(libs.sqldelight.coroutines)
+    }
+    androidDependencies {
+        implementation(libs.sqldelight.driver)
+    }
+    iosDependencies {
+        implementation(libs.sqldelight.native)
+    }
+    commonTestDependencies {
+        implementation(kotlin("test"))
+        implementation(libs.kotlinx.coroutines.test)
+    }
 }
 
 android {
-    defaultConfig {
-        javaCompileOptions {
-            ksp {
-                arg("room.schemaLocation", "$projectDir/schemas")
-                arg("room.incremental", "true")
-            }
-        }
-    }
-    sourceSets {
-        getByName("androidTest").assets.srcDirs("$projectDir/schemas")
-    }
     namespace = "com.escodro.local"
 }
 
-dependencies {
-    implementation(projects.libraries.core)
-    implementation(projects.data.repository)
-
-    implementation(libs.koin.core)
-    api(libs.androidx.room.runtime)
-    implementation(libs.androidx.room.ktx)
-    ksp(libs.androidx.room.compiler)
-
-    androidTestImplementation(libs.test.junitext)
-    androidTestImplementation(libs.test.runner)
-    androidTestImplementation(libs.androidx.room.test)
-
-    testImplementation(libs.test.junit)
-    testImplementation(libs.test.mockk)
-    testImplementation(libs.kotlinx.coroutines.test)
+sqldelight {
+    databases {
+        create("AlkaaDatabase") {
+            packageName.set("com.escodro.local")
+        }
+    }
 }

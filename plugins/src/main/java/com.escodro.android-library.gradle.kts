@@ -10,10 +10,10 @@ plugins {
 val libs: VersionCatalog = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
 android {
-    androidConfig()
+    androidConfig(libs)
     proguardConfig()
     kotlin {
-        jvmToolchain(AlkaaVersions.javaLanguageVersion.asInt())
+        jvmToolchain(JavaLanguageVersion.of(17).asInt())
     }
 }
 

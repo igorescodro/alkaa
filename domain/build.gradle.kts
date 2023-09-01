@@ -1,15 +1,27 @@
+import extension.commonDependencies
+import extension.commonTestDependencies
+import extension.setFrameworkBaseName
+
 plugins {
-    id("com.escodro.kotlin-module")
-    id("com.android.lint")
+    id("com.escodro.multiplatform")
 }
 
-dependencies {
-    implementation(libs.koin.core)
-    implementation(libs.logging)
-    runtimeOnly(libs.logback)
-    implementation(libs.kotlinx.coroutines.core)
+kotlin {
+    setFrameworkBaseName("domain")
 
-    testImplementation(libs.test.junit)
-    testImplementation(libs.test.mockk)
-    testImplementation(libs.kotlinx.coroutines.test)
+    commonDependencies {
+        implementation(libs.koin.core)
+        implementation(libs.kotlinx.coroutines.core)
+        implementation(libs.logging)
+        implementation(libs.logback)
+        implementation(libs.kotlinx.datetime)
+    }
+    commonTestDependencies {
+        implementation(kotlin("test"))
+        implementation(libs.kotlinx.coroutines.test)
+    }
+}
+
+android {
+    namespace = "com.escodro.domain"
 }

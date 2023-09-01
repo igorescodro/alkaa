@@ -1,5 +1,6 @@
 package com.escodro.task.mapper
 
+import com.escodro.core.extension.toCalendar
 import com.escodro.domain.model.Task as DomainTask
 import com.escodro.task.model.Task as ViewTask
 
@@ -21,10 +22,10 @@ internal class TaskMapper(private val alarmIntervalMapper: AlarmIntervalMapper) 
             completed = domainTask.completed,
             title = domainTask.title,
             description = domainTask.description,
-            dueDate = domainTask.dueDate,
+            dueDate = domainTask.dueDate?.toCalendar(),
             categoryId = domainTask.categoryId,
-            creationDate = domainTask.creationDate,
-            completedDate = domainTask.completedDate,
+            creationDate = domainTask.creationDate?.toCalendar(),
+            completedDate = domainTask.completedDate?.toCalendar(),
             isRepeating = domainTask.isRepeating,
             alarmInterval = alarmIntervalMapper.toViewData(domainTask.alarmInterval),
         )

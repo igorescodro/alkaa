@@ -1,13 +1,25 @@
+import extension.commonDependencies
+import extension.commonTestDependencies
+import extension.setFrameworkBaseName
+
 plugins {
-    id("com.escodro.android-library")
+    id("com.escodro.multiplatform")
 }
 
-dependencies {
-    implementation(projects.data.repository)
+kotlin {
+    setFrameworkBaseName("datastore")
 
-    implementation(libs.koin.core)
-    implementation(libs.androidx.datastore)
+    commonDependencies {
+        implementation(projects.data.repository)
+
+        implementation(libs.koin.core)
+        implementation(libs.androidx.datastore)
+    }
+    commonTestDependencies {
+        implementation(kotlin("test"))
+    }
 }
+
 android {
     namespace = "com.escodro.datastore"
 }

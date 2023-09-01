@@ -5,8 +5,9 @@ import android.content.Context
 import com.escodro.alarm.di.alarmModule
 import com.escodro.alkaa.di.appModule
 import com.escodro.category.di.categoryModule
-import com.escodro.core.di.coreModule
+import com.escodro.coroutines.di.coroutinesModule
 import com.escodro.datastore.di.dataStoreModule
+import com.escodro.designsystem.di.designSystemModule
 import com.escodro.domain.di.domainModule
 import com.escodro.glance.di.glanceModule
 import com.escodro.local.di.localModule
@@ -42,7 +43,8 @@ class AlkaaApp : Application() {
 
     internal fun getAllModules(): List<Module> = listOf(
         appModule,
-        coreModule,
+        coroutinesModule,
+        designSystemModule,
         taskModule,
         alarmModule,
         categoryModule,

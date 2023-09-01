@@ -34,18 +34,18 @@ jobs:
           ALKAA_KEY_STORE_PASSWORD: ${{ secrets.ALKAA_KEY_STORE_PASSWORD }}
           ALKAA_STORE_PATH: ${{ vars.ALKAA_STORE_PATH }}
 
-    build-ios:
-      runs-on: macos-latest
+  build-ios:
+    runs-on: macos-latest
 
-      steps:
-        - name: Checkout
-          uses: actions/checkout@v3
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
 
-        - name: Setup Java
-          uses: actions/setup-java@v3
-          with:
-            java-version: '17'
-            distribution: 'adopt'
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'adopt'
 
         - name: Build with Xcode
           run: xcodebuild -workspace ios-app/alkaa.xcodeproj/project.xcworkspace -configuration Debug -scheme alkaa -sdk iphonesimulator

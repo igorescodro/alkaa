@@ -45,6 +45,8 @@ kotlin {
         implementation(kotlin("test"))
     }
 
+    // Explicit dependency due to Moko issues with Kotlin 1.9.0
+    // https://github.com/icerockdev/moko-resources/issues/531
     sourceSets {
         val commonMain by getting
         val androidMain by getting {

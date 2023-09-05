@@ -1,9 +1,6 @@
 package quality
 
 import ktlint
-import org.gradle.api.artifacts.VersionCatalog
-import org.gradle.api.artifacts.VersionCatalogsExtension
-import org.gradle.kotlin.dsl.getByType
 
 val ktlint: Configuration by configurations.creating
 val libs: VersionCatalog = extensions.getByType<VersionCatalogsExtension>().named("libs")
@@ -17,9 +14,10 @@ tasks {
         description = "Check Kotlin code style."
         classpath = ktlint
         mainClass.set("com.pinterest.ktlint.Main")
+        val buildDir = layout.buildDirectory.get().asFile.path
         args(
             "src/**/*.kt", "--reporter=plain", "--reporter=checkstyle," +
-                "output=${layout.buildDirectory}/reports/ktlint.xml"
+                "output=${buildDir}/reports/ktlint.xml"
         )
     }
 

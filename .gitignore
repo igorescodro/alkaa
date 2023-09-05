@@ -6,7 +6,6 @@ out/
 # Gradle files
 .gradle/
 build/
-*(org.gradle.api.file.Directory*
 
 # Local configuration file (sdk path, etc)
 local.properties

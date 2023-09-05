@@ -21,6 +21,9 @@ include(":libraries:di")
 
 include(":domain")
 include(":shared")
+include(":resources")
+
+include(":features:home")
 
 pluginManagement {
     repositories {

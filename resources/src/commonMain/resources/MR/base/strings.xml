@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+
+    <!-- AppTopBar -->
+    <string name="home_title_tasks">Tasks</string>
+    <string name="home_title_search">Search</string>
+    <string name="home_title_categories">Categories</string>
+    <string name="home_title_settings">More</string>
+
+</resources>

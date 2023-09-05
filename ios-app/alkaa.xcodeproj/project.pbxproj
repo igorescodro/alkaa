@@ -82,10 +82,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D8AA520F2A8FABB800A0D1F2 /* Build configuration list for PBXNativeTarget "alkaa" */;
 			buildPhases = (
-				D8AA52122A8FABD000A0D1F2 /* ShellScript */,
+				D8AA52122A8FABD000A0D1F2 /* Connect iOS and KMP */,
 				D8AA51FD2A8FABB700A0D1F2 /* Sources */,
 				D8AA51FE2A8FABB700A0D1F2 /* Frameworks */,
 				D8AA51FF2A8FABB700A0D1F2 /* Resources */,
+				D8C453972AA36D2D006C2397 /* Copy Moko Resources */,
 			);
 			buildRules = (
 			);
@@ -142,7 +143,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		D8AA52122A8FABD000A0D1F2 /* ShellScript */ = {
+		D8AA52122A8FABD000A0D1F2 /* Connect iOS and KMP */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -151,6 +152,7 @@
 			);
 			inputPaths = (
 			);
+			name = "Connect iOS and KMP";
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -158,6 +160,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "cd \"$SRCROOT/..\"\n./gradlew :shared:embedAndSignAppleFrameworkForXcode\n";
+		};
+		D8C453972AA36D2D006C2397 /* Copy Moko Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Moko Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"$SRCROOT/../gradlew\" -p \"$SRCROOT/../\" :shared:copyFrameworkResourcesToApp \\\n    -Pmoko.resources.PLATFORM_NAME=\"$PLATFORM_NAME\" \\\n    -Pmoko.resources.CONFIGURATION=\"$CONFIGURATION\" \\\n    -Pmoko.resources.ARCHS=\"$ARCHS\" \\\n    -Pmoko.resources.BUILT_PRODUCTS_DIR=\"$BUILT_PRODUCTS_DIR\" \\\n    -Pmoko.resources.CONTENTS_FOLDER_PATH=\"$CONTENTS_FOLDER_PATH\" \n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

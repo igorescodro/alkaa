@@ -4,6 +4,7 @@ import extension.commonTestDependencies
 plugins {
     id("com.escodro.multiplatform")
     alias(libs.plugins.compose)
+    id(libs.plugins.moko.multiplatform.resources.get().pluginId) // Use version from classpath
 }
 
 kotlin {
@@ -30,16 +31,34 @@ kotlin {
         implementation(projects.libraries.coroutines)
         implementation(projects.libraries.designsystem)
 
-        implementation(libs.koin.core)
+        implementation(projects.features.home)
+
+        implementation(projects.resources)
+
         implementation(projects.domain)
         implementation(compose.runtime)
         implementation(compose.material3)
+        implementation(libs.koin.core)
+        implementation(libs.moko.resources.core)
     }
     commonTestDependencies {
         implementation(kotlin("test"))
+    }
+
+    // Explicit dependency due to Moko issues with Kotlin 1.9.0
+    // https://github.com/icerockdev/moko-resources/issues/531
+    sourceSets {
+        val commonMain by getting
+        val androidMain by getting {
+            dependsOn(commonMain)
+        }
     }
 }
 
 android {
     namespace = "com.escodro.shared"
+}
+
+multiplatformResources {
+    multiplatformResourcesPackage = "com.escodro.alkaa"
 }

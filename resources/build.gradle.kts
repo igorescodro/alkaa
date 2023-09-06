@@ -31,3 +31,14 @@ android {
 multiplatformResources {
     multiplatformResourcesPackage = "com.escodro.resources"
 }
+
+// Define explicit dependency for Moko resources
+// https://github.com/icerockdev/moko-resources/issues/421
+afterEvaluate {
+    tasks.named("iosSimulatorArm64ProcessResources") {
+        dependsOn("generateMRcommonMain")
+    }
+    tasks.named("iosX64ProcessResources") {
+        dependsOn("generateMRcommonMain")
+    }
+}

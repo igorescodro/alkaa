@@ -1,7 +1,7 @@
 package com.escodro.categoryapi.model
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
+import dev.icerock.moko.parcelize.Parcelable
+import dev.icerock.moko.parcelize.Parcelize
 
 /**
  * Data class to represent a View Category.

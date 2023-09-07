@@ -22,7 +22,6 @@ import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.outlined.ThumbUp
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -37,22 +36,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.escodro.category.R
 import com.escodro.category.presentation.semantics.color
 import com.escodro.categoryapi.model.Category
 import com.escodro.categoryapi.presentation.CategoryListViewModel
 import com.escodro.categoryapi.presentation.CategoryState
-import com.escodro.designsystem.AlkaaTheme
 import com.escodro.designsystem.components.AddFloatingButton
 import com.escodro.designsystem.components.AlkaaLoadingContent
 import com.escodro.designsystem.components.DefaultIconTextContent
+import com.escodro.resources.MR
+import dev.icerock.moko.resources.compose.stringResource
 import kotlinx.collections.immutable.ImmutableList
-import org.koin.androidx.compose.getViewModel
+import org.koin.compose.koinInject
 import kotlin.math.max
 import kotlin.math.roundToInt
 
@@ -79,7 +76,7 @@ private fun CategoryListLoader(
     onItemClick: (Long?) -> Unit,
     onAddClick: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: CategoryListViewModel = getViewModel(),
+    viewModel: CategoryListViewModel = koinInject(),
 ) {
     val viewState by remember(viewModel) {
         viewModel.loadCategories()
@@ -93,7 +90,6 @@ private fun CategoryListLoader(
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun CategoryListScaffold(
     viewState: CategoryState,
@@ -107,7 +103,7 @@ private fun CategoryListScaffold(
             modifier = modifier.fillMaxSize(),
             floatingActionButton = {
                 AddFloatingButton(
-                    contentDescription = stringResource(id = R.string.category_cd_add_category),
+                    contentDescription = stringResource(MR.strings.category_cd_add_category),
                     onClick = { onAddClick() },
                 )
             },
@@ -182,7 +178,7 @@ private fun CategoryItemIcon(color: Int) {
         CategoryCircleIndicator(size = 40.dp, color = color)
         Icon(
             imageVector = Icons.Default.Bookmark,
-            contentDescription = stringResource(id = R.string.category_icon_cd),
+            contentDescription = stringResource(MR.strings.category_icon_cd),
             tint = MaterialTheme.colorScheme.background,
         )
     }
@@ -204,20 +200,8 @@ private fun CategoryCircleIndicator(size: Dp, color: Int, alpha: Float = 1F) {
 private fun CategoryListEmpty(modifier: Modifier = Modifier) {
     DefaultIconTextContent(
         icon = Icons.Outlined.ThumbUp,
-        iconContentDescription = stringResource(id = R.string.category_list_cd_empty_list),
-        header = stringResource(id = R.string.category_list_header_empty),
+        iconContentDescription = stringResource(MR.strings.category_list_cd_empty_list),
+        header = stringResource(MR.strings.category_list_header_empty),
         modifier = modifier,
     )
-}
-
-@Suppress("UndocumentedPublicFunction")
-@Preview
-@Composable
-fun AboutPreview() {
-    AlkaaTheme {
-        CategoryItem(
-            category = Category(name = "Movies", color = android.graphics.Color.RED),
-            onItemClick = { },
-        )
-    }
 }

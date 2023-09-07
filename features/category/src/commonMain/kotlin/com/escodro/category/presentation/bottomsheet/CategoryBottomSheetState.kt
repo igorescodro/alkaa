@@ -1,13 +1,13 @@
 package com.escodro.category.presentation.bottomsheet
 
-import android.os.Parcelable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import com.escodro.categoryapi.model.Category
-import kotlinx.parcelize.IgnoredOnParcel
-import kotlinx.parcelize.Parcelize
+import dev.icerock.moko.parcelize.IgnoredOnParcel
+import dev.icerock.moko.parcelize.Parcelable
+import dev.icerock.moko.parcelize.Parcelize
 
 @Stable
 @Parcelize

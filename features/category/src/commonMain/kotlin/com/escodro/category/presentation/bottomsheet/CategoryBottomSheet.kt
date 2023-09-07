@@ -21,7 +21,6 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -38,22 +37,20 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.escodro.category.R
 import com.escodro.category.presentation.semantics.color
 import com.escodro.categoryapi.model.Category
-import com.escodro.designsystem.AlkaaTheme
 import com.escodro.designsystem.components.AlkaaDialog
 import com.escodro.designsystem.components.AlkaaInputTextField
 import com.escodro.designsystem.components.DialogArguments
+import com.escodro.resources.MR
+import dev.icerock.moko.resources.compose.stringResource
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.delay
-import org.koin.androidx.compose.getViewModel
+import org.koin.compose.koinInject
 
 /**
  * Alkaa Category Bottom Sheet.
@@ -79,7 +76,7 @@ fun CategoryBottomSheet(categoryId: Long, onHideBottomSheet: () -> Unit) {
 private fun CategoryNewSheetLoader(
     colorList: ImmutableList<Color>,
     onHideBottomSheet: () -> Unit,
-    addViewModel: CategoryAddViewModel = getViewModel(),
+    addViewModel: CategoryAddViewModel = koinInject(),
 ) {
     val sheetState by rememberSaveable(addViewModel) {
         mutableStateOf(CategoryBottomSheetState(emptyCategory()))
@@ -100,7 +97,7 @@ private fun CategoryEditSheetLoader(
     categoryId: Long,
     colorList: ImmutableList<Color>,
     onHideBottomSheet: () -> Unit,
-    editViewModel: CategoryEditViewModel = getViewModel(),
+    editViewModel: CategoryEditViewModel = koinInject(),
 ) {
     val categoryState by remember(editViewModel, categoryId) {
         editViewModel.loadCategory(categoryId = categoryId)
@@ -162,7 +159,7 @@ private fun CategorySheetContent(
             )
 
             AlkaaInputTextField(
-                label = stringResource(id = R.string.category_add_label),
+                label = stringResource(MR.strings.category_add_label),
                 text = state.name,
                 onTextChange = { state.name = it },
                 modifier = Modifier
@@ -178,7 +175,7 @@ private fun CategorySheetContent(
                 ) {
                     Icon(
                         imageVector = Icons.Outlined.Delete,
-                        contentDescription = stringResource(id = R.string.category_cd_remove_category),
+                        contentDescription = stringResource(MR.strings.category_cd_remove_category),
                     )
                 }
             }
@@ -226,10 +223,10 @@ private fun RemoveCategoryDialog(
     onActionConfirm: () -> Unit,
 ) {
     val arguments = DialogArguments(
-        title = stringResource(id = R.string.category_dialog_remove_title),
-        text = stringResource(id = R.string.category_dialog_remove_text, categoryName),
-        confirmText = stringResource(id = R.string.category_dialog_remove_confirm),
-        dismissText = stringResource(id = R.string.category_dialog_remove_cancel),
+        title = stringResource(MR.strings.category_dialog_remove_title),
+        text = stringResource(MR.strings.category_dialog_remove_text, categoryName),
+        confirmText = stringResource(MR.strings.category_dialog_remove_confirm),
+        dismissText = stringResource(MR.strings.category_dialog_remove_cancel),
         onConfirmAction = {
             onActionConfirm()
             onCloseDialog()
@@ -253,7 +250,7 @@ private fun CategorySaveButton(currentColor: Color, onClick: () -> Unit) {
             .height(48.dp),
     ) {
         Text(
-            text = stringResource(id = R.string.category_sheet_save),
+            text = stringResource(MR.strings.category_sheet_save),
             color = MaterialTheme.colorScheme.background,
         )
     }
@@ -296,21 +293,3 @@ private fun emptyCategory() = Category(
     name = "",
     color = CategoryColors.values()[0].value.toArgb(),
 )
-
-@Suppress("UndocumentedPublicFunction")
-@Preview
-@Composable
-fun CategorySheetContentPreview() {
-    AlkaaTheme {
-        Surface(modifier = Modifier.height(256.dp)) {
-            val category = Category(id = 1L, name = "Movies", color = android.graphics.Color.YELLOW)
-            val state = CategoryBottomSheetState(category)
-            CategorySheetContent(
-                state = state,
-                colorList = CategoryColors.values().map { it.value }.toImmutableList(),
-                onCategoryChange = {},
-                onCategoryRemove = {},
-            )
-        }
-    }
-}

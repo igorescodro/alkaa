@@ -1,6 +1,6 @@
 package com.escodro.categoryapi.presentation
 
-import androidx.lifecycle.ViewModel
+import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import kotlinx.coroutines.flow.Flow
 
 /**

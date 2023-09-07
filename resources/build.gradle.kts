@@ -30,6 +30,7 @@ android {
 
 multiplatformResources {
     multiplatformResourcesPackage = "com.escodro.resources"
+    iosBaseLocalizationRegion = "en-US"
 }
 
 // Define explicit dependency for Moko resources

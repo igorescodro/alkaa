@@ -1,7 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- Home -->
     <string name="home_title_tasks">Tarefas</string>
     <string name="home_title_search">Pesquisar</string>
     <string name="home_title_categories">Categorias</string>
     <string name="home_title_settings">Mais</string>
+
+    <!-- Tasks -->
+    <string name="task_cd_add_task">Adicionar tarefa</string>
+    <string name="task_list_header_empty">Uau! Todas as tarefas estão cumpridas!</string>
+    <string name="task_list_cd_empty_list">Sem tarefas</string>
+    <string name="task_list_header_error">Ops… Isso é embaraçoso…</string>
+    <string name="task_list_cd_error">Algo deu errado</string>
+    <string name="task_detail_header_error">A tarefa não está mais disponível</string>
+    <string name="task_detail_cd_error">Tarefa não encontrada</string>
+
+    <string name="task_detail_cd_icon_category">Categorias</string>
+    <string name="task_detail_cd_icon_description">Descrição</string>
+    <string name="task_detail_category_empty_list">Sem categorias</string>
+    <string name="task_detail_cd_icon_alarm">Alarme</string>
+    <string name="task_detail_cd_icon_repeat_alarm">Alarme recorrente</string>
+
+    <string name="task_detail_alarm_no_alarm">Sem alarme</string>
+
+    <string name="task_detail_cd_icon_remove_alarm">Remover alarme</string>
+
+    <string name="task_alarm_repeating_never">Nunca</string>
+    <string name="task_alarm_repeating_hourly">A cada hora</string>
+    <string name="task_alarm_repeating_daily">Diariamente</string>
+    <string name="task_alarm_repeating_weekly">Semanalmente</string>
+    <string name="task_alarm_repeating_monthly">Mensalmente</string>
+    <string name="task_alarm_repeating_yearly">Anualmente</string>
+
+    <string name="task_add_save">Adicionar</string>
+    <string name="task_add_label">Tarefa</string>
+
+    <string name="task_snackbar_message_complete">"%s" finalizada</string>
+    <string name="task_snackbar_button_undo">Desfazer</string>
+
+    <string name="task_alarm_permission_dialog_confirm">Dar permissão</string>
+    <string name="task_alarm_permission_dialog_cancel">Agora não</string>
+    <string name="task_alarm_permission_dialog_title">Alarmes e lembretes</string>
+    <string name="task_alarm_permission_dialog_text">Para que os alarmes funcionem, o Alkaa precisa da permissão para definir alarmes e lembretes. Se essa permissão não for concedida, os alarmes existentes também não funcionarão.</string>
+
+    <string name="task_notification_permission_dialog_title">Notificações</string>
+    <string name="task_notification_permission_dialog_confirm">Dar permissão</string>
+    <string name="task_notification_permission_dialog_cancel">Agora não</string>
+    <string name="task_notification_permission_dialog_text">Para que os alarmes sejam notificados, o Alkaa precisa da permissão para enviar notificações. Se essa permissão não for concedida, os alarmes existentes também não funcionarão.</string>
+
+    <string name="task_notification_rationale_dialog_title">Notificações</string>
+    <string name="task_notification_rationale_dialog_text">Não é possível configurar alarmes sem permissão de notificação. Se você deseja utilizar essa funcionalidade, por favor, vá até as configurações do app e a conceda manualmente.</string>
+    <string name="task_notification_rationale_dialog_confirm">Vamos lá</string>
+    <string name="task_notification_rationale_dialog_cancel">Ignorar</string>
+
+    <!-- Category -->
+    <string name="category_list_header_empty">Sem categorias</string>
+    <string name="category_list_cd_empty_list">Sem categorias disponíveis</string>
+    <string name="category_icon_cd">Categoria</string>
+    <string name="category_sheet_save">Salvar</string>
+    <string name="category_cd_add_category">Adicionar categoria</string>
+    <string name="category_add_label">Categoria</string>
+
+    <string name="category_dialog_remove_title">Remover categoria</string>
+    <string name="category_dialog_remove_text">Você tem certeza que deseja remover essa categoria?\nRemover "%s" também remove todas as tarefas abaixo dessa categoria.</string>
+    <string name="category_dialog_remove_confirm">Remover</string>
+    <string name="category_dialog_remove_cancel">Cancelar</string>
+    <string name="category_cd_remove_category">Remover</string>
 </resources>

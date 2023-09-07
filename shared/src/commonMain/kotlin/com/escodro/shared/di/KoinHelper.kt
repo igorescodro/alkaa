@@ -1,11 +1,13 @@
 package com.escodro.shared.di
 
+import com.escodro.category.di.categoryModule
 import com.escodro.coroutines.di.coroutinesModule
 import com.escodro.datastore.di.dataStoreModule
 import com.escodro.designsystem.di.designSystemModule
 import com.escodro.domain.di.domainModule
 import com.escodro.local.di.localModule
 import com.escodro.repository.di.repositoryModule
+import com.escodro.task.di.taskModule
 import org.koin.core.context.startKoin
 import org.koin.core.module.Module
 import org.koin.dsl.module
@@ -24,6 +26,8 @@ fun initKoin(appModule: Module = module { }) {
     startKoin {
         modules(
             appModule,
+            taskModule,
+            categoryModule,
             domainModule,
             repositoryModule,
             localModule,

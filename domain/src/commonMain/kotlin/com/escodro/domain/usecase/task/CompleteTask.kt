@@ -1,7 +1,5 @@
 package com.escodro.domain.usecase.task
 
-import com.escodro.domain.interactor.AlarmInteractor
-import com.escodro.domain.interactor.NotificationInteractor
 import com.escodro.domain.model.Task
 import com.escodro.domain.provider.DateTimeProvider
 import com.escodro.domain.repository.TaskRepository
@@ -11,8 +9,8 @@ import com.escodro.domain.repository.TaskRepository
  */
 class CompleteTask(
     private val taskRepository: TaskRepository,
-    private val alarmInteractor: AlarmInteractor,
-    private val notificationInteractor: NotificationInteractor,
+    // private val alarmInteractor: AlarmInteractor, // TODO re-add
+    // private val notificationInteractor: NotificationInteractor, // TODO re-add
     private val dateTimeProvider: DateTimeProvider,
 ) {
 
@@ -38,8 +36,8 @@ class CompleteTask(
     suspend operator fun invoke(task: Task) {
         val updatedTask = updateTaskAsCompleted(task)
         taskRepository.updateTask(updatedTask)
-        alarmInteractor.cancel(task.id)
-        notificationInteractor.dismiss(task.id)
+        // alarmInteractor.cancel(task.id)
+        // notificationInteractor.dismiss(task.id)
     }
 
     private fun updateTaskAsCompleted(task: Task) =

@@ -4,7 +4,6 @@ import extension.setFrameworkBaseName
 plugins {
     id("com.escodro.multiplatform")
     alias(libs.plugins.compose)
-    id(libs.plugins.moko.multiplatform.resources.get().pluginId) // Use version from classpath
 }
 
 kotlin {
@@ -13,6 +12,8 @@ kotlin {
     commonDependencies {
         implementation(projects.domain)
         implementation(projects.resources)
+        implementation(projects.features.task)
+        implementation(projects.features.category)
 
         implementation(compose.runtime)
         implementation(compose.materialIconsExtended)

@@ -27,5 +27,12 @@ android {
     defaultConfig {
         minSdk = Integer.parseInt(libs.sdkMin)
     }
+
+    // https://github.com/Kotlin/kotlinx-atomicfu/pull/344
+    packaging {
+        resources.excludes.apply {
+            add("META-INF/versions/9/previous-compilation-data.bin")
+        }
+    }
 }
 

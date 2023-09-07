@@ -9,7 +9,7 @@ plugins {
 }
 
 kotlin {
-    setFrameworkBaseName("home")
+    setFrameworkBaseName("task")
 
     commonDependencies {
         api(projects.features.categoryApi)

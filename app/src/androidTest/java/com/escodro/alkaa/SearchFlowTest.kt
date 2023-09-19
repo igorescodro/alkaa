@@ -14,9 +14,9 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.escodro.alkaa.fake.FAKE_TASKS
 import com.escodro.alkaa.navigation.NavGraph
 import com.escodro.alkaa.util.WindowSizeClassFake
+import com.escodro.androidtest.rule.DisableAnimationsRule
 import com.escodro.designsystem.AlkaaTheme
 import com.escodro.local.dao.TaskDao
-import com.escodro.test.rule.DisableAnimationsRule
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Rule

@@ -1,4 +1,4 @@
-package com.escodro.test.rule
+package com.escodro.androidtest.rule
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice

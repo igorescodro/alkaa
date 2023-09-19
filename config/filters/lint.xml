@@ -8,4 +8,7 @@
     <issue id="LabelFor" severity="ignore" />
     <issue id="Autofill" severity="ignore" />
     <issue id="IconLocation" severity="ignore" />
+
+    <!-- Moko Resources is not playing well with Lint -->
+    <issue id="UnusedResources" severity="ignore" />
 </lint>

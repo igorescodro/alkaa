@@ -1,6 +1,6 @@
 @file:Suppress("Filename")
 
-package com.escodro.test.extension
+package com.escodro.androidtest.extension
 
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.SemanticsProperties

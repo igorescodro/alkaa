@@ -129,6 +129,7 @@ dependencies {
     implementation(libs.accompanist.material)
     implementation(libs.androidx.playcore)
     implementation(libs.koin.android)
+    implementation(libs.moko.resources.core)
 
     implementation(libs.compose.windowsize)
 
@@ -141,9 +142,10 @@ dependencies {
     testImplementation(libs.koin.test)
     testImplementation(libs.test.mockk)
 
-    androidTestImplementation(projects.libraries.test)
+    androidTestImplementation(projects.libraries.androidTest)
     androidTestImplementation(libs.koin.test)
     androidTestImplementation(libs.test.rules)
+    androidTestImplementation(libs.test.hamcrest)
     androidTestImplementation(libs.bundles.composetest) {
         exclude(group = "androidx.core", module = "core-ktx")
         exclude(group = "androidx.fragment", module = "fragment")

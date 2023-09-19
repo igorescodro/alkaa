@@ -14,13 +14,13 @@ import androidx.test.rule.GrantPermissionRule
 import com.escodro.alkaa.fake.FAKE_TASK
 import com.escodro.alkaa.navigation.NavGraph
 import com.escodro.alkaa.util.WindowSizeClassFake
+import com.escodro.androidtest.rule.DisableAnimationsRule
 import com.escodro.core.extension.getNotificationManager
 import com.escodro.core.extension.toLocalDateTime
 import com.escodro.domain.usecase.alarm.ScheduleAlarm
 import com.escodro.local.Task
 import com.escodro.local.dao.TaskDao
 import com.escodro.local.model.AlarmInterval
-import com.escodro.test.rule.DisableAnimationsRule
 import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Before

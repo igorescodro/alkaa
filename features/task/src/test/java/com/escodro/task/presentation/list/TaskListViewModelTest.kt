@@ -8,20 +8,15 @@ import com.escodro.task.mapper.TaskWithCategoryMapper
 import com.escodro.task.presentation.fake.FAKE_VIEW_TASK_WITH_CATEGORY
 import com.escodro.task.presentation.fake.LoadUncompletedTasksFake
 import com.escodro.task.presentation.fake.UpdateTaskStatusFake
-import com.escodro.test.rule.CoroutineTestRule
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+import com.escodro.test.rule.CoroutinesTestDispatcher
+import com.escodro.test.rule.CoroutinesTestDispatcherImpl
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 
-@OptIn(ExperimentalCoroutinesApi::class)
-internal class TaskListViewModelTest {
-
-    @get:Rule
-    val coroutinesRule = CoroutineTestRule()
+internal class TaskListViewModelTest : CoroutinesTestDispatcher by CoroutinesTestDispatcherImpl() {
 
     private val loadUncompletedTasks = LoadUncompletedTasksFake()
 
@@ -32,7 +27,7 @@ internal class TaskListViewModelTest {
     private val viewModel = TaskListViewModel(
         loadAllTasksUseCase = loadUncompletedTasks,
         updateTaskStatusUseCase = updateTaskStatus,
-        applicationScope = AppCoroutineScope(context = coroutinesRule.testDispatcher),
+        applicationScope = AppCoroutineScope(context = testDispatcher()),
         taskWithCategoryMapper = mapper,
     )
 

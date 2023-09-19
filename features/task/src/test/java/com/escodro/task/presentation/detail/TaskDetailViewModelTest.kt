@@ -13,19 +13,15 @@ import com.escodro.task.presentation.fake.LoadTaskFake
 import com.escodro.task.presentation.fake.UpdateTaskCategoryFake
 import com.escodro.task.presentation.fake.UpdateTaskDescriptionFake
 import com.escodro.task.presentation.fake.UpdateTaskTitleFake
-import com.escodro.test.rule.CoroutineTestRule
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+import com.escodro.test.rule.CoroutinesTestDispatcher
+import com.escodro.test.rule.CoroutinesTestDispatcherImpl
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
-import org.junit.Rule
 import org.junit.Test
 
-@OptIn(ExperimentalCoroutinesApi::class)
-internal class TaskDetailViewModelTest {
-
-    @get:Rule
-    val coroutineTestRule = CoroutineTestRule()
+internal class TaskDetailViewModelTest :
+    CoroutinesTestDispatcher by CoroutinesTestDispatcherImpl() {
 
     private val loadTask = LoadTaskFake()
 
@@ -44,7 +40,7 @@ internal class TaskDetailViewModelTest {
         updateTaskCategory = updateTaskCategory,
         taskMapper = taskMapper,
         coroutineDebouncer = CoroutinesDebouncerFake(),
-        applicationScope = AppCoroutineScope(context = coroutineTestRule.testDispatcher),
+        applicationScope = AppCoroutineScope(context = testDispatcher()),
     )
 
     @Test

@@ -12,6 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -126,7 +127,7 @@ internal fun VersionItem() {
     val title = stringResource(id = R.string.preference_title_version)
     val context = LocalContext.current
     val version = context.getVersionName()
-    var numberOfClicks by remember { mutableStateOf(0) }
+    var numberOfClicks by remember { mutableIntStateOf(0) }
     val onClick = {
         if (++numberOfClicks == 7) {
             context.openUrl(EasterEggUrl)

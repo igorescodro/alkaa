@@ -1,4 +1,4 @@
-package com.escodro.test.semantics
+package com.escodro.androidtest.semantics
 
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.semantics.getOrNull

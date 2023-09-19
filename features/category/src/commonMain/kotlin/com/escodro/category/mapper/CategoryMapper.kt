@@ -1,5 +1,6 @@
 package com.escodro.category.mapper
 
+import com.escodro.designsystem.extensions.toArgbColor
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import com.escodro.categoryapi.model.Category as ViewCategory
@@ -14,13 +15,14 @@ internal class CategoryMapper {
         ViewCategory(
             id = domainCategory.id,
             name = domainCategory.name,
-            color = 0, // TODO
+            color = domainCategory.color.toArgbColor(),
         )
 
+    @OptIn(ExperimentalStdlibApi::class)
     fun toDomain(viewCategory: ViewCategory): DomainCategory =
         DomainCategory(
             id = viewCategory.id,
             name = viewCategory.name,
-            color = "0", // TODO
+            color = viewCategory.color.toHexString(),
         )
 }

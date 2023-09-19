@@ -18,6 +18,7 @@ kotlin {
         implementation(projects.libraries.designsystem)
         implementation(projects.libraries.coroutines)
         implementation(projects.libraries.di)
+        implementation(projects.libraries.test)
 
         implementation(compose.runtime)
         implementation(compose.material3)

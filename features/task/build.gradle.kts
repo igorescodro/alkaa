@@ -33,6 +33,8 @@ kotlin {
 
     commonTestDependencies {
         implementation(kotlin("test"))
+        implementation(projects.libraries.test)
+        implementation(libs.kotlinx.datetime)
     }
 }
 android {

@@ -1,6 +1,5 @@
 package com.escodro.task.presentation.detail
 
-import com.escodro.core.extension.toLocalDateTime
 import com.escodro.coroutines.AppCoroutineScope
 import com.escodro.task.mapper.AlarmIntervalMapper
 import com.escodro.task.model.AlarmInterval
@@ -9,19 +8,16 @@ import com.escodro.task.presentation.detail.main.TaskId
 import com.escodro.task.presentation.fake.CancelAlarmFake
 import com.escodro.task.presentation.fake.ScheduleAlarmFake
 import com.escodro.task.presentation.fake.UpdateTaskAsRepeatingFake
-import com.escodro.test.rule.CoroutineTestRule
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+import com.escodro.test.rule.CoroutinesTestDispatcher
+import com.escodro.test.rule.CoroutinesTestDispatcherImpl
 import kotlinx.coroutines.test.runTest
+import kotlinx.datetime.Clock
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 import org.junit.Assert
-import org.junit.Rule
 import org.junit.Test
-import java.util.Calendar
 
-@OptIn(ExperimentalCoroutinesApi::class)
-internal class TaskAlarmViewModelTest {
-
-    @get:Rule
-    val coroutineTestRule = CoroutineTestRule()
+internal class TaskAlarmViewModelTest : CoroutinesTestDispatcher by CoroutinesTestDispatcherImpl() {
 
     private val scheduleAlarm = ScheduleAlarmFake()
 
@@ -35,7 +31,7 @@ internal class TaskAlarmViewModelTest {
         scheduleAlarmUseCase = scheduleAlarm,
         updateTaskAsRepeatingUseCase = updateTaskAsRepeating,
         cancelAlarmUseCase = cancelAlarm,
-        applicationScope = AppCoroutineScope(context = coroutineTestRule.testDispatcher),
+        applicationScope = AppCoroutineScope(context = testDispatcher()),
         alarmIntervalMapper = alarmIntervalMapper,
     )
 
@@ -43,14 +39,14 @@ internal class TaskAlarmViewModelTest {
     fun `test if alarm is set`() = runTest {
         // Given the alarm to be set
         val taskId = 123L
-        val alarm = Calendar.getInstance()
+        val alarm = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
 
         // When the function to set the alarm is called
         viewModel.updateAlarm(TaskId(taskId), alarm)
 
         // Then the alarm is set
         Assert.assertTrue(scheduleAlarm.isAlarmScheduled(taskId))
-        Assert.assertEquals(alarm.toLocalDateTime(), scheduleAlarm.getScheduledAlarm(taskId))
+        Assert.assertEquals(alarm, scheduleAlarm.getScheduledAlarm(taskId))
     }
 
     @Test

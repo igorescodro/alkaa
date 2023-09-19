@@ -1,6 +1,5 @@
 package com.escodro.alkaa
 
-import androidx.annotation.StringRes
 import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.hasSetTextAction
@@ -15,19 +14,18 @@ import androidx.compose.ui.test.performTextInput
 import androidx.test.platform.app.InstrumentationRegistry
 import com.escodro.alkaa.navigation.NavGraph
 import com.escodro.alkaa.util.WindowSizeClassFake
+import com.escodro.androidtest.rule.DisableAnimationsRule
 import com.escodro.designsystem.AlkaaTheme
 import com.escodro.local.Category
 import com.escodro.local.dao.CategoryDao
 import com.escodro.local.dao.TaskDao
 import com.escodro.task.presentation.list.CheckboxNameKey
-import com.escodro.test.rule.DisableAnimationsRule
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.koin.test.KoinTest
 import org.koin.test.inject
-import com.escodro.task.R as TaskR
 
 @OptIn(ExperimentalTestApi::class)
 internal class TaskListFlowTest : KoinTest {
@@ -106,7 +104,7 @@ internal class TaskListFlowTest : KoinTest {
             val taskName = ""
             clickAddTask()
             onNode(hasSetTextAction()).performTextInput(taskName)
-            onNodeWithText(string(TaskR.string.task_add_save)).performClick()
+            onNodeWithText("Add").performClick()
 
             // Validate if task without title is not created
             onCheckbox(taskName).assertDoesNotExist()
@@ -121,7 +119,7 @@ internal class TaskListFlowTest : KoinTest {
             clickAddTask()
             onAllNodesWithText("Work")[1].performClick()
             onNode(hasSetTextAction()).performTextInput(taskName)
-            onNodeWithText(string(TaskR.string.task_add_save)).performClick()
+            onNodeWithText("Add").performClick()
             waitUntilAtLeastOneExists(hasText(taskName))
             onNodeWithText(text = taskName, useUnmergedTree = true).assertExists()
 
@@ -141,22 +139,17 @@ internal class TaskListFlowTest : KoinTest {
         with(composeTestRule) {
             clickAddTask()
             onNode(hasSetTextAction()).performTextInput(taskName)
-            onNodeWithText(string(TaskR.string.task_add_save)).performClick()
+            onNodeWithText("Add").performClick()
             onNodeWithText(text = taskName, useUnmergedTree = true).assertExists()
         }
     }
 
     private fun clickAddTask() {
-        composeTestRule.onNodeWithContentDescription(
-            string(TaskR.string.task_cd_add_task),
-            useUnmergedTree = true,
-        ).performClick()
+        composeTestRule.onNodeWithContentDescription("Add task", useUnmergedTree = true)
+            .performClick()
     }
 
     private fun ComposeTestRule.onCheckbox(name: String) = onNode(
         SemanticsMatcher.expectValue(CheckboxNameKey, name),
     )
-
-    private fun string(@StringRes resId: Int): String =
-        context.getString(resId)
 }

@@ -1,5 +1,6 @@
 package com.escodro.task.mapper
 
+import com.escodro.designsystem.extensions.toArgbColor
 import com.escodro.categoryapi.model.Category as ViewCategory
 import com.escodro.domain.model.Category as DomainCategory
 
@@ -9,6 +10,6 @@ internal class CategoryMapper {
         ViewCategory(
             id = domainCategory.id,
             name = domainCategory.name,
-            color = 0, // TODO convert to color in KMP
+            color = domainCategory.color.toArgbColor()
         )
 }

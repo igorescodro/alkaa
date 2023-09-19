@@ -4,19 +4,15 @@ import com.escodro.category.fake.FAKE_DOMAIN_CATEGORY_LIST
 import com.escodro.category.fake.LoadAllCategoriesFake
 import com.escodro.category.mapper.CategoryMapper
 import com.escodro.categoryapi.presentation.CategoryState
-import com.escodro.test.rule.CoroutineTestRule
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+import com.escodro.test.rule.CoroutinesTestDispatcher
+import com.escodro.test.rule.CoroutinesTestDispatcherImpl
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
-import org.junit.Rule
 import org.junit.Test
 
-@OptIn(ExperimentalCoroutinesApi::class)
-internal class CategoryListViewModelTest {
-
-    @get:Rule
-    val coroutineTestRule = CoroutineTestRule()
+internal class CategoryListViewModelTest :
+    CoroutinesTestDispatcher by CoroutinesTestDispatcherImpl() {
 
     private val loadAllCategories = LoadAllCategoriesFake()
 

@@ -3,24 +3,19 @@ package com.escodro.task.presentation.add
 import com.escodro.coroutines.AppCoroutineScope
 import com.escodro.task.presentation.detail.main.CategoryId
 import com.escodro.task.presentation.fake.AddTaskFake
-import com.escodro.test.rule.CoroutineTestRule
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+import com.escodro.test.rule.CoroutinesTestDispatcher
+import com.escodro.test.rule.CoroutinesTestDispatcherImpl
 import org.junit.Assert
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 
-@OptIn(ExperimentalCoroutinesApi::class)
-internal class AddTaskViewModelTest {
-
-    @get:Rule
-    val coroutineTestRule = CoroutineTestRule()
+internal class AddTaskViewModelTest : CoroutinesTestDispatcher by CoroutinesTestDispatcherImpl() {
 
     private val addTask = AddTaskFake()
 
     private val viewModel = AddTaskViewModel(
         addTaskUseCase = addTask,
-        applicationScope = AppCoroutineScope(context = coroutineTestRule.testDispatcher),
+        applicationScope = AppCoroutineScope(context = testDispatcher()),
     )
 
     @Before

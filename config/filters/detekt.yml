@@ -3,7 +3,7 @@ complexity:
     thresholdInClasses: 20
 
 comments:
-  excludes: [ '**/test/**','**/androidTest/**','**/*.Test.kt','**/*.Spec.kt','**/*.Spek.kt' ]
+  excludes: [ '**/test/**','**/androidTest/**','**/android-test/**','**/*.Test.kt','**/*.Spec.kt','**/*.Spek.kt' ]
   CommentOverPrivateFunction:
     active: false
   CommentOverPrivateProperty:
@@ -16,20 +16,20 @@ style:
     active: false
   MagicNumber:
     ignorePropertyDeclaration: true
-    excludes: [ '**/designsystem/**', '**/test/**','**/androidTest/**' ]
+    excludes: [ '**/designsystem/**', '**/test/**','**/androidTest/**','**/android-test/**' ]
 
 potential-bugs:
   UnsafeCallOnNullableType:
-    excludes: [ '**/test/**','**/androidTest/**','**/*.Test.kt','**/*.Spec.kt','**/*.Spek.kt' ]
+    excludes: [ '**/test/**','**/androidTest/**','**/android-test/**','**/*.Test.kt','**/*.Spec.kt','**/*.Spek.kt' ]
   UnsafeCast:
-    excludes: [ '**/test/**','**/androidTest/**','**/*.Test.kt','**/*.Spec.kt','**/*.Spek.kt' ]
+    excludes: [ '**/test/**','**/androidTest/**','**/android-test/**','**/*.Test.kt','**/*.Spec.kt','**/*.Spek.kt' ]
 
 naming:
   TopLevelPropertyNaming:
     constantPattern: '[A-Z][A-Za-z0-9]*'
-    excludes: [ '**/theme/**', '**/test/**','**/androidTest/**' ]
+    excludes: [ '**/theme/**', '**/test/**','**/androidTest/**','**/android-test/**' ]
   FunctionMaxLength:
-    excludes: [ '**/test/**','**/androidTest/**' ]
+    excludes: [ '**/test/**','**/androidTest/**','**/android-test/**' ]
   FunctionNaming:
     ignoreAnnotated: [ 'Composable' ]
 

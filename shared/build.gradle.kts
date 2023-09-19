@@ -32,6 +32,8 @@ kotlin {
         implementation(projects.libraries.designsystem)
 
         implementation(projects.features.home)
+        implementation(projects.features.task)
+        implementation(projects.features.category)
 
         implementation(projects.resources)
 

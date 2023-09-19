@@ -29,6 +29,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import com.escodro.category.presentation.list.CategoryListSection
+import com.escodro.task.presentation.list.TaskListSection
 import dev.icerock.moko.resources.compose.stringResource
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
@@ -47,7 +49,7 @@ fun Home(
     onCategorySheetOpen: (Long?) -> Unit,
 ) {
     val (currentSection, setCurrentSection) = rememberSaveable { mutableStateOf(HomeSection.Tasks) }
-    val navItems = HomeSection.values().toList().toImmutableList()
+    val navItems = remember { HomeSection.values().toList().toImmutableList() }
 
     val actions = remember {
         object : HomeActions {
@@ -146,21 +148,23 @@ private fun AlkaaContent(
     modifier: Modifier = Modifier,
 ) {
     when (homeSection) {
-        HomeSection.Tasks -> {}
-        // TaskListSection(
-        //     modifier = modifier,
-        //     onItemClick = actions.onTaskClick,
-        //     onBottomShow = actions.onTaskSheetOpen,
-        // )
+        HomeSection.Tasks -> {
+            TaskListSection(
+                modifier = modifier,
+                onItemClick = actions.onTaskClick,
+                onBottomShow = actions.onTaskSheetOpen,
+            )
+        }
 
         HomeSection.Search -> {}
         // SearchSection(modifier = modifier, onItemClick = actions.onTaskClick)
 
-        HomeSection.Categories -> {}
-        // CategoryListSection(
-        //     modifier = modifier,
-        //     onShowBottomSheet = actions.onCategorySheetOpen,
-        // )
+        HomeSection.Categories -> {
+            CategoryListSection(
+                modifier = modifier,
+                onShowBottomSheet = actions.onCategorySheetOpen,
+            )
+        }
 
         HomeSection.Settings -> {}
         // PreferenceSection(

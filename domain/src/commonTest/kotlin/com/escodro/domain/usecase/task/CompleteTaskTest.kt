@@ -30,14 +30,18 @@ internal class CompleteTaskTest {
 
     private val addTaskUseCase = AddTaskImpl(taskRepository, glanceInteractor)
 
-    private val completeTaskUseCase =
-        CompleteTask(taskRepository, alarmInteractor, notificationInteractor, calendarProvider)
+    private val completeTaskUseCase = CompleteTask(
+        taskRepository,
+        // alarmInteractor,
+        // notificationInteractor,
+        calendarProvider,
+    )
 
     private val uncompleteTaskUseCase = UncompleteTask(taskRepository)
 
     private val updateTaskStatusUseCase = UpdateTaskStatusImpl(
         taskRepository,
-        glanceInteractor,
+        // glanceInteractor,
         completeTaskUseCase,
         uncompleteTaskUseCase,
     )

@@ -10,6 +10,7 @@ dependencies {
     implementation(libs.koin.compose)
 
     testImplementation(projects.libraries.test)
+    testImplementation(libs.test.junit)
     testImplementation(libs.kotlinx.datetime)
     androidTestImplementation(projects.libraries.test)
 }

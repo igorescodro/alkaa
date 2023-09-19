@@ -10,7 +10,7 @@ android_sdk_min = "24"
 
 # Plugins
 ksp = "1.9.10-1.0.13"
-dependencyanalysis = "1.21.0"
+dependencyanalysis = "1.22.0"
 
 # General dependencies
 logging = "3.0.5"

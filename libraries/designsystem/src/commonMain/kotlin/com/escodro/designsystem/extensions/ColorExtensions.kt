@@ -8,9 +8,5 @@ import androidx.compose.ui.graphics.toArgb
  *
  * @return the ARGB color
  */
-fun String.toArgbColor(): Int {
-    val hashColorString = this
-    return Color(
-        hashColorString.removePrefix("#").toLong(16) or 0x00000000FF000000,
-    ).toArgb()
-}
+fun String.toArgbColor(): Int =
+    Color(removePrefix("#").toLong(16) or 0x00000000FF000000).toArgb()

@@ -44,7 +44,7 @@ compose_activity = "1.7.1"
 compose_material3 = "1.0.1"
 compose_icons = "1.4.2"
 compose_windowsize = "1.0.1"
-jb_compose_compiler = "1.5.0"
+jb_compose_compiler = "1.5.1"
 
 # Koin
 koin_core = "3.4.3"

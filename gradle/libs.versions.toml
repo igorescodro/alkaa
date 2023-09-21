@@ -49,7 +49,7 @@ jb_compose_compiler = "1.5.1"
 # Koin
 koin_core = "3.5.0"
 koin_test = "3.5.0"
-koin_compose = "3.4.6"
+koin_compose = "3.5.0"
 koin_android = "3.5.0"
 koin_compose_jb = "1.1.0"
 

@@ -20,7 +20,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
-import com.escodro.alarmapi.AlarmPermission
 import com.escodro.categoryapi.presentation.CategoryListViewModel
 import com.escodro.categoryapi.presentation.CategoryState
 import com.escodro.designsystem.components.AlkaaLoadingContent
@@ -59,7 +58,7 @@ private fun TaskDetailLoader(
     detailViewModel: TaskDetailViewModel = koinInject(),
     categoryViewModel: CategoryListViewModel = koinInject(),
     alarmViewModel: TaskAlarmViewModel = koinInject(),
-    alarmPermission: AlarmPermission = koinInject(),
+    // alarmPermission: AlarmPermission = koinInject(), TODO
 ) {
     val id = TaskId(taskId)
     val detailViewState by
@@ -78,8 +77,8 @@ private fun TaskDetailLoader(
         onCategoryChange = { categoryId -> detailViewModel.updateCategory(id, categoryId) },
         onAlarmUpdate = { calendar -> alarmViewModel.updateAlarm(id, calendar) },
         onIntervalSelect = { interval -> alarmViewModel.setRepeating(id, interval) },
-        hasAlarmPermission = { alarmPermission.hasExactAlarmPermission() },
-        shouldCheckNotificationPermission = alarmPermission.shouldCheckNotificationPermission(),
+        hasAlarmPermission = { /*alarmPermission.hasExactAlarmPermission()*/ false },
+        shouldCheckNotificationPermission = /*alarmPermission.shouldCheckNotificationPermission()*/ false,
         onUpPress = onUpPress,
     )
 

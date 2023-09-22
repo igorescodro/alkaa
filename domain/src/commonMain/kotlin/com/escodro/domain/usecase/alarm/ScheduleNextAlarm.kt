@@ -1,6 +1,5 @@
 package com.escodro.domain.usecase.alarm
 
-import com.escodro.domain.interactor.AlarmInteractor
 import com.escodro.domain.model.AlarmInterval
 import com.escodro.domain.model.AlarmInterval.DAILY
 import com.escodro.domain.model.AlarmInterval.HOURLY
@@ -23,7 +22,7 @@ import mu.KotlinLogging
  */
 class ScheduleNextAlarm(
     private val taskRepository: TaskRepository,
-    private val alarmInteractor: AlarmInteractor,
+    // private val alarmInteractor: AlarmInteractor, TODO
     private val dateTimeProvider: DateTimeProvider,
 ) {
 
@@ -49,7 +48,7 @@ class ScheduleNextAlarm(
             task.copy(dueDate = taskTime.toLocalDateTime(TimeZone.currentSystemDefault()))
 
         taskRepository.updateTask(updatedTask)
-        alarmInteractor.schedule(updatedTask.id, taskTime.toEpochMilliseconds())
+        // alarmInteractor.schedule(updatedTask.id, taskTime.toEpochMilliseconds())
         logger.debug { "ScheduleNextAlarm = Task = '${task.title}' at $taskTime " }
     }
 

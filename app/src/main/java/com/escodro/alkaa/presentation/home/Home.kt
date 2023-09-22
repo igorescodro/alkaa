@@ -169,20 +169,13 @@ private fun AlkaaContent(
 ) {
     when (homeSection) {
         HomeSection.Tasks ->
-            TaskListSection(
-                modifier = modifier,
-                // onItemClick = actions.onTaskClick,
-                // onBottomShow = actions.onTaskSheetOpen,
-            )
+            TaskListSection(modifier = modifier)
 
         HomeSection.Search ->
             SearchSection(modifier = modifier, onItemClick = actions.onTaskClick)
 
         HomeSection.Categories ->
-            CategoryListSection(
-                modifier = modifier,
-                // onShowBottomSheet = actions.onCategorySheetOpen,
-            )
+            CategoryListSection(modifier = modifier)
 
         HomeSection.Settings ->
             PreferenceSection(

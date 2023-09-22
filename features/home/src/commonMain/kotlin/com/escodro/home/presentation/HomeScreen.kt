@@ -147,11 +147,7 @@ private fun AlkaaContent(
 ) {
     when (homeSection) {
         HomeSection.Tasks -> {
-            TaskListSection(
-                modifier = modifier,
-                onItemClick = actions.onTaskClick,
-                onBottomShow = actions.onTaskSheetOpen,
-            )
+            TaskListSection(modifier = modifier)
         }
 
         HomeSection.Search -> {}

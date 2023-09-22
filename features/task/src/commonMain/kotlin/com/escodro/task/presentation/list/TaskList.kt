@@ -26,11 +26,16 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import cafe.adriel.voyager.core.registry.ScreenRegistry
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.bottomSheet.LocalBottomSheetNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import com.escodro.categoryapi.presentation.CategoryListViewModel
 import com.escodro.categoryapi.presentation.CategoryState
 import com.escodro.designsystem.components.AddFloatingButton
 import com.escodro.designsystem.components.AlkaaLoadingContent
 import com.escodro.designsystem.components.DefaultIconTextContent
+import com.escodro.navigation.AlkaaDestinations
 import com.escodro.resources.MR
 import com.escodro.task.model.TaskWithCategory
 import com.escodro.task.presentation.category.CategorySelection
@@ -43,21 +48,28 @@ import org.koin.compose.koinInject
 /**
  * Alkaa Task Section.
  *
- * @param onItemClick action to be called when a item is clicked
- * @param onBottomShow action to be called when the bottom sheet is shown
  * @param modifier the decorator
  */
 @Composable
-fun TaskListSection(
-    onItemClick: (Long) -> Unit,
-    onBottomShow: () -> Unit,
-    modifier: Modifier = Modifier,
-) {
-    TaskListLoader(modifier = modifier, onItemClick = onItemClick, onAddClick = onBottomShow)
+fun TaskListSection(modifier: Modifier = Modifier) {
+    val navigator = LocalNavigator.currentOrThrow
+    val bottomSheetNavigator = LocalBottomSheetNavigator.current
+
+    TaskListLoader(
+        modifier = modifier,
+        onItemClick = { taskId ->
+            val screen = ScreenRegistry.get(AlkaaDestinations.Task.TaskDetail(taskId))
+            navigator.push(screen)
+        },
+        onAddClick = {
+            val screen = ScreenRegistry.get(AlkaaDestinations.Task.AddTaskBottomSheet)
+            bottomSheetNavigator.show(screen)
+        },
+    )
 }
 
 @Composable
-private fun TaskListLoader(
+internal fun TaskListLoader(
     onItemClick: (Long) -> Unit,
     onAddClick: () -> Unit,
     modifier: Modifier = Modifier,

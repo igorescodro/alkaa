@@ -66,8 +66,8 @@ internal fun TaskDetailScreen(
         onCategoryChange = { categoryId -> detailViewModel.updateCategory(id, categoryId) },
         onAlarmUpdate = { calendar -> alarmViewModel.updateAlarm(id, calendar) },
         onIntervalSelect = { interval -> alarmViewModel.setRepeating(id, interval) },
-        hasAlarmPermission = { /*alarmPermission.hasExactAlarmPermission()*/ false },
-        shouldCheckNotificationPermission = /*alarmPermission.shouldCheckNotificationPermission()*/ false,
+        hasAlarmPermission = { false }, // TODO
+        shouldCheckNotificationPermission = false, // TODO
         onUpPress = onUpPress,
     )
 

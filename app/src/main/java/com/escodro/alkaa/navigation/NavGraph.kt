@@ -46,9 +46,9 @@ fun NavGraph(windowSizeClass: WindowSizeClass, startDestination: String = Destin
     ModalBottomSheetLayout(bottomSheetNavigator) {
         NavHost(navController = navController, startDestination = startDestination) {
             homeGraph(windowSizeClass, actions)
-            taskGraph(actions)
+            taskGraph()
             preferencesGraph(actions)
-            categoryGraph(actions)
+            categoryGraph()
             trackerGraph(context, actions)
         }
     }
@@ -86,7 +86,7 @@ private fun NavGraphBuilder.homeGraph(windowSizeClass: WindowSizeClass, actions:
 
 @OptIn(ExperimentalMaterialNavigationApi::class)
 @Suppress("MagicNumber")
-private fun NavGraphBuilder.taskGraph(actions: Actions) {
+private fun NavGraphBuilder.taskGraph() {
     composable(
         route = "${Destinations.TaskDetail}/{${DestinationArgs.TaskId}}",
         arguments = listOf(navArgument(DestinationArgs.TaskId) { type = NavType.LongType }),
@@ -122,7 +122,7 @@ private fun NavGraphBuilder.taskGraph(actions: Actions) {
 
 @OptIn(ExperimentalMaterialNavigationApi::class)
 @Suppress("MagicNumber")
-private fun NavGraphBuilder.categoryGraph(actions: Actions) {
+private fun NavGraphBuilder.categoryGraph() {
     bottomSheet(
         route = "${Destinations.BottomSheet.Category}/{${DestinationArgs.CategoryId}}",
         arguments = listOf(

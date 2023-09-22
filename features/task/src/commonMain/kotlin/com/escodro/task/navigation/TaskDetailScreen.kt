@@ -16,7 +16,7 @@ internal data class TaskDetailScreen(val taskId: Long) : Screen {
         val navigator = LocalNavigator.currentOrThrow
         TaskDetailScreen(
             taskId = taskId,
-            onUpPress = { navigator.pop() }
+            onUpPress = { navigator.pop() },
         )
     }
 }

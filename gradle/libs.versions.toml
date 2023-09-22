@@ -67,6 +67,9 @@ moko_resources = "0.23.0"
 # AtomicFU
 atomicfu = "0.22.0"
 
+# Voyager
+voyager = "1.0.0-rc07"
+
 # Test
 test_junit = "4.13.2"
 test_runner = "1.5.2"
@@ -153,6 +156,10 @@ moko_resources_generator = { module = "dev.icerock.moko:resources-generator", ve
 moko_resources_core = { module = "dev.icerock.moko:resources", version.ref = "moko_resources" }
 moko_resources_compose = { module = "dev.icerock.moko:resources-compose", version.ref = "moko_resources" }
 moko_parcelize = { module = "dev.icerock.moko:parcelize", version.ref = "moko_parcelize" }
+
+# Voyager
+voyager_navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager" }
+voyager_bottomsheet = { module = "cafe.adriel.voyager:voyager-bottom-sheet-navigator", version.ref = "voyager" }
 
 # Test
 test_junit = { module = "junit:junit", version.ref = "test_junit" }

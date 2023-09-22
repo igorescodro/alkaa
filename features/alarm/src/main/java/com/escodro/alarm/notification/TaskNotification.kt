@@ -68,15 +68,15 @@ internal class TaskNotification(
             setSmallIcon(R.drawable.ic_bookmark_check)
             setContentTitle(context.getString(R.string.content_app_name))
             setContentText(task.title)
-            setContentIntent(buildPendingIntent(task))
+            setContentIntent(buildPendingIntent())
             setAutoCancel(true)
             addAction(getSnoozeAction(task))
         }
 
-    private fun buildPendingIntent(task: Task): PendingIntent {
+    private fun buildPendingIntent(): PendingIntent {
         val openTaskIntent = Intent(
             Intent.ACTION_VIEW,
-            // DestinationDeepLink.getTaskDetailUri(task.id),
+            // DestinationDeepLink.getTaskDetailUri(task.id), TODO
         )
 
         return TaskStackBuilder.create(context).run {

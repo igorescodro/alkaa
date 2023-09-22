@@ -15,7 +15,6 @@ import com.escodro.task.navigation.taskScreenModule
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun AlkaaNavGraph() {
-
     ScreenRegistry {
         taskScreenModule()
         categoryScreenModule()

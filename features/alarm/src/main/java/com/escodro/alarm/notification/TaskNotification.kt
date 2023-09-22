@@ -8,9 +8,7 @@ import androidx.core.app.NotificationCompat
 import com.escodro.alarm.R
 import com.escodro.alarm.TaskReceiver
 import com.escodro.alarm.model.Task
-import com.escodro.alarmapi.AlarmPermission
 import com.escodro.core.extension.getNotificationManager
-import com.escodro.navigation.DestinationDeepLink
 import logcat.logcat
 
 /**
@@ -19,7 +17,7 @@ import logcat.logcat
 internal class TaskNotification(
     private val context: Context,
     private val channel: TaskNotificationChannel,
-    private val alarmPermission: AlarmPermission,
+    // private val alarmPermission: AlarmPermission, TODO
 ) {
 
     /**
@@ -32,10 +30,10 @@ internal class TaskNotification(
         val builder = buildNotification(task)
         builder.addAction(getCompleteAction(task))
 
-        if (!alarmPermission.hasNotificationPermission()) {
-            logcat { "Permission not granted - ignoring alarm" }
-            return
-        }
+        // if (!alarmPermission.hasNotificationPermission()) {
+        //     logcat { "Permission not granted - ignoring alarm" }
+        //     return
+        // }
         context.getNotificationManager()?.notify(task.id.toInt(), builder.build())
     }
 
@@ -48,10 +46,10 @@ internal class TaskNotification(
         logcat { "Showing repeating notification for '${task.title}'" }
         val builder = buildNotification(task)
 
-        if (!alarmPermission.hasNotificationPermission()) {
-            logcat { "Permission not granted - ignoring alarm" }
-            return
-        }
+        // if (!alarmPermission.hasNotificationPermission()) {
+        //     logcat { "Permission not granted - ignoring alarm" }
+        //     return
+        // }
         context.getNotificationManager()?.notify(task.id.toInt(), builder.build())
     }
 
@@ -78,7 +76,7 @@ internal class TaskNotification(
     private fun buildPendingIntent(task: Task): PendingIntent {
         val openTaskIntent = Intent(
             Intent.ACTION_VIEW,
-            DestinationDeepLink.getTaskDetailUri(task.id),
+            // DestinationDeepLink.getTaskDetailUri(task.id),
         )
 
         return TaskStackBuilder.create(context).run {

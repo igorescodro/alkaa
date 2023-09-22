@@ -1,6 +1,5 @@
 package com.escodro.domain.usecase.alarm
 
-import com.escodro.domain.interactor.AlarmInteractor
 import com.escodro.domain.model.Task
 import com.escodro.domain.provider.DateTimeProvider
 import com.escodro.domain.repository.TaskRepository
@@ -15,7 +14,7 @@ import mu.KotlinLogging
  */
 class RescheduleFutureAlarms(
     private val taskRepository: TaskRepository,
-    private val alarmInteractor: AlarmInteractor,
+    // private val alarmInteractor: AlarmInteractor, TODO
     private val dateTimeProvider: DateTimeProvider,
     private val scheduleNextAlarm: ScheduleNextAlarm,
 ) {
@@ -49,7 +48,7 @@ class RescheduleFutureAlarms(
     private fun rescheduleFutureTask(task: Task) {
         val futureTime = task.dueDate
             ?.toInstant(TimeZone.currentSystemDefault())?.toEpochMilliseconds() ?: return
-        alarmInteractor.schedule(task.id, futureTime)
+        // alarmInteractor.schedule(task.id, futureTime)
         logger.debug { "Task '${task.title} rescheduled to '${task.dueDate}" }
     }
 

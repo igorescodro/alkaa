@@ -39,6 +39,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import cafe.adriel.voyager.core.registry.ScreenRegistry
+import cafe.adriel.voyager.navigator.bottomSheet.LocalBottomSheetNavigator
 import com.escodro.category.presentation.semantics.color
 import com.escodro.categoryapi.model.Category
 import com.escodro.categoryapi.presentation.CategoryListViewModel
@@ -46,6 +48,7 @@ import com.escodro.categoryapi.presentation.CategoryState
 import com.escodro.designsystem.components.AddFloatingButton
 import com.escodro.designsystem.components.AlkaaLoadingContent
 import com.escodro.designsystem.components.DefaultIconTextContent
+import com.escodro.navigation.AlkaaDestinations
 import com.escodro.resources.MR
 import dev.icerock.moko.resources.compose.stringResource
 import kotlinx.collections.immutable.ImmutableList
@@ -57,17 +60,23 @@ import kotlin.math.roundToInt
  * Alkaa Category List Section.
  *
  * @param modifier the decorator
- * @param onShowBottomSheet function to be called when the bottom sheet is shown
  */
 @Composable
-fun CategoryListSection(
-    modifier: Modifier = Modifier,
-    onShowBottomSheet: (Long?) -> Unit,
-) {
+fun CategoryListSection(modifier: Modifier = Modifier) {
+    val bottomSheetNavigator = LocalBottomSheetNavigator.current
+
     CategoryListLoader(
         modifier = modifier,
-        onItemClick = onShowBottomSheet,
-        onAddClick = { onShowBottomSheet(null) },
+        onItemClick = { categoryId ->
+            val bottomSheet =
+                ScreenRegistry.get(AlkaaDestinations.Category.CategoryBottomSheet(categoryId))
+            bottomSheetNavigator.show(bottomSheet)
+        },
+        onAddClick = {
+            val bottomSheet =
+                ScreenRegistry.get(AlkaaDestinations.Category.CategoryBottomSheet(null))
+            bottomSheetNavigator.show(bottomSheet)
+        },
     )
 }
 

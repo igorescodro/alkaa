@@ -18,14 +18,11 @@ import androidx.navigation.compose.dialog
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.escodro.alkaa.presentation.home.Home
-import com.escodro.category.presentation.bottomsheet.CategoryBottomSheet
 import com.escodro.navigation.DestinationArgs
 import com.escodro.navigation.Destinations
 import com.escodro.preference.presentation.About
 import com.escodro.preference.presentation.OpenSource
 import com.escodro.splitinstall.LoadFeature
-import com.escodro.task.presentation.add.AddTaskBottomSheet
-import com.escodro.task.presentation.detail.main.TaskDetailSection
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import com.google.accompanist.navigation.material.ModalBottomSheetLayout
 import com.google.accompanist.navigation.material.bottomSheet
@@ -112,14 +109,14 @@ private fun NavGraphBuilder.taskGraph(actions: Actions) {
         },
     ) { backStackEntry ->
         val arguments = requireNotNull(backStackEntry.arguments)
-        TaskDetailSection(
-            taskId = arguments.getLong(DestinationArgs.TaskId),
-            onUpPress = actions.navigateUp,
-        )
+        // TaskDetailSection(
+        //     taskId = arguments.getLong(DestinationArgs.TaskId),
+        //     onUpPress = actions.navigateUp,
+        // )
     }
 
     bottomSheet(Destinations.BottomSheet.Task) {
-        AddTaskBottomSheet(actions.navigateUp)
+        // AddTaskBottomSheet(actions.navigateUp)
     }
 }
 
@@ -139,11 +136,11 @@ private fun NavGraphBuilder.categoryGraph(actions: Actions) {
             // },
         ),
     ) { backStackEntry ->
-        val id = backStackEntry.arguments?.getLong(DestinationArgs.CategoryId) ?: 0L
-        CategoryBottomSheet(
-            categoryId = id,
-            onHideBottomSheet = actions.navigateUp,
-        )
+        // val id = backStackEntry.arguments?.getLong(DestinationArgs.CategoryId) ?: 0L
+        // CategoryBottomSheet(
+        //     categoryId = id,
+        //     onHideBottomSheet = actions.navigateUp,
+        // )
     }
 }
 

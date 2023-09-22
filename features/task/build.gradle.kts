@@ -17,6 +17,7 @@ kotlin {
         implementation(projects.domain)
         implementation(projects.resources)
         implementation(projects.libraries.di)
+        implementation(projects.libraries.navigation)
         implementation(projects.libraries.coroutines)
         implementation(projects.libraries.designsystem)
 

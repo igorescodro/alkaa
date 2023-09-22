@@ -31,16 +31,8 @@ import dev.icerock.moko.resources.compose.stringResource
 import kotlinx.coroutines.delay
 import org.koin.compose.koinInject
 
-/**
- * Alkaa Add Task Bottom Sheet.
- */
 @Composable
-fun AddTaskBottomSheet(onHideBottomSheet: () -> Unit) {
-    AddTaskLoader(onHideBottomSheet = onHideBottomSheet)
-}
-
-@Composable
-internal fun AddTaskLoader(
+internal fun AddTaskBottomSheet(
     addTaskViewModel: AddTaskViewModel = koinInject(),
     categoryViewModel: CategoryListViewModel = koinInject(),
     onHideBottomSheet: () -> Unit,

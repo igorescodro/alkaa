@@ -44,7 +44,6 @@ import androidx.glance.text.TextStyle
 import com.escodro.glance.R
 import com.escodro.glance.data.TaskListStateDefinition
 import com.escodro.glance.model.Task
-import com.escodro.navigation.DestinationDeepLink
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 
@@ -175,8 +174,8 @@ internal class TaskListGlanceWidget : GlanceAppWidget() {
     }
 
     private fun getHomeIntent(): Intent =
-        Intent(Intent.ACTION_VIEW, DestinationDeepLink.getTaskHomeUri())
+        Intent(Intent.ACTION_VIEW /*DestinationDeepLink.getTaskHomeUri()*/)
 
     private fun getTaskIntent(taskId: Long): Intent =
-        Intent(Intent.ACTION_VIEW, DestinationDeepLink.getTaskDetailUri(taskId))
+        Intent(Intent.ACTION_VIEW /*DestinationDeepLink.getTaskDetailUri(taskId)*/)
 }

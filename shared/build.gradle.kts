@@ -28,6 +28,7 @@ kotlin {
         implementation(projects.data.datastore)
         implementation(projects.data.repository)
         implementation(projects.domain)
+        implementation(projects.libraries.navigation)
         implementation(projects.libraries.coroutines)
         implementation(projects.libraries.designsystem)
 
@@ -39,6 +40,7 @@ kotlin {
 
         implementation(projects.domain)
         implementation(compose.runtime)
+        implementation(compose.material)
         implementation(compose.material3)
         implementation(libs.koin.core)
         implementation(libs.moko.resources.core)

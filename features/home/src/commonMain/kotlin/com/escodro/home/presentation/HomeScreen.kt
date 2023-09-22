@@ -41,11 +41,9 @@ import kotlinx.collections.immutable.toImmutableList
 @Suppress("LongParameterList")
 @Composable
 fun Home(
-    onTaskClick: (Long) -> Unit,
     onAboutClick: () -> Unit,
     onTrackerClick: () -> Unit,
     onOpenSourceClick: () -> Unit,
-    onTaskSheetOpen: () -> Unit,
     onCategorySheetOpen: (Long?) -> Unit,
 ) {
     val (currentSection, setCurrentSection) = rememberSaveable { mutableStateOf(HomeSection.Tasks) }
@@ -53,11 +51,11 @@ fun Home(
 
     val actions = remember {
         object : HomeActions {
-            override val onTaskClick = onTaskClick
+            override val onTaskClick = { _: Long -> }
             override val onAboutClick = onAboutClick
             override val onTrackerClick = onTrackerClick
             override val onOpenSourceClick = onOpenSourceClick
-            override val onTaskSheetOpen = onTaskSheetOpen
+            override val onTaskSheetOpen = { }
             override val onCategorySheetOpen = onCategorySheetOpen
             override val setCurrentSection = setCurrentSection
         }
@@ -160,10 +158,7 @@ private fun AlkaaContent(
         // SearchSection(modifier = modifier, onItemClick = actions.onTaskClick)
 
         HomeSection.Categories -> {
-            CategoryListSection(
-                modifier = modifier,
-                onShowBottomSheet = actions.onCategorySheetOpen,
-            )
+            CategoryListSection(modifier = modifier)
         }
 
         HomeSection.Settings -> {}

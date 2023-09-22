@@ -14,6 +14,7 @@ kotlin {
         implementation(projects.resources)
         implementation(projects.features.task)
         implementation(projects.features.category)
+        implementation(projects.libraries.navigation)
 
         implementation(compose.runtime)
         implementation(compose.materialIconsExtended)
@@ -38,4 +39,3 @@ kotlin {
 android {
     namespace = "com.escodro.home"
 }
-

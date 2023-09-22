@@ -171,8 +171,8 @@ private fun AlkaaContent(
         HomeSection.Tasks ->
             TaskListSection(
                 modifier = modifier,
-                onItemClick = actions.onTaskClick,
-                onBottomShow = actions.onTaskSheetOpen,
+                // onItemClick = actions.onTaskClick,
+                // onBottomShow = actions.onTaskSheetOpen,
             )
 
         HomeSection.Search ->
@@ -181,7 +181,7 @@ private fun AlkaaContent(
         HomeSection.Categories ->
             CategoryListSection(
                 modifier = modifier,
-                onShowBottomSheet = actions.onCategorySheetOpen,
+                // onShowBottomSheet = actions.onCategorySheetOpen,
             )
 
         HomeSection.Settings ->

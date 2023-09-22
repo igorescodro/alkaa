@@ -17,11 +17,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.dialog
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import androidx.navigation.navDeepLink
 import com.escodro.alkaa.presentation.home.Home
 import com.escodro.category.presentation.bottomsheet.CategoryBottomSheet
 import com.escodro.navigation.DestinationArgs
-import com.escodro.navigation.DestinationDeepLink
 import com.escodro.navigation.Destinations
 import com.escodro.preference.presentation.About
 import com.escodro.preference.presentation.OpenSource
@@ -63,7 +61,7 @@ fun NavGraph(windowSizeClass: WindowSizeClass, startDestination: String = Destin
 private fun NavGraphBuilder.homeGraph(windowSizeClass: WindowSizeClass, actions: Actions) {
     composable(
         route = Destinations.Home,
-        deepLinks = listOf(navDeepLink { uriPattern = DestinationDeepLink.HomePattern }),
+        // deepLinks = listOf(navDeepLink { uriPattern = DestinationDeepLink.HomePattern }),
         enterTransition = {
             slideIntoContainer(
                 AnimatedContentTransitionScope.SlideDirection.Right,
@@ -96,9 +94,9 @@ private fun NavGraphBuilder.taskGraph(actions: Actions) {
         route = "${Destinations.TaskDetail}/{${DestinationArgs.TaskId}}",
         arguments = listOf(navArgument(DestinationArgs.TaskId) { type = NavType.LongType }),
         deepLinks = listOf(
-            navDeepLink {
-                uriPattern = DestinationDeepLink.TaskDetailPattern
-            },
+            // navDeepLink {
+            //     uriPattern = DestinationDeepLink.TaskDetailPattern
+            // },
         ),
         enterTransition = {
             slideIntoContainer(
@@ -136,9 +134,9 @@ private fun NavGraphBuilder.categoryGraph(actions: Actions) {
             },
         ),
         deepLinks = listOf(
-            navDeepLink {
-                uriPattern = DestinationDeepLink.CategorySheetPattern
-            },
+            // navDeepLink {
+            //     uriPattern = DestinationDeepLink.CategorySheetPattern
+            // },
         ),
     ) { backStackEntry ->
         val id = backStackEntry.arguments?.getLong(DestinationArgs.CategoryId) ?: 0L

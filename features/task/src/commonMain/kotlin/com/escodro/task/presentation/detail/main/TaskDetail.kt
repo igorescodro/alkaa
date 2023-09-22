@@ -39,20 +39,9 @@ import dev.icerock.moko.resources.compose.stringResource
 import org.koin.compose.koinInject
 import kotlin.jvm.JvmInline
 
-/**
- * Alkaa Task Detail Section.
- *
- * @param taskId the id from the task to be shown
- * @param onUpPress action to be called when the back button is pressed
- */
-@Composable
-fun TaskDetailSection(taskId: Long, onUpPress: () -> Unit) {
-    TaskDetailLoader(taskId = taskId, onUpPress = onUpPress)
-}
-
 @Suppress("LongParameterList")
 @Composable
-private fun TaskDetailLoader(
+internal fun TaskDetailScreen(
     taskId: Long,
     onUpPress: () -> Unit,
     detailViewModel: TaskDetailViewModel = koinInject(),

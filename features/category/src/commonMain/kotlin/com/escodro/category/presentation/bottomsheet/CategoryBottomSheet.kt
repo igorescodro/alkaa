@@ -56,7 +56,7 @@ import org.koin.compose.koinInject
  * Alkaa Category Bottom Sheet.
  */
 @Composable
-fun CategoryBottomSheet(categoryId: Long, onHideBottomSheet: () -> Unit) {
+internal fun CategoryBottomSheet(categoryId: Long, onHideBottomSheet: () -> Unit) {
     val colorList = CategoryColors.values().map { it.value }.toImmutableList()
     if (categoryId == 0L) {
         CategoryNewSheetLoader(

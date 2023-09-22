@@ -14,7 +14,7 @@ internal class AddTaskBottomSheet : Screen {
     override fun Content() {
         val bottomSheetNavigator = LocalBottomSheetNavigator.current
         AddTaskBottomSheet(
-            onHideBottomSheet = { bottomSheetNavigator.hide() }
+            onHideBottomSheet = { bottomSheetNavigator.hide() },
         )
     }
 }

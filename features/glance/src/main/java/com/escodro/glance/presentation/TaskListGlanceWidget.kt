@@ -149,7 +149,7 @@ internal class TaskListGlanceWidget : GlanceAppWidget() {
     private fun TaskItem(task: Task, modifier: GlanceModifier = GlanceModifier) {
         Row(
             modifier = modifier.padding(vertical = 2.dp).fillMaxWidth()
-                .clickable(actionStartActivity(getTaskIntent(task.id))),
+                .clickable(actionStartActivity(getTaskIntent())),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             CheckBox(
@@ -174,8 +174,8 @@ internal class TaskListGlanceWidget : GlanceAppWidget() {
     }
 
     private fun getHomeIntent(): Intent =
-        Intent(Intent.ACTION_VIEW /*DestinationDeepLink.getTaskHomeUri()*/)
+        Intent(Intent.ACTION_VIEW) // TODO
 
-    private fun getTaskIntent(taskId: Long): Intent =
-        Intent(Intent.ACTION_VIEW /*DestinationDeepLink.getTaskDetailUri(taskId)*/)
+    private fun getTaskIntent(): Intent =
+        Intent(Intent.ACTION_VIEW) // TODO
 }

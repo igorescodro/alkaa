@@ -18,7 +18,7 @@ internal data class CategoryBottomSheet(val categoryId: Long?) : Screen {
 
         CategoryBottomSheet(
             categoryId = categoryId ?: 0L,
-            onHideBottomSheet = { bottomSheetNavigator.hide() }
+            onHideBottomSheet = { bottomSheetNavigator.hide() },
         )
     }
 }

@@ -15,7 +15,7 @@ class HomeScreen : Screen {
             onAboutClick = {},
             onTrackerClick = {},
             onOpenSourceClick = {},
-            onCategorySheetOpen = {}
+            onCategorySheetOpen = {},
         )
     }
 }

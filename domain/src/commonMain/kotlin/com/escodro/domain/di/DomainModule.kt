@@ -58,14 +58,34 @@ import org.koin.dsl.module
 val domainModule = module {
 
     // Task Use Cases
-    factoryOf(::AddTaskImpl) bind AddTask::class
-    factoryOf(::CompleteTask)
+    factory<AddTask> { AddTaskImpl(taskRepository = get(), glanceInteractor = getOrNull()) }
+    factory {
+        CompleteTask(
+            taskRepository = get(),
+            alarmInteractor = getOrNull(),
+            notificationInteractor = getOrNull(),
+            dateTimeProvider = get(),
+        )
+    }
     factoryOf(::UncompleteTask)
-    factoryOf(::UpdateTaskStatusImpl) bind UpdateTaskStatus::class
-    factoryOf(::DeleteTask)
+    factory<UpdateTaskStatus> {
+        UpdateTaskStatusImpl(
+            taskRepository = get(),
+            glanceInteractor = getOrNull(),
+            completeTask = get(),
+            uncompleteTask = get(),
+        )
+    }
+    factory { DeleteTask(taskRepository = get(), alarmInteractor = getOrNull()) }
     factoryOf(::LoadTaskImpl) bind LoadTask::class
-    factoryOf(::UpdateTaskImpl) bind UpdateTask::class
-    factoryOf(::UpdateTaskTitleImpl) bind UpdateTaskTitle::class
+    factory<UpdateTask> { UpdateTaskImpl(taskRepository = get(), glanceInteractor = getOrNull()) }
+    factory<UpdateTaskTitle> {
+        UpdateTaskTitleImpl(
+            loadTask = get(),
+            updateTask = get(),
+            glanceInteractor = getOrNull(),
+        )
+    }
     factoryOf(::UpdateTaskDescriptionImpl) bind UpdateTaskDescription::class
     factoryOf(::UpdateTaskCategoryImpl) bind UpdateTaskCategory::class
 
@@ -84,12 +104,42 @@ val domainModule = module {
     factoryOf(::LoadUncompletedTasksImpl) bind LoadUncompletedTasks::class
 
     // Alarm Use Cases
-    factoryOf(::CancelAlarmImpl) bind CancelAlarm::class
-    factoryOf(::RescheduleFutureAlarms)
-    factoryOf(::ScheduleAlarmImpl) bind ScheduleAlarm::class
-    factoryOf(::ScheduleNextAlarm)
-    factoryOf(::ShowAlarm)
-    factoryOf(::SnoozeAlarm)
+    factory<CancelAlarm> { CancelAlarmImpl(taskRepository = get(), alarmInteractor = getOrNull()) }
+    factory {
+        RescheduleFutureAlarms(
+            taskRepository = get(),
+            alarmInteractor = getOrNull(),
+            dateTimeProvider = get(),
+            scheduleNextAlarm = get(),
+        )
+    }
+    factory<ScheduleAlarm> {
+        ScheduleAlarmImpl(
+            taskRepository = get(),
+            alarmInteractor = getOrNull(),
+        )
+    }
+    factory {
+        ScheduleNextAlarm(
+            taskRepository = get(),
+            alarmInteractor = getOrNull(),
+            dateTimeProvider = get(),
+        )
+    }
+    factory {
+        ShowAlarm(
+            taskRepository = get(),
+            notificationInteractor = getOrNull(),
+            scheduleNextAlarm = get(),
+        )
+    }
+    factory {
+        SnoozeAlarm(
+            dateTimeProvider = get(),
+            notificationInteractor = getOrNull(),
+            alarmInteractor = getOrNull(),
+        )
+    }
     factoryOf(::UpdateTaskAsRepeatingImpl) bind UpdateTaskAsRepeating::class
 
     // Tracker Use Cases

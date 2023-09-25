@@ -32,7 +32,7 @@ jobs:
           distribution: 'zulu'
 
       - name: Setup Android SDK
-        uses: android-actions/setup-android@v2
+        uses: android-actions/setup-android@v3
 
       - name: Run instrumented tests
         uses: reactivecircus/android-emulator-runner@v2
@@ -76,7 +76,7 @@ jobs:
           distribution: 'zulu'
 
       - name: Setup Android SDK
-        uses: android-actions/setup-android@v2
+        uses: android-actions/setup-android@v3
 
       - name: Run instrumented tests
         run: ./gradlew cleanManagedDevices --unused-only &&

@@ -172,7 +172,7 @@ private fun AlkaaContent(
             TaskListSection(modifier = modifier)
 
         HomeSection.Search ->
-            SearchSection(modifier = modifier, onItemClick = actions.onTaskClick)
+            SearchSection(modifier = modifier)
 
         HomeSection.Categories ->
             CategoryListSection(modifier = modifier)

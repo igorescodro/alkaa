@@ -1,6 +1,7 @@
 package com.escodro.search.mapper
 
 import androidx.compose.ui.graphics.Color
+import com.escodro.designsystem.extensions.toArgbColor
 import com.escodro.domain.model.TaskWithCategory
 import com.escodro.search.model.TaskSearchItem
 import kotlinx.collections.immutable.ImmutableList
@@ -25,6 +26,6 @@ internal class TaskSearchMapper {
             return null
         }
 
-        return Color(android.graphics.Color.parseColor(color))
+        return Color(color.toArgbColor())
     }
 }

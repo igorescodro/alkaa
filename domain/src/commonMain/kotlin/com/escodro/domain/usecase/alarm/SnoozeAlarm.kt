@@ -1,5 +1,6 @@
 package com.escodro.domain.usecase.alarm
 
+import com.escodro.domain.interactor.AlarmInteractor
 import com.escodro.domain.interactor.NotificationInteractor
 import com.escodro.domain.provider.DateTimeProvider
 import kotlinx.datetime.Instant
@@ -11,8 +12,8 @@ import kotlin.time.Duration.Companion.minutes
  */
 class SnoozeAlarm(
     private val dateTimeProvider: DateTimeProvider,
-    private val notificationInteractor: NotificationInteractor,
-    // private val alarmInteractor: AlarmInteractor, TODO
+    private val notificationInteractor: NotificationInteractor?, // TODO not null
+    private val alarmInteractor: AlarmInteractor?, // TODO not null
 ) {
 
     private val logger = KotlinLogging.logger {}
@@ -29,8 +30,8 @@ class SnoozeAlarm(
         require(minutes > 0) { "The delay minutes must be positive" }
 
         val snoozedTime = getSnoozedTask(dateTimeProvider.getCurrentInstant(), minutes)
-        // alarmInteractor.schedule(taskId, snoozedTime)
-        notificationInteractor.dismiss(taskId)
+        alarmInteractor?.schedule(taskId, snoozedTime)
+        notificationInteractor?.dismiss(taskId)
         logger.debug { "Task snoozed in $minutes minutes" }
     }
 

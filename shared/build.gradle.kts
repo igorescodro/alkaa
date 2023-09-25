@@ -35,6 +35,7 @@ kotlin {
         implementation(projects.features.home)
         implementation(projects.features.task)
         implementation(projects.features.category)
+        implementation(projects.features.search)
 
         implementation(projects.resources)
 

@@ -7,6 +7,7 @@ import com.escodro.designsystem.di.designSystemModule
 import com.escodro.domain.di.domainModule
 import com.escodro.local.di.localModule
 import com.escodro.repository.di.repositoryModule
+import com.escodro.search.di.searchModule
 import com.escodro.task.di.taskModule
 import org.koin.core.context.startKoin
 import org.koin.core.module.Module
@@ -28,6 +29,7 @@ fun initKoin(appModule: Module = module { }) {
             appModule,
             taskModule,
             categoryModule,
+            searchModule,
             domainModule,
             repositoryModule,
             localModule,

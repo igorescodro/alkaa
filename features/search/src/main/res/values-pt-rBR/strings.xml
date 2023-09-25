@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="search_cd_icon">Pesquisar</string>
-    <string name="search_cd_empty_list">Nenhuma tarefa</string>
-    <string name="search_header_empty">Nenhuma tarefa encontrada</string>
-
-</resources>

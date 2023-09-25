@@ -68,4 +68,9 @@
     <string name="category_dialog_remove_cancel">Cancel</string>
     <string name="category_cd_remove_category">Remove</string>
 
+    <!-- Search -->
+    <string name="search_cd_icon">Search</string>
+    <string name="search_cd_empty_list">No tasks</string>
+    <string name="search_header_empty">No tasks found</string>
+
 </resources>

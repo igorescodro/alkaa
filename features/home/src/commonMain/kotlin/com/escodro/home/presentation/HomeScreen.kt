@@ -30,6 +30,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import com.escodro.category.presentation.list.CategoryListSection
+import com.escodro.search.presentation.SearchSection
 import com.escodro.task.presentation.list.TaskListSection
 import dev.icerock.moko.resources.compose.stringResource
 import kotlinx.collections.immutable.ImmutableList
@@ -150,8 +151,9 @@ private fun AlkaaContent(
             TaskListSection(modifier = modifier)
         }
 
-        HomeSection.Search -> {}
-        // SearchSection(modifier = modifier, onItemClick = actions.onTaskClick)
+        HomeSection.Search -> {
+            SearchSection(modifier = modifier)
+        }
 
         HomeSection.Categories -> {
             CategoryListSection(modifier = modifier)

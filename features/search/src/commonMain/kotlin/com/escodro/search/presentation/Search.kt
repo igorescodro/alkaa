@@ -18,7 +18,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.ExitToApp
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -33,35 +32,40 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.escodro.designsystem.AlkaaTheme
+import cafe.adriel.voyager.core.registry.ScreenRegistry
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import com.escodro.designsystem.components.AlkaaLoadingContent
 import com.escodro.designsystem.components.DefaultIconTextContent
-import com.escodro.search.R
+import com.escodro.navigation.AlkaaDestinations
+import com.escodro.resources.MR
 import com.escodro.search.model.TaskSearchItem
+import dev.icerock.moko.resources.compose.stringResource
 import kotlinx.collections.immutable.ImmutableList
-import kotlinx.collections.immutable.persistentListOf
-import org.koin.androidx.compose.getViewModel
+import org.koin.compose.koinInject
 
 /**
  * Alkaa Search Section.
  *
  * @param modifier the decorator
- * @param onItemClick action to be called when the item is clicked
  */
 @Composable
-fun SearchSection(modifier: Modifier = Modifier, onItemClick: (Long) -> Unit) {
-    SearchLoader(modifier = modifier, onItemClick = onItemClick)
+fun SearchSection(modifier: Modifier = Modifier) {
+    val navigator = LocalNavigator.currentOrThrow
+
+    SearchLoader(modifier = modifier, onItemClick = {
+        val screen = ScreenRegistry.get(AlkaaDestinations.Task.TaskDetail(it))
+        navigator.push(screen)
+    })
 }
 
 @Composable
 private fun SearchLoader(
     onItemClick: (Long) -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: SearchViewModel = getViewModel(),
+    viewModel: SearchViewModel = koinInject(),
 ) {
     val (query, setQuery) = rememberSaveable { mutableStateOf("") }
     val viewState by remember(viewModel, query) {
@@ -78,7 +82,6 @@ private fun SearchLoader(
 }
 
 @Composable
-@OptIn(ExperimentalMaterial3Api::class)
 internal fun SearchScaffold(
     viewState: SearchViewState,
     onItemClick: (Long) -> Unit,
@@ -110,7 +113,6 @@ internal fun SearchScaffold(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun SearchTextField(text: String, onTextChange: (String) -> Unit) {
     TextField(
@@ -119,7 +121,7 @@ private fun SearchTextField(text: String, onTextChange: (String) -> Unit) {
         trailingIcon = {
             Icon(
                 imageVector = Icons.Default.Search,
-                contentDescription = stringResource(id = R.string.search_cd_icon),
+                contentDescription = stringResource(MR.strings.search_cd_icon),
             )
         },
         modifier = Modifier
@@ -132,8 +134,8 @@ private fun SearchTextField(text: String, onTextChange: (String) -> Unit) {
 private fun SearchEmptyContent() {
     DefaultIconTextContent(
         icon = Icons.Outlined.ExitToApp,
-        iconContentDescription = stringResource(id = R.string.search_cd_empty_list),
-        header = stringResource(id = R.string.search_header_empty),
+        iconContentDescription = stringResource(MR.strings.search_cd_empty_list),
+        header = stringResource(MR.strings.search_header_empty),
     )
 }
 
@@ -186,51 +188,5 @@ private fun SearchItem(task: TaskSearchItem, onItemClick: (Long) -> Unit) {
                     .height(24.dp),
             )
         }
-    }
-}
-
-@Suppress("UndocumentedPublicFunction")
-@Preview
-@Composable
-fun SearchLoadedListPreview() {
-    val task1 = TaskSearchItem(
-        completed = true,
-        title = "Call Me By Your Name",
-        categoryColor = Color.Green,
-        isRepeating = false,
-    )
-
-    val task2 = TaskSearchItem(
-        completed = false,
-        title = "The Crown",
-        categoryColor = Color.White,
-        isRepeating = true,
-    )
-
-    val taskList = persistentListOf(task1, task2)
-
-    AlkaaTheme {
-        SearchScaffold(
-            modifier = Modifier,
-            viewState = SearchViewState.Loaded(taskList),
-            onItemClick = {},
-            query = "",
-            setQuery = {},
-        )
-    }
-}
-
-@Suppress("UndocumentedPublicFunction")
-@Preview
-@Composable
-fun SearchEmptyListPreview() {
-    AlkaaTheme {
-        SearchScaffold(
-            modifier = Modifier,
-            viewState = SearchViewState.Empty,
-            onItemClick = {},
-            query = "",
-            setQuery = {},
-        )
     }
 }

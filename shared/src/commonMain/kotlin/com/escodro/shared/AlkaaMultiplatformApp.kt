@@ -11,8 +11,9 @@ import com.escodro.shared.navigation.AlkaaNavGraph
 import org.koin.compose.koinInject
 
 @Composable
-fun AlkaaMultiplatformApp() {
+fun AlkaaMultiplatformApp(onThemeUpdate: (isDarkTheme: Boolean) -> Unit = {}) {
     val isDarkTheme = rememberIsDarkTheme()
+    onThemeUpdate(isDarkTheme)
     AlkaaTheme(isDarkTheme = isDarkTheme) {
         AlkaaNavGraph()
     }

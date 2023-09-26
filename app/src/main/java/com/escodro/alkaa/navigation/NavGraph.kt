@@ -20,7 +20,7 @@ import androidx.navigation.navArgument
 import com.escodro.alkaa.presentation.home.Home
 import com.escodro.navigation.DestinationArgs
 import com.escodro.navigation.Destinations
-import com.escodro.preference.presentation.About
+import com.escodro.preference.presentation.AboutScreen
 import com.escodro.preference.presentation.OpenSource
 import com.escodro.splitinstall.LoadFeature
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
@@ -147,7 +147,7 @@ private fun NavGraphBuilder.categoryGraph() {
 @Suppress("MagicNumber")
 private fun NavGraphBuilder.preferencesGraph(actions: Actions) {
     composable(route = Destinations.About) {
-        About(onUpPress = actions.navigateUp)
+        AboutScreen(onUpPress = actions.navigateUp)
     }
 
     composable(route = Destinations.OpenSource) {

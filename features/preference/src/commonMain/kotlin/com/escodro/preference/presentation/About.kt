@@ -39,7 +39,7 @@ import org.koin.compose.koinInject
  * Alkaa about screen.
  */
 @Composable
-fun About(onUpPress: () -> Unit, modifier: Modifier = Modifier) {
+fun AboutScreen(onUpPress: () -> Unit, modifier: Modifier = Modifier) {
     Scaffold(
         topBar = { AlkaaToolbar(onUpPress = onUpPress) },
         content = { paddingValues -> AboutContent(modifier = Modifier.padding(paddingValues)) },

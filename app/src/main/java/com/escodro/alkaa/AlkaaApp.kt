@@ -14,6 +14,7 @@ import com.escodro.local.di.localModule
 import com.escodro.preference.di.preferenceModule
 import com.escodro.repository.di.repositoryModule
 import com.escodro.search.di.searchModule
+import com.escodro.shared.di.sharedModule
 import com.escodro.task.di.taskModule
 import com.google.android.play.core.splitcompat.SplitCompat
 import logcat.AndroidLogcatLogger
@@ -43,6 +44,7 @@ class AlkaaApp : Application() {
 
     internal fun getAllModules(): List<Module> = listOf(
         appModule,
+        sharedModule,
         coroutinesModule,
         designSystemModule,
         taskModule,

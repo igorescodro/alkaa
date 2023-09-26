@@ -28,6 +28,7 @@ fun initKoin(appModule: Module = module { }) {
     startKoin {
         modules(
             appModule,
+            sharedModule,
             taskModule,
             categoryModule,
             searchModule,

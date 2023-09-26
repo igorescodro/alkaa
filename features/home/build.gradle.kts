@@ -15,6 +15,7 @@ kotlin {
         implementation(projects.features.task)
         implementation(projects.features.category)
         implementation(projects.features.search)
+        implementation(projects.features.preference)
         implementation(projects.libraries.navigation)
 
         implementation(compose.runtime)

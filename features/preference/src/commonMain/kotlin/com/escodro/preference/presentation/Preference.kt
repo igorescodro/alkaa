@@ -13,13 +13,11 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.escodro.designsystem.AlkaaTheme
-import com.escodro.preference.R
 import com.escodro.preference.model.AppThemeOptions
-import org.koin.androidx.compose.getViewModel
+import com.escodro.resources.MR
+import dev.icerock.moko.resources.compose.stringResource
+import org.koin.compose.koinInject
 
 /**
  * Alkaa Preference Section.
@@ -50,7 +48,7 @@ private fun PreferenceLoader(
     onTrackerClick: () -> Unit,
     onOpenSourceClick: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: PreferenceViewModel = getViewModel(),
+    viewModel: PreferenceViewModel = koinInject(),
 ) {
     val theme by remember(viewModel) {
         viewModel.loadCurrentTheme()
@@ -77,10 +75,10 @@ internal fun PreferenceContent(
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier.fillMaxSize()) {
-        PreferenceTitle(title = stringResource(id = R.string.preference_title_features))
+        PreferenceTitle(title = stringResource(MR.strings.preference_title_features))
         TrackerItem(onTrackerClick)
         Separator()
-        PreferenceTitle(title = stringResource(id = R.string.preference_title_settings))
+        PreferenceTitle(title = stringResource(MR.strings.preference_title_settings))
         ThemeItem(currentTheme = theme, onThemeUpdate = onThemeUpdate)
         AboutItem(onAboutClick = onAboutClick)
         OpenSourceLibraryItem(onOpenSourceClick = onOpenSourceClick)
@@ -97,13 +95,4 @@ private fun Separator() {
             .fillMaxWidth()
             .background(MaterialTheme.colorScheme.outline.copy(alpha = 0.7F)),
     )
-}
-
-@Suppress("UndocumentedPublicFunction")
-@Preview
-@Composable
-fun PreferencePreview() {
-    AlkaaTheme {
-        PreferenceSection(onAboutClick = {}, onTrackerClick = {}, onOpenSourceClick = {})
-    }
 }

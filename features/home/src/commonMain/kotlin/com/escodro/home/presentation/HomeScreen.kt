@@ -30,6 +30,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import com.escodro.category.presentation.list.CategoryListSection
+import com.escodro.preference.presentation.PreferenceSection
 import com.escodro.search.presentation.SearchSection
 import com.escodro.task.presentation.list.TaskListSection
 import dev.icerock.moko.resources.compose.stringResource
@@ -159,13 +160,14 @@ private fun AlkaaContent(
             CategoryListSection(modifier = modifier)
         }
 
-        HomeSection.Settings -> {}
-        // PreferenceSection(
-        //     modifier = modifier,
-        //     onAboutClick = actions.onAboutClick,
-        //     onTrackerClick = actions.onTrackerClick,
-        //     onOpenSourceClick = actions.onOpenSourceClick,
-        // )
+        HomeSection.Settings -> {
+            PreferenceSection(
+                modifier = modifier,
+                onAboutClick = actions.onAboutClick,
+                onTrackerClick = actions.onTrackerClick,
+                onOpenSourceClick = actions.onOpenSourceClick,
+            )
+        }
     }
 }
 

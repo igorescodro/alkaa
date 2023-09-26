@@ -125,6 +125,7 @@ dependencies {
 
     implementation(libs.logcat)
     implementation(libs.compose.navigation)
+    implementation(libs.androidx.activity)
     implementation(libs.compose.activity)
     implementation(libs.accompanist.material)
     implementation(libs.androidx.playcore)

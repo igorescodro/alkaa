@@ -24,6 +24,7 @@ kotlinx_collections_immutable = "0.3.5"
 kotlinx_datetime = "0.4.1"
 
 # AndroidX
+activity = "1.8.0-rc01"
 core = "1.10.1"
 appcompat = "1.6.1"
 material = "1.9.0"
@@ -109,6 +110,7 @@ kotlinx_collections_immutable = { module = "org.jetbrains.kotlinx:kotlinx-collec
 kotlinx_datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx_datetime" }
 
 # AndroidX
+androidx_activity = { module = "androidx.activity:activity", version.ref = "activity" }
 androidx_core = { module = "androidx.core:core", version.ref = "core" }
 androidx_appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
 androidx_material = { module = "com.google.android.material:material", version.ref = "material" }

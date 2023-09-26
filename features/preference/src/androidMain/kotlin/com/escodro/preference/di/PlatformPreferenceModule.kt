@@ -1,0 +1,11 @@
+package com.escodro.preference.di
+
+import com.escodro.preference.provider.AndroidBrowserProvider
+import com.escodro.preference.provider.BrowserProvider
+import org.koin.core.module.dsl.factoryOf
+import org.koin.dsl.bind
+import org.koin.dsl.module
+
+actual val platformPreferenceModule = module {
+    factoryOf(::AndroidBrowserProvider) bind BrowserProvider::class
+}

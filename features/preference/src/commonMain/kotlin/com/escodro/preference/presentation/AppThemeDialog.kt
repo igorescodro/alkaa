@@ -13,10 +13,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.escodro.preference.R
 import com.escodro.preference.model.AppThemeOptions
+import com.escodro.resources.MR
+import dev.icerock.moko.resources.compose.stringResource
 
 @Composable
 internal fun AppThemeDialog(
@@ -28,7 +28,7 @@ internal fun AppThemeDialog(
     if (isDialogOpen) {
         AlertDialog(
             onDismissRequest = onDismissRequest,
-            title = { Text(text = stringResource(id = R.string.preference_title_app_theme)) },
+            title = { Text(text = stringResource(MR.strings.preference_title_app_theme)) },
             text = {
                 Column {
                     AppThemeOptions.values().forEach { item ->
@@ -56,7 +56,7 @@ internal fun AppThemeDialog(
                                 },
                             )
                             Text(
-                                text = stringResource(id = item.titleRes),
+                                text = stringResource(item.titleRes),
                                 style = MaterialTheme.typography.bodySmall,
                                 modifier = Modifier.padding(start = 16.dp),
                             )

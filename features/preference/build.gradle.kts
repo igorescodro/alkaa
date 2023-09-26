@@ -1,18 +1,36 @@
+import extension.androidDependencies
+import extension.commonDependencies
+import extension.setFrameworkBaseName
+
 plugins {
-    id("com.escodro.android-compose")
+    id("com.escodro.multiplatform")
+    alias(libs.plugins.compose)
 }
 
-dependencies {
-    implementation(projects.domain)
-    implementation(projects.libraries.core)
-    implementation(projects.libraries.coroutines)
-    implementation(projects.libraries.designsystem)
+kotlin {
+    setFrameworkBaseName("preference")
 
-    implementation(libs.koin.android)
-    implementation(libs.koin.compose)
-    implementation(libs.aboutlibraries.ui)
+    commonDependencies {
+        implementation(projects.domain)
+        implementation(projects.libraries.coroutines)
+        implementation(projects.libraries.designsystem)
+        implementation(projects.resources)
+        implementation(projects.libraries.navigation)
+        implementation(projects.libraries.di)
 
-    androidTestImplementation(projects.libraries.test)
+        implementation(compose.runtime)
+        implementation(compose.material3)
+        implementation(compose.materialIconsExtended)
+
+        implementation(libs.koin.compose.jb)
+        implementation(libs.moko.resources.compose)
+        implementation(libs.moko.mvvm.compose)
+        implementation(libs.aboutlibraries.ui)
+    }
+
+    androidDependencies {
+        implementation(libs.androidx.corektx)
+    }
 }
 android {
     namespace = "com.escodro.preference"

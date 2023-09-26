@@ -19,7 +19,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Button
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -28,22 +27,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.escodro.core.extension.openUrl
-import com.escodro.designsystem.AlkaaTheme
 import com.escodro.designsystem.components.AlkaaToolbar
-import com.escodro.preference.R
-import java.util.Locale
+import com.escodro.preference.provider.BrowserProvider
+import com.escodro.resources.MR
+import dev.icerock.moko.resources.compose.stringResource
+import org.koin.compose.koinInject
 
 /**
  * Alkaa about screen.
  */
 @Composable
-@OptIn(ExperimentalMaterial3Api::class)
 fun About(onUpPress: () -> Unit, modifier: Modifier = Modifier) {
     Scaffold(
         topBar = { AlkaaToolbar(onUpPress = onUpPress) },
@@ -57,7 +52,7 @@ private fun AboutContent(modifier: Modifier = Modifier) {
     Column(modifier = modifier.verticalScroll(rememberScrollState())) {
         ContentHeader()
         Text(
-            text = stringResource(id = R.string.about_description),
+            text = stringResource(MR.strings.about_description),
             style = MaterialTheme.typography.bodyMedium,
             lineHeight = 32.sp,
             modifier = Modifier.padding(16.dp),
@@ -85,7 +80,7 @@ private fun ContentHeader() {
             .height(200.dp)
             .background(color = color),
     ) {
-        val appName = stringResource(id = R.string.about_title).lowercase(Locale.getDefault())
+        val appName = stringResource(MR.strings.about_title).lowercase()
         Text(
             text = appName,
             style = MaterialTheme.typography.displayLarge.copy(
@@ -96,32 +91,26 @@ private fun ContentHeader() {
 }
 
 @Composable
-private fun ContentCallToAction() {
+private fun ContentCallToAction(
+    browserProvider: BrowserProvider = koinInject(),
+) {
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 16.dp),
     ) {
-        val context = LocalContext.current
-        Button(onClick = { context.openUrl(ProjectUrl) }) {
+        Button(onClick = {
+            browserProvider.openUrl(ProjectUrl)
+        }) {
             Icon(
                 imageVector = Icons.Default.Person,
-                contentDescription = stringResource(id = R.string.about_cd_github),
+                contentDescription = stringResource(MR.strings.about_cd_github),
             )
             Spacer(modifier = Modifier.width(12.dp))
-            Text(text = stringResource(id = R.string.about_button_project))
+            Text(text = stringResource(MR.strings.about_button_project))
         }
     }
 }
 
 private const val ProjectUrl = "https://github.com/igorescodro/alkaa"
-
-@Suppress("UndocumentedPublicFunction")
-@Preview
-@Composable
-fun AboutPreview() {
-    AlkaaTheme {
-        About(onUpPress = { })
-    }
-}

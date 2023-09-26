@@ -19,18 +19,16 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.escodro.core.extension.getVersionName
-import com.escodro.core.extension.openUrl
-import com.escodro.preference.R
 import com.escodro.preference.model.AppThemeOptions
+import com.escodro.preference.provider.BrowserProvider
+import com.escodro.resources.MR
+import dev.icerock.moko.resources.compose.stringResource
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.filter
-import java.util.Locale
+import org.koin.compose.koinInject
 
 @Composable
 internal fun PreferenceItem(
@@ -69,7 +67,7 @@ internal fun PreferenceTitle(title: String) {
         contentAlignment = Alignment.CenterStart,
     ) {
         Text(
-            text = title.uppercase(Locale.getDefault()),
+            text = title.uppercase(),
             style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold),
             color = MaterialTheme.colorScheme.primary,
         )
@@ -79,7 +77,7 @@ internal fun PreferenceTitle(title: String) {
 @Composable
 internal fun TrackerItem(onTrackerClick: () -> Unit) {
     PreferenceItem(
-        title = stringResource(id = R.string.preference_title_tracker),
+        title = stringResource(MR.strings.preference_title_tracker),
         onItemClick = onTrackerClick,
     )
 }
@@ -92,8 +90,8 @@ internal fun ThemeItem(
     var isDialogOpen by remember { mutableStateOf(false) }
 
     PreferenceItem(
-        title = stringResource(id = R.string.preference_title_app_theme),
-        description = stringResource(id = currentTheme.titleRes),
+        title = stringResource(MR.strings.preference_title_app_theme),
+        description = stringResource(currentTheme.titleRes),
         onItemClick = { isDialogOpen = true },
     )
 
@@ -108,7 +106,7 @@ internal fun ThemeItem(
 @Composable
 internal fun AboutItem(onAboutClick: () -> Unit) {
     PreferenceItem(
-        title = stringResource(id = R.string.preference_title_about),
+        title = stringResource(MR.strings.preference_title_about),
         onItemClick = onAboutClick,
     )
 }
@@ -116,21 +114,20 @@ internal fun AboutItem(onAboutClick: () -> Unit) {
 @Composable
 internal fun OpenSourceLibraryItem(onOpenSourceClick: () -> Unit) {
     PreferenceItem(
-        title = stringResource(id = R.string.preference_title_open_source),
+        title = stringResource(MR.strings.preference_title_open_source),
         onItemClick = onOpenSourceClick,
     )
 }
 
 @Composable
 @Suppress("MagicNumber")
-internal fun VersionItem() {
-    val title = stringResource(id = R.string.preference_title_version)
-    val context = LocalContext.current
-    val version = context.getVersionName()
+internal fun VersionItem(browserProvider: BrowserProvider = koinInject()) {
+    val title = stringResource(MR.strings.preference_title_version)
+    // val version = context.getVersionName() TODO re-add version
     var numberOfClicks by remember { mutableIntStateOf(0) }
     val onClick = {
         if (++numberOfClicks == 7) {
-            context.openUrl(EasterEggUrl)
+            browserProvider.openUrl(EasterEggUrl)
         }
     }
 
@@ -143,7 +140,7 @@ internal fun VersionItem() {
             }
     }
 
-    PreferenceItem(title = title, description = version, onItemClick = onClick)
+    PreferenceItem(title = title, description = "1.0.0", onItemClick = onClick)
 }
 
 private const val EasterEggUrl = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"

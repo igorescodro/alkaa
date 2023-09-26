@@ -33,4 +33,15 @@ object AlkaaDestinations {
          */
         data class CategoryBottomSheet(val categoryId: Long?) : ScreenProvider
     }
+
+    /**
+     * Preferences destinations.
+     */
+    sealed interface Preferences : ScreenProvider {
+
+        /**
+         * About screen destination, showing basic information about the app.
+         */
+        data object About : ScreenProvider
+    }
 }

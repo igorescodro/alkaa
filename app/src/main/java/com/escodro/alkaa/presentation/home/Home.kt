@@ -180,7 +180,6 @@ private fun AlkaaContent(
         HomeSection.Settings ->
             PreferenceSection(
                 modifier = modifier,
-                onAboutClick = actions.onAboutClick,
                 onTrackerClick = actions.onTrackerClick,
                 onOpenSourceClick = actions.onOpenSourceClick,
             )

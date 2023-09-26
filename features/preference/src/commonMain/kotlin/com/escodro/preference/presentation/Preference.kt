@@ -14,6 +14,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import cafe.adriel.voyager.core.registry.ScreenRegistry
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
+import com.escodro.navigation.AlkaaDestinations
 import com.escodro.preference.model.AppThemeOptions
 import com.escodro.resources.MR
 import dev.icerock.moko.resources.compose.stringResource
@@ -22,21 +26,23 @@ import org.koin.compose.koinInject
 /**
  * Alkaa Preference Section.
  *
- * @param onAboutClick function to be called when the about item is clicked
  * @param onTrackerClick function to be called when the tracker item is clicked
  * @param onOpenSourceClick function to be called when the open source item is clicked
  * @param modifier Compose modifier
  */
 @Composable
 fun PreferenceSection(
-    onAboutClick: () -> Unit,
     onTrackerClick: () -> Unit,
     onOpenSourceClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val navigator = LocalNavigator.currentOrThrow
     PreferenceLoader(
         modifier = modifier,
-        onAboutClick = onAboutClick,
+        onAboutClick = {
+            val screen = ScreenRegistry.get(AlkaaDestinations.Preferences.About)
+            navigator.push(screen)
+        },
         onTrackerClick = onTrackerClick,
         onOpenSourceClick = onOpenSourceClick,
     )

@@ -31,6 +31,7 @@ kotlin {
         implementation(projects.libraries.navigation)
         implementation(projects.libraries.coroutines)
         implementation(projects.libraries.designsystem)
+        implementation(projects.libraries.di)
 
         implementation(projects.features.home)
         implementation(projects.features.task)
@@ -44,8 +45,9 @@ kotlin {
         implementation(compose.runtime)
         implementation(compose.material)
         implementation(compose.material3)
-        implementation(libs.koin.core)
+        implementation(libs.koin.compose.jb)
         implementation(libs.moko.resources.core)
+        implementation(libs.moko.mvvm.compose)
     }
     commonTestDependencies {
         implementation(kotlin("test"))

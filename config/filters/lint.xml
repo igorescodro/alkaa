@@ -11,4 +11,5 @@
 
     <!-- Moko Resources is not playing well with Lint -->
     <issue id="UnusedResources" severity="ignore" />
+    <issue id="MissingTranslation" severity="ignore" />
 </lint>

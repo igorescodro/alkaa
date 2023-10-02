@@ -2,7 +2,7 @@
 # Project
 version_code = "20300"
 version_name = "2.3.0"
-android_gradle_plugin = "8.1.1"
+android_gradle_plugin = "8.1.2"
 kotlin = "1.9.0"
 android_sdk_compile = "34"
 android_sdk_target = "33"
@@ -89,7 +89,7 @@ detekt = "1.22.0"
 composerules = "0.0.26"
 
 # License
-aboutlibraries = "10.8.3"
+aboutlibraries = "10.9.1"
 
 [libraries]
 # Project

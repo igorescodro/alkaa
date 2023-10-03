@@ -26,12 +26,10 @@ import org.koin.compose.koinInject
 /**
  * Alkaa Preference Section.
  *
- * @param onTrackerClick function to be called when the tracker item is clicked
  * @param modifier Compose modifier
  */
 @Composable
 fun PreferenceSection(
-    onTrackerClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val navigator = LocalNavigator.currentOrThrow
@@ -41,7 +39,7 @@ fun PreferenceSection(
             val screen = ScreenRegistry.get(AlkaaDestinations.Preferences.About)
             navigator.push(screen)
         },
-        onTrackerClick = onTrackerClick,
+        onTrackerClick = { }, // TODO decide what to do with tracker,
         onOpenSourceClick = {
             val screen = ScreenRegistry.get(AlkaaDestinations.Preferences.OpenSource)
             navigator.push(screen)

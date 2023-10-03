@@ -11,11 +11,6 @@ class HomeScreen : Screen {
 
     @Composable
     override fun Content() {
-        Home(
-            onAboutClick = {},
-            onTrackerClick = {},
-            onOpenSourceClick = {},
-            onCategorySheetOpen = {},
-        )
+        Home()
     }
 }

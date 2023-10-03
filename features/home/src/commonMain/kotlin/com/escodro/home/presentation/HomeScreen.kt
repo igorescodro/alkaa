@@ -41,31 +41,14 @@ import kotlinx.collections.immutable.toImmutableList
  */
 @Suppress("LongParameterList")
 @Composable
-fun Home(
-    onAboutClick: () -> Unit,
-    onTrackerClick: () -> Unit,
-    onOpenSourceClick: () -> Unit,
-    onCategorySheetOpen: (Long?) -> Unit,
-) {
+fun Home() {
     val (currentSection, setCurrentSection) = rememberSaveable { mutableStateOf(HomeSection.Tasks) }
     val navItems = remember { HomeSection.values().toList().toImmutableList() }
-
-    val actions = remember {
-        object : HomeActions {
-            override val onTaskClick = { _: Long -> }
-            override val onAboutClick = onAboutClick
-            override val onTrackerClick = onTrackerClick
-            override val onOpenSourceClick = onOpenSourceClick
-            override val onTaskSheetOpen = { }
-            override val onCategorySheetOpen = onCategorySheetOpen
-            override val setCurrentSection = setCurrentSection
-        }
-    }
 
     AlkaaHomeScaffold(
         homeSection = currentSection,
         navItems = navItems,
-        actions = actions,
+        setCurrentSection = setCurrentSection,
     )
 }
 
@@ -74,12 +57,10 @@ fun Home(
 private fun AlkaaHomeScaffold(
     homeSection: HomeSection,
     navItems: ImmutableList<HomeSection>,
-    actions: HomeActions,
+    setCurrentSection: (HomeSection) -> Unit,
 ) {
     Scaffold(
-        topBar = {
-            AlkaaTopBar(currentSection = homeSection)
-        },
+        topBar = { AlkaaTopBar(currentSection = homeSection) },
         contentWindowInsets = WindowInsets(0, 0, 0, 0),
         content = { paddingValues ->
             Row(
@@ -92,18 +73,14 @@ private fun AlkaaHomeScaffold(
                     ),
             ) {
                 Column(Modifier.fillMaxSize()) {
-                    AlkaaContent(
-                        homeSection = homeSection,
-                        modifier = Modifier,
-                        actions = actions,
-                    )
+                    AlkaaContent(homeSection = homeSection, modifier = Modifier)
                 }
             }
         },
         bottomBar = {
             AlkaaBottomNav(
                 currentSection = homeSection,
-                onSectionSelect = actions.setCurrentSection,
+                onSectionSelect = setCurrentSection,
                 items = navItems,
             )
         },
@@ -141,28 +118,13 @@ private fun AlkaaNavRail(
 @Composable
 private fun AlkaaContent(
     homeSection: HomeSection,
-    actions: HomeActions,
     modifier: Modifier = Modifier,
 ) {
     when (homeSection) {
-        HomeSection.Tasks -> {
-            TaskListSection(modifier = modifier)
-        }
-
-        HomeSection.Search -> {
-            SearchSection(modifier = modifier)
-        }
-
-        HomeSection.Categories -> {
-            CategoryListSection(modifier = modifier)
-        }
-
-        HomeSection.Settings -> {
-            PreferenceSection(
-                modifier = modifier,
-                onTrackerClick = actions.onTrackerClick,
-            )
-        }
+        HomeSection.Tasks -> TaskListSection(modifier = modifier)
+        HomeSection.Search -> SearchSection(modifier = modifier)
+        HomeSection.Categories -> CategoryListSection(modifier = modifier)
+        HomeSection.Settings -> PreferenceSection(modifier = modifier)
     }
 }
 

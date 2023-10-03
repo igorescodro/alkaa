@@ -1,6 +1,5 @@
 package com.escodro.home.presentation
 
-import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.Row
@@ -63,13 +62,11 @@ fun Home(
         }
     }
 
-    Crossfade(currentSection) { homeSection ->
-        AlkaaHomeScaffold(
-            homeSection = homeSection,
-            navItems = navItems,
-            actions = actions,
-        )
-    }
+    AlkaaHomeScaffold(
+        homeSection = currentSection,
+        navItems = navItems,
+        actions = actions,
+    )
 }
 
 @OptIn(ExperimentalLayoutApi::class)

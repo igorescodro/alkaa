@@ -1,4 +1,4 @@
-package com.escodro.alkaa.presentation
+package com.escodro.alkaa
 
 import android.graphics.Color
 import android.os.Bundle

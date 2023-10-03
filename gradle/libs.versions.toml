@@ -126,14 +126,12 @@ compose_bom = { group = "androidx.compose", name = "compose-bom", version.ref = 
 compose_ui = { module = "androidx.compose.ui:ui" }
 compose_toolingpreview = { module = "androidx.compose.ui:ui-tooling-preview" }
 compose_icons = { module = "androidx.compose.material:material-icons-extended" }
-compose_navigation = { module = "androidx.navigation:navigation-compose" }
 compose_viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-compose" }
 compose_activity = { module = "androidx.activity:activity-compose" }
 compose_material3 = { module = "androidx.compose.material3:material3" }
 compose_uitest = { module = "androidx.compose.ui:ui-test" }
 compose_junit4 = { module = "androidx.compose.ui:ui-test-junit4" }
 compose_manifest = { module = "androidx.compose.ui:ui-test-manifest" }
-compose_windowsize = { module = "androidx.compose.material3:material3-window-size-class" }
 
 #Koin
 koin_core = { module = "io.insert-koin:koin-core", version.ref = "koin_core" }
@@ -144,7 +142,6 @@ koin_compose_jb = { module = "io.insert-koin:koin-compose", version.ref = "koin_
 
 # Accompanist
 accompanist_permission = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanist" }
-accompanist_material = { module = "com.google.accompanist:accompanist-navigation-material", version.ref = "accompanist" }
 
 # SQLDelight
 sqldelight_driver = { module = "app.cash.sqldelight:android-driver", version.ref = "sqldelight" }

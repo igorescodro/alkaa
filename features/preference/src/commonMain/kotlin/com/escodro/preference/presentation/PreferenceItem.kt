@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.escodro.preference.model.AppThemeOptions
+import com.escodro.preference.provider.AppInfoProvider
 import com.escodro.preference.provider.BrowserProvider
 import com.escodro.resources.MR
 import dev.icerock.moko.resources.compose.stringResource
@@ -121,9 +122,12 @@ internal fun OpenSourceLibraryItem(onOpenSourceClick: () -> Unit) {
 
 @Composable
 @Suppress("MagicNumber")
-internal fun VersionItem(browserProvider: BrowserProvider = koinInject()) {
+internal fun VersionItem(
+    browserProvider: BrowserProvider = koinInject(),
+    appInfoProvider: AppInfoProvider = koinInject(),
+) {
     val title = stringResource(MR.strings.preference_title_version)
-    // val version = context.getVersionName() TODO re-add version
+    val version = appInfoProvider.getAppVersion()
     var numberOfClicks by remember { mutableIntStateOf(0) }
     val onClick = {
         if (++numberOfClicks == 7) {
@@ -140,7 +144,7 @@ internal fun VersionItem(browserProvider: BrowserProvider = koinInject()) {
             }
     }
 
-    PreferenceItem(title = title, description = "1.0.0", onItemClick = onClick)
+    PreferenceItem(title = title, description = version, onItemClick = onClick)
 }
 
 private const val EasterEggUrl = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"

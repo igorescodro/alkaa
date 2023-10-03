@@ -164,7 +164,6 @@ private fun AlkaaContent(
             PreferenceSection(
                 modifier = modifier,
                 onTrackerClick = actions.onTrackerClick,
-                onOpenSourceClick = actions.onOpenSourceClick,
             )
         }
     }

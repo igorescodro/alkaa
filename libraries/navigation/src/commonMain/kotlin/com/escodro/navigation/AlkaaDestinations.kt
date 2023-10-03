@@ -43,5 +43,10 @@ object AlkaaDestinations {
          * About screen destination, showing basic information about the app.
          */
         data object About : ScreenProvider
+
+        /**
+         * Open source screen destination, showing the open source libraries used in the app.
+         */
+        data object OpenSource : ScreenProvider
     }
 }

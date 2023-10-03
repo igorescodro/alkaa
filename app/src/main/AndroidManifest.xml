@@ -17,7 +17,7 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <activity
-            android:name="com.escodro.alkaa.presentation.MainActivity"
+            android:name="com.escodro.alkaa.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.Alkaa"
             android:windowSoftInputMode="adjustResize">

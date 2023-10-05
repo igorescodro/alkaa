@@ -30,6 +30,7 @@ kotlin {
 
     androidDependencies {
         implementation(libs.androidx.corektx)
+        implementation(projects.libraries.splitInstall)
     }
 }
 android {

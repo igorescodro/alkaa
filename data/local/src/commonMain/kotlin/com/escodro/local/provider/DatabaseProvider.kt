@@ -1,5 +1,6 @@
 package com.escodro.local.provider
 
+import com.escodro.coroutines.AppCoroutineScope
 import com.escodro.local.AlkaaDatabase
 import com.escodro.local.Task
 import com.escodro.local.converter.alarmIntervalAdapter
@@ -8,7 +9,10 @@ import com.escodro.local.converter.dateTimeAdapter
 /**
  * Repository with the local database.
  */
-class DatabaseProvider(private val driverFactory: DriverFactory) {
+internal class DatabaseProvider(
+    private val driverFactory: DriverFactory,
+    private val appCoroutineScope: AppCoroutineScope,
+) {
 
     private var database: AlkaaDatabase? = null
 
@@ -32,8 +36,21 @@ class DatabaseProvider(private val driverFactory: DriverFactory) {
             ),
         )
 
-        driverFactory.prepopulateDatabase(database = database, databaseName = DATABASE_NAME)
+        prepopulateDatabase(database)
         return database
+    }
+
+    private fun prepopulateDatabase(database: AlkaaDatabase) {
+        if (driverFactory.shouldPrepopulateDatabase(DATABASE_NAME)) {
+            appCoroutineScope.launch {
+                for (category in driverFactory.getPrepopulateData()) {
+                    database.categoryQueries.insert(
+                        category_name = category.category_name,
+                        category_color = category.category_color,
+                    )
+                }
+            }
+        }
     }
 
     private companion object {

@@ -90,4 +90,9 @@
     <string name="preference_title_settings">Settings</string>
     <string name="preference_title_open_source">Open source licenses</string>
 
+    <!-- Database -->
+    <string name="category_default_personal">Personal</string>
+    <string name="category_default_work">Work</string>
+    <string name="category_default_shopping">Shopping List</string>
+
 </resources>

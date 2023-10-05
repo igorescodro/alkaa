@@ -13,4 +13,7 @@ val preferenceScreenModule = screenModule {
     register<AlkaaDestinations.Preferences.OpenSource> {
         OpenSourceScreen()
     }
+    register<AlkaaDestinations.Preferences.Tracker> {
+        TrackerScreen()
+    }
 }

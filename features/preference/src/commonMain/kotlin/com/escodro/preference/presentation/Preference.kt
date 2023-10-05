@@ -19,6 +19,7 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.escodro.navigation.AlkaaDestinations
 import com.escodro.preference.model.AppThemeOptions
+import com.escodro.preference.provider.TrackerProvider
 import com.escodro.resources.MR
 import dev.icerock.moko.resources.compose.stringResource
 import org.koin.compose.koinInject
@@ -39,7 +40,10 @@ fun PreferenceSection(
             val screen = ScreenRegistry.get(AlkaaDestinations.Preferences.About)
             navigator.push(screen)
         },
-        onTrackerClick = { }, // TODO decide what to do with tracker,
+        onTrackerClick = {
+            val screen = ScreenRegistry.get(AlkaaDestinations.Preferences.Tracker)
+            navigator.push(screen)
+        },
         onOpenSourceClick = {
             val screen = ScreenRegistry.get(AlkaaDestinations.Preferences.OpenSource)
             navigator.push(screen)
@@ -54,18 +58,20 @@ private fun PreferenceLoader(
     onOpenSourceClick: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: PreferenceViewModel = koinInject(),
+    trackerProvider: TrackerProvider = koinInject(),
 ) {
     val theme by remember(viewModel) {
         viewModel.loadCurrentTheme()
     }.collectAsState(initial = AppThemeOptions.SYSTEM)
 
     PreferenceContent(
-        modifier = modifier,
         onAboutClick = onAboutClick,
         onTrackerClick = onTrackerClick,
         onOpenSourceClick = onOpenSourceClick,
+        isTrackerEnabled = trackerProvider.isEnabled,
         theme = theme,
         onThemeUpdate = viewModel::updateTheme,
+        modifier = modifier,
     )
 }
 
@@ -75,14 +81,17 @@ internal fun PreferenceContent(
     onAboutClick: () -> Unit,
     onTrackerClick: () -> Unit,
     onOpenSourceClick: () -> Unit,
+    isTrackerEnabled: Boolean,
     theme: AppThemeOptions,
     onThemeUpdate: (AppThemeOptions) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier.fillMaxSize()) {
-        PreferenceTitle(title = stringResource(MR.strings.preference_title_features))
-        TrackerItem(onTrackerClick)
-        Separator()
+        if (isTrackerEnabled) {
+            PreferenceTitle(title = stringResource(MR.strings.preference_title_features))
+            TrackerItem(onTrackerClick)
+            Separator()
+        }
         PreferenceTitle(title = stringResource(MR.strings.preference_title_settings))
         ThemeItem(currentTheme = theme, onThemeUpdate = onThemeUpdate)
         AboutItem(onAboutClick = onAboutClick)

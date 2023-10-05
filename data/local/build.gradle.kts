@@ -16,9 +16,12 @@ kotlin {
     commonDependencies {
         implementation(projects.libraries.coroutines)
         implementation(projects.data.repository)
+        implementation(projects.resources)
+
         implementation(libs.koin.core)
         implementation(libs.kotlinx.datetime)
         implementation(libs.sqldelight.coroutines)
+        implementation(libs.moko.resources.core)
     }
     androidDependencies {
         implementation(libs.sqldelight.driver)

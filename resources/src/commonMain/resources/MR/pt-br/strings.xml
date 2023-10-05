@@ -86,4 +86,9 @@
     <string name="preference_title_features">Funcionalidades</string>
     <string name="preference_title_settings">Preferências</string>
     <string name="preference_title_open_source">Licenças de código aberto</string>
+
+    <!-- Database -->
+    <string name="category_default_personal">Pessoal</string>
+    <string name="category_default_work">Trabalho</string>
+    <string name="category_default_shopping">Lista de Compras</string>
 </resources>

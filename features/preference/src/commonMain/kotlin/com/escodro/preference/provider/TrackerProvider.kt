@@ -3,15 +3,10 @@ package com.escodro.preference.provider
 import androidx.compose.runtime.Composable
 
 /**
- * Provides the Tracker feature information on each platform. Since this is a dynamic feature, it
- * will not be available at this moment on iOS.
+ * Provides the Tracker feature information on each platform. Since this is an Android dynamic
+ * feature, it be always available for iOS.
  */
 internal interface TrackerProvider {
-
-    /**
-     * Returns if the Tracker feature is enabled.
-     */
-    val isEnabled: Boolean
 
     /**
      * Returns the Tracker feature content.

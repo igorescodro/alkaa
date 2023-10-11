@@ -8,8 +8,6 @@ import com.escodro.splitinstall.LoadFeature
 
 internal class AndroidTrackerProvider(private val context: Context) : TrackerProvider {
 
-    override val isEnabled: Boolean = true
-
     @Composable
     override fun Content(onUpPress: () -> Unit) {
         LoadFeature(

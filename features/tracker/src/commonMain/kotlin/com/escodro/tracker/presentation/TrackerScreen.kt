@@ -12,7 +12,6 @@ import androidx.compose.material.icons.filled.DynamicFeed
 import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material.icons.outlined.DataUsage
 import androidx.compose.material3.ElevatedCard
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -23,28 +22,28 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.escodro.designsystem.components.AlkaaLoadingContent
 import com.escodro.designsystem.components.AlkaaToolbar
 import com.escodro.designsystem.components.DefaultIconTextContent
-import com.escodro.tracker.R
+import com.escodro.resources.MR
+import com.escodro.tracker.di.injectDynamicFeature
 import com.escodro.tracker.model.Tracker
 import com.escodro.tracker.presentation.components.TaskGraph
 import com.escodro.tracker.presentation.components.TaskTrackerList
+import dev.icerock.moko.resources.compose.stringResource
 import kotlinx.collections.immutable.ImmutableList
-import org.koin.androidx.compose.getViewModel
+import org.koin.compose.koinInject
 
 @Composable
-internal fun TrackerSection(onUpPress: () -> Unit) {
+fun TrackerScreen(onUpPress: () -> Unit) {
+    injectDynamicFeature()
     TrackerLoader(onUpPress = onUpPress)
 }
 
 @Composable
-@OptIn(ExperimentalMaterial3Api::class)
-internal fun TrackerLoader(viewModel: TrackerViewModel = getViewModel(), onUpPress: () -> Unit) {
+internal fun TrackerLoader(viewModel: TrackerViewModel = koinInject(), onUpPress: () -> Unit) {
     val data by remember {
         viewModel.loadTracker()
     }.collectAsState(initial = TrackerViewState.Loading)
@@ -93,8 +92,8 @@ private fun TrackerLoadedContent(trackerInfo: Tracker.Info) {
 private fun TrackerEmpty() {
     DefaultIconTextContent(
         icon = Icons.Outlined.DataUsage,
-        iconContentDescription = stringResource(id = R.string.tracker_cd_empty),
-        header = stringResource(id = R.string.tracker_header_empty),
+        iconContentDescription = stringResource(MR.strings.tracker_cd_empty),
+        header = stringResource(MR.strings.tracker_header_empty),
         modifier = Modifier.padding(16.dp),
     )
 }
@@ -103,8 +102,8 @@ private fun TrackerEmpty() {
 private fun TrackerError() {
     DefaultIconTextContent(
         icon = Icons.Outlined.Close,
-        iconContentDescription = stringResource(id = R.string.tracker_cd_error),
-        header = stringResource(id = R.string.tracker_header_error),
+        iconContentDescription = stringResource(MR.strings.tracker_cd_error),
+        header = stringResource(MR.strings.tracker_header_error),
         modifier = Modifier.padding(16.dp),
     )
 }
@@ -116,26 +115,28 @@ private fun TaskTrackerInfoCard(
     modifier: Modifier = Modifier,
 ) {
     val taskCount = list.sumOf { item -> item.taskCount }
-    val message = LocalContext.current.resources
-        .getQuantityString(R.plurals.tracker_message_title, taskCount, taskCount)
 
     ElevatedCard(modifier = modifier.fillMaxWidth()) {
         Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxSize()) {
             Icon(
                 imageVector = Icons.Default.DynamicFeed,
-                contentDescription = stringResource(id = R.string.tracker_cp_info_icon),
+                contentDescription = stringResource(MR.strings.tracker_cp_info_icon),
                 modifier = Modifier
                     .weight(1F)
                     .size(36.dp),
             )
             Column(modifier = Modifier.weight(3F)) {
                 Text(
-                    text = message,
+                    text = stringResource(
+                        resource = MR.plurals.tracker_message_title,
+                        quantity = taskCount,
+                        taskCount,
+                    ),
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold,
                 )
                 Text(
-                    text = stringResource(id = R.string.tracker_message_description),
+                    text = stringResource(MR.strings.tracker_message_description),
                     style = MaterialTheme.typography.bodyMedium,
                 )
             }

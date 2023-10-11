@@ -10,7 +10,7 @@ internal sealed class TrackerViewState {
     /**
      * Represents the stated where the screen is loading.
      */
-    internal object Loading : TrackerViewState()
+    internal data object Loading : TrackerViewState()
 
     /**
      * Represents the state where they are [Tracker.Info] to be shown on the screen.
@@ -20,7 +20,7 @@ internal sealed class TrackerViewState {
     /**
      * Represents the state where they are no information to be shown.
      */
-    internal object Empty : TrackerViewState()
+    internal data object Empty : TrackerViewState()
 
     /**
      * Represents the state where an error occurred.

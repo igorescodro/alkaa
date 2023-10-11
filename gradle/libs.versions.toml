@@ -41,7 +41,7 @@ compose_compiler = "1.5.1"
 compose_bom = "2023.10.00"
 compose_nav = "2.5.3"
 compose_viewmodel = "2.6.1"
-compose_activity = "1.7.1"
+compose_activity = "1.8.0"
 compose_material3 = "1.0.1"
 compose_icons = "1.4.2"
 compose_windowsize = "1.0.1"
@@ -127,11 +127,13 @@ compose_ui = { module = "androidx.compose.ui:ui" }
 compose_toolingpreview = { module = "androidx.compose.ui:ui-tooling-preview" }
 compose_icons = { module = "androidx.compose.material:material-icons-extended" }
 compose_viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-compose" }
-compose_activity = { module = "androidx.activity:activity-compose" }
 compose_material3 = { module = "androidx.compose.material3:material3" }
 compose_uitest = { module = "androidx.compose.ui:ui-test" }
 compose_junit4 = { module = "androidx.compose.ui:ui-test-junit4" }
 compose_manifest = { module = "androidx.compose.ui:ui-test-manifest" }
+
+# Dynamic Feature don't recognize BOM
+compose_activity = { module = "androidx.activity:activity-compose", version.ref = "compose_activity" }
 
 #Koin
 koin_core = { module = "io.insert-koin:koin-core", version.ref = "koin_core" }

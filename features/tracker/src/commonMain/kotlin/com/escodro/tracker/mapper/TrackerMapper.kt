@@ -1,6 +1,6 @@
 package com.escodro.tracker.mapper
 
-import android.graphics.Color
+import com.escodro.designsystem.extensions.toArgbColor
 import com.escodro.domain.model.TaskWithCategory
 import com.escodro.tracker.model.Tracker
 import kotlinx.collections.immutable.toImmutableList
@@ -31,7 +31,7 @@ internal class TrackerMapper {
         val taskCount = map.value.size
         return Tracker.CategoryInfo(
             name = first.category?.name,
-            color = first.category?.color?.let { color -> Color.parseColor(color) },
+            color = first.category?.color?.toArgbColor(),
             taskCount = taskCount,
             percentage = taskCount.toFloat() / totalCount,
         )

@@ -11,7 +11,7 @@
 
     <application>
         <activity
-            android:name=".presentation.TrackerActivity"
+            android:name=".TrackerActivity"
             android:exported="true"
             android:theme="@style/Theme.Alkaa">
 

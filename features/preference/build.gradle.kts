@@ -1,5 +1,6 @@
 import extension.androidDependencies
 import extension.commonDependencies
+import extension.iosDependencies
 import extension.setFrameworkBaseName
 
 plugins {
@@ -31,6 +32,10 @@ kotlin {
     androidDependencies {
         implementation(libs.androidx.corektx)
         implementation(projects.libraries.splitInstall)
+    }
+
+    iosDependencies {
+        implementation(projects.features.tracker)
     }
 }
 android {

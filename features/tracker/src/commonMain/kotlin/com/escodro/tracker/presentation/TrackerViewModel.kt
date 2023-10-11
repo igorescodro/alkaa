@@ -1,11 +1,10 @@
 package com.escodro.tracker.presentation
 
-import androidx.lifecycle.ViewModel
 import com.escodro.domain.usecase.tracker.LoadCompletedTasksByPeriod
 import com.escodro.tracker.mapper.TrackerMapper
+import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 

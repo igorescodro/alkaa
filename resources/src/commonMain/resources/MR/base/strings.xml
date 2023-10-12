@@ -36,7 +36,7 @@
     <string name="task_add_save">Add</string>
     <string name="task_add_label">Task</string>
 
-    <string name="task_snackbar_message_complete">"%s" completed</string>
+    <string name="task_snackbar_message_complete">Task completed</string>
     <string name="task_snackbar_button_undo">Undo</string>
 
     <string name="task_alarm_permission_dialog_title">Alarm and reminders</string>

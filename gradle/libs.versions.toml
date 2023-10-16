@@ -77,7 +77,7 @@ test_orchestrator = "1.4.2"
 test_rules = "1.5.0"
 
 # Quality
-ktlint = "0.50.0"
+ktlint = "0.51.0-FINAL"
 detekt = "1.22.0"
 composerules = "0.0.26"
 

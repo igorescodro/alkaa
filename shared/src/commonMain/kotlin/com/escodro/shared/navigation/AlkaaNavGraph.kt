@@ -20,7 +20,7 @@ import kotlinx.coroutines.flow.map
 /**
  * Navigation graph of the application.
  */
-@OptIn(ExperimentalMaterialApi::class, ExperimentalComposeUiApi::class)
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun AlkaaNavGraph(modifier: Modifier = Modifier) {
     ScreenRegistry {

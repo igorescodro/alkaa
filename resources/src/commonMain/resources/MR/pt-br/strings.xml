@@ -36,7 +36,7 @@
     <string name="task_add_save">Adicionar</string>
     <string name="task_add_label">Tarefa</string>
 
-    <string name="task_snackbar_message_complete">"%s" finalizada</string>
+    <string name="task_snackbar_message_complete">Tarefa finalizada</string>
     <string name="task_snackbar_button_undo">Desfazer</string>
 
     <string name="task_alarm_permission_dialog_confirm">Dar permissão</string>

@@ -121,9 +121,8 @@ internal fun TaskListScaffold(
 
     val onShowSnackbar: (TaskWithCategory) -> Unit = { taskWithCategory ->
         coroutineScope.launch {
-            val message = "String.format(snackbarTitle, taskWithCategory.task.title)"
             val snackbarResult = snackbarHostState.showSnackbar(
-                message = message,
+                message = snackbarTitle,
                 actionLabel = snackbarButton,
                 duration = SnackbarDuration.Short,
             )

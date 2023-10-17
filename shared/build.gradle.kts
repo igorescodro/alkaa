@@ -1,3 +1,4 @@
+import extension.androidDependencies
 import extension.commonDependencies
 import extension.commonTestDependencies
 
@@ -49,6 +50,11 @@ kotlin {
         implementation(libs.moko.resources.core)
         implementation(libs.moko.mvvm.compose)
     }
+
+    androidDependencies {
+        implementation(projects.features.glance)
+    }
+
     commonTestDependencies {
         implementation(kotlin("test"))
     }

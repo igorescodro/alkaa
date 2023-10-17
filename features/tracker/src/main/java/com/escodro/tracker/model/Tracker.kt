@@ -6,7 +6,6 @@ import kotlinx.collections.immutable.ImmutableList
  * UI representation of Tracker.
  */
 internal sealed class Tracker {
-
     /**
      * UI Representation of the Tracker information.
      */

@@ -83,14 +83,18 @@ fun AlkaaLoadingContent(modifier: Modifier = Modifier) {
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AlkaaToolbar(onUpPress: () -> Unit, modifier: Modifier = Modifier) {
+fun AlkaaToolbar(
+    onUpPress: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
     TopAppBar(
         title = {},
         navigationIcon = {
             IconButton(onClick = onUpPress) {
                 Icon(
                     imageVector = Icons.Rounded.ArrowBack,
-                    contentDescription = "Back", // TODO use localized string
+                    // TODO use localized string
+                    contentDescription = "Back",
                 )
             }
         },

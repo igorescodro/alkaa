@@ -91,11 +91,12 @@ internal fun PreferenceContent(
 @Composable
 private fun Separator() {
     Spacer(
-        modifier = Modifier
-            .padding(bottom = 8.dp)
-            .height(1.dp)
-            .fillMaxWidth()
-            .background(MaterialTheme.colorScheme.outline.copy(alpha = 0.7F)),
+        modifier =
+            Modifier
+                .padding(bottom = 8.dp)
+                .height(1.dp)
+                .fillMaxWidth()
+                .background(MaterialTheme.colorScheme.outline.copy(alpha = 0.7F)),
     )
 }
 

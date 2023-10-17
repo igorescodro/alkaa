@@ -7,7 +7,6 @@ import com.escodro.domain.repository.TaskRepository
  * Use case to set a task as uncompleted in the database.
  */
 class UncompleteTask(private val taskRepository: TaskRepository) {
-
     /**
      * Completes the given task.
      *
@@ -20,6 +19,5 @@ class UncompleteTask(private val taskRepository: TaskRepository) {
         return taskRepository.updateTask(updatedTask)
     }
 
-    private fun updateTaskAsUncompleted(task: Task) =
-        task.copy(completed = false, completedDate = null)
+    private fun updateTaskAsUncompleted(task: Task) = task.copy(completed = false, completedDate = null)
 }

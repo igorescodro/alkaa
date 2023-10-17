@@ -19,7 +19,6 @@ import org.junit.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
 internal class CategoryEditViewModelTest {
-
     @get:Rule
     val coroutinesRule = CoroutineTestRule()
 
@@ -31,13 +30,14 @@ internal class CategoryEditViewModelTest {
 
     private val mapper = CategoryMapper()
 
-    private val viewModel = CategoryEditViewModel(
-        loadCategoryUseCase = loadCategoryFake,
-        updateCategoryUseCase = updateCategory,
-        deleteCategoryUseCase = deleteCategory,
-        applicationScope = AppCoroutineScope(context = coroutinesRule.testDispatcher),
-        mapper = mapper,
-    )
+    private val viewModel =
+        CategoryEditViewModel(
+            loadCategoryUseCase = loadCategoryFake,
+            updateCategoryUseCase = updateCategory,
+            deleteCategoryUseCase = deleteCategory,
+            applicationScope = AppCoroutineScope(context = coroutinesRule.testDispatcher),
+            mapper = mapper,
+        )
 
     @Before
     fun setup() {
@@ -46,30 +46,32 @@ internal class CategoryEditViewModelTest {
     }
 
     @Test
-    fun `test if category is loaded when the id is valid`() = runTest {
-        // Given the task is correctly returned
-        loadCategoryFake.categoryToBeReturned = FAKE_DOMAIN_CATEGORY
-        val flow = viewModel.loadCategory(FAKE_DOMAIN_CATEGORY.id)
+    fun `test if category is loaded when the id is valid`() =
+        runTest {
+            // Given the task is correctly returned
+            loadCategoryFake.categoryToBeReturned = FAKE_DOMAIN_CATEGORY
+            val flow = viewModel.loadCategory(FAKE_DOMAIN_CATEGORY.id)
 
-        // When the latest event is collected
-        val state = flow.first()
+            // When the latest event is collected
+            val state = flow.first()
 
-        // Then the state contain the loaded category
-        require(state is CategorySheetState.Loaded)
-        val assertCategoryView = mapper.toView(FAKE_DOMAIN_CATEGORY)
-        Assert.assertEquals(assertCategoryView, state.category)
-    }
+            // Then the state contain the loaded category
+            require(state is CategorySheetState.Loaded)
+            val assertCategoryView = mapper.toView(FAKE_DOMAIN_CATEGORY)
+            Assert.assertEquals(assertCategoryView, state.category)
+        }
 
     @Test
-    fun `test if category is empty when the id is not valid`() = runTest {
-        // Given the task id is invalid
-        loadCategoryFake.categoryToBeReturned = null
-        val flow = viewModel.loadCategory(666L)
+    fun `test if category is empty when the id is not valid`() =
+        runTest {
+            // Given the task id is invalid
+            loadCategoryFake.categoryToBeReturned = null
+            val flow = viewModel.loadCategory(666L)
 
-        val state = flow.first()
+            val state = flow.first()
 
-        Assert.assertTrue(state is CategorySheetState.Empty)
-    }
+            Assert.assertTrue(state is CategorySheetState.Empty)
+        }
 
     @Test
     fun `test if category is updated`() {

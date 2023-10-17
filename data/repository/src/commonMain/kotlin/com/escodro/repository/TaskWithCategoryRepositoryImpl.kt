@@ -11,7 +11,6 @@ internal class TaskWithCategoryRepositoryImpl(
     private val dataSource: TaskWithCategoryDataSource,
     private val mapper: TaskWithCategoryMapper,
 ) : TaskWithCategoryRepository {
-
     override fun findAllTasksWithCategory(): Flow<List<TaskWithCategory>> =
         dataSource.findAllTasksWithCategory().map { mapper.toDomain(it) }
 

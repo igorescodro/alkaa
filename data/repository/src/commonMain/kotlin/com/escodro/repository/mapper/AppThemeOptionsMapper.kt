@@ -7,7 +7,6 @@ import com.escodro.repository.model.AppThemeOptions as RepoThemeOptions
  * Maps AppThemeOptions between Repository and Domain.
  */
 internal class AppThemeOptionsMapper {
-
     /**
      * Maps AppThemeOptions from Repo to Domain.
      *

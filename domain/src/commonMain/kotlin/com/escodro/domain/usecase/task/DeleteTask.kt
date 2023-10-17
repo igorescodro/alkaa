@@ -12,7 +12,6 @@ class DeleteTask(
     private val taskRepository: TaskRepository,
     private val alarmInteractor: AlarmInteractor,
 ) {
-
     private val logger = KotlinLogging.logger {}
 
     /**

@@ -10,7 +10,6 @@ internal class AddTaskImpl(
     private val taskRepository: TaskRepository,
     private val glanceInteractor: GlanceInteractor,
 ) : AddTask {
-
     private val logger = KotlinLogging.logger {}
 
     override suspend operator fun invoke(task: Task) {

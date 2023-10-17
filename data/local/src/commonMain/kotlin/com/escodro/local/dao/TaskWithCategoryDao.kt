@@ -7,7 +7,6 @@ import kotlinx.coroutines.flow.Flow
  * DAO class to handle all [TaskWithCategory]-related database operations.
  */
 interface TaskWithCategoryDao {
-
     /**
      * Get all inserted tasks with category.
      *

@@ -43,8 +43,10 @@ import java.util.Locale
  * Alkaa about screen.
  */
 @Composable
-@OptIn(ExperimentalMaterial3Api::class)
-fun About(onUpPress: () -> Unit, modifier: Modifier = Modifier) {
+fun About(
+    onUpPress: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
     Scaffold(
         topBar = { AlkaaToolbar(onUpPress = onUpPress) },
         content = { paddingValues -> AboutContent(modifier = Modifier.padding(paddingValues)) },
@@ -72,25 +74,28 @@ private fun ContentHeader() {
     val color by infiniteTransition.animateColor(
         initialValue = MaterialTheme.colorScheme.primary,
         targetValue = MaterialTheme.colorScheme.tertiary,
-        animationSpec = infiniteRepeatable(
-            animation = tween(durationMillis = 10_000, easing = LinearEasing),
-            repeatMode = RepeatMode.Reverse,
-        ),
+        animationSpec =
+            infiniteRepeatable(
+                animation = tween(durationMillis = 10_000, easing = LinearEasing),
+                repeatMode = RepeatMode.Reverse,
+            ),
     )
 
     Box(
         contentAlignment = Alignment.Center,
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(200.dp)
-            .background(color = color),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .height(200.dp)
+                .background(color = color),
     ) {
         val appName = stringResource(id = R.string.about_title).lowercase(Locale.getDefault())
         Text(
             text = appName,
-            style = MaterialTheme.typography.displayLarge.copy(
-                color = MaterialTheme.colorScheme.surface,
-            ),
+            style =
+                MaterialTheme.typography.displayLarge.copy(
+                    color = MaterialTheme.colorScheme.surface,
+                ),
         )
     }
 }
@@ -99,9 +104,10 @@ private fun ContentHeader() {
 private fun ContentCallToAction() {
     Box(
         contentAlignment = Alignment.Center,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 16.dp),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(vertical = 16.dp),
     ) {
         val context = LocalContext.current
         Button(onClick = { context.openUrl(ProjectUrl) }) {

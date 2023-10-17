@@ -9,7 +9,6 @@ internal class AlarmPermissionImpl(
     private val permissionChecker: PermissionChecker,
     private val androidVersion: AndroidVersion,
 ) : AlarmPermission {
-
     @SuppressLint("NewApi")
     override fun hasExactAlarmPermission(): Boolean =
         if (androidVersion.currentVersion >= Build.VERSION_CODES.S) {
@@ -27,6 +26,5 @@ internal class AlarmPermissionImpl(
         }
 
     @Suppress("FunctionMaxLength")
-    override fun shouldCheckNotificationPermission(): Boolean =
-        androidVersion.currentVersion >= Build.VERSION_CODES.TIRAMISU
+    override fun shouldCheckNotificationPermission(): Boolean = androidVersion.currentVersion >= Build.VERSION_CODES.TIRAMISU
 }

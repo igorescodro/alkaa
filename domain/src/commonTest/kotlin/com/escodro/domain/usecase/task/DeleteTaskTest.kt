@@ -14,7 +14,6 @@ import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 internal class DeleteTaskTest {
-
     private val taskRepository = TaskRepositoryFake()
 
     private val alarmInteractor = AlarmInteractorFake()
@@ -28,37 +27,41 @@ internal class DeleteTaskTest {
     private val addTaskUseCase = AddTaskImpl(taskRepository, glanceInteractor)
 
     @BeforeTest
-    fun setup() = runTest {
-        taskRepository.cleanTable()
-        alarmInteractor.clear()
-        glanceInteractor.clean()
-    }
+    fun setup() =
+        runTest {
+            taskRepository.cleanTable()
+            alarmInteractor.clear()
+            glanceInteractor.clean()
+        }
 
     @Test
-    fun test_if_task_is_deleted() = runTest {
-        val task = Task(id = 18, title = "coffee time")
-        addTaskUseCase(task)
-        deleteTaskUseCase(task)
+    fun test_if_task_is_deleted() =
+        runTest {
+            val task = Task(id = 18, title = "coffee time")
+            addTaskUseCase(task)
+            deleteTaskUseCase(task)
 
-        val loadedTask = loadTaskUseCase(task.id)
+            val loadedTask = loadTaskUseCase(task.id)
 
-        assertNull(loadedTask)
-    }
-
-    @Test
-    fun test_if_the_alarm_is_canceled_when_the_task_is_completed() = runTest {
-        val task = Task(id = 19, title = "SOLID basics")
-        addTaskUseCase(task)
-        deleteTaskUseCase(task)
-
-        assertFalse(alarmInteractor.isAlarmScheduled(task.id))
-    }
+            assertNull(loadedTask)
+        }
 
     @Test
-    fun test_if_the_glance_was_notified() = runTest {
-        val task = Task(id = 15, title = "this title", description = "this desc")
-        addTaskUseCase(task)
+    fun test_if_the_alarm_is_canceled_when_the_task_is_completed() =
+        runTest {
+            val task = Task(id = 19, title = "SOLID basics")
+            addTaskUseCase(task)
+            deleteTaskUseCase(task)
 
-        assertTrue(glanceInteractor.wasNotified)
-    }
+            assertFalse(alarmInteractor.isAlarmScheduled(task.id))
+        }
+
+    @Test
+    fun test_if_the_glance_was_notified() =
+        runTest {
+            val task = Task(id = 15, title = "this title", description = "this desc")
+            addTaskUseCase(task)
+
+            assertTrue(glanceInteractor.wasNotified)
+        }
 }

@@ -49,11 +49,12 @@ internal fun AlarmSelection(
     shouldCheckNotificationPermission: Boolean,
 ) {
     val context = LocalContext.current
-    val permissionState = if (shouldCheckNotificationPermission) {
-        rememberPermissionState(permission = POST_NOTIFICATIONS)
-    } else {
-        PermissionStateFactory.getGrantedPermissionState(permission = POST_NOTIFICATIONS)
-    }
+    val permissionState =
+        if (shouldCheckNotificationPermission) {
+            rememberPermissionState(permission = POST_NOTIFICATIONS)
+        } else {
+            PermissionStateFactory.getGrantedPermissionState(permission = POST_NOTIFICATIONS)
+        }
     val state = rememberAlarmSelectionState(calendar = calendar, alarmInterval = interval)
 
     // Exact Alarm permission dialog
@@ -100,23 +101,24 @@ internal fun AlarmSelectionContent(
 ) {
     Column {
         TaskDetailSectionContent(
-            modifier = Modifier
-                .height(56.dp)
-                .clickable {
-                    when {
-                        hasAlarmPermission() && permissionState.status.isGranted ->
-                            DateTimePickerDialog(context) { calendar ->
-                                state.date = calendar
-                                onAlarmUpdate(calendar)
-                            }.show()
-                        permissionState.status.shouldShowRationale ->
-                            state.showRationaleDialog = true
-                        else -> {
-                            state.showExactAlarmDialog = !hasAlarmPermission()
-                            state.showNotificationDialog = !permissionState.status.isGranted
+            modifier =
+                Modifier
+                    .height(56.dp)
+                    .clickable {
+                        when {
+                            hasAlarmPermission() && permissionState.status.isGranted ->
+                                DateTimePickerDialog(context) { calendar ->
+                                    state.date = calendar
+                                    onAlarmUpdate(calendar)
+                                }.show()
+                            permissionState.status.shouldShowRationale ->
+                                state.showRationaleDialog = true
+                            else -> {
+                                state.showExactAlarmDialog = !hasAlarmPermission()
+                                state.showNotificationDialog = !permissionState.status.isGranted
+                            }
                         }
-                    }
-                },
+                    },
             imageVector = Icons.Outlined.Alarm,
             contentDescription = R.string.task_detail_cd_icon_alarm,
         ) {

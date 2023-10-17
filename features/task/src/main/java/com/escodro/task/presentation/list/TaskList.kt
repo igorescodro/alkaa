@@ -80,18 +80,20 @@ private fun TaskListLoader(
         categoryViewModel.loadCategories()
     }.collectAsState(initial = CategoryState.Loading)
 
-    val taskHandler = TaskStateHandler(
-        state = taskViewState,
-        onCheckedChange = taskListViewModel::updateTaskStatus,
-        onItemClick = onItemClick,
-        onAddClick = onAddClick,
-    )
+    val taskHandler =
+        TaskStateHandler(
+            state = taskViewState,
+            onCheckedChange = taskListViewModel::updateTaskStatus,
+            onItemClick = onItemClick,
+            onAddClick = onAddClick,
+        )
 
-    val categoryHandler = CategoryStateHandler(
-        state = categoryViewState,
-        currentCategory = currentCategory,
-        onCategoryChange = setCategory,
-    )
+    val categoryHandler =
+        CategoryStateHandler(
+            state = categoryViewState,
+            currentCategory = currentCategory,
+            onCategoryChange = setCategory,
+        )
 
     TaskListScaffold(
         taskHandler = taskHandler,
@@ -116,11 +118,12 @@ internal fun TaskListScaffold(
     val onShowSnackbar: (TaskWithCategory) -> Unit = { taskWithCategory ->
         coroutineScope.launch {
             val message = String.format(snackbarTitle, taskWithCategory.task.title)
-            val snackbarResult = snackbarHostState.showSnackbar(
-                message = message,
-                actionLabel = snackbarButton,
-                duration = SnackbarDuration.Short,
-            )
+            val snackbarResult =
+                snackbarHostState.showSnackbar(
+                    message = message,
+                    actionLabel = snackbarButton,
+                    duration = SnackbarDuration.Short,
+                )
             when (snackbarResult) {
                 SnackbarResult.Dismissed -> {} // Do nothing
                 SnackbarResult.ActionPerformed -> taskHandler.onCheckedChange(taskWithCategory)
@@ -229,11 +232,12 @@ fun TaskListScaffoldLoaded() {
     val category1 = Category(name = "Books", color = android.graphics.Color.GREEN)
     val category2 = Category(name = "Reminders", color = android.graphics.Color.MAGENTA)
 
-    val taskList = persistentListOf(
-        TaskWithCategory(task = task1, category = category1),
-        TaskWithCategory(task = task2, category = category2),
-        TaskWithCategory(task = task3, category = null),
-    )
+    val taskList =
+        persistentListOf(
+            TaskWithCategory(task = task1, category = category1),
+            TaskWithCategory(task = task2, category = category2),
+            TaskWithCategory(task = task3, category = null),
+        )
 
     val state = TaskListViewState.Loaded(items = taskList)
 

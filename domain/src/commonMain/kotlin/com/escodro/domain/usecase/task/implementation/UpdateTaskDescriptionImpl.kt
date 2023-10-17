@@ -8,8 +8,10 @@ internal class UpdateTaskDescriptionImpl(
     private val loadTask: LoadTask,
     private val updateTask: UpdateTask,
 ) : UpdateTaskDescription {
-
-    override suspend fun invoke(taskId: Long, description: String) {
+    override suspend fun invoke(
+        taskId: Long,
+        description: String,
+    ) {
         val task = loadTask(taskId) ?: return
         val updatedTask = task.copy(description = description)
         updateTask(updatedTask)

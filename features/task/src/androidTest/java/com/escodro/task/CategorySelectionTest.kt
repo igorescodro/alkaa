@@ -16,7 +16,6 @@ import org.junit.Rule
 import org.junit.Test
 
 internal class CategorySelectionTest {
-
     @get:Rule
     val composeTestRule = createComposeRule()
 
@@ -114,7 +113,10 @@ internal class CategorySelectionTest {
         composeTestRule.onNodeWithText(emptyTextInfo).assertExists()
     }
 
-    private fun loadCategorySelection(categories: List<Category>, currentCategory: Long?) {
+    private fun loadCategorySelection(
+        categories: List<Category>,
+        currentCategory: Long?,
+    ) {
         composeTestRule.setContent {
             AlkaaTheme {
                 CategorySelection(

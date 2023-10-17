@@ -41,7 +41,10 @@ import com.google.accompanist.navigation.material.rememberBottomSheetNavigator
  */
 @OptIn(ExperimentalMaterialNavigationApi::class)
 @Composable
-fun NavGraph(windowSizeClass: WindowSizeClass, startDestination: String = Destinations.Home) {
+fun NavGraph(
+    windowSizeClass: WindowSizeClass,
+    startDestination: String = Destinations.Home,
+) {
     val bottomSheetNavigator = rememberBottomSheetNavigator()
     val navController = rememberNavController(bottomSheetNavigator)
     val context = LocalContext.current
@@ -60,7 +63,10 @@ fun NavGraph(windowSizeClass: WindowSizeClass, startDestination: String = Destin
 }
 
 @Suppress("MagicNumber")
-private fun NavGraphBuilder.homeGraph(windowSizeClass: WindowSizeClass, actions: Actions) {
+private fun NavGraphBuilder.homeGraph(
+    windowSizeClass: WindowSizeClass,
+    actions: Actions,
+) {
     composable(
         route = Destinations.Home,
         deepLinks = listOf(navDeepLink { uriPattern = DestinationDeepLink.HomePattern }),
@@ -95,11 +101,12 @@ private fun NavGraphBuilder.taskGraph(actions: Actions) {
     composable(
         route = "${Destinations.TaskDetail}/{${DestinationArgs.TaskId}}",
         arguments = listOf(navArgument(DestinationArgs.TaskId) { type = NavType.LongType }),
-        deepLinks = listOf(
-            navDeepLink {
-                uriPattern = DestinationDeepLink.TaskDetailPattern
-            },
-        ),
+        deepLinks =
+            listOf(
+                navDeepLink {
+                    uriPattern = DestinationDeepLink.TaskDetailPattern
+                },
+            ),
         enterTransition = {
             slideIntoContainer(
                 AnimatedContentTransitionScope.SlideDirection.Left,
@@ -130,16 +137,18 @@ private fun NavGraphBuilder.taskGraph(actions: Actions) {
 private fun NavGraphBuilder.categoryGraph(actions: Actions) {
     bottomSheet(
         route = "${Destinations.BottomSheet.Category}/{${DestinationArgs.CategoryId}}",
-        arguments = listOf(
-            navArgument(DestinationArgs.CategoryId) {
-                type = NavType.LongType
-            },
-        ),
-        deepLinks = listOf(
-            navDeepLink {
-                uriPattern = DestinationDeepLink.CategorySheetPattern
-            },
-        ),
+        arguments =
+            listOf(
+                navArgument(DestinationArgs.CategoryId) {
+                    type = NavType.LongType
+                },
+            ),
+        deepLinks =
+            listOf(
+                navDeepLink {
+                    uriPattern = DestinationDeepLink.CategorySheetPattern
+                },
+            ),
     ) { backStackEntry ->
         val id = backStackEntry.arguments?.getLong(DestinationArgs.CategoryId) ?: 0L
         CategoryBottomSheet(
@@ -172,17 +181,17 @@ private fun NavGraphBuilder.trackerGraph(
         ) {
             // Workaround to be able to use Dynamic Feature with Compose
             // https://issuetracker.google.com/issues/183677219
-            val intent = Intent(Intent.ACTION_VIEW).apply {
-                data = Uri.parse(TrackerDeepLink)
-                `package` = context.packageName
-            }
+            val intent =
+                Intent(Intent.ACTION_VIEW).apply {
+                    data = Uri.parse(TrackerDeepLink)
+                    `package` = context.packageName
+                }
             context.startActivity(intent)
         }
     }
 }
 
 internal data class Actions(val navController: NavHostController, val context: Context) {
-
     val openTaskDetail: (Long) -> Unit = { taskId ->
         navController.navigate("${Destinations.TaskDetail}/$taskId")
     }

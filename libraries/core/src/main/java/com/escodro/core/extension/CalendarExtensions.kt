@@ -17,11 +17,12 @@ import java.util.Locale
  * @return the formatted date
  */
 fun Calendar.format(): String {
-    val dateFormat = DateFormat.getDateTimeInstance(
-        DateFormat.LONG,
-        DateFormat.SHORT,
-        Locale.getDefault(),
-    )
+    val dateFormat =
+        DateFormat.getDateTimeInstance(
+            DateFormat.LONG,
+            DateFormat.SHORT,
+            Locale.getDefault(),
+        )
     return dateFormat.format(time)
 }
 

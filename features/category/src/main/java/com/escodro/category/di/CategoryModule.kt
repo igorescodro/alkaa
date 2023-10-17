@@ -13,11 +13,12 @@ import org.koin.dsl.module
 /**
  * Category dependency injection module.
  */
-val categoryModule = module {
-    viewModelOf(::CategoryListViewModelImpl) bind CategoryListViewModel::class
-    viewModelOf(::CategoryAddViewModel)
-    viewModelOf(::CategoryEditViewModel)
+val categoryModule =
+    module {
+        viewModelOf(::CategoryListViewModelImpl) bind CategoryListViewModel::class
+        viewModelOf(::CategoryAddViewModel)
+        viewModelOf(::CategoryEditViewModel)
 
-    // Mapper
-    factoryOf(::CategoryMapper)
-}
+        // Mapper
+        factoryOf(::CategoryMapper)
+    }

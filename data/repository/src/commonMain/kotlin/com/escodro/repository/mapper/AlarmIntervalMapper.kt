@@ -12,7 +12,6 @@ import com.escodro.repository.model.AlarmInterval as RepoInterval
  * Maps Alarm Interval between Repository and Domain.
  */
 internal class AlarmIntervalMapper {
-
     /**
      * Maps Alarm Interval from Repo to Domain.
      *

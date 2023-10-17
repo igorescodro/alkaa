@@ -35,17 +35,18 @@ internal fun AppThemeDialog(
                         val isSelected = currentTheme.id == item.id
 
                         Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(48.dp)
-                                .padding(8.dp)
-                                .selectable(
-                                    selected = isSelected,
-                                    onClick = {
-                                        onThemeUpdate(item)
-                                        onDismissRequest()
-                                    },
-                                ),
+                            modifier =
+                                Modifier
+                                    .fillMaxWidth()
+                                    .height(48.dp)
+                                    .padding(8.dp)
+                                    .selectable(
+                                        selected = isSelected,
+                                        onClick = {
+                                            onThemeUpdate(item)
+                                            onDismissRequest()
+                                        },
+                                    ),
                             verticalAlignment = Alignment.CenterVertically,
                         ) {
                             RadioButton(

@@ -22,7 +22,6 @@ import org.koin.androidx.viewmodel.ext.android.getViewModel
  */
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 internal class MainActivity : ComponentActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -53,11 +52,12 @@ internal class MainActivity : ComponentActivity() {
             viewModel.loadCurrentTheme()
         }.collectAsState(initial = AppThemeOptions.SYSTEM)
 
-        val isDarkTheme = when (theme) {
-            AppThemeOptions.LIGHT -> false
-            AppThemeOptions.DARK -> true
-            AppThemeOptions.SYSTEM -> isSystemDarkTheme
-        }
+        val isDarkTheme =
+            when (theme) {
+                AppThemeOptions.LIGHT -> false
+                AppThemeOptions.DARK -> true
+                AppThemeOptions.SYSTEM -> isSystemDarkTheme
+            }
         return isDarkTheme
     }
 }

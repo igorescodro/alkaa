@@ -6,17 +6,17 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
 internal class CategoryRepositoryFake : CategoryRepository {
-
     private val categoryMap: MutableMap<Long, Category> = mutableMapOf()
 
     override suspend fun insertCategory(category: Category) {
-        val id = if (category.id == 0L && categoryMap.isEmpty()) {
-            1
-        } else if (category.id == 0L) {
-            categoryMap.entries.maxByOrNull { it.key }?.key?.plus(1) ?: 1
-        } else {
-            category.id
-        }
+        val id =
+            if (category.id == 0L && categoryMap.isEmpty()) {
+                1
+            } else if (category.id == 0L) {
+                categoryMap.entries.maxByOrNull { it.key }?.key?.plus(1) ?: 1
+            } else {
+                category.id
+            }
 
         categoryMap[id] = category
     }
@@ -33,9 +33,7 @@ internal class CategoryRepositoryFake : CategoryRepository {
         categoryMap.clear()
     }
 
-    override fun findAllCategories(): Flow<List<Category>> =
-        flowOf(categoryMap.values.toList())
+    override fun findAllCategories(): Flow<List<Category>> = flowOf(categoryMap.values.toList())
 
-    override suspend fun findCategoryById(categoryId: Long): Category? =
-        categoryMap[categoryId]
+    override suspend fun findCategoryById(categoryId: Long): Category? = categoryMap[categoryId]
 }

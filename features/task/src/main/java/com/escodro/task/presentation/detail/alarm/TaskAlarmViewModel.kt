@@ -18,8 +18,10 @@ internal class TaskAlarmViewModel(
     private val applicationScope: AppCoroutineScope,
     private val alarmIntervalMapper: AlarmIntervalMapper,
 ) : ViewModel() {
-
-    fun updateAlarm(taskId: TaskId, alarm: Calendar?) = applicationScope.launch {
+    fun updateAlarm(
+        taskId: TaskId,
+        alarm: Calendar?,
+    ) = applicationScope.launch {
         if (alarm != null) {
             scheduleAlarmUseCase(taskId.value, alarm.toLocalDateTime())
         } else {
@@ -27,7 +29,10 @@ internal class TaskAlarmViewModel(
         }
     }
 
-    fun setRepeating(taskId: TaskId, alarmInterval: AlarmInterval) = applicationScope.launch {
+    fun setRepeating(
+        taskId: TaskId,
+        alarmInterval: AlarmInterval,
+    ) = applicationScope.launch {
         val interval = alarmIntervalMapper.toDomain(alarmInterval)
         updateTaskAsRepeatingUseCase(taskId.value, interval)
     }

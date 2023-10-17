@@ -15,7 +15,6 @@ class SnoozeAlarm(
     private val notificationInteractor: NotificationInteractor,
     private val alarmInteractor: AlarmInteractor,
 ) {
-
     private val logger = KotlinLogging.logger {}
 
     /**
@@ -26,7 +25,10 @@ class SnoozeAlarm(
      *
      * @return observable to be subscribe
      */
-    operator fun invoke(taskId: Long, minutes: Int = DEFAULT_SNOOZE) {
+    operator fun invoke(
+        taskId: Long,
+        minutes: Int = DEFAULT_SNOOZE,
+    ) {
         require(minutes > 0) { "The delay minutes must be positive" }
 
         val snoozedTime = getSnoozedTask(dateTimeProvider.getCurrentInstant(), minutes)
@@ -35,13 +37,15 @@ class SnoozeAlarm(
         logger.debug { "Task snoozed in $minutes minutes" }
     }
 
-    private fun getSnoozedTask(instant: Instant, minutes: Int): Long {
+    private fun getSnoozedTask(
+        instant: Instant,
+        minutes: Int,
+    ): Long {
         val updatedCalendar = instant.plus(minutes.minutes)
         return updatedCalendar.toEpochMilliseconds()
     }
 
     companion object {
-
         private const val DEFAULT_SNOOZE = 15
     }
 }

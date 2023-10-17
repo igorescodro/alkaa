@@ -6,7 +6,6 @@ import com.adevinta.android.barista.interaction.BaristaSleepInteractions
 import java.util.Calendar
 
 object Events {
-
     fun setDateTime(calendar: Calendar) {
         with(calendar) {
             BaristaSleepInteractions.sleep(300)

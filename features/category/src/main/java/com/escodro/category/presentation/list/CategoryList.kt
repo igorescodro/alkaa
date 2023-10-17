@@ -117,11 +117,12 @@ private fun CategoryListScaffold(
                 when (state) {
                     CategoryState.Loading -> AlkaaLoadingContent(modifier = Modifier.padding(padding))
                     CategoryState.Empty -> CategoryListEmpty(modifier = Modifier.padding(padding))
-                    is CategoryState.Loaded -> CategoryListContent(
-                        categoryList = state.categoryList,
-                        onItemClick = onItemClick,
-                        modifier = Modifier.padding(padding),
-                    )
+                    is CategoryState.Loaded ->
+                        CategoryListContent(
+                            categoryList = state.categoryList,
+                            onItemClick = onItemClick,
+                            modifier = Modifier.padding(padding),
+                        )
                 }
             }
         }
@@ -156,17 +157,19 @@ private fun CategoryItem(
 ) {
     ElevatedCard(
         elevation = CardDefaults.elevatedCardElevation(4.dp),
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(all = 8.dp)
-            .clickable { onItemClick(category.id) },
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .padding(all = 8.dp)
+                .clickable { onItemClick(category.id) },
     ) {
         Column(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 24.dp),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 24.dp),
         ) {
             CategoryItemIcon(category.color)
             Spacer(modifier = Modifier.height(16.dp))
@@ -189,14 +192,19 @@ private fun CategoryItemIcon(color: Int) {
 }
 
 @Composable
-private fun CategoryCircleIndicator(size: Dp, color: Int, alpha: Float = 1F) {
+private fun CategoryCircleIndicator(
+    size: Dp,
+    color: Int,
+    alpha: Float = 1F,
+) {
     Box(
-        modifier = Modifier
-            .size(size)
-            .clip(CircleShape)
-            .alpha(alpha)
-            .semantics { this.color = Color(color) }
-            .background(Color(color)),
+        modifier =
+            Modifier
+                .size(size)
+                .clip(CircleShape)
+                .alpha(alpha)
+                .semantics { this.color = Color(color) }
+                .background(Color(color)),
     )
 }
 

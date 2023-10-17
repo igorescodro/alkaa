@@ -15,7 +15,6 @@ import org.junit.Rule
 import org.junit.Test
 
 internal class TaskDetailTest {
-
     @get:Rule
     val composeTestRule = createComposeRule()
 
@@ -39,12 +38,13 @@ internal class TaskDetailTest {
     @Test
     fun test_detailContentIsShown() {
         // Given a success state
-        val task = Task(
-            title = "Call John",
-            description = "I can't forget his birthday again",
-            dueDate = null,
-            categoryId = 10L,
-        )
+        val task =
+            Task(
+                title = "Call John",
+                description = "I can't forget his birthday again",
+                dueDate = null,
+                categoryId = 10L,
+            )
         val state = TaskDetailState.Loaded(task)
 
         // When the view is loaded

@@ -7,7 +7,6 @@ import kotlinx.coroutines.flow.Flow
  * Interface to represent the implementation of Category data source.
  */
 interface CategoryDataSource {
-
     /**
      * Inserts a new category.
      *

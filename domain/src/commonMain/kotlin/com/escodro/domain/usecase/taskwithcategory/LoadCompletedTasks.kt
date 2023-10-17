@@ -9,7 +9,6 @@ import kotlinx.coroutines.flow.map
  * Use case to get all completed tasks from the database.
  */
 class LoadCompletedTasks(private val repository: TaskWithCategoryRepository) {
-
     /**
      * Gets all completed tasks.
      *

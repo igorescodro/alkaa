@@ -79,8 +79,9 @@ fun Context.cancelAlarm(operation: PendingIntent?) {
  * @return string from color in format "#XXXXXX"
  */
 @SuppressLint("ResourceType")
-fun Context.getStringColor(@ColorRes colorRes: Int): String =
-    resources.getString(colorRes)
+fun Context.getStringColor(
+    @ColorRes colorRes: Int,
+): String = resources.getString(colorRes)
 
 /**
  * Opens the given url in string format.
@@ -104,11 +105,12 @@ fun Context.getVersionName(): String {
     var packageInfo: PackageInfo? = null
     packageName.let {
         try {
-            packageInfo = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                packageManager.getPackageInfo(it, PackageManager.PackageInfoFlags.of(0))
-            } else {
-                packageManager.getPackageInfo(it, 0)
-            }
+            packageInfo =
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    packageManager.getPackageInfo(it, PackageManager.PackageInfoFlags.of(0))
+                } else {
+                    packageManager.getPackageInfo(it, 0)
+                }
         } catch (e: PackageManager.NameNotFoundException) {
             logcat(LogPriority.ERROR) { e.asLog() }
         }

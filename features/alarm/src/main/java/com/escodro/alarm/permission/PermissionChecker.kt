@@ -4,7 +4,6 @@ package com.escodro.alarm.permission
  * Represents the Android permission checker.
  */
 internal interface PermissionChecker {
-
     /**
      * Checks if the given permission was granted by the user.
      *

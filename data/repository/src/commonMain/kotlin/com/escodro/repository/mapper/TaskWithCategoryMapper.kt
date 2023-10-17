@@ -10,7 +10,6 @@ internal class TaskWithCategoryMapper(
     private val taskMapper: TaskMapper,
     private val categoryMapper: CategoryMapper,
 ) {
-
     /**
      * Maps Task With Category from Domain to Repo.
      *
@@ -18,8 +17,7 @@ internal class TaskWithCategoryMapper(
      *
      * @return the converted list of Task With Category
      */
-    fun toDomain(localTaskList: List<RepoTaskWithCategory>): List<DomainTaskWithCategory> =
-        localTaskList.map { toDomain(it) }
+    fun toDomain(localTaskList: List<RepoTaskWithCategory>): List<DomainTaskWithCategory> = localTaskList.map { toDomain(it) }
 
     private fun toDomain(localTask: RepoTaskWithCategory): DomainTaskWithCategory =
         DomainTaskWithCategory(

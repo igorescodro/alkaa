@@ -6,7 +6,6 @@ import kotlinx.coroutines.CoroutineScope
  * Debounce execution of a suspend function based on the given delay.
  */
 interface CoroutineDebouncer {
-
     /**
      * Debounce execution of a suspend function based on the given delay.
      *

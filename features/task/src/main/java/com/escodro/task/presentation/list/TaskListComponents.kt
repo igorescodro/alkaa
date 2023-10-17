@@ -49,18 +49,20 @@ internal fun TaskItem(
 ) {
     ElevatedCard(
         elevation = CardDefaults.elevatedCardElevation(4.dp),
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(all = 8.dp)
-            .height(74.dp)
-            .clickable { onItemClick(task.task.id) },
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .padding(all = 8.dp)
+                .height(74.dp)
+                .clickable { onItemClick(task.task.id) },
     ) {
         Row {
             CardRibbon(colorInt = task.category?.color)
             RadioButton(
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .semantics { checkboxName = task.task.title },
+                modifier =
+                    Modifier
+                        .fillMaxHeight()
+                        .semantics { checkboxName = task.task.title },
                 selected = task.task.completed,
                 onClick = { onCheckedChange(task) },
             )
@@ -79,12 +81,16 @@ internal fun TaskItem(
 }
 
 @Composable
-internal fun CardRibbon(colorInt: Int?, modifier: Modifier = Modifier) {
-    val ribbonColor = if (colorInt != null) {
-        Color(colorInt)
-    } else {
-        MaterialTheme.colorScheme.surfaceVariant
-    }
+internal fun CardRibbon(
+    colorInt: Int?,
+    modifier: Modifier = Modifier,
+) {
+    val ribbonColor =
+        if (colorInt != null) {
+            Color(colorInt)
+        } else {
+            MaterialTheme.colorScheme.surfaceVariant
+        }
 
     Spacer(
         modifier
@@ -103,15 +109,16 @@ internal fun RelativeDateText(calendar: Calendar?) {
 
     val context = LocalContext.current
     val time = calendar.time.time
-    val stringTime = DateUtils
-        .getRelativeDateTimeString(
-            context,
-            time,
-            DateUtils.DAY_IN_MILLIS,
-            DateUtils.DAY_IN_MILLIS,
-            0,
-        )
-        .toString()
+    val stringTime =
+        DateUtils
+            .getRelativeDateTimeString(
+                context,
+                time,
+                DateUtils.DAY_IN_MILLIS,
+                DateUtils.DAY_IN_MILLIS,
+                0,
+            )
+            .toString()
 
     Text(
         text = stringTime,

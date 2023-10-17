@@ -16,7 +16,6 @@ import kotlin.time.Duration.Companion.days
 internal class LoadCompletedTasksByPeriodImpl(
     private val repository: TaskWithCategoryRepository,
 ) : LoadCompletedTasksByPeriod {
-
     /**
      * Gets completed tasks in Tracker format for the last month.
      */

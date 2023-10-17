@@ -11,7 +11,6 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 internal class SearchLocalDataSourceTest {
-
     private val taskWithCategoryDao = TaskWithCategoryDaoFake()
 
     private val mapper = TaskWithCategoryMapper(TaskMapper(AlarmIntervalMapper()), CategoryMapper())
@@ -24,11 +23,12 @@ internal class SearchLocalDataSourceTest {
     }
 
     @Test
-    fun test_if_the_query_is_enclosed_with_percent_char() = runTest {
-        val query = "name"
+    fun test_if_the_query_is_enclosed_with_percent_char() =
+        runTest {
+            val query = "name"
 
-        dataSource.findTaskByName(query)
+            dataSource.findTaskByName(query)
 
-        assertEquals("%$query%", taskWithCategoryDao.searchQuery)
-    }
+            assertEquals("%$query%", taskWithCategoryDao.searchQuery)
+        }
 }

@@ -7,7 +7,6 @@ package com.escodro.task.model
  */
 @Suppress("MagicNumber")
 enum class AlarmInterval(val index: Int?) {
-
     /**
      * Represents no alarm interval.
      */

@@ -11,7 +11,6 @@ import kotlin.test.Test
 import kotlin.test.assertNull
 
 class DeleteCategoryTest {
-
     private val categoryRepository = CategoryRepositoryFake()
 
     private val addCategory = AddCategoryImpl(categoryRepository)
@@ -21,17 +20,19 @@ class DeleteCategoryTest {
     private val loadCategory = LoadCategoryImpl(categoryRepository)
 
     @BeforeTest
-    fun setup() = runTest {
-        categoryRepository.cleanTable()
-    }
+    fun setup() =
+        runTest {
+            categoryRepository.cleanTable()
+        }
 
     @Test
-    fun test_if_category_is_deleted() = runTest {
-        val category = Category(id = 13, name = "books to read", color = "#FFAA00")
-        addCategory(category)
-        deleteCategory(category)
+    fun test_if_category_is_deleted() =
+        runTest {
+            val category = Category(id = 13, name = "books to read", color = "#FFAA00")
+            addCategory(category)
+            deleteCategory(category)
 
-        val result = loadCategory(category.id)
-        assertNull(result)
-    }
+            val result = loadCategory(category.id)
+            assertNull(result)
+        }
 }

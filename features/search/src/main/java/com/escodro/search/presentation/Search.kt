@@ -53,7 +53,10 @@ import org.koin.androidx.compose.getViewModel
  * @param onItemClick action to be called when the item is clicked
  */
 @Composable
-fun SearchSection(modifier: Modifier = Modifier, onItemClick: (Long) -> Unit) {
+fun SearchSection(
+    modifier: Modifier = Modifier,
+    onItemClick: (Long) -> Unit,
+) {
     SearchLoader(modifier = modifier, onItemClick = onItemClick)
 }
 
@@ -90,9 +93,10 @@ internal fun SearchScaffold(
         modifier = modifier.fillMaxSize(),
     ) { padding ->
         Column(
-            modifier = Modifier
-                .padding(padding)
-                .fillMaxWidth(),
+            modifier =
+                Modifier
+                    .padding(padding)
+                    .fillMaxWidth(),
         ) {
             SearchTextField(query, onTextChange = setQuery)
 
@@ -100,10 +104,11 @@ internal fun SearchScaffold(
                 when (state) {
                     SearchViewState.Loading -> AlkaaLoadingContent()
                     SearchViewState.Empty -> SearchEmptyContent()
-                    is SearchViewState.Loaded -> SearchListContent(
-                        taskList = state.taskList,
-                        onItemClick = onItemClick,
-                    )
+                    is SearchViewState.Loaded ->
+                        SearchListContent(
+                            taskList = state.taskList,
+                            onItemClick = onItemClick,
+                        )
                 }
             }
         }
@@ -112,7 +117,10 @@ internal fun SearchScaffold(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun SearchTextField(text: String, onTextChange: (String) -> Unit) {
+private fun SearchTextField(
+    text: String,
+    onTextChange: (String) -> Unit,
+) {
     TextField(
         value = text,
         onValueChange = onTextChange,
@@ -122,9 +130,10 @@ private fun SearchTextField(text: String, onTextChange: (String) -> Unit) {
                 contentDescription = stringResource(id = R.string.search_cd_icon),
             )
         },
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(12.dp),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(12.dp),
     )
 }
 
@@ -151,12 +160,16 @@ private fun SearchListContent(
 }
 
 @Composable
-private fun SearchItem(task: TaskSearchItem, onItemClick: (Long) -> Unit) {
+private fun SearchItem(
+    task: TaskSearchItem,
+    onItemClick: (Long) -> Unit,
+) {
     Column(
-        modifier = Modifier
-            .height(48.dp)
-            .fillMaxWidth()
-            .clickable { onItemClick(task.id) },
+        modifier =
+            Modifier
+                .height(48.dp)
+                .fillMaxWidth()
+                .clickable { onItemClick(task.id) },
         verticalArrangement = Arrangement.Center,
     ) {
         val textDecoration: TextDecoration
@@ -172,18 +185,20 @@ private fun SearchItem(task: TaskSearchItem, onItemClick: (Long) -> Unit) {
 
         Row(modifier = Modifier.padding(horizontal = 16.dp)) {
             Box(
-                modifier = Modifier
-                    .size(24.dp)
-                    .clip(CircleShape)
-                    .background(circleColor),
+                modifier =
+                    Modifier
+                        .size(24.dp)
+                        .clip(CircleShape)
+                        .background(circleColor),
             )
             Text(
                 text = task.title,
                 textDecoration = textDecoration,
-                modifier = Modifier
-                    .padding(horizontal = 12.dp)
-                    .fillMaxWidth()
-                    .height(24.dp),
+                modifier =
+                    Modifier
+                        .padding(horizontal = 12.dp)
+                        .fillMaxWidth()
+                        .height(24.dp),
             )
         }
     }
@@ -193,19 +208,21 @@ private fun SearchItem(task: TaskSearchItem, onItemClick: (Long) -> Unit) {
 @Preview
 @Composable
 fun SearchLoadedListPreview() {
-    val task1 = TaskSearchItem(
-        completed = true,
-        title = "Call Me By Your Name",
-        categoryColor = Color.Green,
-        isRepeating = false,
-    )
+    val task1 =
+        TaskSearchItem(
+            completed = true,
+            title = "Call Me By Your Name",
+            categoryColor = Color.Green,
+            isRepeating = false,
+        )
 
-    val task2 = TaskSearchItem(
-        completed = false,
-        title = "The Crown",
-        categoryColor = Color.White,
-        isRepeating = true,
-    )
+    val task2 =
+        TaskSearchItem(
+            completed = false,
+            title = "The Crown",
+            categoryColor = Color.White,
+            isRepeating = true,
+        )
 
     val taskList = persistentListOf(task1, task2)
 

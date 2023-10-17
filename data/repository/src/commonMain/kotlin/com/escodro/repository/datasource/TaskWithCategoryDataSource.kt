@@ -7,7 +7,6 @@ import kotlinx.coroutines.flow.Flow
  * Interface to represent the implementation of Task With Category data source.
  */
 interface TaskWithCategoryDataSource {
-
     /**
      * Get all inserted tasks with category.
      *

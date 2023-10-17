@@ -1,0 +1,7 @@
+root = true
+
+[*.{kt,kts}]
+ktlint_function_naming_ignore_when_annotated_with = Composable
+ktlint_standard_property-naming = disabled
+
+# https://android.googlesource.com/platform/frameworks/support/+/androidx-main/compose/docs/compose-api-guidelines.md#singletons_constants_sealed-class-and-enum-class-values

@@ -21,7 +21,6 @@ internal class TaskNotification(
     private val channel: TaskNotificationChannel,
     private val alarmPermission: AlarmPermission,
 ) {
-
     /**
      * Shows the [TaskNotification] based on the given Task.
      *
@@ -76,10 +75,11 @@ internal class TaskNotification(
         }
 
     private fun buildPendingIntent(task: Task): PendingIntent {
-        val openTaskIntent = Intent(
-            Intent.ACTION_VIEW,
-            DestinationDeepLink.getTaskDetailUri(task.id),
-        )
+        val openTaskIntent =
+            Intent(
+                Intent.ACTION_VIEW,
+                DestinationDeepLink.getTaskDetailUri(task.id),
+            )
 
         return TaskStackBuilder.create(context).run {
             addNextIntentWithParentStack(openTaskIntent)
@@ -107,10 +107,11 @@ internal class TaskNotification(
         intentAction: String,
         requestCode: Int,
     ): PendingIntent {
-        val receiverIntent = Intent(context, TaskReceiver::class.java).apply {
-            action = intentAction
-            putExtra(TaskReceiver.EXTRA_TASK, task.id)
-        }
+        val receiverIntent =
+            Intent(context, TaskReceiver::class.java).apply {
+                action = intentAction
+                putExtra(TaskReceiver.EXTRA_TASK, task.id)
+            }
 
         return PendingIntent
             .getBroadcast(
@@ -122,7 +123,6 @@ internal class TaskNotification(
     }
 
     companion object {
-
         private const val REQUEST_CODE_OPEN_TASK = 1_121_111
 
         private const val REQUEST_CODE_ACTION_COMPLETE = 1_234

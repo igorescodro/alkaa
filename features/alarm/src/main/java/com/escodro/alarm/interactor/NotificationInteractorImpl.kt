@@ -10,7 +10,6 @@ internal class NotificationInteractorImpl(
     private val taskNotification: TaskNotification,
     private val taskMapper: TaskMapper,
 ) : NotificationInteractor {
-
     override fun show(task: Task) {
         logcat { "show - alarmId = ${task.id}" }
         if (task.isRepeating) {

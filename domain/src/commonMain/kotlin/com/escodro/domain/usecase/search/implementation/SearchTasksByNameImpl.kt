@@ -8,7 +8,6 @@ import kotlinx.coroutines.flow.Flow
 internal class SearchTasksByNameImpl(
     private val searchRepository: SearchRepository,
 ) : SearchTasksByName {
-
     /**
      * Gets tasks based on the given name.
      *
@@ -16,6 +15,5 @@ internal class SearchTasksByNameImpl(
      *
      * @return the list of tasks that match the given query
      */
-    override suspend operator fun invoke(query: String): Flow<List<TaskWithCategory>> =
-        searchRepository.findTaskByName(query)
+    override suspend operator fun invoke(query: String): Flow<List<TaskWithCategory>> = searchRepository.findTaskByName(query)
 }

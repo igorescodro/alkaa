@@ -15,17 +15,18 @@ import org.koin.dsl.module
 /**
  * Task dependency injection module.
  */
-val taskModule = module {
+val taskModule =
+    module {
 
-    // Presentation
-    viewModelOf(::TaskListViewModel)
-    viewModelOf(::TaskDetailViewModel)
-    viewModelOf(::TaskAlarmViewModel)
-    viewModelOf(::AddTaskViewModel)
+        // Presentation
+        viewModelOf(::TaskListViewModel)
+        viewModelOf(::TaskDetailViewModel)
+        viewModelOf(::TaskAlarmViewModel)
+        viewModelOf(::AddTaskViewModel)
 
-    // Mappers
-    factoryOf(::AlarmIntervalMapper)
-    factoryOf(::TaskMapper)
-    factoryOf(::TaskWithCategoryMapper)
-    factoryOf(::CategoryMapper)
-}
+        // Mappers
+        factoryOf(::AlarmIntervalMapper)
+        factoryOf(::TaskMapper)
+        factoryOf(::TaskWithCategoryMapper)
+        factoryOf(::CategoryMapper)
+    }

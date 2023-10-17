@@ -7,7 +7,6 @@ import com.escodro.repository.model.Task as RepoTask
  * Maps Tasks between Repository and Local.
  */
 internal class TaskMapper(private val alarmIntervalMapper: AlarmIntervalMapper) {
-
     /**
      * Maps Task from Repo to Local.
      *

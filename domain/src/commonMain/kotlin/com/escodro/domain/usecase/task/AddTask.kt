@@ -6,7 +6,6 @@ import com.escodro.domain.model.Task
  * Use case to add a task from the database.
  */
 interface AddTask {
-
     /**
      * Adds a task.
      *

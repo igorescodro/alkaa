@@ -15,11 +15,11 @@ internal class PreferenceViewModel(
     private val applicationScope: AppCoroutineScope,
     private val mapper: AppThemeOptionsMapper,
 ) : ViewModel() {
-
     fun loadCurrentTheme(): Flow<AppThemeOptions> = loadAppTheme().map { mapper.toViewData(it) }
 
-    fun updateTheme(theme: AppThemeOptions) = applicationScope.launch {
-        val updatedTheme = mapper.toDomain(theme)
-        updateThemeUseCase(updatedTheme)
-    }
+    fun updateTheme(theme: AppThemeOptions) =
+        applicationScope.launch {
+            val updatedTheme = mapper.toDomain(theme)
+            updateThemeUseCase(updatedTheme)
+        }
 }

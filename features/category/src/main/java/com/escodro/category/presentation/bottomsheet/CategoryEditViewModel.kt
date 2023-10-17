@@ -16,16 +16,16 @@ internal class CategoryEditViewModel(
     private val applicationScope: AppCoroutineScope,
     private val mapper: CategoryMapper,
 ) : ViewModel() {
-
-    fun loadCategory(categoryId: Long) = flow {
-        val category = loadCategoryUseCase(categoryId)
-        if (category != null) {
-            val viewCategory = mapper.toView(category)
-            emit(CategorySheetState.Loaded(viewCategory))
-        } else {
-            emit(CategorySheetState.Empty)
+    fun loadCategory(categoryId: Long) =
+        flow {
+            val category = loadCategoryUseCase(categoryId)
+            if (category != null) {
+                val viewCategory = mapper.toView(category)
+                emit(CategorySheetState.Loaded(viewCategory))
+            } else {
+                emit(CategorySheetState.Empty)
+            }
         }
-    }
 
     fun updateCategory(category: Category) {
         if (category.name.isEmpty()) return
@@ -36,8 +36,9 @@ internal class CategoryEditViewModel(
         }
     }
 
-    fun deleteCategory(category: Category) = applicationScope.launch {
-        val domainCategory = mapper.toDomain(category)
-        deleteCategoryUseCase(domainCategory)
-    }
+    fun deleteCategory(category: Category) =
+        applicationScope.launch {
+            val domainCategory = mapper.toDomain(category)
+            deleteCategoryUseCase(domainCategory)
+        }
 }

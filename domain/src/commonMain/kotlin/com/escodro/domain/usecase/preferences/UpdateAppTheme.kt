@@ -8,12 +8,10 @@ import com.escodro.domain.model.AppThemeOptions
  * @property preferencesRepository the preferences repository
  */
 class UpdateAppTheme(private val preferencesRepository: PreferencesRepository) {
-
     /**
      * Updates the current app theme.
      *
      * @param theme the theme to be updated
      */
-    suspend operator fun invoke(theme: AppThemeOptions) =
-        preferencesRepository.updateAppTheme(theme)
+    suspend operator fun invoke(theme: AppThemeOptions) = preferencesRepository.updateAppTheme(theme)
 }

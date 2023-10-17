@@ -21,7 +21,6 @@ internal class TaskListUpdaterWorker(
     private val context: Context,
     workerParameters: WorkerParameters,
 ) : CoroutineWorker(context, workerParameters), KoinComponent {
-
     private val glanceUpdater: TaskListGlanceUpdater by inject()
 
     override suspend fun doWork(): Result {

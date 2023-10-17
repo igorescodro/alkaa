@@ -7,7 +7,6 @@ import kotlinx.coroutines.flow.Flow
  * Use case to get all uncompleted tasks from the database.
  */
 interface LoadUncompletedTasks {
-
     /**
      * Gets all uncompleted tasks.
      *

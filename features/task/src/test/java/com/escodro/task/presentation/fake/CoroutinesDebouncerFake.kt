@@ -6,8 +6,11 @@ import kotlinx.coroutines.test.runTest
 
 @Suppress("GlobalCoroutineUsage")
 internal class CoroutinesDebouncerFake : CoroutineDebouncer {
-
-    override fun invoke(delay: Long, coroutineScope: CoroutineScope, function: suspend () -> Unit) {
+    override fun invoke(
+        delay: Long,
+        coroutineScope: CoroutineScope,
+        function: suspend () -> Unit,
+    ) {
         runTest { function() }
     }
 }

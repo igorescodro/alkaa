@@ -9,9 +9,10 @@ import org.koin.dsl.module
 /**
  * Preferences dependency injection module.
  */
-val preferenceModule = module {
+val preferenceModule =
+    module {
 
-    viewModelOf(::PreferenceViewModel)
+        viewModelOf(::PreferenceViewModel)
 
-    factoryOf(::AppThemeOptionsMapper)
-}
+        factoryOf(::AppThemeOptionsMapper)
+    }

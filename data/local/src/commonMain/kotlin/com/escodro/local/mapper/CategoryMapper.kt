@@ -7,7 +7,6 @@ import com.escodro.repository.model.Category as RepoCategory
  * Maps Category between Repository and Local.
  */
 internal class CategoryMapper {
-
     /**
      * Maps Category from Repo to Local.
      *
@@ -29,8 +28,7 @@ internal class CategoryMapper {
      *
      * @return the converted list of Category
      */
-    fun fromRepo(repoCategoryList: List<RepoCategory>): List<LocalCategory> =
-        repoCategoryList.map { fromRepo(it) }
+    fun fromRepo(repoCategoryList: List<RepoCategory>): List<LocalCategory> = repoCategoryList.map { fromRepo(it) }
 
     /**
      * Maps Category from Local to Repo.
@@ -53,6 +51,5 @@ internal class CategoryMapper {
      *
      * @return the converted list of Category
      */
-    fun toRepo(localCategoryList: List<LocalCategory>): List<RepoCategory> =
-        localCategoryList.map { toRepo(it) }
+    fun toRepo(localCategoryList: List<LocalCategory>): List<RepoCategory> = localCategoryList.map { toRepo(it) }
 }

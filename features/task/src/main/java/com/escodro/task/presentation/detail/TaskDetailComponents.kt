@@ -37,9 +37,10 @@ internal fun TaskDetailSectionContent(
     content: @Composable BoxScope.() -> Unit,
 ) {
     Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(start = 12.dp),
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .padding(start = 12.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         LeadingIcon(

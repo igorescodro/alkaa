@@ -22,7 +22,6 @@ import org.junit.Test
 import java.util.Calendar
 
 internal class AlarmSelectionTest {
-
     @get:Rule
     val composeTestRule = createEmptyComposeRule()
 

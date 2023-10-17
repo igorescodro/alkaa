@@ -14,7 +14,6 @@ import kotlinx.parcelize.Parcelize
 internal class CategoryBottomSheetState(
     private val category: Category,
 ) : Parcelable {
-
     @IgnoredOnParcel
     var id by mutableStateOf(category.id)
 
@@ -24,8 +23,7 @@ internal class CategoryBottomSheetState(
     @IgnoredOnParcel
     var color by mutableStateOf(category.color)
 
-    fun isEditing(): Boolean =
-        id > 0L
+    fun isEditing(): Boolean = id > 0L
 
     fun toCategory(): Category =
         Category(

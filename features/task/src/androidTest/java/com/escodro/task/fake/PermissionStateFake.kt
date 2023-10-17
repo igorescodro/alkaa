@@ -8,7 +8,6 @@ import com.google.accompanist.permissions.PermissionStatus
 internal class PermissionStateFake(
     private val fakeStatus: PermissionStatus,
 ) : PermissionState {
-
     override val permission: String
         get() = "awesome permission for naughty stuff"
 

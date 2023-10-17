@@ -6,7 +6,6 @@ package com.escodro.datastore.model
  * @property id the theme id
  */
 enum class AppThemeOptions(val id: Int) {
-
     /**
      * Light app theme.
      */

@@ -6,7 +6,6 @@ import androidx.compose.material3.ColorScheme
  * Provides the theme colors for each platform.
  */
 interface ThemeProvider {
-
     /**
      * Returns if the dynamic color is supported by the platform.
      */

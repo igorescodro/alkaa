@@ -19,7 +19,6 @@ class RescheduleFutureAlarms(
     private val dateTimeProvider: DateTimeProvider,
     private val scheduleNextAlarm: ScheduleNextAlarm,
 ) {
-
     private val logger = KotlinLogging.logger {}
 
     /**
@@ -47,8 +46,9 @@ class RescheduleFutureAlarms(
     }
 
     private fun rescheduleFutureTask(task: Task) {
-        val futureTime = task.dueDate
-            ?.toInstant(TimeZone.currentSystemDefault())?.toEpochMilliseconds() ?: return
+        val futureTime =
+            task.dueDate
+                ?.toInstant(TimeZone.currentSystemDefault())?.toEpochMilliseconds() ?: return
         alarmInteractor.schedule(task.id, futureTime)
         logger.debug { "Task '${task.title} rescheduled to '${task.dueDate}" }
     }

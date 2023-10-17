@@ -44,18 +44,20 @@ private fun TrackerItem(item: Tracker.CategoryInfo) {
     val name = item.name ?: stringResource(id = R.string.tracker_name_no_category)
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
-            .padding(horizontal = 16.dp)
-            .fillMaxWidth()
-            .height(48.dp),
+        modifier =
+            Modifier
+                .padding(horizontal = 16.dp)
+                .fillMaxWidth()
+                .height(48.dp),
     ) {
         Icon(
             imageVector = Icons.Default.CheckCircle,
             contentDescription = stringResource(id = R.string.tracker_cp_item_icon),
             tint = tint,
-            modifier = Modifier
-                .size(32.dp)
-                .weight(1F),
+            modifier =
+                Modifier
+                    .size(32.dp)
+                    .weight(1F),
         )
         Text(text = name, modifier = Modifier.weight(4F))
         Text(
@@ -71,11 +73,12 @@ private fun TrackerItem(item: Tracker.CategoryInfo) {
 @Preview
 @Composable
 fun TrackerItemPreview() {
-    val item = Tracker.CategoryInfo(
-        name = "Useless stuff to buy",
-        color = android.graphics.Color.RED,
-        taskCount = 16,
-        percentage = 0.88f,
-    )
+    val item =
+        Tracker.CategoryInfo(
+            name = "Useless stuff to buy",
+            color = android.graphics.Color.RED,
+            taskCount = 16,
+            percentage = 0.88f,
+        )
     TrackerItem(item)
 }

@@ -7,7 +7,6 @@ import kotlinx.coroutines.flow.Flow
  * Interface to represent the implementation of Search repository.
  */
 interface SearchRepository {
-
     /**
      * Gets tasks based on the given name.
      *

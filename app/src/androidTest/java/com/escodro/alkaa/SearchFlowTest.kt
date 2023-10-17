@@ -27,7 +27,6 @@ import com.escodro.search.R as SearchR
 
 @OptIn(ExperimentalTestApi::class)
 internal class SearchFlowTest : KoinTest {
-
     private val taskDao: TaskDao by inject()
 
     @get:Rule
@@ -113,6 +112,7 @@ internal class SearchFlowTest : KoinTest {
         ).performClick()
     }
 
-    private fun string(@StringRes resId: Int): String =
-        context.getString(resId)
+    private fun string(
+        @StringRes resId: Int,
+    ): String = context.getString(resId)
 }

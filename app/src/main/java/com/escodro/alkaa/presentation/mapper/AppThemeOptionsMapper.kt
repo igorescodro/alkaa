@@ -7,7 +7,6 @@ import com.escodro.domain.model.AppThemeOptions as DomainThemeOptions
  * Maps AppThemeOptions between Repository and DataStore.
  */
 internal class AppThemeOptionsMapper {
-
     /**
      * Maps AppThemeOptions from DataStore to Domain.
      *

@@ -18,7 +18,6 @@ import com.escodro.core.R as CoreR
 import com.escodro.preference.R as PrefR
 
 internal class PreferenceFlowTest {
-
     @get:Rule
     val composeTestRule = createComposeRule()
 
@@ -67,6 +66,7 @@ internal class PreferenceFlowTest {
         ).performClick()
     }
 
-    private fun string(@StringRes resId: Int): String =
-        context.getString(resId)
+    private fun string(
+        @StringRes resId: Int,
+    ): String = context.getString(resId)
 }

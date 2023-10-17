@@ -10,8 +10,9 @@ import org.koin.dsl.module
 /**
  * Coroutines library dependency injection module.
  */
-val coroutinesModule = module {
+val coroutinesModule =
+    module {
 
-    single { AppCoroutineScope() }
-    factoryOf(::CoroutineDebouncerImpl) bind CoroutineDebouncer::class
-}
+        single { AppCoroutineScope() }
+        factoryOf(::CoroutineDebouncerImpl) bind CoroutineDebouncer::class
+    }

@@ -15,7 +15,6 @@ internal class PreferencesDataSourceImpl(
     private val dataStore: DataStore<Preferences>,
     private val mapper: AppThemeOptionsMapper,
 ) : PreferencesDataSource {
-
     override suspend fun updateAppTheme(theme: AppThemeOptions) {
         dataStore.edit { settings ->
             settings[APP_THEME_OPTION] = mapper.toDataStore(theme).id

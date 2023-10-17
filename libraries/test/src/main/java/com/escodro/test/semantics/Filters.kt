@@ -5,7 +5,6 @@ import androidx.compose.ui.semantics.getOrNull
 import androidx.compose.ui.test.SemanticsMatcher
 
 internal object Filters {
-
     /**
      * Returns whether the node's text lines matches exactly to the given lines count.
      *

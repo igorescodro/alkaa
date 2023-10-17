@@ -27,7 +27,6 @@ import org.koin.test.inject
 import com.escodro.category.R as CategoryR
 
 internal class CategoryFlowTest : KoinTest {
-
     private val categoryDao: CategoryDao by inject()
 
     @get:Rule
@@ -131,10 +130,12 @@ internal class CategoryFlowTest : KoinTest {
         ).performClick()
     }
 
-    private fun string(@StringRes resId: Int): String =
-        context.getString(resId)
+    private fun string(
+        @StringRes resId: Int,
+    ): String = context.getString(resId)
 
-    private fun ComposeTestRule.onCategoryColorItem(color: Color) = onNode(
-        SemanticsMatcher.expectValue(ColorKey, color),
-    )
+    private fun ComposeTestRule.onCategoryColorItem(color: Color) =
+        onNode(
+            SemanticsMatcher.expectValue(ColorKey, color),
+        )
 }

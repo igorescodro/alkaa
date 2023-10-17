@@ -19,7 +19,8 @@ private val loadFeatureModules by lazy {
 /**
  * Tracker dependency injection module.
  */
-val trackerModule = module {
-    viewModel { TrackerViewModel(get(), get()) }
-    factory { TrackerMapper() }
-}
+val trackerModule =
+    module {
+        viewModel { TrackerViewModel(get(), get()) }
+        factory { TrackerMapper() }
+    }

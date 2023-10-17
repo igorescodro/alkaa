@@ -13,18 +13,19 @@ internal class TrackerViewModel(
     private val loadCompletedTasksByPeriod: LoadCompletedTasksByPeriod,
     private val trackerMapper: TrackerMapper,
 ) : ViewModel() {
-
-    fun loadTracker(): Flow<TrackerViewState> = flow {
-        loadCompletedTasksByPeriod()
-            .map { task -> trackerMapper.toTracker(task) }
-            .catch { error -> emit(TrackerViewState.Error(error)) }
-            .collect { trackerInfo ->
-                val state = if (trackerInfo.categoryInfoList.isNotEmpty()) {
-                    TrackerViewState.Loaded(trackerInfo)
-                } else {
-                    TrackerViewState.Empty
+    fun loadTracker(): Flow<TrackerViewState> =
+        flow {
+            loadCompletedTasksByPeriod()
+                .map { task -> trackerMapper.toTracker(task) }
+                .catch { error -> emit(TrackerViewState.Error(error)) }
+                .collect { trackerInfo ->
+                    val state =
+                        if (trackerInfo.categoryInfoList.isNotEmpty()) {
+                            TrackerViewState.Loaded(trackerInfo)
+                        } else {
+                            TrackerViewState.Empty
+                        }
+                    emit(state)
                 }
-                emit(state)
-            }
-    }
+        }
 }

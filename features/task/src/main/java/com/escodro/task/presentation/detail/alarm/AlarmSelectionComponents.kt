@@ -65,9 +65,10 @@ internal fun AlarmIntervalSelection(
         )
 
         TaskDetailSectionContent(
-            modifier = Modifier
-                .height(56.dp)
-                .clickable { setDialogValue(true) },
+            modifier =
+                Modifier
+                    .height(56.dp)
+                    .clickable { setDialogValue(true) },
             imageVector = Icons.Outlined.Repeat,
             contentDescription = R.string.task_detail_cd_icon_repeat_alarm,
         ) {
@@ -81,7 +82,10 @@ internal fun AlarmIntervalSelection(
 }
 
 @Composable
-private fun AlarmSet(date: Calendar?, onRemoveClick: () -> Unit) {
+private fun AlarmSet(
+    date: Calendar?,
+    onRemoveClick: () -> Unit,
+) {
     Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
         Text(
             text = date?.format() ?: "",
@@ -90,9 +94,10 @@ private fun AlarmSet(date: Calendar?, onRemoveClick: () -> Unit) {
         IconButton(onClick = onRemoveClick) {
             Icon(
                 imageVector = Icons.Outlined.Close,
-                contentDescription = stringResource(
-                    id = R.string.task_detail_cd_icon_remove_alarm,
-                ),
+                contentDescription =
+                    stringResource(
+                        id = R.string.task_detail_cd_icon_remove_alarm,
+                    ),
             )
         }
     }
@@ -150,14 +155,15 @@ private fun AlarmListItem(
 ) {
     Text(
         text = title,
-        modifier = Modifier
-            .padding(horizontal = 16.dp, vertical = 8.dp)
-            .clickable {
-                val interval =
-                    AlarmInterval.values().find { it.index == index } ?: AlarmInterval.NEVER
-                onIntervalSelect(interval)
-                setDialogValue(false)
-            },
+        modifier =
+            Modifier
+                .padding(horizontal = 16.dp, vertical = 8.dp)
+                .clickable {
+                    val interval =
+                        AlarmInterval.values().find { it.index == index } ?: AlarmInterval.NEVER
+                    onIntervalSelect(interval)
+                    setDialogValue(false)
+                },
     )
 }
 

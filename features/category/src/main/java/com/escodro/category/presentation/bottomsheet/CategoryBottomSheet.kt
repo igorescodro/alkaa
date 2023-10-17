@@ -59,7 +59,10 @@ import org.koin.androidx.compose.getViewModel
  * Alkaa Category Bottom Sheet.
  */
 @Composable
-fun CategoryBottomSheet(categoryId: Long, onHideBottomSheet: () -> Unit) {
+fun CategoryBottomSheet(
+    categoryId: Long,
+    onHideBottomSheet: () -> Unit,
+) {
     val colorList = CategoryColors.values().map { it.value }.toImmutableList()
     if (categoryId == 0L) {
         CategoryNewSheetLoader(
@@ -106,10 +109,11 @@ private fun CategoryEditSheetLoader(
         editViewModel.loadCategory(categoryId = categoryId)
     }.collectAsState(initial = CategorySheetState.Empty)
 
-    val category = when (categoryState) {
-        CategorySheetState.Empty -> emptyCategory()
-        is CategorySheetState.Loaded -> (categoryState as CategorySheetState.Loaded).category
-    }
+    val category =
+        when (categoryState) {
+            CategorySheetState.Empty -> emptyCategory()
+            is CategorySheetState.Loaded -> (categoryState as CategorySheetState.Loaded).category
+        }
 
     val sheetState by rememberSaveable(categoryState) {
         mutableStateOf(CategoryBottomSheetState(category))
@@ -138,11 +142,12 @@ private fun CategorySheetContent(
     onCategoryRemove: (Category) -> Unit = {},
 ) {
     Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(256.dp)
-            .background(MaterialTheme.colorScheme.surface) // Accompanist does not support M3 yet
-            .padding(16.dp),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .height(256.dp)
+                .background(MaterialTheme.colorScheme.surface) // Accompanist does not support M3 yet
+                .padding(16.dp),
         verticalArrangement = Arrangement.SpaceAround,
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
@@ -165,16 +170,18 @@ private fun CategorySheetContent(
                 label = stringResource(id = R.string.category_add_label),
                 text = state.name,
                 onTextChange = { state.name = it },
-                modifier = Modifier
-                    .weight(5F)
-                    .focusRequester(focusRequester),
+                modifier =
+                    Modifier
+                        .weight(5F)
+                        .focusRequester(focusRequester),
             )
             if (state.isEditing()) {
                 IconButton(
                     onClick = { openDialog = true },
-                    modifier = Modifier
-                        .height(64.dp)
-                        .weight(1F),
+                    modifier =
+                        Modifier
+                            .height(64.dp)
+                            .weight(1F),
                 ) {
                     Icon(
                         imageVector = Icons.Outlined.Delete,
@@ -204,9 +211,10 @@ private fun CategoryColorSelector(
     onColorChange: (Color) -> Unit,
 ) {
     LazyRow(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 16.dp),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(top = 16.dp),
     ) {
         items(
             items = colorList,
@@ -225,16 +233,17 @@ private fun RemoveCategoryDialog(
     onCloseDialog: () -> Unit,
     onActionConfirm: () -> Unit,
 ) {
-    val arguments = DialogArguments(
-        title = stringResource(id = R.string.category_dialog_remove_title),
-        text = stringResource(id = R.string.category_dialog_remove_text, categoryName),
-        confirmText = stringResource(id = R.string.category_dialog_remove_confirm),
-        dismissText = stringResource(id = R.string.category_dialog_remove_cancel),
-        onConfirmAction = {
-            onActionConfirm()
-            onCloseDialog()
-        },
-    )
+    val arguments =
+        DialogArguments(
+            title = stringResource(id = R.string.category_dialog_remove_title),
+            text = stringResource(id = R.string.category_dialog_remove_text, categoryName),
+            confirmText = stringResource(id = R.string.category_dialog_remove_confirm),
+            dismissText = stringResource(id = R.string.category_dialog_remove_cancel),
+            onConfirmAction = {
+                onActionConfirm()
+                onCloseDialog()
+            },
+        )
     AlkaaDialog(
         arguments = arguments,
         isDialogOpen = isDialogOpen,
@@ -243,14 +252,18 @@ private fun RemoveCategoryDialog(
 }
 
 @Composable
-private fun CategorySaveButton(currentColor: Color, onClick: () -> Unit) {
+private fun CategorySaveButton(
+    currentColor: Color,
+    onClick: () -> Unit,
+) {
     val colorState = animateColorAsState(targetValue = currentColor)
     Button(
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(containerColor = colorState.value),
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(48.dp),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .height(48.dp),
     ) {
         Text(
             text = stringResource(id = R.string.category_sheet_save),
@@ -270,32 +283,35 @@ private fun CategoryColorItem(
         modifier = Modifier.padding(horizontal = 8.dp),
     ) {
         Box(
-            modifier = Modifier
-                .size(32.dp)
-                .clip(CircleShape)
-                .background(color = color)
-                .semantics { this.color = color }
-                .selectable(
-                    role = Role.RadioButton,
-                    selected = isSelected,
-                    onClick = onClick,
-                ),
+            modifier =
+                Modifier
+                    .size(32.dp)
+                    .clip(CircleShape)
+                    .background(color = color)
+                    .semantics { this.color = color }
+                    .selectable(
+                        role = Role.RadioButton,
+                        selected = isSelected,
+                        onClick = onClick,
+                    ),
         )
         if (isSelected) {
             Box(
-                modifier = Modifier
-                    .size(16.dp)
-                    .clip(CircleShape)
-                    .background(MaterialTheme.colorScheme.background),
+                modifier =
+                    Modifier
+                        .size(16.dp)
+                        .clip(CircleShape)
+                        .background(MaterialTheme.colorScheme.background),
             )
         }
     }
 }
 
-private fun emptyCategory() = Category(
-    name = "",
-    color = CategoryColors.values()[0].value.toArgb(),
-)
+private fun emptyCategory() =
+    Category(
+        name = "",
+        color = CategoryColors.values()[0].value.toArgb(),
+    )
 
 @Suppress("UndocumentedPublicFunction")
 @Preview

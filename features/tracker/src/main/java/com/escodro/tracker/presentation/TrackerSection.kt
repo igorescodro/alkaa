@@ -44,7 +44,10 @@ internal fun TrackerSection(onUpPress: () -> Unit) {
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-internal fun TrackerLoader(viewModel: TrackerViewModel = getViewModel(), onUpPress: () -> Unit) {
+internal fun TrackerLoader(
+    viewModel: TrackerViewModel = getViewModel(),
+    onUpPress: () -> Unit,
+) {
     val data by remember {
         viewModel.loadTracker()
     }.collectAsState(initial = TrackerViewState.Loading)
@@ -68,23 +71,26 @@ private fun TrackerLoadedContent(trackerInfo: Tracker.Info) {
     Column {
         TaskGraph(
             list = categoryList,
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(3F)
-                .padding(24.dp),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .weight(3F)
+                    .padding(24.dp),
         )
         TaskTrackerList(
             list = categoryList,
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(2F),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .weight(2F),
         )
         TaskTrackerInfoCard(
             list = categoryList,
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1F)
-                .padding(24.dp),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .weight(1F)
+                    .padding(24.dp),
         )
     }
 }
@@ -116,17 +122,19 @@ private fun TaskTrackerInfoCard(
     modifier: Modifier = Modifier,
 ) {
     val taskCount = list.sumOf { item -> item.taskCount }
-    val message = LocalContext.current.resources
-        .getQuantityString(R.plurals.tracker_message_title, taskCount, taskCount)
+    val message =
+        LocalContext.current.resources
+            .getQuantityString(R.plurals.tracker_message_title, taskCount, taskCount)
 
     ElevatedCard(modifier = modifier.fillMaxWidth()) {
         Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxSize()) {
             Icon(
                 imageVector = Icons.Default.DynamicFeed,
                 contentDescription = stringResource(id = R.string.tracker_cp_info_icon),
-                modifier = Modifier
-                    .weight(1F)
-                    .size(36.dp),
+                modifier =
+                    Modifier
+                        .weight(1F)
+                        .size(36.dp),
             )
             Column(modifier = Modifier.weight(3F)) {
                 Text(

@@ -75,6 +75,8 @@ fun AlertDialog.Builder.negativeButton(
  *
  * @param viewRes the layout resource
  */
-fun AlertDialog.Builder.view(@LayoutRes viewRes: Int) {
+fun AlertDialog.Builder.view(
+    @LayoutRes viewRes: Int,
+) {
     setView(viewRes)
 }

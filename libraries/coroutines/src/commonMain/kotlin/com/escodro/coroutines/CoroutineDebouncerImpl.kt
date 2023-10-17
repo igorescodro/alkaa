@@ -6,7 +6,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 internal class CoroutineDebouncerImpl : CoroutineDebouncer {
-
     private var debounceJob: Job? = null
 
     override operator fun invoke(
@@ -15,9 +14,10 @@ internal class CoroutineDebouncerImpl : CoroutineDebouncer {
         function: suspend () -> Unit,
     ) {
         debounceJob?.cancel()
-        debounceJob = coroutineScope.launch {
-            delay(delay)
-            function()
-        }
+        debounceJob =
+            coroutineScope.launch {
+                delay(delay)
+                function()
+            }
     }
 }

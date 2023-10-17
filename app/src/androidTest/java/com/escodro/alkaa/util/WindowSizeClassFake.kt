@@ -7,6 +7,5 @@ import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 internal object WindowSizeClassFake {
-
     val Phone = WindowSizeClass.calculateFromSize(DpSize(400.dp, 900.dp))
 }

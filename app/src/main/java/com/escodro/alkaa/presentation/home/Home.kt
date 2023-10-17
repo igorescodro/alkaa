@@ -61,15 +61,16 @@ fun Home(
     val (currentSection, setCurrentSection) = rememberSaveable { mutableStateOf(HomeSection.Tasks) }
     val navItems = HomeSection.values().toList().toImmutableList()
 
-    val actions = HomeActions(
-        onTaskClick = onTaskClick,
-        onAboutClick = onAboutClick,
-        onTrackerClick = onTrackerClick,
-        onOpenSourceClick = onOpenSourceClick,
-        onTaskSheetOpen = onTaskSheetOpen,
-        onCategorySheetOpen = onCategorySheetOpen,
-        setCurrentSection = setCurrentSection,
-    )
+    val actions =
+        HomeActions(
+            onTaskClick = onTaskClick,
+            onAboutClick = onAboutClick,
+            onTrackerClick = onTrackerClick,
+            onOpenSourceClick = onOpenSourceClick,
+            onTaskSheetOpen = onTaskSheetOpen,
+            onCategorySheetOpen = onCategorySheetOpen,
+            setCurrentSection = setCurrentSection,
+        )
 
     Crossfade(currentSection) { homeSection ->
         AlkaaHomeScaffold(
@@ -149,13 +150,14 @@ private fun AlkaaNavRail(
                 alwaysShowLabel = true,
                 icon = { Icon(imageVector = section.icon, contentDescription = null) },
                 label = { Text(stringResource(id = section.title)) },
-                colors = NavigationRailItemDefaults.colors(
-                    selectedIconColor = MaterialTheme.colorScheme.onPrimaryContainer,
-                    unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                    selectedTextColor = MaterialTheme.colorScheme.onPrimaryContainer,
-                    unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                    indicatorColor = MaterialTheme.colorScheme.primaryContainer,
-                ),
+                colors =
+                    NavigationRailItemDefaults.colors(
+                        selectedIconColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                        unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                        selectedTextColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                        unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                        indicatorColor = MaterialTheme.colorScheme.primaryContainer,
+                    ),
             )
         }
     }

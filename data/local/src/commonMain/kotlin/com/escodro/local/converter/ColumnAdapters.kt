@@ -11,21 +11,20 @@ import kotlinx.datetime.toLocalDateTime
 /**
  * Converts between [LocalDateTime] and [Long] to be stored in the database.
  */
-val dateTimeAdapter = object : ColumnAdapter<LocalDateTime, Long> {
-    override fun decode(databaseValue: Long): LocalDateTime =
-        Instant.fromEpochSeconds(databaseValue).toLocalDateTime(TimeZone.currentSystemDefault())
+val dateTimeAdapter =
+    object : ColumnAdapter<LocalDateTime, Long> {
+        override fun decode(databaseValue: Long): LocalDateTime =
+            Instant.fromEpochSeconds(databaseValue).toLocalDateTime(TimeZone.currentSystemDefault())
 
-    override fun encode(value: LocalDateTime): Long =
-        value.toInstant(TimeZone.currentSystemDefault()).toEpochMilliseconds()
-}
+        override fun encode(value: LocalDateTime): Long = value.toInstant(TimeZone.currentSystemDefault()).toEpochMilliseconds()
+    }
 
 /**
  * Converts between [AlarmInterval] and [Long] to be stored in the database.
  */
-val alarmIntervalAdapter = object : ColumnAdapter<AlarmInterval, Long> {
-    override fun decode(databaseValue: Long): AlarmInterval =
-        AlarmInterval.values().find { it.id == databaseValue.toInt() }!!
+val alarmIntervalAdapter =
+    object : ColumnAdapter<AlarmInterval, Long> {
+        override fun decode(databaseValue: Long): AlarmInterval = AlarmInterval.values().find { it.id == databaseValue.toInt() }!!
 
-    override fun encode(value: AlarmInterval): Long =
-        value.id.toLong()
-}
+        override fun encode(value: AlarmInterval): Long = value.id.toLong()
+    }

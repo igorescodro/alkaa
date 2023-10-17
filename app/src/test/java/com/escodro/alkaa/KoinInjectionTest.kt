@@ -9,7 +9,6 @@ import org.koin.test.KoinTest
 import org.koin.test.check.checkModules
 
 internal class KoinInjectionTest : KoinTest {
-
     private val context = mockk<Context>(relaxed = true)
 
     @Test

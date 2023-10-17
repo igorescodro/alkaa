@@ -10,7 +10,6 @@ internal class TaskWithCategoryMapper(
     private val taskMapper: TaskMapper,
     private val categoryMapper: CategoryMapper,
 ) {
-
     /**
      * Maps Task With Category from Local to Repo.
      *
@@ -18,8 +17,7 @@ internal class TaskWithCategoryMapper(
      *
      * @return the converted list of Task With Category
      */
-    fun toRepo(localTaskList: List<LocalTaskWithCategory>): List<RepoTaskWithCategory> =
-        localTaskList.map { toRepo(it) }
+    fun toRepo(localTaskList: List<LocalTaskWithCategory>): List<RepoTaskWithCategory> = localTaskList.map { toRepo(it) }
 
     private fun toRepo(localTask: LocalTaskWithCategory): RepoTaskWithCategory =
         RepoTaskWithCategory(

@@ -11,5 +11,4 @@ import androidx.compose.ui.test.assert
  *
  * @param lines number of lines
  */
-fun SemanticsNodeInteraction.assertLines(lines: Int): SemanticsNodeInteraction =
-    assert(Filters.hasLines(lines))
+fun SemanticsNodeInteraction.assertLines(lines: Int): SemanticsNodeInteraction = assert(Filters.hasLines(lines))

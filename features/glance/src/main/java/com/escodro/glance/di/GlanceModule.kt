@@ -12,14 +12,15 @@ import org.koin.dsl.module
 /**
  * Glance dependency injection module.
  */
-val glanceModule = module {
+val glanceModule =
+    module {
 
-    // Presentation
-    singleOf(::TaskListGlanceUpdater)
+        // Presentation
+        singleOf(::TaskListGlanceUpdater)
 
-    // Interactor
-    factoryOf(::GlanceInteractorImpl) bind GlanceInteractor::class
+        // Interactor
+        factoryOf(::GlanceInteractorImpl) bind GlanceInteractor::class
 
-    // Mapper
-    factoryOf(::TaskMapper)
-}
+        // Mapper
+        factoryOf(::TaskMapper)
+    }

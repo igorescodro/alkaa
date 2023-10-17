@@ -5,8 +5,7 @@ import app.cash.sqldelight.driver.native.NativeSqliteDriver
 import com.escodro.local.AlkaaDatabase
 
 internal class IosDriverFactory : DriverFactory {
-    override fun createDriver(databaseName: String): SqlDriver =
-        NativeSqliteDriver(AlkaaDatabase.Schema, databaseName)
+    override fun createDriver(databaseName: String): SqlDriver = NativeSqliteDriver(AlkaaDatabase.Schema, databaseName)
 
     override fun prepopulateDatabase(
         database: AlkaaDatabase,

@@ -44,11 +44,12 @@ internal fun CategorySelection(
     ) {
         when (state) {
             CategoryState.Loading -> AlkaaLoadingContent()
-            is CategoryState.Loaded -> LoadedCategoryList(
-                categoryList = state.categoryList,
-                currentCategory = currentCategory,
-                onCategoryChange = onCategoryChange,
-            )
+            is CategoryState.Loaded ->
+                LoadedCategoryList(
+                    categoryList = state.categoryList,
+                    currentCategory = currentCategory,
+                    onCategoryChange = onCategoryChange,
+                )
             CategoryState.Empty -> EmptyCategoryList()
         }
     }
@@ -98,10 +99,11 @@ private fun CategoryItemChip(
         selected = isSelected,
         label = { Text(text = category.name) },
         modifier = Modifier.padding(end = 8.dp),
-        colors = FilterChipDefaults.filterChipColors(
-            selectedContainerColor = Color(category.color),
-            selectedLabelColor = MaterialTheme.colorScheme.background,
-        ),
+        colors =
+            FilterChipDefaults.filterChipColors(
+                selectedContainerColor = Color(category.color),
+                selectedLabelColor = MaterialTheme.colorScheme.background,
+            ),
         onClick = {
             val id = if (isSelected) null else category.id
             onSelectChange(id)

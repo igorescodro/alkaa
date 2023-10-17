@@ -16,11 +16,11 @@ import kotlin.coroutines.EmptyCoroutineContext
  * @property context the coroutine context, by default it's [SupervisorJob] and [Dispatchers.Main].
  */
 class AppCoroutineScope(val context: CoroutineContext = SupervisorJob() + Dispatchers.Main) {
-
-    private val coroutineScope = object : CoroutineScope {
-        override val coroutineContext: CoroutineContext
-            get() = context
-    }
+    private val coroutineScope =
+        object : CoroutineScope {
+            override val coroutineContext: CoroutineContext
+                get() = context
+        }
 
     /**
      * Launches a new coroutine without blocking the current thread and returns a reference to the

@@ -24,11 +24,15 @@ import kotlinx.collections.immutable.ImmutableList
 
 @Composable
 @Suppress("MagicNumber")
-internal fun TaskGraph(list: ImmutableList<Tracker.CategoryInfo>, modifier: Modifier = Modifier) {
-    val currentState = remember {
-        MutableTransitionState(AnimatedCircleProgress.START)
-            .apply { targetState = AnimatedCircleProgress.END }
-    }
+internal fun TaskGraph(
+    list: ImmutableList<Tracker.CategoryInfo>,
+    modifier: Modifier = Modifier,
+) {
+    val currentState =
+        remember {
+            MutableTransitionState(AnimatedCircleProgress.START)
+                .apply { targetState = AnimatedCircleProgress.END }
+        }
 
     val defaultColor = MaterialTheme.colorScheme.outline
     val stroke = with(LocalDensity.current) { Stroke(32.dp.toPx()) }

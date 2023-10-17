@@ -16,7 +16,6 @@ import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
 internal class UpdateTaskTest {
-
     private val taskRepository = TaskRepositoryFake()
 
     private val glanceInteractor = GlanceInteractorFake()
@@ -42,58 +41,63 @@ internal class UpdateTaskTest {
     }
 
     @Test
-    fun test_if_task_is_updated() = runTest {
-        val task = Task(id = 15, title = "its funny", description = "indeed")
-        addTaskUseCase(task)
+    fun test_if_task_is_updated() =
+        runTest {
+            val task = Task(id = 15, title = "its funny", description = "indeed")
+            addTaskUseCase(task)
 
-        val updatedTask = task.copy(title = "it's funny", description = "my mistake!")
-        updateTaskUseCase(updatedTask)
+            val updatedTask = task.copy(title = "it's funny", description = "my mistake!")
+            updateTaskUseCase(updatedTask)
 
-        val loadedTask = loadTaskUseCase(task.id)
-        assertEquals(updatedTask, loadedTask)
-    }
-
-    @Test
-    fun test_if_task_title_is_updated() = runTest {
-        val task = Task(id = 15, title = "its funny", description = "indeed")
-        addTaskUseCase(task)
-
-        val newTitle = "it's updated"
-        updateTitleUseCase(task.id, newTitle)
-
-        val loadedTask = loadTaskUseCase(task.id)
-        assertEquals(newTitle, loadedTask!!.title)
-    }
+            val loadedTask = loadTaskUseCase(task.id)
+            assertEquals(updatedTask, loadedTask)
+        }
 
     @Test
-    fun test_if_task_description_is_updated() = runTest {
-        val task = Task(id = 15, title = "its funny", description = "indeed")
-        addTaskUseCase(task)
+    fun test_if_task_title_is_updated() =
+        runTest {
+            val task = Task(id = 15, title = "its funny", description = "indeed")
+            addTaskUseCase(task)
 
-        val newDescription = "that's the way"
-        updateDescriptionUseCase(task.id, newDescription)
+            val newTitle = "it's updated"
+            updateTitleUseCase(task.id, newTitle)
 
-        val loadedTask = loadTaskUseCase(task.id)
-        assertEquals(newDescription, loadedTask!!.description)
-    }
-
-    @Test
-    fun test_if_task_category_is_updated() = runTest {
-        val task = Task(id = 15, title = "its funny", categoryId = null)
-        addTaskUseCase(task)
-
-        val newCategory = 10L
-        updateTaskCategoryUseCase(task.id, newCategory)
-
-        val loadedTask = loadTaskUseCase(task.id)
-        assertEquals(newCategory, loadedTask!!.categoryId)
-    }
+            val loadedTask = loadTaskUseCase(task.id)
+            assertEquals(newTitle, loadedTask!!.title)
+        }
 
     @Test
-    fun test_if_the_glance_was_notified() = runTest {
-        val task = Task(id = 15, title = "this title", description = "this desc")
-        addTaskUseCase(task)
+    fun test_if_task_description_is_updated() =
+        runTest {
+            val task = Task(id = 15, title = "its funny", description = "indeed")
+            addTaskUseCase(task)
 
-        assertTrue(glanceInteractor.wasNotified)
-    }
+            val newDescription = "that's the way"
+            updateDescriptionUseCase(task.id, newDescription)
+
+            val loadedTask = loadTaskUseCase(task.id)
+            assertEquals(newDescription, loadedTask!!.description)
+        }
+
+    @Test
+    fun test_if_task_category_is_updated() =
+        runTest {
+            val task = Task(id = 15, title = "its funny", categoryId = null)
+            addTaskUseCase(task)
+
+            val newCategory = 10L
+            updateTaskCategoryUseCase(task.id, newCategory)
+
+            val loadedTask = loadTaskUseCase(task.id)
+            assertEquals(newCategory, loadedTask!!.categoryId)
+        }
+
+    @Test
+    fun test_if_the_glance_was_notified() =
+        runTest {
+            val task = Task(id = 15, title = "this title", description = "this desc")
+            addTaskUseCase(task)
+
+            assertTrue(glanceInteractor.wasNotified)
+        }
 }

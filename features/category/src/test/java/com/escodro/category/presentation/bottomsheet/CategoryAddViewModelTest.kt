@@ -15,7 +15,6 @@ import org.junit.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
 internal class CategoryAddViewModelTest {
-
     @get:Rule
     val coroutinesRule = CoroutineTestRule()
 
@@ -23,11 +22,12 @@ internal class CategoryAddViewModelTest {
 
     private val categoryMapper = CategoryMapper()
 
-    private val viewModel = CategoryAddViewModel(
-        addCategoryUseCase = addCategory,
-        applicationScope = AppCoroutineScope(context = coroutinesRule.testDispatcher),
-        categoryMapper,
-    )
+    private val viewModel =
+        CategoryAddViewModel(
+            addCategoryUseCase = addCategory,
+            applicationScope = AppCoroutineScope(context = coroutinesRule.testDispatcher),
+            categoryMapper,
+        )
 
     @Before
     fun setup() {

@@ -49,11 +49,12 @@ internal fun AddTaskLoader(
     onHideBottomSheet: () -> Unit,
 ) {
     Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(256.dp)
-            .background(MaterialTheme.colorScheme.surface) // Accompanist does not support M3 yet
-            .padding(16.dp),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .height(256.dp)
+                .background(MaterialTheme.colorScheme.surface) // Accompanist does not support M3 yet
+                .padding(16.dp),
         verticalArrangement = Arrangement.SpaceAround,
     ) {
         var taskInputText by rememberSaveable { mutableStateOf("") }
@@ -72,9 +73,10 @@ internal fun AddTaskLoader(
             label = stringResource(id = R.string.task_add_label),
             text = taskInputText,
             onTextChange = { text -> taskInputText = text },
-            modifier = Modifier
-                .fillMaxWidth()
-                .focusRequester(focusRequester),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .focusRequester(focusRequester),
         )
 
         CategorySelection(
@@ -84,9 +86,10 @@ internal fun AddTaskLoader(
         )
 
         Button(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(48.dp),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .height(48.dp),
             onClick = {
                 addTaskViewModel.addTask(taskInputText, currentCategory)
                 taskInputText = ""
@@ -106,10 +109,11 @@ private const val FocusDelay = 300L
 fun TaskListScaffoldError() {
     AlkaaTheme {
         Surface(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(256.dp)
-                .background(MaterialTheme.colorScheme.background),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .height(256.dp)
+                    .background(MaterialTheme.colorScheme.background),
         ) {
             AddTaskBottomSheet(onHideBottomSheet = {})
         }

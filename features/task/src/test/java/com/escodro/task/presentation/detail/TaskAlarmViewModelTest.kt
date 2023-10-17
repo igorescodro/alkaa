@@ -19,7 +19,6 @@ import java.util.Calendar
 
 @OptIn(ExperimentalCoroutinesApi::class)
 internal class TaskAlarmViewModelTest {
-
     @get:Rule
     val coroutineTestRule = CoroutineTestRule()
 
@@ -31,52 +30,56 @@ internal class TaskAlarmViewModelTest {
 
     private val alarmIntervalMapper = AlarmIntervalMapper()
 
-    private val viewModel = TaskAlarmViewModel(
-        scheduleAlarmUseCase = scheduleAlarm,
-        updateTaskAsRepeatingUseCase = updateTaskAsRepeating,
-        cancelAlarmUseCase = cancelAlarm,
-        applicationScope = AppCoroutineScope(context = coroutineTestRule.testDispatcher),
-        alarmIntervalMapper = alarmIntervalMapper,
-    )
+    private val viewModel =
+        TaskAlarmViewModel(
+            scheduleAlarmUseCase = scheduleAlarm,
+            updateTaskAsRepeatingUseCase = updateTaskAsRepeating,
+            cancelAlarmUseCase = cancelAlarm,
+            applicationScope = AppCoroutineScope(context = coroutineTestRule.testDispatcher),
+            alarmIntervalMapper = alarmIntervalMapper,
+        )
 
     @Test
-    fun `test if alarm is set`() = runTest {
-        // Given the alarm to be set
-        val taskId = 123L
-        val alarm = Calendar.getInstance()
+    fun `test if alarm is set`() =
+        runTest {
+            // Given the alarm to be set
+            val taskId = 123L
+            val alarm = Calendar.getInstance()
 
-        // When the function to set the alarm is called
-        viewModel.updateAlarm(TaskId(taskId), alarm)
+            // When the function to set the alarm is called
+            viewModel.updateAlarm(TaskId(taskId), alarm)
 
-        // Then the alarm is set
-        Assert.assertTrue(scheduleAlarm.isAlarmScheduled(taskId))
-        Assert.assertEquals(alarm.toLocalDateTime(), scheduleAlarm.getScheduledAlarm(taskId))
-    }
-
-    @Test
-    fun `test if alarm is set as repeating`() = runTest {
-        // Given the alarm to be set with interval
-        val taskId = 123L
-        val alarmInterval = AlarmInterval.WEEKLY
-
-        // When the function to set the alarm interval is called
-        viewModel.setRepeating(TaskId(taskId), alarmInterval)
-
-        // Then the alarm interval is set
-        Assert.assertTrue(updateTaskAsRepeating.isAlarmUpdated(taskId))
-        val assertInterval = alarmIntervalMapper.toDomain(alarmInterval)
-        Assert.assertEquals(assertInterval, updateTaskAsRepeating.getUpdatedAlarm(taskId))
-    }
+            // Then the alarm is set
+            Assert.assertTrue(scheduleAlarm.isAlarmScheduled(taskId))
+            Assert.assertEquals(alarm.toLocalDateTime(), scheduleAlarm.getScheduledAlarm(taskId))
+        }
 
     @Test
-    fun `test if alarm is removed`() = runTest {
-        // Given the alarm to be removed
-        val taskId = 123L
+    fun `test if alarm is set as repeating`() =
+        runTest {
+            // Given the alarm to be set with interval
+            val taskId = 123L
+            val alarmInterval = AlarmInterval.WEEKLY
 
-        // When the function to cancel the alarm is called
-        viewModel.updateAlarm(TaskId(taskId), null)
+            // When the function to set the alarm interval is called
+            viewModel.setRepeating(TaskId(taskId), alarmInterval)
 
-        // Then the alarm is removed
-        Assert.assertTrue(cancelAlarm.isAlarmCancelled(taskId))
-    }
+            // Then the alarm interval is set
+            Assert.assertTrue(updateTaskAsRepeating.isAlarmUpdated(taskId))
+            val assertInterval = alarmIntervalMapper.toDomain(alarmInterval)
+            Assert.assertEquals(assertInterval, updateTaskAsRepeating.getUpdatedAlarm(taskId))
+        }
+
+    @Test
+    fun `test if alarm is removed`() =
+        runTest {
+            // Given the alarm to be removed
+            val taskId = 123L
+
+            // When the function to cancel the alarm is called
+            viewModel.updateAlarm(TaskId(taskId), null)
+
+            // Then the alarm is removed
+            Assert.assertTrue(cancelAlarm.isAlarmCancelled(taskId))
+        }
 }

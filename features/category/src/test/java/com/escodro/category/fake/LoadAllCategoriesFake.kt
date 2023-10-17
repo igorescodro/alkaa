@@ -6,9 +6,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
 internal class LoadAllCategoriesFake : LoadAllCategories {
-
     var categoriesToBeReturned: List<Category> = listOf()
 
-    override fun invoke(): Flow<List<Category>> =
-        flowOf(categoriesToBeReturned)
+    override fun invoke(): Flow<List<Category>> = flowOf(categoriesToBeReturned)
 }

@@ -23,16 +23,17 @@ fun AlkaaGlanceTheme(
     dynamicColors: Boolean = true,
     content: @Composable () -> Unit,
 ) {
-    val colorProvider = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && dynamicColors) {
-        ColorProviders(
-            light = dynamicLightColorScheme(context),
-            dark = dynamicDarkColorScheme(context),
-        )
-    } else {
-        ColorProviders(
-            light = AlkaaLightColorScheme,
-            dark = AlkaaDarkColorScheme,
-        )
-    }
+    val colorProvider =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && dynamicColors) {
+            ColorProviders(
+                light = dynamicLightColorScheme(context),
+                dark = dynamicDarkColorScheme(context),
+            )
+        } else {
+            ColorProviders(
+                light = AlkaaLightColorScheme,
+                dark = AlkaaDarkColorScheme,
+            )
+        }
     GlanceTheme(colors = colorProvider, content = content)
 }

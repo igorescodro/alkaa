@@ -15,7 +15,6 @@ class CompleteTask(
     private val notificationInteractor: NotificationInteractor,
     private val dateTimeProvider: DateTimeProvider,
 ) {
-
     /**
      * Completes the given task.
      *
@@ -42,6 +41,5 @@ class CompleteTask(
         notificationInteractor.dismiss(task.id)
     }
 
-    private fun updateTaskAsCompleted(task: Task) =
-        task.copy(completed = true, completedDate = dateTimeProvider.getCurrentLocalDateTime())
+    private fun updateTaskAsCompleted(task: Task) = task.copy(completed = true, completedDate = dateTimeProvider.getCurrentLocalDateTime())
 }

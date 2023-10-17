@@ -11,7 +11,6 @@ import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.first
 
 internal class TaskDaoImpl(private val databaseProvider: DatabaseProvider) : TaskDao {
-
     private val taskQueries: TaskQueries
         get() = databaseProvider.getInstance().taskQueries
 
@@ -62,6 +61,5 @@ internal class TaskDaoImpl(private val databaseProvider: DatabaseProvider) : Tas
             .mapToList(Dispatchers.IO)
             .first()
 
-    override suspend fun getTaskById(taskId: Long): Task? =
-        taskQueries.selectTaskById(taskId).executeAsOneOrNull()
+    override suspend fun getTaskById(taskId: Long): Task? = taskQueries.selectTaskById(taskId).executeAsOneOrNull()
 }

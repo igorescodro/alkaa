@@ -7,19 +7,21 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import com.escodro.designsystem.AlkaaTheme
+import com.escodro.navigation.NavigationAction
 import com.escodro.shared.model.AppThemeOptions
 import com.escodro.shared.navigation.AlkaaNavGraph
 import org.koin.compose.koinInject
 
 @Composable
 fun AlkaaMultiplatformApp(
+    navigationAction: NavigationAction = NavigationAction.Home,
     modifier: Modifier = Modifier,
     onThemeUpdate: (isDarkTheme: Boolean) -> Unit = {},
 ) {
     val isDarkTheme = rememberIsDarkTheme()
     onThemeUpdate(isDarkTheme)
     AlkaaTheme(isDarkTheme = isDarkTheme) {
-        AlkaaNavGraph(modifier)
+        AlkaaNavGraph(navigationAction = navigationAction, modifier = modifier)
     }
 }
 

@@ -3,6 +3,7 @@ import extension.setFrameworkBaseName
 
 plugins {
     id("com.escodro.multiplatform")
+    id("kotlin-parcelize")
     alias(libs.plugins.compose)
 }
 
@@ -12,9 +13,11 @@ kotlin {
     commonDependencies {
         implementation(compose.runtime)
         implementation(compose.material)
+
         api(libs.voyager.navigator)
         api(libs.voyager.bottomsheet)
 
+        implementation(libs.moko.parcelize)
     }
 }
 

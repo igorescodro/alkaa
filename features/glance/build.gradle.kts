@@ -7,6 +7,7 @@ dependencies {
     implementation(projects.domain)
     implementation(projects.libraries.navigation)
     implementation(projects.libraries.core)
+    implementation(projects.libraries.di)
 
     implementation(libs.koin.core)
     implementation(libs.androidx.glance)

@@ -1,7 +1,6 @@
 package com.escodro.glance.presentation
 
 import android.content.Context
-import android.content.Intent
 import android.os.Build
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
@@ -44,6 +43,7 @@ import androidx.glance.text.TextStyle
 import com.escodro.glance.R
 import com.escodro.glance.data.TaskListStateDefinition
 import com.escodro.glance.model.Task
+import com.escodro.navigation.AndroidDestinations
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 
@@ -81,7 +81,7 @@ internal class TaskListGlanceWidget : GlanceAppWidget() {
                         provider = ImageProvider(R.drawable.ic_alkaa_icon),
                         contentDescription = context.getString(R.string.glance_app_icon_content_description),
                         modifier = GlanceModifier.size(32.dp)
-                            .clickable(actionStartActivity(getHomeIntent())),
+                            .clickable(actionStartActivity(AndroidDestinations.homeIntent())),
                     )
                     Spacer(modifier = GlanceModifier.width(12.dp))
                     Text(
@@ -149,7 +149,7 @@ internal class TaskListGlanceWidget : GlanceAppWidget() {
     private fun TaskItem(task: Task, modifier: GlanceModifier = GlanceModifier) {
         Row(
             modifier = modifier.padding(vertical = 2.dp).fillMaxWidth()
-                .clickable(actionStartActivity(getTaskIntent())),
+                .clickable(actionStartActivity(AndroidDestinations.taskDetail(task.id))),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             CheckBox(
@@ -172,10 +172,4 @@ internal class TaskListGlanceWidget : GlanceAppWidget() {
             )
         }
     }
-
-    private fun getHomeIntent(): Intent =
-        Intent(Intent.ACTION_VIEW) // TODO
-
-    private fun getTaskIntent(): Intent =
-        Intent(Intent.ACTION_VIEW) // TODO
 }

@@ -7,6 +7,7 @@ import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.core.view.WindowCompat
+import com.escodro.navigation.NavigationAction
 import com.escodro.shared.MainView
 
 /**
@@ -21,6 +22,7 @@ internal class MainActivity : ComponentActivity() {
 
         setContent {
             MainView(
+                navigationAction = getNavigationAction(),
                 onThemeUpdate = ::updateTheme,
             )
         }
@@ -35,6 +37,10 @@ internal class MainActivity : ComponentActivity() {
 
         enableEdgeToEdge(statusBarStyle = systemBarStyle, navigationBarStyle = systemBarStyle)
     }
+
+    private fun getNavigationAction(): NavigationAction =
+        intent.extras?.getParcelable(NavigationAction.EXTRA_DESTINATION)
+            ?: NavigationAction.Home
 }
 
 /**

@@ -1,0 +1,8 @@
+appId: com.escodro.alkaa
+---
+- launchApp:
+      clearState: true
+- tapOn: "Add task"
+- inputText: ${TASK_NAME}
+- tapOn: "Add"
+- assertVisible: ${TASK_NAME}

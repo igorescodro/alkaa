@@ -1,0 +1,15 @@
+appId: com.escodro.alkaa
+env:
+  TASK_NAME: "Buy Rachel's gift"
+---
+- runFlow:
+    file: "AddTask.yaml"
+    env:
+      TASK_NAME: ${TASK_NAME}
+- tapOn: ${TASK_NAME}
+- tapOn: "Personal"
+- tapOn: "Back"
+- tapOn: "Personal"
+- assertVisible: ${TASK_NAME}
+- tapOn: "Work"
+- assertNotVisible: ${TASK_NAME}

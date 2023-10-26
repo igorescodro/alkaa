@@ -18,6 +18,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.escodro.categoryapi.model.Category
 import com.escodro.categoryapi.presentation.CategoryState
@@ -93,7 +95,9 @@ private fun CategoryItemChip(
     FilterChip(
         selected = isSelected,
         label = { Text(text = category.name) },
-        modifier = Modifier.padding(end = 8.dp),
+        modifier = Modifier.padding(end = 8.dp).semantics {
+            contentDescription = category.name
+        },
         colors = FilterChipDefaults.filterChipColors(
             selectedContainerColor = Color(category.color),
             selectedLabelColor = MaterialTheme.colorScheme.background,

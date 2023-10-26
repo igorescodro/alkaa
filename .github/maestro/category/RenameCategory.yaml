@@ -1,0 +1,15 @@
+appId: com.escodro.alkaa
+env:
+  CATEGORY_NAME: "Movies"
+---
+- runFlow:
+    file: "AddCategory.yaml"
+    env:
+      CATEGORY_NAME: ${CATEGORY_NAME}
+- tapOn: ${CATEGORY_NAME}
+- tapOn: ${CATEGORY_NAME}
+- eraseText
+- inputText: "Cinema"
+- tapOn: "Save"
+- assertVisible: "Cinema"
+

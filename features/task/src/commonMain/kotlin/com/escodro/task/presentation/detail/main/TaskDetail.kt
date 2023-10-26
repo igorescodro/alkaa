@@ -23,6 +23,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import com.escodro.alarmapi.AlarmPermission
@@ -57,14 +59,14 @@ internal fun TaskDetailScreen(
 ) {
     val id = TaskId(taskId)
     val detailViewState by
-        remember(detailViewModel, taskId) {
-            detailViewModel.loadTaskInfo(taskId = id)
-        }.collectAsState(initial = TaskDetailState.Loading)
+    remember(detailViewModel, taskId) {
+        detailViewModel.loadTaskInfo(taskId = id)
+    }.collectAsState(initial = TaskDetailState.Loading)
 
     val categoryViewState by
-        remember(categoryViewModel, taskId) {
-            categoryViewModel.loadCategories()
-        }.collectAsState(initial = CategoryState.Loading)
+    remember(categoryViewModel, taskId) {
+        categoryViewModel.loadCategories()
+    }.collectAsState(initial = CategoryState.Loading)
 
     val taskDetailActions = TaskDetailActions(
         onTitleChange = { title -> detailViewModel.updateTitle(id, title) },
@@ -185,13 +187,15 @@ private fun TaskDescriptionTextField(text: String?, onDescriptionChange: (String
     val textState = remember { mutableStateOf(TextFieldValue(text ?: "")) }
 
     TextField(
-        modifier = Modifier.fillMaxWidth(),
-        leadingIcon = {
-            LeadingIcon(
-                imageVector = Icons.Default.Description,
-                contentDescription = stringResource(MR.strings.task_detail_cd_icon_description),
-            )
+        modifier = Modifier.fillMaxWidth().semantics {
+            contentDescription = textState.value.text
         },
+//        leadingIcon = {
+//            LeadingIcon(
+//                imageVector = Icons.Default.Description,
+//                contentDescription = stringResource(MR.strings.task_detail_cd_icon_description),
+//            )
+//        },
         value = textState.value,
         onValueChange = {
             onDescriptionChange(it.text)

@@ -34,6 +34,11 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
+      - name: Install Maestro
+        run: |
+          curl -Ls "https://get.maestro.mobile.dev" | bash
+          echo "$HOME/.maestro/bin" >> $GITHUB_PATH
+
       - name: Run instrumented tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
@@ -45,43 +50,8 @@ jobs:
           script: |
             adb logcat -c
             adb logcat > logcat.txt &
-            ./gradlew connectedAndroidTest --stacktrace
-
-      - name: Save Test Results
-        uses: actions/upload-artifact@v4
-        if: ${{ always() }}
-        with:
-          name: test-results
-          path: |
-            /Users/runner/work/alkaa/alkaa/app/build/reports/androidTests/
-            ./logcat.txt
-          retention-days: 7
-
-  android-test-gmd:
-    name: "Gradle Managed Devices"
-    runs-on: macos-latest
-    timeout-minutes: 80
-
-    strategy:
-      fail-fast: false
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Java
-        uses: actions/setup-java@v4
-        with:
-          java-version: '17'
-          distribution: 'zulu'
-
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
-
-      - name: Run instrumented tests
-        run: ./gradlew cleanManagedDevices --unused-only &&
-          ./gradlew alkaaDevicesGroupDebugAndroidTest -Dorg.gradle.workers.max=1
-          -Pandroid.testoptions.manageddevices.emulator.gpu="swiftshader_indirect" -Pandroid.experimental.testOptions.managedDevices.emulator.showKernelLogging=true
+            ./gradlew installDebug
+            maestro test .github/maestro
 
       - name: Save Test Results
         uses: actions/upload-artifact@v4

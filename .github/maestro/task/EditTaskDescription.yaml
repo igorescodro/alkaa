@@ -1,0 +1,14 @@
+appId: com.escodro.alkaa
+env:
+  TASK_NAME: "Listen to music"
+---
+- runFlow:
+    file: "AddTask.yaml"
+    env:
+      TASK_NAME: ${TASK_NAME}
+- tapOn: ${TASK_NAME}
+- tapOn: "Description"
+- inputText: "My description"
+- tapOn: "Back"
+- tapOn: ${TASK_NAME}
+- assertVisible: "My description"

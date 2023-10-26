@@ -1,0 +1,4 @@
+flows:
+  - category/*
+  - home/*
+  - task/*

@@ -1,0 +1,21 @@
+appId: com.escodro.alkaa
+---
+- launchApp
+- assertVisible:
+      text: "Tasks"
+      index: 0
+- tapOn:
+      text: "Search"
+- assertVisible:
+      text: "Search"
+      index: 0
+- tapOn:
+      text: "Categories"
+- assertVisible:
+      text: "Categories"
+      index: 0
+- tapOn:
+      text: "More"
+- assertVisible:
+      text: "More"
+      index: 0

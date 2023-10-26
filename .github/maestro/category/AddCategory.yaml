@@ -1,0 +1,11 @@
+appId: com.escodro.alkaa
+env:
+  CATEGORY_NAME: "Books"
+---
+- launchApp:
+    clearState: true
+- tapOn: "Categories"
+- tapOn: "Add category"
+- inputText: ${CATEGORY_NAME}
+- tapOn: "Save"
+- assertVisible: ${CATEGORY_NAME}

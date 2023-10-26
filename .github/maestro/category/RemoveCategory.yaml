@@ -1,0 +1,12 @@
+appId: com.escodro.alkaa
+env:
+  CATEGORY_NAME: "Gifts"
+---
+- runFlow:
+    file: "AddCategory.yaml"
+    env:
+      CATEGORY_NAME: ${CATEGORY_NAME}
+- tapOn: ${CATEGORY_NAME}
+- tapOn: "Remove"
+- tapOn: "Remove"
+- assertNotVisible: ${CATEGORY_NAME}

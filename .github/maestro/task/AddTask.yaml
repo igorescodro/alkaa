@@ -1,0 +1,13 @@
+appId: com.escodro.alkaa
+---
+- launchApp:
+    clearState: true
+- tapOn: "Add task"
+- inputText: ${TASK_NAME}
+- runFlow:
+    when:
+      platform: iOS
+    commands:
+      - tapOn: "Done"
+- tapOn: "Add"
+- assertVisible: ${TASK_NAME}

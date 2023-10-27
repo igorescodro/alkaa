@@ -30,6 +30,7 @@ kotlin {
         implementation(libs.koin.compose.jb)
         implementation(libs.moko.resources.compose)
         implementation(libs.moko.mvvm.compose)
+        implementation(libs.moko.permissions.compose)
     }
 
     commonTestDependencies {

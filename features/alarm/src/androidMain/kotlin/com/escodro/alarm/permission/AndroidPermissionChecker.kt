@@ -7,7 +7,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import com.escodro.core.extension.getAlarmManager
 
-internal class PermissionCheckerImpl(private val context: Context) : PermissionChecker {
+internal class AndroidPermissionChecker(private val context: Context) : PermissionChecker {
 
     override fun checkPermission(permission: String): Boolean =
         ContextCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_GRANTED

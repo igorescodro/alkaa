@@ -36,6 +36,7 @@ kotlin {
 
         implementation(projects.features.home)
         implementation(projects.features.task)
+        implementation(projects.features.alarm)
         implementation(projects.features.category)
         implementation(projects.features.search)
         implementation(projects.features.preference)

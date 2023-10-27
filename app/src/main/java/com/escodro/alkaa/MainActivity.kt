@@ -2,10 +2,10 @@ package com.escodro.alkaa
 
 import android.graphics.Color
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import com.escodro.navigation.NavigationAction
 import com.escodro.shared.MainView
@@ -13,7 +13,7 @@ import com.escodro.shared.MainView
 /**
  * Main Alkaa Activity.
  */
-internal class MainActivity : ComponentActivity() {
+internal class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

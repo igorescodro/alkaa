@@ -20,6 +20,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
+import com.escodro.alarmapi.AlarmPermission
 import com.escodro.categoryapi.presentation.CategoryListViewModel
 import com.escodro.categoryapi.presentation.CategoryState
 import com.escodro.designsystem.components.AlkaaLoadingContent
@@ -47,7 +48,7 @@ internal fun TaskDetailScreen(
     detailViewModel: TaskDetailViewModel = koinInject(),
     categoryViewModel: CategoryListViewModel = koinInject(),
     alarmViewModel: TaskAlarmViewModel = koinInject(),
-    // alarmPermission: AlarmPermission = koinInject(), TODO
+    alarmPermission: AlarmPermission = koinInject(),
 ) {
     val id = TaskId(taskId)
     val detailViewState by
@@ -64,10 +65,11 @@ internal fun TaskDetailScreen(
         onTitleChange = { title -> detailViewModel.updateTitle(id, title) },
         onDescriptionChange = { desc -> detailViewModel.updateDescription(id, desc) },
         onCategoryChange = { categoryId -> detailViewModel.updateCategory(id, categoryId) },
-        onAlarmUpdate = { calendar -> alarmViewModel.updateAlarm(id, calendar) },
-        onIntervalSelect = { interval -> alarmViewModel.setRepeating(id, interval) },
-        hasAlarmPermission = { false }, // TODO
-        shouldCheckNotificationPermission = false, // TODO
+        onAlarmChange = { calendar -> alarmViewModel.updateAlarm(id, calendar) },
+        onIntervalChange = { interval -> alarmViewModel.setRepeating(id, interval) },
+        hasExactAlarmPermission = { alarmPermission.hasExactAlarmPermission() },
+        openExactAlarmPermissionScreen = { alarmPermission.openExactAlarmPermissionScreen() },
+        openAppSettingsScreen = { alarmPermission.openAppSettings() },
         onUpPress = onUpPress,
     )
 
@@ -129,10 +131,11 @@ private fun TaskDetailContent(
             AlarmSelection(
                 calendar = task.dueDate,
                 interval = task.alarmInterval,
-                onAlarmUpdate = actions.onAlarmUpdate,
-                onIntervalSelect = actions.onIntervalSelect,
-                hasAlarmPermission = actions.hasAlarmPermission,
-                shouldCheckNotificationPermission = actions.shouldCheckNotificationPermission,
+                onAlarmUpdate = actions.onAlarmChange,
+                onIntervalSelect = actions.onIntervalChange,
+                hasExactAlarmPermission = actions.hasExactAlarmPermission,
+                openExactAlarmPermissionScreen = actions.openExactAlarmPermissionScreen,
+                openAppSettingsScreen = actions.openAppSettingsScreen,
             )
         }
     }

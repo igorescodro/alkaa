@@ -5,8 +5,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import com.escodro.designsystem.components.AlkaaDialog
 import com.escodro.designsystem.components.DialogArguments
 import com.escodro.resources.MR
-import dev.icerock.moko.permissions.DeniedAlwaysException
-import dev.icerock.moko.permissions.DeniedException
 import dev.icerock.moko.permissions.Permission
 import dev.icerock.moko.resources.compose.stringResource
 import kotlinx.coroutines.launch
@@ -51,9 +49,7 @@ internal fun NotificationPermissionDialog(
                 try {
                     alarmSelectionState.permissionsController
                         .providePermission(Permission.REMOTE_NOTIFICATION)
-                } catch (deniedAlways: DeniedAlwaysException) {
-                    alarmSelectionState.showRationaleDialog = true
-                } catch (denied: DeniedException) {
+                } catch (e: Exception) {
                     alarmSelectionState.showRationaleDialog = true
                 }
 

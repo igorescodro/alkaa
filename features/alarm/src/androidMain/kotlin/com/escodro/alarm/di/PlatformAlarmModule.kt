@@ -5,10 +5,10 @@ import com.escodro.alarm.notification.AndroidTaskNotification
 import com.escodro.alarm.notification.NotificationScheduler
 import com.escodro.alarm.notification.TaskNotification
 import com.escodro.alarm.notification.TaskNotificationChannel
-import com.escodro.alarm.permission.AlarmPermissionImpl
+import com.escodro.alarm.permission.AndroidAlarmPermission
+import com.escodro.alarm.permission.AndroidPermissionChecker
 import com.escodro.alarm.permission.AndroidSdkVersion
 import com.escodro.alarm.permission.PermissionChecker
-import com.escodro.alarm.permission.PermissionCheckerImpl
 import com.escodro.alarm.permission.SdkVersion
 import com.escodro.alarmapi.AlarmPermission
 import org.koin.core.module.Module
@@ -22,6 +22,6 @@ actual val platformAlarmModule: Module = module {
     factoryOf(::TaskNotificationChannel)
 
     factoryOf(::AndroidSdkVersion) bind SdkVersion::class
-    factoryOf(::PermissionCheckerImpl) bind PermissionChecker::class
-    factoryOf(::AlarmPermissionImpl) bind AlarmPermission::class
+    factoryOf(::AndroidPermissionChecker) bind PermissionChecker::class
+    factoryOf(::AndroidAlarmPermission) bind AlarmPermission::class
 }

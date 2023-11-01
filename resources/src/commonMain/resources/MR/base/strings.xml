@@ -116,4 +116,7 @@
     <string name="notification_action_completed">Done</string>
     <string name="notification_action_snooze">In 15 min</string>
 
+    <string name="dialog_picker_next">Next</string>
+    <string name="dialog_picker_confirm">Confirm</string>
+
 </resources>

@@ -100,7 +100,9 @@
     <string name="tracker_cp_info_icon">Tarefas finalizadas</string>
 
     <string name="tracker_cd_empty">Sem tarefas finalizadas</string>
-    <string name="tracker_header_empty">Você ainda não completou nenhuma tarefa nos últimos 30 dias</string>
+    <string name="tracker_header_empty">Você ainda não completou nenhuma tarefa nos últimos 30
+        dias
+    </string>
     <string name="tracker_header_error">Ops… Isso é embaraçoso…</string>
     <string name="tracker_cd_error">Algo deu errado</string>
 
@@ -110,4 +112,7 @@
 
     <string name="notification_action_completed">Concluído</string>
     <string name="notification_action_snooze">Daqui 15 min</string>
+
+    <string name="dialog_picker_next">Próximo</string>
+    <string name="dialog_picker_confirm">Confirmar</string>
 </resources>

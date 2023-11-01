@@ -1,5 +1,6 @@
 package com.escodro.task.presentation.detail.alarm
 
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
@@ -13,9 +14,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import com.escodro.resources.MR
+import dev.icerock.moko.resources.compose.stringResource
+import kotlinx.datetime.Clock
+import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
+import kotlinx.datetime.plus
 import kotlinx.datetime.toLocalDateTime
 
 /**
@@ -32,8 +38,20 @@ fun DateTimerPicker(
     onCloseDialog: () -> Unit,
     onDateChanged: (LocalDateTime) -> Unit,
 ) {
-    val datePickerState = rememberDatePickerState()
-    val timePickerState = rememberTimePickerState()
+    val now = Clock.System.now()
+    val displayTime = now.plus(
+        value = 1,
+        unit = DateTimeUnit.HOUR,
+        timeZone = TimeZone.currentSystemDefault(),
+    ).toLocalDateTime(TimeZone.currentSystemDefault())
+
+    val datePickerState = rememberDatePickerState(
+        initialSelectedDateMillis = now.toEpochMilliseconds(),
+    )
+    val timePickerState = rememberTimePickerState(
+        initialHour = displayTime.hour,
+        initialMinute = 0,
+    )
     var dialogState by remember(isDialogOpen) { mutableStateOf(DateTimePickerState.DATE) }
 
     if (!isDialogOpen) {
@@ -63,7 +81,7 @@ fun DateTimerPicker(
                 Button(onClick = {
                     dialogState = DateTimePickerState.TIME
                 }) {
-                    Text(text = "Confirm")
+                    Text(text = stringResource(MR.strings.dialog_picker_next))
                 }
             },
         ) {
@@ -72,18 +90,19 @@ fun DateTimerPicker(
     }
 
     if (dialogState == DateTimePickerState.TIME) {
-        DatePickerDialog(
+        AlertDialog(
             onDismissRequest = onCloseDialog,
             confirmButton = {
                 Button(onClick = {
                     dialogState = DateTimePickerState.DONE
                 }) {
-                    Text(text = "Confirm")
+                    Text(text = stringResource(MR.strings.dialog_picker_confirm))
                 }
             },
-        ) {
-            TimePicker(state = timePickerState)
-        }
+            text = {
+                TimePicker(state = timePickerState)
+            },
+        )
     }
 }
 

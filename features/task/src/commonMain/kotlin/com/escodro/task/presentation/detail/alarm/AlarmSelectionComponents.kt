@@ -24,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.escodro.resources.MR
+import com.escodro.task.extension.format
 import com.escodro.task.model.AlarmInterval
 import com.escodro.task.presentation.detail.TaskDetailSectionContent
 import dev.icerock.moko.resources.compose.stringResource
@@ -81,7 +82,7 @@ internal fun AlarmIntervalSelection(
 private fun AlarmSet(date: LocalDateTime?, onRemoveClick: () -> Unit) {
     Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
         Text(
-            text = date?.toString() ?: "", // TODO improve this
+            text = date?.format() ?: "",
             color = MaterialTheme.colorScheme.outline,
         )
         IconButton(onClick = onRemoveClick) {

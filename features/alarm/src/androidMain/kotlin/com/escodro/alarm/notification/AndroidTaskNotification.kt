@@ -8,6 +8,7 @@ import androidx.core.app.NotificationCompat
 import com.escodro.alarm.model.Task
 import com.escodro.alarm.receiver.TaskNotificationReceiver
 import com.escodro.core.extension.getNotificationManager
+import com.escodro.navigation.AndroidDestinations
 import com.escodro.resources.MR
 import logcat.logcat
 
@@ -68,19 +69,14 @@ internal class AndroidTaskNotification(
             setSmallIcon(MR.images.ic_bookmark.drawableResId)
             setContentTitle(MR.strings.content_app_name.getString(context))
             setContentText(task.title)
-            setContentIntent(buildPendingIntent())
+            setContentIntent(buildPendingIntent(task.id))
             setAutoCancel(true)
             addAction(getSnoozeAction(task))
         }
 
-    private fun buildPendingIntent(): PendingIntent {
-        val openTaskIntent = Intent(
-            Intent.ACTION_VIEW,
-            // DestinationDeepLink.getTaskDetailUri(task.id), TODO
-        )
-
+    private fun buildPendingIntent(taskId: Long): PendingIntent {
         return TaskStackBuilder.create(context).run {
-            addNextIntentWithParentStack(openTaskIntent)
+            addNextIntentWithParentStack(AndroidDestinations.taskDetail(taskId))
             getPendingIntent(
                 REQUEST_CODE_OPEN_TASK,
                 PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,

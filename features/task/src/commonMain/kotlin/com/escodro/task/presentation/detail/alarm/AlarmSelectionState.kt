@@ -49,6 +49,11 @@ internal class AlarmSelectionState(
      * The Notification Rationale dialog visibility state.
      */
     var showRationaleDialog by mutableStateOf(false)
+
+    /**
+     * The Date and Time Picker dialog visibility state.
+     */
+    var showDateTimePickerDialog by mutableStateOf(false)
 }
 
 @Composable

@@ -43,6 +43,16 @@ internal fun AlarmSelection(
     val alarmSelectionState =
         rememberAlarmSelectionState(calendar = calendar, alarmInterval = interval)
 
+    // Date Time Picker dialog
+    DateTimerPicker(
+        isDialogOpen = alarmSelectionState.showDateTimePickerDialog,
+        onCloseDialog = { alarmSelectionState.showDateTimePickerDialog = false },
+        onDateChanged = { dateTime ->
+            onAlarmUpdate(dateTime)
+            alarmSelectionState.date = dateTime
+        },
+    )
+
     // Exact Alarm permission dialog
     AlarmPermissionDialog(
         isDialogOpen = alarmSelectionState.showExactAlarmDialog,
@@ -120,10 +130,7 @@ private fun openAlarmScheduler(
         .isPermissionGranted(Permission.REMOTE_NOTIFICATION)
 
     if (hasExactAlarmPermission() && isNotificationPermissionGranted) {
-        // DateTimePickerDialog(context) { calendar ->
-        //     state.date = calendar
-        //     onAlarmUpdate(calendar)
-        // }.show()
+        alarmSelectionState.showDateTimePickerDialog = true
     } else {
         alarmSelectionState.showExactAlarmDialog = !hasExactAlarmPermission()
         alarmSelectionState.showNotificationDialog = !isNotificationPermissionGranted

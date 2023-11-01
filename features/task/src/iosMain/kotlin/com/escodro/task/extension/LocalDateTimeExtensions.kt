@@ -15,8 +15,3 @@ actual fun LocalDateTime.format(): String {
     val nsDate = toInstant(TimeZone.currentSystemDefault()).toNSDate()
     return dateFormatter.stringFromDate(nsDate)
 }
-
-// Use for relative date
-// val dateFormatter = NSRelativeDateTimeFormatter()
-// val nsDate = toInstant(TimeZone.currentSystemDefault()).toNSDate()
-// return dateFormatter.localizedStringForDate(date = nsDate, relativeToDate = NSDate.now)

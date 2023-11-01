@@ -9,6 +9,7 @@ import com.escodro.task.presentation.add.AddTaskViewModel
 import com.escodro.task.presentation.detail.alarm.TaskAlarmViewModel
 import com.escodro.task.presentation.detail.main.TaskDetailViewModel
 import com.escodro.task.presentation.list.TaskListViewModel
+import org.koin.core.module.Module
 import org.koin.core.module.dsl.factoryOf
 import org.koin.dsl.module
 
@@ -58,4 +59,11 @@ val taskModule = module {
     factoryOf(::TaskMapper)
     factoryOf(::TaskWithCategoryMapper)
     factoryOf(::CategoryMapper)
+
+    includes(platformTaskModule)
 }
+
+/**
+ * Provides the platform-specific dependencies.
+ */
+expect val platformTaskModule: Module

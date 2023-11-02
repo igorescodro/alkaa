@@ -14,8 +14,8 @@ import kotlin.time.Duration.Companion.minutes
 class SnoozeAlarm(
     private val loadTask: LoadTask,
     private val dateTimeProvider: DateTimeProvider,
-    private val notificationInteractor: NotificationInteractor?, // TODO not null
-    private val alarmInteractor: AlarmInteractor?, // TODO not null
+    private val notificationInteractor: NotificationInteractor,
+    private val alarmInteractor: AlarmInteractor,
 ) {
 
     private val logger = KotlinLogging.logger {}
@@ -33,8 +33,8 @@ class SnoozeAlarm(
         val task = loadTask(taskId = taskId) ?: return
 
         val snoozedTime = getSnoozedTask(dateTimeProvider.getCurrentInstant(), minutes)
-        alarmInteractor?.schedule(task, snoozedTime)
-        notificationInteractor?.dismiss(task)
+        alarmInteractor.schedule(task, snoozedTime)
+        notificationInteractor.dismiss(task)
         logger.debug { "Task snoozed in $minutes minutes" }
     }
 

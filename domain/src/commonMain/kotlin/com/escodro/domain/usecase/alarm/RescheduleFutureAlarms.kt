@@ -15,7 +15,7 @@ import mu.KotlinLogging
  */
 class RescheduleFutureAlarms(
     private val taskRepository: TaskRepository,
-    private val alarmInteractor: AlarmInteractor?, // TODO not null
+    private val alarmInteractor: AlarmInteractor,
     private val dateTimeProvider: DateTimeProvider,
     private val scheduleNextAlarm: ScheduleNextAlarm,
 ) {
@@ -49,7 +49,7 @@ class RescheduleFutureAlarms(
     private fun rescheduleFutureTask(task: Task) {
         val futureTime = task.dueDate
             ?.toInstant(TimeZone.currentSystemDefault())?.toEpochMilliseconds() ?: return
-        alarmInteractor?.schedule(task, futureTime)
+        alarmInteractor.schedule(task, futureTime)
         logger.debug { "Task '${task.title} rescheduled to '${task.dueDate}" }
     }
 

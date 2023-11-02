@@ -6,7 +6,7 @@ import com.escodro.domain.usecase.alarm.CancelAlarm
 
 internal class CancelAlarmImpl(
     private val taskRepository: TaskRepository,
-    private val alarmInteractor: AlarmInteractor?, // TODO not null
+    private val alarmInteractor: AlarmInteractor,
 ) : CancelAlarm {
 
     override suspend operator fun invoke(taskId: Long) {
@@ -14,7 +14,7 @@ internal class CancelAlarmImpl(
 
         val updatedTask = task.copy(dueDate = null)
 
-        alarmInteractor?.cancel(task)
+        alarmInteractor.cancel(task)
         taskRepository.updateTask(updatedTask)
     }
 }

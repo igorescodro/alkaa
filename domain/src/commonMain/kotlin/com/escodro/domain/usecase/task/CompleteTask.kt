@@ -11,8 +11,8 @@ import com.escodro.domain.repository.TaskRepository
  */
 class CompleteTask(
     private val taskRepository: TaskRepository,
-    private val alarmInteractor: AlarmInteractor?, // TODO not null
-    private val notificationInteractor: NotificationInteractor?, // TODO not null
+    private val alarmInteractor: AlarmInteractor,
+    private val notificationInteractor: NotificationInteractor,
     private val dateTimeProvider: DateTimeProvider,
 ) {
 
@@ -38,8 +38,8 @@ class CompleteTask(
     suspend operator fun invoke(task: Task) {
         val updatedTask = updateTaskAsCompleted(task)
         taskRepository.updateTask(updatedTask)
-        alarmInteractor?.cancel(task)
-        notificationInteractor?.dismiss(task)
+        alarmInteractor.cancel(task)
+        notificationInteractor.dismiss(task)
     }
 
     private fun updateTaskAsCompleted(task: Task) =

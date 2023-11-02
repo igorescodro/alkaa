@@ -9,7 +9,7 @@ import mu.KotlinLogging
  */
 class ShowAlarm(
     private val taskRepository: TaskRepository,
-    private val notificationInteractor: NotificationInteractor?, // TODO not null
+    private val notificationInteractor: NotificationInteractor,
     private val scheduleNextAlarm: ScheduleNextAlarm,
 ) {
 
@@ -28,7 +28,7 @@ class ShowAlarm(
             return
         } else {
             logger.debug { "Notifying task '${task.title}'" }
-            notificationInteractor?.show(task)
+            notificationInteractor.show(task)
         }
 
         if (task.isRepeating) {

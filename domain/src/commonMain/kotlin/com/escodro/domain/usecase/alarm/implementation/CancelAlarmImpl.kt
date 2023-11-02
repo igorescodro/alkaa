@@ -14,7 +14,7 @@ internal class CancelAlarmImpl(
 
         val updatedTask = task.copy(dueDate = null)
 
-        alarmInteractor?.cancel(task.id)
+        alarmInteractor?.cancel(task)
         taskRepository.updateTask(updatedTask)
     }
 }

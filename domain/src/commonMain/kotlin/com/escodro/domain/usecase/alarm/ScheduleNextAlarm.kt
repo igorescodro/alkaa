@@ -49,7 +49,7 @@ class ScheduleNextAlarm(
             task.copy(dueDate = taskTime.toLocalDateTime(TimeZone.currentSystemDefault()))
 
         taskRepository.updateTask(updatedTask)
-        alarmInteractor?.schedule(updatedTask.id, taskTime.toEpochMilliseconds())
+        alarmInteractor?.schedule(updatedTask, taskTime.toEpochMilliseconds())
         logger.debug { "ScheduleNextAlarm = Task = '${task.title}' at $taskTime " }
     }
 

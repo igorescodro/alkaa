@@ -1,5 +1,7 @@
 package com.escodro.domain.interactor
 
+import com.escodro.domain.model.Task
+
 /**
  * Contract to interact with the Alarm layer.
  */
@@ -8,15 +10,15 @@ interface AlarmInteractor {
     /**
      * Schedules a new alarm.
      *
-     * @param alarmId the alarm id
+     * @param task the alarm id
      * @param timeInMillis the time to the alarm be scheduled
      */
-    fun schedule(alarmId: Long, timeInMillis: Long)
+    fun schedule(task: Task, timeInMillis: Long)
 
     /**
      * Cancels an alarm.
      *
-     * @param alarmId the alarm id
+     * @param task the task alarm to be cancelled
      */
-    fun cancel(alarmId: Long)
+    fun cancel(task: Task)
 }

@@ -38,8 +38,8 @@ class CompleteTask(
     suspend operator fun invoke(task: Task) {
         val updatedTask = updateTaskAsCompleted(task)
         taskRepository.updateTask(updatedTask)
-        alarmInteractor?.cancel(task.id)
-        notificationInteractor?.dismiss(task.id)
+        alarmInteractor?.cancel(task)
+        notificationInteractor?.dismiss(task)
     }
 
     private fun updateTaskAsCompleted(task: Task) =

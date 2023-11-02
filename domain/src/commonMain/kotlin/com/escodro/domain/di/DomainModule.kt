@@ -135,6 +135,7 @@ val domainModule = module {
     }
     factory {
         SnoozeAlarm(
+            loadTask = get(),
             dateTimeProvider = get(),
             notificationInteractor = getOrNull(),
             alarmInteractor = getOrNull(),

@@ -25,6 +25,6 @@ class DeleteTask(
     suspend operator fun invoke(task: Task) {
         logger.debug { "Deleting task ${task.title}" }
         taskRepository.deleteTask(task)
-        alarmInteractor?.cancel(task.id)
+        alarmInteractor?.cancel(task)
     }
 }

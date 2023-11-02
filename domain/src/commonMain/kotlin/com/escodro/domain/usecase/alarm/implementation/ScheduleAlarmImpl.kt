@@ -24,7 +24,7 @@ internal class ScheduleAlarmImpl(
         taskRepository.updateTask(updatedTask)
 
         alarmInteractor?.schedule(
-            taskId,
+            task,
             localDateTime.toInstant(TimeZone.currentSystemDefault()).toEpochMilliseconds(),
         )
     }

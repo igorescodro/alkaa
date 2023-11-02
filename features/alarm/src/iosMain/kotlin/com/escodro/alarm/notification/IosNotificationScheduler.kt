@@ -1,5 +1,6 @@
 package com.escodro.alarm.notification
 
+import com.escodro.alarm.model.Task
 import platform.Foundation.NSCalendar
 import platform.Foundation.NSCalendarUnitDay
 import platform.Foundation.NSCalendarUnitHour
@@ -16,10 +17,9 @@ import platform.UserNotifications.UNUserNotificationCenter
 
 internal class IosNotificationScheduler : NotificationScheduler {
 
-    override fun scheduleTaskNotification(taskId: Long, timeInMillis: Long) {
+    override fun scheduleTaskNotification(task: Task, timeInMillis: Long) {
         val content = UNMutableNotificationContent()
-        content.setTitle("Task Title")
-        content.setBody("Task Description")
+        content.setBody(task.title)
 
         val nsDate = NSDate.dateWithTimeIntervalSince1970(timeInMillis / 1000.0)
         val dateComponents = NSCalendar.currentCalendar.components(
@@ -34,12 +34,12 @@ internal class IosNotificationScheduler : NotificationScheduler {
         )
 
         val request = UNNotificationRequest.requestWithIdentifier(
-            taskId.toString(),
+            task.id.toString(),
             content = content,
             trigger = trigger,
         )
 
-        NSLog("Scheduling notification for '$taskId' at '$timeInMillis'")
+        NSLog("Scheduling notification for '${task.title}' at '$timeInMillis'")
         val notificationCenter = UNUserNotificationCenter.currentNotificationCenter()
         notificationCenter.addNotificationRequest(request) { error ->
             if (error != null) {
@@ -48,9 +48,9 @@ internal class IosNotificationScheduler : NotificationScheduler {
         }
     }
 
-    override fun cancelTaskNotification(taskId: Long) {
-        NSLog("Canceling notification with id '$taskId'")
+    override fun cancelTaskNotification(task: Task) {
+        NSLog("Canceling notification with id '${task.title}'")
         val notificationCenter = UNUserNotificationCenter.currentNotificationCenter()
-        notificationCenter.removePendingNotificationRequestsWithIdentifiers(listOf(taskId.toString()))
+        notificationCenter.removePendingNotificationRequestsWithIdentifiers(listOf(task.id.toString()))
     }
 }

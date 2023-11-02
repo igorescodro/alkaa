@@ -17,7 +17,7 @@ interface NotificationInteractor {
     /**
      * Dismisses the current notification.
      *
-     * @param notificationId notification to be dismissed
+     * @param task task notification to be dismissed
      */
-    fun dismiss(notificationId: Long)
+    fun dismiss(task: Task)
 }

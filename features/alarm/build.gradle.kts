@@ -1,4 +1,5 @@
 import extension.androidDependencies
+import extension.androidTestDependencies
 import extension.commonDependencies
 import extension.setFrameworkBaseName
 
@@ -28,6 +29,10 @@ kotlin {
         implementation(libs.logcat)
         implementation(projects.libraries.core)
         implementation(libs.androidx.core)
+    }
+
+    androidTestDependencies {
+        implementation(libs.test.junit)
     }
 }
 

@@ -3,18 +3,25 @@ package com.escodro.alarm
 import android.os.Build
 import com.escodro.alarm.fake.AndroidVersionFake
 import com.escodro.alarm.fake.PermissionCheckerFake
-import com.escodro.alarm.permission.AlarmPermissionImpl
+import com.escodro.alarm.fake.ScreenNavigatorFake
+import com.escodro.alarm.permission.AndroidAlarmPermission
 import org.junit.After
 import org.junit.Assert
 import org.junit.Test
 
 internal class AlarmPermissionTest {
 
+    private val screenNavigator = ScreenNavigatorFake()
+
     private val permissionChecker = PermissionCheckerFake()
 
     private val androidVersion = AndroidVersionFake()
 
-    private val alarmPermission = AlarmPermissionImpl(permissionChecker, androidVersion)
+    private val alarmPermission = AndroidAlarmPermission(
+        screenNavigator = screenNavigator,
+        permissionChecker = permissionChecker,
+        sdkVersion = androidVersion,
+    )
 
     @After
     fun tearDown() {

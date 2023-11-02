@@ -9,6 +9,8 @@ import com.escodro.alarm.permission.AndroidAlarmPermission
 import com.escodro.alarm.permission.AndroidPermissionChecker
 import com.escodro.alarm.permission.AndroidSdkVersion
 import com.escodro.alarm.permission.PermissionChecker
+import com.escodro.alarm.permission.ScreenNavigator
+import com.escodro.alarm.permission.ScreenNavigatorImpl
 import com.escodro.alarm.permission.SdkVersion
 import com.escodro.alarmapi.AlarmPermission
 import org.koin.core.module.Module
@@ -24,4 +26,6 @@ actual val platformAlarmModule: Module = module {
     factoryOf(::AndroidSdkVersion) bind SdkVersion::class
     factoryOf(::AndroidPermissionChecker) bind PermissionChecker::class
     factoryOf(::AndroidAlarmPermission) bind AlarmPermission::class
+
+    factoryOf(::ScreenNavigatorImpl) bind ScreenNavigator::class
 }

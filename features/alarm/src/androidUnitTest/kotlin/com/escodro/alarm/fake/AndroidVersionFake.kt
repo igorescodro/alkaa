@@ -1,8 +1,8 @@
 package com.escodro.alarm.fake
 
-import com.escodro.alarm.permission.AndroidVersion
+import com.escodro.alarm.permission.SdkVersion
 
-internal class AndroidVersionFake : AndroidVersion {
+internal class AndroidVersionFake : SdkVersion {
 
     var version: Int = 0
 

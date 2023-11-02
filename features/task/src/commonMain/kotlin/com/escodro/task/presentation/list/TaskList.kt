@@ -10,7 +10,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material.icons.outlined.ThumbUp
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
@@ -18,12 +17,14 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.registry.ScreenRegistry
@@ -42,6 +43,7 @@ import com.escodro.task.presentation.category.CategorySelection
 import com.escodro.task.presentation.detail.main.CategoryId
 import dev.icerock.moko.resources.compose.stringResource
 import kotlinx.collections.immutable.ImmutableList
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.compose.koinInject
 
@@ -77,8 +79,9 @@ internal fun TaskListLoader(
     categoryViewModel: CategoryListViewModel = koinInject(),
 ) {
     val (currentCategory, setCategory) = rememberSaveable { mutableStateOf<CategoryId?>(null) }
+    val refreshKey = rememberRefreshKey()
 
-    val taskViewState by remember(taskListViewModel, currentCategory) {
+    val taskViewState by remember(taskListViewModel, currentCategory, refreshKey) {
         taskListViewModel.loadTaskList(currentCategory?.value)
     }.collectAsState(initial = TaskListViewState.Loading)
 
@@ -106,7 +109,6 @@ internal fun TaskListLoader(
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun TaskListScaffold(
     taskHandler: TaskStateHandler,
@@ -222,3 +224,24 @@ private fun TaskListError() {
         header = stringResource(MR.strings.task_list_header_error),
     )
 }
+
+/**
+ * Returns a key that changes from time to time, allowing the UI to refresh. This is useful to
+ * update the relative time string in the cards.
+ */
+@Composable
+private fun rememberRefreshKey(): Int {
+    var refreshKey by remember { mutableStateOf(0) }
+    LaunchedEffect(Unit) {
+        while (true) {
+            delay(ComposableRefreshTime)
+            refreshKey += 1
+        }
+    }
+    return refreshKey
+}
+
+/**
+ * One minute in milliseconds.
+ */
+private const val ComposableRefreshTime = 60_000L

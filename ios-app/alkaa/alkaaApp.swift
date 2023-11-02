@@ -11,6 +11,8 @@ import shared
 @main
 struct alkaaApp: App {
     
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    
     init() {
         KoinHelperKt.doInitKoin()
     }

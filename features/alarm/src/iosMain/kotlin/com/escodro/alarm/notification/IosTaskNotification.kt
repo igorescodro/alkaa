@@ -1,18 +1,20 @@
 package com.escodro.alarm.notification
 
 import com.escodro.alarm.model.Task
+import platform.UserNotifications.UNUserNotificationCenter
 
 internal class IosTaskNotification : TaskNotification {
 
     override fun show(task: Task) {
-        TODO("Not yet implemented")
+        // Do nothing - in iOS, the notification scheduler is responsible for showing the notification
     }
 
     override fun showRepeating(task: Task) {
-        TODO("Not yet implemented")
+        // Do nothing - For now the iOS notifications won't have action
     }
 
     override fun dismiss(taskId: Long) {
-        TODO("Not yet implemented")
+        val notificationCenter = UNUserNotificationCenter.currentNotificationCenter()
+        notificationCenter.removeDeliveredNotificationsWithIdentifiers(listOf(taskId.toString()))
     }
 }

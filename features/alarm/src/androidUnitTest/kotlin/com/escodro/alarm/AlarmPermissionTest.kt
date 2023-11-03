@@ -58,34 +58,4 @@ internal class AlarmPermissionTest {
 
         Assert.assertTrue(result)
     }
-
-    @Test
-    fun `test when notification permission is granted then returns true`() {
-        permissionChecker.hasPermission = true
-        androidVersion.version = Build.VERSION_CODES.TIRAMISU
-
-        val result = alarmPermission.hasNotificationPermission()
-
-        Assert.assertTrue(result)
-    }
-
-    @Test
-    fun `test when notification permission is not granted then returns false`() {
-        permissionChecker.hasPermission = false
-        androidVersion.version = Build.VERSION_CODES.TIRAMISU
-
-        val result = alarmPermission.hasNotificationPermission()
-
-        Assert.assertFalse(result)
-    }
-
-    @Test
-    fun `test when notification permission on Android below T then returns true`() {
-        permissionChecker.hasPermission = false // Permission only available >= S
-        androidVersion.version = Build.VERSION_CODES.S
-
-        val result = alarmPermission.hasNotificationPermission()
-
-        Assert.assertTrue(result)
-    }
 }

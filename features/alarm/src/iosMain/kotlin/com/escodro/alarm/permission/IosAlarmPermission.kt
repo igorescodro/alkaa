@@ -10,10 +10,6 @@ internal class IosAlarmPermission : AlarmPermission {
     override fun hasExactAlarmPermission(): Boolean =
         true // iOS does not have exact alarm permission
 
-    override fun hasNotificationPermission(): Boolean {
-        TODO("Not yet implemented")
-    }
-
     override fun openExactAlarmPermissionScreen() {
         throw UnsupportedOperationException("iOS does not have exact alarm permission")
     }

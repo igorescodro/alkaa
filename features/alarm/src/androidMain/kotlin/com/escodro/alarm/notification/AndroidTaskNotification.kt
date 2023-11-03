@@ -18,7 +18,6 @@ import logcat.logcat
 internal class AndroidTaskNotification(
     private val context: Context,
     private val channel: TaskNotificationChannel,
-    // private val alarmPermission: AlarmPermission, TODO
 ) : TaskNotification {
 
     /**
@@ -31,11 +30,11 @@ internal class AndroidTaskNotification(
         val builder = buildNotification(task)
         builder.addAction(getCompleteAction(task))
 
-        // if (!alarmPermission.hasNotificationPermission()) {
-        //     logcat { "Permission not granted - ignoring alarm" }
-        //     return
-        // }
-        context.getNotificationManager()?.notify(task.id.toInt(), builder.build())
+        context.getNotificationManager()?.let { notificationManager ->
+            if (notificationManager.areNotificationsEnabled()) {
+                notificationManager.notify(task.id.toInt(), builder.build())
+            }
+        }
     }
 
     /**
@@ -47,11 +46,11 @@ internal class AndroidTaskNotification(
         logcat { "Showing repeating notification for '${task.title}'" }
         val builder = buildNotification(task)
 
-        // if (!alarmPermission.hasNotificationPermission()) {
-        //     logcat { "Permission not granted - ignoring alarm" }
-        //     return
-        // }
-        context.getNotificationManager()?.notify(task.id.toInt(), builder.build())
+        context.getNotificationManager()?.let { notificationManager ->
+            if (notificationManager.areNotificationsEnabled()) {
+                notificationManager.notify(task.id.toInt(), builder.build())
+            }
+        }
     }
 
     /**

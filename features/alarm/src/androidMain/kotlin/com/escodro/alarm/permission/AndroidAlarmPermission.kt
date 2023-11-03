@@ -1,6 +1,5 @@
 package com.escodro.alarm.permission
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.os.Build
 import com.escodro.alarmapi.AlarmPermission
@@ -15,14 +14,6 @@ internal class AndroidAlarmPermission(
     override fun hasExactAlarmPermission(): Boolean =
         if (sdkVersion.currentVersion >= Build.VERSION_CODES.S) {
             permissionChecker.canScheduleExactAlarms()
-        } else {
-            true
-        }
-
-    @SuppressLint("NewApi")
-    override fun hasNotificationPermission(): Boolean =
-        if (sdkVersion.currentVersion >= Build.VERSION_CODES.TIRAMISU) {
-            permissionChecker.checkPermission(Manifest.permission.POST_NOTIFICATIONS)
         } else {
             true
         }

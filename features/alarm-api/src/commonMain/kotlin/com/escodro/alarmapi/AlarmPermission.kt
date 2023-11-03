@@ -13,13 +13,6 @@ interface AlarmPermission {
     fun hasExactAlarmPermission(): Boolean
 
     /**
-     * Verifies if the [android.Manifest.permission.POST_NOTIFICATIONS] is granted.
-     *
-     * @return `true` if the permission is granted, `false` otherwise
-     */
-    fun hasNotificationPermission(): Boolean
-
-    /**
      * Opens the screen to request the Exact alarm permission since it's handled from a different
      * flow than the runtime permissions.
      */

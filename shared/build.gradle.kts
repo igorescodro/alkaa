@@ -33,6 +33,7 @@ kotlin {
         implementation(projects.libraries.coroutines)
         implementation(projects.libraries.designsystem)
         implementation(projects.libraries.di)
+        implementation(projects.libraries.appstate)
 
         implementation(projects.features.home)
         implementation(projects.features.task)

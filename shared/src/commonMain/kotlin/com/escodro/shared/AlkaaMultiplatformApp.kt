@@ -8,7 +8,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import com.alkaa.appstate.rememberAlkaaAppState
+import com.escodro.appstate.rememberAlkaaAppState
 import com.escodro.designsystem.AlkaaTheme
 import com.escodro.navigation.NavigationAction
 import com.escodro.shared.model.AppThemeOptions

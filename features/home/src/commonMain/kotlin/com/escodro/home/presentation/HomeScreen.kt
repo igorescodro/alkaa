@@ -28,7 +28,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import com.alkaa.appstate.AlkaaAppState
+import com.escodro.appstate.AlkaaAppState
 import com.escodro.category.presentation.list.CategoryListSection
 import com.escodro.preference.presentation.PreferenceSection
 import com.escodro.search.presentation.SearchSection

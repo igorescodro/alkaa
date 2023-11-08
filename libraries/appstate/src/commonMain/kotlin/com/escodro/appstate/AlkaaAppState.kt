@@ -1,4 +1,4 @@
-package com.alkaa.appstate
+package com.escodro.appstate
 
 import androidx.compose.material3.windowsizeclass.WindowHeightSizeClass
 import androidx.compose.material3.windowsizeclass.WindowSizeClass

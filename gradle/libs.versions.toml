@@ -39,12 +39,9 @@ lifecycle_viewmodel = "2.6.2"
 # Compose
 compose_compiler = "1.5.1"
 compose_bom = "2023.10.00"
-compose_nav = "2.5.3"
-compose_viewmodel = "2.6.1"
 compose_activity = "1.8.0"
 compose_material3 = "1.0.1"
 compose_icons = "1.4.2"
-compose_windowsize = "1.0.1"
 jb_compose_compiler = "1.5.3"
 
 # Koin
@@ -127,7 +124,6 @@ compose_bom = { group = "androidx.compose", name = "compose-bom", version.ref = 
 compose_ui = { module = "androidx.compose.ui:ui" }
 compose_toolingpreview = { module = "androidx.compose.ui:ui-tooling-preview" }
 compose_icons = { module = "androidx.compose.material:material-icons-extended" }
-compose_viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-compose" }
 compose_material3 = { module = "androidx.compose.material3:material3" }
 compose_uitest = { module = "androidx.compose.ui:ui-test" }
 compose_junit4 = { module = "androidx.compose.ui:ui-test-junit4" }

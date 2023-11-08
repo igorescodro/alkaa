@@ -43,6 +43,7 @@ compose_activity = "1.8.0"
 compose_material3 = "1.0.1"
 compose_icons = "1.4.2"
 jb_compose_compiler = "1.5.3"
+compose_windowsizeclass = "0.3.1"
 
 # Koin
 koin_core = "3.5.0"
@@ -128,6 +129,7 @@ compose_material3 = { module = "androidx.compose.material3:material3" }
 compose_uitest = { module = "androidx.compose.ui:ui-test" }
 compose_junit4 = { module = "androidx.compose.ui:ui-test-junit4" }
 compose_manifest = { module = "androidx.compose.ui:ui-test-manifest" }
+compose_windowsizeclass = { module = "dev.chrisbanes.material3:material3-window-size-class-multiplatform", version.ref = "compose_windowsizeclass" }
 
 # Dynamic Feature don't recognize BOM
 compose_activity = { module = "androidx.activity:activity-compose", version.ref = "compose_activity" }

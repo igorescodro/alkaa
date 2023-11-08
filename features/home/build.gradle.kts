@@ -17,6 +17,7 @@ kotlin {
         implementation(projects.features.search)
         implementation(projects.features.preference)
         implementation(projects.libraries.navigation)
+        implementation(projects.libraries.appstate)
 
         implementation(compose.runtime)
         implementation(compose.materialIconsExtended)

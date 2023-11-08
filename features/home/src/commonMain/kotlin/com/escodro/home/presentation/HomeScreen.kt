@@ -28,6 +28,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import com.alkaa.appstate.AlkaaAppState
 import com.escodro.category.presentation.list.CategoryListSection
 import com.escodro.preference.presentation.PreferenceSection
 import com.escodro.search.presentation.SearchSection
@@ -39,13 +40,13 @@ import kotlinx.collections.immutable.toImmutableList
 /**
  * Alkaa Home screen.
  */
-@Suppress("LongParameterList")
 @Composable
-fun Home() {
+fun Home(appState: AlkaaAppState) {
     val (currentSection, setCurrentSection) = rememberSaveable { mutableStateOf(HomeSection.Tasks) }
     val navItems = remember { HomeSection.values().toList().toImmutableList() }
 
     AlkaaHomeScaffold(
+        appState = appState,
         homeSection = currentSection,
         navItems = navItems,
         setCurrentSection = setCurrentSection,
@@ -55,6 +56,7 @@ fun Home() {
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun AlkaaHomeScaffold(
+    appState: AlkaaAppState,
     homeSection: HomeSection,
     navItems: ImmutableList<HomeSection>,
     setCurrentSection: (HomeSection) -> Unit,
@@ -72,17 +74,27 @@ private fun AlkaaHomeScaffold(
                         WindowInsets.safeDrawing.only(WindowInsetsSides.Horizontal),
                     ),
             ) {
+                if (appState.shouldShowNavRail) {
+                    AlkaaNavRail(
+                        currentSection = homeSection,
+                        onSectionSelect = setCurrentSection,
+                        items = navItems,
+                        modifier = Modifier.consumeWindowInsets(paddingValues),
+                    )
+                }
                 Column(Modifier.fillMaxSize()) {
                     AlkaaContent(homeSection = homeSection, modifier = Modifier)
                 }
             }
         },
         bottomBar = {
-            AlkaaBottomNav(
-                currentSection = homeSection,
-                onSectionSelect = setCurrentSection,
-                items = navItems,
-            )
+            if (appState.shouldShowBottomBar) {
+                AlkaaBottomNav(
+                    currentSection = homeSection,
+                    onSectionSelect = setCurrentSection,
+                    items = navItems,
+                )
+            }
         },
     )
 }

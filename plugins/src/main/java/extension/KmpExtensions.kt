@@ -31,6 +31,12 @@ fun KotlinMultiplatformExtension.androidDependencies(
     sourceSets["androidMain"].dependencies { configure() }
 }
 
+fun KotlinMultiplatformExtension.androidTestDependencies(
+    configure: KotlinDependencyHandler.() -> Unit,
+) {
+    sourceSets["androidUnitTest"].dependencies { configure() }
+}
+
 /**
  * Extension function to configure the iOS main set of dependencies.
  */

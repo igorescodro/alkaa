@@ -23,7 +23,7 @@ import mu.KotlinLogging
  */
 class ScheduleNextAlarm(
     private val taskRepository: TaskRepository,
-    private val alarmInteractor: AlarmInteractor?, // TODO not null
+    private val alarmInteractor: AlarmInteractor,
     private val dateTimeProvider: DateTimeProvider,
 ) {
 
@@ -49,7 +49,7 @@ class ScheduleNextAlarm(
             task.copy(dueDate = taskTime.toLocalDateTime(TimeZone.currentSystemDefault()))
 
         taskRepository.updateTask(updatedTask)
-        alarmInteractor?.schedule(updatedTask.id, taskTime.toEpochMilliseconds())
+        alarmInteractor.schedule(updatedTask, taskTime.toEpochMilliseconds())
         logger.debug { "ScheduleNextAlarm = Task = '${task.title}' at $taskTime " }
     }
 

@@ -1,5 +1,6 @@
 package com.escodro.shared.di
 
+import com.escodro.alarm.di.alarmModule
 import com.escodro.category.di.categoryModule
 import com.escodro.coroutines.di.coroutinesModule
 import com.escodro.datastore.di.dataStoreModule
@@ -30,6 +31,7 @@ fun initKoin(appModule: Module = module { }) {
             appModule,
             sharedModule,
             taskModule,
+            alarmModule,
             categoryModule,
             searchModule,
             preferenceModule,

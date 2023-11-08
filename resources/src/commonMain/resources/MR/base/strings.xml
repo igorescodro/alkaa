@@ -107,4 +107,16 @@
     <string name="tracker_header_error">Ops… That\'s embarrassing…</string>
     <string name="tracker_cd_error">Something went wrong</string>
 
+    <!-- Alarm -->
+    <string name="content_app_name" translatable="false">Alkaa</string>
+
+    <string name="channel_task_name">Task alarms</string>
+    <string name="channel_task_description">Notifications for reminders</string>
+
+    <string name="notification_action_completed">Done</string>
+    <string name="notification_action_snooze">In 15 min</string>
+
+    <string name="dialog_picker_next">Next</string>
+    <string name="dialog_picker_confirm">Confirm</string>
+
 </resources>

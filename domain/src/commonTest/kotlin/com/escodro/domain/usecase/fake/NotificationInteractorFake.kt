@@ -11,8 +11,8 @@ internal class NotificationInteractorFake : NotificationInteractor {
         notificationMap[task.id] = true
     }
 
-    override fun dismiss(notificationId: Long) {
-        notificationMap[notificationId] = false
+    override fun dismiss(task: Task) {
+        notificationMap[task.id] = false
     }
 
     fun isNotificationShown(notificationId: Long): Boolean =

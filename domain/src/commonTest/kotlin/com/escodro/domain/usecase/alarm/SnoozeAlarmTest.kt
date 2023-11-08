@@ -4,6 +4,8 @@ import com.escodro.domain.model.Task
 import com.escodro.domain.usecase.fake.AlarmInteractorFake
 import com.escodro.domain.usecase.fake.DateTimeProviderFake
 import com.escodro.domain.usecase.fake.NotificationInteractorFake
+import com.escodro.domain.usecase.fake.TaskRepositoryFake
+import com.escodro.domain.usecase.task.implementation.LoadTaskImpl
 import kotlinx.coroutines.test.runTest
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
@@ -16,14 +18,22 @@ import kotlin.time.Duration.Companion.minutes
 
 internal class SnoozeAlarmTest {
 
+    private val taskRepository = TaskRepositoryFake()
+
+    private val loadTask = LoadTaskImpl(taskRepository = taskRepository)
+
     private val calendarProvider = DateTimeProviderFake()
 
     private val notificationInteractor = NotificationInteractorFake()
 
     private val alarmInteractor = AlarmInteractorFake()
 
-    private val snoozeAlarmUseCase =
-        SnoozeAlarm(calendarProvider, notificationInteractor, alarmInteractor)
+    private val snoozeAlarmUseCase = SnoozeAlarm(
+        loadTask = loadTask,
+        dateTimeProvider = calendarProvider,
+        notificationInteractor = notificationInteractor,
+        alarmInteractor = alarmInteractor,
+    )
 
     private val baseTask = Task(id = 2345L, title = "it's time")
 
@@ -31,6 +41,7 @@ internal class SnoozeAlarmTest {
     fun setup() = runTest {
         alarmInteractor.clear()
         notificationInteractor.clear()
+        taskRepository.insertTask(baseTask)
     }
 
     @Test
@@ -55,7 +66,7 @@ internal class SnoozeAlarmTest {
     }
 
     @Test
-    fun test_if_notification_is_dismissed() {
+    fun test_if_notification_is_dismissed() = runTest {
         notificationInteractor.show(baseTask)
 
         snoozeAlarmUseCase(baseTask.id, 15)

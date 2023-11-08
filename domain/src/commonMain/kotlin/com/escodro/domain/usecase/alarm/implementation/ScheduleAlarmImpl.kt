@@ -9,7 +9,7 @@ import kotlinx.datetime.toInstant
 
 internal class ScheduleAlarmImpl(
     private val taskRepository: TaskRepository,
-    private val alarmInteractor: AlarmInteractor?, // TODO not null
+    private val alarmInteractor: AlarmInteractor,
 ) : ScheduleAlarm {
 
     /**
@@ -23,8 +23,8 @@ internal class ScheduleAlarmImpl(
         val updatedTask = task.copy(dueDate = localDateTime)
         taskRepository.updateTask(updatedTask)
 
-        alarmInteractor?.schedule(
-            taskId,
+        alarmInteractor.schedule(
+            task,
             localDateTime.toInstant(TimeZone.currentSystemDefault()).toEpochMilliseconds(),
         )
     }

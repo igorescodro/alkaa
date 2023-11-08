@@ -59,14 +59,7 @@ val domainModule = module {
 
     // Task Use Cases
     factory<AddTask> { AddTaskImpl(taskRepository = get(), glanceInteractor = getOrNull()) }
-    factory {
-        CompleteTask(
-            taskRepository = get(),
-            alarmInteractor = getOrNull(),
-            notificationInteractor = getOrNull(),
-            dateTimeProvider = get(),
-        )
-    }
+    factoryOf(::CompleteTask)
     factoryOf(::UncompleteTask)
     factory<UpdateTaskStatus> {
         UpdateTaskStatusImpl(
@@ -104,42 +97,12 @@ val domainModule = module {
     factoryOf(::LoadUncompletedTasksImpl) bind LoadUncompletedTasks::class
 
     // Alarm Use Cases
-    factory<CancelAlarm> { CancelAlarmImpl(taskRepository = get(), alarmInteractor = getOrNull()) }
-    factory {
-        RescheduleFutureAlarms(
-            taskRepository = get(),
-            alarmInteractor = getOrNull(),
-            dateTimeProvider = get(),
-            scheduleNextAlarm = get(),
-        )
-    }
-    factory<ScheduleAlarm> {
-        ScheduleAlarmImpl(
-            taskRepository = get(),
-            alarmInteractor = getOrNull(),
-        )
-    }
-    factory {
-        ScheduleNextAlarm(
-            taskRepository = get(),
-            alarmInteractor = getOrNull(),
-            dateTimeProvider = get(),
-        )
-    }
-    factory {
-        ShowAlarm(
-            taskRepository = get(),
-            notificationInteractor = getOrNull(),
-            scheduleNextAlarm = get(),
-        )
-    }
-    factory {
-        SnoozeAlarm(
-            dateTimeProvider = get(),
-            notificationInteractor = getOrNull(),
-            alarmInteractor = getOrNull(),
-        )
-    }
+    factoryOf(::CancelAlarmImpl) bind CancelAlarm::class
+    factoryOf(::RescheduleFutureAlarms)
+    factoryOf(::ScheduleAlarmImpl) bind ScheduleAlarm::class
+    factoryOf(::ScheduleNextAlarm)
+    factoryOf(::ShowAlarm)
+    factoryOf(::SnoozeAlarm)
     factoryOf(::UpdateTaskAsRepeatingImpl) bind UpdateTaskAsRepeating::class
 
     // Tracker Use Cases

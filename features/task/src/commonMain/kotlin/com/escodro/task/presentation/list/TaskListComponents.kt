@@ -25,7 +25,9 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.escodro.task.model.TaskWithCategory
+import com.escodro.task.provider.RelativeDateTimeProvider
 import kotlinx.datetime.LocalDateTime
+import org.koin.compose.koinInject
 
 /**
  * Alkaa Task Item.
@@ -91,25 +93,16 @@ internal fun CardRibbon(colorInt: Int?, modifier: Modifier = Modifier) {
 }
 
 @Composable
-internal fun RelativeDateText(calendar: LocalDateTime?) {
+internal fun RelativeDateText(
+    calendar: LocalDateTime?,
+    relativeDateTimeProvider: RelativeDateTimeProvider = koinInject(),
+) {
     if (calendar == null) {
         return
     }
 
-    // val context = LocalContext.current
-    // val time = calendar.time.time
-    // val stringTime = DateUtils
-    //     .getRelativeDateTimeString(
-    //         context,
-    //         time,
-    //         DateUtils.DAY_IN_MILLIS,
-    //         DateUtils.DAY_IN_MILLIS,
-    //         0,
-    //     )
-    //     .toString()
-
     Text(
-        text = "stringTime",
+        text = relativeDateTimeProvider.toRelativeDateTimeString(calendar),
         style = MaterialTheme.typography.bodySmall,
         overflow = TextOverflow.Ellipsis,
         maxLines = 1,

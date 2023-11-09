@@ -3,10 +3,10 @@ package com.escodro.alarm.notification
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import com.escodro.alarm.extension.cancelAlarm
+import com.escodro.alarm.extension.setExactAlarm
 import com.escodro.alarm.model.Task
 import com.escodro.alarm.receiver.TaskNotificationReceiver
-import com.escodro.core.extension.cancelAlarm
-import com.escodro.core.extension.setExactAlarm
 import logcat.logcat
 
 /**

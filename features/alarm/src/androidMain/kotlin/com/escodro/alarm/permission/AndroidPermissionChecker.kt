@@ -5,7 +5,7 @@ import android.content.pm.PackageManager
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
-import com.escodro.core.extension.getAlarmManager
+import com.escodro.alarm.extension.getAlarmManager
 
 internal class AndroidPermissionChecker(private val context: Context) : PermissionChecker {
 

@@ -1,24 +1,14 @@
 @file:JvmName("extension-context")
 
-package com.escodro.core.extension
+package com.escodro.alarm.extension
 
-import android.annotation.SuppressLint
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
-import android.content.Intent
-import android.content.pm.PackageInfo
-import android.content.pm.PackageManager
-import android.os.Build
-import androidx.annotation.ColorRes
 import androidx.core.app.AlarmManagerCompat
-import androidx.core.net.toUri
 import logcat.LogPriority
-import logcat.asLog
 import logcat.logcat
 import java.util.Calendar
-
-private const val InvalidVersion = "x.x.x"
 
 /**
  * Sets a alarm using [AlarmManagerCompat] to be triggered based on the given parameter.
@@ -69,49 +59,4 @@ fun Context.cancelAlarm(operation: PendingIntent?) {
 
     val manager = getAlarmManager()
     manager?.let { manager.cancel(operation) }
-}
-
-/**
- * Gets string from color in format "#XXXXXX".
- *
- * @param colorRes the color resource id
- *
- * @return string from color in format "#XXXXXX"
- */
-@SuppressLint("ResourceType")
-fun Context.getStringColor(@ColorRes colorRes: Int): String =
-    resources.getString(colorRes)
-
-/**
- * Opens the given url in string format.
- *
- * @param url the url in string format
- */
-fun Context.openUrl(url: String) {
-    with(Intent(Intent.ACTION_VIEW)) {
-        this.data = url.toUri()
-        startActivity(this)
-    }
-}
-
-/**
- * Returns the version name of the application.
- *
- * @return the version name of the application.
- */
-@Suppress("Deprecation") // SDK below Tiramisu needs to access the deprecated version
-fun Context.getVersionName(): String {
-    var packageInfo: PackageInfo? = null
-    packageName.let {
-        try {
-            packageInfo = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                packageManager.getPackageInfo(it, PackageManager.PackageInfoFlags.of(0))
-            } else {
-                packageManager.getPackageInfo(it, 0)
-            }
-        } catch (e: PackageManager.NameNotFoundException) {
-            logcat(LogPriority.ERROR) { e.asLog() }
-        }
-    }
-    return packageInfo?.versionName ?: InvalidVersion
 }

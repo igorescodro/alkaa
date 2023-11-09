@@ -4,7 +4,7 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
-import com.escodro.core.extension.getNotificationManager
+import com.escodro.alarm.extension.getNotificationManager
 import com.escodro.resources.MR
 
 /**

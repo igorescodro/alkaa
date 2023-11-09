@@ -1,4 +1,4 @@
-package com.escodro.core.extension
+package com.escodro.alarm.extension
 
 import android.app.AlarmManager
 import android.app.NotificationManager

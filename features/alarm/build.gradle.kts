@@ -27,7 +27,6 @@ kotlin {
 
     androidDependencies {
         implementation(libs.logcat)
-        implementation(projects.libraries.core)
         implementation(libs.androidx.core)
     }
 

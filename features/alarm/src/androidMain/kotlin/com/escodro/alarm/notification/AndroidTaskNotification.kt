@@ -5,9 +5,9 @@ import android.app.TaskStackBuilder
 import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationCompat
+import com.escodro.alarm.extension.getNotificationManager
 import com.escodro.alarm.model.Task
 import com.escodro.alarm.receiver.TaskNotificationReceiver
-import com.escodro.core.extension.getNotificationManager
 import com.escodro.navigation.AndroidDestinations
 import com.escodro.resources.MR
 import logcat.logcat

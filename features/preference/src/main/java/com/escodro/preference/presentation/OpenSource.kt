@@ -16,7 +16,10 @@ import com.mikepenz.aboutlibraries.ui.compose.LibraryDefaults
  */
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-fun OpenSource(onUpPress: () -> Unit, modifier: Modifier = Modifier) {
+fun OpenSource(
+    onUpPress: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
     Scaffold(
         topBar = { AlkaaToolbar(onUpPress = onUpPress) },
         content = { paddingValues -> OpenSourceContent(modifier = Modifier.padding(paddingValues)) },
@@ -28,11 +31,12 @@ fun OpenSource(onUpPress: () -> Unit, modifier: Modifier = Modifier) {
 private fun OpenSourceContent(modifier: Modifier = Modifier) {
     LibrariesContainer(
         modifier = modifier.fillMaxSize(),
-        colors = LibraryDefaults.libraryColors(
-            backgroundColor = MaterialTheme.colorScheme.background,
-            contentColor = MaterialTheme.colorScheme.onBackground,
-            badgeContentColor = MaterialTheme.colorScheme.onPrimary,
-            badgeBackgroundColor = MaterialTheme.colorScheme.primary,
-        ),
+        colors =
+            LibraryDefaults.libraryColors(
+                backgroundColor = MaterialTheme.colorScheme.background,
+                contentColor = MaterialTheme.colorScheme.onBackground,
+                badgeContentColor = MaterialTheme.colorScheme.onPrimary,
+                badgeBackgroundColor = MaterialTheme.colorScheme.primary,
+            ),
     )
 }

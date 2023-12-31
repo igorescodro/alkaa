@@ -31,7 +31,6 @@ import com.escodro.task.R as TaskR
 
 @OptIn(ExperimentalTestApi::class)
 internal class TaskListFlowTest : KoinTest {
-
     private val taskDao: TaskDao by inject()
 
     private val categoryDao: CategoryDao by inject()
@@ -153,10 +152,12 @@ internal class TaskListFlowTest : KoinTest {
         ).performClick()
     }
 
-    private fun ComposeTestRule.onCheckbox(name: String) = onNode(
-        SemanticsMatcher.expectValue(CheckboxNameKey, name),
-    )
+    private fun ComposeTestRule.onCheckbox(name: String) =
+        onNode(
+            SemanticsMatcher.expectValue(CheckboxNameKey, name),
+        )
 
-    private fun string(@StringRes resId: Int): String =
-        context.getString(resId)
+    private fun string(
+        @StringRes resId: Int,
+    ): String = context.getString(resId)
 }

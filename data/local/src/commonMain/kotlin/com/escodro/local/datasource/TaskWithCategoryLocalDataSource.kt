@@ -14,7 +14,6 @@ internal class TaskWithCategoryLocalDataSource(
     private val taskWithCategoryDao: TaskWithCategoryDao,
     private val mapper: TaskWithCategoryMapper,
 ) : TaskWithCategoryDataSource {
-
     override fun findAllTasksWithCategory(): Flow<List<TaskWithCategory>> =
         taskWithCategoryDao.findAllTasksWithCategory().map { mapper.toRepo(it) }
 

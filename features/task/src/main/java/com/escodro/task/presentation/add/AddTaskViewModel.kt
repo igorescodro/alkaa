@@ -10,8 +10,10 @@ internal class AddTaskViewModel(
     private val addTaskUseCase: AddTask,
     private val applicationScope: AppCoroutineScope,
 ) : ViewModel() {
-
-    fun addTask(title: String, categoryId: CategoryId?) {
+    fun addTask(
+        title: String,
+        categoryId: CategoryId?,
+    ) {
         if (title.isBlank()) return
 
         applicationScope.launch {

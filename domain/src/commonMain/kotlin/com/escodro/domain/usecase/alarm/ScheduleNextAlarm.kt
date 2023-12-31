@@ -26,7 +26,6 @@ class ScheduleNextAlarm(
     private val alarmInteractor: AlarmInteractor,
     private val dateTimeProvider: DateTimeProvider,
 ) {
-
     private val logger = KotlinLogging.logger {}
 
     /**
@@ -53,15 +52,19 @@ class ScheduleNextAlarm(
         logger.debug { "ScheduleNextAlarm = Task = '${task.title}' at $taskTime " }
     }
 
-    private fun updatedAlarmTime(instant: Instant, alarmInterval: AlarmInterval): Instant {
+    private fun updatedAlarmTime(
+        instant: Instant,
+        alarmInterval: AlarmInterval,
+    ): Instant {
         val timeZone = TimeZone.currentSystemDefault()
-        val period = when (alarmInterval) {
-            HOURLY -> DateTimePeriod(hours = 1)
-            DAILY -> DateTimePeriod(days = 1)
-            WEEKLY -> DateTimePeriod(days = 7)
-            MONTHLY -> DateTimePeriod(months = 1)
-            YEARLY -> DateTimePeriod(years = 1)
-        }
+        val period =
+            when (alarmInterval) {
+                HOURLY -> DateTimePeriod(hours = 1)
+                DAILY -> DateTimePeriod(days = 1)
+                WEEKLY -> DateTimePeriod(days = 7)
+                MONTHLY -> DateTimePeriod(months = 1)
+                YEARLY -> DateTimePeriod(years = 1)
+            }
         return instant.plus(period, timeZone)
     }
 }

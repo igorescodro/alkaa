@@ -21,22 +21,24 @@ internal class TaskListViewModel(
     private val applicationScope: AppCoroutineScope,
     private val taskWithCategoryMapper: TaskWithCategoryMapper,
 ) : ViewModel() {
-
-    fun loadTaskList(categoryId: Long? = null): Flow<TaskListViewState> = flow {
-        loadAllTasksUseCase(categoryId = categoryId)
-            .map { task -> taskWithCategoryMapper.toView(task) }
-            .catch { error -> emit(TaskListViewState.Error(error)) }
-            .collect { tasks ->
-                val state = if (tasks.isNotEmpty()) {
-                    TaskListViewState.Loaded(tasks)
-                } else {
-                    TaskListViewState.Empty
+    fun loadTaskList(categoryId: Long? = null): Flow<TaskListViewState> =
+        flow {
+            loadAllTasksUseCase(categoryId = categoryId)
+                .map { task -> taskWithCategoryMapper.toView(task) }
+                .catch { error -> emit(TaskListViewState.Error(error)) }
+                .collect { tasks ->
+                    val state =
+                        if (tasks.isNotEmpty()) {
+                            TaskListViewState.Loaded(tasks)
+                        } else {
+                            TaskListViewState.Empty
+                        }
+                    emit(state)
                 }
-                emit(state)
-            }
-    }
+        }
 
-    fun updateTaskStatus(item: TaskWithCategory) = applicationScope.launch {
-        updateTaskStatusUseCase(item.task.id)
-    }
+    fun updateTaskStatus(item: TaskWithCategory) =
+        applicationScope.launch {
+            updateTaskStatusUseCase(item.task.id)
+        }
 }

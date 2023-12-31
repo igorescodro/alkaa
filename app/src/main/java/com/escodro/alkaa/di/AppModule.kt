@@ -9,8 +9,9 @@ import org.koin.dsl.module
 /**
  * Application module.
  */
-val appModule = module {
-    viewModelOf(::MainViewModel)
+val appModule =
+    module {
+        viewModelOf(::MainViewModel)
 
-    factoryOf(::AppThemeOptionsMapper)
-}
+        factoryOf(::AppThemeOptionsMapper)
+    }

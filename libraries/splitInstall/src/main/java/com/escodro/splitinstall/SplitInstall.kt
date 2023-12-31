@@ -67,12 +67,13 @@ fun LoadFeature(
 
     when (state) {
         RequestDownload -> RequestDownload(onDismiss = onDismiss, setState = { state = it })
-        Downloading -> DownloadFeature(
-            featureName = featureName,
-            manager = manager,
-            onDismiss = onDismiss,
-            setState = { state = it },
-        )
+        Downloading ->
+            DownloadFeature(
+                featureName = featureName,
+                manager = manager,
+                onDismiss = onDismiss,
+                setState = { state = it },
+            )
         FeatureReady -> {
             onDismiss()
             onFeatureReady()
@@ -91,16 +92,20 @@ private fun isFeatureInstalled(
 }
 
 @Composable
-private fun RequestDownload(setState: (SplitInstallState) -> Unit, onDismiss: () -> Unit) {
+private fun RequestDownload(
+    setState: (SplitInstallState) -> Unit,
+    onDismiss: () -> Unit,
+) {
     var isDialogOpen by rememberSaveable { mutableStateOf(true) }
 
-    val arguments = DialogArguments(
-        title = stringResource(id = R.string.split_confirmation_install_title),
-        text = stringResource(id = R.string.split_confirmation_install_description),
-        confirmText = stringResource(id = R.string.split_confirmation_install_accept),
-        dismissText = stringResource(id = R.string.split_confirmation_install_deny),
-        onConfirmAction = { setState(Downloading) },
-    )
+    val arguments =
+        DialogArguments(
+            title = stringResource(id = R.string.split_confirmation_install_title),
+            text = stringResource(id = R.string.split_confirmation_install_description),
+            confirmText = stringResource(id = R.string.split_confirmation_install_accept),
+            dismissText = stringResource(id = R.string.split_confirmation_install_deny),
+            onConfirmAction = { setState(Downloading) },
+        )
     AlkaaDialog(
         arguments = arguments,
         isDialogOpen = isDialogOpen,
@@ -120,23 +125,25 @@ private fun DownloadFeature(
 ) {
     var isDialogOpen by rememberSaveable { mutableStateOf(true) }
     DisposableEffect(featureName) {
-        val request = SplitInstallRequest.newBuilder()
-            .addModule(featureName)
-            .build()
+        val request =
+            SplitInstallRequest.newBuilder()
+                .addModule(featureName)
+                .build()
 
-        val listener = SplitInstallStateUpdatedListener {
-            logcat { "${it.status()}" }
+        val listener =
+            SplitInstallStateUpdatedListener {
+                logcat { "${it.status()}" }
 
-            when (it.status()) {
-                SplitInstallSessionStatus.PENDING -> isDialogOpen = true
-                SplitInstallSessionStatus.INSTALLED -> {
-                    isDialogOpen = false
-                    setState(FeatureReady)
-                    onDismiss()
+                when (it.status()) {
+                    SplitInstallSessionStatus.PENDING -> isDialogOpen = true
+                    SplitInstallSessionStatus.INSTALLED -> {
+                        isDialogOpen = false
+                        setState(FeatureReady)
+                        onDismiss()
+                    }
+                    else -> logcat { "${it.status()}" }
                 }
-                else -> logcat { "${it.status()}" }
             }
-        }
 
         manager.registerListener(listener)
         manager.startInstall(request)
@@ -159,9 +166,10 @@ private fun DownloadDialog() {
                 Text(text = stringResource(id = R.string.split_downloading_description))
                 Box(
                     contentAlignment = Alignment.Center,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 32.dp),
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(top = 32.dp),
                 ) {
                     CircularProgressIndicator(modifier = Modifier.size(64.dp))
                 }

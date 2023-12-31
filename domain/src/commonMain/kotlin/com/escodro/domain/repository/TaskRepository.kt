@@ -6,7 +6,6 @@ import com.escodro.domain.model.Task
  * Interface to represent the implementation of Task repository.
  */
 interface TaskRepository {
-
     /**
      * Inserts a new task.
      *

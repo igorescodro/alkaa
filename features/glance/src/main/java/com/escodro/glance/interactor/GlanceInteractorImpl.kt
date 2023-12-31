@@ -6,7 +6,6 @@ import com.escodro.glance.data.TaskListUpdaterWorker
 import com.escodro.glance.presentation.TaskListGlanceWidget
 
 internal class GlanceInteractorImpl(private val context: Context) : GlanceInteractor {
-
     /**
      * Updates all the [TaskListGlanceWidget] to load the latest data.
      */

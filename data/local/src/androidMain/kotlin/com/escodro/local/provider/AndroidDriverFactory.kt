@@ -16,7 +16,6 @@ internal class AndroidDriverFactory(
     private val context: Context,
     private val appCoroutineScope: AppCoroutineScope,
 ) : DriverFactory {
-
     /**
      * Creates the platform-specific [SqlDriver] to be used in the database.
      *
@@ -24,10 +23,12 @@ internal class AndroidDriverFactory(
      *
      * @return the [SqlDriver] to be used in the database
      */
-    override fun createDriver(databaseName: String): SqlDriver =
-        AndroidSqliteDriver(AlkaaDatabase.Schema, context, databaseName)
+    override fun createDriver(databaseName: String): SqlDriver = AndroidSqliteDriver(AlkaaDatabase.Schema, context, databaseName)
 
-    override fun prepopulateDatabase(database: AlkaaDatabase, databaseName: String) {
+    override fun prepopulateDatabase(
+        database: AlkaaDatabase,
+        databaseName: String,
+    ) {
         val databaseFile = context.getDatabasePath(databaseName)
         if (!databaseFile.exists()) {
             appCoroutineScope.launch {

@@ -8,9 +8,12 @@ import kotlinx.coroutines.launch
 
 @Suppress("GlobalCoroutineUsage")
 internal class CoroutinesDebouncerFake : CoroutineDebouncer {
-
     @OptIn(DelicateCoroutinesApi::class)
-    override fun invoke(delay: Long, coroutineScope: CoroutineScope, function: suspend () -> Unit) {
+    override fun invoke(
+        delay: Long,
+        coroutineScope: CoroutineScope,
+        function: suspend () -> Unit,
+    ) {
         GlobalScope.launch { function() }
     }
 }

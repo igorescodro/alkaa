@@ -6,7 +6,6 @@ import androidx.glance.appwidget.GlanceAppWidgetReceiver
 import com.escodro.glance.presentation.TaskListGlanceWidget
 
 internal class TaskListGlanceReceiver : GlanceAppWidgetReceiver() {
-
     override val glanceAppWidget: GlanceAppWidget = TaskListGlanceWidget()
 
     override fun onEnabled(context: Context) {

@@ -4,15 +4,15 @@ import com.escodro.domain.model.Task
 import com.escodro.domain.repository.TaskRepository
 
 internal class TaskRepositoryFake : TaskRepository {
-
     private val taskMap: MutableMap<Long, Task> = mutableMapOf()
 
     override suspend fun insertTask(task: Task) {
-        val id = if (task.id == 0L) {
-            taskMap.entries.maxByOrNull { it.key }?.key?.plus(1) ?: 1
-        } else {
-            task.id
-        }
+        val id =
+            if (task.id == 0L) {
+                taskMap.entries.maxByOrNull { it.key }?.key?.plus(1) ?: 1
+            } else {
+                task.id
+            }
 
         taskMap[id] = task
     }
@@ -32,9 +32,7 @@ internal class TaskRepositoryFake : TaskRepository {
     override suspend fun findAllTasksWithDueDate(): List<Task> =
         taskMap.filter { entry -> entry.value.dueDate != null }.values.toMutableList()
 
-    override suspend fun findTaskById(taskId: Long): Task? =
-        taskMap[taskId]
+    override suspend fun findTaskById(taskId: Long): Task? = taskMap[taskId]
 
-    fun findAllTasks(): List<Task> =
-        taskMap.values.toList()
+    fun findAllTasks(): List<Task> = taskMap.values.toList()
 }

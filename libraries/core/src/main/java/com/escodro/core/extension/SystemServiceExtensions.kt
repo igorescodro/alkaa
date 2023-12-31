@@ -9,13 +9,11 @@ import android.content.Context
  *
  * @return the [NotificationManager] system service
  */
-fun Context.getNotificationManager() =
-    getSystemService(Context.NOTIFICATION_SERVICE) as? NotificationManager
+fun Context.getNotificationManager() = getSystemService(Context.NOTIFICATION_SERVICE) as? NotificationManager
 
 /**
  * Gets the [AlarmManager] system service.
  *
  * @return the [AlarmManager] system service
  */
-fun Context.getAlarmManager() =
-    getSystemService(Context.ALARM_SERVICE) as? AlarmManager
+fun Context.getAlarmManager() = getSystemService(Context.ALARM_SERVICE) as? AlarmManager

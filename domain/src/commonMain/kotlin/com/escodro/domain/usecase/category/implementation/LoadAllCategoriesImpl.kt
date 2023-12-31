@@ -8,7 +8,5 @@ import kotlinx.coroutines.flow.Flow
 internal class LoadAllCategoriesImpl(
     private val categoryRepository: CategoryRepository,
 ) : LoadAllCategories {
-
-    override operator fun invoke(): Flow<List<Category>> =
-        categoryRepository.findAllCategories()
+    override operator fun invoke(): Flow<List<Category>> = categoryRepository.findAllCategories()
 }

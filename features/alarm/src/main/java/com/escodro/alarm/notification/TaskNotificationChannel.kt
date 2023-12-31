@@ -11,7 +11,6 @@ import com.escodro.core.extension.getNotificationManager
  * [NotificationChannel] to send Task notifications in Android O and above.
  */
 internal class TaskNotificationChannel(context: Context) {
-
     init {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val name = context.getString(R.string.channel_task_name)
@@ -33,7 +32,6 @@ internal class TaskNotificationChannel(context: Context) {
     fun getChannelId() = CHANNEL_ID
 
     companion object {
-
         const val CHANNEL_ID = "task_notification_channel"
     }
 }

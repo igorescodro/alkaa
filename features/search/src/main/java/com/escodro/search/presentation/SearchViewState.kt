@@ -7,7 +7,6 @@ import kotlinx.collections.immutable.ImmutableList
  * Represents the possible UI stated of Search screen.
  */
 internal sealed class SearchViewState {
-
     /**
      * Represents the stated where the screen is loading.
      */

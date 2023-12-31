@@ -7,7 +7,6 @@ import kotlinx.coroutines.flow.Flow
  * Interface to represent the implementation of Preferences data source.
  */
 interface PreferencesDataSource {
-
     /**
      * Updates the current app theme.
      *

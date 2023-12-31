@@ -7,7 +7,6 @@ package com.escodro.local.model
  */
 @Suppress("MagicNumber")
 enum class AlarmInterval(val id: Int) {
-
     /**
      * Represents a interval of 1 hour.
      */

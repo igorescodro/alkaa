@@ -23,19 +23,20 @@ import org.koin.dsl.module
 /**
  * Repository dependency injection module.
  */
-val repositoryModule = module {
+val repositoryModule =
+    module {
 
-    // Repositories
-    singleOf(::TaskRepositoryImpl) bind TaskRepository::class
-    singleOf(::CategoryRepositoryImpl) bind CategoryRepository::class
-    singleOf(::TaskWithCategoryRepositoryImpl) bind TaskWithCategoryRepository::class
-    singleOf(::SearchRepositoryImpl) bind SearchRepository::class
-    singleOf(::PreferencesRepositoryImpl) bind PreferencesRepository::class
+        // Repositories
+        singleOf(::TaskRepositoryImpl) bind TaskRepository::class
+        singleOf(::CategoryRepositoryImpl) bind CategoryRepository::class
+        singleOf(::TaskWithCategoryRepositoryImpl) bind TaskWithCategoryRepository::class
+        singleOf(::SearchRepositoryImpl) bind SearchRepository::class
+        singleOf(::PreferencesRepositoryImpl) bind PreferencesRepository::class
 
-    // Mappers
-    factoryOf(::AlarmIntervalMapper)
-    factoryOf(::TaskMapper)
-    factoryOf(::CategoryMapper)
-    factoryOf(::TaskWithCategoryMapper)
-    factoryOf(::AppThemeOptionsMapper)
-}
+        // Mappers
+        factoryOf(::AlarmIntervalMapper)
+        factoryOf(::TaskMapper)
+        factoryOf(::CategoryMapper)
+        factoryOf(::TaskWithCategoryMapper)
+        factoryOf(::AppThemeOptionsMapper)
+    }

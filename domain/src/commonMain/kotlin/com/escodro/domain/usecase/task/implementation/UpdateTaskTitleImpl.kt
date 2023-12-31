@@ -10,8 +10,10 @@ internal class UpdateTaskTitleImpl(
     private val updateTask: UpdateTask,
     private val glanceInteractor: GlanceInteractor,
 ) : UpdateTaskTitle {
-
-    override suspend fun invoke(taskId: Long, title: String) {
+    override suspend fun invoke(
+        taskId: Long,
+        title: String,
+    ) {
         val task = loadTask(taskId) ?: return
         val updatedTask = task.copy(title = title)
         updateTask(updatedTask)

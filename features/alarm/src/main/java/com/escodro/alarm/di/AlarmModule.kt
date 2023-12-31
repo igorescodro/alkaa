@@ -21,18 +21,19 @@ import org.koin.dsl.module
 /**
  * Alarm dependency injection module.
  */
-val alarmModule = module {
+val alarmModule =
+    module {
 
-    factoryOf(::TaskNotificationScheduler)
-    factoryOf(::TaskNotificationChannel)
-    factoryOf(::TaskNotification)
+        factoryOf(::TaskNotificationScheduler)
+        factoryOf(::TaskNotificationChannel)
+        factoryOf(::TaskNotification)
 
-    factoryOf(::TaskMapper)
+        factoryOf(::TaskMapper)
 
-    factoryOf(::AlarmInteractorImpl) bind AlarmInteractor::class
-    factoryOf(::NotificationInteractorImpl) bind NotificationInteractor::class
+        factoryOf(::AlarmInteractorImpl) bind AlarmInteractor::class
+        factoryOf(::NotificationInteractorImpl) bind NotificationInteractor::class
 
-    factoryOf(::AndroidVersionImpl) bind AndroidVersion::class
-    factoryOf(::PermissionCheckerImpl) bind PermissionChecker::class
-    factoryOf(::AlarmPermissionImpl) bind AlarmPermission::class
-}
+        factoryOf(::AndroidVersionImpl) bind AndroidVersion::class
+        factoryOf(::PermissionCheckerImpl) bind PermissionChecker::class
+        factoryOf(::AlarmPermissionImpl) bind AlarmPermission::class
+    }

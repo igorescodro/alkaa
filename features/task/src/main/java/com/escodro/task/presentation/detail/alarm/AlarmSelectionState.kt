@@ -12,7 +12,6 @@ import java.util.Calendar
  * State holder for the [AlarmSelection] composable.
  */
 internal class AlarmSelectionState(calendar: Calendar?, alarmInterval: AlarmInterval?) {
-
     /**
      * The alarm date, if set.
      */
@@ -40,5 +39,7 @@ internal class AlarmSelectionState(calendar: Calendar?, alarmInterval: AlarmInte
 }
 
 @Composable
-internal fun rememberAlarmSelectionState(calendar: Calendar?, alarmInterval: AlarmInterval?) =
-    remember { AlarmSelectionState(calendar, alarmInterval) }
+internal fun rememberAlarmSelectionState(
+    calendar: Calendar?,
+    alarmInterval: AlarmInterval?,
+) = remember { AlarmSelectionState(calendar, alarmInterval) }

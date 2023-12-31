@@ -11,7 +11,6 @@ internal class SearchRepositoryImpl(
     private val searchDataSource: SearchDataSource,
     private val mapper: TaskWithCategoryMapper,
 ) : SearchRepository {
-
     override suspend fun findTaskByName(query: String): Flow<List<TaskWithCategory>> =
         searchDataSource.findTaskByName(query).map { mapper.toDomain(it) }
 }

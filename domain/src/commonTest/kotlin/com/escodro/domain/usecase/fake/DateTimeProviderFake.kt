@@ -7,9 +7,9 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 
 internal class DateTimeProviderFake : DateTimeProvider {
-    override fun getCurrentInstant(): Instant =
-        Instant.fromEpochMilliseconds(734_892_600_000) // 1993-04-15T16:50:00Z
+    override fun getCurrentInstant(): Instant = Instant.fromEpochMilliseconds(734_892_600_000) // 1993-04-15T16:50:00Z
 
-    override fun getCurrentLocalDateTime(): LocalDateTime = getCurrentInstant()
-        .toLocalDateTime(TimeZone.currentSystemDefault())
+    override fun getCurrentLocalDateTime(): LocalDateTime =
+        getCurrentInstant()
+            .toLocalDateTime(TimeZone.currentSystemDefault())
 }

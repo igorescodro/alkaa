@@ -55,50 +55,51 @@ import org.koin.dsl.module
 /**
  * Domain dependency injection module.
  */
-val domainModule = module {
+val domainModule =
+    module {
 
-    // Task Use Cases
-    factoryOf(::AddTaskImpl) bind AddTask::class
-    factoryOf(::CompleteTask)
-    factoryOf(::UncompleteTask)
-    factoryOf(::UpdateTaskStatusImpl) bind UpdateTaskStatus::class
-    factoryOf(::DeleteTask)
-    factoryOf(::LoadTaskImpl) bind LoadTask::class
-    factoryOf(::UpdateTaskImpl) bind UpdateTask::class
-    factoryOf(::UpdateTaskTitleImpl) bind UpdateTaskTitle::class
-    factoryOf(::UpdateTaskDescriptionImpl) bind UpdateTaskDescription::class
-    factoryOf(::UpdateTaskCategoryImpl) bind UpdateTaskCategory::class
+        // Task Use Cases
+        factoryOf(::AddTaskImpl) bind AddTask::class
+        factoryOf(::CompleteTask)
+        factoryOf(::UncompleteTask)
+        factoryOf(::UpdateTaskStatusImpl) bind UpdateTaskStatus::class
+        factoryOf(::DeleteTask)
+        factoryOf(::LoadTaskImpl) bind LoadTask::class
+        factoryOf(::UpdateTaskImpl) bind UpdateTask::class
+        factoryOf(::UpdateTaskTitleImpl) bind UpdateTaskTitle::class
+        factoryOf(::UpdateTaskDescriptionImpl) bind UpdateTaskDescription::class
+        factoryOf(::UpdateTaskCategoryImpl) bind UpdateTaskCategory::class
 
-    // Category Use Cases
-    factoryOf(::DeleteCategoryImpl) bind DeleteCategory::class
-    factoryOf(::LoadAllCategoriesImpl) bind LoadAllCategories::class
-    factoryOf(::LoadCategoryImpl) bind LoadCategory::class
-    factoryOf(::AddCategoryImpl) bind AddCategory::class
-    factoryOf(::UpdateCategoryImpl) bind UpdateCategory::class
+        // Category Use Cases
+        factoryOf(::DeleteCategoryImpl) bind DeleteCategory::class
+        factoryOf(::LoadAllCategoriesImpl) bind LoadAllCategories::class
+        factoryOf(::LoadCategoryImpl) bind LoadCategory::class
+        factoryOf(::AddCategoryImpl) bind AddCategory::class
+        factoryOf(::UpdateCategoryImpl) bind UpdateCategory::class
 
-    // Search Use Cases
-    factoryOf(::SearchTasksByNameImpl) bind SearchTasksByName::class
+        // Search Use Cases
+        factoryOf(::SearchTasksByNameImpl) bind SearchTasksByName::class
 
-    // Task With Category Use Cases
-    factoryOf(::LoadCompletedTasks)
-    factoryOf(::LoadUncompletedTasksImpl) bind LoadUncompletedTasks::class
+        // Task With Category Use Cases
+        factoryOf(::LoadCompletedTasks)
+        factoryOf(::LoadUncompletedTasksImpl) bind LoadUncompletedTasks::class
 
-    // Alarm Use Cases
-    factoryOf(::CancelAlarmImpl) bind CancelAlarm::class
-    factoryOf(::RescheduleFutureAlarms)
-    factoryOf(::ScheduleAlarmImpl) bind ScheduleAlarm::class
-    factoryOf(::ScheduleNextAlarm)
-    factoryOf(::ShowAlarm)
-    factoryOf(::SnoozeAlarm)
-    factoryOf(::UpdateTaskAsRepeatingImpl) bind UpdateTaskAsRepeating::class
+        // Alarm Use Cases
+        factoryOf(::CancelAlarmImpl) bind CancelAlarm::class
+        factoryOf(::RescheduleFutureAlarms)
+        factoryOf(::ScheduleAlarmImpl) bind ScheduleAlarm::class
+        factoryOf(::ScheduleNextAlarm)
+        factoryOf(::ShowAlarm)
+        factoryOf(::SnoozeAlarm)
+        factoryOf(::UpdateTaskAsRepeatingImpl) bind UpdateTaskAsRepeating::class
 
-    // Tracker Use Cases
-    factoryOf(::LoadCompletedTasksByPeriodImpl) bind LoadCompletedTasksByPeriod::class
+        // Tracker Use Cases
+        factoryOf(::LoadCompletedTasksByPeriodImpl) bind LoadCompletedTasksByPeriod::class
 
-    // Preferences Use Cases
-    factoryOf(::UpdateAppTheme)
-    factoryOf(::LoadAppTheme)
+        // Preferences Use Cases
+        factoryOf(::UpdateAppTheme)
+        factoryOf(::LoadAppTheme)
 
-    // Providers
-    factoryOf(::DateTimeProviderImpl) bind DateTimeProvider::class
-}
+        // Providers
+        factoryOf(::DateTimeProviderImpl) bind DateTimeProvider::class
+    }

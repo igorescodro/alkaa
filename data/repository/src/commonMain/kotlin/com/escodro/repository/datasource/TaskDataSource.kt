@@ -6,7 +6,6 @@ import com.escodro.repository.model.Task
  * Interface to represent the implementation of Task data source.
  */
 interface TaskDataSource {
-
     /**
      * Inserts a new task.
      *

@@ -7,9 +7,7 @@ import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 
 internal class TaskSearchMapper {
-
-    fun toTaskSearch(taskList: List<TaskWithCategory>): ImmutableList<TaskSearchItem> =
-        taskList.map(::toTaskSearch).toImmutableList()
+    fun toTaskSearch(taskList: List<TaskWithCategory>): ImmutableList<TaskSearchItem> = taskList.map(::toTaskSearch).toImmutableList()
 
     private fun toTaskSearch(taskWithCategory: TaskWithCategory): TaskSearchItem =
         TaskSearchItem(

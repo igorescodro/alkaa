@@ -13,7 +13,6 @@ import com.escodro.task.model.AlarmInterval as ViewDataInterval
  * Maps Alarm Interval between Domain and View.
  */
 internal class AlarmIntervalMapper {
-
     /**
      * Maps Alarm Interval from View Data to Domain.
      *

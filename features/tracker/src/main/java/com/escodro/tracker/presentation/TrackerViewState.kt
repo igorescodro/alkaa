@@ -6,7 +6,6 @@ import com.escodro.tracker.model.Tracker
  * Represents the possible UI States of Tracker screen.
  */
 internal sealed class TrackerViewState {
-
     /**
      * Represents the stated where the screen is loading.
      */

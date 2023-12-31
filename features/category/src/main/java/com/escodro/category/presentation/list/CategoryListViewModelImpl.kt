@@ -12,15 +12,15 @@ internal class CategoryListViewModelImpl(
     private val loadAllCategories: LoadAllCategories,
     private val categoryMapper: CategoryMapper,
 ) : CategoryListViewModel() {
-
-    override fun loadCategories(): Flow<CategoryState> = flow {
-        loadAllCategories().collect { categoryList ->
-            if (categoryList.isNotEmpty()) {
-                val mappedList = categoryMapper.toView(categoryList)
-                emit(CategoryState.Loaded(mappedList))
-            } else {
-                emit(CategoryState.Empty)
+    override fun loadCategories(): Flow<CategoryState> =
+        flow {
+            loadAllCategories().collect { categoryList ->
+                if (categoryList.isNotEmpty()) {
+                    val mappedList = categoryMapper.toView(categoryList)
+                    emit(CategoryState.Loaded(mappedList))
+                } else {
+                    emit(CategoryState.Empty)
+                }
             }
         }
-    }
 }

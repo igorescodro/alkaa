@@ -8,7 +8,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 internal class SearchTaskByNameFake : SearchTasksByName {
-
     private var list: List<TaskWithCategory> = listOf()
 
     fun returnValues(numberOfValues: Int) {
@@ -23,6 +22,5 @@ internal class SearchTaskByNameFake : SearchTasksByName {
         list = taskList
     }
 
-    override suspend fun invoke(query: String): Flow<List<TaskWithCategory>> =
-        flow { emit(list) }
+    override suspend fun invoke(query: String): Flow<List<TaskWithCategory>> = flow { emit(list) }
 }

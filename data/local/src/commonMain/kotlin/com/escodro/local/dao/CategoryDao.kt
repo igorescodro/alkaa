@@ -7,7 +7,6 @@ import kotlinx.coroutines.flow.Flow
  * DAO class to handle all [Category]-related database operations.
  */
 interface CategoryDao {
-
     /**
      * Get all inserted categories.
      *

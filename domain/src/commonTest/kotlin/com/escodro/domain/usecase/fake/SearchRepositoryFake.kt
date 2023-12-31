@@ -9,7 +9,6 @@ internal class SearchRepositoryFake(
     taskRepository: TaskRepositoryFake,
     categoryRepository: CategoryRepositoryFake = CategoryRepositoryFake(),
 ) : SearchRepository {
-
     private val taskWithCategoryRepository =
         TaskWithCategoryRepositoryFake(taskRepository, categoryRepository)
 

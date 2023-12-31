@@ -19,23 +19,25 @@ internal fun AlarmPermissionDialog(
     isDialogOpen: Boolean,
     onCloseDialog: () -> Unit,
 ) {
-    val arguments = DialogArguments(
-        title = stringResource(id = R.string.task_alarm_permission_dialog_title),
-        text = stringResource(id = R.string.task_alarm_permission_dialog_text),
-        confirmText = stringResource(id = R.string.task_alarm_permission_dialog_confirm),
-        dismissText = stringResource(id = R.string.task_alarm_permission_dialog_cancel),
-        onConfirmAction = {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                val intent = Intent().apply {
-                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                    action = Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM
-                    data = Uri.fromParts("package", context.packageName, null)
+    val arguments =
+        DialogArguments(
+            title = stringResource(id = R.string.task_alarm_permission_dialog_title),
+            text = stringResource(id = R.string.task_alarm_permission_dialog_text),
+            confirmText = stringResource(id = R.string.task_alarm_permission_dialog_confirm),
+            dismissText = stringResource(id = R.string.task_alarm_permission_dialog_cancel),
+            onConfirmAction = {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                    val intent =
+                        Intent().apply {
+                            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                            action = Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM
+                            data = Uri.fromParts("package", context.packageName, null)
+                        }
+                    context.startActivity(intent)
+                    onCloseDialog()
                 }
-                context.startActivity(intent)
-                onCloseDialog()
-            }
-        },
-    )
+            },
+        )
     AlkaaDialog(
         arguments = arguments,
         isDialogOpen = isDialogOpen,
@@ -50,16 +52,17 @@ internal fun NotificationPermissionDialog(
     isDialogOpen: Boolean,
     onCloseDialog: () -> Unit,
 ) {
-    val arguments = DialogArguments(
-        title = stringResource(id = R.string.task_notification_permission_dialog_title),
-        text = stringResource(id = R.string.task_notification_permission_dialog_text),
-        confirmText = stringResource(id = R.string.task_notification_permission_dialog_confirm),
-        dismissText = stringResource(id = R.string.task_notification_permission_dialog_cancel),
-        onConfirmAction = {
-            permissionState.launchPermissionRequest()
-            onCloseDialog()
-        },
-    )
+    val arguments =
+        DialogArguments(
+            title = stringResource(id = R.string.task_notification_permission_dialog_title),
+            text = stringResource(id = R.string.task_notification_permission_dialog_text),
+            confirmText = stringResource(id = R.string.task_notification_permission_dialog_confirm),
+            dismissText = stringResource(id = R.string.task_notification_permission_dialog_cancel),
+            onConfirmAction = {
+                permissionState.launchPermissionRequest()
+                onCloseDialog()
+            },
+        )
     AlkaaDialog(
         arguments = arguments,
         isDialogOpen = isDialogOpen,
@@ -73,21 +76,23 @@ internal fun RationalePermissionDialog(
     isDialogOpen: Boolean,
     onCloseDialog: () -> Unit,
 ) {
-    val arguments = DialogArguments(
-        title = stringResource(id = R.string.task_notification_rationale_dialog_title),
-        text = stringResource(id = R.string.task_notification_rationale_dialog_text),
-        confirmText = stringResource(id = R.string.task_notification_rationale_dialog_confirm),
-        dismissText = stringResource(id = R.string.task_notification_rationale_dialog_cancel),
-        onConfirmAction = {
-            val intent = Intent().apply {
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-                data = Uri.fromParts("package", context.packageName, null)
-            }
-            context.startActivity(intent)
-            onCloseDialog()
-        },
-    )
+    val arguments =
+        DialogArguments(
+            title = stringResource(id = R.string.task_notification_rationale_dialog_title),
+            text = stringResource(id = R.string.task_notification_rationale_dialog_text),
+            confirmText = stringResource(id = R.string.task_notification_rationale_dialog_confirm),
+            dismissText = stringResource(id = R.string.task_notification_rationale_dialog_cancel),
+            onConfirmAction = {
+                val intent =
+                    Intent().apply {
+                        flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+                        data = Uri.fromParts("package", context.packageName, null)
+                    }
+                context.startActivity(intent)
+                onCloseDialog()
+            },
+        )
     AlkaaDialog(
         arguments = arguments,
         isDialogOpen = isDialogOpen,

@@ -8,7 +8,6 @@ import com.escodro.task.model.Task as ViewTask
  * Maps Tasks between Domain and View.
  */
 internal class TaskMapper(private val alarmIntervalMapper: AlarmIntervalMapper) {
-
     /**
      * Maps Task from Domain to View.
      *

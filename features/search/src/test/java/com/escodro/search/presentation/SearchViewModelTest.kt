@@ -12,7 +12,6 @@ import org.junit.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
 internal class SearchViewModelTest {
-
     @get:Rule
     val coroutinesRule = CoroutineTestRule()
 
@@ -23,30 +22,32 @@ internal class SearchViewModelTest {
     private val viewModel = SearchViewModel(searchTasksByName, mockMapper)
 
     @Test
-    fun `check if loaded state is returned when there are tasks`() = runTest {
-        // Given the viewModel is called to search tasks
-        val numberOfValues = 10
-        searchTasksByName.returnValues(numberOfValues)
-        val flow = viewModel.findTasksByName("task name")
+    fun `check if loaded state is returned when there are tasks`() =
+        runTest {
+            // Given the viewModel is called to search tasks
+            val numberOfValues = 10
+            searchTasksByName.returnValues(numberOfValues)
+            val flow = viewModel.findTasksByName("task name")
 
-        // When the latest event is collected
-        val state = flow.first()
+            // When the latest event is collected
+            val state = flow.first()
 
-        // Then the state contain the queried task
-        require(state is SearchViewState.Loaded)
-        Assert.assertEquals(numberOfValues, state.taskList.size)
-    }
+            // Then the state contain the queried task
+            require(state is SearchViewState.Loaded)
+            Assert.assertEquals(numberOfValues, state.taskList.size)
+        }
 
     @Test
-    fun `check if empty state is returned when there are no tasks`() = runTest() {
-        // Given the viewModel is called to search tasks but don't match the query
-        searchTasksByName.returnValues(0)
-        val flow = viewModel.findTasksByName("bla bla")
+    fun `check if empty state is returned when there are no tasks`() =
+        runTest {
+            // Given the viewModel is called to search tasks but don't match the query
+            searchTasksByName.returnValues(0)
+            val flow = viewModel.findTasksByName("bla bla")
 
-        // When the latest event is collected
-        val state = flow.first()
+            // When the latest event is collected
+            val state = flow.first()
 
-        // Then the state is empty
-        assert(state is SearchViewState.Empty)
-    }
+            // Then the state is empty
+            assert(state is SearchViewState.Empty)
+        }
 }

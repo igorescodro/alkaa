@@ -22,7 +22,6 @@ internal class TaskWithCategoryDaoImpl(
     private val databaseProvider: DatabaseProvider,
     private val selectMapper: SelectMapper,
 ) : TaskWithCategoryDao {
-
     private val taskWithCategoryQueries: TaskWithCategoryQueries
         get() = databaseProvider.getInstance().taskWithCategoryQueries
 

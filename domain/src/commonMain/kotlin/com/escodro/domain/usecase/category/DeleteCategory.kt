@@ -6,7 +6,6 @@ import com.escodro.domain.model.Category
  * Use case to delete a category from the database.
  */
 interface DeleteCategory {
-
     /**
      * Deletes a category.
      *

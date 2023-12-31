@@ -8,7 +8,6 @@ import com.escodro.categoryapi.model.Category as ViewCategory
 import com.escodro.domain.model.Category as DomainCategory
 
 internal class CategoryMapper {
-
     fun toView(domainCategoryList: List<DomainCategory>): ImmutableList<ViewCategory> =
         domainCategoryList.map { toView(it) }.toImmutableList()
 

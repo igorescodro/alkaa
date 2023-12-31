@@ -7,7 +7,6 @@ import kotlinx.coroutines.flow.Flow
  * Interface to represent the implementation of Category repository.
  */
 interface CategoryRepository {
-
     /**
      * Inserts a new category.
      *

@@ -49,13 +49,15 @@ import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 
 internal class TaskListGlanceWidget : GlanceAppWidget() {
-
     /**
      * Custom implementation of [GlanceStateDefinition] to save and store data for this widget.
      */
     override val stateDefinition: GlanceStateDefinition<List<Task>> = TaskListStateDefinition
 
-    override suspend fun provideGlance(context: Context, id: GlanceId) = provideContent {
+    override suspend fun provideGlance(
+        context: Context,
+        id: GlanceId,
+    ) = provideContent {
         val taskList = currentState<List<Task>>().toImmutableList()
 
         /**
@@ -63,16 +65,18 @@ internal class TaskListGlanceWidget : GlanceAppWidget() {
          * For lower versions adding a background with a  filled shape of same
          * background color and corner radius.
          */
-        val background = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            GlanceModifier.cornerRadius(10.dp).background(GlanceTheme.colors.background)
-        } else {
-            GlanceModifier.background(ImageProvider(R.drawable.rounded_corners))
-        }
+        val background =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                GlanceModifier.cornerRadius(10.dp).background(GlanceTheme.colors.background)
+            } else {
+                GlanceModifier.background(ImageProvider(R.drawable.rounded_corners))
+            }
 
         AlkaaGlanceTheme {
             Column(
-                modifier = GlanceModifier.appWidgetBackground().fillMaxSize().then(background)
-                    .padding(8.dp),
+                modifier =
+                    GlanceModifier.appWidgetBackground().fillMaxSize().then(background)
+                        .padding(8.dp),
             ) {
                 Row(
                     modifier = GlanceModifier.fillMaxWidth().height(32.dp),
@@ -81,17 +85,19 @@ internal class TaskListGlanceWidget : GlanceAppWidget() {
                     Image(
                         provider = ImageProvider(R.drawable.ic_alkaa_icon),
                         contentDescription = context.getString(R.string.glance_app_icon_content_description),
-                        modifier = GlanceModifier.size(32.dp)
-                            .clickable(actionStartActivity(getHomeIntent())),
+                        modifier =
+                            GlanceModifier.size(32.dp)
+                                .clickable(actionStartActivity(getHomeIntent())),
                     )
                     Spacer(modifier = GlanceModifier.width(12.dp))
                     Text(
                         text = context.getString(R.string.glance_heading),
-                        style = TextStyle(
-                            color = GlanceTheme.colors.onSurface,
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.Medium,
-                        ),
+                        style =
+                            TextStyle(
+                                color = GlanceTheme.colors.onSurface,
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight.Medium,
+                            ),
                         modifier = GlanceModifier.defaultWeight(),
                     )
                 }
@@ -123,10 +129,11 @@ internal class TaskListGlanceWidget : GlanceAppWidget() {
             Spacer(modifier = GlanceModifier.height(12.dp))
             Text(
                 text = context.getString(R.string.glance_no_tasks),
-                style = TextStyle(
-                    color = GlanceTheme.colors.onSurface,
-                    fontSize = 12.sp,
-                ),
+                style =
+                    TextStyle(
+                        color = GlanceTheme.colors.onSurface,
+                        fontSize = 12.sp,
+                    ),
             )
         }
     }
@@ -147,22 +154,28 @@ internal class TaskListGlanceWidget : GlanceAppWidget() {
 
     @Suppress("MagicNumber")
     @Composable
-    private fun TaskItem(task: Task, modifier: GlanceModifier = GlanceModifier) {
+    private fun TaskItem(
+        task: Task,
+        modifier: GlanceModifier = GlanceModifier,
+    ) {
         Row(
-            modifier = modifier.padding(vertical = 2.dp).fillMaxWidth()
-                .clickable(actionStartActivity(getTaskIntent(task.id))),
+            modifier =
+                modifier.padding(vertical = 2.dp).fillMaxWidth()
+                    .clickable(actionStartActivity(getTaskIntent(task.id))),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             CheckBox(
                 checked = false,
-                onCheckedChange = actionRunCallback<UpdateTaskStatusAction>(
-                    actionParametersOf(TaskIdKey to task.id.toString()),
-                ),
+                onCheckedChange =
+                    actionRunCallback<UpdateTaskStatusAction>(
+                        actionParametersOf(TaskIdKey to task.id.toString()),
+                    ),
                 modifier = GlanceModifier.size(32.dp),
-                colors = CheckboxDefaults.colors(
-                    checkedColor = GlanceTheme.colors.secondary,
-                    uncheckedColor = GlanceTheme.colors.onSurface,
-                ),
+                colors =
+                    CheckboxDefaults.colors(
+                        checkedColor = GlanceTheme.colors.secondary,
+                        uncheckedColor = GlanceTheme.colors.onSurface,
+                    ),
             )
             Spacer(modifier = GlanceModifier.width(2.dp))
             Text(
@@ -174,9 +187,7 @@ internal class TaskListGlanceWidget : GlanceAppWidget() {
         }
     }
 
-    private fun getHomeIntent(): Intent =
-        Intent(Intent.ACTION_VIEW, DestinationDeepLink.getTaskHomeUri())
+    private fun getHomeIntent(): Intent = Intent(Intent.ACTION_VIEW, DestinationDeepLink.getTaskHomeUri())
 
-    private fun getTaskIntent(taskId: Long): Intent =
-        Intent(Intent.ACTION_VIEW, DestinationDeepLink.getTaskDetailUri(taskId))
+    private fun getTaskIntent(taskId: Long): Intent = Intent(Intent.ACTION_VIEW, DestinationDeepLink.getTaskDetailUri(taskId))
 }

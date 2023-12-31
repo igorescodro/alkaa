@@ -8,7 +8,6 @@ internal class CancelAlarmImpl(
     private val taskRepository: TaskRepository,
     private val alarmInteractor: AlarmInteractor,
 ) : CancelAlarm {
-
     override suspend operator fun invoke(taskId: Long) {
         val task = taskRepository.findTaskById(taskId) ?: return
 

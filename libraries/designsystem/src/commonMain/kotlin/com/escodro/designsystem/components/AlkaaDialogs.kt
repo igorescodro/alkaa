@@ -61,13 +61,14 @@ data class DialogArguments(
 @Composable
 fun DialogPreview() {
     AlkaaTheme {
-        val arguments = DialogArguments(
-            title = "Something regrettable",
-            text = "Are you sure that do you want to do something regrettable?",
-            confirmText = "Regret",
-            dismissText = "Cancel",
-            onConfirmAction = {},
-        )
+        val arguments =
+            DialogArguments(
+                title = "Something regrettable",
+                text = "Are you sure that do you want to do something regrettable?",
+                confirmText = "Regret",
+                dismissText = "Cancel",
+                onConfirmAction = {},
+            )
 
         AlkaaDialog(arguments = arguments, isDialogOpen = true, onDismissRequest = {})
     }

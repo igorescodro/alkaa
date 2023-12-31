@@ -29,30 +29,31 @@ import org.koin.dsl.module
 /**
  * Local dependency injection module.
  */
-val localModule = module {
+val localModule =
+    module {
 
-    // Data Sources
-    singleOf(::TaskLocalDataSource) bind TaskDataSource::class
-    singleOf(::CategoryLocalDataSource) bind CategoryDataSource::class
-    singleOf(::TaskWithCategoryLocalDataSource) bind TaskWithCategoryDataSource::class
-    singleOf(::SearchLocalDataSource) bind SearchDataSource::class
+        // Data Sources
+        singleOf(::TaskLocalDataSource) bind TaskDataSource::class
+        singleOf(::CategoryLocalDataSource) bind CategoryDataSource::class
+        singleOf(::TaskWithCategoryLocalDataSource) bind TaskWithCategoryDataSource::class
+        singleOf(::SearchLocalDataSource) bind SearchDataSource::class
 
-    // Mappers
-    factoryOf(::AlarmIntervalMapper)
-    factoryOf(::TaskMapper)
-    factoryOf(::CategoryMapper)
-    factoryOf(::TaskWithCategoryMapper)
-    factoryOf(::SelectMapper)
+        // Mappers
+        factoryOf(::AlarmIntervalMapper)
+        factoryOf(::TaskMapper)
+        factoryOf(::CategoryMapper)
+        factoryOf(::TaskWithCategoryMapper)
+        factoryOf(::SelectMapper)
 
-    // DAOs
-    singleOf(::CategoryDaoImpl) bind CategoryDao::class
-    singleOf(::TaskDaoImpl) bind TaskDao::class
-    singleOf(::TaskWithCategoryDaoImpl) bind TaskWithCategoryDao::class
+        // DAOs
+        singleOf(::CategoryDaoImpl) bind CategoryDao::class
+        singleOf(::TaskDaoImpl) bind TaskDao::class
+        singleOf(::TaskWithCategoryDaoImpl) bind TaskWithCategoryDao::class
 
-    // Providers
-    singleOf(::DatabaseProvider)
-    includes(platformLocalModule)
-}
+        // Providers
+        singleOf(::DatabaseProvider)
+        includes(platformLocalModule)
+    }
 
 /**
  * Provides the platform-specific dependencies.

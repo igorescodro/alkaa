@@ -26,13 +26,13 @@ fun rememberAlkaaAppState(windowSizeClass: WindowSizeClass): AlkaaAppState {
  */
 @Stable
 data class AlkaaAppState(private val windowSizeClass: WindowSizeClass) {
-
     /**
      * Verifies if the bottom bar should be shown.
      */
     val shouldShowBottomBar: Boolean
-        get() = windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact ||
-            windowSizeClass.heightSizeClass == WindowHeightSizeClass.Compact
+        get() =
+            windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact ||
+                windowSizeClass.heightSizeClass == WindowHeightSizeClass.Compact
 
     /**
      * Verifies if the navigation rail should be shown.

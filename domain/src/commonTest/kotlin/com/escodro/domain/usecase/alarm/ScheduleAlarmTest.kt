@@ -16,7 +16,6 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 internal class ScheduleAlarmTest {
-
     private val taskRepository = TaskRepositoryFake()
 
     private val alarmInteractor = AlarmInteractorFake()
@@ -30,21 +29,23 @@ internal class ScheduleAlarmTest {
     private val scheduleAlarmUseCase = ScheduleAlarmImpl(taskRepository, alarmInteractor)
 
     @BeforeTest
-    fun setup() = runTest {
-        taskRepository.cleanTable()
-        alarmInteractor.clear()
-    }
+    fun setup() =
+        runTest {
+            taskRepository.cleanTable()
+            alarmInteractor.clear()
+        }
 
     @Test
-    fun test_if_alarm_is_scheduled() = runTest {
-        val task = Task(id = 1, title = "I need a alarm here")
-        val alarm = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
-        addTaskUseCase(task)
+    fun test_if_alarm_is_scheduled() =
+        runTest {
+            val task = Task(id = 1, title = "I need a alarm here")
+            val alarm = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
+            addTaskUseCase(task)
 
-        scheduleAlarmUseCase(task.id, alarm)
-        val result = getTaskUseCase(task.id)
-        val assertTask = task.copy(dueDate = alarm)
+            scheduleAlarmUseCase(task.id, alarm)
+            val result = getTaskUseCase(task.id)
+            val assertTask = task.copy(dueDate = alarm)
 
-        assertEquals(assertTask, result)
-    }
+            assertEquals(assertTask, result)
+        }
 }

@@ -9,11 +9,12 @@ import org.koin.dsl.module
 /**
  * Search dependency injection module.
  */
-val searchModule = module {
+val searchModule =
+    module {
 
-    // Presentation
-    viewModelOf(::SearchViewModel)
+        // Presentation
+        viewModelOf(::SearchViewModel)
 
-    // Mappers
-    factoryOf(::TaskSearchMapper)
-}
+        // Mappers
+        factoryOf(::TaskSearchMapper)
+    }

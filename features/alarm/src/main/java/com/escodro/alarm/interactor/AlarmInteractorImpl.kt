@@ -6,8 +6,10 @@ import logcat.logcat
 
 internal class AlarmInteractorImpl(private val alarmManager: TaskNotificationScheduler) :
     AlarmInteractor {
-
-    override fun schedule(alarmId: Long, timeInMillis: Long) {
+    override fun schedule(
+        alarmId: Long,
+        timeInMillis: Long,
+    ) {
         logcat { "schedule - alarmId = $alarmId" }
         alarmManager.scheduleTaskAlarm(alarmId, timeInMillis)
     }

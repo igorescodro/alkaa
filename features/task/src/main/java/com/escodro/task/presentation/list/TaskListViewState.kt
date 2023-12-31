@@ -7,7 +7,6 @@ import kotlinx.collections.immutable.ImmutableList
  * Presentation entity to represent the view states of Task Section.
  */
 internal sealed class TaskListViewState {
-
     object Loading : TaskListViewState()
 
     data class Error(val cause: Throwable) : TaskListViewState()

@@ -25,7 +25,6 @@ import java.io.OutputStream
  * data is available. There is no pretty solution for now.
  */
 internal object TaskListStateDefinition : GlanceStateDefinition<List<Task>> {
-
     private const val DATA_STORE_FILENAME = "taskList"
 
     private val Context.datastore by dataStore(DATA_STORE_FILENAME, TaskListSerializer)
@@ -33,33 +32,36 @@ internal object TaskListStateDefinition : GlanceStateDefinition<List<Task>> {
     override suspend fun getDataStore(
         context: Context,
         fileKey: String,
-    ): DataStore<List<Task>> =
-        context.datastore
+    ): DataStore<List<Task>> = context.datastore
 
-    override fun getLocation(context: Context, fileKey: String): File =
-        context.dataStoreFile(DATA_STORE_FILENAME)
+    override fun getLocation(
+        context: Context,
+        fileKey: String,
+    ): File = context.dataStoreFile(DATA_STORE_FILENAME)
 
     /**
      * Updates the underlying [DataStore] data.
      * @param context Context to get datastore
      * @param newTasks List of new contents that are to be updated
      */
-    suspend fun updateData(context: Context, newTasks: List<Task>) =
-        getDataStore(context, DATA_STORE_FILENAME).updateData { newTasks }
+    suspend fun updateData(
+        context: Context,
+        newTasks: List<Task>,
+    ) = getDataStore(context, DATA_STORE_FILENAME).updateData { newTasks }
 
     /**
      * Custom serializer to write and read data from [DataStore].
      */
     @OptIn(ExperimentalSerializationApi::class)
     object TaskListSerializer : Serializer<List<Task>> {
-
         override val defaultValue: List<Task>
             get() = persistentListOf()
 
-        override suspend fun readFrom(input: InputStream): List<Task> =
-            Json.decodeFromStream(input)
+        override suspend fun readFrom(input: InputStream): List<Task> = Json.decodeFromStream(input)
 
-        override suspend fun writeTo(t: List<Task>, output: OutputStream) =
-            Json.encodeToStream(t, output)
+        override suspend fun writeTo(
+            t: List<Task>,
+            output: OutputStream,
+        ) = Json.encodeToStream(t, output)
     }
 }

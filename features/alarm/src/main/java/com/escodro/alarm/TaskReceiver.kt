@@ -18,7 +18,6 @@ import org.koin.core.component.inject
  * [BroadcastReceiver] to be notified by the [android.app.AlarmManager].
  */
 internal class TaskReceiver : BroadcastReceiver(), KoinComponent {
-
     private val appScope: AppCoroutineScope by inject()
 
     private val completeTaskUseCase: CompleteTask by inject()
@@ -29,7 +28,10 @@ internal class TaskReceiver : BroadcastReceiver(), KoinComponent {
 
     private val rescheduleUseCase: RescheduleFutureAlarms by inject()
 
-    override fun onReceive(context: Context?, intent: Intent?) {
+    override fun onReceive(
+        context: Context?,
+        intent: Intent?,
+    ) {
         logcat { "onReceive() - intent ${intent?.action}" }
 
         appScope.launch {
@@ -51,7 +53,6 @@ internal class TaskReceiver : BroadcastReceiver(), KoinComponent {
     private fun getTaskId(intent: Intent?) = intent?.getLongExtra(EXTRA_TASK, 0)
 
     companion object {
-
         const val EXTRA_TASK = "extra_task"
 
         const val ALARM_ACTION = "com.escodro.alkaa.SET_ALARM"

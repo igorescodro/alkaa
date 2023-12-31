@@ -9,7 +9,6 @@ import androidx.compose.material3.dynamicLightColorScheme
 
 @Suppress("NewApi")
 internal class AndroidThemeProvider(private val context: Context) : ThemeProvider {
-
     @get:ChecksSdkIntAtLeast(api = Build.VERSION_CODES.S)
     override val isDynamicColorSupported: Boolean
         get() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S

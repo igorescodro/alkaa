@@ -24,7 +24,6 @@ import org.junit.Test
 
 @OptIn(ExperimentalPermissionsApi::class)
 internal class AlarmPermissionFlowTest {
-
     @get:Rule
     val composeTestRule = createEmptyComposeRule()
 

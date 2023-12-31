@@ -12,7 +12,6 @@ class ShowAlarm(
     private val notificationInteractor: NotificationInteractor,
     private val scheduleNextAlarm: ScheduleNextAlarm,
 ) {
-
     private val logger = KotlinLogging.logger {}
 
     /**

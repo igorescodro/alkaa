@@ -9,7 +9,6 @@ import org.junit.Rule
 import org.junit.Test
 
 internal class AboutTest {
-
     @get:Rule
     val composeTestRule = createComposeRule()
 

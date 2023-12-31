@@ -9,7 +9,6 @@ import kotlinx.collections.immutable.toImmutableList
  * Maps Tracker between View and Domain.
  */
 internal class TrackerMapper {
-
     /**
      * Maps from a grouped [Map] of [List<ViewData.TaskWithCategory>] to [Tracker].
      *

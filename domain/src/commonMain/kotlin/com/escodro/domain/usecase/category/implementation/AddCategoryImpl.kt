@@ -8,7 +8,6 @@ import mu.KotlinLogging
 internal class AddCategoryImpl(
     private val categoryRepository: CategoryRepository,
 ) : AddCategory {
-
     private val logger = KotlinLogging.logger {}
 
     override suspend operator fun invoke(category: Category) {

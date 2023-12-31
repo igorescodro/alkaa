@@ -15,7 +15,6 @@ import org.junit.Rule
 import org.junit.Test
 
 internal class HomeScreenTest {
-
     @get:Rule
     val composeTestRule = createComposeRule()
 

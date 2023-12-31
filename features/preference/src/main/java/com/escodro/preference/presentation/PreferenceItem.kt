@@ -38,11 +38,12 @@ internal fun PreferenceItem(
     onItemClick: () -> Unit = { },
 ) {
     Column(
-        modifier = Modifier
-            .clickable { onItemClick() }
-            .padding(start = 32.dp, top = 8.dp, end = 16.dp, bottom = 8.dp)
-            .fillMaxWidth()
-            .height(48.dp),
+        modifier =
+            Modifier
+                .clickable { onItemClick() }
+                .padding(start = 32.dp, top = 8.dp, end = 16.dp, bottom = 8.dp)
+                .fillMaxWidth()
+                .height(48.dp),
         verticalArrangement = Arrangement.Center,
     ) {
         Text(
@@ -61,10 +62,11 @@ internal fun PreferenceItem(
 @Composable
 internal fun PreferenceTitle(title: String) {
     Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(start = 32.dp, end = 16.dp)
-            .height(32.dp),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(start = 32.dp, end = 16.dp)
+                .height(32.dp),
         contentAlignment = Alignment.CenterStart,
     ) {
         Text(

@@ -7,7 +7,5 @@ import com.escodro.domain.usecase.category.DeleteCategory
 internal class DeleteCategoryImpl(
     private val categoryRepository: CategoryRepository,
 ) : DeleteCategory {
-
-    override suspend operator fun invoke(category: Category) =
-        categoryRepository.deleteCategory(category)
+    override suspend operator fun invoke(category: Category) = categoryRepository.deleteCategory(category)
 }

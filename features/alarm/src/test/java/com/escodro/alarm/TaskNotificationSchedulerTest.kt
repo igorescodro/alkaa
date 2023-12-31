@@ -1,7 +1,6 @@
 package com.escodro.alarm
 
 class TaskNotificationSchedulerTest {
-
     // TODO remove mocks
     // private val mockContext = mockk<Context>(relaxed = true)
     //

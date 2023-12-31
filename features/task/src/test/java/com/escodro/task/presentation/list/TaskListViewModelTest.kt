@@ -19,7 +19,6 @@ import org.junit.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
 internal class TaskListViewModelTest {
-
     @get:Rule
     val coroutinesRule = CoroutineTestRule()
 
@@ -29,12 +28,13 @@ internal class TaskListViewModelTest {
 
     private val mapper = TaskWithCategoryMapper(TaskMapper(AlarmIntervalMapper()), CategoryMapper())
 
-    private val viewModel = TaskListViewModel(
-        loadAllTasksUseCase = loadUncompletedTasks,
-        updateTaskStatusUseCase = updateTaskStatus,
-        applicationScope = AppCoroutineScope(context = coroutinesRule.testDispatcher),
-        taskWithCategoryMapper = mapper,
-    )
+    private val viewModel =
+        TaskListViewModel(
+            loadAllTasksUseCase = loadUncompletedTasks,
+            updateTaskStatusUseCase = updateTaskStatus,
+            applicationScope = AppCoroutineScope(context = coroutinesRule.testDispatcher),
+            taskWithCategoryMapper = mapper,
+        )
 
     @Before
     fun setup() {
@@ -42,45 +42,48 @@ internal class TaskListViewModelTest {
     }
 
     @Test
-    fun `test if when there are uncompleted items, they are returned`() = runTest {
-        // Given the use case returns the list with uncompleted tasks
-        val numberOfEntries = 14
-        loadUncompletedTasks.returnValues(numberOfEntries)
-        val flow = viewModel.loadTaskList()
+    fun `test if when there are uncompleted items, they are returned`() =
+        runTest {
+            // Given the use case returns the list with uncompleted tasks
+            val numberOfEntries = 14
+            loadUncompletedTasks.returnValues(numberOfEntries)
+            val flow = viewModel.loadTaskList()
 
-        // When the latest event is collected
-        val state = flow.first()
+            // When the latest event is collected
+            val state = flow.first()
 
-        // Then that state contains the list with uncompleted tasks
-        require(state is TaskListViewState.Loaded)
-        Assert.assertEquals(numberOfEntries, state.items.size)
-    }
-
-    @Test
-    fun `test if when there are no uncompleted items, a empty list is returned`() = runTest {
-        // Given the use case returns an empty list
-        loadUncompletedTasks.clean()
-        val flow = viewModel.loadTaskList()
-
-        // When the latest event is collected
-        val state = flow.first()
-
-        // Then that state contains the empty list
-        Assert.assertTrue(state is TaskListViewState.Empty)
-    }
+            // Then that state contains the list with uncompleted tasks
+            require(state is TaskListViewState.Loaded)
+            Assert.assertEquals(numberOfEntries, state.items.size)
+        }
 
     @Test
-    fun `test if when load tasks fails, the error state is returned`() = runTest {
-        // Given the use case returns error
-        loadUncompletedTasks.throwError = true
-        val flow = viewModel.loadTaskList()
+    fun `test if when there are no uncompleted items, a empty list is returned`() =
+        runTest {
+            // Given the use case returns an empty list
+            loadUncompletedTasks.clean()
+            val flow = viewModel.loadTaskList()
 
-        // When the latest event is collected
-        val state = flow.first()
+            // When the latest event is collected
+            val state = flow.first()
 
-        // Then that state contains the empty list
-        Assert.assertTrue(state is TaskListViewState.Error)
-    }
+            // Then that state contains the empty list
+            Assert.assertTrue(state is TaskListViewState.Empty)
+        }
+
+    @Test
+    fun `test if when load tasks fails, the error state is returned`() =
+        runTest {
+            // Given the use case returns error
+            loadUncompletedTasks.throwError = true
+            val flow = viewModel.loadTaskList()
+
+            // When the latest event is collected
+            val state = flow.first()
+
+            // Then that state contains the empty list
+            Assert.assertTrue(state is TaskListViewState.Error)
+        }
 
     @Test
     fun `test if task is updated`() {
@@ -95,16 +98,17 @@ internal class TaskListViewModelTest {
     }
 
     @Test
-    fun `test if tasks are filtered by category when parameter is passed`() = runTest {
-        // Given the use case returns the list with uncompleted tasks
-        loadUncompletedTasks.returnDefaultValues()
-        val flow = viewModel.loadTaskList(categoryId = 1)
+    fun `test if tasks are filtered by category when parameter is passed`() =
+        runTest {
+            // Given the use case returns the list with uncompleted tasks
+            loadUncompletedTasks.returnDefaultValues()
+            val flow = viewModel.loadTaskList(categoryId = 1)
 
-        // When the latest event is collected
-        val state = flow.first()
+            // When the latest event is collected
+            val state = flow.first()
 
-        // Then that state contains the list with uncompleted tasks
-        require(state is TaskListViewState.Loaded)
-        Assert.assertEquals(2, state.items.size)
-    }
+            // Then that state contains the list with uncompleted tasks
+            require(state is TaskListViewState.Loaded)
+            Assert.assertEquals(2, state.items.size)
+        }
 }

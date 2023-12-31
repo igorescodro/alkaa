@@ -12,16 +12,16 @@ import org.junit.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
 internal class AddTaskViewModelTest {
-
     @get:Rule
     val coroutineTestRule = CoroutineTestRule()
 
     private val addTask = AddTaskFake()
 
-    private val viewModel = AddTaskViewModel(
-        addTaskUseCase = addTask,
-        applicationScope = AppCoroutineScope(context = coroutineTestRule.testDispatcher),
-    )
+    private val viewModel =
+        AddTaskViewModel(
+            addTaskUseCase = addTask,
+            applicationScope = AppCoroutineScope(context = coroutineTestRule.testDispatcher),
+        )
 
     @Before
     fun setup() {

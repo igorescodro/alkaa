@@ -15,7 +15,6 @@ import org.junit.Rule
 import org.junit.Test
 
 internal class ThemePreferenceTest {
-
     @get:Rule
     val composeTestRule = createComposeRule()
 

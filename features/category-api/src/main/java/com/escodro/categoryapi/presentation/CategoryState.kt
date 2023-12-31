@@ -7,7 +7,6 @@ import kotlinx.collections.immutable.ImmutableList
  * Represents the states of [CategoryListViewModel].
  */
 sealed class CategoryState {
-
     /**
      * Loading state.
      */

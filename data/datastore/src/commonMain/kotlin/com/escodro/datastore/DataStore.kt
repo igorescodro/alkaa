@@ -29,4 +29,4 @@ fun getDataStore(producePath: () -> String): DataStore<Preferences> =
         }
     }
 
-internal const val dataStoreFileName = "alkaa_settings.preferences_pb"
+internal const val DATA_STORE_FILE_NAME = "alkaa_settings.preferences_pb"

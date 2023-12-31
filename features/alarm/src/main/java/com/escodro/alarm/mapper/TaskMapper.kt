@@ -8,7 +8,6 @@ import com.escodro.domain.model.Task as DomainTask
  * Maps Tasks between View and Domain.
  */
 internal class TaskMapper {
-
     /**
      * Maps Task from Domain to View.
      *

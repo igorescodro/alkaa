@@ -15,7 +15,6 @@ import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 internal class UpdateTaskAsRepeatingTest {
-
     private val taskRepository = TaskRepositoryFake()
 
     private val glanceInteractor = GlanceInteractorFake()
@@ -27,40 +26,44 @@ internal class UpdateTaskAsRepeatingTest {
     private val scheduleRepeatingUseCase = UpdateTaskAsRepeatingImpl(taskRepository)
 
     @BeforeTest
-    fun setup() = runTest {
-        taskRepository.cleanTable()
-    }
+    fun setup() =
+        runTest {
+            taskRepository.cleanTable()
+        }
 
     @Test
-    fun test_if_task_is_updated_with_new_interval() = runTest {
-        val task = Task(id = 984L, title = "I'll be there for you")
-        addTaskUseCase(task)
-        val interval = AlarmInterval.WEEKLY
+    fun test_if_task_is_updated_with_new_interval() =
+        runTest {
+            val task = Task(id = 984L, title = "I'll be there for you")
+            addTaskUseCase(task)
+            val interval = AlarmInterval.WEEKLY
 
-        scheduleRepeatingUseCase(task.id, interval)
+            scheduleRepeatingUseCase(task.id, interval)
 
-        val result = getTaskUseCase(task.id)
-        require(result != null)
-        assertEquals(interval, result.alarmInterval)
-        assertTrue(result.isRepeating)
-    }
+            val result = getTaskUseCase(task.id)
+            require(result != null)
+            assertEquals(interval, result.alarmInterval)
+            assertTrue(result.isRepeating)
+        }
 
     @Test
-    fun test_if_repeating_state_is_cleared_when_update_alarm_interval_to_never() = runTest {
-        val task = Task(
-            id = 984L,
-            title = "nanana",
-            alarmInterval = AlarmInterval.YEARLY,
-            isRepeating = true,
-        )
+    fun test_if_repeating_state_is_cleared_when_update_alarm_interval_to_never() =
+        runTest {
+            val task =
+                Task(
+                    id = 984L,
+                    title = "nanana",
+                    alarmInterval = AlarmInterval.YEARLY,
+                    isRepeating = true,
+                )
 
-        addTaskUseCase(task)
+            addTaskUseCase(task)
 
-        scheduleRepeatingUseCase(task.id, null)
+            scheduleRepeatingUseCase(task.id, null)
 
-        val result = getTaskUseCase(task.id)
-        require(result != null)
-        assertEquals(null, result.alarmInterval)
-        assertFalse(result.isRepeating)
-    }
+            val result = getTaskUseCase(task.id)
+            require(result != null)
+            assertEquals(null, result.alarmInterval)
+            assertFalse(result.isRepeating)
+        }
 }

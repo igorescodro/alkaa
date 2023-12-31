@@ -7,7 +7,6 @@ import com.escodro.repository.model.Category as RepoCategory
  * Maps Category between Repository and Domain.
  */
 internal class CategoryMapper {
-
     /**
      * Maps Category from Repo to Domain.
      *
@@ -29,8 +28,7 @@ internal class CategoryMapper {
      *
      * @return the converted list of Category
      */
-    fun toDomain(repoCategoryList: List<RepoCategory>): List<DomainCategory> =
-        repoCategoryList.map { toDomain(it) }
+    fun toDomain(repoCategoryList: List<RepoCategory>): List<DomainCategory> = repoCategoryList.map { toDomain(it) }
 
     /**
      * Maps Category from Domain to Repo.
@@ -53,6 +51,5 @@ internal class CategoryMapper {
      *
      * @return the converted list of Category
      */
-    fun toRepo(localCategoryList: List<DomainCategory>): List<RepoCategory> =
-        localCategoryList.map { toRepo(it) }
+    fun toRepo(localCategoryList: List<DomainCategory>): List<RepoCategory> = localCategoryList.map { toRepo(it) }
 }

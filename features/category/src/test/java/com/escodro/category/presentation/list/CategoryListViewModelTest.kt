@@ -14,7 +14,6 @@ import org.junit.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
 internal class CategoryListViewModelTest {
-
     @get:Rule
     val coroutineTestRule = CoroutineTestRule()
 

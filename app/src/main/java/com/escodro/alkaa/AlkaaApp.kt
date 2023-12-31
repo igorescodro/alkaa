@@ -28,7 +28,6 @@ import org.koin.core.module.Module
  * Alkaa [Application] class.
  */
 class AlkaaApp : Application() {
-
     override fun onCreate() {
         super.onCreate()
 
@@ -41,21 +40,22 @@ class AlkaaApp : Application() {
         }
     }
 
-    internal fun getAllModules(): List<Module> = listOf(
-        appModule,
-        coroutinesModule,
-        designSystemModule,
-        taskModule,
-        alarmModule,
-        categoryModule,
-        searchModule,
-        glanceModule,
-        preferenceModule,
-        domainModule,
-        repositoryModule,
-        localModule,
-        dataStoreModule,
-    )
+    internal fun getAllModules(): List<Module> =
+        listOf(
+            appModule,
+            coroutinesModule,
+            designSystemModule,
+            taskModule,
+            alarmModule,
+            categoryModule,
+            searchModule,
+            glanceModule,
+            preferenceModule,
+            domainModule,
+            repositoryModule,
+            localModule,
+            dataStoreModule,
+        )
 
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base)

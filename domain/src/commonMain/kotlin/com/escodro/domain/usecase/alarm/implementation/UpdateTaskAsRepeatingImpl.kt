@@ -8,18 +8,21 @@ import mu.KotlinLogging
 internal class UpdateTaskAsRepeatingImpl(
     private val taskRepository: TaskRepository,
 ) : UpdateTaskAsRepeating {
-
     private val logger = KotlinLogging.logger {}
 
-    override suspend operator fun invoke(taskId: Long, interval: AlarmInterval?) {
+    override suspend operator fun invoke(
+        taskId: Long,
+        interval: AlarmInterval?,
+    ) {
         val task = taskRepository.findTaskById(taskId) ?: return
         logger.debug { "UpdateTaskAsRepeating = Task = '${task.title} as '$interval" }
 
-        val updatedTask = if (interval == null) {
-            task.copy(alarmInterval = null, isRepeating = false)
-        } else {
-            task.copy(alarmInterval = interval, isRepeating = true)
-        }
+        val updatedTask =
+            if (interval == null) {
+                task.copy(alarmInterval = null, isRepeating = false)
+            } else {
+                task.copy(alarmInterval = interval, isRepeating = true)
+            }
 
         taskRepository.updateTask(updatedTask)
     }

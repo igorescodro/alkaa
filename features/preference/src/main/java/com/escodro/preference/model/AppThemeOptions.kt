@@ -9,8 +9,10 @@ import com.escodro.preference.R
  * @property id the theme id
  * @property titleRes the string title resource
  */
-enum class AppThemeOptions(val id: Int, @StringRes val titleRes: Int) {
-
+enum class AppThemeOptions(
+    val id: Int,
+    @StringRes val titleRes: Int,
+) {
     /**
      * Light app theme.
      */

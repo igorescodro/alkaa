@@ -12,7 +12,6 @@ internal class TaskWithCategoryMapper(
     private val taskMapper: TaskMapper,
     private val categoryMapper: CategoryMapper,
 ) {
-
     /**
      * Maps Task With Category from Domain to View.
      *

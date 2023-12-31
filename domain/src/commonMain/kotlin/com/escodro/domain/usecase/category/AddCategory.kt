@@ -6,7 +6,6 @@ import com.escodro.domain.model.Category
  * Use case to insert a category in the database.
  */
 interface AddCategory {
-
     /**
      * Inserts a category.
      *

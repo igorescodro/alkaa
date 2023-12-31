@@ -9,7 +9,6 @@ import org.junit.Assert
 import org.junit.Test
 
 internal class AlarmPermissionTest {
-
     private val permissionChecker = PermissionCheckerFake()
 
     private val androidVersion = AndroidVersionFake()

@@ -10,7 +10,6 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 internal class UpdateTaskStatusAction : ActionCallback, KoinComponent {
-
     private val viewModel: TaskListGlanceUpdater by inject()
 
     private val glanceInteractor: GlanceInteractor by inject()

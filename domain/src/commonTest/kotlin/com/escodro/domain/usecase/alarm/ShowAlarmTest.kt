@@ -15,7 +15,6 @@ import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 internal class ShowAlarmTest {
-
     private val taskRepository = TaskRepositoryFake()
 
     private val alarmInteractor = AlarmInteractorFake()
@@ -35,66 +34,73 @@ internal class ShowAlarmTest {
         ShowAlarm(taskRepository, notificationInteractor, scheduleNextAlarmUseCase)
 
     @BeforeTest
-    fun setup() = runTest {
-        taskRepository.cleanTable()
-        alarmInteractor.clear()
-        notificationInteractor.clear()
-    }
+    fun setup() =
+        runTest {
+            taskRepository.cleanTable()
+            alarmInteractor.clear()
+            notificationInteractor.clear()
+        }
 
     @Test
-    fun test_if_alarm_is_shown_when_task_is_not_yet_completed() = runTest {
-        val task = Task(1, title = "should show", completed = false)
-        addTaskUseCase(task)
+    fun test_if_alarm_is_shown_when_task_is_not_yet_completed() =
+        runTest {
+            val task = Task(1, title = "should show", completed = false)
+            addTaskUseCase(task)
 
-        showAlarmUseCase(task.id)
+            showAlarmUseCase(task.id)
 
-        assertTrue(notificationInteractor.isNotificationShown(task.id))
-    }
-
-    @Test
-    fun test_if_alarm_is_ignored_when_task_is_already_completed() = runTest {
-        val task = Task(2, title = "should not show", completed = true)
-        addTaskUseCase(task)
-
-        showAlarmUseCase(task.id)
-
-        assertFalse(notificationInteractor.isNotificationShown(task.id))
-    }
+            assertTrue(notificationInteractor.isNotificationShown(task.id))
+        }
 
     @Test
-    fun test_if_next_alarm_is_scheduled_when_task_is_repeating() = runTest {
-        val calendar = datetimeProvider.getCurrentLocalDateTime()
-        val task = Task(
-            3,
-            title = "should repeat",
-            isRepeating = true,
-            dueDate = calendar,
-            alarmInterval = AlarmInterval.YEARLY,
-        )
-        addTaskUseCase(task)
+    fun test_if_alarm_is_ignored_when_task_is_already_completed() =
+        runTest {
+            val task = Task(2, title = "should not show", completed = true)
+            addTaskUseCase(task)
 
-        showAlarmUseCase(task.id)
+            showAlarmUseCase(task.id)
 
-        assertTrue(alarmInteractor.isAlarmScheduled(task.id))
-    }
+            assertFalse(notificationInteractor.isNotificationShown(task.id))
+        }
 
     @Test
-    fun test_if_next_alarm_is_not_scheduled_when_task_is_not_repeating() = runTest {
-        val task = Task(4, title = "should not repeat", isRepeating = false)
-        addTaskUseCase(task)
+    fun test_if_next_alarm_is_scheduled_when_task_is_repeating() =
+        runTest {
+            val calendar = datetimeProvider.getCurrentLocalDateTime()
+            val task =
+                Task(
+                    3,
+                    title = "should repeat",
+                    isRepeating = true,
+                    dueDate = calendar,
+                    alarmInterval = AlarmInterval.YEARLY,
+                )
+            addTaskUseCase(task)
 
-        showAlarmUseCase(task.id)
+            showAlarmUseCase(task.id)
 
-        assertFalse(alarmInteractor.isAlarmScheduled(task.id))
-    }
+            assertTrue(alarmInteractor.isAlarmScheduled(task.id))
+        }
 
     @Test
-    fun test_if_next_alarm_is_not_scheduled_when_task_is_completed() = runTest {
-        val task = Task(4, title = "it is already completed", isRepeating = true, completed = true)
-        addTaskUseCase(task)
+    fun test_if_next_alarm_is_not_scheduled_when_task_is_not_repeating() =
+        runTest {
+            val task = Task(4, title = "should not repeat", isRepeating = false)
+            addTaskUseCase(task)
 
-        showAlarmUseCase(task.id)
+            showAlarmUseCase(task.id)
 
-        assertFalse(alarmInteractor.isAlarmScheduled(task.id))
-    }
+            assertFalse(alarmInteractor.isAlarmScheduled(task.id))
+        }
+
+    @Test
+    fun test_if_next_alarm_is_not_scheduled_when_task_is_completed() =
+        runTest {
+            val task = Task(4, title = "it is already completed", isRepeating = true, completed = true)
+            addTaskUseCase(task)
+
+            showAlarmUseCase(task.id)
+
+            assertFalse(alarmInteractor.isAlarmScheduled(task.id))
+        }
 }

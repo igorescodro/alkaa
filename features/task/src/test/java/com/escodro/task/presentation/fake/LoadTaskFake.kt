@@ -4,9 +4,7 @@ import com.escodro.domain.model.Task
 import com.escodro.domain.usecase.task.LoadTask
 
 internal class LoadTaskFake : LoadTask {
-
     var taskToBeReturned: Task? = null
 
-    override suspend fun invoke(taskId: Long): Task? =
-        taskToBeReturned
+    override suspend fun invoke(taskId: Long): Task? = taskToBeReturned
 }

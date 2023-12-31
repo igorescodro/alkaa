@@ -11,7 +11,6 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 internal class UpdateCategoryTest {
-
     private val categoryRepository = CategoryRepositoryFake()
 
     private val addCategoryUseCase = AddCategoryImpl(categoryRepository)
@@ -21,19 +20,21 @@ internal class UpdateCategoryTest {
     private val updateCategoryUseCase = UpdateCategoryImpl(categoryRepository)
 
     @BeforeTest
-    fun setup() = runTest {
-        categoryRepository.cleanTable()
-    }
+    fun setup() =
+        runTest {
+            categoryRepository.cleanTable()
+        }
 
     @Test
-    fun test_if_category_is_updated() = runTest {
-        val category = Category(id = 24, name = "toys", color = "#04206F")
-        addCategoryUseCase(category)
+    fun test_if_category_is_updated() =
+        runTest {
+            val category = Category(id = 24, name = "toys", color = "#04206F")
+            addCategoryUseCase(category)
 
-        val updatedCategory = category.copy(name = "toyz", color = "#6969AA")
-        updateCategoryUseCase(updatedCategory)
+            val updatedCategory = category.copy(name = "toyz", color = "#6969AA")
+            updateCategoryUseCase(updatedCategory)
 
-        val result = loadCategoryUseCase(category.id)
-        assertEquals(updatedCategory, result)
-    }
+            val result = loadCategoryUseCase(category.id)
+            assertEquals(updatedCategory, result)
+        }
 }

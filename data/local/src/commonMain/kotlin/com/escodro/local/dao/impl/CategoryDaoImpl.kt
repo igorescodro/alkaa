@@ -11,12 +11,10 @@ import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.Flow
 
 internal class CategoryDaoImpl(private val databaseProvider: DatabaseProvider) : CategoryDao {
-
     private val categoryQueries: CategoryQueries
         get() = databaseProvider.getInstance().categoryQueries
 
-    override fun findAllCategories(): Flow<List<Category>> =
-        categoryQueries.selectAll().asFlow().mapToList(Dispatchers.IO)
+    override fun findAllCategories(): Flow<List<Category>> = categoryQueries.selectAll().asFlow().mapToList(Dispatchers.IO)
 
     override suspend fun insertCategory(category: Category) {
         categoryQueries.insert(
@@ -47,6 +45,5 @@ internal class CategoryDaoImpl(private val databaseProvider: DatabaseProvider) :
         categoryQueries.cleanTable()
     }
 
-    override suspend fun findCategoryById(categoryId: Long): Category? =
-        categoryQueries.selectByCategoryId(categoryId).executeAsOneOrNull()
+    override suspend fun findCategoryById(categoryId: Long): Category? = categoryQueries.selectByCategoryId(categoryId).executeAsOneOrNull()
 }

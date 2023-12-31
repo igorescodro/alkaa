@@ -12,16 +12,17 @@ import org.koin.dsl.module
 /**
  * DataStore dependency injection module.
  */
-val dataStoreModule = module {
+val dataStoreModule =
+    module {
 
-    // Data Source
-    singleOf(::PreferencesDataSourceImpl) bind PreferencesDataSource::class
+        // Data Source
+        singleOf(::PreferencesDataSourceImpl) bind PreferencesDataSource::class
 
-    // Mappers
-    factoryOf(::AppThemeOptionsMapper)
+        // Mappers
+        factoryOf(::AppThemeOptionsMapper)
 
-    includes(platformDataStoreModule)
-}
+        includes(platformDataStoreModule)
+    }
 
 /**
  * Provides the platform-specific dependencies.

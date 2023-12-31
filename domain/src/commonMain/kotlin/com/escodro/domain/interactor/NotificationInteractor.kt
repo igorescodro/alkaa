@@ -6,7 +6,6 @@ import com.escodro.domain.model.Task
  * Interface to interact with the notification feature.
  */
 interface NotificationInteractor {
-
     /**
      * Shows an notification.
      *

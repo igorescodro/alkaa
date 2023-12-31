@@ -52,7 +52,10 @@ import org.koin.compose.koinInject
  * @param onUpPress action to be called when the back button is pressed
  */
 @Composable
-fun TaskDetailSection(taskId: Long, onUpPress: () -> Unit) {
+fun TaskDetailSection(
+    taskId: Long,
+    onUpPress: () -> Unit,
+) {
     TaskDetailLoader(taskId = taskId, onUpPress = onUpPress)
 }
 
@@ -77,16 +80,17 @@ private fun TaskDetailLoader(
             categoryViewModel.loadCategories()
         }.collectAsState(initial = CategoryState.Loading)
 
-    val taskDetailActions = TaskDetailActions(
-        onTitleChange = { title -> detailViewModel.updateTitle(id, title) },
-        onDescriptionChange = { desc -> detailViewModel.updateDescription(id, desc) },
-        onCategoryChange = { categoryId -> detailViewModel.updateCategory(id, categoryId) },
-        onAlarmUpdate = { calendar -> alarmViewModel.updateAlarm(id, calendar) },
-        onIntervalSelect = { interval -> alarmViewModel.setRepeating(id, interval) },
-        hasAlarmPermission = { alarmPermission.hasExactAlarmPermission() },
-        shouldCheckNotificationPermission = alarmPermission.shouldCheckNotificationPermission(),
-        onUpPress = onUpPress,
-    )
+    val taskDetailActions =
+        TaskDetailActions(
+            onTitleChange = { title -> detailViewModel.updateTitle(id, title) },
+            onDescriptionChange = { desc -> detailViewModel.updateDescription(id, desc) },
+            onCategoryChange = { categoryId -> detailViewModel.updateCategory(id, categoryId) },
+            onAlarmUpdate = { calendar -> alarmViewModel.updateAlarm(id, calendar) },
+            onIntervalSelect = { interval -> alarmViewModel.setRepeating(id, interval) },
+            hasAlarmPermission = { alarmPermission.hasExactAlarmPermission() },
+            shouldCheckNotificationPermission = alarmPermission.shouldCheckNotificationPermission(),
+            onUpPress = onUpPress,
+        )
 
     TaskDetailRouter(
         detailViewState = detailViewState,
@@ -167,7 +171,10 @@ private fun TaskDetailError() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun TaskTitleTextField(text: String, onTitleChange: (String) -> Unit) {
+private fun TaskTitleTextField(
+    text: String,
+    onTitleChange: (String) -> Unit,
+) {
     val textState = remember { mutableStateOf(TextFieldValue(text)) }
 
     TextField(
@@ -178,17 +185,21 @@ private fun TaskTitleTextField(text: String, onTitleChange: (String) -> Unit) {
             textState.value = it
         },
         textStyle = MaterialTheme.typography.headlineMedium,
-        colors = TextFieldDefaults.colors(
-            focusedContainerColor = MaterialTheme.colorScheme.surface,
-            unfocusedContainerColor = MaterialTheme.colorScheme.surface,
-            disabledContainerColor = MaterialTheme.colorScheme.surface,
-        ),
+        colors =
+            TextFieldDefaults.colors(
+                focusedContainerColor = MaterialTheme.colorScheme.surface,
+                unfocusedContainerColor = MaterialTheme.colorScheme.surface,
+                disabledContainerColor = MaterialTheme.colorScheme.surface,
+            ),
     )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun TaskDescriptionTextField(text: String?, onDescriptionChange: (String) -> Unit) {
+private fun TaskDescriptionTextField(
+    text: String?,
+    onDescriptionChange: (String) -> Unit,
+) {
     val textState = remember { mutableStateOf(TextFieldValue(text ?: "")) }
 
     TextField(
@@ -205,11 +216,12 @@ private fun TaskDescriptionTextField(text: String?, onDescriptionChange: (String
             textState.value = it
         },
         textStyle = MaterialTheme.typography.bodyLarge,
-        colors = TextFieldDefaults.colors(
-            focusedContainerColor = MaterialTheme.colorScheme.surface,
-            unfocusedContainerColor = MaterialTheme.colorScheme.surface,
-            disabledContainerColor = MaterialTheme.colorScheme.surface,
-        ),
+        colors =
+            TextFieldDefaults.colors(
+                focusedContainerColor = MaterialTheme.colorScheme.surface,
+                unfocusedContainerColor = MaterialTheme.colorScheme.surface,
+                disabledContainerColor = MaterialTheme.colorScheme.surface,
+            ),
     )
 }
 

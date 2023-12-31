@@ -22,30 +22,36 @@ internal class TaskDetailViewModel(
     private val applicationScope: AppCoroutineScope,
     private val taskMapper: TaskMapper,
 ) : ViewModel() {
+    fun loadTaskInfo(taskId: TaskId): Flow<TaskDetailState> =
+        flow {
+            val task = loadTaskUseCase(taskId = taskId.value)
 
-    fun loadTaskInfo(taskId: TaskId): Flow<TaskDetailState> = flow {
-        val task = loadTaskUseCase(taskId = taskId.value)
-
-        if (task != null) {
-            val viewTask = taskMapper.toView(task)
-            emit(TaskDetailState.Loaded(viewTask))
-        } else {
-            emit(TaskDetailState.Error)
+            if (task != null) {
+                val viewTask = taskMapper.toView(task)
+                emit(TaskDetailState.Loaded(viewTask))
+            } else {
+                emit(TaskDetailState.Error)
+            }
         }
+
+    fun updateTitle(
+        taskId: TaskId,
+        title: String,
+    ) = coroutineDebouncer(coroutineScope = viewModelScope) {
+        updateTaskTitle(taskId.value, title)
     }
 
-    fun updateTitle(taskId: TaskId, title: String) =
-        coroutineDebouncer(coroutineScope = viewModelScope) {
-            updateTaskTitle(taskId.value, title)
-        }
+    fun updateDescription(
+        taskId: TaskId,
+        description: String,
+    ) = coroutineDebouncer(coroutineScope = viewModelScope) {
+        updateTaskDescription(taskId.value, description)
+    }
 
-    fun updateDescription(taskId: TaskId, description: String) =
-        coroutineDebouncer(coroutineScope = viewModelScope) {
-            updateTaskDescription(taskId.value, description)
-        }
-
-    fun updateCategory(taskId: TaskId, categoryId: CategoryId) =
-        applicationScope.launch {
-            updateTaskCategory(taskId = taskId.value, categoryId = categoryId.value)
-        }
+    fun updateCategory(
+        taskId: TaskId,
+        categoryId: CategoryId,
+    ) = applicationScope.launch {
+        updateTaskCategory(taskId = taskId.value, categoryId = categoryId.value)
+    }
 }

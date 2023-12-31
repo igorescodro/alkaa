@@ -12,7 +12,6 @@ internal class UpdateTaskImpl(
     private val taskRepository: TaskRepository,
     private val glanceInteractor: GlanceInteractor,
 ) : UpdateTask {
-
     override suspend operator fun invoke(task: Task) {
         taskRepository.updateTask(task)
         glanceInteractor.onTaskListUpdated()

@@ -11,7 +11,6 @@ internal class CategoryAddViewModel(
     private val applicationScope: AppCoroutineScope,
     private val categoryMapper: CategoryMapper,
 ) : ViewModel() {
-
     fun addCategory(category: Category) {
         if (category.name.isEmpty()) return
 

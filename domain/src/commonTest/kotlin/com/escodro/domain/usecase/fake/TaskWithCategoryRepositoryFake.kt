@@ -10,20 +10,21 @@ internal class TaskWithCategoryRepositoryFake(
     private val taskRepository: TaskRepositoryFake,
     private val categoryRepository: CategoryRepositoryFake,
 ) : TaskWithCategoryRepository {
-
     override fun findAllTasksWithCategory(): Flow<List<TaskWithCategory>> =
         flow {
-            val tasks = taskRepository.findAllTasks()
-                .map { task -> TaskWithCategory(task, findCategory(task.categoryId)) }
+            val tasks =
+                taskRepository.findAllTasks()
+                    .map { task -> TaskWithCategory(task, findCategory(task.categoryId)) }
 
             emit(tasks)
         }
 
     override fun findAllTasksWithCategoryId(categoryId: Long): Flow<List<TaskWithCategory>> =
         flow {
-            val tasks = taskRepository.findAllTasks()
-                .map { task -> TaskWithCategory(task, findCategory(task.categoryId)) }
-                .filter { it.category?.id == categoryId }
+            val tasks =
+                taskRepository.findAllTasks()
+                    .map { task -> TaskWithCategory(task, findCategory(task.categoryId)) }
+                    .filter { it.category?.id == categoryId }
 
             emit(tasks)
         }

@@ -7,7 +7,6 @@ import com.escodro.repository.model.Task as RepoTask
  * Maps Tasks between Repository and Domain.
  */
 internal class TaskMapper(private val alarmIntervalMapper: AlarmIntervalMapper) {
-
     /**
      * Maps Task from Repo to Domain.
      *
@@ -36,8 +35,7 @@ internal class TaskMapper(private val alarmIntervalMapper: AlarmIntervalMapper) 
      *
      * @return the converted list of Task
      */
-    fun toRepo(domainTaskList: List<DomainTask>): List<RepoTask> =
-        domainTaskList.map { toRepo(it) }
+    fun toRepo(domainTaskList: List<DomainTask>): List<RepoTask> = domainTaskList.map { toRepo(it) }
 
     /**
      * Maps Task from Domain to Repo.

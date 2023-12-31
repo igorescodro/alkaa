@@ -11,7 +11,6 @@ internal class SearchLocalDataSource(
     private val taskWithCategoryDao: TaskWithCategoryDao,
     private val taskWithCategoryMapper: TaskWithCategoryMapper,
 ) : SearchDataSource {
-
     override suspend fun findTaskByName(query: String): Flow<List<TaskWithCategory>> {
         val enclosedQuery = "%$query%"
         val taskList = taskWithCategoryDao.findTaskByName(enclosedQuery)

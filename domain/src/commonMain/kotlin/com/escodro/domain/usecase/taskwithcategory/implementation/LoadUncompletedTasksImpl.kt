@@ -9,7 +9,6 @@ import kotlinx.coroutines.flow.map
 internal class LoadUncompletedTasksImpl(
     private val repository: TaskWithCategoryRepository,
 ) : LoadUncompletedTasks {
-
     override fun invoke(categoryId: Long?): Flow<List<TaskWithCategory>> =
         if (categoryId == null) {
             repository.findAllTasksWithCategory()

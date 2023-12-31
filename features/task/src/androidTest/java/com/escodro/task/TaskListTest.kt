@@ -18,7 +18,6 @@ import org.junit.Rule
 import org.junit.Test
 
 internal class TaskListTest {
-
     @get:Rule
     val composeTestRule = createComposeRule()
 

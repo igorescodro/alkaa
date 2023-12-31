@@ -12,17 +12,18 @@ internal class SearchViewModel(
     private val findTaskUseCase: SearchTasksByName,
     private val mapper: TaskSearchMapper,
 ) : ViewModel() {
-
-    fun findTasksByName(name: String = ""): Flow<SearchViewState> = flow {
-        findTaskUseCase(name).collect { taskList ->
-            val state = if (taskList.isNotEmpty()) {
-                onListLoaded(taskList)
-            } else {
-                SearchViewState.Empty
+    fun findTasksByName(name: String = ""): Flow<SearchViewState> =
+        flow {
+            findTaskUseCase(name).collect { taskList ->
+                val state =
+                    if (taskList.isNotEmpty()) {
+                        onListLoaded(taskList)
+                    } else {
+                        SearchViewState.Empty
+                    }
+                emit(state)
             }
-            emit(state)
         }
-    }
 
     private fun onListLoaded(taskList: List<TaskWithCategory>): SearchViewState {
         val searchList = mapper.toTaskSearch(taskList)

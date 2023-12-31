@@ -9,7 +9,6 @@ import androidx.core.net.toUri
  * navigation.
  */
 object Destinations {
-
     /**
      * Home destination.
      */
@@ -39,7 +38,6 @@ object Destinations {
      * Represents the navigation where the target is a BottomSheet rather than a full screen.
      */
     object BottomSheet {
-
         /**
          * Bottom Sheet Category destination.
          */
@@ -56,7 +54,6 @@ object Destinations {
  * Represents the arguments to be passed through the [Destinations].
  */
 object DestinationArgs {
-
     /**
      * Argument to be passed to [Destinations.TaskDetail] representing the task id to be detailed.
      */
@@ -73,7 +70,6 @@ object DestinationArgs {
  * Represents the Deep Links to implicit navigate through the application, like PendingIntent.
  */
 object DestinationDeepLink {
-
     private val BaseUri = "app://com.escodro.alkaa".toUri()
 
     /**
@@ -97,14 +93,12 @@ object DestinationDeepLink {
      *
      * @return the [Destinations.TaskDetail] deep link with the argument set
      */
-    fun getTaskDetailUri(taskId: Long): Uri =
-        "$BaseUri/${DestinationArgs.TaskId}=$taskId".toUri()
+    fun getTaskDetailUri(taskId: Long): Uri = "$BaseUri/${DestinationArgs.TaskId}=$taskId".toUri()
 
     /**
      * Returns the [Destinations.Home] deep link with the argument set.
      *
      * @return the [Destinations.Home] deep link with the argument set
      */
-    fun getTaskHomeUri(): Uri =
-        HomePattern.toUri()
+    fun getTaskHomeUri(): Uri = HomePattern.toUri()
 }

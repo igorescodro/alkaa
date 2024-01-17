@@ -3,7 +3,7 @@
 version_code = "20300"
 version_name = "2.3.0"
 android_gradle_plugin = "8.2.1"
-kotlin = "1.9.0"
+kotlin = "1.9.20"
 android_sdk_compile = "34"
 android_sdk_target = "33"
 android_sdk_min = "24"
@@ -37,12 +37,12 @@ workmanager = "2.8.1"
 lifecycle_viewmodel = "2.6.2"
 
 # Compose
-compose_compiler = "1.5.1"
+compose_compiler = "1.5.5"
 compose_bom = "2023.10.01"
 compose_activity = "1.8.0"
 compose_material3 = "1.0.1"
 compose_icons = "1.4.2"
-jb_compose_compiler = "1.5.3"
+jb_compose_compiler = "1.5.10"
 compose_windowsizeclass = "0.3.1"
 
 # Koin

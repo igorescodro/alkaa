@@ -42,7 +42,7 @@ compose_bom = "2023.10.01"
 compose_activity = "1.8.0"
 compose_material3 = "1.0.1"
 compose_icons = "1.4.2"
-jb_compose_compiler = "1.5.10"
+jb_compose_compiler = "1.5.11"
 compose_windowsizeclass = "0.3.1"
 
 # Koin
@@ -68,7 +68,7 @@ moko_permissions = "0.16.0"
 atomicfu = "0.22.0"
 
 # Voyager
-voyager = "1.0.0-rc07"
+voyager = "1.0.0"
 
 # Test
 test_junit = "4.13.2"

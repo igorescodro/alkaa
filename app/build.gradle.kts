@@ -6,7 +6,6 @@ plugins {
     id("com.android.application")
     id("kotlin-android")
     id("com.escodro.kotlin-quality")
-    id("kotlin-parcelize")
     id("com.mikepenz.aboutlibraries.plugin")
 }
 
@@ -103,47 +102,24 @@ android {
 }
 
 dependencies {
-    implementation(projects.libraries.core)
-    implementation(projects.libraries.splitInstall)
-    implementation(projects.libraries.designsystem)
-    implementation(projects.libraries.navigation)
-    implementation(projects.libraries.coroutines)
-    implementation(projects.data.local)
-    implementation(projects.data.datastore)
-    implementation(projects.data.repository)
-    implementation(projects.features.task)
-    implementation(projects.features.alarm)
-    implementation(projects.features.category)
-    implementation(projects.features.preference)
-    implementation(projects.features.search)
-    implementation(projects.features.glance)
-
-    implementation(projects.domain)
     implementation(projects.shared)
+    implementation(projects.libraries.navigation)
 
     implementation(platform(libs.compose.bom))
 
     implementation(libs.logcat)
-    implementation(libs.compose.navigation)
+    implementation(libs.androidx.activity)
+    implementation(libs.androidx.appcompat)
     implementation(libs.compose.activity)
-    implementation(libs.accompanist.material)
     implementation(libs.androidx.playcore)
-    implementation(libs.koin.android)
-
-    implementation(libs.compose.windowsize)
-
-    implementation(libs.bundles.compose)
-    implementation(libs.kotlinx.collections.immutable)
-    implementation(libs.kotlinx.datetime)
+    implementation(libs.koin.core)
 
     androidTestUtil(libs.test.orchestrator)
 
-    testImplementation(libs.koin.test)
-    testImplementation(libs.test.mockk)
-
-    androidTestImplementation(projects.libraries.test)
+    androidTestImplementation(projects.libraries.androidTest)
     androidTestImplementation(libs.koin.test)
     androidTestImplementation(libs.test.rules)
+    androidTestImplementation(libs.test.hamcrest)
     androidTestImplementation(libs.bundles.composetest) {
         exclude(group = "androidx.core", module = "core-ktx")
         exclude(group = "androidx.fragment", module = "fragment")

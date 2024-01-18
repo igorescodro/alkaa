@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D84E6C982AF3DCD800AF8876 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84E6C972AF3DCD800AF8876 /* AppDelegate.swift */; };
 		D8AA52052A8FABB700A0D1F2 /* alkaaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AA52042A8FABB700A0D1F2 /* alkaaApp.swift */; };
 		D8AA52072A8FABB700A0D1F2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AA52062A8FABB700A0D1F2 /* ContentView.swift */; };
 		D8AA52092A8FABB800A0D1F2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8AA52082A8FABB800A0D1F2 /* Assets.xcassets */; };
@@ -14,11 +15,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D84E6C972AF3DCD800AF8876 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D8AA52012A8FABB700A0D1F2 /* alkaa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = alkaa.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8AA52042A8FABB700A0D1F2 /* alkaaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = alkaaApp.swift; sourceTree = "<group>"; };
 		D8AA52062A8FABB700A0D1F2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D8AA52082A8FABB800A0D1F2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D8AA520B2A8FABB800A0D1F2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		D8F635C82AA79E6E00431055 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,7 +62,9 @@
 		D8AA52032A8FABB700A0D1F2 /* alkaa */ = {
 			isa = PBXGroup;
 			children = (
+				D8F635C82AA79E6E00431055 /* Info.plist */,
 				D8AA52042A8FABB700A0D1F2 /* alkaaApp.swift */,
+				D84E6C972AF3DCD800AF8876 /* AppDelegate.swift */,
 				D8AA52062A8FABB700A0D1F2 /* ContentView.swift */,
 				D8AA52082A8FABB800A0D1F2 /* Assets.xcassets */,
 				D8AA520A2A8FABB800A0D1F2 /* Preview Content */,
@@ -82,10 +87,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D8AA520F2A8FABB800A0D1F2 /* Build configuration list for PBXNativeTarget "alkaa" */;
 			buildPhases = (
-				D8AA52122A8FABD000A0D1F2 /* ShellScript */,
+				D8AA52122A8FABD000A0D1F2 /* Connect iOS and KMP */,
 				D8AA51FD2A8FABB700A0D1F2 /* Sources */,
 				D8AA51FE2A8FABB700A0D1F2 /* Frameworks */,
 				D8AA51FF2A8FABB700A0D1F2 /* Resources */,
+				D8C453972AA36D2D006C2397 /* Copy Moko Resources */,
 			);
 			buildRules = (
 			);
@@ -142,7 +148,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		D8AA52122A8FABD000A0D1F2 /* ShellScript */ = {
+		D8AA52122A8FABD000A0D1F2 /* Connect iOS and KMP */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -151,6 +157,7 @@
 			);
 			inputPaths = (
 			);
+			name = "Connect iOS and KMP";
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -159,6 +166,24 @@
 			shellPath = /bin/sh;
 			shellScript = "cd \"$SRCROOT/..\"\n./gradlew :shared:embedAndSignAppleFrameworkForXcode\n";
 		};
+		D8C453972AA36D2D006C2397 /* Copy Moko Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Moko Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"$SRCROOT/../gradlew\" -p \"$SRCROOT/../\" :shared:copyFrameworkResourcesToApp \\\n    -Pmoko.resources.PLATFORM_NAME=\"$PLATFORM_NAME\" \\\n    -Pmoko.resources.CONFIGURATION=\"$CONFIGURATION\" \\\n    -Pmoko.resources.ARCHS=\"$ARCHS\" \\\n    -Pmoko.resources.BUILT_PRODUCTS_DIR=\"$BUILT_PRODUCTS_DIR\" \\\n    -Pmoko.resources.CONTENTS_FOLDER_PATH=\"$CONTENTS_FOLDER_PATH\" \n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -166,6 +191,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D84E6C982AF3DCD800AF8876 /* AppDelegate.swift in Sources */,
 				D8AA52072A8FABB700A0D1F2 /* ContentView.swift in Sources */,
 				D8AA52052A8FABB700A0D1F2 /* alkaaApp.swift in Sources */,
 			);
@@ -293,13 +319,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 30000;
 				DEVELOPMENT_ASSET_PATHS = "\"alkaa/Preview Content\"";
-				DEVELOPMENT_TEAM = C5R3CZMKN3;
+				DEVELOPMENT_TEAM = 5Z3927U4ZC;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)";
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = alkaa/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Alkaa;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -310,15 +340,16 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 3.0.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
 					shared,
 					"-lsqlite3",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.escodro.alkaa.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = com.escodro.alkaa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -330,13 +361,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 30000;
 				DEVELOPMENT_ASSET_PATHS = "\"alkaa/Preview Content\"";
-				DEVELOPMENT_TEAM = C5R3CZMKN3;
+				DEVELOPMENT_TEAM = 5Z3927U4ZC;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)";
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = alkaa/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Alkaa;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -347,15 +382,16 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 3.0.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
 					shared,
 					"-lsqlite3",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.escodro.alkaa.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = com.escodro.alkaa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

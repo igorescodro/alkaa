@@ -58,14 +58,27 @@ import org.koin.dsl.module
 val domainModule = module {
 
     // Task Use Cases
-    factoryOf(::AddTaskImpl) bind AddTask::class
+    factory<AddTask> { AddTaskImpl(taskRepository = get(), glanceInteractor = getOrNull()) }
     factoryOf(::CompleteTask)
     factoryOf(::UncompleteTask)
-    factoryOf(::UpdateTaskStatusImpl) bind UpdateTaskStatus::class
-    factoryOf(::DeleteTask)
+    factory<UpdateTaskStatus> {
+        UpdateTaskStatusImpl(
+            taskRepository = get(),
+            glanceInteractor = getOrNull(),
+            completeTask = get(),
+            uncompleteTask = get(),
+        )
+    }
+    factory { DeleteTask(taskRepository = get(), alarmInteractor = getOrNull()) }
     factoryOf(::LoadTaskImpl) bind LoadTask::class
-    factoryOf(::UpdateTaskImpl) bind UpdateTask::class
-    factoryOf(::UpdateTaskTitleImpl) bind UpdateTaskTitle::class
+    factory<UpdateTask> { UpdateTaskImpl(taskRepository = get(), glanceInteractor = getOrNull()) }
+    factory<UpdateTaskTitle> {
+        UpdateTaskTitleImpl(
+            loadTask = get(),
+            updateTask = get(),
+            glanceInteractor = getOrNull(),
+        )
+    }
     factoryOf(::UpdateTaskDescriptionImpl) bind UpdateTaskDescription::class
     factoryOf(::UpdateTaskCategoryImpl) bind UpdateTaskCategory::class
 

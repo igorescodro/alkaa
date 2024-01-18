@@ -1,17 +1,18 @@
 package com.escodro.domain.usecase.fake
 
 import com.escodro.domain.interactor.AlarmInteractor
+import com.escodro.domain.model.Task
 
 internal class AlarmInteractorFake : AlarmInteractor {
 
     private val alarmMap: MutableMap<Long, Long> = mutableMapOf()
 
-    override fun schedule(alarmId: Long, timeInMillis: Long) {
-        alarmMap[alarmId] = timeInMillis
+    override fun schedule(task: Task, timeInMillis: Long) {
+        alarmMap[task.id] = timeInMillis
     }
 
-    override fun cancel(alarmId: Long) {
-        alarmMap.remove(alarmId)
+    override fun cancel(task: Task) {
+        alarmMap.remove(task.id)
     }
 
     fun isAlarmScheduled(alarmId: Long): Boolean =

@@ -2,8 +2,8 @@
 # Project
 version_code = "20300"
 version_name = "2.3.0"
-android_gradle_plugin = "8.1.3"
-kotlin = "1.9.0"
+android_gradle_plugin = "8.2.1"
+kotlin = "1.9.20"
 android_sdk_compile = "34"
 android_sdk_target = "33"
 android_sdk_min = "24"
@@ -24,6 +24,7 @@ kotlinx_collections_immutable = "0.3.6"
 kotlinx_datetime = "0.4.1"
 
 # AndroidX
+activity = "1.8.0-rc01"
 core = "1.12.0"
 appcompat = "1.6.1"
 material = "1.10.0"
@@ -36,15 +37,13 @@ workmanager = "2.8.1"
 lifecycle_viewmodel = "2.6.2"
 
 # Compose
-compose_compiler = "1.5.1"
+compose_compiler = "1.5.5"
 compose_bom = "2023.10.01"
-compose_nav = "2.5.3"
-compose_viewmodel = "2.6.1"
-compose_activity = "1.7.1"
+compose_activity = "1.8.0"
 compose_material3 = "1.0.1"
 compose_icons = "1.4.2"
-compose_windowsize = "1.0.1"
-jb_compose_compiler = "1.5.3"
+jb_compose_compiler = "1.5.11"
+compose_windowsizeclass = "0.3.1"
 
 # Koin
 koin_core = "3.5.0"
@@ -61,9 +60,15 @@ sqldelight = "2.0.0"
 
 # Moko
 moko = "0.16.1"
+moko_parcelize = "0.9.0"
+moko_resources = "0.23.0"
+moko_permissions = "0.16.0"
 
 # AtomicFU
 atomicfu = "0.22.0"
+
+# Voyager
+voyager = "1.0.0"
 
 # Test
 test_junit = "4.13.2"
@@ -75,6 +80,7 @@ test_junitext = "1.1.5"
 test_barista = "4.3.0"
 test_orchestrator = "1.4.2"
 test_rules = "1.5.0"
+test_hamcrest = "2.2"
 
 # Quality
 ktlint = "0.50.0"
@@ -103,6 +109,7 @@ kotlinx_collections_immutable = { module = "org.jetbrains.kotlinx:kotlinx-collec
 kotlinx_datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx_datetime" }
 
 # AndroidX
+androidx_activity = { module = "androidx.activity:activity", version.ref = "activity" }
 androidx_core = { module = "androidx.core:core", version.ref = "core" }
 androidx_appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
 androidx_material = { module = "com.google.android.material:material", version.ref = "material" }
@@ -118,14 +125,14 @@ compose_bom = { group = "androidx.compose", name = "compose-bom", version.ref = 
 compose_ui = { module = "androidx.compose.ui:ui" }
 compose_toolingpreview = { module = "androidx.compose.ui:ui-tooling-preview" }
 compose_icons = { module = "androidx.compose.material:material-icons-extended" }
-compose_navigation = { module = "androidx.navigation:navigation-compose" }
-compose_viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-compose" }
-compose_activity = { module = "androidx.activity:activity-compose" }
 compose_material3 = { module = "androidx.compose.material3:material3" }
 compose_uitest = { module = "androidx.compose.ui:ui-test" }
 compose_junit4 = { module = "androidx.compose.ui:ui-test-junit4" }
 compose_manifest = { module = "androidx.compose.ui:ui-test-manifest" }
-compose_windowsize = { module = "androidx.compose.material3:material3-window-size-class" }
+compose_windowsizeclass = { module = "dev.chrisbanes.material3:material3-window-size-class-multiplatform", version.ref = "compose_windowsizeclass" }
+
+# Dynamic Feature don't recognize BOM
+compose_activity = { module = "androidx.activity:activity-compose", version.ref = "compose_activity" }
 
 #Koin
 koin_core = { module = "io.insert-koin:koin-core", version.ref = "koin_core" }
@@ -136,7 +143,6 @@ koin_compose_jb = { module = "io.insert-koin:koin-compose", version.ref = "koin_
 
 # Accompanist
 accompanist_permission = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanist" }
-accompanist_material = { module = "com.google.accompanist:accompanist-navigation-material", version.ref = "accompanist" }
 
 # SQLDelight
 sqldelight_driver = { module = "app.cash.sqldelight:android-driver", version.ref = "sqldelight" }
@@ -145,6 +151,16 @@ sqldelight_coroutines = { module = "app.cash.sqldelight:coroutines-extensions", 
 
 # Moko
 moko_mvvm_core = { module = "dev.icerock.moko:mvvm-core", version.ref = "moko" }
+moko_mvvm_compose = { module = "dev.icerock.moko:mvvm-flow-compose", version.ref = "moko" }
+moko_resources_generator = { module = "dev.icerock.moko:resources-generator", version.ref = "moko_resources" }
+moko_resources_core = { module = "dev.icerock.moko:resources", version.ref = "moko_resources" }
+moko_resources_compose = { module = "dev.icerock.moko:resources-compose", version.ref = "moko_resources" }
+moko_parcelize = { module = "dev.icerock.moko:parcelize", version.ref = "moko_parcelize" }
+moko_permissions_compose = { module = "dev.icerock.moko:permissions-compose", version.ref = "moko_permissions" }
+
+# Voyager
+voyager_navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager" }
+voyager_bottomsheet = { module = "cafe.adriel.voyager:voyager-bottom-sheet-navigator", version.ref = "voyager" }
 
 # Test
 test_junit = { module = "junit:junit", version.ref = "test_junit" }
@@ -157,6 +173,7 @@ test_mockk = { module = "io.mockk:mockk", version.ref = "test_mockk" }
 test_barista = { module = "com.adevinta.android:barista", version.ref = "test_barista" }
 test_orchestrator = { module = "androidx.test:orchestrator", version.ref = "test_orchestrator" }
 test_rules = { module = "androidx.test:rules", version.ref = "test_rules" }
+test_hamcrest = { module = "org.hamcrest:hamcrest", version.ref = "test_hamcrest" }
 
 # Quality
 ktlint = { module = "com.pinterest:ktlint", version.ref = "ktlint" }
@@ -176,5 +193,6 @@ kotlin_serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 dependencyanalysis = { id = "com.autonomousapps.dependency-analysis", version.ref = "dependencyanalysis" }
 sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
-compose = {id = "org.jetbrains.compose", version.ref = "jb_compose_compiler" }
+compose = { id = "org.jetbrains.compose", version.ref = "jb_compose_compiler" }
+moko_multiplatform_resources = { id = "dev.icerock.mobile.multiplatform-resources" }
 

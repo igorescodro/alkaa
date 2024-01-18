@@ -1,23 +1,18 @@
 package com.escodro.category.presentation.bottomsheet
 
-import android.graphics.Color
 import com.escodro.category.fake.AddCategoryFake
 import com.escodro.category.mapper.CategoryMapper
 import com.escodro.categoryapi.model.Category
-import com.escodro.core.extension.toStringColor
 import com.escodro.coroutines.AppCoroutineScope
-import com.escodro.test.rule.CoroutineTestRule
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+import com.escodro.designsystem.extensions.toArgbColor
+import com.escodro.test.rule.CoroutinesTestDispatcher
+import com.escodro.test.rule.CoroutinesTestDispatcherImpl
 import org.junit.Assert
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 
-@OptIn(ExperimentalCoroutinesApi::class)
-internal class CategoryAddViewModelTest {
-
-    @get:Rule
-    val coroutinesRule = CoroutineTestRule()
+internal class CategoryAddViewModelTest :
+    CoroutinesTestDispatcher by CoroutinesTestDispatcherImpl() {
 
     private val addCategory = AddCategoryFake()
 
@@ -25,7 +20,7 @@ internal class CategoryAddViewModelTest {
 
     private val viewModel = CategoryAddViewModel(
         addCategoryUseCase = addCategory,
-        applicationScope = AppCoroutineScope(context = coroutinesRule.testDispatcher),
+        applicationScope = AppCoroutineScope(context = testDispatcher()),
         categoryMapper,
     )
 
@@ -38,7 +33,7 @@ internal class CategoryAddViewModelTest {
     fun `test if category is added`() {
         // Given the category to be added
         val name = "Beer"
-        val color = Color.parseColor("#9CCC65")
+        val color = "#9CCC65".toArgbColor()
         val category = Category(name = name, color = color)
 
         // When the add function is called
@@ -46,14 +41,14 @@ internal class CategoryAddViewModelTest {
 
         // Then the category is added
         Assert.assertTrue(addCategory.wasCategoryCreated(name))
-        Assert.assertEquals(color.toStringColor(), addCategory.getCategory(name)!!.color)
+        Assert.assertEquals(color, addCategory.getCategory(name)!!.color.toArgbColor())
     }
 
     @Test
     fun `test if category without name is not added`() {
         // Given the category without name
         val name = ""
-        val color = Color.parseColor("#9CCC65")
+        val color = 10_101_010
         val category = Category(name = name, color = color)
 
         // When the add function is called

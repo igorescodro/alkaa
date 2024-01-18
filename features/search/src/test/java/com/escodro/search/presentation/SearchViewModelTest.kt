@@ -2,19 +2,14 @@ package com.escodro.search.presentation
 
 import com.escodro.search.fake.SearchTaskByNameFake
 import com.escodro.search.mapper.TaskSearchMapper
-import com.escodro.test.rule.CoroutineTestRule
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+import com.escodro.test.rule.CoroutinesTestDispatcher
+import com.escodro.test.rule.CoroutinesTestDispatcherImpl
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
-import org.junit.Rule
 import org.junit.Test
 
-@OptIn(ExperimentalCoroutinesApi::class)
-internal class SearchViewModelTest {
-
-    @get:Rule
-    val coroutinesRule = CoroutineTestRule()
+internal class SearchViewModelTest : CoroutinesTestDispatcher by CoroutinesTestDispatcherImpl() {
 
     private val searchTasksByName = SearchTaskByNameFake()
 

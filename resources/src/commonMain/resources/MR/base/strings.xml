@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+
+    <!-- Home -->
+    <string name="home_title_tasks">Tasks</string>
+    <string name="home_title_search">Search</string>
+    <string name="home_title_categories">Categories</string>
+    <string name="home_title_settings">More</string>
+
+    <!-- Tasks -->
+    <string name="task_cd_add_task">Add task</string>
+    <string name="task_list_header_empty">Wow! All tasks are completed!</string>
+    <string name="task_list_cd_empty_list">That\'s all clear</string>
+    <string name="task_list_header_error">Ops… That\'s embarrassing…</string>
+    <string name="task_list_cd_error">Something went wrong</string>
+    <string name="task_detail_header_error">This task is no longer available</string>
+    <string name="task_detail_cd_error">Task not found</string>
+
+    <string name="task_detail_cd_icon_category">Categories</string>
+    <string name="task_detail_cd_icon_description">Description</string>
+    <string name="task_detail_cd_icon_alarm">Alarm</string>
+    <string name="task_detail_cd_icon_remove_alarm">Remove alarm</string>
+    <string name="task_detail_cd_icon_repeat_alarm">Repeating alarm</string>
+
+    <string name="task_detail_category_empty_list">No categories</string>
+
+    <string name="task_detail_alarm_no_alarm">No alarm</string>
+
+    <string name="task_alarm_repeating_never">Never</string>
+    <string name="task_alarm_repeating_hourly">Every hour</string>
+    <string name="task_alarm_repeating_daily">Every day</string>
+    <string name="task_alarm_repeating_weekly">Every week</string>
+    <string name="task_alarm_repeating_monthly">Every month</string>
+    <string name="task_alarm_repeating_yearly">Every year</string>
+
+    <string name="task_add_save">Add</string>
+    <string name="task_add_label">Task</string>
+
+    <string name="task_snackbar_message_complete">Task completed</string>
+    <string name="task_snackbar_button_undo">Undo</string>
+
+    <string name="task_alarm_permission_dialog_title">Alarm and reminders</string>
+    <string name="task_alarm_permission_dialog_text">In order to alarms work, Alkaa needs the permission to set alarms and reminders. If this permission is not granted, the existing alarms will not work as well.</string>
+    <string name="task_alarm_permission_dialog_confirm">Grant permission</string>
+    <string name="task_alarm_permission_dialog_cancel">Not now</string>
+
+    <string name="task_notification_permission_dialog_title">Notifications</string>
+    <string name="task_notification_permission_dialog_text">In order to notify the alarms, Alkaa needs the permission to launch notifications. If this permission is not granted, the existing alarms will not work as well.</string>
+    <string name="task_notification_permission_dialog_confirm">Grant permission</string>
+    <string name="task_notification_permission_dialog_cancel">Not now</string>
+
+    <string name="task_notification_rationale_dialog_title">Notifications</string>
+    <string name="task_notification_rationale_dialog_text">It\'s not possible to set alarms without notification permission. If you want to use this feature, please go to app settings and grant it manually.</string>
+    <string name="task_notification_rationale_dialog_confirm">Take me there</string>
+    <string name="task_notification_rationale_dialog_cancel">Ignore</string>
+
+    <!-- Category -->
+    <string name="category_list_header_empty">No categories</string>
+    <string name="category_list_cd_empty_list">No categories available</string>
+    <string name="category_icon_cd">Category</string>
+    <string name="category_sheet_save">Save</string>
+    <string name="category_cd_add_category">Add category</string>
+    <string name="category_add_label">Category</string>
+
+    <string name="category_dialog_remove_title">Remove category</string>
+    <string name="category_dialog_remove_text">Are you sure you want to remove this category?\nRemoving "%s" also removes all the tasks under this category.</string>
+    <string name="category_dialog_remove_confirm">Remove</string>
+    <string name="category_dialog_remove_cancel">Cancel</string>
+    <string name="category_cd_remove_category">Remove</string>
+
+    <!-- Search -->
+    <string name="search_cd_icon">Search</string>
+    <string name="search_cd_empty_list">No tasks</string>
+    <string name="search_header_empty">No tasks found</string>
+
+    <!-- Preferences -->
+    <string name="preference_title_about">About</string>
+    <string name="preference_title_version">Version</string>
+    <string name="preference_title_tracker">Task Tracker</string>
+
+    <string name="about_title" translatable="false">Alkaa</string>
+    <string name="about_description">Alkaa (to begin, to start in Finnish) is a simple to-do list to make your life easier.\n\nIt all started when I created a project to learn and keep me updated about the latest Android components and libraries. And now it is available on it Jetpack Compose version! If you\'re a developer or an enthusiast feel free to access, copy and updated the open-source code.\n\nThanks a lot for using my app! </string>
+    <string name="about_button_project">Visit project on GitHub</string>
+    <string name="about_cd_github" translatable="false">GitHub</string>
+    <string name="preference_title_app_theme">App theme</string>
+    <string name="preference_light_theme">Light theme</string>
+    <string name="preference_dark_theme">Dark theme</string>
+    <string name="preference_system_default_theme">System default</string>
+    <string name="preference_title_features">Features</string>
+    <string name="preference_title_settings">Settings</string>
+    <string name="preference_title_open_source">Open source licenses</string>
+
+    <!-- Database -->
+    <string name="category_default_personal">Personal</string>
+    <string name="category_default_work">Work</string>
+    <string name="category_default_shopping">Shopping List</string>
+
+    <!-- Tracker -->
+    <string name="tracker_name_no_category">No Category</string>
+    <string name="tracker_cp_item_icon">Completed item</string>
+
+    <string name="tracker_message_description">In the last 30 days</string>
+    <string name="tracker_cp_info_icon">Completed tasks</string>
+
+    <string name="tracker_cd_empty">No completed tasks</string>
+    <string name="tracker_header_empty">You don\'t have completed tasks in the last 30 days</string>
+    <string name="tracker_header_error">Ops… That\'s embarrassing…</string>
+    <string name="tracker_cd_error">Something went wrong</string>
+
+    <!-- Alarm -->
+    <string name="content_app_name" translatable="false">Alkaa</string>
+
+    <string name="channel_task_name">Task alarms</string>
+    <string name="channel_task_description">Notifications for reminders</string>
+
+    <string name="notification_action_completed">Done</string>
+    <string name="notification_action_snooze">In 15 min</string>
+
+    <string name="dialog_picker_next">Next</string>
+    <string name="dialog_picker_confirm">Confirm</string>
+
+</resources>

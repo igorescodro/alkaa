@@ -3,6 +3,7 @@ package com.escodro.domain.usecase.alarm
 import com.escodro.domain.interactor.AlarmInteractor
 import com.escodro.domain.interactor.NotificationInteractor
 import com.escodro.domain.provider.DateTimeProvider
+import com.escodro.domain.usecase.task.LoadTask
 import kotlinx.datetime.Instant
 import mu.KotlinLogging
 import kotlin.time.Duration.Companion.minutes
@@ -11,6 +12,7 @@ import kotlin.time.Duration.Companion.minutes
  * Use case to snooze a task from the database.
  */
 class SnoozeAlarm(
+    private val loadTask: LoadTask,
     private val dateTimeProvider: DateTimeProvider,
     private val notificationInteractor: NotificationInteractor,
     private val alarmInteractor: AlarmInteractor,
@@ -26,12 +28,13 @@ class SnoozeAlarm(
      *
      * @return observable to be subscribe
      */
-    operator fun invoke(taskId: Long, minutes: Int = DEFAULT_SNOOZE) {
+    suspend operator fun invoke(taskId: Long, minutes: Int = DEFAULT_SNOOZE) {
         require(minutes > 0) { "The delay minutes must be positive" }
+        val task = loadTask(taskId = taskId) ?: return
 
         val snoozedTime = getSnoozedTask(dateTimeProvider.getCurrentInstant(), minutes)
-        alarmInteractor.schedule(taskId, snoozedTime)
-        notificationInteractor.dismiss(taskId)
+        alarmInteractor.schedule(task, snoozedTime)
+        notificationInteractor.dismiss(task)
         logger.debug { "Task snoozed in $minutes minutes" }
     }
 

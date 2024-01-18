@@ -1,21 +1,38 @@
-import extension.androidConfig
+import extension.sdkCompile
+import extension.sdkMin
+import extension.androidDependencies
 
 plugins {
+    kotlin("multiplatform")
     id("com.android.dynamic-feature")
-    id("kotlin-android")
     id("com.escodro.kotlin-quality")
+}
+
+@OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
+kotlin {
+    targetHierarchy.default()
+
+    val libs: VersionCatalog = extensions.getByType<VersionCatalogsExtension>().named("libs")
+
+    androidTarget {
+        compilations.all {
+            kotlinOptions {
+                jvmTarget = "1.8"
+            }
+        }
+    }
+
+    androidDependencies {
+        implementation(project(":app"))
+        implementation(libs.playcore)
+    }
 }
 
 val libs: VersionCatalog = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
 android {
-    androidConfig(libs)
-}
-
-dependencies {
-    implementation(libs.logcat)
-    implementation(project(":app"))
-    androidTestImplementation(project(":app"))
-
-    implementation(libs.playcore)
+    compileSdk = Integer.parseInt(libs.sdkCompile)
+    defaultConfig {
+        minSdk = Integer.parseInt(libs.sdkMin)
+    }
 }

@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="home_title_tasks">Tarefas</string>
-    <string name="home_title_search">Pesquisar</string>
-    <string name="home_title_categories">Categorias</string>
-    <string name="home_title_settings">Mais</string>
-</resources>

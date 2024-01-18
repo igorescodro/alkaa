@@ -1,23 +1,40 @@
+import extension.androidDependencies
+import extension.androidTestDependencies
+import extension.commonDependencies
+import extension.setFrameworkBaseName
+
 plugins {
-    id("com.escodro.android-library")
+    id("com.escodro.multiplatform")
 }
 
-dependencies {
-    implementation(projects.features.alarmApi)
-    implementation(projects.libraries.core)
-    implementation(projects.libraries.coroutines)
-    implementation(projects.libraries.navigation)
-    implementation(projects.libraries.core)
-    implementation(projects.domain)
-    implementation(libs.kotlinx.datetime)
+kotlin {
+    setFrameworkBaseName("search")
 
-    implementation(libs.androidx.core)
-    implementation(libs.kotlinx.coroutines.core)
-    implementation(libs.koin.core)
+    commonDependencies {
+        implementation(projects.features.alarmApi)
+        implementation(projects.libraries.coroutines)
+        implementation(projects.libraries.navigation)
+        implementation(projects.domain)
+        implementation(projects.resources)
+        implementation(libs.kotlinx.datetime)
 
-    testImplementation(libs.test.junit)
-    testImplementation(libs.test.mockk)
+        implementation(libs.logging)
+        implementation(libs.logback)
+        implementation(libs.kotlinx.coroutines.core)
+        implementation(libs.koin.core)
+        implementation(libs.moko.resources.core)
+    }
+
+    androidDependencies {
+        implementation(libs.logcat)
+        implementation(libs.androidx.core)
+    }
+
+    androidTestDependencies {
+        implementation(libs.test.junit)
+    }
 }
+
 android {
     namespace = "com.escodro.alarm"
 }

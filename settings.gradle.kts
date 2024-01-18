@@ -11,16 +11,20 @@ include(":features:glance")
 include(":data:repository")
 include(":data:local")
 include(":data:datastore")
-include(":libraries:core")
 include(":libraries:coroutines")
 include(":libraries:test")
+include(":libraries:android-test")
 include(":libraries:splitInstall")
 include(":libraries:designsystem")
 include(":libraries:navigation")
 include(":libraries:di")
+include(":libraries:appstate")
 
 include(":domain")
 include(":shared")
+include(":resources")
+
+include(":features:home")
 
 pluginManagement {
     repositories {

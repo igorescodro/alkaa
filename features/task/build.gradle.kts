@@ -1,26 +1,43 @@
+import extension.commonDependencies
+import extension.commonTestDependencies
+import extension.setFrameworkBaseName
+
 plugins {
-    id("com.escodro.android-compose")
+    id("com.escodro.multiplatform")
     id("kotlin-parcelize")
+    alias(libs.plugins.compose)
 }
 
-dependencies {
-    api(projects.features.categoryApi)
-    implementation(projects.features.alarmApi)
-    implementation(projects.libraries.core)
-    implementation(projects.libraries.coroutines)
-    implementation(projects.domain)
-    implementation(projects.libraries.designsystem)
-    implementation(libs.kotlinx.datetime)
+kotlin {
+    setFrameworkBaseName("task")
 
-    testImplementation(projects.libraries.test)
-    androidTestImplementation(projects.libraries.test)
+    commonDependencies {
+        api(projects.features.categoryApi)
+        implementation(projects.features.alarmApi)
+        implementation(projects.domain)
+        implementation(projects.resources)
+        implementation(projects.libraries.di)
+        implementation(projects.libraries.navigation)
+        implementation(projects.libraries.coroutines)
+        implementation(projects.libraries.designsystem)
 
-    runtimeOnly(libs.androidx.playcore)
-    implementation(libs.compose.activity)
+        implementation(compose.runtime)
+        implementation(compose.material3)
+        implementation(compose.materialIconsExtended)
 
-    implementation(libs.koin.android)
-    implementation(libs.koin.compose)
-    implementation(libs.accompanist.permission)
+        implementation(libs.kotlinx.datetime)
+        implementation(libs.kotlinx.collections.immutable)
+        implementation(libs.koin.compose.jb)
+        implementation(libs.moko.resources.compose)
+        implementation(libs.moko.mvvm.compose)
+        implementation(libs.moko.permissions.compose)
+    }
+
+    commonTestDependencies {
+        implementation(kotlin("test"))
+        implementation(projects.libraries.test)
+        implementation(libs.kotlinx.datetime)
+    }
 }
 android {
     namespace = "com.escodro.task"

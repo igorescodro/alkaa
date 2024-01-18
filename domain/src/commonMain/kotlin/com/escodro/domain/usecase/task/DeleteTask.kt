@@ -10,7 +10,7 @@ import mu.KotlinLogging
  */
 class DeleteTask(
     private val taskRepository: TaskRepository,
-    private val alarmInteractor: AlarmInteractor,
+    private val alarmInteractor: AlarmInteractor?, // TODO not null
 ) {
 
     private val logger = KotlinLogging.logger {}
@@ -25,6 +25,6 @@ class DeleteTask(
     suspend operator fun invoke(task: Task) {
         logger.debug { "Deleting task ${task.title}" }
         taskRepository.deleteTask(task)
-        alarmInteractor.cancel(task.id)
+        alarmInteractor?.cancel(task)
     }
 }

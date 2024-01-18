@@ -8,7 +8,7 @@ import com.escodro.domain.usecase.task.UpdateTaskStatus
 
 internal class UpdateTaskStatusImpl(
     private val taskRepository: TaskRepository,
-    private val glanceInteractor: GlanceInteractor,
+    private val glanceInteractor: GlanceInteractor?,
     private val completeTask: CompleteTask,
     private val uncompleteTask: UncompleteTask,
 ) : UpdateTaskStatus {
@@ -19,6 +19,6 @@ internal class UpdateTaskStatusImpl(
             true -> completeTask(task)
             false -> uncompleteTask(task)
         }
-        glanceInteractor.onTaskListUpdated()
+        glanceInteractor?.onTaskListUpdated()
     }
 }

@@ -49,7 +49,7 @@ class RescheduleFutureAlarms(
     private fun rescheduleFutureTask(task: Task) {
         val futureTime = task.dueDate
             ?.toInstant(TimeZone.currentSystemDefault())?.toEpochMilliseconds() ?: return
-        alarmInteractor.schedule(task.id, futureTime)
+        alarmInteractor.schedule(task, futureTime)
         logger.debug { "Task '${task.title} rescheduled to '${task.dueDate}" }
     }
 

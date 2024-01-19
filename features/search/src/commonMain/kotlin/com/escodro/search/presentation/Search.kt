@@ -15,6 +15,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.ExitToApp
@@ -29,9 +31,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.registry.ScreenRegistry
@@ -113,11 +118,16 @@ internal fun SearchScaffold(
     }
 }
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 private fun SearchTextField(text: String, onTextChange: (String) -> Unit) {
+    val keyboardController = LocalSoftwareKeyboardController.current
+
     TextField(
         value = text,
         onValueChange = onTextChange,
+        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
+        keyboardActions = KeyboardActions(onSearch = { keyboardController?.hide() }),
         trailingIcon = {
             Icon(
                 imageVector = Icons.Default.Search,

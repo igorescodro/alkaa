@@ -15,6 +15,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D837C7FE2B59B9DB0080A2EF /* ci_post_clone.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = ci_post_clone.sh; sourceTree = "<group>"; };
 		D84E6C972AF3DCD800AF8876 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D8AA52012A8FABB700A0D1F2 /* alkaa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = alkaa.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8AA52042A8FABB700A0D1F2 /* alkaaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = alkaaApp.swift; sourceTree = "<group>"; };
@@ -42,9 +43,18 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		D837C7FD2B59B9A20080A2EF /* ci_scripts */ = {
+			isa = PBXGroup;
+			children = (
+				D837C7FE2B59B9DB0080A2EF /* ci_post_clone.sh */,
+			);
+			path = ci_scripts;
+			sourceTree = "<group>";
+		};
 		D8AA51F82A8FABB600A0D1F2 = {
 			isa = PBXGroup;
 			children = (
+				D837C7FD2B59B9A20080A2EF /* ci_scripts */,
 				D8AA52032A8FABB700A0D1F2 /* alkaa */,
 				D8AA52022A8FABB700A0D1F2 /* Products */,
 				C7AE2E8DAF14D6D50F9AA112 /* Pods */,

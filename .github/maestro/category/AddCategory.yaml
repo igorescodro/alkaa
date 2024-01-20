@@ -1,0 +1,9 @@
+appId: com.escodro.alkaa
+---
+- launchApp:
+      clearState: true
+- tapOn: "Categories"
+- tapOn: "Add category"
+- inputText: ${CATEGORY_NAME}
+- tapOn: "Save"
+- assertVisible: ${CATEGORY_NAME}

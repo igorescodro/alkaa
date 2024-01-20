@@ -1,0 +1,15 @@
+appId: com.escodro.alkaa
+env:
+  TASK_NAME: "Watter plants"
+---
+- runFlow:
+    file: "AddTask.yaml"
+    env:
+      TASK_NAME: ${TASK_NAME}
+- tapOn: ${TASK_NAME}
+- tapOn: ${TASK_NAME}
+- eraseText
+- inputText: "Water plants"
+- tapOn: "Back" # hide keyboard
+- tapOn: "Back"
+- assertVisible: "Water plants"

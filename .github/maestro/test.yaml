@@ -1,0 +1,4 @@
+appId: com.escodro.alkaa
+---
+- launchApp:
+    clearState: true

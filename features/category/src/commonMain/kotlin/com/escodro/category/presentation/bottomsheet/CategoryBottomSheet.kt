@@ -38,10 +38,9 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
-import com.escodro.category.presentation.semantics.color
 import com.escodro.categoryapi.model.Category
 import com.escodro.designsystem.components.AlkaaDialog
 import com.escodro.designsystem.components.AlkaaInputTextField
@@ -250,6 +249,7 @@ private fun CategorySaveButton(currentColor: Color, onClick: () -> Unit) {
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(containerColor = colorState.value),
         modifier = Modifier
+            .testTag(currentColor.toArgb().toString())
             .fillMaxWidth()
             .height(48.dp),
     ) {
@@ -275,7 +275,7 @@ private fun CategoryColorItem(
                 .size(32.dp)
                 .clip(CircleShape)
                 .background(color = color)
-                .semantics { this.color = color }
+                .testTag(color.toArgb().toString())
                 .selectable(
                     role = Role.RadioButton,
                     selected = isSelected,

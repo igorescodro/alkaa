@@ -1,7 +1,6 @@
 package com.escodro.home.presentation
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
@@ -22,13 +21,15 @@ import androidx.compose.material3.NavigationRailItem
 import androidx.compose.material3.NavigationRailItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
+import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import com.escodro.appstate.AlkaaAppState
+import com.escodro.appstate.rememberAlkaaAppState
 import com.escodro.category.presentation.list.CategoryListSection
 import com.escodro.preference.presentation.PreferenceSection
 import com.escodro.search.presentation.SearchSection
@@ -41,26 +42,25 @@ import kotlinx.collections.immutable.toImmutableList
  * Alkaa Home screen.
  */
 @Composable
-fun Home(appState: AlkaaAppState) {
+fun Home() {
     val (currentSection, setCurrentSection) = rememberSaveable { mutableStateOf(HomeSection.Tasks) }
-    val navItems = remember { HomeSection.values().toList().toImmutableList() }
+    val navItems = remember { HomeSection.entries.toImmutableList() }
 
     AlkaaHomeScaffold(
-        appState = appState,
         homeSection = currentSection,
         navItems = navItems,
         setCurrentSection = setCurrentSection,
     )
 }
 
-@OptIn(ExperimentalLayoutApi::class)
+@OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
 private fun AlkaaHomeScaffold(
-    appState: AlkaaAppState,
     homeSection: HomeSection,
     navItems: ImmutableList<HomeSection>,
     setCurrentSection: (HomeSection) -> Unit,
 ) {
+    val appState = rememberAlkaaAppState(windowSizeClass = calculateWindowSizeClass())
     Scaffold(
         topBar = { AlkaaTopBar(currentSection = homeSection) },
         contentWindowInsets = WindowInsets(0, 0, 0, 0),

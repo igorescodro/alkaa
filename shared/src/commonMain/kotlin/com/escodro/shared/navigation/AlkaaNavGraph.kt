@@ -4,7 +4,6 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.snapshotFlow
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import cafe.adriel.voyager.core.registry.ScreenRegistry
@@ -12,7 +11,6 @@ import cafe.adriel.voyager.navigator.CurrentScreen
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.bottomSheet.BottomSheetNavigator
 import cafe.adriel.voyager.navigator.bottomSheet.LocalBottomSheetNavigator
-import com.escodro.appstate.AlkaaAppState
 import com.escodro.category.navigation.categoryScreenModule
 import com.escodro.home.navigation.HomeScreen
 import com.escodro.navigation.AlkaaDestinations
@@ -27,7 +25,6 @@ import kotlinx.coroutines.flow.map
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun AlkaaNavGraph(
-    appState: AlkaaAppState,
     navigationAction: NavigationAction,
     modifier: Modifier = Modifier,
 ) {
@@ -39,7 +36,7 @@ fun AlkaaNavGraph(
 
     BottomSheetNavigator(modifier = modifier) {
         closeKeyboardOnBottomSheetDismiss()
-        Navigator(screen = HomeScreen(appState = appState)) { navigator ->
+        Navigator(screen = HomeScreen()) { navigator ->
             CurrentScreen()
             processNavigationAction(navigator = navigator, action = navigationAction)
         }
@@ -59,7 +56,6 @@ private fun processNavigationAction(navigator: Navigator, action: NavigationActi
         }
     }
 
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 private fun closeKeyboardOnBottomSheetDismiss() {
     val keyboardController = LocalSoftwareKeyboardController.current

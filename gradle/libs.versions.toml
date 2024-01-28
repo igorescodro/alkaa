@@ -21,25 +21,25 @@ logcat = "0.1"
 kotlinx_coroutines = "1.7.3"
 kotlinx_serialization = "1.6.0"
 kotlinx_collections_immutable = "0.3.6"
-kotlinx_datetime = "0.4.1"
+kotlinx_datetime = "0.5.0"
 
 # AndroidX
-activity = "1.8.0-rc01"
+activity = "1.8.2"
 core = "1.12.0"
 appcompat = "1.6.1"
 corektx = "1.12.0"
 playcore = "1.10.3"
-datastore = "1.1.0-alpha06"
+datastore = "1.1.0-beta01"
 glance = "1.0.0"
-workmanager = "2.8.1"
-lifecycle_viewmodel = "2.6.2"
+workmanager = "2.9.0"
+lifecycle_viewmodel = "2.7.0"
 
 # Compose
 compose_compiler = "1.5.5"
-compose_bom = "2023.10.01"
-compose_activity = "1.8.0"
+compose_bom = "2024.01.00"
+compose_activity = "1.8.2"
 jb_compose_compiler = "1.6.0-beta01"
-compose_windowsizeclass = "0.3.1"
+compose_windowsizeclass = "0.3.2"
 
 # Koin
 koin_core = "3.5.0"
@@ -60,7 +60,7 @@ moko_permissions = "0.16.0"
 atomicfu = "0.22.0"
 
 # Voyager
-voyager = "1.0.0"
+voyager = "1.1.0-alpha04"
 
 # Test
 test_junit = "4.13.2"

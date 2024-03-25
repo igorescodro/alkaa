@@ -84,7 +84,7 @@ test_hamcrest = "2.2"
 
 # Quality
 ktlint = "0.50.0"
-detekt = "1.22.0"
+detekt = "1.23.6"
 composerules = "0.0.26"
 
 # License

@@ -38,7 +38,7 @@ compose_compiler = "1.5.12"
 compose_bom = "2024.04.01"
 compose_activity = "1.9.0"
 jb_compose_compiler = "1.6.2"
-compose_windowsizeclass = "0.3.2"
+compose_windowsizeclass = "0.5.0"
 
 # Koin
 koin_core = "3.5.0"

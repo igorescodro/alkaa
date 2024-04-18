@@ -6,7 +6,6 @@ import extension.setFrameworkBaseName
 
 plugins {
     id("com.escodro.multiplatform")
-    alias(libs.plugins.ksp)
     alias(libs.plugins.sqldelight)
 }
 

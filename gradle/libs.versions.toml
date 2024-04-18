@@ -1,15 +1,14 @@
 [versions]
 # Project
-version_code = "30000"
-version_name = "3.0.0"
+version_code = "30001"
+version_name = "3.0.1"
 android_gradle_plugin = "8.3.2"
-kotlin = "1.9.20"
+kotlin = "1.9.23"
 android_sdk_compile = "34"
 android_sdk_target = "33"
 android_sdk_min = "24"
 
 # Plugins
-ksp = "1.9.10-1.0.13"
 dependencyanalysis = "1.25.0"
 
 # General dependencies
@@ -18,42 +17,34 @@ logback = "1.2.11"
 logcat = "0.1"
 
 # KotlinX
-kotlinx_coroutines = "1.7.3"
+kotlinx_coroutines = "1.8.0"
 kotlinx_serialization = "1.6.0"
 kotlinx_collections_immutable = "0.3.6"
-kotlinx_datetime = "0.4.1"
+kotlinx_datetime = "0.5.0"
 
 # AndroidX
-activity = "1.8.0-rc01"
-core = "1.12.0"
+activity = "1.9.0"
+core = "1.13.0"
 appcompat = "1.6.1"
-material = "1.10.0"
-constraint = "2.0.4"
-corektx = "1.12.0"
+corektx = "1.13.0"
 playcore = "1.10.3"
-datastore = "1.1.0-alpha06"
+datastore = "1.1.0"
 glance = "1.0.0"
-workmanager = "2.8.1"
-lifecycle_viewmodel = "2.6.2"
+workmanager = "2.9.0"
+lifecycle_viewmodel = "2.7.0"
 
 # Compose
-compose_compiler = "1.5.5"
-compose_bom = "2023.10.01"
-compose_activity = "1.8.0"
-compose_material3 = "1.0.1"
-compose_icons = "1.4.2"
-jb_compose_compiler = "1.5.11"
-compose_windowsizeclass = "0.3.1"
+compose_compiler = "1.5.12"
+compose_bom = "2024.04.01"
+compose_activity = "1.9.0"
+jb_compose_compiler = "1.6.2"
+compose_windowsizeclass = "0.3.2"
 
 # Koin
 koin_core = "3.5.0"
 koin_test = "3.5.0"
-koin_compose = "3.5.0"
 koin_android = "3.5.0"
 koin_compose_jb = "1.1.0"
-
-# Accompanist
-accompanist = "0.32.0"
 
 # SQLDelight
 sqldelight = "2.0.0"
@@ -68,15 +59,11 @@ moko_permissions = "0.16.0"
 atomicfu = "0.22.0"
 
 # Voyager
-voyager = "1.0.0"
+voyager = "1.1.0-alpha04"
 
 # Test
 test_junit = "4.13.2"
-test_runner = "1.5.2"
-test_core = "1.5.0"
-test_mockk = "1.13.8"
-test_uiautomator = "2.2.0"
-test_junitext = "1.1.5"
+test_uiautomator = "2.3.0"
 test_barista = "4.3.0"
 test_orchestrator = "1.4.2"
 test_rules = "1.5.0"
@@ -112,7 +99,6 @@ kotlinx_datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.
 androidx_activity = { module = "androidx.activity:activity", version.ref = "activity" }
 androidx_core = { module = "androidx.core:core", version.ref = "core" }
 androidx_appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
-androidx_material = { module = "com.google.android.material:material", version.ref = "material" }
 androidx_corektx = { module = "androidx.core:core-ktx", version.ref = "corektx" }
 androidx_playcore = { module = "com.google.android.play:core", version.ref = "playcore" }
 androidx_datastore = { module = "androidx.datastore:datastore-preferences-core", version.ref = "datastore" }
@@ -137,12 +123,8 @@ compose_activity = { module = "androidx.activity:activity-compose", version.ref 
 #Koin
 koin_core = { module = "io.insert-koin:koin-core", version.ref = "koin_core" }
 koin_android = { module = "io.insert-koin:koin-android", version.ref = "koin_android" }
-koin_compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin_compose" }
 koin_test = { module = "io.insert-koin:koin-test", version.ref = "koin_test" }
 koin_compose_jb = { module = "io.insert-koin:koin-compose", version.ref = "koin_compose_jb" }
-
-# Accompanist
-accompanist_permission = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanist" }
 
 # SQLDelight
 sqldelight_driver = { module = "app.cash.sqldelight:android-driver", version.ref = "sqldelight" }
@@ -164,12 +146,7 @@ voyager_bottomsheet = { module = "cafe.adriel.voyager:voyager-bottom-sheet-navig
 
 # Test
 test_junit = { module = "junit:junit", version.ref = "test_junit" }
-test_runner = { module = "androidx.test:runner", version.ref = "test_runner" }
-test_core = { module = "androidx.test:core", version.ref = "test_core" }
-test_corektx = { module = "androidx.test:core-ktx", version.ref = "test_core" }
 test_uiautomator = { module = "androidx.test.uiautomator:uiautomator", version.ref = "test_uiautomator" }
-test_junitext = { module = "androidx.test.ext:junit", version.ref = "test_junitext" }
-test_mockk = { module = "io.mockk:mockk", version.ref = "test_mockk" }
 test_barista = { module = "com.adevinta.android:barista", version.ref = "test_barista" }
 test_orchestrator = { module = "androidx.test:orchestrator", version.ref = "test_orchestrator" }
 test_rules = { module = "androidx.test:rules", version.ref = "test_rules" }
@@ -190,7 +167,6 @@ composetest = ["compose.uitest", "compose.junit4", "compose.manifest"]
 
 [plugins]
 kotlin_serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 dependencyanalysis = { id = "com.autonomousapps.dependency-analysis", version.ref = "dependencyanalysis" }
 sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
 compose = { id = "org.jetbrains.compose", version.ref = "jb_compose_compiler" }

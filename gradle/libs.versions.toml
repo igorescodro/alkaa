@@ -38,7 +38,7 @@ lifecycle_viewmodel = "2.7.0"
 compose_compiler = "1.5.5"
 compose_bom = "2024.01.00"
 compose_activity = "1.8.2"
-jb_compose_compiler = "1.6.0-beta01"
+jb_compose_compiler = "1.6.2"
 compose_windowsizeclass = "0.3.2"
 
 # Koin

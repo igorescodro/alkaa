@@ -3,7 +3,7 @@
 version_code = "30000"
 version_name = "3.0.0"
 android_gradle_plugin = "8.3.2"
-kotlin = "1.9.20"
+kotlin = "1.9.23"
 android_sdk_compile = "34"
 android_sdk_target = "33"
 android_sdk_min = "24"

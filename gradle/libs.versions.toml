@@ -24,7 +24,7 @@ kotlinx_collections_immutable = "0.3.6"
 kotlinx_datetime = "0.4.1"
 
 # AndroidX
-activity = "1.8.0-rc01"
+activity = "1.9.0"
 core = "1.12.0"
 appcompat = "1.6.1"
 material = "1.10.0"

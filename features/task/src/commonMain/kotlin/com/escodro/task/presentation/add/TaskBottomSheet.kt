@@ -87,4 +87,4 @@ internal fun AddTaskBottomSheet(
     }
 }
 
-private const val FocusDelay = 300L
+private const val FocusDelay = 500L

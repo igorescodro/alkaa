@@ -13,5 +13,7 @@
 	<string>Permission used by third-party libraries</string>
 	<key>NSBluetoothAlwaysUsageDescription</key>
 	<string>Permission used by third-party libraries</string>
+	<key>SPrivacyAccessedAPICategoryFileTimestamp</key>
+	<string>Timestamp used to set the creation and updated date in the tasks</string>
 </dict>
 </plist>

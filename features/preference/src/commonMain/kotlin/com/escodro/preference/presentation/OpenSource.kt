@@ -37,6 +37,7 @@ private fun OpenSourceContent(modifier: Modifier = Modifier) {
             contentColor = MaterialTheme.colorScheme.onBackground,
             badgeContentColor = MaterialTheme.colorScheme.onPrimary,
             badgeBackgroundColor = MaterialTheme.colorScheme.primary,
+            dialogConfirmButtonColor = MaterialTheme.colorScheme.primary,
         ),
     )
 }

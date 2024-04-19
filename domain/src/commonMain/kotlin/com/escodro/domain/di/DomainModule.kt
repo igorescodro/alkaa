@@ -76,6 +76,7 @@ val domainModule = module {
         UpdateTaskTitleImpl(
             loadTask = get(),
             updateTask = get(),
+            alarmInteractor = get(),
             glanceInteractor = getOrNull(),
         )
     }

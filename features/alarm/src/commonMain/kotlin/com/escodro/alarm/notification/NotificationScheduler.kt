@@ -21,4 +21,9 @@ internal interface NotificationScheduler {
      * @param task the task id to be canceled
      */
     fun cancelTaskNotification(task: Task)
+
+    /**
+     * Updates the notification with the given task information.
+     */
+    fun updateTaskNotification(task: Task)
 }

@@ -1,6 +1,7 @@
 package com.escodro.domain.usecase.task
 
 import com.escodro.domain.model.Task
+import com.escodro.domain.usecase.fake.AlarmInteractorFake
 import com.escodro.domain.usecase.fake.GlanceInteractorFake
 import com.escodro.domain.usecase.fake.TaskRepositoryFake
 import com.escodro.domain.usecase.task.implementation.AddTaskImpl
@@ -10,6 +11,7 @@ import com.escodro.domain.usecase.task.implementation.UpdateTaskDescriptionImpl
 import com.escodro.domain.usecase.task.implementation.UpdateTaskImpl
 import com.escodro.domain.usecase.task.implementation.UpdateTaskTitleImpl
 import kotlinx.coroutines.test.runTest
+import kotlinx.datetime.LocalDateTime
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -27,8 +29,10 @@ internal class UpdateTaskTest {
 
     private val loadTaskUseCase = LoadTaskImpl(taskRepository)
 
+    private val alarmInteractor = AlarmInteractorFake()
+
     private val updateTitleUseCase =
-        UpdateTaskTitleImpl(loadTaskUseCase, updateTaskUseCase, glanceInteractor)
+        UpdateTaskTitleImpl(loadTaskUseCase, updateTaskUseCase, alarmInteractor, glanceInteractor)
 
     private val updateDescriptionUseCase =
         UpdateTaskDescriptionImpl(loadTaskUseCase, updateTaskUseCase)
@@ -39,6 +43,7 @@ internal class UpdateTaskTest {
     @BeforeTest
     fun setup() {
         glanceInteractor.clean()
+        alarmInteractor.clear()
     }
 
     @Test
@@ -64,6 +69,30 @@ internal class UpdateTaskTest {
         val loadedTask = loadTaskUseCase(task.id)
         assertEquals(newTitle, loadedTask!!.title)
     }
+
+    @Test
+    fun test_when_task_title_is_updated_than_the_notification_was_updated() = runTest {
+        val dueDate = LocalDateTime(2021, 10, 10, 10, 10)
+        val task = Task(id = 15, title = "flora card", dueDate = dueDate)
+        addTaskUseCase(task)
+
+        val newTitle = "float card"
+        updateTitleUseCase(task.id, newTitle)
+
+        assertEquals(alarmInteractor.updatedTask, task.copy(title = newTitle))
+    }
+
+    @Test
+    fun test_when_task_title_is_updated_without_due_date_than_the_notification_was_not_updated() =
+        runTest {
+            val task = Task(id = 15, title = "miss rat", dueDate = null)
+            addTaskUseCase(task)
+
+            val newTitle = "miss mouse"
+            updateTitleUseCase(task.id, newTitle)
+
+            assertEquals(alarmInteractor.updatedTask, null)
+        }
 
     @Test
     fun test_if_task_description_is_updated() = runTest {

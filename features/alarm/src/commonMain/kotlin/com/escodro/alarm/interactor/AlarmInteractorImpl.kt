@@ -24,4 +24,10 @@ internal class AlarmInteractorImpl(
         val alarmTask = mapper.fromDomain(task)
         notificationScheduler.cancelTaskNotification(alarmTask)
     }
+
+    override fun update(task: Task) {
+        logger.debug { "update - alarmId = $task" }
+        val alarmTask = mapper.fromDomain(task)
+        notificationScheduler.updateTaskNotification(alarmTask)
+    }
 }

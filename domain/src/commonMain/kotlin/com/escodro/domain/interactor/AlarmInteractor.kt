@@ -21,4 +21,11 @@ interface AlarmInteractor {
      * @param task the task alarm to be cancelled
      */
     fun cancel(task: Task)
+
+    /**
+     * Updates an existing alarm.
+     *
+     * @param task the task to be updated
+     */
+    fun update(task: Task)
 }

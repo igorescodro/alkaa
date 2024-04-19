@@ -45,4 +45,9 @@ internal class AndroidNotificationScheduler(private val context: Context) : Noti
         logcat { "Canceling notification with id '${task.title}'" }
         context.cancelAlarm(pendingIntent)
     }
+
+    override fun updateTaskNotification(task: Task) {
+        // In Android, the notification will trigger a Broadcast Receiver which will always get the
+        // most recent Task data from the database.
+    }
 }

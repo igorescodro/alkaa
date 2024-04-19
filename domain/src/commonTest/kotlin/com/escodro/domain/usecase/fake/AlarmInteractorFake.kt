@@ -7,12 +7,18 @@ internal class AlarmInteractorFake : AlarmInteractor {
 
     private val alarmMap: MutableMap<Long, Long> = mutableMapOf()
 
+    var updatedTask: Task? = null
+
     override fun schedule(task: Task, timeInMillis: Long) {
         alarmMap[task.id] = timeInMillis
     }
 
     override fun cancel(task: Task) {
         alarmMap.remove(task.id)
+    }
+
+    override fun update(task: Task) {
+        updatedTask = task
     }
 
     fun isAlarmScheduled(alarmId: Long): Boolean =
@@ -23,5 +29,6 @@ internal class AlarmInteractorFake : AlarmInteractor {
 
     fun clear() {
         alarmMap.clear()
+        updatedTask = null
     }
 }

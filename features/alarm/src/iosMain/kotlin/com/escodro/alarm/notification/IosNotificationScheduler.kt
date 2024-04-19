@@ -1,6 +1,8 @@
 package com.escodro.alarm.notification
 
 import com.escodro.alarm.model.Task
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toInstant
 import platform.Foundation.NSCalendar
 import platform.Foundation.NSCalendarUnitDay
 import platform.Foundation.NSCalendarUnitHour
@@ -52,5 +54,14 @@ internal class IosNotificationScheduler : NotificationScheduler {
         NSLog("Canceling notification with id '${task.title}'")
         val notificationCenter = UNUserNotificationCenter.currentNotificationCenter()
         notificationCenter.removePendingNotificationRequestsWithIdentifiers(listOf(task.id.toString()))
+    }
+
+    override fun updateTaskNotification(task: Task) {
+        NSLog("Updating notification with id '${task.title}'")
+        val time = task.dueDate?.toInstant(
+            TimeZone.currentSystemDefault(),
+        )?.toEpochMilliseconds() ?: return
+
+        scheduleTaskNotification(task, time)
     }
 }

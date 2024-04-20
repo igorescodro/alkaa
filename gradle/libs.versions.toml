@@ -1,7 +1,7 @@
 [versions]
 # Project
-version_code = "30001"
-version_name = "3.0.1"
+version_code = "30002"
+version_name = "3.0.2"
 android_gradle_plugin = "8.3.2"
 kotlin = "1.9.23"
 android_sdk_compile = "34"
@@ -171,4 +171,3 @@ dependencyanalysis = { id = "com.autonomousapps.dependency-analysis", version.re
 sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
 compose = { id = "org.jetbrains.compose", version.ref = "jb_compose_compiler" }
 moko_multiplatform_resources = { id = "dev.icerock.mobile.multiplatform-resources" }
-

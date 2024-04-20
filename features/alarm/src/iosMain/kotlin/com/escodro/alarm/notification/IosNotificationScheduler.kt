@@ -20,7 +20,6 @@ import platform.UserNotifications.UNMutableNotificationContent
 import platform.UserNotifications.UNNotificationAction
 import platform.UserNotifications.UNNotificationActionOptionNone
 import platform.UserNotifications.UNNotificationCategory
-import platform.UserNotifications.UNNotificationCategoryOptions
 import platform.UserNotifications.UNNotificationRequest
 import platform.UserNotifications.UNUserNotificationCenter
 
@@ -34,7 +33,7 @@ internal class IosNotificationScheduler : NotificationScheduler {
 
     private fun registerCategories() {
         val doneAction = UNNotificationAction.actionWithIdentifier(
-            identifier = CATEGORY_IDENTIFIER_TASK,
+            identifier = ACTION_IDENTIFIER_DONE,
             title = StringDesc.Resource(MR.strings.notification_action_completed).localized(),
             options = UNNotificationActionOptionNone,
         )
@@ -43,7 +42,7 @@ internal class IosNotificationScheduler : NotificationScheduler {
             identifier = CATEGORY_IDENTIFIER_TASK,
             actions = listOf(doneAction),
             intentIdentifiers = emptyList<String>(),
-            options = UNNotificationCategoryOptions.MIN_VALUE,
+            options = UNNotificationActionOptionNone,
         )
 
         notificationCenter.setNotificationCategories(setOf(category))
@@ -53,7 +52,7 @@ internal class IosNotificationScheduler : NotificationScheduler {
         val content = UNMutableNotificationContent()
         content.setBody(task.title)
         content.setCategoryIdentifier(CATEGORY_IDENTIFIER_TASK)
-        content.setUserInfo(mapOf(USER_INFO_TASK_ID to task.id.toString()))
+        content.setUserInfo(mapOf(USER_INFO_TASK_ID to task.id))
 
         val nsDate = NSDate.dateWithTimeIntervalSince1970(timeInMillis / 1000.0)
         val dateComponents = NSCalendar.currentCalendar.components(
@@ -97,8 +96,20 @@ internal class IosNotificationScheduler : NotificationScheduler {
     }
 
     companion object {
-        const val USER_INFO_TASK_ID = "task_id"
 
-        private const val CATEGORY_IDENTIFIER_TASK = "task_actions"
+        /**
+         * Identifier for the task category actions.
+         */
+        const val CATEGORY_IDENTIFIER_TASK = "task_actions"
+
+        /**
+         * Identifier for the done action.
+         */
+        const val ACTION_IDENTIFIER_DONE = "done_action"
+
+        /**
+         * Key to store the task id in the notification content.
+         */
+        const val USER_INFO_TASK_ID = "task_id"
     }
 }

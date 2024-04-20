@@ -27,6 +27,10 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
                                 @escaping () -> Void) {
         
         let delegate = InjectionHelper().notificationActionDelegate
-        delegate.userNotificationCenter(response: response)
+        delegate.userNotificationCenter(response: response) {
+            // Call the completion handler after the action handling is finished
+            // Otherwise the Coroutine will be cancelled if the app is not running in background
+            completionHandler()
+        }
     }
 }

@@ -5,15 +5,13 @@ import com.escodro.domain.usecase.task.AddTask
 
 internal class AddTaskFake : AddTask {
 
-    private val updatedList: MutableList<Task> = mutableListOf()
+    var createdTask: Task? = null
 
     override suspend fun invoke(task: Task) {
-        updatedList.add(task)
+        createdTask = task
     }
 
-    fun clear() =
-        updatedList.clear()
-
-    fun wasTaskCreated(title: String): Boolean =
-        updatedList.any { it.title == title }
+    fun clear() {
+        createdTask = null
+    }
 }

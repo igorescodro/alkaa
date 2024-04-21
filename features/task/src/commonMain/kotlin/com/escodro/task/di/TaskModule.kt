@@ -50,6 +50,7 @@ val taskModule = module {
     viewModelDefinition {
         AddTaskViewModel(
             addTaskUseCase = get(),
+            alarmIntervalMapper = get(),
             applicationScope = get(),
         )
     }

@@ -1,13 +1,11 @@
 package com.escodro.task.presentation.add
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -21,31 +19,37 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.unit.dp
+import com.escodro.alarmapi.AlarmPermission
 import com.escodro.categoryapi.presentation.CategoryListViewModel
 import com.escodro.categoryapi.presentation.CategoryState
 import com.escodro.designsystem.components.AlkaaInputTextField
 import com.escodro.resources.MR
+import com.escodro.task.model.AlarmInterval
 import com.escodro.task.presentation.category.CategorySelection
+import com.escodro.task.presentation.detail.alarm.AlarmSelection
 import com.escodro.task.presentation.detail.main.CategoryId
 import dev.icerock.moko.resources.compose.stringResource
 import kotlinx.coroutines.delay
+import kotlinx.datetime.LocalDateTime
 import org.koin.compose.koinInject
 
 @Composable
 internal fun AddTaskBottomSheet(
     addTaskViewModel: AddTaskViewModel = koinInject(),
     categoryViewModel: CategoryListViewModel = koinInject(),
+    alarmPermission: AlarmPermission = koinInject(),
     onHideBottomSheet: () -> Unit,
 ) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .height(256.dp)
-            .background(MaterialTheme.colorScheme.surface) // Accompanist does not support M3 yet
+            .fillMaxWidth(0.5f)
             .padding(16.dp),
         verticalArrangement = Arrangement.SpaceAround,
     ) {
-        var taskInputText by rememberSaveable { mutableStateOf("") }
+        var taskInputText: String by rememberSaveable { mutableStateOf("") }
+        var taskDueDate: LocalDateTime? by rememberSaveable { mutableStateOf(null) }
+        var alarmInterval: AlarmInterval by rememberSaveable { mutableStateOf(AlarmInterval.NEVER) }
         val categoryState by remember(categoryViewModel) {
             categoryViewModel
         }.loadCategories().collectAsState(initial = CategoryState.Empty)
@@ -72,12 +76,28 @@ internal fun AddTaskBottomSheet(
             onCategoryChange = { categoryId -> currentCategory = categoryId },
         )
 
+        AlarmSelection(
+            calendar = taskDueDate,
+            interval = alarmInterval,
+            onAlarmUpdate = { dateTime -> taskDueDate = dateTime },
+            onIntervalSelect = { interval -> alarmInterval = interval },
+            hasExactAlarmPermission = { alarmPermission.hasExactAlarmPermission() },
+            openExactAlarmPermissionScreen = { alarmPermission.openExactAlarmPermissionScreen() },
+            openAppSettingsScreen = { alarmPermission.openAppSettings() },
+        )
+
         Button(
             modifier = Modifier
+                .padding(top = 8.dp, bottom = 16.dp)
                 .fillMaxWidth()
                 .height(48.dp),
             onClick = {
-                addTaskViewModel.addTask(taskInputText, currentCategory)
+                addTaskViewModel.addTask(
+                    title = taskInputText,
+                    categoryId = currentCategory,
+                    dueDate = taskDueDate,
+                    alarmInterval = alarmInterval,
+                )
                 taskInputText = ""
                 onHideBottomSheet()
             },

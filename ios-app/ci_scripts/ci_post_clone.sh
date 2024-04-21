@@ -7,7 +7,7 @@ jdk_dir="${CI_DERIVED_DATA_PATH}/JDK"
 gradle_dir="${repo_dir}/Common"
 cache_dir="${CI_DERIVED_DATA_PATH}/.gradle"
 
-jdk_version="20.0.1"
+jdk_version="17.0.11"
 
 # Check if we stored gradle caches in DerivedData.
 recover_cache_files() {
@@ -52,7 +52,7 @@ install_jdk_if_needed() {
     tar_name="jdk-${jdk_version}_${arch_type}_bin.tar.gz"
 
     # Download and un-tar JDK to our defined location.
-    curl -OL "https://download.oracle.com/java/20/archive/${tar_name}"
+    curl -OL "https://download.oracle.com/java/17/archive/${tar_name}"
     tar xzf $tar_name -C $root_dir
 
     # Move the JDK to our desired location.

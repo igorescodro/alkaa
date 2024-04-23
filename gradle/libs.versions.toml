@@ -32,6 +32,7 @@ datastore = "1.1.1"
 glance = "1.0.0"
 workmanager = "2.9.0"
 lifecycle_viewmodel = "2.7.0"
+annotation = "1.7.1"
 
 # Compose
 compose_compiler = "1.5.12"
@@ -106,6 +107,7 @@ androidx_glance = { module = "androidx.glance:glance-appwidget", version.ref = "
 androidx_glance_material3 = { module = "androidx.glance:glance-material3", version.ref = "glance" }
 androidx_workmanager = { module = "androidx.work:work-runtime-ktx", version.ref = "workmanager" }
 androidx_lifecycle_viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel", version.ref = "lifecycle_viewmodel" }
+androidx_annotation = { module = "androidx.annotation:annotation", version.ref = "annotation" }
 
 compose_bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose_bom" }
 compose_ui = { module = "androidx.compose.ui:ui" }

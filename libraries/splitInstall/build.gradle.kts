@@ -7,6 +7,7 @@ dependencies {
     implementation(projects.libraries.designsystem)
 
     implementation(libs.androidx.playcore)
+    implementation(libs.androidx.annotation)
 }
 android {
     namespace = "com.escodro.splitinstall"

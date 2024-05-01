@@ -58,7 +58,13 @@ import org.koin.dsl.module
 val domainModule = module {
 
     // Task Use Cases
-    factory<AddTask> { AddTaskImpl(taskRepository = get(), glanceInteractor = getOrNull()) }
+    factory<AddTask> {
+        AddTaskImpl(
+            taskRepository = get(),
+            updateAlarm = get(),
+            glanceInteractor = getOrNull(),
+        )
+    }
     factoryOf(::CompleteTask)
     factoryOf(::UncompleteTask)
     factory<UpdateTaskStatus> {

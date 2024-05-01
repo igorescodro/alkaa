@@ -9,7 +9,7 @@ internal class TaskRepositoryImpl(
     private val taskDataSource: TaskDataSource,
     private val taskMapper: TaskMapper,
 ) : TaskRepository {
-    override suspend fun insertTask(task: Task) =
+    override suspend fun insertTask(task: Task): Long =
         taskDataSource.insertTask(taskMapper.toRepo(task))
 
     override suspend fun updateTask(task: Task) =

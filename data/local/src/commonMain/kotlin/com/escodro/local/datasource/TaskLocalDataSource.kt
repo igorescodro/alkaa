@@ -13,7 +13,7 @@ internal class TaskLocalDataSource(
     private val taskMapper: TaskMapper,
 ) : TaskDataSource {
 
-    override suspend fun insertTask(task: Task) =
+    override suspend fun insertTask(task: Task): Long =
         taskDao.insertTask(taskMapper.toLocal(task))
 
     override suspend fun updateTask(task: Task) =

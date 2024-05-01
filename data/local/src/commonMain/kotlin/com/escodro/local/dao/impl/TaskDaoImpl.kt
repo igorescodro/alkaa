@@ -15,7 +15,7 @@ internal class TaskDaoImpl(private val databaseProvider: DatabaseProvider) : Tas
     private val taskQueries: TaskQueries
         get() = databaseProvider.getInstance().taskQueries
 
-    override suspend fun insertTask(task: Task) {
+    override suspend fun insertTask(task: Task): Long {
         val id: Long? = task.task_id.takeIf { it > 0L } // Instrumentation test to force id
         taskQueries.insert(
             task_id = id,
@@ -29,6 +29,7 @@ internal class TaskDaoImpl(private val databaseProvider: DatabaseProvider) : Tas
             task_is_repeating = task.task_is_repeating,
             task_alarm_interval = task.task_alarm_interval,
         )
+        return taskQueries.lastInsertedId().executeAsOne()
     }
 
     override suspend fun updateTask(task: Task) {

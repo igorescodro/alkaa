@@ -13,7 +13,7 @@ dependencyanalysis = "1.31.0"
 
 # General dependencies
 logging = "3.0.5"
-logback = "1.2.11"
+logback = "1.5.6"
 logcat = "0.1"
 
 # KotlinX

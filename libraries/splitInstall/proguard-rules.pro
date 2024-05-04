@@ -24,4 +24,4 @@
     public static **[] values();
     public static ** valueOf(java.lang.String);
 }
--dontwarn com.escodro.splitinstall.SplitInstallKt
+-keep class com.escodro.splitinstall.** { *; }

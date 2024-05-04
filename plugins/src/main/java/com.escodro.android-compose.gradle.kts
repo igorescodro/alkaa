@@ -16,6 +16,13 @@ android {
     androidConfig(libs)
     proguardConfig()
     composeConfig(libs)
+
+    kotlinOptions {
+        jvmTarget = "11"
+        freeCompilerArgs = listOf(
+            "-Xstring-concat=inline"
+        )
+    }
 }
 
 dependencies {

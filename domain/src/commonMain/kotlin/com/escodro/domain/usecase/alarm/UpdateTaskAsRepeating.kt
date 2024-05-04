@@ -5,7 +5,7 @@ import com.escodro.domain.model.AlarmInterval
 /**
  * Updates the task as repeating.
  */
-interface UpdateTaskAsRepeating {
+internal interface UpdateTaskAsRepeating {
 
     /**
      * Updates the task as repeating.

@@ -7,6 +7,7 @@ import com.escodro.domain.usecase.fake.DateTimeProviderFake
 import com.escodro.domain.usecase.fake.GlanceInteractorFake
 import com.escodro.domain.usecase.fake.NotificationInteractorFake
 import com.escodro.domain.usecase.fake.TaskRepositoryFake
+import com.escodro.domain.usecase.fake.UpdateAlarmFake
 import com.escodro.domain.usecase.task.implementation.AddTaskImpl
 import kotlinx.coroutines.test.runTest
 import kotlin.test.BeforeTest
@@ -18,6 +19,8 @@ internal class ShowAlarmTest {
 
     private val taskRepository = TaskRepositoryFake()
 
+    private val updateAlarm = UpdateAlarmFake()
+
     private val alarmInteractor = AlarmInteractorFake()
 
     private val glanceInteractor = GlanceInteractorFake()
@@ -26,7 +29,7 @@ internal class ShowAlarmTest {
 
     private val datetimeProvider = DateTimeProviderFake()
 
-    private val addTaskUseCase = AddTaskImpl(taskRepository, glanceInteractor)
+    private val addTaskUseCase = AddTaskImpl(taskRepository, updateAlarm, glanceInteractor)
 
     private val scheduleNextAlarmUseCase =
         ScheduleNextAlarm(taskRepository, alarmInteractor, datetimeProvider)

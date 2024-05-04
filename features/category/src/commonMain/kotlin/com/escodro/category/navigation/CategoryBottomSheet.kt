@@ -2,6 +2,8 @@ package com.escodro.category.navigation
 
 import androidx.compose.runtime.Composable
 import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.core.screen.ScreenKey
+import cafe.adriel.voyager.core.screen.uniqueScreenKey
 import cafe.adriel.voyager.navigator.bottomSheet.LocalBottomSheetNavigator
 import com.escodro.category.presentation.bottomsheet.CategoryBottomSheet
 
@@ -11,6 +13,8 @@ import com.escodro.category.presentation.bottomsheet.CategoryBottomSheet
  * @param categoryId the category id to be edited, null if it is a new category
  */
 internal data class CategoryBottomSheet(val categoryId: Long?) : Screen {
+
+    override val key: ScreenKey = uniqueScreenKey
 
     @Composable
     override fun Content() {

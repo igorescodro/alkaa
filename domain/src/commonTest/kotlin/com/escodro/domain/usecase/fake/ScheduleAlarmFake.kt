@@ -1,4 +1,4 @@
-package com.escodro.task.presentation.fake
+package com.escodro.domain.usecase.fake
 
 import com.escodro.domain.usecase.alarm.ScheduleAlarm
 import kotlinx.datetime.LocalDateTime

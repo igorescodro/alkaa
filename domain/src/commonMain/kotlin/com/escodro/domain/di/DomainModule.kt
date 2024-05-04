@@ -8,9 +8,11 @@ import com.escodro.domain.usecase.alarm.ScheduleAlarm
 import com.escodro.domain.usecase.alarm.ScheduleNextAlarm
 import com.escodro.domain.usecase.alarm.ShowAlarm
 import com.escodro.domain.usecase.alarm.SnoozeAlarm
+import com.escodro.domain.usecase.alarm.UpdateAlarm
 import com.escodro.domain.usecase.alarm.UpdateTaskAsRepeating
 import com.escodro.domain.usecase.alarm.implementation.CancelAlarmImpl
 import com.escodro.domain.usecase.alarm.implementation.ScheduleAlarmImpl
+import com.escodro.domain.usecase.alarm.implementation.UpdateAlarmImpl
 import com.escodro.domain.usecase.alarm.implementation.UpdateTaskAsRepeatingImpl
 import com.escodro.domain.usecase.category.AddCategory
 import com.escodro.domain.usecase.category.DeleteCategory
@@ -58,7 +60,13 @@ import org.koin.dsl.module
 val domainModule = module {
 
     // Task Use Cases
-    factory<AddTask> { AddTaskImpl(taskRepository = get(), glanceInteractor = getOrNull()) }
+    factory<AddTask> {
+        AddTaskImpl(
+            taskRepository = get(),
+            updateAlarm = get(),
+            glanceInteractor = getOrNull(),
+        )
+    }
     factoryOf(::CompleteTask)
     factoryOf(::UncompleteTask)
     factory<UpdateTaskStatus> {
@@ -105,6 +113,7 @@ val domainModule = module {
     factoryOf(::ShowAlarm)
     factoryOf(::SnoozeAlarm)
     factoryOf(::UpdateTaskAsRepeatingImpl) bind UpdateTaskAsRepeating::class
+    factoryOf(::UpdateAlarmImpl) bind UpdateAlarm::class
 
     // Tracker Use Cases
     factoryOf(::LoadCompletedTasksByPeriodImpl) bind LoadCompletedTasksByPeriod::class

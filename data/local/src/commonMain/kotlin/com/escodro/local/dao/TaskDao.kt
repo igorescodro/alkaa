@@ -11,8 +11,10 @@ interface TaskDao {
      * Inserts a new task.
      *
      * @param task task to be added
+     *
+     * @return the id of the inserted task
      */
-    suspend fun insertTask(task: Task)
+    suspend fun insertTask(task: Task): Long
 
     /**
      * Updates a task.

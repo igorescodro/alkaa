@@ -7,7 +7,7 @@ internal class TaskRepositoryFake : TaskRepository {
 
     private val taskMap: MutableMap<Long, Task> = mutableMapOf()
 
-    override suspend fun insertTask(task: Task) {
+    override suspend fun insertTask(task: Task): Long {
         val id = if (task.id == 0L) {
             taskMap.entries.maxByOrNull { it.key }?.key?.plus(1) ?: 1
         } else {
@@ -15,6 +15,7 @@ internal class TaskRepositoryFake : TaskRepository {
         }
 
         taskMap[id] = task
+        return id
     }
 
     override suspend fun updateTask(task: Task) {

@@ -5,7 +5,7 @@ import kotlinx.datetime.LocalDateTime
 /**
  * Use case to schedule a new alarm.
  */
-interface ScheduleAlarm {
+internal interface ScheduleAlarm {
 
     /**
      * Schedules a new alarm.

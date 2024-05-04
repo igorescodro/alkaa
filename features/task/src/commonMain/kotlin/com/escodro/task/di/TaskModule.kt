@@ -40,9 +40,8 @@ val taskModule = module {
     }
     viewModelDefinition {
         TaskAlarmViewModel(
-            scheduleAlarmUseCase = get(),
-            updateTaskAsRepeatingUseCase = get(),
-            cancelAlarmUseCase = get(),
+            updateAlarm = get(),
+            loadTask = get(),
             applicationScope = get(),
             alarmIntervalMapper = get(),
         )

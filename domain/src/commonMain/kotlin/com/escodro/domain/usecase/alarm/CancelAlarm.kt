@@ -3,7 +3,7 @@ package com.escodro.domain.usecase.alarm
 /**
  * Use case to cancel an alarm.
  */
-interface CancelAlarm {
+internal interface CancelAlarm {
     /**
      * Cancels an alarm.
      *

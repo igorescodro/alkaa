@@ -12,7 +12,7 @@ interface TaskRepository {
      *
      * @param task task to be added
      */
-    suspend fun insertTask(task: Task)
+    suspend fun insertTask(task: Task): Long
 
     /**
      * Updates a task.

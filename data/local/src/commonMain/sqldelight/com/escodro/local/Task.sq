@@ -56,3 +56,6 @@ SELECT * FROM Task WHERE task_due_date IS NOT NULL;
 
 selectTaskById:
 SELECT * FROM Task WHERE task_id = ?;
+
+lastInsertedId:
+SELECT LAST_INSERT_ROWID();

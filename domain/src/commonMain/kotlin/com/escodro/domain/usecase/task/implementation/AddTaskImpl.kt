@@ -3,11 +3,13 @@ package com.escodro.domain.usecase.task.implementation
 import com.escodro.domain.interactor.GlanceInteractor
 import com.escodro.domain.model.Task
 import com.escodro.domain.repository.TaskRepository
+import com.escodro.domain.usecase.alarm.UpdateAlarm
 import com.escodro.domain.usecase.task.AddTask
 import mu.KotlinLogging
 
 internal class AddTaskImpl(
     private val taskRepository: TaskRepository,
+    private val updateAlarm: UpdateAlarm,
     private val glanceInteractor: GlanceInteractor?,
 ) : AddTask {
 
@@ -19,7 +21,14 @@ internal class AddTaskImpl(
             return
         }
 
-        taskRepository.insertTask(task)
+        val taskId = taskRepository.insertTask(task)
+        val insertedTask = taskRepository.findTaskById(taskId)
+
+        if (insertedTask?.dueDate != null) {
+            logger.debug { "Adding alarm for task ${task.id}" }
+            updateAlarm(insertedTask)
+        }
+
         glanceInteractor?.onTaskListUpdated()
     }
 }

@@ -6,6 +6,7 @@ import com.escodro.domain.usecase.fake.DateTimeProviderFake
 import com.escodro.domain.usecase.fake.GlanceInteractorFake
 import com.escodro.domain.usecase.fake.NotificationInteractorFake
 import com.escodro.domain.usecase.fake.TaskRepositoryFake
+import com.escodro.domain.usecase.fake.UpdateAlarmFake
 import com.escodro.domain.usecase.task.implementation.AddTaskImpl
 import com.escodro.domain.usecase.task.implementation.LoadTaskImpl
 import com.escodro.domain.usecase.task.implementation.UpdateTaskStatusImpl
@@ -20,6 +21,8 @@ internal class CompleteTaskTest {
 
     private val taskRepository = TaskRepositoryFake()
 
+    private val updateAlarm = UpdateAlarmFake()
+
     private val alarmInteractor = AlarmInteractorFake()
 
     private val glanceInteractor = GlanceInteractorFake()
@@ -28,7 +31,7 @@ internal class CompleteTaskTest {
 
     private val calendarProvider = DateTimeProviderFake()
 
-    private val addTaskUseCase = AddTaskImpl(taskRepository, glanceInteractor)
+    private val addTaskUseCase = AddTaskImpl(taskRepository, updateAlarm, glanceInteractor)
 
     private val completeTaskUseCase = CompleteTask(
         taskRepository,

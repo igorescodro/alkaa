@@ -12,6 +12,7 @@ kotlin {
 
     commonDependencies {
         implementation(libs.moko.resources.core)
+        implementation(libs.koin.core)
     }
 
     // Explicit dependency due to Moko issues with Kotlin 1.9.0

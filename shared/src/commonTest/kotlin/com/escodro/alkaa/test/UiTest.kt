@@ -4,7 +4,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.test.ComposeUiTest
 import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.runComposeUiTest
-import com.escodro.shared.di.initKoin
 import org.koin.core.module.Module
 
 /**
@@ -14,10 +13,7 @@ import org.koin.core.module.Module
  */
 @OptIn(ExperimentalTestApi::class)
 fun uiTest(block: ComposeUiTest.() -> Unit) = runComposeUiTest {
-    setContent {
-        initKoin(appModule = module)
-        RenderApp()
-    }
+    setContent { RenderApp() }
     block()
 }
 

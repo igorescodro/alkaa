@@ -1,6 +1,10 @@
 import extension.androidDependencies
 import extension.commonDependencies
 import extension.commonTestDependencies
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
+import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 plugins {
     id("com.escodro.multiplatform")
@@ -24,6 +28,17 @@ kotlin {
         }
     }
 
+    androidTarget {
+        @OptIn(ExperimentalKotlinGradlePluginApi::class)
+        instrumentedTestVariant {
+            sourceSetTree.set(KotlinSourceSetTree.test)
+
+            dependencies {
+                implementation(libs.test.junit4.android)
+                debugImplementation(libs.test.manifest)
+            }
+        }
+    }
     commonDependencies {
         implementation(projects.data.local)
         implementation(projects.data.datastore)
@@ -59,6 +74,9 @@ kotlin {
 
     commonTestDependencies {
         implementation(kotlin("test"))
+
+        @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
+        implementation(compose.uiTest)
     }
 
     // Explicit dependency due to Moko issues with Kotlin 1.9.0
@@ -73,8 +91,21 @@ kotlin {
 
 android {
     namespace = "com.escodro.shared"
+
+    defaultConfig {
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
 }
 
 multiplatformResources {
     multiplatformResourcesPackage = "com.escodro.alkaa"
+}
+
+// Add compile options to link sqlite3 library allowing iOS UI testing
+// https://github.com/touchlab/SQLiter/issues/77#issuecomment-1472089931
+project.extensions.findByType(KotlinMultiplatformExtension::class.java)?.apply {
+    targets
+        .filterIsInstance<KotlinNativeTarget>()
+        .flatMap { it.binaries }
+        .forEach { compilationUnit -> compilationUnit.linkerOpts("-lsqlite3") }
 }

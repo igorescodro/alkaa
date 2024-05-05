@@ -15,7 +15,7 @@ import dev.icerock.moko.resources.StringResource
  * @property title title to be shown in top app bar.
  * @property icon icon to be shown in the bottom app bar
  */
-internal enum class HomeSection(
+enum class HomeSection(
     val title: StringResource,
     val icon: ImageVector,
 ) {

@@ -10,7 +10,7 @@ import androidx.compose.ui.window.ComposeUIViewController
 fun MainViewController() = ComposeUIViewController(
     configure = {
         accessibilitySyncOptions = AccessibilitySyncOptions.Always(AccessibilityDebugLoggerImpl())
-    }
+    },
 ) {
     AlkaaMultiplatformApp()
 }

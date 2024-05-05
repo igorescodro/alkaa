@@ -3,7 +3,6 @@ package com.escodro.alkaa
 import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithContentDescription
-import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import com.escodro.alkaa.test.module
 import com.escodro.alkaa.test.uiTest

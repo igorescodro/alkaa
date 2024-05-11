@@ -4,12 +4,17 @@ import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.performClick
-import com.escodro.alkaa.test.module
+import com.escodro.alarm.notification.NotificationScheduler
+import com.escodro.alarm.notification.TaskNotification
+import com.escodro.alkaa.test.platformModule
 import com.escodro.alkaa.test.uiTest
 import com.escodro.home.presentation.HomeSection
-import com.escodro.shared.di.initKoin
+import com.escodro.resources.provider.ResourcesProvider
+import com.escodro.shared.di.appModules
 import dev.icerock.moko.resources.desc.desc
+import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
+import org.koin.dsl.module
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -17,11 +22,19 @@ import kotlin.test.Test
 @OptIn(ExperimentalTestApi::class)
 internal class HomeScreenTest {
 
-    private val resourcesProvider = com.escodro.resources.provider.ResourcesProvider()
+    private val resourcesProvider = ResourcesProvider()
 
     @BeforeTest
     fun setup() {
-        initKoin(appModule = module)
+        startKoin {
+            modules(
+                platformModule + appModules + module {
+                    // Mocks the notification and alarm modules - fails on iOS
+                    single<NotificationScheduler> { NotificationSchedulerFake() }
+                    single<TaskNotification> { TaskNotificationFake() }
+                },
+            )
+        }
     }
 
     @AfterTest

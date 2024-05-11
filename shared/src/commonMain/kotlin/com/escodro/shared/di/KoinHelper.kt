@@ -27,20 +27,21 @@ fun initKoin() = initKoin(module { })
  */
 fun initKoin(appModule: Module = module { }) {
     startKoin {
-        modules(
-            appModule,
-            sharedModule,
-            taskModule,
-            alarmModule,
-            categoryModule,
-            searchModule,
-            preferenceModule,
-            domainModule,
-            repositoryModule,
-            localModule,
-            dataStoreModule,
-            coroutinesModule,
-            designSystemModule,
-        )
+        modules(appModules + appModule)
     }
 }
+
+internal val appModules = listOf(
+    sharedModule,
+    taskModule,
+    alarmModule,
+    categoryModule,
+    searchModule,
+    preferenceModule,
+    domainModule,
+    repositoryModule,
+    localModule,
+    dataStoreModule,
+    coroutinesModule,
+    designSystemModule,
+)

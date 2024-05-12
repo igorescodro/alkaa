@@ -79,9 +79,9 @@ internal fun TaskListLoader(
     categoryViewModel: CategoryListViewModel = koinInject(),
 ) {
     val (currentCategory, setCategory) = rememberSaveable { mutableStateOf<CategoryId?>(null) }
-    val refreshKey = rememberRefreshKey()
+    // val refreshKey = rememberRefreshKey() https://github.com/JetBrains/compose-multiplatform/issues/4805
 
-    val taskViewState by remember(taskListViewModel, currentCategory, refreshKey) {
+    val taskViewState by remember(taskListViewModel, currentCategory) {
         taskListViewModel.loadTaskList(currentCategory?.value)
     }.collectAsState(initial = TaskListViewState.Loading)
 
@@ -167,6 +167,7 @@ internal fun TaskListScaffold(
                             },
                         )
                     }
+
                     TaskListViewState.Empty -> TaskListEmpty()
                 }
             }

@@ -5,6 +5,7 @@ import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.runComposeUiTest
 import com.escodro.alkaa.AppStateFake
 import com.escodro.shared.AlkaaMultiplatformApp
+import org.koin.compose.KoinContext
 import org.koin.core.module.Module
 
 /**
@@ -14,7 +15,9 @@ import org.koin.core.module.Module
  */
 @OptIn(ExperimentalTestApi::class)
 fun uiTest(block: ComposeUiTest.() -> Unit) = runComposeUiTest {
-    setContent { AlkaaMultiplatformApp(appState = AppStateFake()) }
+    setContent {
+        KoinContext { AlkaaMultiplatformApp(appState = AppStateFake()) }
+    }
     block()
 }
 

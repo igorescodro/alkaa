@@ -1,4 +1,4 @@
-package com.escodro.alkaa
+package com.escodro.alkaa.fake
 
 import com.escodro.appstate.AppState
 

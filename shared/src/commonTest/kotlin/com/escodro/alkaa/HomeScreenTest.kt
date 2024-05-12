@@ -6,6 +6,8 @@ import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.performClick
 import com.escodro.alarm.notification.NotificationScheduler
 import com.escodro.alarm.notification.TaskNotification
+import com.escodro.alkaa.fake.NotificationSchedulerFake
+import com.escodro.alkaa.fake.TaskNotificationFake
 import com.escodro.alkaa.test.platformModule
 import com.escodro.alkaa.test.uiTest
 import com.escodro.home.presentation.HomeSection

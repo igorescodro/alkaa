@@ -3,7 +3,7 @@ package com.escodro.alkaa.test
 import androidx.compose.ui.test.ComposeUiTest
 import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.runComposeUiTest
-import com.escodro.alkaa.AppStateFake
+import com.escodro.alkaa.fake.AppStateFake
 import com.escodro.shared.AlkaaMultiplatformApp
 import org.koin.compose.KoinContext
 import org.koin.core.module.Module

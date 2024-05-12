@@ -1,4 +1,4 @@
-package com.escodro.alkaa
+package com.escodro.alkaa.fake
 
 import com.escodro.alarm.model.Task
 import com.escodro.alarm.notification.TaskNotification

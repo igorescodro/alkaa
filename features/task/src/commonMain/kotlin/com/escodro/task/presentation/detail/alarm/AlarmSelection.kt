@@ -12,11 +12,10 @@ import androidx.compose.ui.unit.dp
 import com.escodro.resources.MR
 import com.escodro.task.model.AlarmInterval
 import com.escodro.task.presentation.detail.TaskDetailSectionContent
-import dev.icerock.moko.permissions.Permission
+import com.escodro.task.presentation.detail.alarm.interactor.OpenAlarmScheduler
 import dev.icerock.moko.resources.compose.stringResource
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
 import kotlinx.datetime.LocalDateTime
+import org.koin.compose.koinInject
 
 /**
  * Render the Alarm Section, including the alarm set and the alarm interval.
@@ -91,6 +90,8 @@ internal fun AlarmSelectionContent(
     onIntervalSelect: (AlarmInterval) -> Unit,
 ) {
     val coroutineScope = rememberCoroutineScope()
+    val openAlarmScheduler: OpenAlarmScheduler = koinInject() // iOS instrumented tests
+
     Column {
         TaskDetailSectionContent(
             modifier = Modifier
@@ -118,21 +119,5 @@ internal fun AlarmSelectionContent(
                 onIntervalSelect(interval)
             },
         )
-    }
-}
-
-private fun openAlarmScheduler(
-    coroutineScope: CoroutineScope,
-    alarmSelectionState: AlarmSelectionState,
-    hasExactAlarmPermission: () -> Boolean,
-) = coroutineScope.launch {
-    val isNotificationPermissionGranted = alarmSelectionState.permissionsController
-        .isPermissionGranted(Permission.REMOTE_NOTIFICATION)
-
-    if (hasExactAlarmPermission() && isNotificationPermissionGranted) {
-        alarmSelectionState.showDateTimePickerDialog = true
-    } else {
-        alarmSelectionState.showExactAlarmDialog = !hasExactAlarmPermission()
-        alarmSelectionState.showNotificationDialog = !isNotificationPermissionGranted
     }
 }

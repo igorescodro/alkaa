@@ -1,0 +1,8 @@
+[*.{kt,kts}]
+
+ktlint_function_naming_ignore_when_annotated_with = Composable
+ktlint_standard_property-naming = disabled
+
+ktlint_standard_no-empty-first-line-in-class-body = disabled
+ktlint_standard_function-signature = disabled
+ktlint_standard_multiline-expression-wrapping = disabled

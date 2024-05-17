@@ -11,7 +11,6 @@ import com.escodro.designsystem.provider.ThemeProvider
 import org.koin.compose.koinInject
 
 val AlkaaLightColorScheme = lightColorScheme(
-
     primary = md_theme_light_primary,
     onPrimary = md_theme_light_onPrimary,
     primaryContainer = md_theme_light_primaryContainer,
@@ -39,7 +38,6 @@ val AlkaaLightColorScheme = lightColorScheme(
     inverseSurface = md_theme_light_inverseSurface,
 )
 val AlkaaDarkColorScheme = darkColorScheme(
-
     primary = md_theme_dark_primary,
     onPrimary = md_theme_dark_onPrimary,
     primaryContainer = md_theme_dark_primaryContainer,

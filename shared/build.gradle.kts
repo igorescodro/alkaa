@@ -35,6 +35,7 @@ kotlin {
 
             dependencies {
                 implementation(libs.test.junit4.android)
+                implementation(libs.test.uiautomator)
                 debugImplementation(libs.test.manifest)
             }
         }
@@ -74,9 +75,12 @@ kotlin {
 
     commonTestDependencies {
         implementation(kotlin("test"))
+        implementation(projects.features.task)
 
         @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
         implementation(compose.uiTest)
+        implementation(libs.koin.test)
+        implementation(libs.kotlinx.datetime)
     }
 
     // Explicit dependency due to Moko issues with Kotlin 1.9.0

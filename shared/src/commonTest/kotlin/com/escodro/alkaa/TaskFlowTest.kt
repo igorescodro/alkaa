@@ -170,6 +170,32 @@ internal class TaskFlowTest : KoinTest {
         onNodeWithText(alarmArray[0]).assertDoesNotExist()
     }
 
+    @Test
+    fun add_alarm_via_bottom_sheet() = uiTest {
+        val taskName = "Checkout my new video!"
+        onNodeWithContentDescription("Add task").performClick()
+        waitUntilExactlyOneExists(hasSetTextAction())
+        onNode(hasSetTextAction()).performTextInput(taskName)
+
+        // Add alarm
+        onNodeWithText("No alarm").performClick()
+        onNodeWithText("Next").performClick()
+        onNodeWithText("Confirm").performClick()
+
+        // Add alarm interval
+        onNodeWithText("Never").performClick()
+        onNodeWithText("Every day").performClick()
+        onNodeWithText("Add").performClick()
+
+        // Open and validate
+        waitUntilExactlyOneExists(hasText(taskName))
+        onNodeWithText(text = taskName, useUnmergedTree = true).performClick()
+        waitUntilExactlyOneExists(hasText(taskName))
+        onNodeWithText(text = taskName, useUnmergedTree = true).assertExists()
+        onNodeWithText("No alarm", useUnmergedTree = true).assertDoesNotExist()
+        onNodeWithText("Every day", useUnmergedTree = true).assertExists()
+    }
+
     private fun ComposeUiTest.addAndOpenTask(taskName: String) {
         onNodeWithContentDescription("Add task").performClick()
         waitUntilExactlyOneExists(hasSetTextAction())

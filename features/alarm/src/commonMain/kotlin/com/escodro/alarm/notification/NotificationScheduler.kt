@@ -5,7 +5,7 @@ import com.escodro.alarm.model.Task
 /**
  * Interface to schedule and cancel notifications on each platform.
  */
-internal interface NotificationScheduler {
+interface NotificationScheduler {
 
     /**
      * Schedules a notification with task content to be shown at the given time.

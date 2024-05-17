@@ -1,0 +1,95 @@
+name: UI Tests
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '**.md'
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  android-test:
+    name: "Android"
+    runs-on: ubuntu-latest
+    timeout-minutes: 80
+
+    strategy:
+      matrix:
+        api-level: [ 30 ]
+        arch: [ x86_64 ]
+      fail-fast: false
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'zulu'
+
+      - name: Enable KVM group perms
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Run instrumented tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: ${{ matrix.api-level }}
+          arch: x86_64
+          disable-animations: true
+          disk-size: 6000M
+          heap-size: 600M
+          script: ./gradlew :shared:connectedAndroidTest
+
+      - name: Save Test Results
+        uses: actions/upload-artifact@v4
+        if: ${{ always() }}
+        with:
+          name: test-results
+          path: |
+            /Users/runner/work/alkaa/alkaa/app/build/reports/androidTests/
+            ./logcat.txt
+          retention-days: 7
+
+  ios-test:
+    name: "iOS"
+    runs-on: macos-latest
+    timeout-minutes: 80
+
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'zulu'
+
+      - name: Run instrumented tests
+        run: ./gradlew :shared:iosSimulatorArm64Test
+
+      - name: Save Test Results
+        uses: actions/upload-artifact@v4
+        if: ${{ always() }}
+        with:
+          name: test-results
+          path: |
+            /Users/runner/work/alkaa/alkaa/app/build/reports/androidTests/
+            ./logcat.txt
+          retention-days: 7

@@ -13,20 +13,33 @@ import androidx.compose.runtime.remember
  * @property windowSizeClass the window size class from current device
  */
 @Stable
-data class AlkaaAppState(private val windowSizeClass: WindowSizeClass) {
+data class AlkaaAppState(private val windowSizeClass: WindowSizeClass) : AppState {
 
     /**
      * Verifies if the bottom bar should be shown.
      */
-    val shouldShowBottomBar: Boolean
+    override val shouldShowBottomBar: Boolean
         get() = windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact ||
             windowSizeClass.heightSizeClass == WindowHeightSizeClass.Compact
 
     /**
      * Verifies if the navigation rail should be shown.
      */
-    val shouldShowNavRail: Boolean
+    override val shouldShowNavRail: Boolean
         get() = !shouldShowBottomBar
+}
+
+interface AppState {
+
+    /**
+     * Verifies if the bottom bar should be shown.
+     */
+    val shouldShowBottomBar: Boolean
+
+    /**
+     * Verifies if the navigation rail should be shown.
+     */
+    val shouldShowNavRail: Boolean
 }
 
 /**

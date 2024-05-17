@@ -68,6 +68,8 @@ test_barista = "4.3.0"
 test_orchestrator = "1.4.2"
 test_rules = "1.5.0"
 test_hamcrest = "2.2"
+test_junit4_android = "1.6.7"
+test_manifest = "1.6.7"
 
 # Quality
 ktlint = "0.50.0"
@@ -151,6 +153,9 @@ test_barista = { module = "com.adevinta.android:barista", version.ref = "test_ba
 test_orchestrator = { module = "androidx.test:orchestrator", version.ref = "test_orchestrator" }
 test_rules = { module = "androidx.test:rules", version.ref = "test_rules" }
 test_hamcrest = { module = "org.hamcrest:hamcrest", version.ref = "test_hamcrest" }
+
+test-junit4-android = { module = "androidx.compose.ui:ui-test-junit4-android", version.ref = "test_junit4_android" }
+test-manifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "test_manifest" }
 
 # Quality
 ktlint = { module = "com.pinterest:ktlint", version.ref = "ktlint" }

@@ -5,7 +5,7 @@ import com.escodro.alarm.model.Task
 /**
  * Interface to show and dismiss notifications on each platform.
  */
-internal interface TaskNotification {
+interface TaskNotification {
 
     /**
      * Shows a notification with the given task. The UI might show complete task actions.

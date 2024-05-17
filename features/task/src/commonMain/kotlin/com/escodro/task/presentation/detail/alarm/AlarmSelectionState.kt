@@ -14,7 +14,7 @@ import kotlinx.datetime.LocalDateTime
 /**
  * State holder for the [AlarmSelection] composable.
  */
-internal class AlarmSelectionState(
+class AlarmSelectionState(
     calendar: LocalDateTime?,
     alarmInterval: AlarmInterval?,
     permissionsController: PermissionsController,

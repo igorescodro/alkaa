@@ -11,6 +11,7 @@ import cafe.adriel.voyager.navigator.CurrentScreen
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.bottomSheet.BottomSheetNavigator
 import cafe.adriel.voyager.navigator.bottomSheet.LocalBottomSheetNavigator
+import com.escodro.appstate.AppState
 import com.escodro.category.navigation.categoryScreenModule
 import com.escodro.home.navigation.HomeScreen
 import com.escodro.navigation.AlkaaDestinations
@@ -25,6 +26,7 @@ import kotlinx.coroutines.flow.map
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun AlkaaNavGraph(
+    appState: AppState,
     navigationAction: NavigationAction,
     modifier: Modifier = Modifier,
 ) {
@@ -36,7 +38,7 @@ fun AlkaaNavGraph(
 
     BottomSheetNavigator(modifier = modifier) {
         closeKeyboardOnBottomSheetDismiss()
-        Navigator(screen = HomeScreen()) { navigator ->
+        Navigator(screen = HomeScreen(appState = appState)) { navigator ->
             CurrentScreen()
             processNavigationAction(navigator = navigator, action = navigationAction)
         }

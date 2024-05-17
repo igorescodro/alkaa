@@ -88,10 +88,9 @@ internal fun AlarmSelectionContent(
     hasExactAlarmPermission: () -> Boolean,
     onAlarmUpdate: (LocalDateTime?) -> Unit,
     onIntervalSelect: (AlarmInterval) -> Unit,
+    openAlarmScheduler: OpenAlarmScheduler = koinInject(), // iOS instrumented tests
 ) {
     val coroutineScope = rememberCoroutineScope()
-    val openAlarmScheduler: OpenAlarmScheduler = koinInject() // iOS instrumented tests
-
     Column {
         TaskDetailSectionContent(
             modifier = Modifier

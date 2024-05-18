@@ -66,13 +66,17 @@ fun LoadFeature(
     var state by rememberSaveable(featureName) { mutableStateOf(initialState) }
 
     when (state) {
-        RequestDownload -> RequestDownload(onDismiss = onDismiss, setState = { state = it })
-        Downloading -> DownloadFeature(
-            featureName = featureName,
-            manager = manager,
-            onDismiss = onDismiss,
-            setState = { state = it },
-        )
+        RequestDownload -> {
+            RequestDownload(onDismiss = onDismiss, setState = { state = it })
+        }
+        Downloading -> {
+            DownloadFeature(
+                featureName = featureName,
+                manager = manager,
+                onDismiss = onDismiss,
+                setState = { state = it },
+            )
+        }
         FeatureReady -> {
             onDismiss()
             onFeatureReady()
@@ -128,13 +132,17 @@ private fun DownloadFeature(
             logcat { "${it.status()}" }
 
             when (it.status()) {
-                SplitInstallSessionStatus.PENDING -> isDialogOpen = true
+                SplitInstallSessionStatus.PENDING -> {
+                    isDialogOpen = true
+                }
                 SplitInstallSessionStatus.INSTALLED -> {
                     isDialogOpen = false
                     setState(FeatureReady)
                     onDismiss()
                 }
-                else -> logcat { "${it.status()}" }
+                else -> {
+                    logcat { "${it.status()}" }
+                }
             }
         }
 

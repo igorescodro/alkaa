@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.flow
 internal class TaskWithCategoryDaoFake : TaskWithCategoryDao {
 
     var searchQuery: String? = null
+
     override fun findAllTasksWithCategory(): Flow<List<TaskWithCategory>> {
         TODO("Not yet implemented")
     }

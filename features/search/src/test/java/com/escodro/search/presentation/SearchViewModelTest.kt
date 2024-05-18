@@ -33,7 +33,7 @@ internal class SearchViewModelTest : CoroutinesTestDispatcher by CoroutinesTestD
     }
 
     @Test
-    fun `check if empty state is returned when there are no tasks`() = runTest() {
+    fun `check if empty state is returned when there are no tasks`() = runTest {
         // Given the viewModel is called to search tasks but don't match the query
         searchTasksByName.returnValues(0)
         val flow = viewModel.findTasksByName("bla bla")

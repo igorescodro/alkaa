@@ -72,7 +72,7 @@ test_junit4_android = "1.6.7"
 test_manifest = "1.6.7"
 
 # Quality
-ktlint = "0.50.0"
+ktlint = "1.2.1"
 detekt = "1.23.6"
 composerules = "0.0.26"
 
@@ -158,7 +158,7 @@ test-junit4-android = { module = "androidx.compose.ui:ui-test-junit4-android", v
 test-manifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "test_manifest" }
 
 # Quality
-ktlint = { module = "com.pinterest:ktlint", version.ref = "ktlint" }
+ktlint = { module = "com.pinterest.ktlint:ktlint-cli", version.ref = "ktlint" }
 detekt = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }
 composerules = { module = "com.twitter.compose.rules:detekt", version.ref = "composerules" }
 

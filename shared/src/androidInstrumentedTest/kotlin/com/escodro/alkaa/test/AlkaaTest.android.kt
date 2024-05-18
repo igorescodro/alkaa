@@ -11,6 +11,7 @@ import org.koin.dsl.module
 actual class PlatformAnimation actual constructor() {
 
     private val uiDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
+
     actual fun disable() {
         uiDevice.executeShellCommand("settings put global transition_animation_scale 0")
         uiDevice.executeShellCommand("settings put global window_animation_scale 0")

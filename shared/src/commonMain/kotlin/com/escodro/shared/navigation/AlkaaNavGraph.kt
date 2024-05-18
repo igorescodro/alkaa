@@ -49,7 +49,7 @@ fun AlkaaNavGraph(
 private fun processNavigationAction(navigator: Navigator, action: NavigationAction) =
     when (action) {
         is NavigationAction.Home -> {
-            /* Do nothing - Home is always the first screen in Alkaa */
+            // Do nothing - Home is always the first screen in Alkaa
         }
 
         is NavigationAction.TaskDetail -> {

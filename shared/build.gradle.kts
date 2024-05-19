@@ -9,6 +9,7 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 plugins {
     id("com.escodro.multiplatform")
     alias(libs.plugins.compose)
+    alias(libs.plugins.compose.compiler)
     id(libs.plugins.moko.multiplatform.resources.get().pluginId) // Use version from classpath
 }
 
@@ -50,6 +51,7 @@ kotlin {
         implementation(projects.libraries.designsystem)
         implementation(projects.libraries.di)
         implementation(projects.libraries.appstate)
+        implementation(projects.libraries.parcelable)
 
         implementation(projects.features.home)
         implementation(projects.features.task)

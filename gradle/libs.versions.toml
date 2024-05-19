@@ -3,7 +3,7 @@
 version_code = "30006"
 version_name = "3.0.6"
 android_gradle_plugin = "8.4.0"
-kotlin = "1.9.23"
+kotlin = "2.0.0-RC3"
 android_sdk_compile = "34"
 android_sdk_target = "33"
 android_sdk_min = "24"
@@ -34,10 +34,9 @@ workmanager = "2.9.0"
 lifecycle_viewmodel = "2.8.0"
 
 # Compose
-compose_compiler = "1.5.12"
 compose_bom = "2024.05.00"
 compose_activity = "1.9.0"
-jb_compose_compiler = "1.6.2"
+jb_compose_compiler = "1.6.10-rc03"
 compose_windowsizeclass = "0.5.0"
 
 # Koin
@@ -176,3 +175,6 @@ dependencyanalysis = { id = "com.autonomousapps.dependency-analysis", version.re
 sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
 compose = { id = "org.jetbrains.compose", version.ref = "jb_compose_compiler" }
 moko_multiplatform_resources = { id = "dev.icerock.mobile.multiplatform-resources" }
+
+compose_compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

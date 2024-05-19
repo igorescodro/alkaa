@@ -7,6 +7,7 @@ plugins {
     id("kotlin-android")
     id("com.escodro.kotlin-quality")
     id("com.mikepenz.aboutlibraries.plugin")
+    alias(libs.plugins.compose.compiler)
 }
 
 android {
@@ -64,9 +65,6 @@ android {
         compose = true
     }
 
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
-    }
 
     packaging {
         resources.excludes.apply {

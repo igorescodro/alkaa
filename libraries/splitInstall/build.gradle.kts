@@ -1,5 +1,6 @@
 plugins {
     id("com.escodro.android-compose")
+    alias(libs.plugins.compose.compiler)
 }
 
 dependencies {

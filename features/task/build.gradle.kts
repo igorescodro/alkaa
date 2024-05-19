@@ -7,6 +7,7 @@ plugins {
     id("com.escodro.multiplatform")
     id("kotlin-parcelize")
     alias(libs.plugins.compose)
+    alias(libs.plugins.compose.compiler)
 }
 
 kotlin {

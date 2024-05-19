@@ -4,6 +4,7 @@ import extension.setFrameworkBaseName
 plugins {
     id("com.escodro.multiplatform")
     alias(libs.plugins.compose)
+    alias(libs.plugins.compose.compiler)
 }
 
 kotlin {

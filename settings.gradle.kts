@@ -19,6 +19,7 @@ include(":libraries:designsystem")
 include(":libraries:navigation")
 include(":libraries:di")
 include(":libraries:appstate")
+include(":libraries:parcelable")
 
 include(":domain")
 include(":shared")

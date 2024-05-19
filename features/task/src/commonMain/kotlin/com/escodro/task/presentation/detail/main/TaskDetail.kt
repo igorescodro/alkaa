@@ -31,6 +31,8 @@ import com.escodro.categoryapi.presentation.CategoryState
 import com.escodro.designsystem.components.AlkaaLoadingContent
 import com.escodro.designsystem.components.AlkaaToolbar
 import com.escodro.designsystem.components.DefaultIconTextContent
+import com.escodro.parcelable.CommonParcelable
+import com.escodro.parcelable.CommonParcelize
 import com.escodro.resources.MR
 import com.escodro.task.model.Task
 import com.escodro.task.presentation.category.CategorySelection
@@ -39,8 +41,6 @@ import com.escodro.task.presentation.detail.TaskDetailActions
 import com.escodro.task.presentation.detail.TaskDetailSectionContent
 import com.escodro.task.presentation.detail.alarm.AlarmSelection
 import com.escodro.task.presentation.detail.alarm.TaskAlarmViewModel
-import dev.icerock.moko.parcelize.Parcelable
-import dev.icerock.moko.parcelize.Parcelize
 import dev.icerock.moko.resources.compose.stringResource
 import org.koin.compose.koinInject
 import kotlin.jvm.JvmInline
@@ -209,10 +209,10 @@ private fun TaskDescriptionTextField(text: String?, onDescriptionChange: (String
 
 @Suppress("ModifierOrder")
 @JvmInline
-@Parcelize
-internal value class TaskId(val value: Long) : Parcelable
+@CommonParcelize
+internal value class TaskId(val value: Long) : CommonParcelable
 
 @Suppress("ModifierOrder")
 @JvmInline
-@Parcelize
-internal value class CategoryId(val value: Long?) : Parcelable
+@CommonParcelize
+internal value class CategoryId(val value: Long?) : CommonParcelable

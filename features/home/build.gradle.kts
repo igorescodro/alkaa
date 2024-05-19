@@ -1,5 +1,6 @@
 import extension.commonDependencies
 import extension.setFrameworkBaseName
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 
 plugins {
     id("com.escodro.multiplatform")
@@ -35,6 +36,16 @@ kotlin {
         val commonMain by getting
         val androidMain by getting {
             dependsOn(commonMain)
+        }
+    }
+
+    androidTarget {
+        @OptIn(ExperimentalKotlinGradlePluginApi::class)
+        compilerOptions {
+            freeCompilerArgs.addAll(
+                "-P",
+                "plugin:org.jetbrains.kotlin.parcelize:additionalAnnotation=com.escodro.parcelable.CommonParcelize"
+            )
         }
     }
 }

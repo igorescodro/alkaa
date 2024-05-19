@@ -1,6 +1,7 @@
 import extension.commonDependencies
 import extension.commonTestDependencies
 import extension.setFrameworkBaseName
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 
 plugins {
     id("com.escodro.multiplatform")
@@ -20,6 +21,7 @@ kotlin {
         implementation(projects.libraries.navigation)
         implementation(projects.libraries.coroutines)
         implementation(projects.libraries.designsystem)
+        implementation(projects.libraries.parcelable)
 
         implementation(compose.runtime)
         implementation(compose.material3)
@@ -37,6 +39,16 @@ kotlin {
         implementation(kotlin("test"))
         implementation(projects.libraries.test)
         implementation(libs.kotlinx.datetime)
+    }
+
+    androidTarget {
+        @OptIn(ExperimentalKotlinGradlePluginApi::class)
+        compilerOptions {
+            freeCompilerArgs.addAll(
+                "-P",
+                "plugin:org.jetbrains.kotlin.parcelize:additionalAnnotation=com.escodro.parcelable.CommonParcelize"
+            )
+        }
     }
 }
 android {

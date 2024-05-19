@@ -84,15 +84,6 @@ kotlin {
         implementation(libs.koin.test)
         implementation(libs.kotlinx.datetime)
     }
-
-    // Explicit dependency due to Moko issues with Kotlin 1.9.0
-    // https://github.com/icerockdev/moko-resources/issues/531
-    sourceSets {
-        val commonMain by getting
-        val androidMain by getting {
-            dependsOn(commonMain)
-        }
-    }
 }
 
 android {
@@ -104,7 +95,7 @@ android {
 }
 
 multiplatformResources {
-    multiplatformResourcesPackage = "com.escodro.alkaa"
+    resourcesPackage.set("com.escodro.alkaa")
 }
 
 // Add compile options to link sqlite3 library allowing iOS UI testing

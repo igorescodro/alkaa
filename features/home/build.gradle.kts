@@ -4,6 +4,7 @@ import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 
 plugins {
     id("com.escodro.multiplatform")
+    id("kotlin-parcelize")
     alias(libs.plugins.compose)
     alias(libs.plugins.compose.compiler)
 }
@@ -20,6 +21,7 @@ kotlin {
         implementation(projects.features.preference)
         implementation(projects.libraries.navigation)
         implementation(projects.libraries.appstate)
+        implementation(projects.libraries.parcelable)
 
         implementation(compose.runtime)
         implementation(compose.materialIconsExtended)

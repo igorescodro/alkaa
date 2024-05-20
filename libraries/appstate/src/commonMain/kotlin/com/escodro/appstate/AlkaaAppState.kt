@@ -6,21 +6,23 @@ import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
+import com.escodro.parcelable.CommonParcelable
+import com.escodro.parcelable.CommonParcelize
 
 /**
  * Alkaa App state.
  *
- * @property windowSizeClass the window size class from current device
+ * @property isCompactMode flag to indicate if the app is in compact mode
  */
 @Stable
-data class AlkaaAppState(private val windowSizeClass: WindowSizeClass) : AppState {
+@CommonParcelize
+data class AlkaaAppState(private val isCompactMode: Boolean) : AppState {
 
     /**
      * Verifies if the bottom bar should be shown.
      */
     override val shouldShowBottomBar: Boolean
-        get() = windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact ||
-            windowSizeClass.heightSizeClass == WindowHeightSizeClass.Compact
+        get() = isCompactMode
 
     /**
      * Verifies if the navigation rail should be shown.
@@ -29,7 +31,7 @@ data class AlkaaAppState(private val windowSizeClass: WindowSizeClass) : AppStat
         get() = !shouldShowBottomBar
 }
 
-interface AppState {
+interface AppState : CommonParcelable {
 
     /**
      * Verifies if the bottom bar should be shown.
@@ -49,7 +51,9 @@ interface AppState {
  */
 @Composable
 fun rememberAlkaaAppState(windowSizeClass: WindowSizeClass): AlkaaAppState {
-    return remember(windowSizeClass) {
-        AlkaaAppState(windowSizeClass)
+    val isCompactMode = windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact ||
+            windowSizeClass.heightSizeClass == WindowHeightSizeClass.Compact
+    return remember(isCompactMode) {
+        AlkaaAppState(isCompactMode)
     }
 }

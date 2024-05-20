@@ -19,8 +19,8 @@ import org.koin.compose.koinInject
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
 fun AlkaaMultiplatformApp(
-    navigationAction: NavigationAction = NavigationAction.Home,
     modifier: Modifier = Modifier,
+    navigationAction: NavigationAction = NavigationAction.Home,
     appState: AppState = rememberAlkaaAppState(windowSizeClass = calculateWindowSizeClass()),
     onThemeUpdate: (isDarkTheme: Boolean) -> Unit = {},
 ) {

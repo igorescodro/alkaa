@@ -35,7 +35,7 @@ jobs:
           ALKAA_STORE_PATH: ${{ vars.ALKAA_STORE_PATH }}
 
   build-ios:
-    runs-on: macos-latest
+    runs-on: macos-14
 
     steps:
       - name: Checkout

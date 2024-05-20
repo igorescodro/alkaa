@@ -17,8 +17,10 @@ internal val VersionCatalog.kotlinxCollectionsImmutable: Provider<MinimalExterna
 internal val VersionCatalog.composeBom: Provider<MinimalExternalModuleDependency>
     get() = getLibrary("compose.bom")
 
-internal val VersionCatalog.composeRules: Provider<MinimalExternalModuleDependency>
-    get() = getLibrary("composerules")
+internal val VersionCatalog.composeRulesDetekt: Provider<MinimalExternalModuleDependency>
+    get() = getLibrary("composerules.detekt")
+
+internal val VersionCatalog.composeRulesKtlint: Provider<MinimalExternalModuleDependency>
+    get() = getLibrary("composerules.ktlint")
 
 private fun VersionCatalog.getLibrary(library: String) = findLibrary(library).get()
-

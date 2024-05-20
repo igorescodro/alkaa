@@ -69,7 +69,7 @@ test_manifest = "1.6.7"
 # Quality
 ktlint = "1.2.1"
 detekt = "1.23.6"
-composerules = "0.0.26"
+composerules = "0.4.1"
 
 # License
 aboutlibraries = "11.1.4"
@@ -147,7 +147,8 @@ test-manifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref =
 # Quality
 ktlint = { module = "com.pinterest.ktlint:ktlint-cli", version.ref = "ktlint" }
 detekt = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }
-composerules = { module = "com.twitter.compose.rules:detekt", version.ref = "composerules" }
+composerules-detekt = { module = "io.nlopez.compose.rules:detekt", version.ref = "composerules" }
+composerules-ktlint = { module = "io.nlopez.compose.rules:ktlint", version.ref = "composerules" }
 
 # License
 aboutlibraries_plugin = { module = "com.mikepenz.aboutlibraries.plugin:aboutlibraries-plugin", version.ref = "aboutlibraries" }

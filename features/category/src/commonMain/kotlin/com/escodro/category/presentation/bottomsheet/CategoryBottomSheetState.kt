@@ -15,7 +15,7 @@ internal class CategoryBottomSheetState(
 ) : CommonParcelable {
 
     private var id by mutableStateOf(category.id)
-    
+
     var name by mutableStateOf(category.name)
 
     var color by mutableStateOf(category.color)

@@ -1,6 +1,7 @@
+import extension.androidDependencies
 import extension.sdkCompile
 import extension.sdkMin
-import extension.androidDependencies
+import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 
 plugins {
     kotlin("multiplatform")
@@ -8,17 +9,15 @@ plugins {
     id("com.escodro.kotlin-quality")
 }
 
+val libs: VersionCatalog = extensions.getByType<VersionCatalogsExtension>().named("libs")
+
 @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
 kotlin {
     applyDefaultHierarchyTemplate()
 
-    val libs: VersionCatalog = extensions.getByType<VersionCatalogsExtension>().named("libs")
-
     androidTarget {
-        compilations.all {
-            kotlinOptions {
-                jvmTarget = "11"
-            }
+        compilerOptions {
+            apiVersion.set(KotlinVersion.KOTLIN_2_0)
         }
     }
 
@@ -27,8 +26,6 @@ kotlin {
         implementation(libs.playcore)
     }
 }
-
-val libs: VersionCatalog = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
 android {
     compileSdk = Integer.parseInt(libs.sdkCompile)

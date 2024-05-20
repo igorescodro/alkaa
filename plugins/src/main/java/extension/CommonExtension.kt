@@ -17,7 +17,7 @@ fun CommonExtension<*, *, *, *, *, *>.androidConfig(libs: VersionCatalog) {
     }
 }
 
-fun CommonExtension<*, *, *, *, *, *>.composeConfig(libs: VersionCatalog) {
+fun CommonExtension<*, *, *, *, *, *>.composeConfig() {
     buildFeatures {
         compose = true
     }

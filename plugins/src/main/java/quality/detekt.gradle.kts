@@ -14,7 +14,7 @@ dependencies {
 }
 
 configure<DetektExtension> {
-    config = files("$rootDir/config/filters/detekt.yml")
+    config.setFrom("$rootDir/config/filters/detekt.yml")
     allRules = true
 }
 

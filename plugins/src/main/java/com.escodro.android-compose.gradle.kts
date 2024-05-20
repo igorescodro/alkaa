@@ -1,7 +1,6 @@
 import extension.androidConfig
 import extension.composeBundle
 import extension.composeConfig
-import extension.composeTestBundle
 import extension.proguardConfig
 
 plugins {
@@ -15,13 +14,11 @@ val libs: VersionCatalog = extensions.getByType<VersionCatalogsExtension>().name
 android {
     androidConfig(libs)
     proguardConfig()
-    composeConfig(libs)
+    composeConfig()
 
     kotlinOptions {
         jvmTarget = "11"
-        freeCompilerArgs = listOf(
-            "-Xstring-concat=inline"
-        )
+        freeCompilerArgs = listOf("-Xstring-concat=inline")
     }
 }
 
@@ -30,12 +27,4 @@ dependencies {
     implementation(libs.composeBundle)
     implementation(platform(libs.composeBom))
     implementation(libs.kotlinxCollectionsImmutable)
-
-    androidTestImplementation(libs.composeTestBundle) {
-        exclude(group = "androidx.core", module = "core-ktx")
-        exclude(group = "androidx.fragment", module = "fragment")
-        exclude(group = "androidx.customview", module = "customview")
-        exclude(group = "androidx.activity", module = "activity")
-        exclude(group = "androidx.lifecycle", module = "lifecycle-runtime")
-    }
 }

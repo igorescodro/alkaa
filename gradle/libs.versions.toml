@@ -2,7 +2,7 @@
 # Project
 version_code = "30006"
 version_name = "3.0.6"
-android_gradle_plugin = "8.4.0"
+android_gradle_plugin = "8.4.1"
 kotlin = "1.9.23"
 android_sdk_compile = "34"
 android_sdk_target = "33"

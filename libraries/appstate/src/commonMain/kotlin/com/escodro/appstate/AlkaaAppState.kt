@@ -52,7 +52,7 @@ interface AppState : CommonParcelable {
 @Composable
 fun rememberAlkaaAppState(windowSizeClass: WindowSizeClass): AlkaaAppState {
     val isCompactMode = windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact ||
-            windowSizeClass.heightSizeClass == WindowHeightSizeClass.Compact
+        windowSizeClass.heightSizeClass == WindowHeightSizeClass.Compact
     return remember(isCompactMode) {
         AlkaaAppState(isCompactMode)
     }

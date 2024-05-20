@@ -18,8 +18,8 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.ExitToApp
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.outlined.ExitToApp
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -143,7 +143,7 @@ private fun SearchTextField(text: String, onTextChange: (String) -> Unit) {
 @Composable
 private fun SearchEmptyContent() {
     DefaultIconTextContent(
-        icon = Icons.Outlined.ExitToApp,
+        icon = Icons.AutoMirrored.Outlined.ExitToApp,
         iconContentDescription = stringResource(MR.strings.search_cd_empty_list),
         header = stringResource(MR.strings.search_header_empty),
     )

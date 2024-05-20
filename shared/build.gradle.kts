@@ -8,6 +8,7 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 plugins {
     id("com.escodro.multiplatform")
+    id("kotlin-parcelize")
     alias(libs.plugins.compose)
     alias(libs.plugins.compose.compiler)
     id(libs.plugins.moko.multiplatform.resources.get().pluginId) // Use version from classpath
@@ -39,6 +40,14 @@ kotlin {
                 implementation(libs.test.uiautomator)
                 debugImplementation(libs.test.manifest)
             }
+        }
+
+        @OptIn(ExperimentalKotlinGradlePluginApi::class)
+        compilerOptions {
+            freeCompilerArgs.addAll(
+                "-P",
+                "plugin:org.jetbrains.kotlin.parcelize:additionalAnnotation=com.escodro.parcelable.CommonParcelize"
+            )
         }
     }
     commonDependencies {

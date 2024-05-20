@@ -19,8 +19,6 @@ kotlin {
 
         api(libs.voyager.navigator)
         api(libs.voyager.bottomsheet)
-
-        implementation(libs.moko.parcelize)
     }
 }
 

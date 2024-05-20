@@ -51,7 +51,6 @@ sqldelight = "2.0.0"
 
 # Moko
 moko = "0.16.1"
-moko_parcelize = "0.9.0"
 moko_resources = "0.24.0-beta-4"
 moko_permissions = "0.18.0"
 
@@ -140,7 +139,6 @@ moko_mvvm_compose = { module = "dev.icerock.moko:mvvm-flow-compose", version.ref
 moko_resources_generator = { module = "dev.icerock.moko:resources-generator", version.ref = "moko_resources" }
 moko_resources_core = { module = "dev.icerock.moko:resources", version.ref = "moko_resources" }
 moko_resources_compose = { module = "dev.icerock.moko:resources-compose", version.ref = "moko_resources" }
-moko_parcelize = { module = "dev.icerock.moko:parcelize", version.ref = "moko_parcelize" }
 moko_permissions_compose = { module = "dev.icerock.moko:permissions-compose", version.ref = "moko_permissions" }
 
 # Voyager

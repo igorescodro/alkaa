@@ -16,7 +16,6 @@ kotlin {
         implementation(libs.kotlinx.coroutines.core)
         implementation(libs.kotlinx.collections.immutable)
         implementation(libs.moko.mvvm.core)
-        implementation(libs.moko.parcelize)
     }
 }
 

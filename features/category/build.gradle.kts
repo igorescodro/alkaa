@@ -32,7 +32,6 @@ kotlin {
         implementation(libs.kotlinx.collections.immutable)
         implementation(libs.moko.resources.compose)
         implementation(libs.moko.mvvm.compose)
-        implementation(libs.moko.parcelize)
     }
 
     commonTestDependencies {

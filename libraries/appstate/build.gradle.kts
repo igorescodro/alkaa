@@ -18,7 +18,6 @@ kotlin {
         implementation(compose.runtime)
 
         api(libs.compose.windowsizeclass)
-        implementation(libs.moko.parcelize)
     }
 }
 

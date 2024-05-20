@@ -1,7 +1,7 @@
 package com.escodro.categoryapi.model
 
-import dev.icerock.moko.parcelize.Parcelable
-import dev.icerock.moko.parcelize.Parcelize
+import com.escodro.parcelable.CommonParcelable
+import com.escodro.parcelable.CommonParcelize
 
 /**
  * Data class to represent a View Category.
@@ -10,9 +10,9 @@ import dev.icerock.moko.parcelize.Parcelize
  * @property name category name
  * @property color category color
  */
-@Parcelize
+@CommonParcelize
 data class Category(
     val id: Long = 0,
     val name: String,
     val color: Int,
-) : Parcelable
+) : CommonParcelable

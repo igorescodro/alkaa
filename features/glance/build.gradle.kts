@@ -1,6 +1,7 @@
 plugins {
     id("com.escodro.android-compose")
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.compose.compiler)
 }
 
 dependencies {

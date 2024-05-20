@@ -1,9 +1,12 @@
 import extension.commonDependencies
 import extension.setFrameworkBaseName
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 
 plugins {
     id("com.escodro.multiplatform")
+    id("com.escodro.kotlin-parcelable")
     alias(libs.plugins.compose)
+    alias(libs.plugins.compose.compiler)
 }
 
 kotlin {
@@ -18,6 +21,7 @@ kotlin {
         implementation(projects.features.preference)
         implementation(projects.libraries.navigation)
         implementation(projects.libraries.appstate)
+        implementation(projects.libraries.parcelable)
 
         implementation(compose.runtime)
         implementation(compose.materialIconsExtended)
@@ -27,15 +31,6 @@ kotlin {
         implementation(libs.kotlinx.collections.immutable)
         implementation(libs.moko.resources.compose)
         implementation(libs.moko.mvvm.compose)
-    }
-
-    // Explicit dependency due to Moko issues with Kotlin 1.9.0
-    // https://github.com/icerockdev/moko-resources/issues/531
-    sourceSets {
-        val commonMain by getting
-        val androidMain by getting {
-            dependsOn(commonMain)
-        }
     }
 }
 

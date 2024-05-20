@@ -1,3 +1,4 @@
+import extension.androidDependencies
 import extension.commonDependencies
 import extension.setFrameworkBaseName
 
@@ -10,8 +11,15 @@ kotlin {
 
     commonDependencies {
         implementation(kotlin("test"))
-        implementation(kotlin("test-junit"))
         api(libs.kotlinx.coroutines.test)
+    }
+
+    androidDependencies {
+        implementation(kotlin("test-junit"))
+    }
+
+    tasks.withType<Test> {
+        useJUnitPlatform()
     }
 }
 

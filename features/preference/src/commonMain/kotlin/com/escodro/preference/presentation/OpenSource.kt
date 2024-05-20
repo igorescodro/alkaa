@@ -27,7 +27,7 @@ fun OpenSource(onUpPress: () -> Unit, modifier: Modifier = Modifier) {
 
 @Composable
 private fun OpenSourceContent(modifier: Modifier = Modifier) {
-    val licenses by MR.files.aboutlibraries.readTextAsState()
+    val licenses by MR.files.aboutlibraries_json.readTextAsState()
 
     LibrariesContainer(
         aboutLibsJson = licenses ?: "",

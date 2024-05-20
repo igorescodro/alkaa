@@ -10,7 +10,7 @@ plugins {
 
 @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
 kotlin {
-    targetHierarchy.default()
+    applyDefaultHierarchyTemplate()
 
     val libs: VersionCatalog = extensions.getByType<VersionCatalogsExtension>().named("libs")
 

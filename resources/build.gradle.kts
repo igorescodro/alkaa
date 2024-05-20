@@ -14,15 +14,6 @@ kotlin {
         implementation(libs.moko.resources.core)
         implementation(libs.koin.core)
     }
-
-    // Explicit dependency due to Moko issues with Kotlin 1.9.0
-    // https://github.com/icerockdev/moko-resources/issues/531
-    sourceSets {
-        val commonMain by getting
-        val androidMain by getting {
-            dependsOn(commonMain)
-        }
-    }
 }
 
 android {
@@ -30,17 +21,6 @@ android {
 }
 
 multiplatformResources {
-    multiplatformResourcesPackage = "com.escodro.resources"
+    resourcesPackage.set("com.escodro.resources")
     iosBaseLocalizationRegion = "en-US"
-}
-
-// Define explicit dependency for Moko resources
-// https://github.com/icerockdev/moko-resources/issues/421
-afterEvaluate {
-    tasks.named("iosSimulatorArm64ProcessResources") {
-        dependsOn("generateMRcommonMain")
-    }
-    tasks.named("iosX64ProcessResources") {
-        dependsOn("generateMRcommonMain")
-    }
 }

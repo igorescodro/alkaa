@@ -5,23 +5,19 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import com.escodro.categoryapi.model.Category
-import dev.icerock.moko.parcelize.IgnoredOnParcel
-import dev.icerock.moko.parcelize.Parcelable
-import dev.icerock.moko.parcelize.Parcelize
+import com.escodro.parcelable.CommonParcelable
+import com.escodro.parcelable.CommonParcelize
 
 @Stable
-@Parcelize
+@CommonParcelize
 internal class CategoryBottomSheetState(
     private val category: Category,
-) : Parcelable {
+) : CommonParcelable {
 
-    @IgnoredOnParcel
-    var id by mutableStateOf(category.id)
+    private var id by mutableStateOf(category.id)
 
-    @IgnoredOnParcel
     var name by mutableStateOf(category.name)
 
-    @IgnoredOnParcel
     var color by mutableStateOf(category.color)
 
     fun isEditing(): Boolean =

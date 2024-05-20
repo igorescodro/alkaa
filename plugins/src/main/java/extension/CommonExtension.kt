@@ -22,10 +22,6 @@ fun CommonExtension<*, *, *, *, *, *>.composeConfig(libs: VersionCatalog) {
         compose = true
     }
 
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.composeVersion
-    }
-
     packaging {
         resources.excludes.apply {
             add("META-INF/AL2.0")
@@ -43,4 +39,3 @@ fun LibraryExtension.proguardConfig() {
         }
     }
 }
-

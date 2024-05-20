@@ -1,17 +1,17 @@
 package com.escodro.navigation
 
-import dev.icerock.moko.parcelize.Parcelable
-import dev.icerock.moko.parcelize.Parcelize
+import com.escodro.parcelable.CommonParcelable
+import com.escodro.parcelable.CommonParcelize
 
 /**
  * Navigation action to be executed using deep links.
  */
-sealed interface NavigationAction : Parcelable {
+sealed interface NavigationAction : CommonParcelable {
 
     /**
      * Home screen navigation action.
      */
-    @Parcelize
+    @CommonParcelize
     data object Home : NavigationAction
 
     /**
@@ -19,7 +19,7 @@ sealed interface NavigationAction : Parcelable {
      *
      * @param taskId the task id to be shown
      */
-    @Parcelize
+    @CommonParcelize
     data class TaskDetail(val taskId: Long) : NavigationAction
 
     companion object {

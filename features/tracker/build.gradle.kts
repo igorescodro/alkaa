@@ -6,6 +6,7 @@ import extension.setFrameworkBaseName
 plugins {
     id("com.escodro.android-dynamic")
     alias(libs.plugins.compose)
+    alias(libs.plugins.compose.compiler)
 }
 
 kotlin {

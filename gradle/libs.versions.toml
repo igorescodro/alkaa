@@ -3,7 +3,7 @@
 version_code = "30006"
 version_name = "3.0.6"
 android_gradle_plugin = "8.4.1"
-kotlin = "1.9.23"
+kotlin = "2.0.0-RC3"
 android_sdk_compile = "34"
 android_sdk_target = "33"
 android_sdk_min = "24"
@@ -32,12 +32,12 @@ datastore = "1.1.1"
 glance = "1.0.0"
 workmanager = "2.9.0"
 lifecycle_viewmodel = "2.8.0"
+annotation = "1.8.0"
 
 # Compose
-compose_compiler = "1.5.12"
 compose_bom = "2024.05.00"
 compose_activity = "1.9.0"
-jb_compose_compiler = "1.6.2"
+jb_compose_compiler = "1.6.10-rc03"
 compose_windowsizeclass = "0.5.0"
 
 # Koin
@@ -51,8 +51,7 @@ sqldelight = "2.0.0"
 
 # Moko
 moko = "0.16.1"
-moko_parcelize = "0.9.0"
-moko_resources = "0.23.0"
+moko_resources = "0.24.0-beta-4"
 moko_permissions = "0.18.0"
 
 # AtomicFU
@@ -108,6 +107,7 @@ androidx_glance = { module = "androidx.glance:glance-appwidget", version.ref = "
 androidx_glance_material3 = { module = "androidx.glance:glance-material3", version.ref = "glance" }
 androidx_workmanager = { module = "androidx.work:work-runtime-ktx", version.ref = "workmanager" }
 androidx_lifecycle_viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel", version.ref = "lifecycle_viewmodel" }
+androidx_annotation = { module = "androidx.annotation:annotation", version.ref = "annotation" }
 
 compose_bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose_bom" }
 compose_ui = { module = "androidx.compose.ui:ui" }
@@ -139,7 +139,6 @@ moko_mvvm_compose = { module = "dev.icerock.moko:mvvm-flow-compose", version.ref
 moko_resources_generator = { module = "dev.icerock.moko:resources-generator", version.ref = "moko_resources" }
 moko_resources_core = { module = "dev.icerock.moko:resources", version.ref = "moko_resources" }
 moko_resources_compose = { module = "dev.icerock.moko:resources-compose", version.ref = "moko_resources" }
-moko_parcelize = { module = "dev.icerock.moko:parcelize", version.ref = "moko_parcelize" }
 moko_permissions_compose = { module = "dev.icerock.moko:permissions-compose", version.ref = "moko_permissions" }
 
 # Voyager
@@ -176,3 +175,6 @@ dependencyanalysis = { id = "com.autonomousapps.dependency-analysis", version.re
 sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
 compose = { id = "org.jetbrains.compose", version.ref = "jb_compose_compiler" }
 moko_multiplatform_resources = { id = "dev.icerock.mobile.multiplatform-resources" }
+
+compose_compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

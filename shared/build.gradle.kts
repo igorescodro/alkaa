@@ -8,7 +8,9 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 plugins {
     id("com.escodro.multiplatform")
+    id("com.escodro.kotlin-parcelable")
     alias(libs.plugins.compose)
+    alias(libs.plugins.compose.compiler)
     id(libs.plugins.moko.multiplatform.resources.get().pluginId) // Use version from classpath
 }
 
@@ -50,6 +52,7 @@ kotlin {
         implementation(projects.libraries.designsystem)
         implementation(projects.libraries.di)
         implementation(projects.libraries.appstate)
+        implementation(projects.libraries.parcelable)
 
         implementation(projects.features.home)
         implementation(projects.features.task)
@@ -82,15 +85,6 @@ kotlin {
         implementation(libs.koin.test)
         implementation(libs.kotlinx.datetime)
     }
-
-    // Explicit dependency due to Moko issues with Kotlin 1.9.0
-    // https://github.com/icerockdev/moko-resources/issues/531
-    sourceSets {
-        val commonMain by getting
-        val androidMain by getting {
-            dependsOn(commonMain)
-        }
-    }
 }
 
 android {
@@ -102,7 +96,7 @@ android {
 }
 
 multiplatformResources {
-    multiplatformResourcesPackage = "com.escodro.alkaa"
+    resourcesPackage.set("com.escodro.alkaa")
 }
 
 // Add compile options to link sqlite3 library allowing iOS UI testing

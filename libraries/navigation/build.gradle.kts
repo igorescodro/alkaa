@@ -4,7 +4,7 @@ import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 
 plugins {
     id("com.escodro.multiplatform")
-    id("kotlin-parcelize")
+    id("com.escodro.kotlin-parcelable")
     alias(libs.plugins.compose)
     alias(libs.plugins.compose.compiler)
 }
@@ -21,16 +21,6 @@ kotlin {
         api(libs.voyager.bottomsheet)
 
         implementation(libs.moko.parcelize)
-    }
-
-    androidTarget {
-        @OptIn(ExperimentalKotlinGradlePluginApi::class)
-        compilerOptions {
-            freeCompilerArgs.addAll(
-                "-P",
-                "plugin:org.jetbrains.kotlin.parcelize:additionalAnnotation=com.escodro.parcelable.CommonParcelize"
-            )
-        }
     }
 }
 

@@ -9,14 +9,16 @@ import com.escodro.navigation.NavigationAction
  * Main view of the application.
  *
  * @param navigationAction the navigation action to be consumed when the app is open
+ * @param modifier the modifier to be applied to the view
  * @param onThemeUpdate the callback to be called when the theme is updated
  */
 @Composable
 fun MainView(
     navigationAction: NavigationAction,
+    modifier: Modifier = Modifier,
     onThemeUpdate: (isDarkTheme: Boolean) -> Unit = {},
 ) = AlkaaMultiplatformApp(
+    modifier = modifier.imePadding(),
     navigationAction = navigationAction,
-    modifier = Modifier.imePadding(),
     onThemeUpdate = onThemeUpdate,
 )

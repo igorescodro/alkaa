@@ -37,7 +37,7 @@ fun AlkaaNavGraph(
     }
 
     BottomSheetNavigator(modifier = modifier) {
-        closeKeyboardOnBottomSheetDismiss()
+        CloseKeyboardOnBottomSheetDismiss()
         Navigator(screen = HomeScreen(appState = appState)) { navigator ->
             CurrentScreen()
             processNavigationAction(navigator = navigator, action = navigationAction)
@@ -59,7 +59,7 @@ private fun processNavigationAction(navigator: Navigator, action: NavigationActi
     }
 
 @Composable
-private fun closeKeyboardOnBottomSheetDismiss() {
+private fun CloseKeyboardOnBottomSheetDismiss() {
     val keyboardController = LocalSoftwareKeyboardController.current
     val bottomSheetNavigator = LocalBottomSheetNavigator.current
     LaunchedEffect(Unit) {

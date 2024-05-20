@@ -1,6 +1,6 @@
 package quality
 
-import composeRules
+import composeRulesDetekt
 import io.gitlab.arturbosch.detekt.Detekt
 import io.gitlab.arturbosch.detekt.DetektPlugin
 import io.gitlab.arturbosch.detekt.extensions.DetektExtension
@@ -10,7 +10,7 @@ val libs: VersionCatalog = extensions.getByType<VersionCatalogsExtension>().name
 apply<DetektPlugin>()
 
 dependencies {
-    "detektPlugins"(libs.composeRules)
+    "detektPlugins"(libs.composeRulesDetekt)
 }
 
 configure<DetektExtension> {

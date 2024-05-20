@@ -32,4 +32,3 @@ naming:
     excludes: [ '**/test/**','**/androidTest/**','**/android-test/**' ]
   FunctionNaming:
     ignoreAnnotated: [ 'Composable' ]
-

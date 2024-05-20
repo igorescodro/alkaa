@@ -37,7 +37,7 @@ annotation = "1.8.0"
 # Compose
 compose_bom = "2024.05.00"
 compose_activity = "1.9.0"
-jb_compose_compiler = "1.6.10-rc03"
+compose_compiler = "1.6.10-rc03"
 compose_windowsizeclass = "0.5.0"
 
 # Koin
@@ -63,10 +63,6 @@ voyager = "1.1.0-alpha04"
 # Test
 test_junit = "4.13.2"
 test_uiautomator = "2.3.0"
-test_barista = "4.3.0"
-test_orchestrator = "1.4.2"
-test_rules = "1.5.0"
-test_hamcrest = "2.2"
 test_junit4_android = "1.6.7"
 test_manifest = "1.6.7"
 
@@ -111,12 +107,8 @@ androidx_annotation = { module = "androidx.annotation:annotation", version.ref =
 
 compose_bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose_bom" }
 compose_ui = { module = "androidx.compose.ui:ui" }
-compose_toolingpreview = { module = "androidx.compose.ui:ui-tooling-preview" }
 compose_icons = { module = "androidx.compose.material:material-icons-extended" }
 compose_material3 = { module = "androidx.compose.material3:material3" }
-compose_uitest = { module = "androidx.compose.ui:ui-test" }
-compose_junit4 = { module = "androidx.compose.ui:ui-test-junit4" }
-compose_manifest = { module = "androidx.compose.ui:ui-test-manifest" }
 compose_windowsizeclass = { module = "dev.chrisbanes.material3:material3-window-size-class-multiplatform", version.ref = "compose_windowsizeclass" }
 
 # Dynamic Feature don't recognize BOM
@@ -148,10 +140,6 @@ voyager_bottomsheet = { module = "cafe.adriel.voyager:voyager-bottom-sheet-navig
 # Test
 test_junit = { module = "junit:junit", version.ref = "test_junit" }
 test_uiautomator = { module = "androidx.test.uiautomator:uiautomator", version.ref = "test_uiautomator" }
-test_barista = { module = "com.adevinta.android:barista", version.ref = "test_barista" }
-test_orchestrator = { module = "androidx.test:orchestrator", version.ref = "test_orchestrator" }
-test_rules = { module = "androidx.test:rules", version.ref = "test_rules" }
-test_hamcrest = { module = "org.hamcrest:hamcrest", version.ref = "test_hamcrest" }
 
 test-junit4-android = { module = "androidx.compose.ui:ui-test-junit4-android", version.ref = "test_junit4_android" }
 test-manifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "test_manifest" }
@@ -166,14 +154,13 @@ aboutlibraries_plugin = { module = "com.mikepenz.aboutlibraries.plugin:aboutlibr
 aboutlibraries_ui = { module = "com.mikepenz:aboutlibraries-compose", version.ref = "aboutlibraries" }
 
 [bundles]
-compose = ["compose.ui", "compose.toolingpreview", "compose.icons", "compose.material3"]
-composetest = ["compose.uitest", "compose.junit4", "compose.manifest"]
+compose = ["compose.ui", "compose.icons", "compose.material3"]
 
 [plugins]
 kotlin_serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 dependencyanalysis = { id = "com.autonomousapps.dependency-analysis", version.ref = "dependencyanalysis" }
 sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
-compose = { id = "org.jetbrains.compose", version.ref = "jb_compose_compiler" }
+compose = { id = "org.jetbrains.compose", version.ref = "compose_compiler" }
 moko_multiplatform_resources = { id = "dev.icerock.mobile.multiplatform-resources" }
 
 compose_compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }

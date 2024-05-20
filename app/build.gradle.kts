@@ -103,28 +103,12 @@ dependencies {
     implementation(projects.shared)
     implementation(projects.libraries.navigation)
 
-    implementation(platform(libs.compose.bom))
-
     implementation(libs.logcat)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.appcompat)
     implementation(libs.compose.activity)
     implementation(libs.androidx.playcore)
     implementation(libs.koin.core)
-
-    androidTestUtil(libs.test.orchestrator)
-
-    androidTestImplementation(projects.libraries.androidTest)
-    androidTestImplementation(libs.koin.test)
-    androidTestImplementation(libs.test.rules)
-    androidTestImplementation(libs.test.hamcrest)
-    androidTestImplementation(libs.bundles.composetest) {
-        exclude(group = "androidx.core", module = "core-ktx")
-        exclude(group = "androidx.fragment", module = "fragment")
-        exclude(group = "androidx.customview", module = "customview")
-        exclude(group = "androidx.activity", module = "activity")
-        exclude(group = "androidx.lifecycle", module = "lifecycle-runtime")
-    }
 }
 
 fun readProperties(propertiesFile: File) = Properties().apply {

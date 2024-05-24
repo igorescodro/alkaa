@@ -51,7 +51,7 @@ sqldelight = "2.0.0"
 
 # Moko
 moko = "0.16.1"
-moko_resources = "0.24.0-beta-4"
+moko_resources = "0.24.0-beta-5"
 moko_permissions = "0.18.0"
 
 # AtomicFU

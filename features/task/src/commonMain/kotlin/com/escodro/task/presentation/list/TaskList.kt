@@ -38,14 +38,21 @@ import com.escodro.designsystem.components.AddFloatingButton
 import com.escodro.designsystem.components.AlkaaLoadingContent
 import com.escodro.designsystem.components.DefaultIconTextContent
 import com.escodro.navigation.AlkaaDestinations
-import com.escodro.resources.MR
+import com.escodro.resources.Res
+import com.escodro.resources.task_cd_add_task
+import com.escodro.resources.task_list_cd_empty_list
+import com.escodro.resources.task_list_cd_error
+import com.escodro.resources.task_list_header_empty
+import com.escodro.resources.task_list_header_error
+import com.escodro.resources.task_snackbar_button_undo
+import com.escodro.resources.task_snackbar_message_complete
 import com.escodro.task.model.TaskWithCategory
 import com.escodro.task.presentation.category.CategorySelection
 import com.escodro.task.presentation.detail.main.CategoryId
-import dev.icerock.moko.resources.compose.stringResource
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
 
 /**
@@ -119,8 +126,8 @@ internal fun TaskListScaffold(
     val coroutineScope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
 
-    val snackbarTitle = stringResource(MR.strings.task_snackbar_message_complete)
-    val snackbarButton = stringResource(MR.strings.task_snackbar_button_undo)
+    val snackbarTitle = stringResource(Res.string.task_snackbar_message_complete)
+    val snackbarButton = stringResource(Res.string.task_snackbar_button_undo)
 
     val onShowSnackbar: (TaskWithCategory) -> Unit = { taskWithCategory ->
         coroutineScope.launch {
@@ -144,7 +151,7 @@ internal fun TaskListScaffold(
             topBar = { TaskFilter(categoryHandler = categoryHandler) },
             floatingActionButton = {
                 AddFloatingButton(
-                    contentDescription = stringResource(MR.strings.task_cd_add_task),
+                    contentDescription = stringResource(Res.string.task_cd_add_task),
                     onClick = { taskHandler.onAddClick() },
                 )
             },
@@ -213,8 +220,8 @@ private fun TaskListContent(
 private fun TaskListEmpty() {
     DefaultIconTextContent(
         icon = Icons.Outlined.ThumbUp,
-        iconContentDescription = stringResource(MR.strings.task_list_cd_empty_list),
-        header = stringResource(MR.strings.task_list_header_empty),
+        iconContentDescription = stringResource(Res.string.task_list_cd_empty_list),
+        header = stringResource(Res.string.task_list_header_empty),
     )
 }
 
@@ -222,8 +229,8 @@ private fun TaskListEmpty() {
 private fun TaskListError() {
     DefaultIconTextContent(
         icon = Icons.Outlined.Close,
-        iconContentDescription = stringResource(MR.strings.task_list_cd_error),
-        header = stringResource(MR.strings.task_list_header_error),
+        iconContentDescription = stringResource(Res.string.task_list_cd_error),
+        header = stringResource(Res.string.task_list_header_error),
     )
 }
 

@@ -1,9 +1,11 @@
+import extension.androidDependencies
 import extension.commonDependencies
 import extension.setFrameworkBaseName
 
 plugins {
     id("com.escodro.multiplatform")
-    id(libs.plugins.moko.multiplatform.resources.get().pluginId) // Use version from classpath
+    alias(libs.plugins.compose)
+    alias(libs.plugins.compose.compiler)
 }
 
 @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
@@ -11,7 +13,8 @@ kotlin {
     setFrameworkBaseName("resources")
 
     commonDependencies {
-        implementation(libs.moko.resources.core)
+        implementation(compose.runtime)
+        implementation(compose.components.resources)
         implementation(libs.koin.core)
     }
 }
@@ -20,7 +23,8 @@ android {
     namespace = "com.escodro.resources"
 }
 
-multiplatformResources {
-    resourcesPackage.set("com.escodro.resources")
-    iosBaseLocalizationRegion = "en-US"
+compose.resources {
+    publicResClass = true
+    packageOfResClass = "com.escodro.resources"
+    generateResClass = always
 }

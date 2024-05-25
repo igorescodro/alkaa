@@ -24,11 +24,16 @@ import androidx.compose.ui.unit.dp
 import com.escodro.preference.model.AppThemeOptions
 import com.escodro.preference.provider.AppInfoProvider
 import com.escodro.preference.provider.BrowserProvider
-import com.escodro.resources.MR
-import dev.icerock.moko.resources.compose.stringResource
+import com.escodro.resources.Res
+import com.escodro.resources.preference_title_about
+import com.escodro.resources.preference_title_app_theme
+import com.escodro.resources.preference_title_open_source
+import com.escodro.resources.preference_title_tracker
+import com.escodro.resources.preference_title_version
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.filter
+import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
 
 @Composable
@@ -78,7 +83,7 @@ internal fun PreferenceTitle(title: String) {
 @Composable
 internal fun TrackerItem(onTrackerClick: () -> Unit) {
     PreferenceItem(
-        title = stringResource(MR.strings.preference_title_tracker),
+        title = stringResource(Res.string.preference_title_tracker),
         onItemClick = onTrackerClick,
     )
 }
@@ -91,7 +96,7 @@ internal fun ThemeItem(
     var isDialogOpen by remember { mutableStateOf(false) }
 
     PreferenceItem(
-        title = stringResource(MR.strings.preference_title_app_theme),
+        title = stringResource(Res.string.preference_title_app_theme),
         description = stringResource(currentTheme.titleRes),
         onItemClick = { isDialogOpen = true },
     )
@@ -107,7 +112,7 @@ internal fun ThemeItem(
 @Composable
 internal fun AboutItem(onAboutClick: () -> Unit) {
     PreferenceItem(
-        title = stringResource(MR.strings.preference_title_about),
+        title = stringResource(Res.string.preference_title_about),
         onItemClick = onAboutClick,
     )
 }
@@ -115,7 +120,7 @@ internal fun AboutItem(onAboutClick: () -> Unit) {
 @Composable
 internal fun OpenSourceLibraryItem(onOpenSourceClick: () -> Unit) {
     PreferenceItem(
-        title = stringResource(MR.strings.preference_title_open_source),
+        title = stringResource(Res.string.preference_title_open_source),
         onItemClick = onOpenSourceClick,
     )
 }
@@ -126,7 +131,7 @@ internal fun VersionItem(
     browserProvider: BrowserProvider = koinInject(),
     appInfoProvider: AppInfoProvider = koinInject(),
 ) {
-    val title = stringResource(MR.strings.preference_title_version)
+    val title = stringResource(Res.string.preference_title_version)
     val version = appInfoProvider.getAppVersion()
     var numberOfClicks by remember { mutableIntStateOf(0) }
     val onClick = {

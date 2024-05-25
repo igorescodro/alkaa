@@ -27,13 +27,21 @@ import androidx.compose.ui.unit.dp
 import com.escodro.designsystem.components.AlkaaLoadingContent
 import com.escodro.designsystem.components.AlkaaToolbar
 import com.escodro.designsystem.components.DefaultIconTextContent
-import com.escodro.resources.MR
+import com.escodro.resources.Res
+import com.escodro.resources.tracker_cd_empty
+import com.escodro.resources.tracker_cd_error
+import com.escodro.resources.tracker_cp_info_icon
+import com.escodro.resources.tracker_header_empty
+import com.escodro.resources.tracker_header_error
+import com.escodro.resources.tracker_message_description
+import com.escodro.resources.tracker_message_title
 import com.escodro.tracker.di.injectDynamicFeature
 import com.escodro.tracker.model.Tracker
 import com.escodro.tracker.presentation.components.TaskGraph
 import com.escodro.tracker.presentation.components.TaskTrackerList
-import dev.icerock.moko.resources.compose.stringResource
 import kotlinx.collections.immutable.ImmutableList
+import org.jetbrains.compose.resources.pluralStringResource
+import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
 
 @Composable
@@ -92,8 +100,8 @@ private fun TrackerLoadedContent(trackerInfo: Tracker.Info) {
 private fun TrackerEmpty() {
     DefaultIconTextContent(
         icon = Icons.Outlined.DataUsage,
-        iconContentDescription = stringResource(MR.strings.tracker_cd_empty),
-        header = stringResource(MR.strings.tracker_header_empty),
+        iconContentDescription = stringResource(Res.string.tracker_cd_empty),
+        header = stringResource(Res.string.tracker_header_empty),
         modifier = Modifier.padding(16.dp),
     )
 }
@@ -102,8 +110,8 @@ private fun TrackerEmpty() {
 private fun TrackerError() {
     DefaultIconTextContent(
         icon = Icons.Outlined.Close,
-        iconContentDescription = stringResource(MR.strings.tracker_cd_error),
-        header = stringResource(MR.strings.tracker_header_error),
+        iconContentDescription = stringResource(Res.string.tracker_cd_error),
+        header = stringResource(Res.string.tracker_header_error),
         modifier = Modifier.padding(16.dp),
     )
 }
@@ -120,15 +128,15 @@ private fun TaskTrackerInfoCard(
         Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxSize()) {
             Icon(
                 imageVector = Icons.Default.DynamicFeed,
-                contentDescription = stringResource(MR.strings.tracker_cp_info_icon),
+                contentDescription = stringResource(Res.string.tracker_cp_info_icon),
                 modifier = Modifier
                     .weight(1F)
                     .size(36.dp),
             )
             Column(modifier = Modifier.weight(3F)) {
                 Text(
-                    text = stringResource(
-                        resource = MR.plurals.tracker_message_title,
+                    text = pluralStringResource(
+                        resource = Res.plurals.tracker_message_title,
                         quantity = taskCount,
                         taskCount,
                     ),
@@ -136,7 +144,7 @@ private fun TaskTrackerInfoCard(
                     fontWeight = FontWeight.Bold,
                 )
                 Text(
-                    text = stringResource(MR.strings.tracker_message_description),
+                    text = stringResource(Res.string.tracker_message_description),
                     style = MaterialTheme.typography.bodyMedium,
                 )
             }

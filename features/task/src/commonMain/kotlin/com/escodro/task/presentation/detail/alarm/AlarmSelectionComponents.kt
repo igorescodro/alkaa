@@ -23,12 +23,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
-import com.escodro.resources.MR
+import com.escodro.resources.Res
+import com.escodro.resources.task_detail_alarm_no_alarm
+import com.escodro.resources.task_detail_cd_icon_remove_alarm
+import com.escodro.resources.task_detail_cd_icon_repeat_alarm
 import com.escodro.task.extension.format
 import com.escodro.task.model.AlarmInterval
 import com.escodro.task.presentation.detail.TaskDetailSectionContent
-import dev.icerock.moko.resources.compose.stringResource
 import kotlinx.datetime.LocalDateTime
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 internal fun AlarmInfo(
@@ -66,10 +69,10 @@ internal fun AlarmIntervalSelection(
                 .height(56.dp)
                 .clickable { setDialogValue(true) },
             imageVector = Icons.Outlined.Repeat,
-            contentDescription = stringResource(MR.strings.task_detail_cd_icon_repeat_alarm),
+            contentDescription = stringResource(Res.string.task_detail_cd_icon_repeat_alarm),
         ) {
             val index = alarmInterval?.index ?: 0
-            val interval = AlarmInterval.values().find { it.index == index } ?: AlarmInterval.NEVER
+            val interval = AlarmInterval.entries.find { it.index == index } ?: AlarmInterval.NEVER
             Text(
                 text = stringResource(interval.title),
                 color = MaterialTheme.colorScheme.outline,
@@ -88,7 +91,7 @@ private fun AlarmSet(date: LocalDateTime?, onRemoveClick: () -> Unit) {
         IconButton(onClick = onRemoveClick) {
             Icon(
                 imageVector = Icons.Outlined.Close,
-                contentDescription = stringResource(MR.strings.task_detail_cd_icon_remove_alarm),
+                contentDescription = stringResource(Res.string.task_detail_cd_icon_remove_alarm),
             )
         }
     }
@@ -98,7 +101,7 @@ private fun AlarmSet(date: LocalDateTime?, onRemoveClick: () -> Unit) {
 private fun NoAlarmSet() {
     Row(verticalAlignment = Alignment.CenterVertically) {
         Text(
-            text = stringResource(MR.strings.task_detail_alarm_no_alarm),
+            text = stringResource(Res.string.task_detail_alarm_no_alarm),
             color = MaterialTheme.colorScheme.outline,
         )
     }
@@ -119,7 +122,7 @@ private fun AlarmIntervalDialog(
             color = MaterialTheme.colorScheme.background,
             modifier = Modifier.fillMaxWidth(),
         ) {
-            val intervalList = remember { AlarmInterval.values() }
+            val intervalList = remember { AlarmInterval.entries.toTypedArray() }
             LazyColumn(modifier = Modifier.padding(24.dp)) {
                 items(intervalList) { interval ->
                     AlarmListItem(
@@ -147,7 +150,7 @@ private fun AlarmListItem(
             .padding(horizontal = 16.dp, vertical = 8.dp)
             .clickable {
                 val interval =
-                    AlarmInterval.values().find { it.index == index } ?: AlarmInterval.NEVER
+                    AlarmInterval.entries.find { it.index == index } ?: AlarmInterval.NEVER
                 onIntervalSelect(interval)
                 setDialogValue(false)
             },

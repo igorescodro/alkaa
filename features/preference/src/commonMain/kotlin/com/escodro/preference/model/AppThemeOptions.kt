@@ -1,7 +1,10 @@
 package com.escodro.preference.model
 
-import com.escodro.resources.MR
-import dev.icerock.moko.resources.StringResource
+import com.escodro.resources.Res
+import com.escodro.resources.preference_dark_theme
+import com.escodro.resources.preference_light_theme
+import com.escodro.resources.preference_system_default_theme
+import org.jetbrains.compose.resources.StringResource
 
 /**
  * Enum to represent the app theme selected by the user.
@@ -14,15 +17,15 @@ enum class AppThemeOptions(val id: Int, val titleRes: StringResource) {
     /**
      * Light app theme.
      */
-    LIGHT(id = 0, titleRes = MR.strings.preference_light_theme),
+    LIGHT(id = 0, titleRes = Res.string.preference_light_theme),
 
     /**
      * Dark app theme.
      */
-    DARK(id = 1, titleRes = MR.strings.preference_dark_theme),
+    DARK(id = 1, titleRes = Res.string.preference_dark_theme),
 
     /**
      * System-based app theme.
      */
-    SYSTEM(id = 2, titleRes = MR.strings.preference_system_default_theme),
+    SYSTEM(id = 2, titleRes = Res.string.preference_system_default_theme),
 }

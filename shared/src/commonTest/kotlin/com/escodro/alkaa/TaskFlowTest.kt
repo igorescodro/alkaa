@@ -20,10 +20,10 @@ import com.escodro.coroutines.CoroutineDebouncer
 import com.escodro.local.Category
 import com.escodro.local.dao.CategoryDao
 import com.escodro.local.dao.TaskDao
-import com.escodro.resources.provider.ResourcesProvider
 import com.escodro.task.model.AlarmInterval
-import dev.icerock.moko.resources.desc.desc
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
+import org.jetbrains.compose.resources.getString
 import org.koin.core.component.inject
 import org.koin.test.KoinTest
 import org.koin.test.mock.declare
@@ -37,8 +37,6 @@ internal class TaskFlowTest : KoinTest {
     private val taskDao: TaskDao by inject()
 
     private val categoryDao: CategoryDao by inject()
-
-    private val resourcesProvider = ResourcesProvider()
 
     @BeforeTest
     fun setup() {
@@ -158,7 +156,7 @@ internal class TaskFlowTest : KoinTest {
         onNodeWithText("Confirm").performClick()
 
         // Set repeating randomly
-        val alarmArray = AlarmInterval.entries.map { resourcesProvider.getString(it.title.desc()) }
+        val alarmArray = AlarmInterval.entries.map { runBlocking { getString(it.title) } }
         onNodeWithText(alarmArray[0]).performClick()
         onNodeWithText(alarmArray.last()).performClick()
 

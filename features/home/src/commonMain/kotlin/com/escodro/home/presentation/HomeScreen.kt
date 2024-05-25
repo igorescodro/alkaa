@@ -33,9 +33,9 @@ import com.escodro.category.presentation.list.CategoryListSection
 import com.escodro.preference.presentation.PreferenceSection
 import com.escodro.search.presentation.SearchSection
 import com.escodro.task.presentation.list.TaskListSection
-import dev.icerock.moko.resources.compose.stringResource
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
+import org.jetbrains.compose.resources.stringResource
 
 /**
  * Alkaa Home screen.

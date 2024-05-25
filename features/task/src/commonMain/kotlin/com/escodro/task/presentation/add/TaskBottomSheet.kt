@@ -25,14 +25,16 @@ import com.escodro.alarmapi.AlarmPermission
 import com.escodro.categoryapi.presentation.CategoryListViewModel
 import com.escodro.categoryapi.presentation.CategoryState
 import com.escodro.designsystem.components.AlkaaInputTextField
-import com.escodro.resources.MR
+import com.escodro.resources.Res
+import com.escodro.resources.task_add_label
+import com.escodro.resources.task_add_save
 import com.escodro.task.model.AlarmInterval
 import com.escodro.task.presentation.category.CategorySelection
 import com.escodro.task.presentation.detail.alarm.AlarmSelection
 import com.escodro.task.presentation.detail.main.CategoryId
-import dev.icerock.moko.resources.compose.stringResource
 import kotlinx.coroutines.delay
 import kotlinx.datetime.LocalDateTime
+import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
 
 @Composable
@@ -65,7 +67,7 @@ internal fun AddTaskBottomSheet(
         }
 
         AlkaaInputTextField(
-            label = stringResource(MR.strings.task_add_label),
+            label = stringResource(Res.string.task_add_label),
             text = taskInputText,
             onTextChange = { text -> taskInputText = text },
             modifier = Modifier
@@ -105,7 +107,7 @@ internal fun AddTaskBottomSheet(
                 onHideBottomSheet()
             },
         ) {
-            Text(stringResource(MR.strings.task_add_save))
+            Text(stringResource(Res.string.task_add_save))
         }
     }
 }

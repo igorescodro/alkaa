@@ -7,6 +7,8 @@ import extension.setFrameworkBaseName
 plugins {
     id("com.escodro.multiplatform")
     alias(libs.plugins.sqldelight)
+    alias(libs.plugins.compose)
+    alias(libs.plugins.compose.compiler)
 }
 
 kotlin {
@@ -17,10 +19,12 @@ kotlin {
         implementation(projects.data.repository)
         implementation(projects.resources)
 
+        implementation(compose.runtime)
+        implementation(compose.components.resources)
+
         implementation(libs.koin.core)
         implementation(libs.kotlinx.datetime)
         implementation(libs.sqldelight.coroutines)
-        implementation(libs.moko.resources.core)
     }
     androidDependencies {
         implementation(libs.sqldelight.driver)

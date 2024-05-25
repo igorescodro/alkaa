@@ -4,10 +4,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import com.escodro.designsystem.components.AlkaaDialog
 import com.escodro.designsystem.components.DialogArguments
-import com.escodro.resources.MR
+import com.escodro.resources.Res
+import com.escodro.resources.task_alarm_permission_dialog_cancel
+import com.escodro.resources.task_alarm_permission_dialog_confirm
+import com.escodro.resources.task_alarm_permission_dialog_text
+import com.escodro.resources.task_alarm_permission_dialog_title
+import com.escodro.resources.task_notification_permission_dialog_cancel
+import com.escodro.resources.task_notification_permission_dialog_confirm
+import com.escodro.resources.task_notification_permission_dialog_text
+import com.escodro.resources.task_notification_permission_dialog_title
+import com.escodro.resources.task_notification_rationale_dialog_cancel
+import com.escodro.resources.task_notification_rationale_dialog_confirm
+import com.escodro.resources.task_notification_rationale_dialog_text
+import com.escodro.resources.task_notification_rationale_dialog_title
 import dev.icerock.moko.permissions.Permission
-import dev.icerock.moko.resources.compose.stringResource
 import kotlinx.coroutines.launch
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 internal fun AlarmPermissionDialog(
@@ -16,10 +28,10 @@ internal fun AlarmPermissionDialog(
     openExactAlarmPermissionScreen: () -> Unit,
 ) {
     val arguments = DialogArguments(
-        title = stringResource(MR.strings.task_alarm_permission_dialog_title),
-        text = stringResource(MR.strings.task_alarm_permission_dialog_text),
-        confirmText = stringResource(MR.strings.task_alarm_permission_dialog_confirm),
-        dismissText = stringResource(MR.strings.task_alarm_permission_dialog_cancel),
+        title = stringResource(Res.string.task_alarm_permission_dialog_title),
+        text = stringResource(Res.string.task_alarm_permission_dialog_text),
+        confirmText = stringResource(Res.string.task_alarm_permission_dialog_confirm),
+        dismissText = stringResource(Res.string.task_alarm_permission_dialog_cancel),
         onConfirmAction = {
             openExactAlarmPermissionScreen()
             onCloseDialog()
@@ -40,10 +52,10 @@ internal fun NotificationPermissionDialog(
 ) {
     val scope = rememberCoroutineScope()
     val arguments = DialogArguments(
-        title = stringResource(MR.strings.task_notification_permission_dialog_title),
-        text = stringResource(MR.strings.task_notification_permission_dialog_text),
-        confirmText = stringResource(MR.strings.task_notification_permission_dialog_confirm),
-        dismissText = stringResource(MR.strings.task_notification_permission_dialog_cancel),
+        title = stringResource(Res.string.task_notification_permission_dialog_title),
+        text = stringResource(Res.string.task_notification_permission_dialog_text),
+        confirmText = stringResource(Res.string.task_notification_permission_dialog_confirm),
+        dismissText = stringResource(Res.string.task_notification_permission_dialog_cancel),
         onConfirmAction = {
             scope.launch {
                 try {
@@ -71,10 +83,10 @@ internal fun RationalePermissionDialog(
     openAppSettingsScreen: () -> Unit,
 ) {
     val arguments = DialogArguments(
-        title = stringResource(MR.strings.task_notification_rationale_dialog_title),
-        text = stringResource(MR.strings.task_notification_rationale_dialog_text),
-        confirmText = stringResource(MR.strings.task_notification_rationale_dialog_confirm),
-        dismissText = stringResource(MR.strings.task_notification_rationale_dialog_cancel),
+        title = stringResource(Res.string.task_notification_rationale_dialog_title),
+        text = stringResource(Res.string.task_notification_rationale_dialog_text),
+        confirmText = stringResource(Res.string.task_notification_rationale_dialog_confirm),
+        dismissText = stringResource(Res.string.task_notification_rationale_dialog_cancel),
         onConfirmAction = {
             openAppSettingsScreen()
             onCloseDialog()

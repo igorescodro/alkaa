@@ -1,7 +1,3 @@
-import extension.androidDependencies
-import extension.commonDependencies
-import extension.commonTestDependencies
-import extension.iosDependencies
 import extension.setFrameworkBaseName
 
 plugins {
@@ -14,27 +10,32 @@ plugins {
 kotlin {
     setFrameworkBaseName("local")
 
-    commonDependencies {
-        implementation(projects.libraries.coroutines)
-        implementation(projects.data.repository)
-        implementation(projects.resources)
+    sourceSets {
+        commonMain.dependencies {
+            implementation(projects.libraries.coroutines)
+            implementation(projects.data.repository)
+            implementation(projects.resources)
 
-        implementation(compose.runtime)
-        implementation(compose.components.resources)
+            implementation(compose.runtime)
+            implementation(compose.components.resources)
 
-        implementation(libs.koin.core)
-        implementation(libs.kotlinx.datetime)
-        implementation(libs.sqldelight.coroutines)
-    }
-    androidDependencies {
-        implementation(libs.sqldelight.driver)
-    }
-    iosDependencies {
-        implementation(libs.sqldelight.native)
-    }
-    commonTestDependencies {
-        implementation(kotlin("test"))
-        implementation(libs.kotlinx.coroutines.test)
+            implementation(libs.koin.core)
+            implementation(libs.kotlinx.datetime)
+            implementation(libs.sqldelight.coroutines)
+        }
+
+        androidMain.dependencies {
+            implementation(libs.sqldelight.driver)
+        }
+
+        iosMain.dependencies {
+            implementation(libs.sqldelight.native)
+        }
+
+        commonTest.dependencies {
+            implementation(kotlin("test"))
+            implementation(libs.kotlinx.coroutines.test)
+        }
     }
 }
 

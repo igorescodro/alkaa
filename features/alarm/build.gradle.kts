@@ -1,6 +1,3 @@
-import extension.androidDependencies
-import extension.androidTestDependencies
-import extension.commonDependencies
 import extension.setFrameworkBaseName
 
 plugins {
@@ -12,30 +9,33 @@ plugins {
 kotlin {
     setFrameworkBaseName("search")
 
-    commonDependencies {
-        implementation(projects.features.alarmApi)
-        implementation(projects.libraries.coroutines)
-        implementation(projects.libraries.navigation)
-        implementation(projects.domain)
-        implementation(projects.resources)
-        implementation(libs.kotlinx.datetime)
+    sourceSets {
+        commonMain.dependencies {
 
-        implementation(compose.runtime)
-        implementation(compose.components.resources)
+            implementation(projects.features.alarmApi)
+            implementation(projects.libraries.coroutines)
+            implementation(projects.libraries.navigation)
+            implementation(projects.domain)
+            implementation(projects.resources)
+            implementation(libs.kotlinx.datetime)
 
-        implementation(libs.logging)
-        implementation(libs.logback)
-        implementation(libs.kotlinx.coroutines.core)
-        implementation(libs.koin.core)
-    }
+            implementation(compose.runtime)
+            implementation(compose.components.resources)
 
-    androidDependencies {
-        implementation(libs.logcat)
-        implementation(libs.androidx.core)
-    }
+            implementation(libs.logging)
+            implementation(libs.logback)
+            implementation(libs.kotlinx.coroutines.core)
+            implementation(libs.koin.core)
+        }
 
-    androidTestDependencies {
-        implementation(libs.test.junit)
+        androidMain.dependencies {
+            implementation(libs.logcat)
+            implementation(libs.androidx.core)
+        }
+
+        androidUnitTest.dependencies {
+            implementation(libs.test.junit)
+        }
     }
 }
 

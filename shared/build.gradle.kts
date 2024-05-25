@@ -1,6 +1,3 @@
-import extension.androidDependencies
-import extension.commonDependencies
-import extension.commonTestDependencies
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
@@ -29,6 +26,54 @@ kotlin {
         }
     }
 
+    sourceSets {
+        commonMain.dependencies {
+            implementation(projects.data.local)
+            implementation(projects.data.datastore)
+            implementation(projects.data.repository)
+            implementation(projects.domain)
+            implementation(projects.libraries.navigation)
+            implementation(projects.libraries.coroutines)
+            implementation(projects.libraries.designsystem)
+            implementation(projects.libraries.di)
+            implementation(projects.libraries.appstate)
+            implementation(projects.libraries.parcelable)
+
+            implementation(projects.features.home)
+            implementation(projects.features.task)
+            implementation(projects.features.alarm)
+            implementation(projects.features.category)
+            implementation(projects.features.search)
+            implementation(projects.features.preference)
+
+            implementation(projects.resources)
+
+            implementation(projects.domain)
+
+            implementation(compose.runtime)
+            implementation(compose.material)
+            implementation(compose.material3)
+            implementation(compose.components.resources)
+
+            implementation(libs.koin.compose.jb)
+            implementation(libs.moko.mvvm.compose)
+        }
+
+        androidMain.dependencies {
+            implementation(projects.features.glance)
+        }
+
+        commonTest.dependencies {
+            implementation(kotlin("test"))
+            implementation(projects.features.task)
+
+            @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
+            implementation(compose.uiTest)
+            implementation(libs.koin.test)
+            implementation(libs.kotlinx.datetime)
+        }
+    }
+
     androidTarget {
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
         instrumentedTestVariant {
@@ -40,51 +85,6 @@ kotlin {
                 debugImplementation(libs.test.manifest)
             }
         }
-    }
-    commonDependencies {
-        implementation(projects.data.local)
-        implementation(projects.data.datastore)
-        implementation(projects.data.repository)
-        implementation(projects.domain)
-        implementation(projects.libraries.navigation)
-        implementation(projects.libraries.coroutines)
-        implementation(projects.libraries.designsystem)
-        implementation(projects.libraries.di)
-        implementation(projects.libraries.appstate)
-        implementation(projects.libraries.parcelable)
-
-        implementation(projects.features.home)
-        implementation(projects.features.task)
-        implementation(projects.features.alarm)
-        implementation(projects.features.category)
-        implementation(projects.features.search)
-        implementation(projects.features.preference)
-
-        implementation(projects.resources)
-
-        implementation(projects.domain)
-
-        implementation(compose.runtime)
-        implementation(compose.material)
-        implementation(compose.material3)
-        implementation(compose.components.resources)
-
-        implementation(libs.koin.compose.jb)
-        implementation(libs.moko.mvvm.compose)
-    }
-
-    androidDependencies {
-        implementation(projects.features.glance)
-    }
-
-    commonTestDependencies {
-        implementation(kotlin("test"))
-        implementation(projects.features.task)
-
-        @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
-        implementation(compose.uiTest)
-        implementation(libs.koin.test)
-        implementation(libs.kotlinx.datetime)
     }
 }
 

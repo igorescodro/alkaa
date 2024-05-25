@@ -1,5 +1,3 @@
-import extension.androidDependencies
-import extension.commonDependencies
 import extension.setFrameworkBaseName
 
 plugins {
@@ -12,10 +10,12 @@ plugins {
 kotlin {
     setFrameworkBaseName("resources")
 
-    commonDependencies {
-        implementation(compose.runtime)
-        implementation(compose.components.resources)
-        implementation(libs.koin.core)
+    sourceSets {
+        commonMain.dependencies {
+            implementation(compose.runtime)
+            implementation(compose.components.resources)
+            implementation(libs.koin.core)
+        }
     }
 }
 

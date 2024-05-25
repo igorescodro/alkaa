@@ -1,5 +1,3 @@
-import extension.commonDependencies
-import extension.commonTestDependencies
 import extension.setFrameworkBaseName
 
 plugins {
@@ -9,14 +7,17 @@ plugins {
 kotlin {
     setFrameworkBaseName("datastore")
 
-    commonDependencies {
-        implementation(projects.data.repository)
+    sourceSets {
+        commonMain.dependencies {
+            implementation(projects.data.repository)
 
-        implementation(libs.koin.core)
-        implementation(libs.androidx.datastore)
-    }
-    commonTestDependencies {
-        implementation(kotlin("test"))
+            implementation(libs.koin.core)
+            implementation(libs.androidx.datastore)
+        }
+
+        commonTest.dependencies {
+            implementation(kotlin("test"))
+        }
     }
 }
 

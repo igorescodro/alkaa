@@ -1,6 +1,4 @@
-import extension.commonDependencies
 import extension.setFrameworkBaseName
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 
 plugins {
     id("com.escodro.multiplatform")
@@ -12,13 +10,15 @@ plugins {
 kotlin {
     setFrameworkBaseName("navigation")
 
-    commonDependencies {
-        implementation(projects.libraries.parcelable)
-        implementation(compose.runtime)
-        implementation(compose.material)
+    sourceSets {
+        commonMain.dependencies {
+            implementation(projects.libraries.parcelable)
+            implementation(compose.runtime)
+            implementation(compose.material)
 
-        api(libs.voyager.navigator)
-        api(libs.voyager.bottomsheet)
+            api(libs.voyager.navigator)
+            api(libs.voyager.bottomsheet)
+        }
     }
 }
 

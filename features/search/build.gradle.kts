@@ -1,5 +1,3 @@
-import extension.commonDependencies
-import extension.commonTestDependencies
 import extension.setFrameworkBaseName
 
 plugins {
@@ -11,27 +9,29 @@ plugins {
 kotlin {
     setFrameworkBaseName("search")
 
-    commonDependencies {
-        implementation(projects.domain)
-        implementation(projects.libraries.designsystem)
-        implementation(projects.resources)
-        implementation(projects.libraries.navigation)
-        implementation(projects.libraries.di)
+    sourceSets {
+        commonMain.dependencies {
+            implementation(projects.domain)
+            implementation(projects.libraries.designsystem)
+            implementation(projects.resources)
+            implementation(projects.libraries.navigation)
+            implementation(projects.libraries.di)
 
-        implementation(compose.runtime)
-        implementation(compose.material3)
-        implementation(compose.materialIconsExtended)
-        implementation(compose.components.resources)
+            implementation(compose.runtime)
+            implementation(compose.material3)
+            implementation(compose.materialIconsExtended)
+            implementation(compose.components.resources)
 
-        implementation(libs.kotlinx.collections.immutable)
-        implementation(libs.koin.compose.jb)
-        implementation(libs.moko.mvvm.compose)
-    }
+            implementation(libs.kotlinx.collections.immutable)
+            implementation(libs.koin.compose.jb)
+            implementation(libs.moko.mvvm.compose)
+        }
 
-    commonTestDependencies {
-        implementation(kotlin("test"))
-        implementation(projects.libraries.test)
-        implementation(libs.kotlinx.datetime)
+        commonTest.dependencies {
+            implementation(kotlin("test"))
+            implementation(projects.libraries.test)
+            implementation(libs.kotlinx.datetime)
+        }
     }
 }
 

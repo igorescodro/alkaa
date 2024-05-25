@@ -1,6 +1,4 @@
-import extension.commonDependencies
 import extension.setFrameworkBaseName
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 
 plugins {
     id("com.escodro.multiplatform")
@@ -12,12 +10,14 @@ plugins {
 kotlin {
     setFrameworkBaseName("appstate")
 
-    commonDependencies {
-        implementation(projects.libraries.parcelable)
+    sourceSets {
+        commonMain.dependencies {
+            implementation(projects.libraries.parcelable)
 
-        implementation(compose.runtime)
+            implementation(compose.runtime)
 
-        api(libs.compose.windowsizeclass)
+            api(libs.compose.windowsizeclass)
+        }
     }
 }
 

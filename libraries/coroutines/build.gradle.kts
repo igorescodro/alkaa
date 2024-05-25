@@ -1,4 +1,3 @@
-import extension.commonDependencies
 import extension.setFrameworkBaseName
 
 plugins {
@@ -8,9 +7,11 @@ plugins {
 kotlin {
     setFrameworkBaseName("coroutines")
 
-    commonDependencies {
-        implementation(libs.kotlinx.coroutines.core)
-        implementation(libs.koin.core)
+    sourceSets {
+        commonMain.dependencies {
+            implementation(libs.kotlinx.coroutines.core)
+            implementation(libs.koin.core)
+        }
     }
 }
 

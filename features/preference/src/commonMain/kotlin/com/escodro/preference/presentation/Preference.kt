@@ -19,8 +19,10 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.escodro.navigation.AlkaaDestinations
 import com.escodro.preference.model.AppThemeOptions
-import com.escodro.resources.MR
-import dev.icerock.moko.resources.compose.stringResource
+import com.escodro.resources.Res
+import com.escodro.resources.preference_title_features
+import com.escodro.resources.preference_title_settings
+import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
 
 /**
@@ -83,10 +85,10 @@ internal fun PreferenceContent(
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier.fillMaxSize()) {
-        PreferenceTitle(title = stringResource(MR.strings.preference_title_features))
+        PreferenceTitle(title = stringResource(Res.string.preference_title_features))
         TrackerItem(onTrackerClick)
         Separator()
-        PreferenceTitle(title = stringResource(MR.strings.preference_title_settings))
+        PreferenceTitle(title = stringResource(Res.string.preference_title_settings))
         ThemeItem(currentTheme = theme, onThemeUpdate = onThemeUpdate)
         AboutItem(onAboutClick = onAboutClick)
         OpenSourceLibraryItem(onOpenSourceClick = onOpenSourceClick)

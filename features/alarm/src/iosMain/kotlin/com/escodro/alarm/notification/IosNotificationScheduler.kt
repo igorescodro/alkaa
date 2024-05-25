@@ -1,11 +1,12 @@
 package com.escodro.alarm.notification
 
 import com.escodro.alarm.model.Task
-import com.escodro.resources.MR
-import dev.icerock.moko.resources.desc.Resource
-import dev.icerock.moko.resources.desc.StringDesc
+import com.escodro.resources.Res
+import com.escodro.resources.notification_action_completed
+import kotlinx.coroutines.runBlocking
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
+import org.jetbrains.compose.resources.getString
 import platform.Foundation.NSCalendar
 import platform.Foundation.NSCalendarUnitDay
 import platform.Foundation.NSCalendarUnitHour
@@ -34,7 +35,7 @@ internal class IosNotificationScheduler : NotificationScheduler {
     private fun registerCategories() {
         val doneAction = UNNotificationAction.actionWithIdentifier(
             identifier = ACTION_IDENTIFIER_DONE,
-            title = StringDesc.Resource(MR.strings.notification_action_completed).localized(),
+            title = runBlocking { getString(Res.string.notification_action_completed) },
             options = UNNotificationActionOptionNone,
         )
 

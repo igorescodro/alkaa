@@ -33,7 +33,11 @@ import com.escodro.designsystem.components.AlkaaToolbar
 import com.escodro.designsystem.components.DefaultIconTextContent
 import com.escodro.parcelable.CommonParcelable
 import com.escodro.parcelable.CommonParcelize
-import com.escodro.resources.MR
+import com.escodro.resources.Res
+import com.escodro.resources.task_detail_cd_error
+import com.escodro.resources.task_detail_cd_icon_category
+import com.escodro.resources.task_detail_cd_icon_description
+import com.escodro.resources.task_detail_header_error
 import com.escodro.task.model.Task
 import com.escodro.task.presentation.category.CategorySelection
 import com.escodro.task.presentation.detail.LeadingIcon
@@ -41,7 +45,7 @@ import com.escodro.task.presentation.detail.TaskDetailActions
 import com.escodro.task.presentation.detail.TaskDetailSectionContent
 import com.escodro.task.presentation.detail.alarm.AlarmSelection
 import com.escodro.task.presentation.detail.alarm.TaskAlarmViewModel
-import dev.icerock.moko.resources.compose.stringResource
+import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
 import kotlin.jvm.JvmInline
 
@@ -121,7 +125,7 @@ private fun TaskDetailContent(
             TaskTitleTextField(text = task.title, onTitleChange = actions.onTitleChange)
             TaskDetailSectionContent(
                 imageVector = Icons.Outlined.Bookmark,
-                contentDescription = stringResource(MR.strings.task_detail_cd_icon_category),
+                contentDescription = stringResource(Res.string.task_detail_cd_icon_category),
             ) {
                 CategorySelection(
                     state = categoryViewState,
@@ -150,8 +154,8 @@ private fun TaskDetailContent(
 private fun TaskDetailError() {
     DefaultIconTextContent(
         icon = Icons.Outlined.Close,
-        iconContentDescription = stringResource(MR.strings.task_detail_cd_error),
-        header = stringResource(MR.strings.task_detail_header_error),
+        iconContentDescription = stringResource(Res.string.task_detail_cd_error),
+        header = stringResource(Res.string.task_detail_header_error),
     )
 }
 
@@ -189,7 +193,7 @@ private fun TaskDescriptionTextField(text: String?, onDescriptionChange: (String
         leadingIcon = {
             LeadingIcon(
                 imageVector = Icons.Default.Description,
-                contentDescription = stringResource(MR.strings.task_detail_cd_icon_description),
+                contentDescription = stringResource(Res.string.task_detail_cd_icon_description),
             )
         },
         value = textState.value,

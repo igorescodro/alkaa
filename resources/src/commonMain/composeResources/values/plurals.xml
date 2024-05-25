@@ -2,9 +2,9 @@
 <resources>
 
     <!-- Tracker -->
-    <plural name="tracker_message_title">
+    <plurals name="tracker_message_title">
         <item quantity="one">%1$d completed task</item>
         <item quantity="other">%1$d completed tasks</item>
-    </plural>
+    </plurals>
 
 </resources>

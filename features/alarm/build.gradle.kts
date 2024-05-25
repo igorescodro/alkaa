@@ -5,6 +5,8 @@ import extension.setFrameworkBaseName
 
 plugins {
     id("com.escodro.multiplatform")
+    alias(libs.plugins.compose)
+    alias(libs.plugins.compose.compiler)
 }
 
 kotlin {
@@ -18,11 +20,13 @@ kotlin {
         implementation(projects.resources)
         implementation(libs.kotlinx.datetime)
 
+        implementation(compose.runtime)
+        implementation(compose.components.resources)
+
         implementation(libs.logging)
         implementation(libs.logback)
         implementation(libs.kotlinx.coroutines.core)
         implementation(libs.koin.core)
-        implementation(libs.moko.resources.core)
     }
 
     androidDependencies {

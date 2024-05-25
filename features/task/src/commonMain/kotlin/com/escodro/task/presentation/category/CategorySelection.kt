@@ -22,10 +22,11 @@ import androidx.compose.ui.unit.dp
 import com.escodro.categoryapi.model.Category
 import com.escodro.categoryapi.presentation.CategoryState
 import com.escodro.designsystem.components.AlkaaLoadingContent
-import com.escodro.resources.MR
+import com.escodro.resources.Res
+import com.escodro.resources.task_detail_category_empty_list
 import com.escodro.task.presentation.detail.main.CategoryId
-import dev.icerock.moko.resources.compose.stringResource
 import kotlinx.collections.immutable.ImmutableList
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 internal fun CategorySelection(
@@ -45,6 +46,7 @@ internal fun CategorySelection(
                 currentCategory = currentCategory,
                 onCategoryChange = onCategoryChange,
             )
+
             CategoryState.Empty -> EmptyCategoryList()
         }
     }
@@ -78,7 +80,7 @@ private fun LoadedCategoryList(
 @Composable
 private fun EmptyCategoryList() {
     Text(
-        text = stringResource(MR.strings.task_detail_category_empty_list),
+        text = stringResource(Res.string.task_detail_category_empty_list),
         color = MaterialTheme.colorScheme.outline,
     )
 }

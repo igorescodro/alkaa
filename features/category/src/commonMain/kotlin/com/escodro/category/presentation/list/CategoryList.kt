@@ -49,9 +49,13 @@ import com.escodro.designsystem.components.AddFloatingButton
 import com.escodro.designsystem.components.AlkaaLoadingContent
 import com.escodro.designsystem.components.DefaultIconTextContent
 import com.escodro.navigation.AlkaaDestinations
-import com.escodro.resources.MR
-import dev.icerock.moko.resources.compose.stringResource
+import com.escodro.resources.Res
+import com.escodro.resources.category_cd_add_category
+import com.escodro.resources.category_icon_cd
+import com.escodro.resources.category_list_cd_empty_list
+import com.escodro.resources.category_list_header_empty
 import kotlinx.collections.immutable.ImmutableList
+import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
 import kotlin.math.max
 import kotlin.math.roundToInt
@@ -112,7 +116,7 @@ private fun CategoryListScaffold(
             modifier = modifier.fillMaxSize(),
             floatingActionButton = {
                 AddFloatingButton(
-                    contentDescription = stringResource(MR.strings.category_cd_add_category),
+                    contentDescription = stringResource(Res.string.category_cd_add_category),
                     onClick = { onAddClick() },
                 )
             },
@@ -187,7 +191,7 @@ private fun CategoryItemIcon(color: Int) {
         CategoryCircleIndicator(size = 40.dp, color = color)
         Icon(
             imageVector = Icons.Default.Bookmark,
-            contentDescription = stringResource(MR.strings.category_icon_cd),
+            contentDescription = stringResource(Res.string.category_icon_cd),
             tint = MaterialTheme.colorScheme.background,
         )
     }
@@ -209,8 +213,8 @@ private fun CategoryCircleIndicator(size: Dp, color: Int, alpha: Float = 1F) {
 private fun CategoryListEmpty(modifier: Modifier = Modifier) {
     DefaultIconTextContent(
         icon = Icons.Outlined.ThumbUp,
-        iconContentDescription = stringResource(MR.strings.category_list_cd_empty_list),
-        header = stringResource(MR.strings.category_list_header_empty),
+        iconContentDescription = stringResource(Res.string.category_list_cd_empty_list),
+        header = stringResource(Res.string.category_list_header_empty),
         modifier = modifier,
     )
 }

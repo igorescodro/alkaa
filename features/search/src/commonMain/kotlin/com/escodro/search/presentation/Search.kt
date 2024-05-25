@@ -45,10 +45,13 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import com.escodro.designsystem.components.AlkaaLoadingContent
 import com.escodro.designsystem.components.DefaultIconTextContent
 import com.escodro.navigation.AlkaaDestinations
-import com.escodro.resources.MR
+import com.escodro.resources.Res
+import com.escodro.resources.search_cd_empty_list
+import com.escodro.resources.search_cd_icon
+import com.escodro.resources.search_header_empty
 import com.escodro.search.model.TaskSearchItem
-import dev.icerock.moko.resources.compose.stringResource
 import kotlinx.collections.immutable.ImmutableList
+import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
 
 /**
@@ -131,7 +134,7 @@ private fun SearchTextField(text: String, onTextChange: (String) -> Unit) {
         trailingIcon = {
             Icon(
                 imageVector = Icons.Default.Search,
-                contentDescription = stringResource(MR.strings.search_cd_icon),
+                contentDescription = stringResource(Res.string.search_cd_icon),
             )
         },
         modifier = Modifier
@@ -144,8 +147,8 @@ private fun SearchTextField(text: String, onTextChange: (String) -> Unit) {
 private fun SearchEmptyContent() {
     DefaultIconTextContent(
         icon = Icons.AutoMirrored.Outlined.ExitToApp,
-        iconContentDescription = stringResource(MR.strings.search_cd_empty_list),
-        header = stringResource(MR.strings.search_header_empty),
+        iconContentDescription = stringResource(Res.string.search_cd_empty_list),
+        header = stringResource(Res.string.search_header_empty),
     )
 }
 

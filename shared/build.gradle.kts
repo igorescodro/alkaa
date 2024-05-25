@@ -11,7 +11,6 @@ plugins {
     id("com.escodro.kotlin-parcelable")
     alias(libs.plugins.compose)
     alias(libs.plugins.compose.compiler)
-    id(libs.plugins.moko.multiplatform.resources.get().pluginId) // Use version from classpath
 }
 
 kotlin {
@@ -64,11 +63,13 @@ kotlin {
         implementation(projects.resources)
 
         implementation(projects.domain)
+
         implementation(compose.runtime)
         implementation(compose.material)
         implementation(compose.material3)
+        implementation(compose.components.resources)
+
         implementation(libs.koin.compose.jb)
-        implementation(libs.moko.resources.core)
         implementation(libs.moko.mvvm.compose)
     }
 
@@ -93,10 +94,6 @@ android {
     defaultConfig {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-}
-
-multiplatformResources {
-    resourcesPackage.set("com.escodro.alkaa")
 }
 
 // Add compile options to link sqlite3 library allowing iOS UI testing

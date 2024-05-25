@@ -14,7 +14,6 @@ buildscript {
         classpath(libs.kotlin.gradle.plugin)
         classpath(libs.aboutlibraries.plugin)
         classpath(libs.kotlin.atomicfu)
-        classpath(libs.moko.resources.generator)
     }
 }
 

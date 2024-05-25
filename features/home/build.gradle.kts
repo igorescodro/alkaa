@@ -27,9 +27,10 @@ kotlin {
         implementation(compose.materialIconsExtended)
         implementation(compose.material)
         implementation(compose.material3)
+        implementation(compose.components.resources)
+
         implementation(libs.koin.compose.jb)
         implementation(libs.kotlinx.collections.immutable)
-        implementation(libs.moko.resources.compose)
         implementation(libs.moko.mvvm.compose)
     }
 }

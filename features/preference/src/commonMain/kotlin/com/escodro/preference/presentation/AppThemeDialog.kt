@@ -15,8 +15,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.escodro.preference.model.AppThemeOptions
-import com.escodro.resources.MR
-import dev.icerock.moko.resources.compose.stringResource
+import com.escodro.resources.Res
+import com.escodro.resources.preference_title_app_theme
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 internal fun AppThemeDialog(
@@ -28,10 +29,10 @@ internal fun AppThemeDialog(
     if (isDialogOpen) {
         AlertDialog(
             onDismissRequest = onDismissRequest,
-            title = { Text(text = stringResource(MR.strings.preference_title_app_theme)) },
+            title = { Text(text = stringResource(Res.string.preference_title_app_theme)) },
             text = {
                 Column {
-                    AppThemeOptions.values().forEach { item ->
+                    AppThemeOptions.entries.forEach { item ->
                         val isSelected = currentTheme.id == item.id
 
                         Row(

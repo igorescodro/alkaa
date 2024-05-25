@@ -15,7 +15,6 @@ import com.escodro.alkaa.test.afterTest
 import com.escodro.alkaa.test.beforeTest
 import com.escodro.alkaa.test.uiTest
 import com.escodro.local.dao.TaskDao
-import com.escodro.resources.provider.ResourcesProvider
 import kotlinx.coroutines.test.runTest
 import org.koin.test.KoinTest
 import org.koin.test.inject
@@ -27,8 +26,6 @@ import kotlin.test.Test
 internal class SearchFlowTest : KoinTest {
 
     private val taskDao: TaskDao by inject()
-
-    private val resourcesProvider = ResourcesProvider()
 
     @BeforeTest
     fun setup() {

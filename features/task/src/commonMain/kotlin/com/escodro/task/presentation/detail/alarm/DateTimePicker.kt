@@ -14,8 +14,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import com.escodro.resources.MR
-import dev.icerock.moko.resources.compose.stringResource
+import com.escodro.resources.Res
+import com.escodro.resources.dialog_picker_confirm
+import com.escodro.resources.dialog_picker_next
 import kotlinx.datetime.Clock
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.Instant
@@ -23,6 +24,7 @@ import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.plus
 import kotlinx.datetime.toLocalDateTime
+import org.jetbrains.compose.resources.stringResource
 
 /**
  * Composable to show a date and time picker.
@@ -81,7 +83,7 @@ fun DateTimerPicker(
                 Button(onClick = {
                     dialogState = DateTimePickerState.TIME
                 }) {
-                    Text(text = stringResource(MR.strings.dialog_picker_next))
+                    Text(text = stringResource(Res.string.dialog_picker_next))
                 }
             },
         ) {
@@ -96,7 +98,7 @@ fun DateTimerPicker(
                 Button(onClick = {
                     dialogState = DateTimePickerState.DONE
                 }) {
-                    Text(text = stringResource(MR.strings.dialog_picker_confirm))
+                    Text(text = stringResource(Res.string.dialog_picker_confirm))
                 }
             },
             text = {

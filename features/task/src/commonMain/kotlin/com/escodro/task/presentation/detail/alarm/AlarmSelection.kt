@@ -9,12 +9,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.escodro.resources.MR
+import com.escodro.resources.Res
+import com.escodro.resources.task_detail_cd_icon_alarm
 import com.escodro.task.model.AlarmInterval
 import com.escodro.task.presentation.detail.TaskDetailSectionContent
 import com.escodro.task.presentation.detail.alarm.interactor.OpenAlarmScheduler
-import dev.icerock.moko.resources.compose.stringResource
 import kotlinx.datetime.LocalDateTime
+import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
 
 /**
@@ -103,7 +104,7 @@ internal fun AlarmSelectionContent(
                     )
                 },
             imageVector = Icons.Outlined.Alarm,
-            contentDescription = stringResource(MR.strings.task_detail_cd_icon_alarm),
+            contentDescription = stringResource(Res.string.task_detail_cd_icon_alarm),
         ) {
             AlarmInfo(alarmSelectionState.date) {
                 alarmSelectionState.date = null

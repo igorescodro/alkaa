@@ -46,11 +46,18 @@ import com.escodro.categoryapi.model.Category
 import com.escodro.designsystem.components.AlkaaDialog
 import com.escodro.designsystem.components.AlkaaInputTextField
 import com.escodro.designsystem.components.DialogArguments
-import com.escodro.resources.MR
-import dev.icerock.moko.resources.compose.stringResource
+import com.escodro.resources.Res
+import com.escodro.resources.category_add_label
+import com.escodro.resources.category_cd_remove_category
+import com.escodro.resources.category_dialog_remove_cancel
+import com.escodro.resources.category_dialog_remove_confirm
+import com.escodro.resources.category_dialog_remove_text
+import com.escodro.resources.category_dialog_remove_title
+import com.escodro.resources.category_sheet_save
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.delay
+import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
 
 /**
@@ -58,7 +65,7 @@ import org.koin.compose.koinInject
  */
 @Composable
 internal fun CategoryBottomSheet(categoryId: Long, onHideBottomSheet: () -> Unit) {
-    val colorList = CategoryColors.values().map { it.value }.toImmutableList()
+    val colorList = CategoryColors.entries.map { it.value }.toImmutableList()
     if (categoryId == 0L) {
         CategoryNewSheetLoader(
             colorList = colorList,
@@ -160,7 +167,7 @@ private fun CategorySheetContent(
             )
 
             AlkaaInputTextField(
-                label = stringResource(MR.strings.category_add_label),
+                label = stringResource(Res.string.category_add_label),
                 text = state.name,
                 onTextChange = { state.name = it },
                 modifier = Modifier
@@ -179,7 +186,7 @@ private fun CategorySheetContent(
                 ) {
                     Icon(
                         imageVector = Icons.Outlined.Delete,
-                        contentDescription = stringResource(MR.strings.category_cd_remove_category),
+                        contentDescription = stringResource(Res.string.category_cd_remove_category),
                     )
                 }
             }
@@ -227,10 +234,10 @@ private fun RemoveCategoryDialog(
     onActionConfirm: () -> Unit,
 ) {
     val arguments = DialogArguments(
-        title = stringResource(MR.strings.category_dialog_remove_title),
-        text = stringResource(MR.strings.category_dialog_remove_text, categoryName),
-        confirmText = stringResource(MR.strings.category_dialog_remove_confirm),
-        dismissText = stringResource(MR.strings.category_dialog_remove_cancel),
+        title = stringResource(Res.string.category_dialog_remove_title),
+        text = stringResource(Res.string.category_dialog_remove_text, categoryName),
+        confirmText = stringResource(Res.string.category_dialog_remove_confirm),
+        dismissText = stringResource(Res.string.category_dialog_remove_cancel),
         onConfirmAction = {
             onActionConfirm()
             onCloseDialog()
@@ -254,7 +261,7 @@ private fun CategorySaveButton(currentColor: Color, onClick: () -> Unit) {
             .height(48.dp),
     ) {
         Text(
-            text = stringResource(MR.strings.category_sheet_save),
+            text = stringResource(Res.string.category_sheet_save),
             color = MaterialTheme.colorScheme.background,
         )
     }

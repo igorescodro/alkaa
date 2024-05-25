@@ -5,18 +5,25 @@ import android.app.TaskStackBuilder
 import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationCompat
+import com.escodro.alarm.R
 import com.escodro.alarm.extension.getNotificationManager
 import com.escodro.alarm.model.Task
 import com.escodro.alarm.receiver.TaskNotificationReceiver
+import com.escodro.coroutines.AppCoroutineScope
 import com.escodro.navigation.AndroidDestinations
-import com.escodro.resources.MR
+import com.escodro.resources.Res
+import com.escodro.resources.content_app_name
+import com.escodro.resources.notification_action_completed
+import com.escodro.resources.notification_action_snooze
 import logcat.logcat
+import org.jetbrains.compose.resources.getString
 
 /**
  * Handles the notification related to the Task reminders.
  */
 internal class AndroidTaskNotification(
     private val context: Context,
+    private val appCoroutineScope: AppCoroutineScope,
     private val channel: TaskNotificationChannel,
 ) : TaskNotification {
 
@@ -26,13 +33,15 @@ internal class AndroidTaskNotification(
      * @param task the task to be shown in the notification
      */
     override fun show(task: Task) {
-        logcat { "Showing notification for '${task.title}'" }
-        val builder = buildNotification(task)
-        builder.addAction(getCompleteAction(task))
+        appCoroutineScope.launch {
+            logcat { "Showing notification for '${task.title}'" }
+            val builder = buildNotification(task)
+            builder.addAction(getCompleteAction(task))
 
-        context.getNotificationManager()?.let { notificationManager ->
-            if (notificationManager.areNotificationsEnabled()) {
-                notificationManager.notify(task.id.toInt(), builder.build())
+            context.getNotificationManager()?.let { notificationManager ->
+                if (notificationManager.areNotificationsEnabled()) {
+                    notificationManager.notify(task.id.toInt(), builder.build())
+                }
             }
         }
     }
@@ -43,12 +52,14 @@ internal class AndroidTaskNotification(
      * @param task the task to be shown in the notification
      */
     override fun showRepeating(task: Task) {
-        logcat { "Showing repeating notification for '${task.title}'" }
-        val builder = buildNotification(task)
+        appCoroutineScope.launch {
+            logcat { "Showing repeating notification for '${task.title}'" }
+            val builder = buildNotification(task)
 
-        context.getNotificationManager()?.let { notificationManager ->
-            if (notificationManager.areNotificationsEnabled()) {
-                notificationManager.notify(task.id.toInt(), builder.build())
+            context.getNotificationManager()?.let { notificationManager ->
+                if (notificationManager.areNotificationsEnabled()) {
+                    notificationManager.notify(task.id.toInt(), builder.build())
+                }
             }
         }
     }
@@ -63,15 +74,18 @@ internal class AndroidTaskNotification(
         context.getNotificationManager()?.cancel(taskId.toInt())
     }
 
-    private fun buildNotification(task: Task) =
-        NotificationCompat.Builder(context, channel.getChannelId()).apply {
-            setSmallIcon(MR.images.ic_bookmark.drawableResId)
-            setContentTitle(MR.strings.content_app_name.getString(context))
+    private suspend fun buildNotification(task: Task): NotificationCompat.Builder {
+        val title = getString(Res.string.content_app_name)
+
+        return NotificationCompat.Builder(context, channel.getChannelId()).apply {
+            setSmallIcon(R.drawable.ic_bookmark)
+            setContentTitle(title)
             setContentText(task.title)
             setContentIntent(buildPendingIntent(task.id))
             setAutoCancel(true)
             addAction(getSnoozeAction(task))
         }
+    }
 
     private fun buildPendingIntent(taskId: Long): PendingIntent {
         return TaskStackBuilder.create(context).run {
@@ -83,15 +97,15 @@ internal class AndroidTaskNotification(
         }
     }
 
-    private fun getCompleteAction(task: Task): NotificationCompat.Action {
-        val actionTitle = context.getString(MR.strings.notification_action_completed.resourceId)
+    private suspend fun getCompleteAction(task: Task): NotificationCompat.Action {
+        val actionTitle = getString(Res.string.notification_action_completed)
         val intent =
             getIntent(task, TaskNotificationReceiver.COMPLETE_ACTION, REQUEST_CODE_ACTION_COMPLETE)
         return NotificationCompat.Action(ACTION_NO_ICON, actionTitle, intent)
     }
 
-    private fun getSnoozeAction(task: Task): NotificationCompat.Action {
-        val actionTitle = context.getString(MR.strings.notification_action_snooze.resourceId)
+    private suspend fun getSnoozeAction(task: Task): NotificationCompat.Action {
+        val actionTitle = getString(Res.string.notification_action_snooze)
         val intent =
             getIntent(task, TaskNotificationReceiver.SNOOZE_ACTION, REQUEST_CODE_ACTION_SNOOZE)
         return NotificationCompat.Action(ACTION_NO_ICON, actionTitle, intent)

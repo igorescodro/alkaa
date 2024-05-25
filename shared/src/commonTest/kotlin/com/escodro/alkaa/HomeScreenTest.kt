@@ -8,8 +8,8 @@ import com.escodro.alkaa.test.afterTest
 import com.escodro.alkaa.test.beforeTest
 import com.escodro.alkaa.test.uiTest
 import com.escodro.home.presentation.HomeSection
-import com.escodro.resources.provider.ResourcesProvider
-import dev.icerock.moko.resources.desc.desc
+import kotlinx.coroutines.runBlocking
+import org.jetbrains.compose.resources.getString
 import org.koin.test.KoinTest
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
@@ -17,8 +17,6 @@ import kotlin.test.Test
 
 @OptIn(ExperimentalTestApi::class)
 internal class HomeScreenTest : KoinTest {
-
-    private val resourcesProvider = ResourcesProvider()
 
     @BeforeTest
     fun setup() {
@@ -33,7 +31,7 @@ internal class HomeScreenTest : KoinTest {
     @Test
     fun when_tab_changes_then_title_updates() = uiTest {
         HomeSection.entries.forEach { section ->
-            val title = resourcesProvider.getString(section.title.desc())
+            val title = runBlocking { getString(section.title) }
 
             // Click on each item and validate the title
             onNodeWithContentDescription(label = title, useUnmergedTree = true).performClick()

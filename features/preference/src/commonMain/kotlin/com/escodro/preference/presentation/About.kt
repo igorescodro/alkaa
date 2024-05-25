@@ -31,8 +31,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.escodro.designsystem.components.AlkaaToolbar
 import com.escodro.preference.provider.BrowserProvider
-import com.escodro.resources.MR
-import dev.icerock.moko.resources.compose.stringResource
+import com.escodro.resources.Res
+import com.escodro.resources.about_button_project
+import com.escodro.resources.about_cd_github
+import com.escodro.resources.about_description
+import com.escodro.resources.about_title
+import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
 
 /**
@@ -52,7 +56,7 @@ private fun AboutContent(modifier: Modifier = Modifier) {
     Column(modifier = modifier.verticalScroll(rememberScrollState())) {
         ContentHeader()
         Text(
-            text = stringResource(MR.strings.about_description),
+            text = stringResource(Res.string.about_description),
             style = MaterialTheme.typography.bodyMedium,
             lineHeight = 32.sp,
             modifier = Modifier.padding(16.dp),
@@ -80,7 +84,7 @@ private fun ContentHeader() {
             .height(200.dp)
             .background(color = color),
     ) {
-        val appName = stringResource(MR.strings.about_title).lowercase()
+        val appName = stringResource(Res.string.about_title).lowercase()
         Text(
             text = appName,
             style = MaterialTheme.typography.displayLarge.copy(
@@ -105,10 +109,10 @@ private fun ContentCallToAction(
         }) {
             Icon(
                 imageVector = Icons.Default.Person,
-                contentDescription = stringResource(MR.strings.about_cd_github),
+                contentDescription = stringResource(Res.string.about_cd_github),
             )
             Spacer(modifier = Modifier.width(12.dp))
-            Text(text = stringResource(MR.strings.about_button_project))
+            Text(text = stringResource(Res.string.about_button_project))
         }
     }
 }

@@ -1,6 +1,3 @@
-import extension.androidDependencies
-import extension.commonDependencies
-import extension.commonTestDependencies
 import extension.setFrameworkBaseName
 
 plugins {
@@ -10,15 +7,19 @@ plugins {
 kotlin {
     setFrameworkBaseName("di")
 
-    commonDependencies {
-        implementation(libs.koin.core)
-        implementation(libs.moko.mvvm.core)
-    }
-    androidDependencies {
-        implementation(libs.koin.android)
-    }
-    commonTestDependencies {
-        implementation(kotlin("test"))
+    sourceSets {
+        commonMain.dependencies {
+            implementation(libs.koin.core)
+            implementation(libs.moko.mvvm.core)
+        }
+
+        androidMain.dependencies {
+            implementation(libs.koin.android)
+        }
+
+        commonTest.dependencies {
+            implementation(kotlin("test"))
+        }
     }
 }
 

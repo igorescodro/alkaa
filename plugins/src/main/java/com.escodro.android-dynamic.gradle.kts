@@ -1,4 +1,3 @@
-import extension.androidDependencies
 import extension.sdkCompile
 import extension.sdkMin
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
@@ -21,9 +20,11 @@ kotlin {
         }
     }
 
-    androidDependencies {
-        implementation(project(":app"))
-        implementation(libs.playcore)
+    sourceSets {
+        androidMain.dependencies {
+            implementation(project(":app"))
+            implementation(libs.playcore)
+        }
     }
 }
 

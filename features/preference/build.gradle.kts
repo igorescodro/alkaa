@@ -1,6 +1,3 @@
-import extension.androidDependencies
-import extension.commonDependencies
-import extension.iosDependencies
 import extension.setFrameworkBaseName
 
 plugins {
@@ -12,31 +9,33 @@ plugins {
 kotlin {
     setFrameworkBaseName("preference")
 
-    commonDependencies {
-        implementation(projects.domain)
-        implementation(projects.libraries.coroutines)
-        implementation(projects.libraries.designsystem)
-        implementation(projects.resources)
-        implementation(projects.libraries.navigation)
-        implementation(projects.libraries.di)
+    sourceSets {
+        commonMain.dependencies {
+            implementation(projects.domain)
+            implementation(projects.libraries.coroutines)
+            implementation(projects.libraries.designsystem)
+            implementation(projects.resources)
+            implementation(projects.libraries.navigation)
+            implementation(projects.libraries.di)
 
-        implementation(compose.runtime)
-        implementation(compose.material3)
-        implementation(compose.materialIconsExtended)
-        implementation(compose.components.resources)
+            implementation(compose.runtime)
+            implementation(compose.material3)
+            implementation(compose.materialIconsExtended)
+            implementation(compose.components.resources)
 
-        implementation(libs.koin.compose.jb)
-        implementation(libs.moko.mvvm.compose)
-        implementation(libs.aboutlibraries.ui)
-    }
+            implementation(libs.koin.compose.jb)
+            implementation(libs.moko.mvvm.compose)
+            implementation(libs.aboutlibraries.ui)
+        }
 
-    androidDependencies {
-        implementation(libs.androidx.corektx)
-        implementation(projects.libraries.splitInstall)
-    }
+        androidMain.dependencies {
+            implementation(libs.androidx.corektx)
+            implementation(projects.libraries.splitInstall)
+        }
 
-    iosDependencies {
-        implementation(projects.features.tracker)
+        iosMain.dependencies {
+            implementation(projects.features.tracker)
+        }
     }
 }
 android {

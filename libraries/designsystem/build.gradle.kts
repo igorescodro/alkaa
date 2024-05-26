@@ -1,4 +1,3 @@
-import extension.commonDependencies
 import extension.setFrameworkBaseName
 
 plugins {
@@ -10,11 +9,13 @@ plugins {
 kotlin {
     setFrameworkBaseName("designsystem")
 
-    commonDependencies {
-        implementation(libs.koin.compose.jb)
-        implementation(compose.runtime)
-        implementation(compose.material)
-        implementation(compose.material3)
+    sourceSets {
+        commonMain.dependencies {
+            implementation(libs.koin.compose.jb)
+            implementation(compose.runtime)
+            implementation(compose.material)
+            implementation(compose.material3)
+        }
     }
 }
 

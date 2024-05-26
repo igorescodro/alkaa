@@ -1,7 +1,4 @@
-import extension.commonDependencies
-import extension.commonTestDependencies
 import extension.setFrameworkBaseName
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 
 plugins {
     id("com.escodro.multiplatform")
@@ -13,29 +10,31 @@ plugins {
 kotlin {
     setFrameworkBaseName("category")
 
-    commonDependencies {
-        implementation(projects.features.categoryApi)
-        implementation(projects.domain)
-        implementation(projects.resources)
-        implementation(projects.libraries.navigation)
-        implementation(projects.libraries.designsystem)
-        implementation(projects.libraries.coroutines)
-        implementation(projects.libraries.di)
-        implementation(projects.libraries.test)
-        implementation(projects.libraries.parcelable)
+    sourceSets {
+        commonMain.dependencies {
+            implementation(projects.features.categoryApi)
+            implementation(projects.domain)
+            implementation(projects.resources)
+            implementation(projects.libraries.navigation)
+            implementation(projects.libraries.designsystem)
+            implementation(projects.libraries.coroutines)
+            implementation(projects.libraries.di)
+            implementation(projects.libraries.test)
+            implementation(projects.libraries.parcelable)
 
-        implementation(compose.runtime)
-        implementation(compose.material3)
-        implementation(compose.materialIconsExtended)
-        implementation(compose.components.resources)
+            implementation(compose.runtime)
+            implementation(compose.material3)
+            implementation(compose.materialIconsExtended)
+            implementation(compose.components.resources)
 
-        implementation(libs.koin.compose.jb)
-        implementation(libs.kotlinx.collections.immutable)
-        implementation(libs.moko.mvvm.compose)
-    }
+            implementation(libs.koin.compose.jb)
+            implementation(libs.kotlinx.collections.immutable)
+            implementation(libs.moko.mvvm.compose)
+        }
 
-    commonTestDependencies {
-        implementation(kotlin("test"))
+        commonTest.dependencies {
+            implementation(kotlin("test"))
+        }
     }
 }
 

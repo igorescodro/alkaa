@@ -1,5 +1,3 @@
-import extension.androidDependencies
-import extension.commonDependencies
 import extension.setFrameworkBaseName
 
 plugins {
@@ -9,13 +7,15 @@ plugins {
 kotlin {
     setFrameworkBaseName("test")
 
-    commonDependencies {
-        implementation(kotlin("test"))
-        api(libs.kotlinx.coroutines.test)
-    }
+    sourceSets {
+        commonMain.dependencies {
+            implementation(kotlin("test"))
+            api(libs.kotlinx.coroutines.test)
+        }
 
-    androidDependencies {
-        implementation(kotlin("test-junit"))
+        androidMain.dependencies {
+            implementation(kotlin("test-junit"))
+        }
     }
 
     tasks.withType<Test> {

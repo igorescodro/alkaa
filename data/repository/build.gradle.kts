@@ -1,5 +1,3 @@
-import extension.commonDependencies
-import extension.commonTestDependencies
 import extension.setFrameworkBaseName
 
 plugins {
@@ -9,15 +7,18 @@ plugins {
 kotlin {
     setFrameworkBaseName("repository")
 
-    commonDependencies {
-        implementation(projects.domain)
+    sourceSets {
+        commonMain.dependencies {
+            implementation(projects.domain)
 
-        implementation(libs.koin.core)
-        implementation(libs.kotlinx.coroutines.core)
-        implementation(libs.kotlinx.datetime)
-    }
-    commonTestDependencies {
-        implementation(kotlin("test"))
+            implementation(libs.koin.core)
+            implementation(libs.kotlinx.coroutines.core)
+            implementation(libs.kotlinx.datetime)
+        }
+
+        commonTest.dependencies {
+            implementation(kotlin("test"))
+        }
     }
 }
 

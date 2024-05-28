@@ -31,14 +31,14 @@ import org.jetbrains.compose.resources.stringResource
  *
  * @param isDialogOpen if the dialog should be open
  * @param onCloseDialog callback called when the dialog is closed
- * @param onDateChanged callback called when the date is changed
+ * @param onDateChange callback called when the date is changed
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DateTimerPicker(
     isDialogOpen: Boolean,
     onCloseDialog: () -> Unit,
-    onDateChanged: (LocalDateTime) -> Unit,
+    onDateChange: (LocalDateTime) -> Unit,
 ) {
     val now = Clock.System.now()
     val displayTime = now.plus(
@@ -72,7 +72,7 @@ fun DateTimerPicker(
             hour = timePickerState.hour,
             minute = timePickerState.minute,
         )
-        onDateChanged(localDateTime)
+        onDateChange(localDateTime)
         onCloseDialog()
     }
 

@@ -47,7 +47,7 @@ internal fun AlarmSelection(
     DateTimerPicker(
         isDialogOpen = alarmSelectionState.showDateTimePickerDialog,
         onCloseDialog = { alarmSelectionState.showDateTimePickerDialog = false },
-        onDateChanged = { dateTime ->
+        onDateChange = { dateTime ->
             onAlarmUpdate(dateTime)
             alarmSelectionState.date = dateTime
         },

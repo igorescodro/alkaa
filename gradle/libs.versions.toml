@@ -47,7 +47,7 @@ koin_android = "3.5.6"
 koin_compose_jb = "1.1.0"
 
 # SQLDelight
-sqldelight = "2.0.0"
+sqldelight = "2.0.2"
 
 # Moko
 moko = "0.16.1"

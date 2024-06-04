@@ -1,4 +1,6 @@
 import extension.setFrameworkBaseName
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
 
 plugins {
     id("com.escodro.multiplatform")
@@ -31,6 +33,22 @@ kotlin {
             implementation(kotlin("test"))
             implementation(projects.libraries.test)
             implementation(libs.kotlinx.datetime)
+
+            @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
+            implementation(compose.uiTest)
+        }
+
+        androidTarget {
+            @OptIn(ExperimentalKotlinGradlePluginApi::class)
+            instrumentedTestVariant {
+                sourceSetTree.set(KotlinSourceSetTree.test)
+
+                dependencies {
+                    implementation(libs.test.junit4.android)
+                    implementation(libs.test.uiautomator)
+                    debugImplementation(libs.test.manifest)
+                }
+            }
         }
     }
 }

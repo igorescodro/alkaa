@@ -30,6 +30,7 @@ kotlin {
 
         iosMain.dependencies {
             implementation(libs.sqldelight.native)
+            implementation(libs.stately) // Fixes conflict between SQLDelight and Koin
         }
 
         commonTest.dependencies {

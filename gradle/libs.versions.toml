@@ -15,6 +15,7 @@ dependencyanalysis = "1.32.0"
 logging = "3.0.5"
 logback = "1.2.11"
 logcat = "0.1"
+stately = "2.0.7"
 
 # KotlinX
 kotlinx_coroutines = "1.8.1"
@@ -83,6 +84,7 @@ kotlin_atomicfu = { module = "org.jetbrains.kotlinx:atomicfu-gradle-plugin", ver
 logging = { module = "io.github.microutils:kotlin-logging", version.ref = "logging" }
 logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
 logcat = { module = "com.squareup.logcat:logcat", version.ref = "logcat" }
+stately = { module = "co.touchlab:stately-common", version.ref = "stately" }
 
 # KotlinX
 kotlinx_coroutines_core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx_coroutines" }

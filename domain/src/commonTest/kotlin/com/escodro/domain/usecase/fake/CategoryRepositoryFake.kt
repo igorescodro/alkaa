@@ -13,7 +13,10 @@ internal class CategoryRepositoryFake : CategoryRepository {
         val id = if (category.id == 0L && categoryMap.isEmpty()) {
             1
         } else if (category.id == 0L) {
-            categoryMap.entries.maxByOrNull { it.key }?.key?.plus(1) ?: 1
+            categoryMap.entries
+                .maxByOrNull { it.key }
+                ?.key
+                ?.plus(1) ?: 1
         } else {
             category.id
         }

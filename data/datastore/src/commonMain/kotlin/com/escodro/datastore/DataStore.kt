@@ -23,9 +23,9 @@ fun getDataStore(producePath: () -> String): DataStore<Preferences> =
         if (::dataStore.isInitialized) {
             dataStore
         } else {
-            PreferenceDataStoreFactory.createWithPath(
-                produceFile = { producePath().toPath() },
-            ).also { dataStore = it }
+            PreferenceDataStoreFactory
+                .createWithPath(produceFile = { producePath().toPath() })
+                .also { dataStore = it }
         }
     }
 

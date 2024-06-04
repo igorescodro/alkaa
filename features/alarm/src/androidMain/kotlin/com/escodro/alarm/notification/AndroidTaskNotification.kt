@@ -87,15 +87,14 @@ internal class AndroidTaskNotification(
         }
     }
 
-    private fun buildPendingIntent(taskId: Long): PendingIntent {
-        return TaskStackBuilder.create(context).run {
+    private fun buildPendingIntent(taskId: Long): PendingIntent =
+        TaskStackBuilder.create(context).run {
             addNextIntentWithParentStack(AndroidDestinations.taskDetail(taskId))
             getPendingIntent(
                 REQUEST_CODE_OPEN_TASK,
                 PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
             )
         }
-    }
 
     private suspend fun getCompleteAction(task: Task): NotificationCompat.Action {
         val actionTitle = getString(Res.string.notification_action_completed)

@@ -25,15 +25,21 @@ internal class IosDriverFactory : DriverFactory {
 
     private fun databaseExists(databaseName: String): Boolean {
         val fileManager = NSFileManager.defaultManager
-        val documentDirectory = NSFileManager.defaultManager.URLsForDirectory(
-            NSLibraryDirectory,
-            NSUserDomainMask,
-        ).last() as NSURL
+        val documentDirectory = NSFileManager
+            .defaultManager
+            .URLsForDirectory(
+                NSLibraryDirectory,
+                NSUserDomainMask,
+            ).last() as NSURL
+
         val file = documentDirectory
-            .URLByAppendingPathComponent("$DATABASE_PATH$databaseName")?.path
+            .URLByAppendingPathComponent("$DATABASE_PATH$databaseName")
+            ?.path
+
         return fileManager.fileExistsAtPath(file ?: "")
     }
 
+    @Suppress("ktlint:standard:chain-method-continuation")
     @OptIn(ExperimentalForeignApi::class)
     private fun UIColor.toHex(): String {
         val components: CPointer<DoubleVarOf<CGFloat>>? = CGColorGetComponents(CGColor)

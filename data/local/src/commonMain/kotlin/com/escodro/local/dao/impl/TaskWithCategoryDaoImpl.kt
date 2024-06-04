@@ -26,21 +26,19 @@ internal class TaskWithCategoryDaoImpl(
     private val taskWithCategoryQueries: TaskWithCategoryQueries
         get() = databaseProvider.getInstance().taskWithCategoryQueries
 
-    override fun findAllTasksWithCategory(): Flow<List<TaskWithCategory>> {
-        return taskWithCategoryQueries
+    override fun findAllTasksWithCategory(): Flow<List<TaskWithCategory>> =
+        taskWithCategoryQueries
             .selectAllTasksWithCategory(mapper = ::SelectAllTasksWithCategory)
             .asFlow()
             .mapToList(Dispatchers.IO)
             .map(selectMapper::toTaskWithCategory)
-    }
 
     override fun findAllTasksWithCategoryId(categoryId: Long): Flow<List<TaskWithCategory>> =
         taskWithCategoryQueries
             .selectAllTasksWithCategoryId(
                 task_category_id = categoryId,
                 mapper = ::SelectAllTasksWithCategory,
-            )
-            .asFlow()
+            ).asFlow()
             .mapToList(Dispatchers.IO)
             .map(selectMapper::toTaskWithCategory)
 

@@ -70,7 +70,10 @@ internal class TaskListGlanceWidget : GlanceAppWidget() {
 
         AlkaaGlanceTheme {
             Column(
-                modifier = GlanceModifier.appWidgetBackground().fillMaxSize().then(background)
+                modifier = GlanceModifier
+                    .appWidgetBackground()
+                    .fillMaxSize()
+                    .then(background)
                     .padding(8.dp),
             ) {
                 Row(
@@ -80,7 +83,8 @@ internal class TaskListGlanceWidget : GlanceAppWidget() {
                     Image(
                         provider = ImageProvider(R.drawable.ic_alkaa_icon),
                         contentDescription = context.getString(R.string.glance_app_icon_content_description),
-                        modifier = GlanceModifier.size(32.dp)
+                        modifier = GlanceModifier
+                            .size(32.dp)
                             .clickable(actionStartActivity(AndroidDestinations.homeIntent())),
                     )
                     Spacer(modifier = GlanceModifier.width(12.dp))
@@ -148,7 +152,9 @@ internal class TaskListGlanceWidget : GlanceAppWidget() {
     @Composable
     private fun TaskItem(task: Task, modifier: GlanceModifier = GlanceModifier) {
         Row(
-            modifier = modifier.padding(vertical = 2.dp).fillMaxWidth()
+            modifier = modifier
+                .padding(vertical = 2.dp)
+                .fillMaxWidth()
                 .clickable(actionStartActivity(AndroidDestinations.taskDetail(task.id))),
             verticalAlignment = Alignment.CenterVertically,
         ) {

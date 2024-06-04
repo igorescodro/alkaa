@@ -9,7 +9,10 @@ internal class TaskRepositoryFake : TaskRepository {
 
     override suspend fun insertTask(task: Task): Long {
         val id = if (task.id == 0L) {
-            taskMap.entries.maxByOrNull { it.key }?.key?.plus(1) ?: 1
+            taskMap.entries
+                .maxByOrNull { it.key }
+                ?.key
+                ?.plus(1) ?: 1
         } else {
             task.id
         }

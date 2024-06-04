@@ -41,11 +41,12 @@ fun DateTimerPicker(
     onDateChange: (LocalDateTime) -> Unit,
 ) {
     val now = Clock.System.now()
-    val displayTime = now.plus(
-        value = 1,
-        unit = DateTimeUnit.HOUR,
-        timeZone = TimeZone.currentSystemDefault(),
-    ).toLocalDateTime(TimeZone.currentSystemDefault())
+    val displayTime = now
+        .plus(
+            value = 1,
+            unit = DateTimeUnit.HOUR,
+            timeZone = TimeZone.currentSystemDefault(),
+        ).toLocalDateTime(TimeZone.currentSystemDefault())
 
     val datePickerState = rememberDatePickerState(
         initialSelectedDateMillis = now.toEpochMilliseconds(),

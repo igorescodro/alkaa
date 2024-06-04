@@ -107,8 +107,10 @@ internal class ScheduleNextAlarmTest {
 
         require(result != null)
 
-        val assertCalendar = calendar.toInstant(TimeZone.currentSystemDefault())
-            .plus(1.hours).toLocalDateTime(TimeZone.currentSystemDefault())
+        val assertCalendar = calendar
+            .toInstant(TimeZone.currentSystemDefault())
+            .plus(1.hours)
+            .toLocalDateTime(TimeZone.currentSystemDefault())
 
         assertEquals(assertCalendar, result.dueDate)
     }
@@ -127,7 +129,8 @@ internal class ScheduleNextAlarmTest {
 
         require(result != null)
 
-        val assertCalendar = calendar.toInstant(TimeZone.currentSystemDefault())
+        val assertCalendar = calendar
+            .toInstant(TimeZone.currentSystemDefault())
             .plus(DateTimePeriod(days = 1), TimeZone.currentSystemDefault())
             .toLocalDateTime(TimeZone.currentSystemDefault())
 
@@ -148,7 +151,8 @@ internal class ScheduleNextAlarmTest {
 
         require(result != null)
 
-        val assertCalendar = calendar.toInstant(TimeZone.currentSystemDefault())
+        val assertCalendar = calendar
+            .toInstant(TimeZone.currentSystemDefault())
             .plus(DateTimePeriod(days = 7), TimeZone.currentSystemDefault())
             .toLocalDateTime(TimeZone.currentSystemDefault())
 
@@ -169,7 +173,8 @@ internal class ScheduleNextAlarmTest {
 
         require(result != null)
 
-        val assertCalendar = calendar.toInstant(TimeZone.currentSystemDefault())
+        val assertCalendar = calendar
+            .toInstant(TimeZone.currentSystemDefault())
             .plus(DateTimePeriod(months = 1), TimeZone.currentSystemDefault())
             .toLocalDateTime(TimeZone.currentSystemDefault())
 
@@ -190,7 +195,8 @@ internal class ScheduleNextAlarmTest {
 
         require(result != null)
 
-        val assertCalendar = calendar.toInstant(TimeZone.currentSystemDefault())
+        val assertCalendar = calendar
+            .toInstant(TimeZone.currentSystemDefault())
             .plus(DateTimePeriod(years = 1), TimeZone.currentSystemDefault())
             .toLocalDateTime(TimeZone.currentSystemDefault())
 
@@ -213,8 +219,10 @@ internal class ScheduleNextAlarmTest {
 
     @Test
     fun test_if_missed_repeating_alarm_is_set_on_future() = runTest {
-        val pastCalendar = datetimeProvider.getCurrentInstant()
-            .minus(5.hours).toLocalDateTime(TimeZone.currentSystemDefault())
+        val pastCalendar = datetimeProvider
+            .getCurrentInstant()
+            .minus(5.hours)
+            .toLocalDateTime(TimeZone.currentSystemDefault())
 
         val task = baseTask.copy(
             dueDate = pastCalendar,
@@ -229,8 +237,10 @@ internal class ScheduleNextAlarmTest {
 
         require(result != null)
 
-        val assertCalendar = pastCalendar.toInstant(TimeZone.currentSystemDefault())
-            .plus(5.hours).toLocalDateTime(TimeZone.currentSystemDefault())
+        val assertCalendar = pastCalendar
+            .toInstant(TimeZone.currentSystemDefault())
+            .plus(5.hours)
+            .toLocalDateTime(TimeZone.currentSystemDefault())
 
         assertEquals(assertCalendar, result.dueDate)
     }

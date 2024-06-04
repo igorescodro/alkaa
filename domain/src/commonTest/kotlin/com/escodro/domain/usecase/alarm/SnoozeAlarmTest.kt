@@ -50,7 +50,9 @@ internal class SnoozeAlarmTest {
 
         snoozeAlarmUseCase(baseTask.id, snoozeTime)
 
-        val calendarAssert = calendarProvider.getCurrentInstant().plus(snoozeTime.minutes)
+        val calendarAssert = calendarProvider
+            .getCurrentInstant()
+            .plus(snoozeTime.minutes)
             .toLocalDateTime(TimeZone.currentSystemDefault())
 
         val result = alarmInteractor.getAlarmTime(baseTask.id)

@@ -124,7 +124,8 @@ private fun DownloadFeature(
 ) {
     var isDialogOpen by rememberSaveable { mutableStateOf(true) }
     DisposableEffect(featureName, setState, onDismiss) {
-        val request = SplitInstallRequest.newBuilder()
+        val request = SplitInstallRequest
+            .newBuilder()
             .addModule(featureName)
             .build()
 

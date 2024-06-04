@@ -21,9 +21,11 @@ internal class LoadCompletedTasksByPeriodImpl(
      * Gets completed tasks in Tracker format for the last month.
      */
     override operator fun invoke(): Flow<List<TaskWithCategory>> =
-        repository.findAllTasksWithCategory()
+        repository
+            .findAllTasksWithCategory()
             .map { list ->
-                list.filter { item -> item.task.completed }
+                list
+                    .filter { item -> item.task.completed }
                     .filter(::filterByLastMonth)
             }
 

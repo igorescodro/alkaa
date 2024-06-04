@@ -14,7 +14,8 @@ internal class SearchRepositoryFake(
         TaskWithCategoryRepositoryFake(taskRepository, categoryRepository)
 
     override suspend fun findTaskByName(query: String): Flow<List<TaskWithCategory>> =
-        taskWithCategoryRepository.findAllTasksWithCategory()
+        taskWithCategoryRepository
+            .findAllTasksWithCategory()
             .map { list: List<TaskWithCategory> ->
                 list.filter { taskWithCategory ->
                     taskWithCategory.task.title.contains(query)

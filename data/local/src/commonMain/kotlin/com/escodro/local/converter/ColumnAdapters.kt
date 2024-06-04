@@ -13,7 +13,8 @@ import kotlinx.datetime.toLocalDateTime
  */
 val dateTimeAdapter = object : ColumnAdapter<LocalDateTime, Long> {
     override fun decode(databaseValue: Long): LocalDateTime =
-        Instant.fromEpochMilliseconds(databaseValue)
+        Instant
+            .fromEpochMilliseconds(databaseValue)
             .toLocalDateTime(TimeZone.currentSystemDefault())
 
     override fun encode(value: LocalDateTime): Long =

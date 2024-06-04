@@ -60,7 +60,8 @@ internal class TaskDaoImpl(private val databaseProvider: DatabaseProvider) : Tas
     }
 
     override suspend fun findAllTasksWithDueDate(): List<Task> =
-        taskQueries.selectAllTasksWithDueDate(mapper = ::Task)
+        taskQueries
+            .selectAllTasksWithDueDate(mapper = ::Task)
             .asFlow()
             .mapToList(Dispatchers.IO)
             .first()

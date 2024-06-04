@@ -50,8 +50,11 @@ internal class RescheduleFutureAlarmsTest {
 
     @Test
     fun test_if_future_alarms_are_rescheduled() = runTest {
-        val futureCalendar = dateTimeProvider.getCurrentInstant()
-            .plus(15.days).toLocalDateTime(TimeZone.currentSystemDefault())
+        val futureCalendar = dateTimeProvider
+            .getCurrentInstant()
+            .plus(15.days)
+            .toLocalDateTime(TimeZone.currentSystemDefault())
+
         val task1 = Task(id = 1, title = "Task 1", dueDate = futureCalendar)
         val task2 = Task(id = 2, title = "Task 2")
         val task3 = Task(id = 3, title = "Task 3", dueDate = futureCalendar)
@@ -71,8 +74,11 @@ internal class RescheduleFutureAlarmsTest {
 
     @Test
     fun test_if_completed_tasks_are_not_rescheduled() = runTest {
-        val futureCalendar = dateTimeProvider.getCurrentInstant()
-            .plus(15.days).toLocalDateTime(TimeZone.currentSystemDefault())
+        val futureCalendar = dateTimeProvider
+            .getCurrentInstant()
+            .plus(15.days)
+            .toLocalDateTime(TimeZone.currentSystemDefault())
+
         val task1 = Task(id = 1, completed = true, title = "Task 1", dueDate = futureCalendar)
         val task2 = Task(id = 2, completed = true, title = "Task 2", dueDate = futureCalendar)
         val task3 = Task(id = 3, completed = true, title = "Task 3", dueDate = futureCalendar)
@@ -92,11 +98,15 @@ internal class RescheduleFutureAlarmsTest {
 
     @Test
     fun test_if_uncompleted_tasks_on_the_past_are_ignored() = runTest {
-        val pastCalendar = dateTimeProvider.getCurrentInstant()
-            .minus(15.days).toLocalDateTime(TimeZone.currentSystemDefault())
+        val pastCalendar = dateTimeProvider
+            .getCurrentInstant()
+            .minus(15.days)
+            .toLocalDateTime(TimeZone.currentSystemDefault())
 
-        val futureCalendar = dateTimeProvider.getCurrentInstant()
-            .plus(15.days).toLocalDateTime(TimeZone.currentSystemDefault())
+        val futureCalendar = dateTimeProvider
+            .getCurrentInstant()
+            .plus(15.days)
+            .toLocalDateTime(TimeZone.currentSystemDefault())
 
         val task1 = Task(id = 1, title = "Title", dueDate = pastCalendar)
         val task2 = Task(id = 2, title = "Title", dueDate = pastCalendar)
@@ -117,8 +127,11 @@ internal class RescheduleFutureAlarmsTest {
 
     @Test
     fun test_if_missed_repeating_alarms_are_rescheduled() = runTest {
-        val pastCalendar = dateTimeProvider.getCurrentInstant()
-            .minus(1.days).toLocalDateTime(TimeZone.currentSystemDefault())
+        val pastCalendar = dateTimeProvider
+            .getCurrentInstant()
+            .minus(1.days)
+            .toLocalDateTime(TimeZone.currentSystemDefault())
+
         val task = Task(
             id = 1,
             title = "lost",

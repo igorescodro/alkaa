@@ -77,7 +77,8 @@ internal class UpdateAlarmTest {
         val taskId = 123L
         val alarm = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
         val alarmInterval = AlarmInterval.WEEKLY
-        val task = TaskFactory.createTask()
+        val task = TaskFactory
+            .createTask()
             .copy(id = taskId, dueDate = alarm, alarmInterval = alarmInterval)
 
         // When the function to set the alarm and interval is called

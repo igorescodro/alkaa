@@ -89,9 +89,10 @@ internal class IosNotificationScheduler : NotificationScheduler {
 
     override fun updateTaskNotification(task: Task) {
         NSLog("Updating notification with id '${task.title}'")
-        val time = task.dueDate?.toInstant(
-            TimeZone.currentSystemDefault(),
-        )?.toEpochMilliseconds() ?: return
+        val time = task.dueDate
+            ?.toInstant(
+                TimeZone.currentSystemDefault(),
+            )?.toEpochMilliseconds() ?: return
 
         scheduleTaskNotification(task, time)
     }

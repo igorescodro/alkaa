@@ -45,9 +45,11 @@ internal class TaskItemTest {
         // Assert that the due date time is shown
         val hour = calendar.get(Calendar.HOUR).toString()
         val minute = calendar.get(Calendar.MINUTE).toString()
-        composeTestRule.onNodeWithText(text = hour, substring = true, useUnmergedTree = true)
+        composeTestRule
+            .onNodeWithText(text = hour, substring = true, useUnmergedTree = true)
             .assertExists()
-        composeTestRule.onNodeWithText(text = minute, substring = true, useUnmergedTree = true)
+        composeTestRule
+            .onNodeWithText(text = minute, substring = true, useUnmergedTree = true)
             .assertExists()
     }
 
@@ -62,7 +64,8 @@ internal class TaskItemTest {
         loadItemView(taskWithCategory) {}
 
         // Assert that the title has a single line
-        composeTestRule.onNodeWithText(text = taskName, useUnmergedTree = true)
+        composeTestRule
+            .onNodeWithText(text = taskName, useUnmergedTree = true)
             .assertLines(lines = 1)
     }
 

@@ -66,7 +66,8 @@ internal class AlarmSelectionTest {
 
         // Assert that the remove alarm button is shown
         val removeAlarmCd = context.getString(R.string.task_detail_cd_icon_remove_alarm)
-        composeTestRule.onNodeWithContentDescription(removeAlarmCd, useUnmergedTree = true)
+        composeTestRule
+            .onNodeWithContentDescription(removeAlarmCd, useUnmergedTree = true)
             .assertIsDisplayed()
     }
 
@@ -85,7 +86,8 @@ internal class AlarmSelectionTest {
 
         // Click to remove the alarm
         val removeAlarmCd = context.getString(R.string.task_detail_cd_icon_remove_alarm)
-        composeTestRule.onNodeWithContentDescription(removeAlarmCd, useUnmergedTree = true)
+        composeTestRule
+            .onNodeWithContentDescription(removeAlarmCd, useUnmergedTree = true)
             .performClick()
 
         // Assert that the alarm item is not set again
@@ -112,7 +114,8 @@ internal class AlarmSelectionTest {
         val alarmArray = context.resources.getStringArray(R.array.task_alarm_repeating)
         val repeatIconCd = context.getString(R.string.task_detail_cd_icon_repeat_alarm)
         alarmArray.forEach { string ->
-            composeTestRule.onNodeWithContentDescription(repeatIconCd, useUnmergedTree = true)
+            composeTestRule
+                .onNodeWithContentDescription(repeatIconCd, useUnmergedTree = true)
                 .performClick()
             composeTestRule.onAllNodesWithText(string)[0].performClick()
             composeTestRule.onAllNodesWithText(string)[0].assertIsDisplayed()

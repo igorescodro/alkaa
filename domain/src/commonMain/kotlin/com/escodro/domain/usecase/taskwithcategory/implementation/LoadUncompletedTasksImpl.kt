@@ -12,7 +12,8 @@ internal class LoadUncompletedTasksImpl(
 
     override fun invoke(categoryId: Long?): Flow<List<TaskWithCategory>> =
         if (categoryId == null) {
-            repository.findAllTasksWithCategory()
+            repository
+                .findAllTasksWithCategory()
                 .map { list -> list.filterNot { item -> item.task.completed } }
         } else {
             repository.findAllTasksWithCategoryId(categoryId)

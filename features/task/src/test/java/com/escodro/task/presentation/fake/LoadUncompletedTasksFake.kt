@@ -54,11 +54,10 @@ internal class LoadUncompletedTasksFake : LoadUncompletedTasks {
         throwError = false
     }
 
-    override fun invoke(categoryId: Long?): Flow<List<TaskWithCategory>> {
-        return when {
+    override fun invoke(categoryId: Long?): Flow<List<TaskWithCategory>> =
+        when {
             throwError -> flowOf(list).map { throw IllegalStateException() }
             categoryId != null -> flowOf(list.filter { it.category?.id == categoryId })
             else -> flowOf(list)
         }
-    }
 }

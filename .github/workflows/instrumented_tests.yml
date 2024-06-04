@@ -51,7 +51,10 @@ jobs:
           disable-animations: true
           disk-size: 6000M
           heap-size: 600M
-          script: ./gradlew :shared:connectedAndroidTest
+          script: >
+            ./gradlew 
+            :shared:connectedAndroidTest 
+            :feature:search:connectedAndroidTest
 
       - name: Save Test Results
         uses: actions/upload-artifact@v5

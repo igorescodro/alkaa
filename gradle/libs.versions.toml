@@ -58,7 +58,7 @@ moko_permissions = "0.18.0"
 atomicfu = "0.24.0"
 
 # Voyager
-voyager = "1.1.0-beta01"
+voyager = "1.1.0-beta02"
 
 # Test
 test_junit = "4.13.2"

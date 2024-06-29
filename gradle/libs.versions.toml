@@ -28,7 +28,7 @@ activity = "1.9.0"
 core = "1.13.1"
 appcompat = "1.7.0"
 corektx = "1.13.1"
-playcore = "1.10.3"
+play_delivery = "2.1.0"
 datastore = "1.1.1"
 glance = "1.1.0"
 workmanager = "2.9.0"
@@ -98,7 +98,7 @@ androidx_activity = { module = "androidx.activity:activity", version.ref = "acti
 androidx_core = { module = "androidx.core:core", version.ref = "core" }
 androidx_appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
 androidx_corektx = { module = "androidx.core:core-ktx", version.ref = "corektx" }
-androidx_playcore = { module = "com.google.android.play:core", version.ref = "playcore" }
+androidx_playcore = { module = "com.google.android.play:feature-delivery", version.ref = "play_delivery" }
 androidx_datastore = { module = "androidx.datastore:datastore-preferences-core", version.ref = "datastore" }
 androidx_glance = { module = "androidx.glance:glance-appwidget", version.ref = "glance" }
 androidx_glance_material3 = { module = "androidx.glance:glance-material3", version.ref = "glance" }

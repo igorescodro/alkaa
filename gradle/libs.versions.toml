@@ -21,7 +21,7 @@ stately = "2.0.7"
 kotlinx_coroutines = "1.8.1"
 kotlinx_serialization = "1.7.1"
 kotlinx_collections_immutable = "0.3.7"
-kotlinx_datetime = "0.6.0"
+kotlinx_datetime = "0.6.1"
 
 # AndroidX
 activity = "1.9.1"

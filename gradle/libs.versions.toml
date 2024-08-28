@@ -15,7 +15,7 @@ dependencyanalysis = "2.0.0"
 logging = "3.0.5"
 logback = "1.2.11"
 logcat = "0.1"
-stately = "2.0.7"
+stately = "2.1.0"
 
 # KotlinX
 kotlinx_coroutines = "1.8.1"

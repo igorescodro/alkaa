@@ -109,8 +109,8 @@ fun AlkaaToolbar(onUpPress: () -> Unit, modifier: Modifier = Modifier) {
 @Composable
 fun AddFloatingButton(
     contentDescription: String,
-    modifier: Modifier = Modifier,
     onClick: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     FloatingActionButton(
         containerColor = MaterialTheme.colorScheme.primary,

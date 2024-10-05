@@ -38,7 +38,7 @@ annotation = "1.8.2"
 # Compose
 compose_bom = "2024.08.00"
 compose_activity = "1.9.2"
-compose_compiler = "1.6.11"
+compose_compiler = "1.7.0-rc01"
 compose_windowsizeclass = "0.5.0"
 
 # Koin
@@ -55,7 +55,7 @@ moko = "0.16.1"
 moko_permissions = "0.18.0"
 
 # AtomicFU
-atomicfu = "0.24.0"
+atomicfu = "0.23.2"
 
 # Voyager
 voyager = "1.1.0-beta02"

@@ -21,4 +21,8 @@ kotlin {
 
 android {
     namespace = "com.escodro.designsystem"
+
+    dependencies {
+        debugImplementation(compose.uiTooling)
+    }
 }

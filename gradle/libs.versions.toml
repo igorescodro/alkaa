@@ -40,6 +40,7 @@ compose_bom = "2024.08.00"
 compose_activity = "1.9.2"
 compose_compiler = "1.6.11"
 compose_windowsizeclass = "0.5.0"
+compose_navigation = "2.8.0-alpha10"
 
 # Koin
 koin_core = "4.0.0"
@@ -111,6 +112,7 @@ compose_ui = { module = "androidx.compose.ui:ui" }
 compose_icons = { module = "androidx.compose.material:material-icons-extended" }
 compose_material3 = { module = "androidx.compose.material3:material3" }
 compose_windowsizeclass = { module = "dev.chrisbanes.material3:material3-window-size-class-multiplatform", version.ref = "compose_windowsizeclass" }
+compose_navigation = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "compose_navigation" }
 
 # Dynamic Feature don't recognize BOM
 compose_activity = { module = "androidx.activity:activity-compose", version.ref = "compose_activity" }

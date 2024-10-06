@@ -5,6 +5,7 @@ plugins {
     id("com.escodro.kotlin-parcelable")
     alias(libs.plugins.compose)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 kotlin {
@@ -18,6 +19,9 @@ kotlin {
 
             api(libs.voyager.navigator)
             api(libs.voyager.bottomsheet)
+
+            api(libs.compose.navigation)
+            implementation(libs.kotlinx.serialization)
         }
     }
 }

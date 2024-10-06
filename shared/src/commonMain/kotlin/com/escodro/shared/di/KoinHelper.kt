@@ -7,6 +7,7 @@ import com.escodro.datastore.di.dataStoreModule
 import com.escodro.designsystem.di.designSystemModule
 import com.escodro.domain.di.domainModule
 import com.escodro.local.di.localModule
+import com.escodro.navigation.di.navigationModule
 import com.escodro.preference.di.preferenceModule
 import com.escodro.repository.di.repositoryModule
 import com.escodro.search.di.searchModule
@@ -44,4 +45,5 @@ internal val appModules = listOf(
     dataStoreModule,
     coroutinesModule,
     designSystemModule,
+    navigationModule,
 )

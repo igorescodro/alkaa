@@ -14,13 +14,17 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(projects.libraries.parcelable)
+            implementation(projects.libraries.coroutines)
+
             implementation(compose.runtime)
             implementation(compose.material)
+
+            implementation(libs.koin.compose.jb)
 
             api(libs.voyager.navigator)
             api(libs.voyager.bottomsheet)
 
-            api(libs.compose.navigation)
+            implementation(libs.compose.navigation)
             implementation(libs.kotlinx.serialization)
         }
     }

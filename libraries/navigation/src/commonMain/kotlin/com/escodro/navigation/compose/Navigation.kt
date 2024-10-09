@@ -11,6 +11,8 @@ import com.escodro.navigation.controller.NavEventController
 import com.escodro.navigation.destination.Destination
 import com.escodro.navigation.marker.TopLevel
 import com.escodro.navigation.provider.NavGraphProvider
+import com.escodro.permission.PermissionsControllerWrapper
+import dev.icerock.moko.permissions.compose.BindEffect
 import org.koin.compose.koinInject
 
 @Composable
@@ -33,7 +35,11 @@ private fun NavigationLoader(
     modifier: Modifier = Modifier,
     navEventController: NavEventController = koinInject(),
     navGraphProvider: NavGraphProvider = koinInject(),
+    permissionsControllerWrapper: PermissionsControllerWrapper = koinInject(),
 ) {
+    // Required by Moko Permissions to bind in the lifecycle
+    BindEffect(permissionsControllerWrapper.getInstance())
+
     LaunchedEffect(Unit) {
         navEventController.destinationState.collect { destination ->
             when (destination) {

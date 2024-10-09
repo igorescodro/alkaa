@@ -55,9 +55,6 @@ sqldelight = "2.0.2"
 moko = "0.16.1"
 moko_permissions = "0.18.1"
 
-# Voyager
-voyager = "1.1.0-beta02"
-
 # Test
 test_junit = "4.13.2"
 test_uiautomator = "2.3.0"
@@ -128,10 +125,6 @@ sqldelight_coroutines = { module = "app.cash.sqldelight:coroutines-extensions", 
 moko_mvvm_core = { module = "dev.icerock.moko:mvvm-core", version.ref = "moko" }
 moko_mvvm_compose = { module = "dev.icerock.moko:mvvm-flow-compose", version.ref = "moko" }
 moko_permissions_compose = { module = "dev.icerock.moko:permissions-compose", version.ref = "moko_permissions" }
-
-# Voyager
-voyager_navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager" }
-voyager_bottomsheet = { module = "cafe.adriel.voyager:voyager-bottom-sheet-navigator", version.ref = "voyager" }
 
 # Test
 test_junit = { module = "junit:junit", version.ref = "test_junit" }

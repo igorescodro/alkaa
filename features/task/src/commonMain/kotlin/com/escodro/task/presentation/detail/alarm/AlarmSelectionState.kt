@@ -7,8 +7,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import com.escodro.task.model.AlarmInterval
 import dev.icerock.moko.permissions.PermissionsController
-import dev.icerock.moko.permissions.compose.BindEffect
-import dev.icerock.moko.permissions.compose.rememberPermissionsControllerFactory
 import kotlinx.datetime.LocalDateTime
 
 /**
@@ -60,15 +58,12 @@ class AlarmSelectionState(
 internal fun rememberAlarmSelectionState(
     calendar: LocalDateTime?,
     alarmInterval: AlarmInterval?,
-): AlarmSelectionState {
-    val factory = rememberPermissionsControllerFactory()
-    val permissionsController = remember(factory) { factory.createPermissionsController() }
-    BindEffect(permissionsController) // Required by Moko Permissions to bind in the lifecycle
-    return remember {
+    permissionsController: PermissionsController,
+): AlarmSelectionState =
+    remember {
         AlarmSelectionState(
             calendar = calendar,
             alarmInterval = alarmInterval,
             permissionsController = permissionsController,
         )
     }
-}

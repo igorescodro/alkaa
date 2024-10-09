@@ -16,6 +16,7 @@ kotlin {
             implementation(projects.libraries.parcelable)
             implementation(projects.libraries.coroutines)
             implementation(projects.libraries.appstate)
+            implementation(projects.libraries.permission)
             implementation(projects.resources)
 
             implementation(compose.runtime)

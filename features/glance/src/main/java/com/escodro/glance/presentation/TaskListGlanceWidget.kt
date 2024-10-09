@@ -13,10 +13,12 @@ import androidx.glance.Image
 import androidx.glance.ImageProvider
 import androidx.glance.LocalContext
 import androidx.glance.action.actionParametersOf
+import androidx.glance.action.clickable
 import androidx.glance.appwidget.CheckBox
 import androidx.glance.appwidget.CheckboxDefaults
 import androidx.glance.appwidget.GlanceAppWidget
 import androidx.glance.appwidget.action.actionRunCallback
+import androidx.glance.appwidget.action.actionStartActivity
 import androidx.glance.appwidget.appWidgetBackground
 import androidx.glance.appwidget.cornerRadius
 import androidx.glance.appwidget.lazy.LazyColumn
@@ -41,6 +43,7 @@ import androidx.glance.text.TextStyle
 import com.escodro.glance.R
 import com.escodro.glance.data.TaskListStateDefinition
 import com.escodro.glance.model.Task
+import com.escodro.navigation.deeplink.AndroidDeepLink
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 
@@ -81,9 +84,8 @@ internal class TaskListGlanceWidget : GlanceAppWidget() {
                         provider = ImageProvider(R.drawable.ic_alkaa_icon),
                         contentDescription = context.getString(R.string.glance_app_icon_content_description),
                         modifier = GlanceModifier
-                            .size(32.dp),
-//                        TODO - Implement Glance click
-//                            .clickable(actionStartActivity(AndroidDestinations.homeIntent())),
+                            .size(32.dp)
+                            .clickable(actionStartActivity(AndroidDeepLink.homeIntent())),
                     )
                     Spacer(modifier = GlanceModifier.width(12.dp))
                     Text(
@@ -152,9 +154,8 @@ internal class TaskListGlanceWidget : GlanceAppWidget() {
         Row(
             modifier = modifier
                 .padding(vertical = 2.dp)
-                .fillMaxWidth(),
-//                        TODO - Implement Glance click
-//                .clickable(actionStartActivity(AndroidDestinations.taskDetail(task.id))),
+                .fillMaxWidth()
+                .clickable(actionStartActivity(AndroidDeepLink.taskDetail(task.id))),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             CheckBox(

@@ -39,12 +39,8 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
-import cafe.adriel.voyager.core.registry.ScreenRegistry
-import cafe.adriel.voyager.navigator.LocalNavigator
-import cafe.adriel.voyager.navigator.currentOrThrow
 import com.escodro.designsystem.components.AlkaaLoadingContent
 import com.escodro.designsystem.components.DefaultIconTextContent
-import com.escodro.navigation.AlkaaDestinations
 import com.escodro.resources.Res
 import com.escodro.resources.search_cd_empty_list
 import com.escodro.resources.search_cd_icon
@@ -60,13 +56,11 @@ import org.koin.compose.koinInject
  * @param modifier the decorator
  */
 @Composable
-fun SearchSection(modifier: Modifier = Modifier) {
-    val navigator = LocalNavigator.currentOrThrow
-
-    SearchLoader(modifier = modifier, onItemClick = {
-        val screen = ScreenRegistry.get(AlkaaDestinations.Task.TaskDetail(it))
-        navigator.push(screen)
-    })
+fun SearchSection(
+    onItemClick: (Long) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    SearchLoader(modifier = modifier, onItemClick = onItemClick)
 }
 
 @Composable

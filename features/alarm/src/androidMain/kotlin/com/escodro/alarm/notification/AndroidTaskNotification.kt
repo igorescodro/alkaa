@@ -10,7 +10,6 @@ import com.escodro.alarm.extension.getNotificationManager
 import com.escodro.alarm.model.Task
 import com.escodro.alarm.receiver.TaskNotificationReceiver
 import com.escodro.coroutines.AppCoroutineScope
-import com.escodro.navigation.AndroidDestinations
 import com.escodro.resources.Res
 import com.escodro.resources.content_app_name
 import com.escodro.resources.notification_action_completed
@@ -89,7 +88,8 @@ internal class AndroidTaskNotification(
 
     private fun buildPendingIntent(taskId: Long): PendingIntent =
         TaskStackBuilder.create(context).run {
-            addNextIntentWithParentStack(AndroidDestinations.taskDetail(taskId))
+//            TODO - Implement the TaskStackBuilder.create method
+//            addNextIntentWithParentStack(AndroidDestinations.taskDetail(taskId))
             getPendingIntent(
                 REQUEST_CODE_OPEN_TASK,
                 PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,

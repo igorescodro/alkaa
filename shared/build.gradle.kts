@@ -38,6 +38,7 @@ kotlin {
             implementation(projects.libraries.di)
             implementation(projects.libraries.appstate)
             implementation(projects.libraries.parcelable)
+            implementation(projects.libraries.permission)
 
             implementation(projects.features.home)
             implementation(projects.features.task)

@@ -3,11 +3,14 @@ package com.escodro.navigation.compose
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.escodro.navigation.controller.NavEventController
 import com.escodro.navigation.destination.Destination
+import com.escodro.navigation.marker.TopLevel
+import com.escodro.navigation.provider.NavGraphProvider
 import org.koin.compose.koinInject
 
 @Composable
@@ -29,10 +32,26 @@ private fun NavigatorLoader(
     navHostController: NavHostController,
     modifier: Modifier = Modifier,
     navEventController: NavEventController = koinInject(),
+    navGraphProvider: NavGraphProvider = koinInject(),
 ) {
     LaunchedEffect(Unit) {
         navEventController.destinationState.collect { destination ->
-            navHostController.navigate(destination)
+            when (destination) {
+                is Destination.Back -> {
+                    navHostController.popBackStack()
+                }
+
+                is TopLevel -> {
+                    navHostController.navigate(destination) {
+                        popUpTo(navHostController.graph.findStartDestination().id)
+                        launchSingleTop = true
+                    }
+                }
+
+                else -> {
+                    navHostController.navigate(destination)
+                }
+            }
         }
     }
 
@@ -41,6 +60,6 @@ private fun NavigatorLoader(
         startDestination = startDestination,
         modifier = modifier,
     ) {
-        // Empty
+        navGraphProvider.navigationGraph(this)
     }
 }

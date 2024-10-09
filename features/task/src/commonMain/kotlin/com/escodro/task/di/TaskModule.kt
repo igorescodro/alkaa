@@ -1,10 +1,12 @@
 package com.escodro.task.di
 
 import com.escodro.di.viewModelDefinition
+import com.escodro.navigation.provider.NavGraph
 import com.escodro.task.mapper.AlarmIntervalMapper
 import com.escodro.task.mapper.CategoryMapper
 import com.escodro.task.mapper.TaskMapper
 import com.escodro.task.mapper.TaskWithCategoryMapper
+import com.escodro.task.navigation.TaskNavGraph
 import com.escodro.task.presentation.add.AddTaskViewModel
 import com.escodro.task.presentation.detail.alarm.TaskAlarmViewModel
 import com.escodro.task.presentation.detail.alarm.interactor.OpenAlarmScheduler
@@ -64,6 +66,9 @@ val taskModule = module {
     factoryOf(::TaskMapper)
     factoryOf(::TaskWithCategoryMapper)
     factoryOf(::CategoryMapper)
+
+    // Navigation
+    factoryOf(::TaskNavGraph) bind NavGraph::class
 
     includes(platformTaskModule)
 }

@@ -15,16 +15,20 @@ kotlin {
         commonMain.dependencies {
             implementation(projects.libraries.parcelable)
             implementation(projects.libraries.coroutines)
+            implementation(projects.libraries.appstate)
+            implementation(projects.resources)
 
             implementation(compose.runtime)
             implementation(compose.material)
+            implementation(compose.components.resources)
+            implementation(compose.materialIconsExtended)
 
             implementation(libs.koin.compose.jb)
 
             api(libs.voyager.navigator)
             api(libs.voyager.bottomsheet)
+            api(libs.compose.navigation)
 
-            implementation(libs.compose.navigation)
             implementation(libs.kotlinx.serialization)
         }
     }

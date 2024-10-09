@@ -28,16 +28,11 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import cafe.adriel.voyager.core.registry.ScreenRegistry
-import cafe.adriel.voyager.navigator.LocalNavigator
-import cafe.adriel.voyager.navigator.bottomSheet.LocalBottomSheetNavigator
-import cafe.adriel.voyager.navigator.currentOrThrow
 import com.escodro.categoryapi.presentation.CategoryListViewModel
 import com.escodro.categoryapi.presentation.CategoryState
 import com.escodro.designsystem.components.AddFloatingButton
 import com.escodro.designsystem.components.AlkaaLoadingContent
 import com.escodro.designsystem.components.DefaultIconTextContent
-import com.escodro.navigation.AlkaaDestinations
 import com.escodro.resources.Res
 import com.escodro.resources.task_cd_add_task
 import com.escodro.resources.task_list_cd_empty_list
@@ -61,20 +56,15 @@ import org.koin.compose.koinInject
  * @param modifier the decorator
  */
 @Composable
-fun TaskListSection(modifier: Modifier = Modifier) {
-    val navigator = LocalNavigator.currentOrThrow
-    val bottomSheetNavigator = LocalBottomSheetNavigator.current
-
+fun TaskListSection(
+    onItemClick: (Long) -> Unit,
+    onAddClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
     TaskListLoader(
         modifier = modifier,
-        onItemClick = { taskId ->
-            val screen = ScreenRegistry.get(AlkaaDestinations.Task.TaskDetail(taskId))
-            navigator.push(screen)
-        },
-        onAddClick = {
-            val screen = ScreenRegistry.get(AlkaaDestinations.Task.AddTaskBottomSheet)
-            bottomSheetNavigator.show(screen)
-        },
+        onItemClick = onItemClick,
+        onAddClick = onAddClick,
     )
 }
 

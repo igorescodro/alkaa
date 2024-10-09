@@ -30,7 +30,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import com.escodro.appstate.AppState
-import com.escodro.navigation.compose.Navigator
+import com.escodro.navigation.compose.Navigation
 import com.escodro.navigation.controller.NavEventController
 import com.escodro.navigation.destination.HomeDestination
 import com.escodro.navigation.destination.topLevelDestinations
@@ -99,7 +99,7 @@ private fun AlkaaHomeScaffold(
                     )
                 }
                 Column(Modifier.fillMaxSize()) {
-                    Navigator(startDestination = HomeDestination.TaskList)
+                    Navigation(startDestination = HomeDestination.TaskList)
                 }
             }
         },

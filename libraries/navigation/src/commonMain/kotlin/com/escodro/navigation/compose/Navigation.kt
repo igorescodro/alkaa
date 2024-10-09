@@ -14,12 +14,12 @@ import com.escodro.navigation.provider.NavGraphProvider
 import org.koin.compose.koinInject
 
 @Composable
-fun Navigator(
+fun Navigation(
     startDestination: Destination,
     modifier: Modifier = Modifier,
     navHostController: NavHostController = rememberNavController(),
 ) {
-    NavigatorLoader(
+    NavigationLoader(
         startDestination = startDestination,
         navHostController = navHostController,
         modifier = modifier,
@@ -27,7 +27,7 @@ fun Navigator(
 }
 
 @Composable
-private fun NavigatorLoader(
+private fun NavigationLoader(
     startDestination: Destination,
     navHostController: NavHostController,
     modifier: Modifier = Modifier,

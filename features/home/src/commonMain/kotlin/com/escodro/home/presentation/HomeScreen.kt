@@ -23,9 +23,10 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -54,17 +55,20 @@ private fun HomeLoader(
     appState: AppState,
     navEventController: NavEventController = koinInject(),
 ) {
-    val navItems = remember<ImmutableList<TopLevel>> { topLevelDestinations.toImmutableList() }
-    var currentSection by remember { mutableStateOf<TopLevel>(HomeDestination.TaskList) }
-    val setCurrentSection = { topLevel: TopLevel ->
-        currentSection = topLevel
-        navEventController.sendEvent(HomeEvent.OnTabClick(topLevel))
+    var currentSection by rememberSaveable<MutableState<TopLevel>> {
+        mutableStateOf(HomeDestination.TaskList)
     }
+    val setCurrentSection = { section: TopLevel ->
+        navEventController.sendEvent(HomeEvent.OnTabClick(section))
+        currentSection = section
+    }
+
+    val navItems by rememberSaveable { mutableStateOf(topLevelDestinations) }
 
     AlkaaHomeScaffold(
         appState = appState,
         homeSection = currentSection,
-        navItems = navItems,
+        navItems = navItems.toImmutableList(),
         setCurrentSection = setCurrentSection,
     )
 }

@@ -30,11 +30,14 @@ import com.escodro.resources.task_add_label
 import com.escodro.resources.task_add_save
 import com.escodro.task.model.AlarmInterval
 import com.escodro.task.presentation.category.CategorySelection
-import com.escodro.task.presentation.compose.saver.LocalDateTimeSaver
 import com.escodro.task.presentation.detail.alarm.AlarmSelection
 import com.escodro.task.presentation.detail.main.CategoryId
 import kotlinx.coroutines.delay
+import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toInstant
+import kotlinx.datetime.toLocalDateTime
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
 
@@ -54,9 +57,7 @@ internal fun AddTaskBottomSheet(
         verticalArrangement = Arrangement.SpaceAround,
     ) {
         var taskInputText: String by rememberSaveable { mutableStateOf("") }
-        var taskDueDate: LocalDateTime? by rememberSaveable(stateSaver = LocalDateTimeSaver) {
-            mutableStateOf(null)
-        }
+        var taskDueDate: Long? by rememberSaveable { mutableStateOf(null) }
         var alarmInterval: AlarmInterval by rememberSaveable { mutableStateOf(AlarmInterval.NEVER) }
         val categoryState by remember(categoryViewModel) {
             categoryViewModel
@@ -85,9 +86,9 @@ internal fun AddTaskBottomSheet(
         )
 
         AlarmSelection(
-            calendar = taskDueDate,
+            calendar = getLocalDateTimeFromEpoch(taskDueDate),
             interval = alarmInterval,
-            onAlarmUpdate = { dateTime -> taskDueDate = dateTime },
+            onAlarmUpdate = { dateTime -> taskDueDate = getEpochFromLocalDateTime(dateTime) },
             onIntervalSelect = { interval -> alarmInterval = interval },
             hasExactAlarmPermission = { alarmPermission.hasExactAlarmPermission() },
             openExactAlarmPermissionScreen = { alarmPermission.openExactAlarmPermissionScreen() },
@@ -103,7 +104,7 @@ internal fun AddTaskBottomSheet(
                 addTaskViewModel.addTask(
                     title = taskInputText,
                     categoryId = currentCategory,
-                    dueDate = taskDueDate,
+                    dueDate = getLocalDateTimeFromEpoch(taskDueDate),
                     alarmInterval = alarmInterval,
                 )
                 taskInputText = ""
@@ -113,6 +114,14 @@ internal fun AddTaskBottomSheet(
             Text(stringResource(Res.string.task_add_save))
         }
     }
+}
+
+private fun getLocalDateTimeFromEpoch(epoch: Long?): LocalDateTime? = epoch?.let {
+    Instant.fromEpochMilliseconds(it).toLocalDateTime(TimeZone.currentSystemDefault())
+}
+
+private fun getEpochFromLocalDateTime(dateTime: LocalDateTime?): Long? = dateTime?.let {
+    dateTime.toInstant(TimeZone.currentSystemDefault()).toEpochMilliseconds()
 }
 
 private const val FocusDelay = 500L

@@ -38,7 +38,7 @@ annotation = "1.8.2"
 # Compose
 compose_bom = "2024.08.00"
 compose_activity = "1.9.2"
-compose_compiler = "1.6.11"
+compose_compiler = "1.7.0+build1877-release-1.7"
 compose_windowsizeclass = "0.5.0"
 
 # Koin

@@ -3,8 +3,10 @@ package com.escodro.task.navigation
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.dialog
+import androidx.navigation.navDeepLink
 import androidx.navigation.toRoute
 import com.escodro.navigation.controller.NavEventController
+import com.escodro.navigation.destination.Destination
 import com.escodro.navigation.destination.HomeDestination
 import com.escodro.navigation.destination.TasksDestination
 import com.escodro.navigation.event.Event
@@ -24,7 +26,13 @@ internal class TaskNavGraph : NavGraph {
             )
         }
 
-        composable<TasksDestination.TaskDetail> { navEntry ->
+        composable<TasksDestination.TaskDetail>(
+            deepLinks = listOf(
+                navDeepLink<TasksDestination.TaskDetail>(
+                    basePath = "${Destination.URI}/task/{taskId}",
+                ),
+            ),
+        ) { navEntry ->
             val route: TasksDestination.TaskDetail = navEntry.toRoute()
             TaskDetailScreen(
                 taskId = route.taskId,

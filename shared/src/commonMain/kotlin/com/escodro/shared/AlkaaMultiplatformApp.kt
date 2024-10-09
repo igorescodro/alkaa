@@ -12,7 +12,6 @@ import com.escodro.appstate.AppState
 import com.escodro.appstate.rememberAlkaaAppState
 import com.escodro.designsystem.AlkaaTheme
 import com.escodro.home.presentation.Home
-import com.escodro.navigation.NavigationAction
 import com.escodro.shared.model.AppThemeOptions
 import org.koin.compose.koinInject
 
@@ -20,7 +19,6 @@ import org.koin.compose.koinInject
 @Composable
 fun AlkaaMultiplatformApp(
     modifier: Modifier = Modifier,
-    navigationAction: NavigationAction = NavigationAction.Home,
     appState: AppState = rememberAlkaaAppState(windowSizeClass = calculateWindowSizeClass()),
     onThemeUpdate: (isDarkTheme: Boolean) -> Unit = {},
 ) {

@@ -25,8 +25,6 @@ kotlin {
 
             implementation(libs.koin.compose.jb)
 
-            api(libs.voyager.navigator)
-            api(libs.voyager.bottomsheet)
             api(libs.compose.navigation)
 
             implementation(libs.kotlinx.serialization)

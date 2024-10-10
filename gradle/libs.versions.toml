@@ -36,7 +36,7 @@ lifecycle_viewmodel = "2.8.6"
 annotation = "1.8.2"
 
 # Compose
-compose_bom = "2024.08.00"
+compose_bom = "2024.09.03"
 compose_activity = "1.9.2"
 compose_compiler = "1.6.11"
 compose_windowsizeclass = "0.5.0"

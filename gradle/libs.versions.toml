@@ -52,7 +52,7 @@ sqldelight = "2.0.2"
 
 # Moko
 moko = "0.16.1"
-moko_permissions = "0.18.0"
+moko_permissions = "0.18.1"
 
 # AtomicFU
 atomicfu = "0.24.0"

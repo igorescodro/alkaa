@@ -55,7 +55,7 @@ moko = "0.16.1"
 moko_permissions = "0.18.0"
 
 # AtomicFU
-atomicfu = "0.24.0"
+atomicfu = "0.25.0"
 
 # Voyager
 voyager = "1.1.0-beta02"

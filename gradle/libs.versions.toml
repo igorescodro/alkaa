@@ -32,7 +32,7 @@ play_delivery = "2.1.0"
 datastore = "1.1.1"
 glance = "1.1.1"
 workmanager = "2.9.1"
-lifecycle_viewmodel = "2.8.6"
+lifecycle_viewmodel = "2.8.7"
 annotation = "1.9.1"
 
 # Compose

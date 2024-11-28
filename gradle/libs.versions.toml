@@ -9,7 +9,7 @@ android_sdk_target = "33"
 android_sdk_min = "24"
 
 # Plugins
-dependencyanalysis = "2.4.2"
+dependencyanalysis = "2.5.0"
 
 # General dependencies
 logging = "3.0.5"

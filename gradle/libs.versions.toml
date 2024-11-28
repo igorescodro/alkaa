@@ -13,7 +13,7 @@ dependencyanalysis = "2.5.0"
 
 # General dependencies
 logging = "3.0.5"
-logback = "1.2.11"
+logback = "1.5.12"
 logcat = "0.1"
 stately = "2.1.0"
 

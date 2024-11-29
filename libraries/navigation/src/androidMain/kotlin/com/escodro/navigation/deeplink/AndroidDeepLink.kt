@@ -1,18 +1,19 @@
-package com.escodro.navigation
+package com.escodro.navigation.deeplink
 
 import android.content.Intent
 import android.net.Uri
+import com.escodro.navigation.destination.Destination
 
 /**
  * Destinations specifically for the Android platform since it requires [Intent] to navigate between
  * screens in some flows, such as notifications and widgets.
  */
-object AndroidDestinations {
+object AndroidDeepLink {
 
     /**
      * Returns the [Intent] to the home screen.
      */
-    fun homeIntent(): Intent = Intent(Intent.ACTION_VIEW, Uri.parse(HOME_DEEP_LINK))
+    fun homeIntent(): Intent = Intent(Intent.ACTION_VIEW, Uri.parse(Destination.URI))
 
     /**
      * Returns the [Intent] to the task detail screen.
@@ -20,12 +21,6 @@ object AndroidDestinations {
      * @param taskId the task id to be shown
      */
     fun taskDetail(taskId: Long): Intent = homeIntent().apply {
-        val action = NavigationAction.TaskDetail(taskId)
-        putExtra(NavigationAction.EXTRA_DESTINATION, action)
+        // TODO Add the task detail when CMP supports deep links
     }
-
-    /**
-     * Main activity's deep link.
-     */
-    private const val HOME_DEEP_LINK = "app://com.escodro.alkaa"
 }

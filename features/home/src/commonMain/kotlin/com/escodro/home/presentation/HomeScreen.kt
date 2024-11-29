@@ -23,32 +23,52 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import com.escodro.appstate.AppState
-import com.escodro.category.presentation.list.CategoryListSection
-import com.escodro.preference.presentation.PreferenceSection
-import com.escodro.search.presentation.SearchSection
-import com.escodro.task.presentation.list.TaskListSection
+import com.escodro.navigation.compose.Navigation
+import com.escodro.navigation.controller.NavEventController
+import com.escodro.navigation.destination.HomeDestination
+import com.escodro.navigation.destination.topLevelDestinations
+import com.escodro.navigation.event.HomeEvent
+import com.escodro.navigation.marker.TopLevel
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import org.jetbrains.compose.resources.stringResource
+import org.koin.compose.koinInject
 
 /**
  * Alkaa Home screen.
  */
 @Composable
 fun Home(appState: AppState) {
-    val (currentSection, setCurrentSection) = rememberSaveable { mutableStateOf(HomeSection.Tasks) }
-    val navItems = remember { HomeSection.entries.toImmutableList() }
+    HomeLoader(appState = appState)
+}
+
+@Composable
+private fun HomeLoader(
+    appState: AppState,
+    navEventController: NavEventController = koinInject(),
+) {
+    var currentSection by rememberSaveable<MutableState<TopLevel>> {
+        mutableStateOf(HomeDestination.TaskList)
+    }
+    val setCurrentSection = { section: TopLevel ->
+        navEventController.sendEvent(HomeEvent.OnTabClick(section))
+        currentSection = section
+    }
+
+    val navItems by rememberSaveable { mutableStateOf(topLevelDestinations) }
 
     AlkaaHomeScaffold(
         appState = appState,
         homeSection = currentSection,
-        navItems = navItems,
+        navItems = navItems.toImmutableList(),
         setCurrentSection = setCurrentSection,
     )
 }
@@ -57,9 +77,9 @@ fun Home(appState: AppState) {
 @Composable
 private fun AlkaaHomeScaffold(
     appState: AppState,
-    homeSection: HomeSection,
-    navItems: ImmutableList<HomeSection>,
-    setCurrentSection: (HomeSection) -> Unit,
+    homeSection: TopLevel,
+    navItems: ImmutableList<TopLevel>,
+    setCurrentSection: (TopLevel) -> Unit,
 ) {
     Scaffold(
         topBar = { AlkaaTopBar(currentSection = homeSection) },
@@ -83,7 +103,7 @@ private fun AlkaaHomeScaffold(
                     )
                 }
                 Column(Modifier.fillMaxSize()) {
-                    AlkaaContent(homeSection = homeSection, modifier = Modifier)
+                    Navigation(startDestination = HomeDestination.TaskList)
                 }
             }
         },
@@ -101,9 +121,9 @@ private fun AlkaaHomeScaffold(
 
 @Composable
 private fun AlkaaNavRail(
-    currentSection: HomeSection,
-    onSectionSelect: (HomeSection) -> Unit,
-    items: ImmutableList<HomeSection>,
+    currentSection: TopLevel,
+    onSectionSelect: (TopLevel) -> Unit,
+    items: ImmutableList<TopLevel>,
     modifier: Modifier = Modifier,
 ) {
     NavigationRail(modifier = modifier) {
@@ -127,22 +147,9 @@ private fun AlkaaNavRail(
     }
 }
 
-@Composable
-private fun AlkaaContent(
-    homeSection: HomeSection,
-    modifier: Modifier = Modifier,
-) {
-    when (homeSection) {
-        HomeSection.Tasks -> TaskListSection(modifier = modifier)
-        HomeSection.Search -> SearchSection(modifier = modifier)
-        HomeSection.Categories -> CategoryListSection(modifier = modifier)
-        HomeSection.Settings -> PreferenceSection(modifier = modifier)
-    }
-}
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun AlkaaTopBar(currentSection: HomeSection) {
+private fun AlkaaTopBar(currentSection: TopLevel) {
     CenterAlignedTopAppBar(
         title = {
             Text(
@@ -156,9 +163,9 @@ private fun AlkaaTopBar(currentSection: HomeSection) {
 
 @Composable
 private fun AlkaaBottomNav(
-    currentSection: HomeSection,
-    onSectionSelect: (HomeSection) -> Unit,
-    items: ImmutableList<HomeSection>,
+    currentSection: TopLevel,
+    onSectionSelect: (TopLevel) -> Unit,
+    items: ImmutableList<TopLevel>,
 ) {
     BottomAppBar(containerColor = MaterialTheme.colorScheme.background) {
         items.forEach { section ->

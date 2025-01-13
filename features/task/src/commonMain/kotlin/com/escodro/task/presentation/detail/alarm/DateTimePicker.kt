@@ -20,15 +20,18 @@ import com.escodro.resources.dialog_picker_next
 import kotlinx.datetime.Clock
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.Instant
+import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.plus
+import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
 import org.jetbrains.compose.resources.stringResource
 
 /**
  * Composable to show a date and time picker.
  *
+ * @param initialDateTime a pre-existing value set by user
  * @param isDialogOpen if the dialog should be open
  * @param onCloseDialog callback called when the dialog is closed
  * @param onDateChange callback called when the date is changed
@@ -36,24 +39,26 @@ import org.jetbrains.compose.resources.stringResource
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DateTimerPicker(
+    initialDateTime: LocalDateTime?,
     isDialogOpen: Boolean,
     onCloseDialog: () -> Unit,
     onDateChange: (LocalDateTime) -> Unit,
 ) {
     val now = Clock.System.now()
-    val displayTime = now
+    val displayTime = initialDateTime ?: now
         .plus(
             value = 1,
             unit = DateTimeUnit.HOUR,
             timeZone = TimeZone.currentSystemDefault(),
         ).toLocalDateTime(TimeZone.currentSystemDefault())
 
+    val initialSelectedDate = initialDateTime?.toInstant(TimeZone.currentSystemDefault()) ?: now
     val datePickerState = rememberDatePickerState(
-        initialSelectedDateMillis = now.toEpochMilliseconds(),
+        initialSelectedDateMillis = initialSelectedDate.toEpochMilliseconds(),
     )
     val timePickerState = rememberTimePickerState(
         initialHour = displayTime.hour,
-        initialMinute = 0,
+        initialMinute = displayTime.minute,
     )
     var dialogState by remember(isDialogOpen) { mutableStateOf(DateTimePickerState.DATE) }
 

@@ -13,12 +13,25 @@ plugins {
 android {
     defaultConfig {
         applicationId = "com.escodro.alkaa"
-        versionCode = Integer.parseInt(libs.versions.version.code.get())
-        versionName = libs.versions.version.name.get()
+        versionCode = Integer.parseInt(
+            libs.versions.version.code
+                .get(),
+        )
+        versionName = libs.versions.version.name
+            .get()
 
-        compileSdk = Integer.parseInt(libs.versions.android.sdk.compile.get())
-        minSdk = Integer.parseInt(libs.versions.android.sdk.min.get())
-        targetSdk = Integer.parseInt(libs.versions.android.sdk.target.get())
+        compileSdk = Integer.parseInt(
+            libs.versions.android.sdk.compile
+                .get(),
+        )
+        minSdk = Integer.parseInt(
+            libs.versions.android.sdk.min
+                .get(),
+        )
+        targetSdk = Integer.parseInt(
+            libs.versions.android.sdk.target
+                .get(),
+        )
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         setProperty("archivesBaseName", "${parent?.name}-$versionName")
@@ -48,8 +61,11 @@ android {
         htmlReport = true
         checkDependencies = true
 
-        lintConfig = file("${rootDir}/config/filters/lint.xml")
-        htmlOutput = layout.buildDirectory.file("reports/lint.html").get().asFile
+        lintConfig = file("$rootDir/config/filters/lint.xml")
+        htmlOutput = layout.buildDirectory
+            .file("reports/lint.html")
+            .get()
+            .asFile
 
         project.tasks.check.dependsOn("lint")
     }
@@ -64,7 +80,6 @@ android {
     buildFeatures {
         compose = true
     }
-
 
     packaging {
         resources.excludes.apply {
@@ -83,13 +98,13 @@ android {
                         device = "Pixel 2"
                         apiLevel = 27
                         systemImageSource = "aosp"
-                    }
+                    },
                 )
             }
             groups {
                 create("alkaaDevices").apply {
                     targetDevices.addAll(
-                        listOf(devices.getByName("pixel2api27"))
+                        listOf(devices.getByName("pixel2api27")),
                     )
                 }
                 unitTests.isReturnDefaultValues = true

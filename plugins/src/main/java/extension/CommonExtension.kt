@@ -5,7 +5,6 @@ import com.android.build.api.dsl.LibraryExtension
 import org.gradle.api.artifacts.VersionCatalog
 
 fun CommonExtension<*, *, *, *, *, *>.androidConfig(libs: VersionCatalog) {
-
     defaultConfig {
         compileSdk = Integer.parseInt(libs.sdkCompile)
         minSdk = Integer.parseInt(libs.sdkMin)

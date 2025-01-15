@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Alarm
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -46,7 +45,7 @@ internal fun AlarmSelection(
 
     // Date Time Picker dialog
     DateTimerPicker(
-        initialDateTime=  alarmSelectionState.date,
+        initialDateTime = alarmSelectionState.date,
         isDialogOpen = alarmSelectionState.showDateTimePickerDialog,
         onCloseDialog = { alarmSelectionState.showDateTimePickerDialog = false },
         onDateChange = { dateTime ->

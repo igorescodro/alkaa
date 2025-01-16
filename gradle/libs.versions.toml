@@ -45,7 +45,7 @@ compose_windowsizeclass = "0.5.0"
 koin_core = "4.0.0"
 koin_test = "4.0.0"
 koin_android = "4.0.0"
-koin_compose_jb = "4.0.0"
+koin_compose_jb = "4.0.1"
 
 # SQLDelight
 sqldelight = "2.0.2"

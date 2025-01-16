@@ -16,10 +16,14 @@ tasks {
         description = "Check Kotlin code style."
         classpath = ktlint
         mainClass.set("com.pinterest.ktlint.Main")
-        val buildDir = layout.buildDirectory.get().asFile.path
+        val buildDir = layout.buildDirectory
+            .get()
+            .asFile.path
         args(
-            "src/**/*.kt", "--reporter=plain", "--reporter=checkstyle," +
-                "output=${buildDir}/reports/ktlint.xml"
+            "src/**/*.kt",
+            "--reporter=plain",
+            "--reporter=checkstyle," +
+                "output=$buildDir/reports/ktlint.xml",
         )
     }
 

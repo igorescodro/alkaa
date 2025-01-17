@@ -67,7 +67,7 @@ test_junit4_android = "1.7.6"
 test_manifest = "1.7.6"
 
 # Quality
-ktlint = "1.4.1"
+ktlint = "1.5.0"
 detekt = "1.23.7"
 composerules = "0.4.22"
 

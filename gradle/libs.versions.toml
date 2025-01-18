@@ -54,9 +54,6 @@ sqldelight = "2.0.2"
 moko = "0.16.1"
 moko_permissions = "0.18.1"
 
-# AtomicFU
-atomicfu = "0.24.0"
-
 # Voyager
 voyager = "1.1.0-beta02"
 
@@ -78,7 +75,6 @@ aboutlibraries = "11.2.3"
 # Project
 android_gradle_plugin = { module = "com.android.tools.build:gradle", version.ref = "android_gradle_plugin" }
 kotlin_gradle_plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
-kotlin_atomicfu = { module = "org.jetbrains.kotlinx:atomicfu-gradle-plugin", version.ref = "atomicfu" }
 
 # General dependencies
 logging = { module = "io.github.microutils:kotlin-logging", version.ref = "logging" }

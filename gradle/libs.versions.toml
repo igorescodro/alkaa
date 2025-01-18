@@ -55,7 +55,7 @@ moko = "0.16.1"
 moko_permissions = "0.18.1"
 
 # Voyager
-voyager = "1.1.0-beta02"
+voyager = "1.1.0-beta03"
 
 # Test
 test_junit = "4.13.2"

@@ -30,6 +30,7 @@ import com.escodro.resources.task_add_label
 import com.escodro.resources.task_add_save
 import com.escodro.task.model.AlarmInterval
 import com.escodro.task.presentation.category.CategorySelection
+import com.escodro.task.presentation.compose.saver.LocalDateTimeSaver
 import com.escodro.task.presentation.detail.alarm.AlarmSelection
 import com.escodro.task.presentation.detail.main.CategoryId
 import kotlinx.coroutines.delay
@@ -53,7 +54,9 @@ internal fun AddTaskBottomSheet(
         verticalArrangement = Arrangement.SpaceAround,
     ) {
         var taskInputText: String by rememberSaveable { mutableStateOf("") }
-        var taskDueDate: LocalDateTime? by rememberSaveable { mutableStateOf(null) }
+        var taskDueDate: LocalDateTime? by rememberSaveable(stateSaver = LocalDateTimeSaver) {
+            mutableStateOf(null)
+        }
         var alarmInterval: AlarmInterval by rememberSaveable { mutableStateOf(AlarmInterval.NEVER) }
         val categoryState by remember(categoryViewModel) {
             categoryViewModel

@@ -49,13 +49,18 @@ private fun NavigationLoader(
 
                 is TopLevel -> {
                     navHostController.navigate(destination) {
-                        popUpTo(navHostController.graph.findStartDestination().id)
+                        popUpTo(navHostController.graph.findStartDestination().route ?: "") {
+                            saveState = true
+                        }
                         launchSingleTop = true
+                        restoreState = true
                     }
                 }
 
                 else -> {
-                    navHostController.navigate(destination)
+                    navHostController.navigate(destination) {
+                        launchSingleTop = true
+                    }
                 }
             }
         }

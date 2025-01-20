@@ -3,6 +3,7 @@ package com.escodro.alkaa.test
 import androidx.compose.ui.test.ComposeUiTest
 import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.runComposeUiTest
+import androidx.navigation.compose.rememberNavController
 import com.escodro.alarm.notification.NotificationScheduler
 import com.escodro.alarm.notification.TaskNotification
 import com.escodro.alkaa.fake.AppStateFake
@@ -46,8 +47,12 @@ fun afterTest() {
 @OptIn(ExperimentalTestApi::class)
 fun uiTest(block: ComposeUiTest.() -> Unit) = runComposeUiTest {
     setContent {
-        KoinContext { AlkaaMultiplatformApp(appState = AppStateFake()) }
+        val navHostController = rememberNavController()
+        KoinContext {
+            AlkaaMultiplatformApp(appState = AppStateFake(navHostController = navHostController))
+        }
     }
+
     block()
 }
 

@@ -1,8 +1,8 @@
 package com.escodro.navigation.controller
 
 import com.escodro.coroutines.AppCoroutineScope
-import com.escodro.navigation.destination.Destination
 import com.escodro.navigation.event.Event
+import com.escodro.navigationapi.destination.Destination
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow

@@ -1,4 +1,4 @@
-package com.escodro.navigation.destination
+package com.escodro.navigationapi.destination
 
 import kotlinx.serialization.Serializable
 

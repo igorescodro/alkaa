@@ -6,12 +6,12 @@ import androidx.navigation.compose.dialog
 import androidx.navigation.navDeepLink
 import androidx.navigation.toRoute
 import com.escodro.navigation.controller.NavEventController
-import com.escodro.navigation.destination.Destination
-import com.escodro.navigation.destination.HomeDestination
-import com.escodro.navigation.destination.TasksDestination
 import com.escodro.navigation.event.Event
 import com.escodro.navigation.event.TaskEvent
 import com.escodro.navigation.provider.NavGraph
+import com.escodro.navigationapi.destination.Destination
+import com.escodro.navigationapi.destination.HomeDestination
+import com.escodro.navigationapi.destination.TasksDestination
 import com.escodro.task.presentation.add.AddTaskBottomSheet
 import com.escodro.task.presentation.detail.main.TaskDetailScreen
 import com.escodro.task.presentation.list.TaskListSection

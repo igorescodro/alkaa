@@ -1,4 +1,4 @@
-package com.escodro.navigation.destination
+package com.escodro.navigationapi.destination
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Bookmark
@@ -6,7 +6,7 @@ import androidx.compose.material.icons.outlined.Check
 import androidx.compose.material.icons.outlined.MoreHoriz
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.ui.graphics.vector.ImageVector
-import com.escodro.navigation.marker.TopLevel
+import com.escodro.navigationapi.marker.TopLevel
 import com.escodro.parcelable.CommonParcelize
 import com.escodro.resources.Res
 import com.escodro.resources.home_title_categories

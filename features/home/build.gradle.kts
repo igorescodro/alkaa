@@ -19,6 +19,7 @@ kotlin {
             implementation(projects.features.search)
             implementation(projects.features.preference)
             implementation(projects.libraries.navigation)
+            implementation(projects.libraries.navigationApi)
             implementation(projects.libraries.appstate)
             implementation(projects.libraries.parcelable)
 

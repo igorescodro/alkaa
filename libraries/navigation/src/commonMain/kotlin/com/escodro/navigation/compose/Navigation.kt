@@ -6,7 +6,6 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.rememberNavController
 import com.escodro.navigation.controller.NavEventController
 import com.escodro.navigation.provider.NavGraphProvider
 import com.escodro.navigationapi.destination.Destination
@@ -18,8 +17,8 @@ import org.koin.compose.koinInject
 @Composable
 fun Navigation(
     startDestination: Destination,
+    navHostController: NavHostController,
     modifier: Modifier = Modifier,
-    navHostController: NavHostController = rememberNavController(),
 ) {
     NavigationLoader(
         startDestination = startDestination,

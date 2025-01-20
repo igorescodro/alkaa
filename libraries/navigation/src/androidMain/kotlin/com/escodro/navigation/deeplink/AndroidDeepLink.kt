@@ -2,7 +2,7 @@ package com.escodro.navigation.deeplink
 
 import android.content.Intent
 import android.net.Uri
-import com.escodro.navigation.destination.Destination
+import com.escodro.navigationapi.destination.Destination
 
 /**
  * Destinations specifically for the Android platform since it requires [Intent] to navigate between

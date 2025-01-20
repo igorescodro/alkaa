@@ -1,4 +1,4 @@
-package com.escodro.navigation.marker
+package com.escodro.navigationapi.marker
 
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.escodro.parcelable.CommonParcelable

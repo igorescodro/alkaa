@@ -8,9 +8,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.escodro.navigation.controller.NavEventController
-import com.escodro.navigation.destination.Destination
-import com.escodro.navigation.marker.TopLevel
 import com.escodro.navigation.provider.NavGraphProvider
+import com.escodro.navigationapi.destination.Destination
+import com.escodro.navigationapi.marker.TopLevel
 import com.escodro.permission.PermissionsControllerWrapper
 import dev.icerock.moko.permissions.compose.BindEffect
 import org.koin.compose.koinInject

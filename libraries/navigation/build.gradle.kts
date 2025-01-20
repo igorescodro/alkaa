@@ -5,6 +5,7 @@ plugins {
     id("com.escodro.kotlin-parcelable")
     alias(libs.plugins.compose)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 kotlin {
@@ -12,12 +13,23 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
+            implementation(projects.libraries.navigationApi)
             implementation(projects.libraries.parcelable)
+            implementation(projects.libraries.coroutines)
+            implementation(projects.libraries.appstate)
+            implementation(projects.libraries.permission)
+            implementation(projects.resources)
+
             implementation(compose.runtime)
             implementation(compose.material)
+            implementation(compose.components.resources)
+            implementation(compose.materialIconsExtended)
 
-            api(libs.voyager.navigator)
-            api(libs.voyager.bottomsheet)
+            implementation(libs.koin.compose.jb)
+
+            api(libs.compose.navigation)
+
+            implementation(libs.kotlinx.serialization)
         }
     }
 }

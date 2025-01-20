@@ -1,16 +1,16 @@
 package com.escodro.alarm.notification
 
 import android.app.PendingIntent
-import android.app.TaskStackBuilder
 import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationCompat
+import androidx.core.net.toUri
 import com.escodro.alarm.R
 import com.escodro.alarm.extension.getNotificationManager
 import com.escodro.alarm.model.Task
 import com.escodro.alarm.receiver.TaskNotificationReceiver
 import com.escodro.coroutines.AppCoroutineScope
-import com.escodro.navigation.AndroidDestinations
+import com.escodro.navigationapi.destination.Destination
 import com.escodro.resources.Res
 import com.escodro.resources.content_app_name
 import com.escodro.resources.notification_action_completed
@@ -87,14 +87,19 @@ internal class AndroidTaskNotification(
         }
     }
 
-    private fun buildPendingIntent(taskId: Long): PendingIntent =
-        TaskStackBuilder.create(context).run {
-            addNextIntentWithParentStack(AndroidDestinations.taskDetail(taskId))
-            getPendingIntent(
-                REQUEST_CODE_OPEN_TASK,
-                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
-            )
-        }
+    private fun buildPendingIntent(taskId: Long): PendingIntent {
+        val deepLinkIntent = Intent(
+            Intent.ACTION_VIEW,
+            "${Destination.URI}/task/$taskId".toUri(),
+        )
+
+        return PendingIntent.getActivity(
+            context,
+            0,
+            deepLinkIntent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
+        )
+    }
 
     private suspend fun getCompleteAction(task: Task): NotificationCompat.Action {
         val actionTitle = getString(Res.string.notification_action_completed)

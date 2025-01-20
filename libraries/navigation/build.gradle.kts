@@ -13,11 +13,11 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
+            implementation(projects.libraries.navigationApi)
             implementation(projects.libraries.parcelable)
             implementation(projects.libraries.coroutines)
             implementation(projects.libraries.appstate)
             implementation(projects.libraries.permission)
-            implementation(projects.libraries.parcelable)
             implementation(projects.resources)
 
             implementation(compose.runtime)

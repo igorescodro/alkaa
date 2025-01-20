@@ -10,7 +10,7 @@ import com.escodro.alarm.extension.getNotificationManager
 import com.escodro.alarm.model.Task
 import com.escodro.alarm.receiver.TaskNotificationReceiver
 import com.escodro.coroutines.AppCoroutineScope
-import com.escodro.navigation.destination.Destination
+import com.escodro.navigationapi.destination.Destination
 import com.escodro.resources.Res
 import com.escodro.resources.content_app_name
 import com.escodro.resources.notification_action_completed

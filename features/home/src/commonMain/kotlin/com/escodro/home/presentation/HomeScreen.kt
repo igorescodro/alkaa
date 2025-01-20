@@ -33,10 +33,10 @@ import androidx.compose.ui.text.font.FontWeight
 import com.escodro.appstate.AppState
 import com.escodro.navigation.compose.Navigation
 import com.escodro.navigation.controller.NavEventController
-import com.escodro.navigation.destination.HomeDestination
-import com.escodro.navigation.destination.topLevelDestinations
 import com.escodro.navigation.event.HomeEvent
-import com.escodro.navigation.marker.TopLevel
+import com.escodro.navigationapi.destination.HomeDestination
+import com.escodro.navigationapi.destination.topLevelDestinations
+import com.escodro.navigationapi.marker.TopLevel
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import org.jetbrains.compose.resources.stringResource

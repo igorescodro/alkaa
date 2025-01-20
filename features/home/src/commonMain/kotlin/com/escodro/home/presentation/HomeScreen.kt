@@ -23,13 +23,12 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.escodro.appstate.AppState
 import com.escodro.navigation.compose.Navigation
 import com.escodro.navigation.controller.NavEventController
@@ -55,20 +54,17 @@ private fun HomeLoader(
     appState: AppState,
     navEventController: NavEventController = koinInject(),
 ) {
-    var currentSection by rememberSaveable<MutableState<TopLevel>> {
-        mutableStateOf(HomeDestination.TaskList)
-    }
+    val currentSection by appState.currentTopDestination
+        .collectAsStateWithLifecycle(HomeDestination.TaskList)
+    val navItems by rememberSaveable { mutableStateOf(topLevelDestinations) }
     val setCurrentSection = { section: TopLevel ->
         navEventController.sendEvent(HomeEvent.OnTabClick(section))
-        currentSection = section
     }
-
-    val navItems by rememberSaveable { mutableStateOf(topLevelDestinations) }
 
     AlkaaHomeScaffold(
         appState = appState,
-        homeSection = currentSection,
         navItems = navItems.toImmutableList(),
+        currentSection = currentSection,
         setCurrentSection = setCurrentSection,
     )
 }
@@ -77,12 +73,12 @@ private fun HomeLoader(
 @Composable
 private fun AlkaaHomeScaffold(
     appState: AppState,
-    homeSection: TopLevel,
     navItems: ImmutableList<TopLevel>,
+    currentSection: TopLevel,
     setCurrentSection: (TopLevel) -> Unit,
 ) {
     Scaffold(
-        topBar = { AlkaaTopBar(currentSection = homeSection) },
+        topBar = { AlkaaTopBar(currentSection = currentSection) },
         contentWindowInsets = WindowInsets(0, 0, 0, 0),
         content = { paddingValues ->
             Row(
@@ -96,21 +92,24 @@ private fun AlkaaHomeScaffold(
             ) {
                 if (appState.shouldShowNavRail) {
                     AlkaaNavRail(
-                        currentSection = homeSection,
+                        currentSection = currentSection,
                         onSectionSelect = setCurrentSection,
                         items = navItems,
                         modifier = Modifier.consumeWindowInsets(paddingValues),
                     )
                 }
                 Column(Modifier.fillMaxSize()) {
-                    Navigation(startDestination = HomeDestination.TaskList)
+                    Navigation(
+                        startDestination = HomeDestination.TaskList,
+                        navHostController = appState.navHostController,
+                    )
                 }
             }
         },
         bottomBar = {
             if (appState.shouldShowBottomBar) {
                 AlkaaBottomNav(
-                    currentSection = homeSection,
+                    currentSection = currentSection,
                     onSectionSelect = setCurrentSection,
                     items = navItems,
                 )

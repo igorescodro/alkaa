@@ -33,6 +33,7 @@ kotlin {
             implementation(projects.data.repository)
             implementation(projects.domain)
             implementation(projects.libraries.navigation)
+            implementation(projects.libraries.navigationApi)
             implementation(projects.libraries.coroutines)
             implementation(projects.libraries.designsystem)
             implementation(projects.libraries.di)

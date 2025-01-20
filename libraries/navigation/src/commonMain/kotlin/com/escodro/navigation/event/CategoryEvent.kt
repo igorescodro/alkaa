@@ -1,7 +1,7 @@
 package com.escodro.navigation.event
 
-import com.escodro.navigation.destination.CategoryDestination
-import com.escodro.navigation.destination.Destination
+import com.escodro.navigationapi.destination.CategoryDestination
+import com.escodro.navigationapi.destination.Destination
 
 object CategoryEvent {
 

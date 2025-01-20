@@ -1,8 +1,8 @@
 package com.escodro.navigation.event
 
-import com.escodro.navigation.destination.Destination
-import com.escodro.navigation.destination.HomeDestination
-import com.escodro.navigation.marker.TopLevel
+import com.escodro.navigationapi.destination.Destination
+import com.escodro.navigationapi.destination.HomeDestination
+import com.escodro.navigationapi.marker.TopLevel
 import kotlinx.serialization.Serializable
 
 object HomeEvent {

@@ -1,7 +1,7 @@
 package com.escodro.navigation.event
 
-import com.escodro.navigation.destination.Destination
-import com.escodro.navigation.destination.TasksDestination
+import com.escodro.navigationapi.destination.Destination
+import com.escodro.navigationapi.destination.TasksDestination
 
 object TaskEvent {
 

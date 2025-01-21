@@ -1,5 +1,23 @@
 {
   "extends": [
     "config:base"
+  ],
+  "automerge": true,
+  "automergeType": "pr",
+  "platformAutomerge": true,
+  "requiredApproval": true,
+  "restrictedAdminApprovals": true,
+  "branchConcurrentLimit": 5,
+  "prConcurrentLimit": 5,
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["patch", "minor"],
+      "automerge": true,
+      "requiredApproval": true
+    },
+    {
+      "matchUpdateTypes": ["major"],
+      "automerge": false
+    }
   ]
 }

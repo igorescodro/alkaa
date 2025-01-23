@@ -82,6 +82,9 @@ android {
     }
 
     packaging {
+        resources.pickFirsts.apply {
+            add("META-INF/INDEX.LIST")
+        }
         resources.excludes.apply {
             add("META-INF/AL2.0")
             add("META-INF/LGPL2.1")

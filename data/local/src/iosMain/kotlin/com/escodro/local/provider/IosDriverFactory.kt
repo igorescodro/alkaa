@@ -13,7 +13,6 @@ import platform.Foundation.NSFileManager
 import platform.Foundation.NSLibraryDirectory
 import platform.Foundation.NSURL
 import platform.Foundation.NSUserDomainMask
-import platform.Foundation.URLByAppendingPathComponent
 import platform.UIKit.UIColor
 
 internal class IosDriverFactory : DriverFactory {

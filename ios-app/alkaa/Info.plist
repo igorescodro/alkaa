@@ -17,5 +17,6 @@
 	<string>Permission used by third-party libraries</string>
 	<key>NSMotionUsageDescription</key>
 	<string>Permission used by third-party libraries</string>
+	<key>CADisableMinimumFrameDurationOnPhone</key><true/>
 </dict>
 </plist>

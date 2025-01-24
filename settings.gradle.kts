@@ -20,6 +20,8 @@ include(":libraries:navigation")
 include(":libraries:di")
 include(":libraries:appstate")
 include(":libraries:parcelable")
+include(":libraries:permission")
+
 
 include(":domain")
 include(":shared")

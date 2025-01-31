@@ -17,9 +17,12 @@ include(":libraries:android-test")
 include(":libraries:splitInstall")
 include(":libraries:designsystem")
 include(":libraries:navigation")
+include(":libraries:navigation-api")
 include(":libraries:di")
 include(":libraries:appstate")
 include(":libraries:parcelable")
+include(":libraries:permission")
+
 
 include(":domain")
 include(":shared")

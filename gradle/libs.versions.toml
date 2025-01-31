@@ -40,6 +40,7 @@ compose_bom = "2025.01.01"
 compose_activity = "1.10.0"
 compose_compiler = "1.7.0"
 compose_windowsizeclass = "0.5.0"
+compose_navigation = "2.8.0-alpha12"
 
 # Koin
 koin_core = "4.0.2"
@@ -53,9 +54,6 @@ sqldelight = "2.0.2"
 # Moko
 moko = "0.16.1"
 moko_permissions = "0.18.1"
-
-# Voyager
-voyager = "1.1.0-beta02"
 
 # Test
 test_junit = "4.13.2"
@@ -107,6 +105,7 @@ compose_ui = { module = "androidx.compose.ui:ui" }
 compose_icons = { module = "androidx.compose.material:material-icons-extended" }
 compose_material3 = { module = "androidx.compose.material3:material3" }
 compose_windowsizeclass = { module = "dev.chrisbanes.material3:material3-window-size-class-multiplatform", version.ref = "compose_windowsizeclass" }
+compose_navigation = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "compose_navigation" }
 
 # Dynamic Feature don't recognize BOM
 compose_activity = { module = "androidx.activity:activity-compose", version.ref = "compose_activity" }
@@ -126,10 +125,6 @@ sqldelight_coroutines = { module = "app.cash.sqldelight:coroutines-extensions", 
 moko_mvvm_core = { module = "dev.icerock.moko:mvvm-core", version.ref = "moko" }
 moko_mvvm_compose = { module = "dev.icerock.moko:mvvm-flow-compose", version.ref = "moko" }
 moko_permissions_compose = { module = "dev.icerock.moko:permissions-compose", version.ref = "moko_permissions" }
-
-# Voyager
-voyager_navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager" }
-voyager_bottomsheet = { module = "cafe.adriel.voyager:voyager-bottom-sheet-navigator", version.ref = "voyager" }
 
 # Test
 test_junit = { module = "junit:junit", version.ref = "test_junit" }

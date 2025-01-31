@@ -1,9 +1,12 @@
 package com.escodro.search.di
 
 import com.escodro.di.viewModelDefinition
+import com.escodro.navigation.provider.NavGraph
 import com.escodro.search.mapper.TaskSearchMapper
+import com.escodro.search.navigation.SearchNavGraph
 import com.escodro.search.presentation.SearchViewModel
 import org.koin.core.module.dsl.factoryOf
+import org.koin.dsl.bind
 import org.koin.dsl.module
 
 /**
@@ -16,4 +19,7 @@ val searchModule = module {
 
     // Mappers
     factoryOf(::TaskSearchMapper)
+
+    // Navigation
+    factoryOf(::SearchNavGraph) bind NavGraph::class
 }

@@ -9,11 +9,11 @@ import androidx.compose.runtime.remember
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.escodro.navigationapi.destination.HomeDestination
 import com.escodro.navigationapi.destination.topLevelDestinations
 import com.escodro.navigationapi.marker.TopLevel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.mapLatest
 
 /**
@@ -45,8 +45,7 @@ data class AlkaaAppState(
             .mapLatest { navBackStackEntry ->
                 val currentDestination = navBackStackEntry.destination
                 topLevelDestinations.find { currentDestination.hasRoute(it::class) }
-                    ?: HomeDestination.TaskList
-            }
+            }.filterNotNull()
 }
 
 interface AppState {

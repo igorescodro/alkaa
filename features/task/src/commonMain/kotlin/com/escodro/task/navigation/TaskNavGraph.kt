@@ -9,13 +9,13 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.dialog
 import androidx.navigation.navDeepLink
 import androidx.navigation.toRoute
-import com.escodro.navigation.controller.NavEventController
-import com.escodro.navigation.event.Event
-import com.escodro.navigation.event.TaskEvent
-import com.escodro.navigation.provider.NavGraph
+import com.escodro.navigationapi.controller.NavEventController
 import com.escodro.navigationapi.destination.Destination
 import com.escodro.navigationapi.destination.HomeDestination
 import com.escodro.navigationapi.destination.TasksDestination
+import com.escodro.navigationapi.event.Event
+import com.escodro.navigationapi.event.TaskEvent
+import com.escodro.navigationapi.provider.NavGraph
 import com.escodro.task.presentation.add.AddTaskBottomSheet
 import com.escodro.task.presentation.detail.main.TaskDetailScreen
 import com.escodro.task.presentation.list.TaskListSection

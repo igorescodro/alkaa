@@ -6,12 +6,12 @@ import androidx.navigation.compose.dialog
 import androidx.navigation.toRoute
 import com.escodro.category.presentation.bottomsheet.CategoryBottomSheet
 import com.escodro.category.presentation.list.CategoryListSection
-import com.escodro.navigation.controller.NavEventController
-import com.escodro.navigation.event.CategoryEvent
-import com.escodro.navigation.event.Event
-import com.escodro.navigation.provider.NavGraph
+import com.escodro.navigationapi.controller.NavEventController
 import com.escodro.navigationapi.destination.CategoryDestination
 import com.escodro.navigationapi.destination.HomeDestination
+import com.escodro.navigationapi.event.CategoryEvent
+import com.escodro.navigationapi.event.Event
+import com.escodro.navigationapi.provider.NavGraph
 
 internal class CategoryNavGraph : NavGraph {
 

@@ -1,7 +1,7 @@
 package com.escodro.task.di
 
 import com.escodro.di.viewModelDefinition
-import com.escodro.navigation.provider.NavGraph
+import com.escodro.navigationapi.provider.NavGraph
 import com.escodro.task.mapper.AlarmIntervalMapper
 import com.escodro.task.mapper.CategoryMapper
 import com.escodro.task.mapper.TaskMapper

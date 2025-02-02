@@ -2,12 +2,12 @@ package com.escodro.preference.navigation
 
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.escodro.navigation.controller.NavEventController
-import com.escodro.navigation.event.Event
-import com.escodro.navigation.event.PreferenceEvent
-import com.escodro.navigation.provider.NavGraph
+import com.escodro.navigationapi.controller.NavEventController
 import com.escodro.navigationapi.destination.HomeDestination
 import com.escodro.navigationapi.destination.PreferenceDestination
+import com.escodro.navigationapi.event.Event
+import com.escodro.navigationapi.event.PreferenceEvent
+import com.escodro.navigationapi.provider.NavGraph
 import com.escodro.preference.presentation.AboutScreen
 import com.escodro.preference.presentation.OpenSource
 import com.escodro.preference.presentation.PreferenceSection

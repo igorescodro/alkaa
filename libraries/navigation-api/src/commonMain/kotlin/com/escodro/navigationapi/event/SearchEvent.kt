@@ -1,4 +1,4 @@
-package com.escodro.navigation.event
+package com.escodro.navigationapi.event
 
 import com.escodro.navigationapi.destination.Destination
 import com.escodro.navigationapi.destination.TasksDestination

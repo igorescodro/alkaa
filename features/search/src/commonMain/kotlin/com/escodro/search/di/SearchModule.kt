@@ -1,7 +1,7 @@
 package com.escodro.search.di
 
 import com.escodro.di.viewModelDefinition
-import com.escodro.navigation.provider.NavGraph
+import com.escodro.navigationapi.provider.NavGraph
 import com.escodro.search.mapper.TaskSearchMapper
 import com.escodro.search.navigation.SearchNavGraph
 import com.escodro.search.presentation.SearchViewModel

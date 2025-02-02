@@ -1,8 +1,9 @@
 package com.escodro.navigation.controller
 
 import com.escodro.coroutines.AppCoroutineScope
-import com.escodro.navigation.event.Event
+import com.escodro.navigationapi.controller.NavEventController
 import com.escodro.navigationapi.destination.Destination
+import com.escodro.navigationapi.event.Event
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -10,11 +11,13 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.shareIn
 
-class NavEventController(private val appCoroutineScope: AppCoroutineScope) {
+internal class NavEventControllerImpl(
+    private val appCoroutineScope: AppCoroutineScope,
+) : NavEventController {
 
     private val navigationEventState: MutableSharedFlow<Event> = MutableSharedFlow()
 
-    val destinationState: SharedFlow<Destination> =
+    override val destinationState: SharedFlow<Destination> =
         navigationEventState
             .map { event ->
                 event.nextDestination()
@@ -23,7 +26,7 @@ class NavEventController(private val appCoroutineScope: AppCoroutineScope) {
                 started = SharingStarted.WhileSubscribed(),
             )
 
-    fun sendEvent(event: Event) {
+    override fun sendEvent(event: Event) {
         appCoroutineScope.launch {
             navigationEventState.emit(event)
         }

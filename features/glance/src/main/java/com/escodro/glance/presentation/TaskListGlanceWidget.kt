@@ -43,7 +43,7 @@ import androidx.glance.text.TextStyle
 import com.escodro.glance.R
 import com.escodro.glance.data.TaskListStateDefinition
 import com.escodro.glance.model.Task
-import com.escodro.navigation.deeplink.AndroidDeepLink
+import com.escodro.navigationapi.deeplink.AndroidDeepLink
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 

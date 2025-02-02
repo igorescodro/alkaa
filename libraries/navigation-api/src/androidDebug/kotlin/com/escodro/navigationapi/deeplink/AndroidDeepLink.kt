@@ -1,4 +1,4 @@
-package com.escodro.navigation.deeplink
+package com.escodro.navigationapi.deeplink
 
 import android.content.Intent
 import android.net.Uri

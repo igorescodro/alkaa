@@ -6,8 +6,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import com.escodro.navigation.controller.NavEventController
 import com.escodro.navigation.provider.NavGraphProvider
+import com.escodro.navigationapi.controller.NavEventController
 import com.escodro.navigationapi.destination.Destination
 import com.escodro.navigationapi.marker.TopLevel
 import com.escodro.permission.PermissionsControllerWrapper

@@ -40,10 +40,10 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.escodro.appstate.AppState
 import com.escodro.navigation.compose.Navigation
-import com.escodro.navigation.controller.NavEventController
-import com.escodro.navigation.event.HomeEvent
+import com.escodro.navigationapi.controller.NavEventController
 import com.escodro.navigationapi.destination.HomeDestination
 import com.escodro.navigationapi.destination.TopLevelDestinations
+import com.escodro.navigationapi.event.HomeEvent
 import com.escodro.navigationapi.marker.TopLevel
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList

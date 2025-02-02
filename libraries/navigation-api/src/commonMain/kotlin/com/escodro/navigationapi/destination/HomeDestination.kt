@@ -46,11 +46,3 @@ object HomeDestination {
         override val icon: ImageVector = Icons.Outlined.MoreHoriz
     }
 }
-
-val topLevelDestinations: List<TopLevel>
-    get() = listOf(
-        HomeDestination.TaskList,
-        HomeDestination.Search,
-        HomeDestination.CategoryList,
-        HomeDestination.Preferences,
-    )

@@ -9,7 +9,8 @@ import androidx.compose.runtime.remember
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.escodro.navigationapi.destination.topLevelDestinations
+import com.escodro.navigationapi.destination.TopAppBarVisibleDestinations
+import com.escodro.navigationapi.destination.TopLevelDestinations
 import com.escodro.navigationapi.marker.TopLevel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
@@ -44,8 +45,16 @@ data class AlkaaAppState(
         navHostController.currentBackStackEntryFlow
             .mapLatest { navBackStackEntry ->
                 val currentDestination = navBackStackEntry.destination
-                topLevelDestinations.find { currentDestination.hasRoute(it::class) }
+                TopLevelDestinations.find { currentDestination.hasRoute(it::class) }
             }.filterNotNull()
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    override val shouldShowTopAppBar: Flow<Boolean> =
+        navHostController.currentBackStackEntryFlow
+            .mapLatest { navBackStackEntry ->
+                val currentDestination = navBackStackEntry.destination
+                TopAppBarVisibleDestinations.any { currentDestination.hasRoute(it::class) }
+            }
 }
 
 interface AppState {
@@ -60,9 +69,20 @@ interface AppState {
      */
     val shouldShowNavRail: Boolean
 
+    /**
+     * The [NavHostController] used to navigate between destinations.
+     */
     val navHostController: NavHostController
 
+    /**
+     * The current top level destination.
+     */
     val currentTopDestination: Flow<TopLevel>
+
+    /**
+     * Verifies if the top app bar should be shown.
+     */
+    val shouldShowTopAppBar: Flow<Boolean>
 }
 
 /**

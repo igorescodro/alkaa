@@ -1,9 +1,17 @@
 package com.escodro.home.presentation
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
+import androidx.compose.foundation.layout.calculateEndPadding
+import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.only
@@ -21,20 +29,21 @@ import androidx.compose.material3.NavigationRailItem
 import androidx.compose.material3.NavigationRailItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.escodro.appstate.AppState
 import com.escodro.navigation.compose.Navigation
 import com.escodro.navigation.controller.NavEventController
 import com.escodro.navigation.event.HomeEvent
 import com.escodro.navigationapi.destination.HomeDestination
-import com.escodro.navigationapi.destination.topLevelDestinations
+import com.escodro.navigationapi.destination.TopLevelDestinations
 import com.escodro.navigationapi.marker.TopLevel
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
@@ -56,7 +65,7 @@ private fun HomeLoader(
 ) {
     val currentSection by appState.currentTopDestination
         .collectAsStateWithLifecycle(HomeDestination.TaskList)
-    val navItems by rememberSaveable { mutableStateOf(topLevelDestinations) }
+    val navItems by rememberSaveable { mutableStateOf(TopLevelDestinations) }
     val setCurrentSection = { section: TopLevel ->
         navEventController.sendEvent(HomeEvent.OnTabClick(section))
     }
@@ -69,7 +78,6 @@ private fun HomeLoader(
     )
 }
 
-@OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
 private fun AlkaaHomeScaffold(
     appState: AppState,
@@ -78,14 +86,31 @@ private fun AlkaaHomeScaffold(
     setCurrentSection: (TopLevel) -> Unit,
 ) {
     Scaffold(
-        topBar = { AlkaaTopBar(currentSection = currentSection) },
+        topBar = {
+            val showTopBar by appState.shouldShowTopAppBar.collectAsStateWithLifecycle(true)
+            AnimatedVisibility(
+                visible = showTopBar,
+                enter = slideInVertically() + fadeIn(),
+                exit = slideOutVertically() + fadeOut(),
+            ) {
+                AlkaaTopBar(currentSection = currentSection)
+            }
+        },
         contentWindowInsets = WindowInsets(0, 0, 0, 0),
         content = { paddingValues ->
+            val showTopBar by appState.shouldShowTopAppBar.collectAsStateWithLifecycle(true)
+            val topBarPadding by animateDpAsState(targetValue = if (showTopBar) 0.dp else 64.dp)
+            val topPadding = paddingValues.calculateTopPadding() - topBarPadding
+
             Row(
                 Modifier
                     .fillMaxSize()
-                    .padding(paddingValues)
-                    .consumeWindowInsets(paddingValues)
+                    .padding(
+                        start = paddingValues.calculateStartPadding(LocalLayoutDirection.current),
+                        top = if (topPadding > 0.dp) topPadding else 0.dp,
+                        end = paddingValues.calculateEndPadding(LocalLayoutDirection.current),
+                        bottom = paddingValues.calculateBottomPadding(),
+                    ).consumeWindowInsets(paddingValues)
                     .windowInsetsPadding(
                         WindowInsets.safeDrawing.only(WindowInsetsSides.Horizontal),
                     ),

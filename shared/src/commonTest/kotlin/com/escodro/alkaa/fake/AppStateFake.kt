@@ -3,11 +3,12 @@ package com.escodro.alkaa.fake
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavHostController
 import com.escodro.appstate.AppState
-import com.escodro.navigationapi.destination.HomeDestination
-import com.escodro.navigationapi.destination.topLevelDestinations
+import com.escodro.navigationapi.destination.TopAppBarVisibleDestinations
+import com.escodro.navigationapi.destination.TopLevelDestinations
 import com.escodro.navigationapi.marker.TopLevel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.mapLatest
 
 internal class AppStateFake(override val navHostController: NavHostController) : AppState {
@@ -15,11 +16,18 @@ internal class AppStateFake(override val navHostController: NavHostController) :
     override val shouldShowNavRail: Boolean = false
 
     @OptIn(ExperimentalCoroutinesApi::class)
-    override val currentTopDestination: Flow<TopLevel>
-        get() = navHostController.currentBackStackEntryFlow
+    override val currentTopDestination: Flow<TopLevel> =
+        navHostController.currentBackStackEntryFlow
             .mapLatest { navBackStackEntry ->
                 val currentDestination = navBackStackEntry.destination
-                topLevelDestinations.find { currentDestination.hasRoute(it::class) }
-                    ?: HomeDestination.TaskList
+                TopLevelDestinations.find { currentDestination.hasRoute(it::class) }
+            }.filterNotNull()
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    override val shouldShowTopAppBar: Flow<Boolean> =
+        navHostController.currentBackStackEntryFlow
+            .mapLatest { navBackStackEntry ->
+                val currentDestination = navBackStackEntry.destination
+                TopAppBarVisibleDestinations.any { currentDestination.hasRoute(it::class) }
             }
 }

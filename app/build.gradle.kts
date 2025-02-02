@@ -116,7 +116,7 @@ android {
 
 dependencies {
     implementation(projects.shared)
-    implementation(projects.libraries.navigationApi)
+    implementation(projects.features.navigationApi)
 
     implementation(libs.logcat)
     implementation(libs.androidx.activity)

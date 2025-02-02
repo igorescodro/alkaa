@@ -6,7 +6,7 @@ plugins {
 
 dependencies {
     implementation(projects.domain)
-    implementation(projects.libraries.navigationApi)
+    implementation(projects.features.navigationApi)
     implementation(projects.libraries.di)
 
     implementation(libs.koin.core)

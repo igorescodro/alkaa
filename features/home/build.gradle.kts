@@ -18,8 +18,8 @@ kotlin {
             implementation(projects.features.category)
             implementation(projects.features.search)
             implementation(projects.features.preference)
-            implementation(projects.libraries.navigation)
-            implementation(projects.libraries.navigationApi)
+            implementation(projects.features.navigation)
+            implementation(projects.features.navigationApi)
             implementation(projects.libraries.appstate)
             implementation(projects.libraries.parcelable)
 

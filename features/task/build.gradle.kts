@@ -17,7 +17,7 @@ kotlin {
             implementation(projects.domain)
             implementation(projects.resources)
             implementation(projects.libraries.di)
-            implementation(projects.libraries.navigationApi)
+            implementation(projects.features.navigationApi)
             implementation(projects.libraries.coroutines)
             implementation(projects.libraries.designsystem)
             implementation(projects.libraries.parcelable)

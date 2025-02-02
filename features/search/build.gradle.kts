@@ -14,7 +14,7 @@ kotlin {
             implementation(projects.domain)
             implementation(projects.libraries.designsystem)
             implementation(projects.resources)
-            implementation(projects.libraries.navigationApi)
+            implementation(projects.features.navigationApi)
             implementation(projects.libraries.di)
 
             implementation(compose.runtime)

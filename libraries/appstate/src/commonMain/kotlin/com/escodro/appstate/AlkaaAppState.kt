@@ -10,11 +10,10 @@ import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.escodro.navigationapi.destination.TopAppBarVisibleDestinations
-import com.escodro.navigationapi.destination.TopLevelDestinations
+import com.escodro.navigationapi.extension.currentTopLevelFlow
 import com.escodro.navigationapi.marker.TopLevel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.mapLatest
 
 /**
@@ -40,15 +39,8 @@ data class AlkaaAppState(
     override val shouldShowNavRail: Boolean
         get() = !shouldShowBottomBar
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     override val currentTopDestination: Flow<TopLevel> =
-        navHostController.currentBackStack
-            .mapLatest { entries ->
-                // Find the first top level destination in the back stack
-                entries.reversed().firstNotNullOfOrNull { entry ->
-                    TopLevelDestinations.firstOrNull { entry.destination.hasRoute(it::class) }
-                }
-            }.filterNotNull()
+        navHostController.currentTopLevelFlow()
 
     @OptIn(ExperimentalCoroutinesApi::class)
     override val shouldShowTopAppBar: Flow<Boolean> =

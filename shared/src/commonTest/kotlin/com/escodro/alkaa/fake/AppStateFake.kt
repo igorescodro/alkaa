@@ -17,10 +17,11 @@ internal class AppStateFake(override val navHostController: NavHostController) :
 
     @OptIn(ExperimentalCoroutinesApi::class)
     override val currentTopDestination: Flow<TopLevel> =
-        navHostController.currentBackStackEntryFlow
-            .mapLatest { navBackStackEntry ->
-                val currentDestination = navBackStackEntry.destination
-                TopLevelDestinations.find { currentDestination.hasRoute(it::class) }
+        navHostController.currentBackStack
+            .mapLatest { entries ->
+                entries.reversed().firstNotNullOfOrNull { entry ->
+                    TopLevelDestinations.firstOrNull { entry.destination.hasRoute(it::class) }
+                }
             }.filterNotNull()
 
     @OptIn(ExperimentalCoroutinesApi::class)

@@ -42,10 +42,12 @@ data class AlkaaAppState(
 
     @OptIn(ExperimentalCoroutinesApi::class)
     override val currentTopDestination: Flow<TopLevel> =
-        navHostController.currentBackStackEntryFlow
-            .mapLatest { navBackStackEntry ->
-                val currentDestination = navBackStackEntry.destination
-                TopLevelDestinations.find { currentDestination.hasRoute(it::class) }
+        navHostController.currentBackStack
+            .mapLatest { entries ->
+                // Find the first top level destination in the back stack
+                entries.reversed().firstNotNullOfOrNull { entry ->
+                    TopLevelDestinations.firstOrNull { entry.destination.hasRoute(it::class) }
+                }
             }.filterNotNull()
 
     @OptIn(ExperimentalCoroutinesApi::class)

@@ -1,11 +1,9 @@
 package com.escodro.home.presentation
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.animateDpAsState
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.slideInVertically
-import androidx.compose.animation.slideOutVertically
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
@@ -36,9 +34,12 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.escodro.appstate.AppState
+import com.escodro.designsystem.animation.TopBarEnterTransition
+import com.escodro.designsystem.animation.TopBarExitTransition
 import com.escodro.navigation.compose.Navigation
 import com.escodro.navigationapi.controller.NavEventController
 import com.escodro.navigationapi.destination.HomeDestination
@@ -85,23 +86,24 @@ private fun AlkaaHomeScaffold(
     currentSection: TopLevel,
     setCurrentSection: (TopLevel) -> Unit,
 ) {
+    val showTopBar by appState.shouldShowTopAppBar.collectAsStateWithLifecycle(true)
+    val topBarOffset: Dp by animateDpAsState(
+        targetValue = if (showTopBar) 0.dp else 64.dp,
+        animationSpec = tween(easing = LinearEasing),
+    )
     Scaffold(
         topBar = {
-            val showTopBar by appState.shouldShowTopAppBar.collectAsStateWithLifecycle(true)
             AnimatedVisibility(
                 visible = showTopBar,
-                enter = slideInVertically() + fadeIn(),
-                exit = slideOutVertically() + fadeOut(),
+                enter = TopBarEnterTransition,
+                exit = TopBarExitTransition,
             ) {
                 AlkaaTopBar(currentSection = currentSection)
             }
         },
         contentWindowInsets = WindowInsets(0, 0, 0, 0),
         content = { paddingValues ->
-            val showTopBar by appState.shouldShowTopAppBar.collectAsStateWithLifecycle(true)
-            val topBarPadding by animateDpAsState(targetValue = if (showTopBar) 0.dp else 64.dp)
-            val topPadding = paddingValues.calculateTopPadding() - topBarPadding
-
+            val topPadding = paddingValues.calculateTopPadding() - topBarOffset
             Row(
                 Modifier
                     .fillMaxSize()

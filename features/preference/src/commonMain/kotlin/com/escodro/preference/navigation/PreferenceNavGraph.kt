@@ -2,6 +2,8 @@ package com.escodro.preference.navigation
 
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import com.escodro.designsystem.animation.SlideInHorizontallyTransition
+import com.escodro.designsystem.animation.SlideOutHorizontallyTransition
 import com.escodro.navigationapi.controller.NavEventController
 import com.escodro.navigationapi.destination.HomeDestination
 import com.escodro.navigationapi.destination.PreferenceDestination
@@ -25,19 +27,28 @@ internal class PreferenceNavGraph(
             )
         }
 
-        composable<PreferenceDestination.About> {
+        composable<PreferenceDestination.About>(
+            enterTransition = { SlideInHorizontallyTransition },
+            exitTransition = { SlideOutHorizontallyTransition },
+        ) {
             AboutScreen(
                 onUpPress = { navEventController.sendEvent(Event.OnBack) },
             )
         }
 
-        composable<PreferenceDestination.Licenses> {
+        composable<PreferenceDestination.Licenses>(
+            enterTransition = { SlideInHorizontallyTransition },
+            exitTransition = { SlideOutHorizontallyTransition },
+        ) {
             OpenSource(
                 onUpPress = { navEventController.sendEvent(Event.OnBack) },
             )
         }
 
-        composable<PreferenceDestination.Tracker> {
+        composable<PreferenceDestination.Tracker>(
+            enterTransition = { SlideInHorizontallyTransition },
+            exitTransition = { SlideOutHorizontallyTransition },
+        ) {
             trackerProvider.Content(
                 onUpPress = { navEventController.sendEvent(Event.OnBack) },
             )

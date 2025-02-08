@@ -1,14 +1,12 @@
 package com.escodro.task.navigation
 
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.slideInHorizontally
-import androidx.compose.animation.slideOutHorizontally
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.dialog
 import androidx.navigation.navDeepLink
 import androidx.navigation.toRoute
+import com.escodro.designsystem.animation.SlideInHorizontallyTransition
+import com.escodro.designsystem.animation.SlideOutHorizontallyTransition
 import com.escodro.navigationapi.controller.NavEventController
 import com.escodro.navigationapi.destination.Destination
 import com.escodro.navigationapi.destination.HomeDestination
@@ -31,8 +29,8 @@ internal class TaskNavGraph : NavGraph {
         }
 
         composable<TasksDestination.TaskDetail>(
-            enterTransition = { slideInHorizontally() + fadeIn() },
-            exitTransition = { slideOutHorizontally() + fadeOut() },
+            enterTransition = { SlideInHorizontallyTransition },
+            exitTransition = { SlideOutHorizontallyTransition },
             deepLinks = listOf(
                 navDeepLink<TasksDestination.TaskDetail>(
                     basePath = "${Destination.URI}/task/{taskId}",

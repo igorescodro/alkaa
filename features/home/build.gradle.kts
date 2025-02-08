@@ -22,6 +22,7 @@ kotlin {
             implementation(projects.features.navigationApi)
             implementation(projects.libraries.appstate)
             implementation(projects.libraries.parcelable)
+            implementation(projects.libraries.designsystem)
 
             implementation(compose.runtime)
             implementation(compose.materialIconsExtended)

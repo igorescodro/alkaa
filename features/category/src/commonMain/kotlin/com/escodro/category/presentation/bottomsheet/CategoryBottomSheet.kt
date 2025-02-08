@@ -18,17 +18,21 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -57,6 +61,7 @@ import com.escodro.resources.category_sheet_save
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
 
@@ -90,12 +95,12 @@ private fun CategoryNewSheetLoader(
         mutableStateOf(CategoryBottomSheetState(emptyCategory()))
     }
 
-    CategorySheetContent(
+    CategoryBottomSheet(
         colorList = colorList,
         state = sheetState,
+        onHideBottomSheet = onHideBottomSheet,
         onCategoryChange = { updatedState ->
             addViewModel.addCategory(updatedState.toCategory())
-            onHideBottomSheet()
         },
     )
 }
@@ -120,33 +125,65 @@ private fun CategoryEditSheetLoader(
         mutableStateOf(CategoryBottomSheetState(category))
     }
 
-    CategorySheetContent(
+    CategoryBottomSheet(
         colorList = colorList,
         state = sheetState,
+        onHideBottomSheet = onHideBottomSheet,
         onCategoryChange = { updatedState ->
             editViewModel.updateCategory(updatedState.toCategory())
-            onHideBottomSheet()
         },
         onCategoryRemove = {
             editViewModel.deleteCategory(it)
-            onHideBottomSheet()
         },
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 @Suppress("MagicNumber")
-private fun CategorySheetContent(
+private fun CategoryBottomSheet(
     state: CategoryBottomSheetState,
     colorList: ImmutableList<Color>,
+    onHideBottomSheet: () -> Unit,
     onCategoryChange: (CategoryBottomSheetState) -> Unit,
     onCategoryRemove: (Category) -> Unit = {},
+) {
+    val scope = rememberCoroutineScope()
+    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+
+    ModalBottomSheet(
+        sheetState = sheetState,
+        dragHandle = null,
+        onDismissRequest = {
+            scope.launch { sheetState.hide() }
+            onHideBottomSheet()
+        },
+    ) {
+        LaunchedEffect(Unit) {
+            sheetState.show()
+        }
+        CategoryBottomSheetContent(
+            state = state,
+            onCategoryRemove = onCategoryRemove,
+            onHideBottomSheet = onHideBottomSheet,
+            colorList = colorList,
+            onCategoryChange = onCategoryChange,
+        )
+    }
+}
+
+@Composable
+private fun CategoryBottomSheetContent(
+    state: CategoryBottomSheetState,
+    onCategoryRemove: (Category) -> Unit,
+    onHideBottomSheet: () -> Unit,
+    colorList: ImmutableList<Color>,
+    onCategoryChange: (CategoryBottomSheetState) -> Unit,
 ) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .height(256.dp)
-            .background(MaterialTheme.colorScheme.surface) // Accompanist does not support M3 yet
             .padding(16.dp),
         verticalArrangement = Arrangement.SpaceAround,
     ) {
@@ -163,7 +200,10 @@ private fun CategorySheetContent(
                 categoryName = state.name,
                 isDialogOpen = openDialog,
                 onCloseDialog = { openDialog = false },
-                onActionConfirm = { onCategoryRemove(state.toCategory()) },
+                onActionConfirm = {
+                    onCategoryRemove(state.toCategory())
+                    onHideBottomSheet()
+                },
             )
 
             AlkaaInputTextField(
@@ -200,7 +240,10 @@ private fun CategorySheetContent(
 
         CategorySaveButton(
             currentColor = Color(state.color),
-            onClick = { onCategoryChange(state) },
+            onClick = {
+                onCategoryChange(state)
+                onHideBottomSheet()
+            },
         )
     }
 }
@@ -302,5 +345,5 @@ private fun CategoryColorItem(
 
 private fun emptyCategory() = Category(
     name = "",
-    color = CategoryColors.values()[0].value.toArgb(),
+    color = CategoryColors.entries[0].value.toArgb(),
 )

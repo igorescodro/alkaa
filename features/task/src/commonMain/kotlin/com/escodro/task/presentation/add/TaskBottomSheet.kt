@@ -7,14 +7,18 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -30,16 +34,43 @@ import com.escodro.resources.task_add_label
 import com.escodro.resources.task_add_save
 import com.escodro.task.model.AlarmInterval
 import com.escodro.task.presentation.category.CategorySelection
-import com.escodro.task.presentation.compose.saver.LocalDateTimeSaver
 import com.escodro.task.presentation.detail.alarm.AlarmSelection
 import com.escodro.task.presentation.detail.main.CategoryId
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toInstant
+import kotlinx.datetime.toLocalDateTime
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun AddTaskBottomSheet(
+    onHideBottomSheet: () -> Unit,
+) {
+    val scope = rememberCoroutineScope()
+    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+
+    ModalBottomSheet(
+        sheetState = sheetState,
+        dragHandle = null,
+        onDismissRequest = {
+            scope.launch { sheetState.hide() }
+            onHideBottomSheet()
+        },
+    ) {
+        LaunchedEffect(Unit) {
+            sheetState.show()
+        }
+        AddTaskBottomSheetContent(onHideBottomSheet = onHideBottomSheet)
+    }
+}
+
+@Composable
+internal fun AddTaskBottomSheetContent(
     addTaskViewModel: AddTaskViewModel = koinInject(),
     categoryViewModel: CategoryListViewModel = koinInject(),
     alarmPermission: AlarmPermission = koinInject(),
@@ -54,9 +85,7 @@ internal fun AddTaskBottomSheet(
         verticalArrangement = Arrangement.SpaceAround,
     ) {
         var taskInputText: String by rememberSaveable { mutableStateOf("") }
-        var taskDueDate: LocalDateTime? by rememberSaveable(stateSaver = LocalDateTimeSaver) {
-            mutableStateOf(null)
-        }
+        var taskDueDate: Long? by rememberSaveable { mutableStateOf(null) }
         var alarmInterval: AlarmInterval by rememberSaveable { mutableStateOf(AlarmInterval.NEVER) }
         val categoryState by remember(categoryViewModel) {
             categoryViewModel
@@ -85,9 +114,9 @@ internal fun AddTaskBottomSheet(
         )
 
         AlarmSelection(
-            calendar = taskDueDate,
+            calendar = getLocalDateTimeFromEpoch(taskDueDate),
             interval = alarmInterval,
-            onAlarmUpdate = { dateTime -> taskDueDate = dateTime },
+            onAlarmUpdate = { dateTime -> taskDueDate = getEpochFromLocalDateTime(dateTime) },
             onIntervalSelect = { interval -> alarmInterval = interval },
             hasExactAlarmPermission = { alarmPermission.hasExactAlarmPermission() },
             openExactAlarmPermissionScreen = { alarmPermission.openExactAlarmPermissionScreen() },
@@ -103,7 +132,7 @@ internal fun AddTaskBottomSheet(
                 addTaskViewModel.addTask(
                     title = taskInputText,
                     categoryId = currentCategory,
-                    dueDate = taskDueDate,
+                    dueDate = getLocalDateTimeFromEpoch(taskDueDate),
                     alarmInterval = alarmInterval,
                 )
                 taskInputText = ""
@@ -113,6 +142,14 @@ internal fun AddTaskBottomSheet(
             Text(stringResource(Res.string.task_add_save))
         }
     }
+}
+
+private fun getLocalDateTimeFromEpoch(epoch: Long?): LocalDateTime? = epoch?.let {
+    Instant.fromEpochMilliseconds(it).toLocalDateTime(TimeZone.currentSystemDefault())
+}
+
+private fun getEpochFromLocalDateTime(dateTime: LocalDateTime?): Long? = dateTime?.let {
+    dateTime.toInstant(TimeZone.currentSystemDefault()).toEpochMilliseconds()
 }
 
 private const val FocusDelay = 500L

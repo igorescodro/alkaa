@@ -17,10 +17,11 @@ kotlin {
             implementation(projects.domain)
             implementation(projects.resources)
             implementation(projects.libraries.di)
-            implementation(projects.libraries.navigation)
+            implementation(projects.features.navigationApi)
             implementation(projects.libraries.coroutines)
             implementation(projects.libraries.designsystem)
             implementation(projects.libraries.parcelable)
+            implementation(projects.libraries.permission)
 
             implementation(compose.runtime)
             implementation(compose.material3)
@@ -31,7 +32,6 @@ kotlin {
             implementation(libs.kotlinx.collections.immutable)
             implementation(libs.koin.compose.jb)
             implementation(libs.moko.mvvm.compose)
-            implementation(libs.moko.permissions.compose)
         }
 
         commonTest.dependencies {

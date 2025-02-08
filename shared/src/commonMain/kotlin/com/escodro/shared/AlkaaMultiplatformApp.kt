@@ -11,27 +11,21 @@ import androidx.compose.ui.Modifier
 import com.escodro.appstate.AppState
 import com.escodro.appstate.rememberAlkaaAppState
 import com.escodro.designsystem.AlkaaTheme
-import com.escodro.navigation.NavigationAction
+import com.escodro.home.presentation.Home
 import com.escodro.shared.model.AppThemeOptions
-import com.escodro.shared.navigation.AlkaaNavGraph
 import org.koin.compose.koinInject
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
 fun AlkaaMultiplatformApp(
     modifier: Modifier = Modifier,
-    navigationAction: NavigationAction = NavigationAction.Home,
     appState: AppState = rememberAlkaaAppState(windowSizeClass = calculateWindowSizeClass()),
     onThemeUpdate: (isDarkTheme: Boolean) -> Unit = {},
 ) {
     val isDarkTheme = rememberIsDarkTheme()
     onThemeUpdate(isDarkTheme)
     AlkaaTheme(isDarkTheme = isDarkTheme) {
-        AlkaaNavGraph(
-            appState = appState,
-            navigationAction = navigationAction,
-            modifier = modifier,
-        )
+        Home(appState = appState)
     }
 }
 

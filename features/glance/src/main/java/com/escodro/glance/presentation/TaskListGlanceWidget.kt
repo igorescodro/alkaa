@@ -43,7 +43,7 @@ import androidx.glance.text.TextStyle
 import com.escodro.glance.R
 import com.escodro.glance.data.TaskListStateDefinition
 import com.escodro.glance.model.Task
-import com.escodro.navigation.AndroidDestinations
+import com.escodro.navigationapi.deeplink.AndroidDeepLink
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 
@@ -85,7 +85,7 @@ internal class TaskListGlanceWidget : GlanceAppWidget() {
                         contentDescription = context.getString(R.string.glance_app_icon_content_description),
                         modifier = GlanceModifier
                             .size(32.dp)
-                            .clickable(actionStartActivity(AndroidDestinations.homeIntent())),
+                            .clickable(actionStartActivity(AndroidDeepLink.homeIntent())),
                     )
                     Spacer(modifier = GlanceModifier.width(12.dp))
                     Text(
@@ -155,7 +155,7 @@ internal class TaskListGlanceWidget : GlanceAppWidget() {
             modifier = modifier
                 .padding(vertical = 2.dp)
                 .fillMaxWidth()
-                .clickable(actionStartActivity(AndroidDestinations.taskDetail(task.id))),
+                .clickable(actionStartActivity(AndroidDeepLink.taskDetail(task.id))),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             CheckBox(

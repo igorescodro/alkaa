@@ -7,11 +7,13 @@ import androidx.compose.ui.test.ComposeUiTest
 import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.hasSetTextAction
+import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.test.performTextReplacement
+import androidx.compose.ui.test.waitUntilDoesNotExist
 import com.escodro.alkaa.test.afterTest
 import com.escodro.alkaa.test.beforeTest
 import com.escodro.alkaa.test.uiTest
@@ -80,7 +82,7 @@ internal class CategoryFlowTest : KoinTest {
         onNodeWithText("Remove").performClick()
 
         // Validate is no longer in the list
-        onNodeWithText(text = name, useUnmergedTree = true).assertDoesNotExist()
+        waitUntilDoesNotExist(hasText(text = name))
     }
 
     @Test

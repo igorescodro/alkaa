@@ -14,7 +14,7 @@ kotlin {
 
             implementation(projects.features.alarmApi)
             implementation(projects.libraries.coroutines)
-            implementation(projects.libraries.navigation)
+            implementation(projects.features.navigationApi)
             implementation(projects.domain)
             implementation(projects.resources)
             implementation(libs.kotlinx.datetime)

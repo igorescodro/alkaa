@@ -1,8 +1,14 @@
 package com.escodro.alkaa.test
 
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.test.ComposeUiTest
 import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.runComposeUiTest
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LifecycleRegistry
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.navigation.compose.rememberNavController
 import com.escodro.alarm.notification.NotificationScheduler
 import com.escodro.alarm.notification.TaskNotification
 import com.escodro.alkaa.fake.AppStateFake
@@ -46,9 +52,25 @@ fun afterTest() {
 @OptIn(ExperimentalTestApi::class)
 fun uiTest(block: ComposeUiTest.() -> Unit) = runComposeUiTest {
     setContent {
-        KoinContext { AlkaaMultiplatformApp(appState = AppStateFake()) }
+        CompositionLocalProvider(
+            LocalLifecycleOwner provides LocalLifecycleOwnerFake(),
+        ) {
+            val navHostController = rememberNavController()
+            KoinContext {
+                AlkaaMultiplatformApp(appState = AppStateFake(navHostController = navHostController))
+            }
+        }
     }
     block()
+}
+
+/**
+ * Fake implementation of [LifecycleOwner] to be used in the tests, specially in iOS ones.
+ */
+private class LocalLifecycleOwnerFake : LifecycleOwner {
+    override val lifecycle: Lifecycle = LifecycleRegistry(this).apply {
+        currentState = Lifecycle.State.RESUMED
+    }
 }
 
 /**

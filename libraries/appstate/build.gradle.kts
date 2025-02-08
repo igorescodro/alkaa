@@ -13,8 +13,10 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(projects.libraries.parcelable)
+            implementation(projects.features.navigationApi)
 
             implementation(compose.runtime)
+            implementation(libs.compose.navigation)
 
             api(libs.compose.windowsizeclass)
         }

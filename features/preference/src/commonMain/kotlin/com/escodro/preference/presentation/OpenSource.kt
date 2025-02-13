@@ -40,6 +40,7 @@ private fun OpenSourceContent(modifier: Modifier = Modifier) {
 
     LibrariesContainer(
         aboutLibsJson = licenses.decodeToString(),
+        showLicenseBadges = false,
         modifier = modifier.fillMaxSize(),
         colors = LibraryDefaults.libraryColors(
             backgroundColor = MaterialTheme.colorScheme.background,

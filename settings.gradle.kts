@@ -23,7 +23,6 @@ include(":libraries:appstate")
 include(":libraries:parcelable")
 include(":libraries:permission")
 
-
 include(":domain")
 include(":shared")
 include(":resources")

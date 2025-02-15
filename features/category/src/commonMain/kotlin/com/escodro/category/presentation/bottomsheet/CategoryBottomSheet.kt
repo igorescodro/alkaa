@@ -159,9 +159,6 @@ private fun CategoryBottomSheet(
             onHideBottomSheet()
         },
     ) {
-        LaunchedEffect(Unit) {
-            sheetState.show()
-        }
         CategoryBottomSheetContent(
             state = state,
             onCategoryRemove = onCategoryRemove,

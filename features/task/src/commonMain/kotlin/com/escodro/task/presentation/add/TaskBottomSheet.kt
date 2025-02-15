@@ -62,9 +62,6 @@ internal fun AddTaskBottomSheet(
             onHideBottomSheet()
         },
     ) {
-        LaunchedEffect(Unit) {
-            sheetState.show()
-        }
         AddTaskBottomSheetContent(onHideBottomSheet = onHideBottomSheet)
     }
 }

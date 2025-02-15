@@ -119,4 +119,6 @@
     <string name="dialog_picker_next">Next</string>
     <string name="dialog_picker_confirm">Confirm</string>
 
+    <string name="default_ok">OK</string>
+
 </resources>

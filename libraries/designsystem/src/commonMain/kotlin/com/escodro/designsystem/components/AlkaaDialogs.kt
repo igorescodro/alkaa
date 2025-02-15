@@ -1,10 +1,14 @@
 package com.escodro.designsystem.components
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import com.escodro.designsystem.AlkaaTheme
 
 /**
@@ -13,28 +17,37 @@ import com.escodro.designsystem.AlkaaTheme
  * @param arguments arguments to compose the dialog
  * @param isDialogOpen flag to indicate if the dialog should be open
  * @param onDismissRequest function to be called user requests to dismiss the dialog
+ * @param modifier the modifier to be applied to the dialog
  */
 @Composable
 fun AlkaaDialog(
     arguments: DialogArguments,
     isDialogOpen: Boolean,
     onDismissRequest: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     if (isDialogOpen) {
         AlertDialog(
             onDismissRequest = onDismissRequest,
             title = { Text(text = arguments.title) },
-            text = { Text(text = arguments.text) },
+            text = {
+                Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+                    Text(text = arguments.text)
+                }
+            },
             confirmButton = {
                 Button(onClick = arguments.onConfirmAction) {
                     Text(text = arguments.confirmText)
                 }
             },
             dismissButton = {
-                OutlinedButton(onClick = onDismissRequest) {
-                    Text(text = arguments.dismissText)
+                arguments.dismissText?.let {
+                    OutlinedButton(onClick = onDismissRequest) {
+                        Text(text = arguments.dismissText)
+                    }
                 }
             },
+            modifier = modifier,
         )
     }
 }
@@ -52,7 +65,7 @@ data class DialogArguments(
     val title: String,
     val text: String,
     val confirmText: String,
-    val dismissText: String,
+    val dismissText: String? = null,
     val onConfirmAction: () -> Unit,
 )
 

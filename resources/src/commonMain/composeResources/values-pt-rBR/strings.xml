@@ -115,4 +115,6 @@
 
     <string name="dialog_picker_next">Próximo</string>
     <string name="dialog_picker_confirm">Confirmar</string>
+
+    <string name="default_ok">OK</string>
 </resources>

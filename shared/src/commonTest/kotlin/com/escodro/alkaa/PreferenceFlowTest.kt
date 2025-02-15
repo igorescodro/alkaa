@@ -53,7 +53,7 @@ internal class PreferenceFlowTest : KoinTest {
         onNodeWithText(text = "Open source licenses").performClick()
 
         // This library is very likely to appear
-        onAllNodesWithText("AboutLibraries Library")[0].performClick()
+        onAllNodesWithText("AboutLibraries", substring = true)[0].performClick()
         onNodeWithText("OK").performClick()
     }
 

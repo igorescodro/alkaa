@@ -19,11 +19,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.escodro.preference.model.AppThemeOptions
 import com.escodro.preference.provider.AppInfoProvider
-import com.escodro.preference.provider.BrowserProvider
 import com.escodro.resources.Res
 import com.escodro.resources.preference_title_about
 import com.escodro.resources.preference_title_app_theme
@@ -127,16 +127,15 @@ internal fun OpenSourceLibraryItem(onOpenSourceClick: () -> Unit) {
 
 @Composable
 @Suppress("MagicNumber")
-internal fun VersionItem(
-    browserProvider: BrowserProvider = koinInject(),
-    appInfoProvider: AppInfoProvider = koinInject(),
-) {
+internal fun VersionItem(appInfoProvider: AppInfoProvider = koinInject()) {
     val title = stringResource(Res.string.preference_title_version)
     val version = appInfoProvider.getAppVersion()
     var numberOfClicks by remember { mutableIntStateOf(0) }
+    val uriHandler = LocalUriHandler.current
+
     val onClick = {
         if (++numberOfClicks == 7) {
-            browserProvider.openUrl(EasterEggUrl)
+            uriHandler.openUri(EasterEggUrl)
         }
     }
 

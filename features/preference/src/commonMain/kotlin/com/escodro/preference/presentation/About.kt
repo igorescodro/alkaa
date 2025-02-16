@@ -27,17 +27,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.escodro.designsystem.components.AlkaaToolbar
-import com.escodro.preference.provider.BrowserProvider
 import com.escodro.resources.Res
 import com.escodro.resources.about_button_project
 import com.escodro.resources.about_cd_github
 import com.escodro.resources.about_description
 import com.escodro.resources.about_title
 import org.jetbrains.compose.resources.stringResource
-import org.koin.compose.koinInject
 
 /**
  * Alkaa about screen.
@@ -95,9 +94,8 @@ private fun ContentHeader() {
 }
 
 @Composable
-private fun ContentCallToAction(
-    browserProvider: BrowserProvider = koinInject(),
-) {
+private fun ContentCallToAction() {
+    val uriHandler = LocalUriHandler.current
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier
@@ -105,7 +103,7 @@ private fun ContentCallToAction(
             .padding(vertical = 16.dp),
     ) {
         Button(onClick = {
-            browserProvider.openUrl(ProjectUrl)
+            uriHandler.openUri(ProjectUrl)
         }) {
             Icon(
                 imageVector = Icons.Default.Person,

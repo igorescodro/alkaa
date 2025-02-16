@@ -13,6 +13,7 @@ kotlin {
         commonMain.dependencies {
             implementation(libs.koin.core)
             api(libs.moko.permissions.compose)
+            api(libs.moko.permissions.notifications)
         }
     }
 }

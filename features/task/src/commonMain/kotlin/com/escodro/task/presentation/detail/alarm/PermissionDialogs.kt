@@ -18,6 +18,7 @@ import com.escodro.resources.task_notification_rationale_dialog_confirm
 import com.escodro.resources.task_notification_rationale_dialog_text
 import com.escodro.resources.task_notification_rationale_dialog_title
 import dev.icerock.moko.permissions.Permission
+import dev.icerock.moko.permissions.notifications.REMOTE_NOTIFICATION
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
 

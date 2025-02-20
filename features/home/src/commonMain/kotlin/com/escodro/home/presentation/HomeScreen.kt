@@ -52,13 +52,20 @@ import org.koin.compose.koinInject
  * Alkaa Home screen.
  */
 @Composable
-fun Home(appState: AppState) {
-    HomeLoader(appState = appState)
+fun Home(
+    appState: AppState,
+    modifier: Modifier = Modifier,
+) {
+    HomeLoader(
+        appState = appState,
+        modifier = modifier,
+    )
 }
 
 @Composable
 private fun HomeLoader(
     appState: AppState,
+    modifier: Modifier = Modifier,
     navEventController: NavEventController = koinInject(),
 ) {
     val currentSection by appState.currentTopDestination
@@ -73,6 +80,7 @@ private fun HomeLoader(
         navItems = navItems.toImmutableList(),
         currentSection = currentSection,
         setCurrentSection = setCurrentSection,
+        modifier = modifier,
     )
 }
 
@@ -82,6 +90,7 @@ private fun AlkaaHomeScaffold(
     navItems: ImmutableList<TopLevel>,
     currentSection: TopLevel,
     setCurrentSection: (TopLevel) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     val showTopBar by appState.shouldShowTopAppBar.collectAsStateWithLifecycle(true)
     val topBarOffset: Dp by animateDpAsState(
@@ -130,6 +139,7 @@ private fun AlkaaHomeScaffold(
                 items = navItems,
             )
         },
+        modifier = modifier,
     )
 }
 

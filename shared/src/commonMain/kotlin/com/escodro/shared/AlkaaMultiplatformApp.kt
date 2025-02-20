@@ -22,7 +22,10 @@ fun AlkaaMultiplatformApp(
     val isDarkTheme = rememberIsDarkTheme()
     onThemeUpdate(isDarkTheme)
     AlkaaTheme(isDarkTheme = isDarkTheme) {
-        Home(appState = appState)
+        Home(
+            appState = appState,
+            modifier = modifier,
+        )
     }
 }
 

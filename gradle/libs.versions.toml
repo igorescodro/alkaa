@@ -63,7 +63,7 @@ test_manifest = "1.7.8"
 
 # Quality
 ktlint = "1.5.0"
-detekt = "1.23.7"
+detekt = "1.23.8"
 composerules = "0.4.22"
 
 # License

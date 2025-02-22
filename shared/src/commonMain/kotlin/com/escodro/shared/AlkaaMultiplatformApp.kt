@@ -1,8 +1,6 @@
 package com.escodro.shared
 
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
-import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -15,11 +13,10 @@ import com.escodro.home.presentation.Home
 import com.escodro.shared.model.AppThemeOptions
 import org.koin.compose.koinInject
 
-@OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 @Composable
 fun AlkaaMultiplatformApp(
     modifier: Modifier = Modifier,
-    appState: AppState = rememberAlkaaAppState(windowSizeClass = calculateWindowSizeClass()),
+    appState: AppState = rememberAlkaaAppState(),
     onThemeUpdate: (isDarkTheme: Boolean) -> Unit = {},
 ) {
     val isDarkTheme = rememberIsDarkTheme()

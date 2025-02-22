@@ -17,8 +17,6 @@ kotlin {
 
             implementation(compose.runtime)
             implementation(libs.compose.navigation)
-
-            api(libs.compose.windowsizeclass)
         }
     }
 }

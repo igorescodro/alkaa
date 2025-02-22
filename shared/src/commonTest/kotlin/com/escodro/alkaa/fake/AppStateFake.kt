@@ -12,8 +12,6 @@ import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.mapLatest
 
 internal class AppStateFake(override val navHostController: NavHostController) : AppState {
-    override val shouldShowBottomBar: Boolean = true
-    override val shouldShowNavRail: Boolean = false
 
     @OptIn(ExperimentalCoroutinesApi::class)
     override val currentTopDestination: Flow<TopLevel> =

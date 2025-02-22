@@ -22,9 +22,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.NavigationRail
-import androidx.compose.material3.NavigationRailItem
-import androidx.compose.material3.NavigationRailItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -117,14 +114,7 @@ private fun AlkaaHomeScaffold(
                         WindowInsets.safeDrawing.only(WindowInsetsSides.Horizontal),
                     ),
             ) {
-                if (appState.shouldShowNavRail) {
-                    AlkaaNavRail(
-                        currentSection = currentSection,
-                        onSectionSelect = setCurrentSection,
-                        items = navItems,
-                        modifier = Modifier.consumeWindowInsets(paddingValues),
-                    )
-                }
+                // TODO implement with NavigationSuiteScaffold
                 Column(Modifier.fillMaxSize()) {
                     Navigation(
                         startDestination = HomeDestination.TaskList,
@@ -134,43 +124,13 @@ private fun AlkaaHomeScaffold(
             }
         },
         bottomBar = {
-            if (appState.shouldShowBottomBar) {
-                AlkaaBottomNav(
-                    currentSection = currentSection,
-                    onSectionSelect = setCurrentSection,
-                    items = navItems,
-                )
-            }
+            AlkaaBottomNav(
+                currentSection = currentSection,
+                onSectionSelect = setCurrentSection,
+                items = navItems,
+            )
         },
     )
-}
-
-@Composable
-private fun AlkaaNavRail(
-    currentSection: TopLevel,
-    onSectionSelect: (TopLevel) -> Unit,
-    items: ImmutableList<TopLevel>,
-    modifier: Modifier = Modifier,
-) {
-    NavigationRail(modifier = modifier) {
-        items.forEach { section ->
-            val selected = section == currentSection
-            NavigationRailItem(
-                selected = selected,
-                onClick = { onSectionSelect(section) },
-                alwaysShowLabel = true,
-                icon = { Icon(imageVector = section.icon, contentDescription = null) },
-                label = { Text(stringResource(section.title)) },
-                colors = NavigationRailItemDefaults.colors(
-                    selectedIconColor = MaterialTheme.colorScheme.onPrimaryContainer,
-                    unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                    selectedTextColor = MaterialTheme.colorScheme.onPrimaryContainer,
-                    unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                    indicatorColor = MaterialTheme.colorScheme.primaryContainer,
-                ),
-            )
-        }
-    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)

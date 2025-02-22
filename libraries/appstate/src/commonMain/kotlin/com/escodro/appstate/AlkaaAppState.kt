@@ -1,8 +1,5 @@
 package com.escodro.appstate
 
-import androidx.compose.material3.windowsizeclass.WindowHeightSizeClass
-import androidx.compose.material3.windowsizeclass.WindowSizeClass
-import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
@@ -23,21 +20,8 @@ import kotlinx.coroutines.flow.mapLatest
  */
 @Stable
 data class AlkaaAppState(
-    private val isCompactMode: Boolean,
     override val navHostController: NavHostController,
 ) : AppState {
-
-    /**
-     * Verifies if the bottom bar should be shown.
-     */
-    override val shouldShowBottomBar: Boolean
-        get() = isCompactMode
-
-    /**
-     * Verifies if the navigation rail should be shown.
-     */
-    override val shouldShowNavRail: Boolean
-        get() = !shouldShowBottomBar
 
     override val currentTopDestination: Flow<TopLevel> =
         navHostController.currentTopLevelFlow()
@@ -52,16 +36,6 @@ data class AlkaaAppState(
 }
 
 interface AppState {
-
-    /**
-     * Verifies if the bottom bar should be shown.
-     */
-    val shouldShowBottomBar: Boolean
-
-    /**
-     * Verifies if the navigation rail should be shown.
-     */
-    val shouldShowNavRail: Boolean
 
     /**
      * The [NavHostController] used to navigate between destinations.
@@ -82,16 +56,11 @@ interface AppState {
 /**
  * Function to remember a [AlkaaAppState].
  *
- * @param windowSizeClass the window size class from current device
+ * @param navHostController the [NavHostController] used to navigate between destinations
  */
 @Composable
 fun rememberAlkaaAppState(
-    windowSizeClass: WindowSizeClass,
     navHostController: NavHostController = rememberNavController(),
-): AlkaaAppState {
-    val isCompactMode = windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact ||
-        windowSizeClass.heightSizeClass == WindowHeightSizeClass.Compact
-    return remember(isCompactMode, navHostController) {
-        AlkaaAppState(isCompactMode, navHostController)
-    }
+): AlkaaAppState = remember(navHostController) {
+    AlkaaAppState(navHostController)
 }

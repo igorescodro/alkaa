@@ -4,8 +4,8 @@ import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.assertIsSelected
 import androidx.compose.ui.test.isRoot
-import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithContentDescription
+import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performKeyInput
 import com.escodro.alkaa.test.afterTest
@@ -39,7 +39,7 @@ internal class HomeScreenTest : KoinTest {
 
             // Click on each item and validate the title
             onNodeWithContentDescription(label = title, useUnmergedTree = true).performClick()
-            onAllNodesWithText(title)[1].assertIsSelected()
+            onNodeWithTag(section.title.toString()).assertIsSelected()
         }
     }
 
@@ -48,7 +48,7 @@ internal class HomeScreenTest : KoinTest {
         // Click on Settings tab
         val settingsTitle = runBlocking { getString(HomeSection.Settings.title) }
         onNodeWithContentDescription(label = settingsTitle, useUnmergedTree = true).performClick()
-        onAllNodesWithText(settingsTitle)[1].assertIsSelected()
+        onNodeWithTag(HomeSection.Settings.title.toString()).assertIsSelected()
 
         // Press back button
         onAllNodes(isRoot())[0].performKeyInput {
@@ -59,6 +59,6 @@ internal class HomeScreenTest : KoinTest {
         // Click on Tasks tab
         val tasksTitle = runBlocking { getString(HomeSection.Tasks.title) }
         onNodeWithContentDescription(label = tasksTitle, useUnmergedTree = true).performClick()
-        onAllNodesWithText(tasksTitle)[1].assertIsSelected()
+        onNodeWithTag(HomeSection.Tasks.title.toString()).assertIsSelected()
     }
 }

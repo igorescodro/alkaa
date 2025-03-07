@@ -28,4 +28,6 @@
 -keepnames class * implements android.os.Parcelable*
 
 -dontwarn javax.servlet.ServletContainerInitializer
--dontwarn androidx.window.extensions.area.ExtensionWindowAreaPresentation
+
+-keep class androidx.window.** { *; }
+    -dontwarn androidx.window.**

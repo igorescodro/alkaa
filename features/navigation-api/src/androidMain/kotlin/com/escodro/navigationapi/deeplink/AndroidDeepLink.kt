@@ -1,7 +1,7 @@
 package com.escodro.navigationapi.deeplink
 
 import android.content.Intent
-import android.net.Uri
+import androidx.core.net.toUri
 import com.escodro.navigationapi.destination.Destination
 
 /**
@@ -13,7 +13,7 @@ object AndroidDeepLink {
     /**
      * Returns the [Intent] to the home screen.
      */
-    fun homeIntent(): Intent = Intent(Intent.ACTION_VIEW, Uri.parse(Destination.URI))
+    fun homeIntent(): Intent = Intent(Intent.ACTION_VIEW, Destination.URI.toUri())
 
     /**
      * Returns the [Intent] to the task detail screen.

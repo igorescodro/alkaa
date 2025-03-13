@@ -23,8 +23,7 @@ internal class TaskNavGraph : NavGraph {
     override val navGraph: NavGraphBuilder.(NavEventController) -> Unit = { navEventController ->
         composable<HomeDestination.TaskList> {
             TaskListSection(
-                onItemClick = { id -> navEventController.sendEvent(TaskEvent.OnTaskClick(id)) },
-                onAddClick = { navEventController.sendEvent(TaskEvent.OnNewTaskClick) },
+                onFabClick = { navEventController.sendEvent(TaskEvent.OnNewTaskClick) },
             )
         }
 

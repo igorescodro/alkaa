@@ -26,6 +26,8 @@
 
     <string name="task_detail_alarm_no_alarm">No alarm</string>
 
+    <string name="task_detail_pane_title">Select a task to see the details</string>
+
     <string name="task_alarm_repeating_never">Never</string>
     <string name="task_alarm_repeating_hourly">Every hour</string>
     <string name="task_alarm_repeating_daily">Every day</string>

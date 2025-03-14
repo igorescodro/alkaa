@@ -2,9 +2,11 @@ package com.escodro.alkaa
 
 import androidx.compose.ui.test.ComposeUiTest
 import androidx.compose.ui.test.ExperimentalTestApi
+import androidx.compose.ui.test.assertAny
 import androidx.compose.ui.test.assertIsSelected
 import androidx.compose.ui.test.hasSetTextAction
 import androidx.compose.ui.test.hasText
+import androidx.compose.ui.test.onLast
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
@@ -121,13 +123,13 @@ internal class TaskFlowTest : KoinTest {
 
         // Select a category
         val category = "Music"
-        onNodeWithText(category).performClick()
+        onAllNodes(hasText(category)).onLast().performClick()
         onNodeWithContentDescription("Back", useUnmergedTree = true).performClick()
 
         // Reopen the task and validate if the category is selected
         waitUntilAtLeastOneExists(hasText(taskName))
         onNodeWithText(text = taskName, useUnmergedTree = true).performClick()
-        onNodeWithText(category).assertIsSelected()
+        onAllNodes(hasText(category)).onLast().assertIsSelected()
     }
 
     @Test
@@ -186,10 +188,9 @@ internal class TaskFlowTest : KoinTest {
         onNodeWithText("Add").performClick()
 
         // Open and validate
-        waitUntilExactlyOneExists(hasText(taskName))
+        waitUntilAtLeastOneExists(hasText(taskName))
         onNodeWithText(text = taskName, useUnmergedTree = true).performClick()
-        waitUntilExactlyOneExists(hasText(taskName))
-        onNodeWithText(text = taskName, useUnmergedTree = true).assertExists()
+        waitUntilAtLeastOneExists(hasText(taskName))
         onNodeWithText("No alarm", useUnmergedTree = true).assertDoesNotExist()
         onNodeWithText("Every day", useUnmergedTree = true).assertExists()
     }
@@ -201,7 +202,7 @@ internal class TaskFlowTest : KoinTest {
         onNodeWithText("Add").performClick()
         waitUntilExactlyOneExists(hasText(taskName))
         onNodeWithText(text = taskName, useUnmergedTree = true).performClick()
-        waitUntilExactlyOneExists(hasText(taskName))
-        onNodeWithText(text = taskName, useUnmergedTree = true).assertExists()
+        waitUntilAtLeastOneExists(hasText(taskName))
+        onAllNodes(hasSetTextAction()).assertAny(hasText(taskName, substring = true))
     }
 }

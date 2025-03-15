@@ -67,18 +67,23 @@ import org.koin.compose.koinInject
  */
 @Composable
 fun TaskListSection(
+    isCompact: Boolean,
+    onItemClick: (Long) -> Unit,
     onFabClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     TaskListLoader(
+        isCompact = isCompact,
         modifier = modifier,
         onFabClick = onFabClick,
+        onItemClick = onItemClick,
     )
 }
 
-@OptIn(ExperimentalMaterial3AdaptiveApi::class)
 @Composable
 internal fun TaskListLoader(
+    isCompact: Boolean,
+    onItemClick: (Long) -> Unit,
     onFabClick: () -> Unit,
     modifier: Modifier = Modifier,
     taskListViewModel: TaskListViewModel = koinInject(),
@@ -95,6 +100,41 @@ internal fun TaskListLoader(
         categoryViewModel.loadCategories()
     }.collectAsState(initial = CategoryState.Loading)
 
+    if (isCompact) {
+        TaskListScaffold(
+            taskViewState = taskViewState,
+            categoryViewState = categoryViewState,
+            onTaskCheckedChange = taskListViewModel::updateTaskStatus,
+            onFabClick = onFabClick,
+            currentCategory = currentCategory,
+            onCategoryChange = onCategoryChange,
+            modifier = modifier,
+            onItemClick = onItemClick,
+        )
+    } else {
+        AdaptiveTaskListScaffold(
+            taskViewState = taskViewState,
+            categoryViewState = categoryViewState,
+            onUpdateTaskStatus = taskListViewModel::updateTaskStatus,
+            onFabClick = onFabClick,
+            currentCategory = currentCategory,
+            onCategoryChange = onCategoryChange,
+            modifier = modifier,
+        )
+    }
+}
+
+@OptIn(ExperimentalMaterial3AdaptiveApi::class)
+@Composable
+private fun AdaptiveTaskListScaffold(
+    taskViewState: TaskListViewState,
+    categoryViewState: CategoryState,
+    onUpdateTaskStatus: (TaskWithCategory) -> Unit,
+    onFabClick: () -> Unit,
+    currentCategory: CategoryId?,
+    onCategoryChange: (CategoryId?) -> Unit,
+    modifier: Modifier = Modifier,
+) {
     val navigator: ThreePaneScaffoldNavigator<TaskId> =
         rememberListDetailPaneScaffoldNavigator<TaskId>()
     val coroutineScope = rememberCoroutineScope()
@@ -108,7 +148,7 @@ internal fun TaskListLoader(
                     taskViewState = taskViewState,
                     categoryViewState = categoryViewState,
                     onTaskCheckedChange = { item ->
-                        taskListViewModel.updateTaskStatus(item)
+                        onUpdateTaskStatus(item)
                         coroutineScope.launch { navigator.navigateBack() }
                     },
                     onFabClick = onFabClick,

@@ -1,10 +1,14 @@
 package com.escodro.task.navigation
 
+import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.dialog
 import androidx.navigation.navDeepLink
 import androidx.navigation.toRoute
+import androidx.window.core.layout.WindowHeightSizeClass
+import androidx.window.core.layout.WindowSizeClass
+import androidx.window.core.layout.WindowWidthSizeClass
 import com.escodro.designsystem.animation.SlideInHorizontallyTransition
 import com.escodro.designsystem.animation.SlideOutHorizontallyTransition
 import com.escodro.navigationapi.controller.NavEventController
@@ -22,7 +26,10 @@ internal class TaskNavGraph : NavGraph {
 
     override val navGraph: NavGraphBuilder.(NavEventController) -> Unit = { navEventController ->
         composable<HomeDestination.TaskList> {
+            val windowSizeClass = currentWindowAdaptiveInfo().windowSizeClass
             TaskListSection(
+                isCompact = windowSizeClass.isCompact(),
+                onItemClick = { taskId -> navEventController.sendEvent(TaskEvent.OnTaskClick(taskId)) },
                 onFabClick = { navEventController.sendEvent(TaskEvent.OnNewTaskClick) },
             )
         }
@@ -50,3 +57,7 @@ internal class TaskNavGraph : NavGraph {
         }
     }
 }
+
+private fun WindowSizeClass.isCompact(): Boolean =
+    windowWidthSizeClass == WindowWidthSizeClass.COMPACT ||
+        windowHeightSizeClass == WindowHeightSizeClass.COMPACT

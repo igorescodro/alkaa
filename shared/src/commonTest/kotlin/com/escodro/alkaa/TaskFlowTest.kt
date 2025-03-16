@@ -94,7 +94,7 @@ internal class TaskFlowTest : KoinTest {
         // Edit the name of the task
         val newName = "Water plants"
         onAllNodes(hasSetTextAction())[0].performTextReplacement(newName)
-        onNodeWithContentDescription("Back", useUnmergedTree = true).performClick()
+        navigateBack()
 
         // Validate if the new name is shown
         onNodeWithText(text = newName, useUnmergedTree = true).assertExists()
@@ -108,7 +108,7 @@ internal class TaskFlowTest : KoinTest {
         // Add a description
         val description = "Phoebe Bridgers"
         onAllNodes(hasSetTextAction())[1].performTextReplacement(description)
-        onNodeWithContentDescription("Back", useUnmergedTree = true).performClick()
+        navigateBack()
 
         // Reopen the task and validate if the description is save
         waitUntilAtLeastOneExists(hasText(taskName))
@@ -124,7 +124,7 @@ internal class TaskFlowTest : KoinTest {
         // Select a category
         val category = "Music"
         onAllNodes(hasText(category)).onLast().performClick()
-        onNodeWithContentDescription("Back", useUnmergedTree = true).performClick()
+        navigateBack()
 
         // Reopen the task and validate if the category is selected
         waitUntilAtLeastOneExists(hasText(taskName))
@@ -140,7 +140,7 @@ internal class TaskFlowTest : KoinTest {
 
         onNodeWithText("Next").performClick()
         onNodeWithText("Confirm").performClick()
-        onNodeWithContentDescription("Back", useUnmergedTree = true).performClick()
+        navigateBack()
 
         // Reopen the task and validate if the alarm is on
         waitUntilAtLeastOneExists(hasText(taskName))
@@ -162,7 +162,7 @@ internal class TaskFlowTest : KoinTest {
         onNodeWithText(alarmArray[0]).performClick()
         onNodeWithText(alarmArray.last()).performClick()
 
-        onNodeWithContentDescription("Back", useUnmergedTree = true).performClick()
+        navigateBack()
 
         // Reopen the task and validate if the alarm is on
         waitUntilAtLeastOneExists(hasText(taskName))
@@ -204,5 +204,14 @@ internal class TaskFlowTest : KoinTest {
         onNodeWithText(text = taskName, useUnmergedTree = true).performClick()
         waitUntilAtLeastOneExists(hasText(taskName))
         onAllNodes(hasSetTextAction()).assertAny(hasText(taskName, substring = true))
+    }
+
+    /**
+     * Force the navigation back to the previous screen based on the content description.
+     */
+    private fun ComposeUiTest.navigateBack() = try {
+        onNodeWithContentDescription("Back", substring = true).performClick()
+    } catch (e: AssertionError) {
+        onNodeWithContentDescription("Close", substring = true).performClick()
     }
 }

@@ -162,11 +162,17 @@ private fun AdaptivePreferenceScaffold(
                 }
 
                 PreferenceItem.ABOUT -> {
-                    AboutScreen(onUpPress = { coroutineScope.launch { navigator.navigateBack() } })
+                    AboutScreen(
+                        isCompact = false,
+                        onUpPress = { coroutineScope.launch { navigator.navigateBack() } },
+                    )
                 }
 
                 PreferenceItem.OPEN_SOURCE -> {
-                    OpenSource(onUpPress = { coroutineScope.launch { navigator.navigateBack() } })
+                    OpenSource(
+                        isCompact = false,
+                        onUpPress = { coroutineScope.launch { navigator.navigateBack() } },
+                    )
                 }
 
                 else -> {

@@ -8,6 +8,7 @@ internal class TaskDetailScreenImpl : TaskDetailScreen {
     @Composable
     override fun Content(taskId: Long, onUpPress: () -> Unit) {
         TaskDetailScreen(
+            isCompact = false,
             taskId = taskId,
             onUpPress = onUpPress,
         )

@@ -56,7 +56,12 @@ internal fun TrackerLoader(viewModel: TrackerViewModel = koinInject(), onUpPress
         viewModel.loadTracker()
     }.collectAsState(initial = TrackerViewState.Loading)
 
-    Scaffold(topBar = { AlkaaToolbar(onUpPress = onUpPress) }) { paddingValues ->
+    Scaffold(topBar = {
+        AlkaaToolbar(
+            isCompact = true,
+            onUpPress = onUpPress,
+        )
+    }) { paddingValues ->
         Crossfade(targetState = data, modifier = Modifier.padding(paddingValues)) { state ->
             when (state) {
                 TrackerViewState.Empty -> TrackerEmpty()

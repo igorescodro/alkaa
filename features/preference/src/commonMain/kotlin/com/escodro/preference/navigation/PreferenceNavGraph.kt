@@ -36,6 +36,7 @@ internal class PreferenceNavGraph(
             exitTransition = { SlideOutHorizontallyTransition },
         ) {
             AboutScreen(
+                isCompact = true,
                 onUpPress = { navEventController.sendEvent(Event.OnBack) },
             )
         }
@@ -45,6 +46,7 @@ internal class PreferenceNavGraph(
             exitTransition = { SlideOutHorizontallyTransition },
         ) {
             OpenSource(
+                isCompact = true,
                 onUpPress = { navEventController.sendEvent(Event.OnBack) },
             )
         }

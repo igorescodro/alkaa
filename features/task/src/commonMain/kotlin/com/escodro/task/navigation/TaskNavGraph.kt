@@ -43,6 +43,7 @@ internal class TaskNavGraph : NavGraph {
         ) { navEntry ->
             val route: TasksDestination.TaskDetail = navEntry.toRoute()
             TaskDetailScreen(
+                isCompact = true,
                 taskId = route.taskId,
                 onUpPress = { navEventController.sendEvent(Event.OnBack) },
             )

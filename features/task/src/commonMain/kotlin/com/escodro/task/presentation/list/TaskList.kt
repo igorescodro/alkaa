@@ -168,6 +168,7 @@ private fun AdaptiveTaskListScaffold(
                 val taskId = navigator.currentDestination?.contentKey?.value
                 if (taskId != null) {
                     TaskDetailScreen(
+                        isCompact = false,
                         taskId = taskId,
                         onUpPress = {
                             coroutineScope.launch { navigator.navigateBack() }

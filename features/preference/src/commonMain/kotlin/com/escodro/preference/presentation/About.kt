@@ -42,9 +42,18 @@ import org.jetbrains.compose.resources.stringResource
  * Alkaa about screen.
  */
 @Composable
-fun AboutScreen(onUpPress: () -> Unit, modifier: Modifier = Modifier) {
+fun AboutScreen(
+    isCompact: Boolean,
+    onUpPress: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
     Scaffold(
-        topBar = { AlkaaToolbar(onUpPress = onUpPress) },
+        topBar = {
+            AlkaaToolbar(
+                isCompact = isCompact,
+                onUpPress = onUpPress,
+            )
+        },
         content = { paddingValues -> AboutContent(modifier = Modifier.padding(paddingValues)) },
         modifier = modifier,
     )

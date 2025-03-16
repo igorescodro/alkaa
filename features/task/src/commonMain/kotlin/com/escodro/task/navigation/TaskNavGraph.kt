@@ -6,9 +6,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.dialog
 import androidx.navigation.navDeepLink
 import androidx.navigation.toRoute
-import androidx.window.core.layout.WindowHeightSizeClass
-import androidx.window.core.layout.WindowSizeClass
-import androidx.window.core.layout.WindowWidthSizeClass
 import com.escodro.designsystem.animation.SlideInHorizontallyTransition
 import com.escodro.designsystem.animation.SlideOutHorizontallyTransition
 import com.escodro.navigationapi.controller.NavEventController
@@ -17,6 +14,7 @@ import com.escodro.navigationapi.destination.HomeDestination
 import com.escodro.navigationapi.destination.TasksDestination
 import com.escodro.navigationapi.event.Event
 import com.escodro.navigationapi.event.TaskEvent
+import com.escodro.navigationapi.extension.isCompact
 import com.escodro.navigationapi.provider.NavGraph
 import com.escodro.task.presentation.add.AddTaskBottomSheet
 import com.escodro.task.presentation.detail.main.TaskDetailScreen
@@ -57,7 +55,3 @@ internal class TaskNavGraph : NavGraph {
         }
     }
 }
-
-private fun WindowSizeClass.isCompact(): Boolean =
-    windowWidthSizeClass == WindowWidthSizeClass.COMPACT ||
-        windowHeightSizeClass == WindowHeightSizeClass.COMPACT

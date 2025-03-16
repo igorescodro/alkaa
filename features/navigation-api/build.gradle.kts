@@ -14,6 +14,8 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(libs.compose.navigation)
+            api(libs.compose.adaptive.navigation)
+
             implementation(projects.resources)
             implementation(projects.libraries.parcelable)
 

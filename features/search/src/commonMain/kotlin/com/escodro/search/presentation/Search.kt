@@ -56,6 +56,7 @@ import com.escodro.resources.search_header_empty
 import com.escodro.resources.task_detail_pane_title
 import com.escodro.resources.task_list_cd_error
 import com.escodro.search.model.TaskSearchItem
+import com.escodro.taskapi.TaskDetailScreen
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
@@ -85,6 +86,7 @@ private fun SearchLoader(
     onItemClick: (Long) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: SearchViewModel = koinInject(),
+    taskDetailScreen: TaskDetailScreen = koinInject(),
 ) {
     val (query, setQuery) = rememberSaveable { mutableStateOf("") }
     val viewState by remember(viewModel, query) {
@@ -101,6 +103,12 @@ private fun SearchLoader(
         )
     } else {
         AdaptiveSearchScaffold(
+            taskDetailScreen = { taskId, onUpPress ->
+                taskDetailScreen.Content(
+                    taskId = taskId,
+                    onUpPress = onUpPress,
+                )
+            },
             viewState = viewState,
             query = query,
             setQuery = setQuery,
@@ -116,6 +124,7 @@ private fun AdaptiveSearchScaffold(
     query: String,
     setQuery: (String) -> Unit,
     modifier: Modifier = Modifier,
+    taskDetailScreen: @Composable (Long, () -> Unit) -> Unit,
 ) {
     val navigator: ThreePaneScaffoldNavigator<Long> =
         rememberListDetailPaneScaffoldNavigator<Long>()
@@ -143,13 +152,11 @@ private fun AdaptiveSearchScaffold(
             AnimatedPane {
                 val taskId = navigator.currentDestination?.contentKey
                 if (taskId != null) {
-//                    TODO connect with the composable
-//                    TaskDetailScreen(
-//                        taskId = taskId,
-//                        onUpPress = {
-//                            coroutineScope.launch { navigator.navigateBack() }
-//                        },
-//                    )
+                    taskDetailScreen(taskId) {
+                        coroutineScope.launch {
+                            navigator.navigateBack()
+                        }
+                    }
                 } else {
                     DefaultIconTextContent(
                         icon = Icons.Outlined.CheckCircle,

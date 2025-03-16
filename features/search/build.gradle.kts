@@ -15,6 +15,7 @@ kotlin {
             implementation(projects.libraries.designsystem)
             implementation(projects.resources)
             implementation(projects.features.navigationApi)
+            implementation(projects.features.taskApi)
             implementation(projects.libraries.di)
 
             implementation(compose.runtime)

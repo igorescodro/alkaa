@@ -14,6 +14,7 @@ kotlin {
         commonMain.dependencies {
             api(projects.features.categoryApi)
             implementation(projects.features.alarmApi)
+            implementation(projects.features.taskApi)
             implementation(projects.domain)
             implementation(projects.resources)
             implementation(projects.libraries.di)

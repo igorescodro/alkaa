@@ -15,8 +15,6 @@ import kotlinx.coroutines.flow.mapLatest
 
 /**
  * Alkaa App state.
- *
- * @property isCompactMode flag to indicate if the app is in compact mode
  */
 @Stable
 data class AlkaaAppState(

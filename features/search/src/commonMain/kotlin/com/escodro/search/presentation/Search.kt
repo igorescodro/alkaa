@@ -69,12 +69,12 @@ import org.koin.compose.koinInject
  */
 @Composable
 fun SearchSection(
-    isCompact: Boolean,
+    isSinglePane: Boolean,
     onItemClick: (Long) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     SearchLoader(
-        isCompact = isCompact,
+        isSinglePane = isSinglePane,
         modifier = modifier,
         onItemClick = onItemClick,
     )
@@ -82,7 +82,7 @@ fun SearchSection(
 
 @Composable
 private fun SearchLoader(
-    isCompact: Boolean,
+    isSinglePane: Boolean,
     onItemClick: (Long) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: SearchViewModel = koinInject(),
@@ -93,7 +93,7 @@ private fun SearchLoader(
         viewModel.findTasksByName(query)
     }.collectAsState(initial = SearchViewState.Loading)
 
-    if (isCompact) {
+    if (isSinglePane) {
         SearchScaffold(
             viewState = viewState,
             modifier = modifier,

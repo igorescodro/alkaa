@@ -14,7 +14,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 /**
  * TopAppBar for screens that need a back button.
  *
- * @param isCompact flag to indicate if the screen is in compact mode - if true it shows the "back"
+ * @param isSinglePane flag to indicate if the screen is in compact mode - if true it shows the "back"
  * button, otherwise it shows the "close" button
  * @param onUpPress function to be called when the back/up button is clicked
  * @param modifier Compose modifier
@@ -22,11 +22,11 @@ import androidx.compose.ui.graphics.vector.ImageVector
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AlkaaToolbar(
-    isCompact: Boolean,
+    isSinglePane: Boolean,
     onUpPress: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val iconType = if (isCompact) IconType.Back else IconType.Close
+    val iconType = if (isSinglePane) IconType.Back else IconType.Close
 
     TopAppBar(
         title = {},

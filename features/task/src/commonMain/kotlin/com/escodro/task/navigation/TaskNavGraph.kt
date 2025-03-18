@@ -14,7 +14,7 @@ import com.escodro.navigationapi.destination.HomeDestination
 import com.escodro.navigationapi.destination.TasksDestination
 import com.escodro.navigationapi.event.Event
 import com.escodro.navigationapi.event.TaskEvent
-import com.escodro.navigationapi.extension.isCompact
+import com.escodro.navigationapi.extension.isSinglePane
 import com.escodro.navigationapi.provider.NavGraph
 import com.escodro.task.presentation.add.AddTaskBottomSheet
 import com.escodro.task.presentation.detail.main.TaskDetailScreen
@@ -24,9 +24,8 @@ internal class TaskNavGraph : NavGraph {
 
     override val navGraph: NavGraphBuilder.(NavEventController) -> Unit = { navEventController ->
         composable<HomeDestination.TaskList> {
-            val windowSizeClass = currentWindowAdaptiveInfo().windowSizeClass
             TaskListSection(
-                isCompact = windowSizeClass.isCompact(),
+                isSinglePane = currentWindowAdaptiveInfo().windowSizeClass.isSinglePane(),
                 onItemClick = { taskId -> navEventController.sendEvent(TaskEvent.OnTaskClick(taskId)) },
                 onFabClick = { navEventController.sendEvent(TaskEvent.OnNewTaskClick) },
             )
@@ -43,7 +42,7 @@ internal class TaskNavGraph : NavGraph {
         ) { navEntry ->
             val route: TasksDestination.TaskDetail = navEntry.toRoute()
             TaskDetailScreen(
-                isCompact = true,
+                isSinglePane = true,
                 taskId = route.taskId,
                 onUpPress = { navEventController.sendEvent(Event.OnBack) },
             )

@@ -67,13 +67,13 @@ import org.koin.compose.koinInject
  */
 @Composable
 fun TaskListSection(
-    isCompact: Boolean,
+    isSinglePane: Boolean,
     onItemClick: (Long) -> Unit,
     onFabClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     TaskListLoader(
-        isCompact = isCompact,
+        isSinglePane = isSinglePane,
         modifier = modifier,
         onFabClick = onFabClick,
         onItemClick = onItemClick,
@@ -82,7 +82,7 @@ fun TaskListSection(
 
 @Composable
 internal fun TaskListLoader(
-    isCompact: Boolean,
+    isSinglePane: Boolean,
     onItemClick: (Long) -> Unit,
     onFabClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -100,7 +100,7 @@ internal fun TaskListLoader(
         categoryViewModel.loadCategories()
     }.collectAsState(initial = CategoryState.Loading)
 
-    if (isCompact) {
+    if (isSinglePane) {
         TaskListScaffold(
             taskViewState = taskViewState,
             categoryViewState = categoryViewState,
@@ -168,7 +168,7 @@ private fun AdaptiveTaskListScaffold(
                 val taskId = navigator.currentDestination?.contentKey?.value
                 if (taskId != null) {
                     TaskDetailScreen(
-                        isCompact = false,
+                        isSinglePane = false,
                         taskId = taskId,
                         onUpPress = {
                             coroutineScope.launch { navigator.navigateBack() }

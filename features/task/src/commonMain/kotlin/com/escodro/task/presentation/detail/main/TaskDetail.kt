@@ -53,7 +53,7 @@ import kotlin.jvm.JvmInline
 @Suppress("LongParameterList")
 @Composable
 internal fun TaskDetailScreen(
-    isCompact: Boolean,
+    isSinglePane: Boolean,
     taskId: Long,
     onUpPress: () -> Unit,
     detailViewModel: TaskDetailViewModel = koinInject(),
@@ -85,7 +85,7 @@ internal fun TaskDetailScreen(
     )
 
     TaskDetailRouter(
-        isCompact = isCompact,
+        isSinglePane = isSinglePane,
         detailViewState = detailViewState,
         categoryViewState = categoryViewState,
         actions = taskDetailActions,
@@ -94,14 +94,14 @@ internal fun TaskDetailScreen(
 
 @Composable
 internal fun TaskDetailRouter(
-    isCompact: Boolean,
+    isSinglePane: Boolean,
     detailViewState: TaskDetailState,
     categoryViewState: CategoryState,
     actions: TaskDetailActions,
 ) {
     Scaffold(topBar = {
         AlkaaToolbar(
-            isCompact = isCompact,
+            isSinglePane = isSinglePane,
             onUpPress = actions.onUpPress,
         )
     }) { paddingValues ->

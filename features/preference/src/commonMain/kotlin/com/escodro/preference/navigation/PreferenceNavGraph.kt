@@ -10,7 +10,7 @@ import com.escodro.navigationapi.destination.HomeDestination
 import com.escodro.navigationapi.destination.PreferenceDestination
 import com.escodro.navigationapi.event.Event
 import com.escodro.navigationapi.event.PreferenceEvent
-import com.escodro.navigationapi.extension.isCompact
+import com.escodro.navigationapi.extension.isSinglePane
 import com.escodro.navigationapi.provider.NavGraph
 import com.escodro.preference.presentation.AboutScreen
 import com.escodro.preference.presentation.OpenSource
@@ -22,9 +22,8 @@ internal class PreferenceNavGraph(
 ) : NavGraph {
     override val navGraph: NavGraphBuilder.(NavEventController) -> Unit = { navEventController ->
         composable<HomeDestination.Preferences> {
-            val windowSizeClass = currentWindowAdaptiveInfo().windowSizeClass
             PreferenceSection(
-                isCompact = windowSizeClass.isCompact(),
+                isSinglePane = currentWindowAdaptiveInfo().windowSizeClass.isSinglePane(),
                 onAboutClick = { navEventController.sendEvent(PreferenceEvent.OnAboutClick) },
                 onOpenSourceClick = { navEventController.sendEvent(PreferenceEvent.OnLicensesClick) },
                 onTrackerClick = { navEventController.sendEvent(PreferenceEvent.OnTrackerClick) },
@@ -36,7 +35,7 @@ internal class PreferenceNavGraph(
             exitTransition = { SlideOutHorizontallyTransition },
         ) {
             AboutScreen(
-                isCompact = true,
+                isSinglePane = true,
                 onUpPress = { navEventController.sendEvent(Event.OnBack) },
             )
         }
@@ -46,7 +45,7 @@ internal class PreferenceNavGraph(
             exitTransition = { SlideOutHorizontallyTransition },
         ) {
             OpenSource(
-                isCompact = true,
+                isSinglePane = true,
                 onUpPress = { navEventController.sendEvent(Event.OnBack) },
             )
         }

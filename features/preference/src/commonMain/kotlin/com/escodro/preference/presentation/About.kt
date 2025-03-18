@@ -43,14 +43,14 @@ import org.jetbrains.compose.resources.stringResource
  */
 @Composable
 fun AboutScreen(
-    isCompact: Boolean,
+    isSinglePane: Boolean,
     onUpPress: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Scaffold(
         topBar = {
             AlkaaToolbar(
-                isCompact = isCompact,
+                isSinglePane = isSinglePane,
                 onUpPress = onUpPress,
             )
         },

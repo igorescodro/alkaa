@@ -36,14 +36,14 @@ import org.koin.compose.koinInject
  */
 @Composable
 fun PreferenceSection(
-    isCompact: Boolean,
+    isSinglePane: Boolean,
     onAboutClick: () -> Unit,
     onOpenSourceClick: () -> Unit,
     onTrackerClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     PreferenceLoader(
-        isCompact = isCompact,
+        isSinglePane = isSinglePane,
         modifier = modifier,
         onAboutClick = onAboutClick,
         onTrackerClick = onTrackerClick,
@@ -53,7 +53,7 @@ fun PreferenceSection(
 
 @Composable
 private fun PreferenceLoader(
-    isCompact: Boolean,
+    isSinglePane: Boolean,
     onAboutClick: () -> Unit,
     onTrackerClick: () -> Unit,
     onOpenSourceClick: () -> Unit,
@@ -65,7 +65,7 @@ private fun PreferenceLoader(
         viewModel.loadCurrentTheme()
     }.collectAsState(initial = AppThemeOptions.SYSTEM)
 
-    if (isCompact) {
+    if (isSinglePane) {
         PreferenceContent(
             onAboutClick = onAboutClick,
             onTrackerClick = onTrackerClick,
@@ -163,14 +163,14 @@ private fun AdaptivePreferenceScaffold(
 
                 PreferenceItem.ABOUT -> {
                     AboutScreen(
-                        isCompact = false,
+                        isSinglePane = false,
                         onUpPress = { coroutineScope.launch { navigator.navigateBack() } },
                     )
                 }
 
                 PreferenceItem.OPEN_SOURCE -> {
                     OpenSource(
-                        isCompact = false,
+                        isSinglePane = false,
                         onUpPress = { coroutineScope.launch { navigator.navigateBack() } },
                     )
                 }

@@ -58,7 +58,7 @@ internal fun TrackerLoader(viewModel: TrackerViewModel = koinInject(), onUpPress
 
     Scaffold(topBar = {
         AlkaaToolbar(
-            isCompact = true,
+            isSinglePane = true,
             onUpPress = onUpPress,
         )
     }) { paddingValues ->

@@ -40,9 +40,18 @@ import org.jetbrains.compose.resources.stringResource
  * Alkaa open source licenses screen.
  */
 @Composable
-fun OpenSource(onUpPress: () -> Unit, modifier: Modifier = Modifier) {
+fun OpenSource(
+    isSinglePane: Boolean,
+    onUpPress: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
     Scaffold(
-        topBar = { AlkaaToolbar(onUpPress = onUpPress) },
+        topBar = {
+            AlkaaToolbar(
+                isSinglePane = isSinglePane,
+                onUpPress = onUpPress,
+            )
+        },
         content = { paddingValues -> OpenSourceContent(modifier = Modifier.padding(paddingValues)) },
         modifier = modifier,
     )

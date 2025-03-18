@@ -8,19 +8,15 @@ plugins {
 }
 
 kotlin {
-    setFrameworkBaseName("appstate")
+    setFrameworkBaseName("taskapi")
 
     sourceSets {
         commonMain.dependencies {
-            implementation(projects.libraries.parcelable)
-            implementation(projects.features.navigationApi)
-
             implementation(compose.runtime)
-            implementation(libs.compose.navigation)
         }
     }
 }
 
 android {
-    namespace = "com.escodro.appstate"
+    namespace = "com.escodro.taskapi"
 }

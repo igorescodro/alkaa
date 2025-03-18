@@ -20,16 +20,24 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ExitToApp
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.outlined.CheckCircle
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.adaptive.ExperimentalMaterial3AdaptiveApi
+import androidx.compose.material3.adaptive.layout.AnimatedPane
+import androidx.compose.material3.adaptive.layout.ListDetailPaneScaffold
+import androidx.compose.material3.adaptive.layout.ListDetailPaneScaffoldRole
+import androidx.compose.material3.adaptive.navigation.ThreePaneScaffoldNavigator
+import androidx.compose.material3.adaptive.navigation.rememberListDetailPaneScaffoldNavigator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -45,8 +53,12 @@ import com.escodro.resources.Res
 import com.escodro.resources.search_cd_empty_list
 import com.escodro.resources.search_cd_icon
 import com.escodro.resources.search_header_empty
+import com.escodro.resources.task_detail_pane_title
+import com.escodro.resources.task_list_cd_error
 import com.escodro.search.model.TaskSearchItem
+import com.escodro.taskapi.TaskDetailScreen
 import kotlinx.collections.immutable.ImmutableList
+import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
 
@@ -57,29 +69,103 @@ import org.koin.compose.koinInject
  */
 @Composable
 fun SearchSection(
+    isSinglePane: Boolean,
     onItemClick: (Long) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    SearchLoader(modifier = modifier, onItemClick = onItemClick)
+    SearchLoader(
+        isSinglePane = isSinglePane,
+        modifier = modifier,
+        onItemClick = onItemClick,
+    )
 }
 
 @Composable
 private fun SearchLoader(
+    isSinglePane: Boolean,
     onItemClick: (Long) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: SearchViewModel = koinInject(),
+    taskDetailScreen: TaskDetailScreen = koinInject(),
 ) {
     val (query, setQuery) = rememberSaveable { mutableStateOf("") }
     val viewState by remember(viewModel, query) {
         viewModel.findTasksByName(query)
     }.collectAsState(initial = SearchViewState.Loading)
 
-    SearchScaffold(
-        viewState = viewState,
-        modifier = modifier,
-        onItemClick = onItemClick,
-        query = query,
-        setQuery = setQuery,
+    if (isSinglePane) {
+        SearchScaffold(
+            viewState = viewState,
+            modifier = modifier,
+            onItemClick = onItemClick,
+            query = query,
+            setQuery = setQuery,
+        )
+    } else {
+        AdaptiveSearchScaffold(
+            taskDetailScreen = { taskId, onUpPress ->
+                taskDetailScreen.Content(
+                    taskId = taskId,
+                    onUpPress = onUpPress,
+                )
+            },
+            viewState = viewState,
+            query = query,
+            setQuery = setQuery,
+            modifier = modifier,
+        )
+    }
+}
+
+@OptIn(ExperimentalMaterial3AdaptiveApi::class)
+@Composable
+private fun AdaptiveSearchScaffold(
+    viewState: SearchViewState,
+    query: String,
+    setQuery: (String) -> Unit,
+    modifier: Modifier = Modifier,
+    taskDetailScreen: @Composable (Long, () -> Unit) -> Unit,
+) {
+    val navigator: ThreePaneScaffoldNavigator<Long> =
+        rememberListDetailPaneScaffoldNavigator<Long>()
+    val coroutineScope = rememberCoroutineScope()
+
+    ListDetailPaneScaffold(
+        directive = navigator.scaffoldDirective,
+        value = navigator.scaffoldValue,
+        listPane = {
+            AnimatedPane {
+                SearchScaffold(
+                    viewState = viewState,
+                    modifier = modifier,
+                    onItemClick = {
+                        coroutineScope.launch {
+                            navigator.navigateTo(ListDetailPaneScaffoldRole.Detail, it)
+                        }
+                    },
+                    query = query,
+                    setQuery = setQuery,
+                )
+            }
+        },
+        detailPane = {
+            AnimatedPane {
+                val taskId = navigator.currentDestination?.contentKey
+                if (taskId != null) {
+                    taskDetailScreen(taskId) {
+                        coroutineScope.launch {
+                            navigator.navigateBack()
+                        }
+                    }
+                } else {
+                    DefaultIconTextContent(
+                        icon = Icons.Outlined.CheckCircle,
+                        iconContentDescription = stringResource(Res.string.task_list_cd_error),
+                        header = stringResource(Res.string.task_detail_pane_title),
+                    )
+                }
+            }
+        },
     )
 }
 

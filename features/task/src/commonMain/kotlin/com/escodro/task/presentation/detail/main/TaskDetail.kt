@@ -4,8 +4,10 @@ import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Description
 import androidx.compose.material.icons.outlined.Bookmark
@@ -20,7 +22,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
@@ -52,6 +53,7 @@ import kotlin.jvm.JvmInline
 @Suppress("LongParameterList")
 @Composable
 internal fun TaskDetailScreen(
+    isSinglePane: Boolean,
     taskId: Long,
     onUpPress: () -> Unit,
     detailViewModel: TaskDetailViewModel = koinInject(),
@@ -83,6 +85,7 @@ internal fun TaskDetailScreen(
     )
 
     TaskDetailRouter(
+        isSinglePane = isSinglePane,
         detailViewState = detailViewState,
         categoryViewState = categoryViewState,
         actions = taskDetailActions,
@@ -91,11 +94,17 @@ internal fun TaskDetailScreen(
 
 @Composable
 internal fun TaskDetailRouter(
+    isSinglePane: Boolean,
     detailViewState: TaskDetailState,
     categoryViewState: CategoryState,
     actions: TaskDetailActions,
 ) {
-    Scaffold(topBar = { AlkaaToolbar(onUpPress = actions.onUpPress) }) { paddingValues ->
+    Scaffold(topBar = {
+        AlkaaToolbar(
+            isSinglePane = isSinglePane,
+            onUpPress = actions.onUpPress,
+        )
+    }) { paddingValues ->
         Crossfade(
             targetState = detailViewState,
             modifier = Modifier.padding(paddingValues),
@@ -121,7 +130,7 @@ private fun TaskDetailContent(
     actions: TaskDetailActions,
 ) {
     Surface(color = MaterialTheme.colorScheme.background) {
-        Column {
+        Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
             TaskTitleTextField(text = task.title, onTitleChange = actions.onTitleChange)
             TaskDetailSectionContent(
                 imageVector = Icons.Outlined.Bookmark,
@@ -159,7 +168,6 @@ private fun TaskDetailError() {
     )
 }
 
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 private fun TaskTitleTextField(text: String, onTitleChange: (String) -> Unit) {
     val textState = remember { mutableStateOf(TextFieldValue(text)) }

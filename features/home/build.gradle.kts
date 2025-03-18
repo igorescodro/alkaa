@@ -29,6 +29,7 @@ kotlin {
             implementation(compose.material)
             implementation(compose.material3)
             implementation(compose.components.resources)
+            implementation(compose.material3AdaptiveNavigationSuite)
 
             implementation(libs.koin.compose.jb)
             implementation(libs.kotlinx.collections.immutable)

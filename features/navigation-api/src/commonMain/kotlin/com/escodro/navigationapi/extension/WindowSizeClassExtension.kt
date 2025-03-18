@@ -1,6 +1,5 @@
 package com.escodro.navigationapi.extension
 
-import androidx.window.core.layout.WindowHeightSizeClass
 import androidx.window.core.layout.WindowSizeClass
 import androidx.window.core.layout.WindowWidthSizeClass
 
@@ -11,5 +10,4 @@ import androidx.window.core.layout.WindowWidthSizeClass
  * @return true if the [WindowSizeClass] is single pane, false otherwise.
  */
 fun WindowSizeClass.isSinglePane(): Boolean =
-    windowWidthSizeClass == WindowWidthSizeClass.COMPACT ||
-        windowHeightSizeClass == WindowHeightSizeClass.COMPACT
+    windowWidthSizeClass == WindowWidthSizeClass.COMPACT

@@ -1,8 +1,6 @@
 package com.escodro.alkaa
 
-import android.graphics.Color
 import android.os.Bundle
-import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -19,30 +17,10 @@ internal class MainActivity : AppCompatActivity() {
 
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
+        enableEdgeToEdge()
+
         setContent {
-            MainView(
-                onThemeUpdate = ::updateTheme,
-            )
+            MainView()
         }
-    }
-
-    private fun updateTheme(isDarkTheme: Boolean) {
-        val systemBarStyle = if (isDarkTheme) {
-            SystemBarStyle.dark(Color.TRANSPARENT)
-        } else {
-            SystemBarStyle.light(lightScrim, darkScrim)
-        }
-
-        enableEdgeToEdge(statusBarStyle = systemBarStyle, navigationBarStyle = systemBarStyle)
     }
 }
-
-/**
- * Android light scrim color.
- */
-private val lightScrim = Color.argb(0xe6, 0xFF, 0xFF, 0xFF)
-
-/**
- * Android dark scrim color.
- */
-private val darkScrim = Color.argb(0x80, 0x1b, 0x1b, 0x1b)

@@ -17,11 +17,8 @@ import org.koin.compose.koinInject
 fun AlkaaMultiplatformApp(
     modifier: Modifier = Modifier,
     appState: AppState = rememberAlkaaAppState(),
-    onThemeUpdate: (isDarkTheme: Boolean) -> Unit = {},
 ) {
-    val isDarkTheme = rememberIsDarkTheme()
-    onThemeUpdate(isDarkTheme)
-    AlkaaTheme(isDarkTheme = isDarkTheme) {
+    AlkaaTheme(isDarkTheme = rememberIsDarkTheme()) {
         Home(
             appState = appState,
             modifier = modifier,

@@ -23,7 +23,6 @@ kotlin {
             implementation(compose.components.resources)
 
             implementation(libs.logging)
-            implementation(libs.logback)
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.koin.core)
         }

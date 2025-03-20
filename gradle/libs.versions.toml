@@ -13,7 +13,6 @@ dependencyanalysis = "2.12.0"
 
 # General dependencies
 logging = "3.0.5"
-logback = "1.2.11"
 logcat = "0.1"
 stately = "2.1.0"
 
@@ -76,7 +75,6 @@ kotlin_gradle_plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", v
 
 # General dependencies
 logging = { module = "io.github.microutils:kotlin-logging", version.ref = "logging" }
-logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
 logcat = { module = "com.squareup.logcat:logcat", version.ref = "logcat" }
 stately = { module = "co.touchlab:stately-common", version.ref = "stately" }
 

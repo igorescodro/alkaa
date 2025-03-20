@@ -12,7 +12,6 @@ kotlin {
             implementation(libs.koin.core)
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.logging)
-            implementation(libs.logback)
             implementation(libs.kotlinx.datetime)
         }
 

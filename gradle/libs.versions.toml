@@ -39,7 +39,7 @@ compose_bom = "2025.03.00"
 compose_activity = "1.10.1"
 compose_compiler = "1.8.0-alpha04"
 compose_navigation = "2.8.0-alpha13"
-compose_adaptive = "1.1.0-alpha04"
+compose_adaptive = "1.1.0-beta01"
 
 # Koin
 koin_core = "4.0.2"

@@ -5,8 +5,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import com.escodro.permission.api.PermissionController
 import com.escodro.task.model.AlarmInterval
-import dev.icerock.moko.permissions.PermissionsController
 import kotlinx.datetime.LocalDateTime
 
 /**
@@ -15,11 +15,11 @@ import kotlinx.datetime.LocalDateTime
 class AlarmSelectionState(
     calendar: LocalDateTime?,
     alarmInterval: AlarmInterval?,
-    permissionsController: PermissionsController,
+    permissionsController: PermissionController,
 ) {
 
     /**
-     * The [PermissionsController] to request the permissions on each platform.
+     * The [PermissionController] to request the permissions on each platform.
      */
     var permissionsController by mutableStateOf(permissionsController)
 
@@ -58,7 +58,7 @@ class AlarmSelectionState(
 internal fun rememberAlarmSelectionState(
     calendar: LocalDateTime?,
     alarmInterval: AlarmInterval?,
-    permissionsController: PermissionsController,
+    permissionsController: PermissionController,
 ): AlarmSelectionState =
     remember {
         AlarmSelectionState(

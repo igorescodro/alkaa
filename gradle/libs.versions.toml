@@ -54,6 +54,9 @@ sqldelight = "2.0.2"
 moko = "0.16.1"
 moko_permissions = "0.19.1"
 
+# Multiplatform Utils
+multiplatform_paths = "0.2.2"
+
 # Test
 test_junit = "4.13.2"
 test_uiautomator = "2.3.0"
@@ -81,6 +84,7 @@ stately = { module = "co.touchlab:stately-common", version.ref = "stately" }
 # KotlinX
 kotlinx_coroutines_core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx_coroutines" }
 kotlinx_coroutines_test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx_coroutines" }
+kotlinx_coroutines_swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinx_coroutines" }
 kotlinx_serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx_serialization" }
 kotlinx_collections_immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "kotlinx_collections_immutable" }
 kotlinx_datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx_datetime" }
@@ -118,6 +122,7 @@ koin_compose_jb = { module = "io.insert-koin:koin-compose", version.ref = "koin_
 # SQLDelight
 sqldelight_driver = { module = "app.cash.sqldelight:android-driver", version.ref = "sqldelight" }
 sqldelight_native = { module = "app.cash.sqldelight:native-driver", version.ref = "sqldelight" }
+sqldelight_jvm = { module = "app.cash.sqldelight:sqlite-driver", version.ref = "sqldelight" }
 sqldelight_coroutines = { module = "app.cash.sqldelight:coroutines-extensions", version.ref = "sqldelight" }
 
 # Moko
@@ -125,6 +130,9 @@ moko_mvvm_core = { module = "dev.icerock.moko:mvvm-core", version.ref = "moko" }
 moko_mvvm_compose = { module = "dev.icerock.moko:mvvm-flow-compose", version.ref = "moko" }
 moko_permissions_compose = { module = "dev.icerock.moko:permissions-compose", version.ref = "moko_permissions" }
 moko_permissions_notifications = { module = "dev.icerock.moko:permissions-notifications", version.ref = "moko_permissions" }
+
+## Multiplatform Utils
+multiplatform_path = { module = "me.sujanpoudel.multiplatform.utils:multiplatform-paths", version.ref = "multiplatform_paths" }
 
 # Test
 test_junit = { module = "junit:junit", version.ref = "test_junit" }

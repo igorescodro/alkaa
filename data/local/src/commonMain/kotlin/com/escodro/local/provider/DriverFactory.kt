@@ -15,13 +15,4 @@ internal interface DriverFactory {
      * @return the [SqlDriver] to be used in the database
      */
     fun createDriver(databaseName: String): SqlDriver
-
-    /**
-     * Checks if the database is opening for the first time and should be prepopulated.
-     *
-     * @param databaseName the database name
-     *
-     * @return true if the database should be prepopulated, false otherwise
-     */
-    fun shouldPrepopulateDatabase(databaseName: String): Boolean
 }

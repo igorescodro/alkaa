@@ -119,4 +119,13 @@
     <string name="dialog_picker_confirm">Confirmar</string>
 
     <string name="default_ok">OK</string>
+
+    <!-- Relative Date -->
+    <string name="relative_date_time_just_now">agora</string>
+    <string name="relative_date_time_one_minute">há 1 minuto</string>
+    <string name="relative_date_time_minutes">há %d minutos</string>
+    <string name="relative_date_time_one_hour">há 1 hora</string>
+    <string name="relative_date_time_hours">há %d horas</string>
+    <string name="relative_date_time_yesterday">ontem</string>
+    <string name="relative_date_time_days">há %d dias</string>
 </resources>

@@ -10,6 +10,8 @@ kotlin {
     setFrameworkBaseName("preference")
 
     sourceSets {
+        val desktopMain by getting
+
         commonMain.dependencies {
             implementation(projects.domain)
             implementation(projects.libraries.coroutines)
@@ -34,6 +36,10 @@ kotlin {
         }
 
         iosMain.dependencies {
+            implementation(projects.features.tracker)
+        }
+
+        desktopMain.dependencies{
             implementation(projects.features.tracker)
         }
     }

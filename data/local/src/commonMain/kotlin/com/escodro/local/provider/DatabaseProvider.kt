@@ -47,7 +47,7 @@ internal class DatabaseProvider(
     }
 
     private fun prepopulateDatabase(database: AlkaaDatabase) {
-        if (driverFactory.shouldPrepopulateDatabase(DATABASE_NAME)) {
+        if (isDatabaseEmpty(database)) {
             appCoroutineScope.launch {
                 for (category in getPrepopulateData()) {
                     database.categoryQueries.insert(
@@ -57,6 +57,17 @@ internal class DatabaseProvider(
                 }
             }
         }
+    }
+
+    private fun isDatabaseEmpty(database: AlkaaDatabase): Boolean = with(database) {
+        categoryQueries
+            .selectAll()
+            .executeAsList()
+            .isEmpty() &&
+            taskQueries
+                .selectAllTasksWithDueDate()
+                .executeAsList()
+                .isEmpty()
     }
 
     private suspend fun getPrepopulateData(): List<Category> =

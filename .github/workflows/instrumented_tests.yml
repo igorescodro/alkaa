@@ -90,6 +90,37 @@ jobs:
         with:
           name: test-results
           path: |
-            /Users/runner/work/alkaa/alkaa/app/build/reports/androidTests/
+            /Users/runner/work/alkaa/alkaa/app/build/reports/tests/
+            ./logcat.txt
+          retention-days: 7
+
+  desktop-test:
+    name: "Desktop"
+    runs-on: macos-latest
+    timeout-minutes: 80
+
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'zulu'
+
+      - name: Run instrumented tests
+        run: ./gradlew :shared:desktopTest
+
+      - name: Save Test Results
+        uses: actions/upload-artifact@v4
+        if: ${{ always() }}
+        with:
+          name: test-results
+          path: |
+            /Users/runner/work/alkaa/alkaa/app/build/reports/tests/
             ./logcat.txt
           retention-days: 7

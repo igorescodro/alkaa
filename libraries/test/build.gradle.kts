@@ -8,6 +8,8 @@ kotlin {
     setFrameworkBaseName("test")
 
     sourceSets {
+        val desktopMain by getting
+
         commonMain.dependencies {
             implementation(kotlin("test"))
             api(libs.kotlinx.coroutines.test)
@@ -16,6 +18,11 @@ kotlin {
         androidMain.dependencies {
             implementation(kotlin("test-junit"))
         }
+
+        desktopMain.dependencies {
+            implementation(kotlin("test-junit"))
+        }
+
     }
 
     tasks.withType<Test> {

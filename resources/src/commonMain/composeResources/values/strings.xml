@@ -123,4 +123,13 @@
 
     <string name="default_ok">OK</string>
 
+    <!-- Relative Date -->
+    <string name="relative_date_time_just_now">just now</string>
+    <string name="relative_date_time_one_minute">1 minute ago</string>
+    <string name="relative_date_time_minutes">%d minutes ago</string>
+    <string name="relative_date_time_one_hour">1 hour ago</string>
+    <string name="relative_date_time_hours">%d hours ago</string>
+    <string name="relative_date_time_yesterday">yesterday</string>
+    <string name="relative_date_time_days">%d days ago</string>
+
 </resources>

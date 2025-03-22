@@ -27,7 +27,7 @@ jobs:
           distribution: 'adopt'
 
       - name: Build with Gradle
-        run: ./gradlew clean build test -x shared:testDebugUnitTest -x shared:testReleaseUnitTest --parallel
+        run: ./gradlew clean build test -x shared:testDebugUnitTest -x shared:testReleaseUnitTest -x shared:desktopTest --parallel
         env:
           ALKAA_KEY_ALIAS: ${{ secrets.ALKAA_KEY_ALIAS }}
           ALKAA_KEY_PASSWORD: ${{ secrets.ALKAA_KEY_PASSWORD }}
@@ -49,3 +49,19 @@ jobs:
 
       - name: Build with Xcode
         run: xcodebuild -workspace ios-app/alkaa.xcodeproj/project.xcworkspace -configuration Debug -scheme alkaa -sdk iphonesimulator
+
+  build-desktop:
+    runs-on: macos-14
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '19'
+          distribution: 'temurin'
+
+      - name: Build with Gradle
+        run: ./gradlew desktop-app:createDistributable

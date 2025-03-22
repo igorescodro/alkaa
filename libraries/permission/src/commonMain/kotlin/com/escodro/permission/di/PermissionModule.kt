@@ -1,9 +1,10 @@
 package com.escodro.permission.di
 
-import com.escodro.permission.PermissionsControllerWrapper
-import org.koin.core.module.dsl.singleOf
+import org.koin.core.module.Module
 import org.koin.dsl.module
 
 val permissionModule = module {
-    singleOf(::PermissionsControllerWrapper)
+    includes(platformPermissionModule)
 }
+
+expect val platformPermissionModule: Module

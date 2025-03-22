@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import com.escodro.designsystem.components.AlkaaDialog
 import com.escodro.designsystem.components.DialogArguments
+import com.escodro.permission.api.Permission
 import com.escodro.resources.Res
 import com.escodro.resources.task_alarm_permission_dialog_cancel
 import com.escodro.resources.task_alarm_permission_dialog_confirm
@@ -17,8 +18,6 @@ import com.escodro.resources.task_notification_rationale_dialog_cancel
 import com.escodro.resources.task_notification_rationale_dialog_confirm
 import com.escodro.resources.task_notification_rationale_dialog_text
 import com.escodro.resources.task_notification_rationale_dialog_title
-import dev.icerock.moko.permissions.Permission
-import dev.icerock.moko.permissions.notifications.REMOTE_NOTIFICATION
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
 
@@ -61,7 +60,7 @@ internal fun NotificationPermissionDialog(
             scope.launch {
                 try {
                     alarmSelectionState.permissionsController
-                        .providePermission(Permission.REMOTE_NOTIFICATION)
+                        .requestPermission(Permission.NOTIFICATION)
                 } catch (e: Exception) {
                     alarmSelectionState.showRationaleDialog = true
                 }

@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.escodro.permission.PermissionsControllerWrapper
+import com.escodro.permission.api.PermissionController
 import com.escodro.resources.Res
 import com.escodro.resources.task_detail_cd_icon_alarm
 import com.escodro.task.model.AlarmInterval
@@ -40,13 +40,13 @@ internal fun AlarmSelection(
     hasExactAlarmPermission: () -> Boolean,
     openExactAlarmPermissionScreen: () -> Unit,
     openAppSettingsScreen: () -> Unit,
-    permissionsController: PermissionsControllerWrapper = koinInject(),
+    permissionsController: PermissionController = koinInject(),
 ) {
     val alarmSelectionState =
         rememberAlarmSelectionState(
             calendar = calendar,
             alarmInterval = interval,
-            permissionsController = permissionsController.getInstance(),
+            permissionsController = permissionsController,
         )
 
     // Date Time Picker dialog

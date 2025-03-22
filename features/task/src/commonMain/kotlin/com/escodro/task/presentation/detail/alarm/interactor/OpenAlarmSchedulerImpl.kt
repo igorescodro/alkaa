@@ -1,8 +1,7 @@
 package com.escodro.task.presentation.detail.alarm.interactor
 
+import com.escodro.permission.api.Permission
 import com.escodro.task.presentation.detail.alarm.AlarmSelectionState
-import dev.icerock.moko.permissions.Permission
-import dev.icerock.moko.permissions.notifications.REMOTE_NOTIFICATION
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -14,7 +13,7 @@ internal class OpenAlarmSchedulerImpl : OpenAlarmScheduler {
     ) {
         coroutineScope.launch {
             val isNotificationPermissionGranted = alarmSelectionState.permissionsController
-                .isPermissionGranted(Permission.REMOTE_NOTIFICATION)
+                .isPermissionGranted(Permission.NOTIFICATION)
 
             if (hasExactAlarmPermission() && isNotificationPermissionGranted) {
                 alarmSelectionState.showDateTimePickerDialog = true

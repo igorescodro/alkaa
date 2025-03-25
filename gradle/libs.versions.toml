@@ -44,7 +44,7 @@ compose_adaptive = "1.1.0-beta01"
 # Koin
 koin_core = "4.0.2"
 koin_test = "4.0.2"
-koin_android = "4.0.2"
+koin_android = "4.0.3"
 koin_compose_jb = "4.0.2"
 
 # SQLDelight

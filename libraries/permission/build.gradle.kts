@@ -12,8 +12,15 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(libs.koin.core)
-            api(libs.moko.permissions.compose)
-            api(libs.moko.permissions.notifications)
+            implementation(compose.runtime)
+        }
+        androidMain.dependencies {
+            implementation(libs.moko.permissions.compose)
+            implementation(libs.moko.permissions.notifications)
+        }
+        iosMain.dependencies {
+            implementation(libs.moko.permissions.compose)
+            implementation(libs.moko.permissions.notifications)
         }
     }
 }

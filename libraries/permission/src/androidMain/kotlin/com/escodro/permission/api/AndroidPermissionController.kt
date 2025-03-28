@@ -24,6 +24,5 @@ internal class AndroidPermissionController(
     private fun mapPermission(permission: Permission): LibPermission =
         when (permission) {
             Permission.NOTIFICATION -> LibPermission.REMOTE_NOTIFICATION
-            else -> throw IllegalArgumentException("Permission not supported")
         }
 }

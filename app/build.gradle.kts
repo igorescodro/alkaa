@@ -89,28 +89,6 @@ android {
         }
     }
 
-    testOptions {
-        execution = "ANDROIDX_TEST_ORCHESTRATOR"
-        managedDevices {
-            devices {
-                add(
-                    create<ManagedVirtualDevice>("pixel2api27") {
-                        device = "Pixel 2"
-                        apiLevel = 27
-                        systemImageSource = "aosp"
-                    },
-                )
-            }
-            groups {
-                create("alkaaDevices").apply {
-                    targetDevices.addAll(
-                        listOf(devices.getByName("pixel2api27")),
-                    )
-                }
-                unitTests.isReturnDefaultValues = true
-            }
-        }
-    }
     namespace = "com.escodro.alkaa"
 }
 

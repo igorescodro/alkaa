@@ -11,7 +11,7 @@ import kotlin.test.BeforeTest
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class CoroutinesTestDispatcherImpl(
-    val dispatcher: TestDispatcher = UnconfinedTestDispatcher(),
+    private val dispatcher: TestDispatcher = UnconfinedTestDispatcher(),
 ) : CoroutinesTestDispatcher {
 
     override fun testDispatcher(): TestDispatcher = dispatcher

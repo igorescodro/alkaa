@@ -1,5 +1,6 @@
 import extension.androidConfig
 import extension.proguardConfig
+import extension.logcat
 
 plugins {
     id("com.android.library")

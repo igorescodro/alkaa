@@ -29,7 +29,7 @@ internal class ThemePreferenceTest {
         // Then click in all the theme options and verify it is updated
         val itemTheme = context.getString(R.string.preference_title_app_theme)
 
-        AppThemeOptions.values().forEach { theme ->
+        AppThemeOptions.entries.forEach { theme ->
             composeTestRule.onNodeWithText(itemTheme).performClick()
 
             val title = context.getString(theme.titleRes)

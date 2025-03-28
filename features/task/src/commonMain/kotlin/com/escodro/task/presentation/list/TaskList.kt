@@ -24,12 +24,14 @@ import androidx.compose.material3.adaptive.navigation.ThreePaneScaffoldNavigator
 import androidx.compose.material3.adaptive.navigation.rememberListDetailPaneScaffoldNavigator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -90,9 +92,9 @@ internal fun TaskListLoader(
     categoryViewModel: CategoryListViewModel = koinInject(),
 ) {
     val (currentCategory, onCategoryChange) = rememberSaveable { mutableStateOf<CategoryId?>(null) }
-    // val refreshKey = rememberRefreshKey() https://github.com/JetBrains/compose-multiplatform/issues/4805
+    val refreshKey: Int by rememberRefreshKey()
 
-    val taskViewState by remember(taskListViewModel, currentCategory) {
+    val taskViewState by remember(taskListViewModel, currentCategory, refreshKey) {
         taskListViewModel.loadTaskList(currentCategory?.value)
     }.collectAsState(initial = TaskListViewState.Loading)
 
@@ -108,6 +110,7 @@ internal fun TaskListLoader(
             onFabClick = onFabClick,
             currentCategory = currentCategory,
             onCategoryChange = onCategoryChange,
+            refreshKey = refreshKey,
             modifier = modifier,
             onItemClick = onItemClick,
         )
@@ -119,6 +122,7 @@ internal fun TaskListLoader(
             onFabClick = onFabClick,
             currentCategory = currentCategory,
             onCategoryChange = onCategoryChange,
+            refreshKey = refreshKey,
             modifier = modifier,
         )
     }
@@ -133,6 +137,7 @@ private fun AdaptiveTaskListScaffold(
     onFabClick: () -> Unit,
     currentCategory: CategoryId?,
     onCategoryChange: (CategoryId?) -> Unit,
+    refreshKey: Int,
     modifier: Modifier = Modifier,
 ) {
     val navigator: ThreePaneScaffoldNavigator<TaskId> =
@@ -155,6 +160,7 @@ private fun AdaptiveTaskListScaffold(
                     currentCategory = currentCategory,
                     onCategoryChange = onCategoryChange,
                     modifier = modifier,
+                    refreshKey = refreshKey,
                     onItemClick = {
                         coroutineScope.launch {
                             navigator.navigateTo(ListDetailPaneScaffoldRole.Detail, TaskId(it))
@@ -195,6 +201,7 @@ internal fun TaskListScaffold(
     onItemClick: (Long) -> Unit,
     currentCategory: CategoryId?,
     onCategoryChange: (CategoryId?) -> Unit,
+    refreshKey: Int,
     modifier: Modifier = Modifier,
 ) {
     val coroutineScope = rememberCoroutineScope()
@@ -243,10 +250,10 @@ internal fun TaskListScaffold(
                 TaskListViewState.Loading -> AlkaaLoadingContent()
                 is TaskListViewState.Error -> TaskListError()
                 is TaskListViewState.Loaded -> {
-                    val taskList = state.items
                     TaskListContent(
-                        taskList = taskList,
+                        taskList = state.items,
                         onItemClick = onItemClick,
+                        refreshKey = refreshKey,
                         onCheckedChange = { taskWithCategory ->
                             onTaskCheckedChange(taskWithCategory)
                             onShowSnackbar(taskWithCategory)
@@ -279,6 +286,7 @@ private fun TaskListContent(
     taskList: ImmutableList<TaskWithCategory>,
     onItemClick: (Long) -> Unit,
     onCheckedChange: (TaskWithCategory) -> Unit,
+    refreshKey: Int,
 ) {
     LazyColumn(
         contentPadding = PaddingValues(bottom = 48.dp),
@@ -286,6 +294,7 @@ private fun TaskListContent(
     ) {
         items(
             items = taskList,
+            key = { taskWithCategory -> "${taskWithCategory.task.id}_$refreshKey" },
             itemContent = { task ->
                 TaskItem(
                     task = task,
@@ -320,7 +329,7 @@ private fun TaskListError() {
  * update the relative time string in the cards.
  */
 @Composable
-private fun rememberRefreshKey(): Int {
+private fun rememberRefreshKey(): State<Int> {
     var refreshKey by remember { mutableIntStateOf(0) }
     LaunchedEffect(Unit) {
         while (true) {
@@ -328,7 +337,7 @@ private fun rememberRefreshKey(): Int {
             refreshKey += 1
         }
     }
-    return refreshKey
+    return rememberUpdatedState(refreshKey)
 }
 
 /**

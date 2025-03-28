@@ -14,7 +14,4 @@ internal class AndroidDriverFactory(
 
     override fun createDriver(databaseName: String): SqlDriver =
         AndroidSqliteDriver(AlkaaDatabase.Schema, context, databaseName)
-
-    override fun shouldPrepopulateDatabase(databaseName: String): Boolean =
-        !context.getDatabasePath(databaseName).exists()
 }

@@ -1,6 +1,5 @@
 package extension
 
-import org.gradle.kotlin.dsl.get
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
 /**
@@ -18,4 +17,5 @@ fun KotlinMultiplatformExtension.setFrameworkBaseName(name: String) {
             baseName = name
         }
     }
+    jvm("desktop")
 }

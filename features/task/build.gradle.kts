@@ -17,7 +17,6 @@ kotlin {
             implementation(projects.features.taskApi)
             implementation(projects.domain)
             implementation(projects.resources)
-            implementation(projects.libraries.di)
             implementation(projects.features.navigationApi)
             implementation(projects.libraries.coroutines)
             implementation(projects.libraries.designsystem)
@@ -31,7 +30,7 @@ kotlin {
 
             implementation(libs.kotlinx.datetime)
             implementation(libs.kotlinx.collections.immutable)
-            implementation(libs.koin.compose.jb)
+            implementation(libs.koin.compose)
             implementation(libs.androidx.lifecycle.viewmodel)
         }
 

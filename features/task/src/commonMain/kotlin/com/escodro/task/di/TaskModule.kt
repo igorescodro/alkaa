@@ -1,6 +1,5 @@
 package com.escodro.task.di
 
-import com.escodro.di.viewModelDefinition
 import com.escodro.navigationapi.provider.NavGraph
 import com.escodro.task.mapper.AlarmIntervalMapper
 import com.escodro.task.mapper.CategoryMapper
@@ -17,6 +16,7 @@ import com.escodro.task.presentation.list.TaskListViewModel
 import com.escodro.taskapi.TaskDetailScreen
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.factoryOf
+import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.bind
 import org.koin.dsl.module
 
@@ -26,40 +26,10 @@ import org.koin.dsl.module
 val taskModule = module {
 
     // Presentation
-    viewModelDefinition {
-        TaskListViewModel(
-            loadAllTasksUseCase = get(),
-            updateTaskStatusUseCase = get(),
-            applicationScope = get(),
-            taskWithCategoryMapper = get(),
-        )
-    }
-    viewModelDefinition {
-        TaskDetailViewModel(
-            loadTaskUseCase = get(),
-            updateTaskTitle = get(),
-            updateTaskDescription = get(),
-            updateTaskCategory = get(),
-            coroutineDebouncer = get(),
-            applicationScope = get(),
-            taskMapper = get(),
-        )
-    }
-    viewModelDefinition {
-        TaskAlarmViewModel(
-            updateAlarm = get(),
-            loadTask = get(),
-            applicationScope = get(),
-            alarmIntervalMapper = get(),
-        )
-    }
-    viewModelDefinition {
-        AddTaskViewModel(
-            addTaskUseCase = get(),
-            alarmIntervalMapper = get(),
-            applicationScope = get(),
-        )
-    }
+    viewModelOf(::TaskListViewModel)
+    viewModelOf(::TaskDetailViewModel)
+    viewModelOf(::TaskAlarmViewModel)
+    viewModelOf(::AddTaskViewModel)
 
     factoryOf(::OpenAlarmSchedulerImpl) bind OpenAlarmScheduler::class
 

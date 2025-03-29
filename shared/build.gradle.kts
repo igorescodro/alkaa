@@ -39,7 +39,6 @@ kotlin {
             implementation(projects.features.navigationApi)
             implementation(projects.libraries.coroutines)
             implementation(projects.libraries.designsystem)
-            implementation(projects.libraries.di)
             implementation(projects.libraries.appstate)
             implementation(projects.libraries.parcelable)
             implementation(projects.libraries.permission)
@@ -60,7 +59,7 @@ kotlin {
             implementation(compose.material3)
             implementation(compose.components.resources)
 
-            implementation(libs.koin.compose.jb)
+            implementation(libs.koin.compose)
             implementation(libs.androidx.lifecycle.viewmodel)
         }
 

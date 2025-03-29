@@ -11,7 +11,7 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation(libs.koin.compose.jb)
+            implementation(libs.koin.compose)
             implementation(compose.runtime)
             implementation(compose.material)
             implementation(compose.material3)

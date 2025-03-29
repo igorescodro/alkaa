@@ -31,7 +31,7 @@ kotlin {
             implementation(compose.components.resources)
             implementation(compose.material3AdaptiveNavigationSuite)
 
-            implementation(libs.koin.compose.jb)
+            implementation(libs.koin.compose)
             implementation(libs.kotlinx.collections.immutable)
             implementation(libs.androidx.lifecycle.viewmodel)
         }

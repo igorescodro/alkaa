@@ -1,6 +1,9 @@
 import extension.androidConfig
+import extension.composeBom
+import extension.logcat
 import extension.composeBundle
 import extension.composeConfig
+import extension.kotlinxCollectionsImmutable
 import extension.proguardConfig
 
 plugins {

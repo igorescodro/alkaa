@@ -26,7 +26,7 @@ val dateTimeAdapter = object : ColumnAdapter<LocalDateTime, Long> {
  */
 val alarmIntervalAdapter = object : ColumnAdapter<AlarmInterval, Long> {
     override fun decode(databaseValue: Long): AlarmInterval =
-        AlarmInterval.values().find { it.id == databaseValue.toInt() }!!
+        AlarmInterval.entries.find { it.id == databaseValue.toInt() }!!
 
     override fun encode(value: AlarmInterval): Long =
         value.id.toLong()

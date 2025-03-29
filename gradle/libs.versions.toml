@@ -159,7 +159,5 @@ kotlin_serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 dependencyanalysis = { id = "com.autonomousapps.dependency-analysis", version.ref = "dependencyanalysis" }
 sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
 compose = { id = "org.jetbrains.compose", version.ref = "compose_compiler" }
-moko_multiplatform_resources = { id = "dev.icerock.mobile.multiplatform-resources" }
 
 compose_compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

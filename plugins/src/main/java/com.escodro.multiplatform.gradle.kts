@@ -19,6 +19,10 @@ kotlin {
             apiVersion.set(KotlinVersion.KOTLIN_2_0)
         }
     }
+
+    compilerOptions {
+        freeCompilerArgs.add("-Xexpect-actual-classes")
+    }
 }
 
 android {

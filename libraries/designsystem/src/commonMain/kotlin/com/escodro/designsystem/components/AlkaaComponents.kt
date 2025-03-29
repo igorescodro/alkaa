@@ -18,7 +18,6 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
@@ -105,7 +104,6 @@ fun AddFloatingButton(
  * @param onTextChange function to update text
  * @param modifier text field modifier
  */
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun AlkaaInputTextField(
     label: String,

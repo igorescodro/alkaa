@@ -11,7 +11,8 @@ import androidx.compose.ui.test.performKeyInput
 import com.escodro.alkaa.test.afterTest
 import com.escodro.alkaa.test.beforeTest
 import com.escodro.alkaa.test.uiTest
-import com.escodro.home.presentation.HomeSection
+import com.escodro.navigationapi.destination.HomeDestination
+import com.escodro.navigationapi.destination.TopLevelDestinations
 import kotlinx.coroutines.runBlocking
 import org.jetbrains.compose.resources.getString
 import org.koin.test.KoinTest
@@ -34,7 +35,7 @@ internal class HomeScreenTest : KoinTest {
 
     @Test
     fun when_tab_changes_then_title_updates() = uiTest {
-        HomeSection.entries.forEach { section ->
+        TopLevelDestinations.forEach { section ->
             val title = runBlocking { getString(section.title) }
 
             // Click on each item and validate the title
@@ -46,9 +47,9 @@ internal class HomeScreenTest : KoinTest {
     @Test
     fun when_tab_changes_and_back_pressed_then_title_updates() = uiTest {
         // Click on Settings tab
-        val settingsTitle = runBlocking { getString(HomeSection.Settings.title) }
+        val settingsTitle = runBlocking { getString(HomeDestination.Preferences.title) }
         onNodeWithContentDescription(label = settingsTitle, useUnmergedTree = true).performClick()
-        onNodeWithTag(HomeSection.Settings.title.toString()).assertIsSelected()
+        onNodeWithTag(HomeDestination.Preferences.title.toString()).assertIsSelected()
 
         // Press back button
         onAllNodes(isRoot())[0].performKeyInput {
@@ -57,8 +58,8 @@ internal class HomeScreenTest : KoinTest {
         }
 
         // Click on Tasks tab
-        val tasksTitle = runBlocking { getString(HomeSection.Tasks.title) }
+        val tasksTitle = runBlocking { getString(HomeDestination.TaskList.title) }
         onNodeWithContentDescription(label = tasksTitle, useUnmergedTree = true).performClick()
-        onNodeWithTag(HomeSection.Tasks.title.toString()).assertIsSelected()
+        onNodeWithTag(HomeDestination.TaskList.title.toString()).assertIsSelected()
     }
 }

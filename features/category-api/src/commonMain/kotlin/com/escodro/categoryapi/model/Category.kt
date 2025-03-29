@@ -15,4 +15,8 @@ data class Category(
     val id: Long = 0,
     val name: String,
     val color: Int,
-) : CommonParcelable
+) : CommonParcelable {
+
+    fun isEditing(): Boolean =
+        id > 0L
+}

@@ -14,7 +14,6 @@ import com.escodro.navigationapi.extension.currentTopLevelFlow
 import com.escodro.navigationapi.marker.TopLevel
 import com.escodro.permission.api.BindPermissionEffect
 import com.escodro.permission.api.PermissionController
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import org.koin.compose.koinInject
 
@@ -31,7 +30,6 @@ fun Navigation(
     )
 }
 
-@OptIn(ExperimentalCoroutinesApi::class)
 @Composable
 private fun NavigationLoader(
     startDestination: Destination,

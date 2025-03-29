@@ -1,7 +1,7 @@
 package com.escodro.splitinstall
 
 /**
- * Represents the States in [com.escodro.splitinstall.SplitInstallCompose].
+ * Represents the States in [com.escodro.splitinstall.LoadFeature].
  */
 enum class SplitInstallState {
     /**

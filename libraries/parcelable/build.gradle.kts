@@ -2,6 +2,7 @@ import extension.setFrameworkBaseName
 
 plugins {
     id("com.escodro.multiplatform")
+    id("kotlin-parcelize")
 }
 
 kotlin {

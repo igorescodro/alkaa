@@ -1,9 +1,9 @@
 package com.escodro.search.presentation
 
+import androidx.lifecycle.ViewModel
 import com.escodro.domain.model.TaskWithCategory
 import com.escodro.domain.usecase.search.SearchTasksByName
 import com.escodro.search.mapper.TaskSearchMapper
-import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 

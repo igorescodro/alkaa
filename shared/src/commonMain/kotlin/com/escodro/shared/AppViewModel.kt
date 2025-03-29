@@ -1,9 +1,9 @@
 package com.escodro.shared
 
+import androidx.lifecycle.ViewModel
 import com.escodro.domain.usecase.preferences.LoadAppTheme
 import com.escodro.shared.mapper.AppThemeOptionsMapper
 import com.escodro.shared.model.AppThemeOptions
-import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 

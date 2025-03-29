@@ -16,7 +16,6 @@ kotlin {
             implementation(projects.resources)
             implementation(projects.features.navigationApi)
             implementation(projects.features.taskApi)
-            implementation(projects.libraries.di)
 
             implementation(compose.runtime)
             implementation(compose.material3)
@@ -24,8 +23,8 @@ kotlin {
             implementation(compose.components.resources)
 
             implementation(libs.kotlinx.collections.immutable)
-            implementation(libs.koin.compose.jb)
-            implementation(libs.moko.mvvm.compose)
+            implementation(libs.koin.compose)
+            implementation(libs.androidx.lifecycle.viewmodel)
         }
 
         commonTest.dependencies {

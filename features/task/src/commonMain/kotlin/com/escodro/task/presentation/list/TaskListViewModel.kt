@@ -1,11 +1,11 @@
 package com.escodro.task.presentation.list
 
+import androidx.lifecycle.ViewModel
 import com.escodro.coroutines.AppCoroutineScope
 import com.escodro.domain.usecase.task.UpdateTaskStatus
 import com.escodro.domain.usecase.taskwithcategory.LoadUncompletedTasks
 import com.escodro.task.mapper.TaskWithCategoryMapper
 import com.escodro.task.model.TaskWithCategory
-import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow

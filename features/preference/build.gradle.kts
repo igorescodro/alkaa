@@ -18,15 +18,14 @@ kotlin {
             implementation(projects.libraries.designsystem)
             implementation(projects.resources)
             implementation(projects.features.navigationApi)
-            implementation(projects.libraries.di)
 
             implementation(compose.runtime)
             implementation(compose.material3)
             implementation(compose.materialIconsExtended)
             implementation(compose.components.resources)
 
-            implementation(libs.koin.compose.jb)
-            implementation(libs.moko.mvvm.compose)
+            implementation(libs.koin.compose)
+            implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.aboutlibraries.ui)
         }
 
@@ -39,7 +38,7 @@ kotlin {
             implementation(projects.features.tracker)
         }
 
-        desktopMain.dependencies{
+        desktopMain.dependencies {
             implementation(projects.features.tracker)
         }
     }

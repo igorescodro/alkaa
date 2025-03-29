@@ -18,7 +18,6 @@ kotlin {
             implementation(projects.features.navigationApi)
             implementation(projects.libraries.designsystem)
             implementation(projects.libraries.coroutines)
-            implementation(projects.libraries.di)
             implementation(projects.libraries.test)
             implementation(projects.libraries.parcelable)
 
@@ -27,9 +26,9 @@ kotlin {
             implementation(compose.materialIconsExtended)
             implementation(compose.components.resources)
 
-            implementation(libs.koin.compose.jb)
+            implementation(libs.koin.compose)
             implementation(libs.kotlinx.collections.immutable)
-            implementation(libs.moko.mvvm.compose)
+            implementation(libs.androidx.lifecycle.viewmodel)
         }
 
         commonTest.dependencies {

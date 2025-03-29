@@ -31,8 +31,8 @@ play_delivery = "2.1.0"
 datastore = "1.1.4"
 glance = "1.1.1"
 workmanager = "2.10.0"
-lifecycle_viewmodel = "2.8.7"
 annotation = "1.9.1"
+lifecycle_viewmodel = "2.8.4"
 
 # Compose
 compose_bom = "2025.03.01"
@@ -42,16 +42,12 @@ compose_navigation = "2.8.0-alpha13"
 compose_adaptive = "1.1.0-beta01"
 
 # Koin
-koin_core = "4.0.3"
-koin_test = "4.0.3"
-koin_android = "4.0.3"
-koin_compose_jb = "4.0.3"
+koin = "4.0.3"
 
 # SQLDelight
 sqldelight = "2.0.2"
 
 # Moko
-moko = "0.16.1"
 moko_permissions = "0.19.1"
 
 # Multiplatform Utils
@@ -99,7 +95,7 @@ androidx_datastore = { module = "androidx.datastore:datastore-preferences-core",
 androidx_glance = { module = "androidx.glance:glance-appwidget", version.ref = "glance" }
 androidx_glance_material3 = { module = "androidx.glance:glance-material3", version.ref = "glance" }
 androidx_workmanager = { module = "androidx.work:work-runtime-ktx", version.ref = "workmanager" }
-androidx_lifecycle_viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel", version.ref = "lifecycle_viewmodel" }
+androidx_lifecycle_viewmodel = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel", version.ref = "lifecycle_viewmodel" }
 androidx_annotation = { module = "androidx.annotation:annotation", version.ref = "annotation" }
 
 compose_bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose_bom" }
@@ -114,10 +110,10 @@ compose_navigation = { module = "org.jetbrains.androidx.navigation:navigation-co
 compose_activity = { module = "androidx.activity:activity-compose", version.ref = "compose_activity" }
 
 #Koin
-koin_core = { module = "io.insert-koin:koin-core", version.ref = "koin_core" }
-koin_android = { module = "io.insert-koin:koin-android", version.ref = "koin_android" }
-koin_test = { module = "io.insert-koin:koin-test", version.ref = "koin_test" }
-koin_compose_jb = { module = "io.insert-koin:koin-compose", version.ref = "koin_compose_jb" }
+koin_core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
+koin_android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
+koin_test = { module = "io.insert-koin:koin-test", version.ref = "koin" }
+koin_compose = { module = "io.insert-koin:koin-compose-viewmodel", version.ref = "koin" }
 
 # SQLDelight
 sqldelight_driver = { module = "app.cash.sqldelight:android-driver", version.ref = "sqldelight" }
@@ -126,8 +122,6 @@ sqldelight_jvm = { module = "app.cash.sqldelight:sqlite-driver", version.ref = "
 sqldelight_coroutines = { module = "app.cash.sqldelight:coroutines-extensions", version.ref = "sqldelight" }
 
 # Moko
-moko_mvvm_core = { module = "dev.icerock.moko:mvvm-core", version.ref = "moko" }
-moko_mvvm_compose = { module = "dev.icerock.moko:mvvm-flow-compose", version.ref = "moko" }
 moko_permissions_compose = { module = "dev.icerock.moko:permissions-compose", version.ref = "moko_permissions" }
 moko_permissions_notifications = { module = "dev.icerock.moko:permissions-notifications", version.ref = "moko_permissions" }
 

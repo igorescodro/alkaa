@@ -25,7 +25,7 @@ kotlin {
             implementation(compose.components.resources)
             implementation(compose.materialIconsExtended)
 
-            implementation(libs.koin.compose.jb)
+            implementation(libs.koin.compose)
 
             api(libs.compose.navigation)
 

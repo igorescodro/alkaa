@@ -7,7 +7,6 @@ plugins {
 dependencies {
     implementation(projects.domain)
     implementation(projects.features.navigationApi)
-    implementation(projects.libraries.di)
 
     implementation(libs.koin.core)
     implementation(libs.androidx.glance)

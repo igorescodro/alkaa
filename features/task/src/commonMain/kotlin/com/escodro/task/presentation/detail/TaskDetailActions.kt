@@ -5,7 +5,7 @@ import com.escodro.task.presentation.detail.main.CategoryId
 import kotlinx.datetime.LocalDateTime
 
 /**
- * Actions to be performed by the [com.escodro.task.navigation.TaskDetailScreen].
+ * Actions to be performed by the [com.escodro.task.presentation.detail.main.TaskDetailScreen].
  *
  * @param onTitleChange lambda to be called when the title changes
  * @param onDescriptionChange lambda to be called when the description changes

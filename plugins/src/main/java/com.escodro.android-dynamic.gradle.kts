@@ -1,5 +1,6 @@
 import extension.sdkCompile
 import extension.sdkMin
+import extension.playcore
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 
 plugins {

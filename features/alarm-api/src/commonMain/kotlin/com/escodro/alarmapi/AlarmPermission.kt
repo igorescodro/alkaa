@@ -6,7 +6,7 @@ package com.escodro.alarmapi
 interface AlarmPermission {
 
     /**
-     * Verifies if the permission [android.Manifest.permission.SCHEDULE_EXACT_ALARM] is granted.
+     * Verifies if the permission alarm is granted.
      *
      * @return `true` if the permission is granted, `false` otherwise
      */

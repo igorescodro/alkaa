@@ -1,6 +1,6 @@
 package quality
 
-import composeRulesDetekt
+import extension.composeRulesDetekt
 import io.gitlab.arturbosch.detekt.Detekt
 import io.gitlab.arturbosch.detekt.DetektPlugin
 import io.gitlab.arturbosch.detekt.extensions.DetektExtension

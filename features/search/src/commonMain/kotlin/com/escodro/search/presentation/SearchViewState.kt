@@ -11,7 +11,7 @@ internal sealed class SearchViewState {
     /**
      * Represents the stated where the screen is loading.
      */
-    internal object Loading : SearchViewState()
+    internal data object Loading : SearchViewState()
 
     /**
      * Represents the stated where the tasks matches the query.
@@ -21,5 +21,5 @@ internal sealed class SearchViewState {
     /**
      * Represents the state where there are no tasks matching the query.
      */
-    internal object Empty : SearchViewState()
+    internal data object Empty : SearchViewState()
 }

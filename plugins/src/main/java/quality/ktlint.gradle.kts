@@ -1,7 +1,7 @@
 package quality
 
-import composeRulesKtlint
-import ktlint
+import extension.composeRulesKtlint
+import extension.ktlint
 
 val ktlint: Configuration by configurations.creating
 val libs: VersionCatalog = extensions.getByType<VersionCatalogsExtension>().named("libs")

@@ -26,7 +26,7 @@ internal class PreferencesDataSourceImpl(
         dataStore.data.map { preferences ->
             val id = preferences[APP_THEME_OPTION] ?: DataStoreThemeOptions.SYSTEM.id
             val result =
-                DataStoreThemeOptions.values().find { it.id == id } ?: DataStoreThemeOptions.SYSTEM
+                DataStoreThemeOptions.entries.find { it.id == id } ?: DataStoreThemeOptions.SYSTEM
             mapper.toRepo(result)
         }
 

@@ -11,7 +11,7 @@ sealed class CategoryState {
     /**
      * Loading state.
      */
-    object Loading : CategoryState()
+    data object Loading : CategoryState()
 
     /**
      * Loaded state.
@@ -23,5 +23,5 @@ sealed class CategoryState {
     /**
      * Empty state, there are no categories to be shown.
      */
-    object Empty : CategoryState()
+    data object Empty : CategoryState()
 }

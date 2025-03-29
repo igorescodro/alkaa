@@ -5,8 +5,8 @@ import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.animation.core.Transition
 import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.rememberTransition
 import androidx.compose.animation.core.tween
-import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.Canvas
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -32,7 +32,7 @@ internal fun TaskGraph(list: ImmutableList<Tracker.CategoryInfo>, modifier: Modi
 
     val defaultColor = MaterialTheme.colorScheme.outline
     val stroke = with(LocalDensity.current) { Stroke(32.dp.toPx()) }
-    val transition = updateTransition(currentState, label = LabelUpdateTransition)
+    val transition = rememberTransition(currentState, label = LabelUpdateTransition)
     val angleOffset by angleOffset(transition)
     val shift by shift(transition)
     val dividerLength = if (list.count() == 1) 0F else DividerLengthInDegrees

@@ -28,6 +28,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -91,16 +92,17 @@ private fun CategoryNewSheetLoader(
     onHideBottomSheet: () -> Unit,
     addViewModel: CategoryAddViewModel = koinInject(),
 ) {
-    val sheetState by rememberSaveable(addViewModel) {
-        mutableStateOf(CategoryBottomSheetState(emptyCategory()))
-    }
+    var category by rememberSaveable(addViewModel) { mutableStateOf(emptyCategory()) }
 
     CategoryBottomSheet(
         colorList = colorList,
-        state = sheetState,
+        category = category,
         onHideBottomSheet = onHideBottomSheet,
-        onCategoryChange = { updatedState ->
-            addViewModel.addCategory(updatedState.toCategory())
+        onCategoryUpdate = { updatedCategory ->
+            category = updatedCategory
+        },
+        onCategorySave = { newCategory ->
+            addViewModel.addCategory(newCategory)
         },
     )
 }
@@ -116,24 +118,20 @@ private fun CategoryEditSheetLoader(
         editViewModel.loadCategory(categoryId = categoryId)
     }.collectAsState(initial = CategorySheetState.Empty)
 
-    val category = when (categoryState) {
-        CategorySheetState.Empty -> emptyCategory()
-        is CategorySheetState.Loaded -> (categoryState as CategorySheetState.Loaded).category
-    }
-
-    val sheetState by rememberSaveable(categoryState) {
-        mutableStateOf(CategoryBottomSheetState(category))
-    }
+    var category by rememberCategory(categoryState)
 
     CategoryBottomSheet(
         colorList = colorList,
-        state = sheetState,
+        category = category,
         onHideBottomSheet = onHideBottomSheet,
-        onCategoryChange = { updatedState ->
-            editViewModel.updateCategory(updatedState.toCategory())
+        onCategoryUpdate = { updatedCategory ->
+            category = updatedCategory
         },
-        onCategoryRemove = {
-            editViewModel.deleteCategory(it)
+        onCategorySave = { updateCategory ->
+            editViewModel.updateCategory(updateCategory)
+        },
+        onCategoryRemove = { categoryToRemove ->
+            editViewModel.deleteCategory(categoryToRemove)
         },
     )
 }
@@ -142,10 +140,11 @@ private fun CategoryEditSheetLoader(
 @Composable
 @Suppress("MagicNumber")
 private fun CategoryBottomSheet(
-    state: CategoryBottomSheetState,
+    category: Category,
     colorList: ImmutableList<Color>,
     onHideBottomSheet: () -> Unit,
-    onCategoryChange: (CategoryBottomSheetState) -> Unit,
+    onCategoryUpdate: (Category) -> Unit,
+    onCategorySave: (Category) -> Unit,
     onCategoryRemove: (Category) -> Unit = {},
 ) {
     val scope = rememberCoroutineScope()
@@ -160,22 +159,24 @@ private fun CategoryBottomSheet(
         },
     ) {
         CategoryBottomSheetContent(
-            state = state,
+            category = category,
             onCategoryRemove = onCategoryRemove,
             onHideBottomSheet = onHideBottomSheet,
             colorList = colorList,
-            onCategoryChange = onCategoryChange,
+            onCategoryUpdate = onCategoryUpdate,
+            onCategorySave = onCategorySave,
         )
     }
 }
 
 @Composable
 private fun CategoryBottomSheetContent(
-    state: CategoryBottomSheetState,
+    category: Category,
     onCategoryRemove: (Category) -> Unit,
+    onCategoryUpdate: (Category) -> Unit,
+    onCategorySave: (Category) -> Unit,
     onHideBottomSheet: () -> Unit,
     colorList: ImmutableList<Color>,
-    onCategoryChange: (CategoryBottomSheetState) -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -194,24 +195,26 @@ private fun CategoryBottomSheetContent(
             }
 
             RemoveCategoryDialog(
-                categoryName = state.name,
+                categoryName = category.name,
                 isDialogOpen = openDialog,
                 onCloseDialog = { openDialog = false },
                 onActionConfirm = {
-                    onCategoryRemove(state.toCategory())
+                    onCategoryRemove(category)
                     onHideBottomSheet()
                 },
             )
 
             AlkaaInputTextField(
                 label = stringResource(Res.string.category_add_label),
-                text = state.name,
-                onTextChange = { state.name = it },
+                text = category.name,
+                onTextChange = { name ->
+                    onCategoryUpdate(category.copy(name = name))
+                },
                 modifier = Modifier
                     .weight(5F)
                     .focusRequester(focusRequester),
             )
-            if (state.isEditing()) {
+            if (category.isEditing()) {
                 IconButton(
                     onClick = { openDialog = true },
                     colors = IconButtonDefaults.iconButtonColors(
@@ -231,14 +234,16 @@ private fun CategoryBottomSheetContent(
 
         CategoryColorSelector(
             colorList = colorList,
-            value = Color(state.color),
-            onColorChange = { state.color = it.toArgb() },
+            value = Color(category.color),
+            onColorChange = { color ->
+                onCategoryUpdate(category.copy(color = color.toArgb()))
+            },
         )
 
         CategorySaveButton(
-            currentColor = Color(state.color),
+            currentColor = Color(category.color),
             onClick = {
-                onCategoryChange(state)
+                onCategorySave(category)
                 onHideBottomSheet()
             },
         )
@@ -339,6 +344,17 @@ private fun CategoryColorItem(
         }
     }
 }
+
+@Composable
+private fun rememberCategory(categorySheetState: CategorySheetState): MutableState<Category> =
+    remember(categorySheetState) {
+        mutableStateOf(
+            when (categorySheetState) {
+                CategorySheetState.Empty -> emptyCategory()
+                is CategorySheetState.Loaded -> categorySheetState.category
+            },
+        )
+    }
 
 private fun emptyCategory() = Category(
     name = "",

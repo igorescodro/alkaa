@@ -31,8 +31,8 @@ play_delivery = "2.1.0"
 datastore = "1.1.4"
 glance = "1.1.1"
 workmanager = "2.10.0"
-lifecycle_viewmodel = "2.8.7"
 annotation = "1.9.1"
+lifecycle_viewmodel = "2.8.4"
 
 # Compose
 compose_bom = "2025.03.01"
@@ -51,7 +51,6 @@ koin_compose_jb = "4.0.3"
 sqldelight = "2.0.2"
 
 # Moko
-moko = "0.16.1"
 moko_permissions = "0.19.1"
 
 # Multiplatform Utils
@@ -99,7 +98,7 @@ androidx_datastore = { module = "androidx.datastore:datastore-preferences-core",
 androidx_glance = { module = "androidx.glance:glance-appwidget", version.ref = "glance" }
 androidx_glance_material3 = { module = "androidx.glance:glance-material3", version.ref = "glance" }
 androidx_workmanager = { module = "androidx.work:work-runtime-ktx", version.ref = "workmanager" }
-androidx_lifecycle_viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel", version.ref = "lifecycle_viewmodel" }
+androidx_lifecycle_viewmodel = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel", version.ref = "lifecycle_viewmodel" }
 androidx_annotation = { module = "androidx.annotation:annotation", version.ref = "annotation" }
 
 compose_bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose_bom" }
@@ -126,8 +125,6 @@ sqldelight_jvm = { module = "app.cash.sqldelight:sqlite-driver", version.ref = "
 sqldelight_coroutines = { module = "app.cash.sqldelight:coroutines-extensions", version.ref = "sqldelight" }
 
 # Moko
-moko_mvvm_core = { module = "dev.icerock.moko:mvvm-core", version.ref = "moko" }
-moko_mvvm_compose = { module = "dev.icerock.moko:mvvm-flow-compose", version.ref = "moko" }
 moko_permissions_compose = { module = "dev.icerock.moko:permissions-compose", version.ref = "moko_permissions" }
 moko_permissions_notifications = { module = "dev.icerock.moko:permissions-notifications", version.ref = "moko_permissions" }
 

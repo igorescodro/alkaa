@@ -26,7 +26,7 @@ kotlin {
             implementation(compose.components.resources)
 
             implementation(libs.koin.compose.jb)
-            implementation(libs.moko.mvvm.compose)
+            implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.aboutlibraries.ui)
         }
 
@@ -39,7 +39,7 @@ kotlin {
             implementation(projects.features.tracker)
         }
 
-        desktopMain.dependencies{
+        desktopMain.dependencies {
             implementation(projects.features.tracker)
         }
     }

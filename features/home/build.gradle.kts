@@ -33,7 +33,7 @@ kotlin {
 
             implementation(libs.koin.compose.jb)
             implementation(libs.kotlinx.collections.immutable)
-            implementation(libs.moko.mvvm.compose)
+            implementation(libs.androidx.lifecycle.viewmodel)
         }
     }
 }

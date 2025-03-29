@@ -1,5 +1,7 @@
 package com.escodro.task.presentation.detail.main
 
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.escodro.coroutines.AppCoroutineScope
 import com.escodro.coroutines.CoroutineDebouncer
 import com.escodro.domain.usecase.task.LoadTask
@@ -7,7 +9,6 @@ import com.escodro.domain.usecase.task.UpdateTaskCategory
 import com.escodro.domain.usecase.task.UpdateTaskDescription
 import com.escodro.domain.usecase.task.UpdateTaskTitle
 import com.escodro.task.mapper.TaskMapper
-import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 

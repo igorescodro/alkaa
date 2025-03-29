@@ -61,7 +61,7 @@ kotlin {
             implementation(compose.components.resources)
 
             implementation(libs.koin.compose.jb)
-            implementation(libs.moko.mvvm.compose)
+            implementation(libs.androidx.lifecycle.viewmodel)
         }
 
         androidMain.dependencies {

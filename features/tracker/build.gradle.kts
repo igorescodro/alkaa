@@ -24,7 +24,7 @@ kotlin {
             implementation(libs.kotlinx.collections.immutable)
             implementation(libs.koin.compose.jb)
             implementation(libs.kotlinx.coroutines.core)
-            implementation(libs.moko.mvvm.compose)
+            implementation(libs.androidx.lifecycle.viewmodel)
         }
 
         commonTest.dependencies {

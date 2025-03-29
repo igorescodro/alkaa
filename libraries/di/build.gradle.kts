@@ -10,7 +10,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(libs.koin.core)
-            implementation(libs.moko.mvvm.core)
+            implementation(libs.androidx.lifecycle.viewmodel)
         }
 
         androidMain.dependencies {

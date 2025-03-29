@@ -1,12 +1,12 @@
 package com.escodro.task.presentation.add
 
+import androidx.lifecycle.ViewModel
 import com.escodro.coroutines.AppCoroutineScope
 import com.escodro.domain.model.Task
 import com.escodro.domain.usecase.task.AddTask
 import com.escodro.task.mapper.AlarmIntervalMapper
 import com.escodro.task.model.AlarmInterval
 import com.escodro.task.presentation.detail.main.CategoryId
-import dev.icerock.moko.mvvm.viewmodel.ViewModel
 import kotlinx.datetime.LocalDateTime
 
 internal class AddTaskViewModel(

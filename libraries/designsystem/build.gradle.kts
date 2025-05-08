@@ -15,6 +15,7 @@ kotlin {
             implementation(compose.runtime)
             implementation(compose.material)
             implementation(compose.material3)
+            implementation(compose.materialIconsExtended)
         }
     }
 }

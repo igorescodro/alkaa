@@ -57,7 +57,7 @@ multiplatform_paths = "0.2.2"
 test_junit = "4.13.2"
 test_uiautomator = "2.3.0"
 test_junit4_android = "1.8.1"
-test_manifest = "1.8.0"
+test_manifest = "1.8.1"
 
 # Quality
 ktlint = "1.5.0"

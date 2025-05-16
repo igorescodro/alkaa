@@ -45,7 +45,7 @@ compose_adaptive = "1.1.0"
 koin = "4.0.4"
 
 # SQLDelight
-sqldelight = "2.0.2"
+sqldelight = "2.1.0"
 
 # Moko
 moko_permissions = "0.19.1"

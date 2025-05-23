@@ -17,6 +17,10 @@ kotlin {
             implementation(compose.material3)
             implementation(compose.materialIconsExtended)
         }
+
+        androidMain.dependencies {
+            implementation(compose.uiTooling)
+        }
     }
 }
 

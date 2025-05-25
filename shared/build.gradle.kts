@@ -1,3 +1,4 @@
+import com.android.build.api.dsl.androidLibrary
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
@@ -95,13 +96,9 @@ kotlin {
             }
         }
     }
-}
 
-android {
-    namespace = "com.escodro.shared"
-
-    defaultConfig {
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    androidLibrary {
+        namespace = "com.escodro.shared"
     }
 }
 

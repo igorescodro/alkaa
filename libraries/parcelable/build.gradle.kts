@@ -1,3 +1,4 @@
+import com.android.build.api.dsl.androidLibrary
 import extension.setFrameworkBaseName
 
 plugins {
@@ -7,8 +8,8 @@ plugins {
 
 kotlin {
     setFrameworkBaseName("parcelable")
-}
 
-android {
-    namespace = "com.escodro.parcelable"
+    androidLibrary {
+        namespace = "com.escodro.parcelable"
+    }
 }

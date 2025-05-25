@@ -1,3 +1,4 @@
+import com.android.build.api.dsl.androidLibrary
 import extension.setFrameworkBaseName
 
 plugins {
@@ -42,7 +43,8 @@ kotlin {
             implementation(projects.features.tracker)
         }
     }
-}
-android {
-    namespace = "com.escodro.preference"
+
+    androidLibrary {
+        namespace = "com.escodro.preference"
+    }
 }

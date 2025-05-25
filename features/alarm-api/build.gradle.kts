@@ -1,3 +1,4 @@
+import com.android.build.api.dsl.androidLibrary
 import extension.setFrameworkBaseName
 
 plugins {
@@ -6,8 +7,8 @@ plugins {
 
 kotlin {
     setFrameworkBaseName("alarmapi")
-}
 
-android {
-    namespace = "com.escodro.alarmapi"
+    androidLibrary {
+        namespace = "com.escodro.alarmapi"
+    }
 }

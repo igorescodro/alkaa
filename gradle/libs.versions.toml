@@ -3,7 +3,7 @@
 version_code = "30300"
 version_name = "3.3.0"
 android_gradle_plugin = "8.10.0"
-kotlin = "2.1.21"
+kotlin = "2.2.0-RC"
 android_sdk_compile = "35"
 android_sdk_target = "34"
 android_sdk_min = "24"
@@ -149,9 +149,9 @@ aboutlibraries_ui = { module = "com.mikepenz:aboutlibraries-compose", version.re
 compose = ["compose.ui", "compose.icons", "compose.material3"]
 
 [plugins]
+android_kmp_plugin = { id ="com.android.kotlin.multiplatform.library", version.ref ="android_gradle_plugin" }
 kotlin_serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 dependencyanalysis = { id = "com.autonomousapps.dependency-analysis", version.ref = "dependencyanalysis" }
 sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
 compose = { id = "org.jetbrains.compose", version.ref = "compose_compiler" }
-
 compose_compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }

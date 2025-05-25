@@ -1,3 +1,4 @@
+import com.android.build.api.dsl.androidLibrary
 import extension.setFrameworkBaseName
 
 plugins {
@@ -28,8 +29,8 @@ kotlin {
             implementation(libs.kotlinx.serialization)
         }
     }
-}
 
-android {
-    namespace = "com.escodro.navigationapi"
+    androidLibrary {
+        namespace = "com.escodro.navigationapi"
+    }
 }

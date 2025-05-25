@@ -1,3 +1,4 @@
+import com.android.build.api.dsl.androidLibrary
 import extension.setFrameworkBaseName
 
 plugins {
@@ -45,10 +46,10 @@ kotlin {
             implementation(libs.multiplatform.path)
         }
     }
-}
 
-android {
-    namespace = "com.escodro.local"
+    androidLibrary {
+        namespace = "com.escodro.local"
+    }
 }
 
 sqldelight {

@@ -1,3 +1,4 @@
+import com.android.build.api.dsl.androidLibrary
 import extension.setFrameworkBaseName
 
 plugins {
@@ -23,8 +24,8 @@ kotlin {
             implementation(libs.moko.permissions.notifications)
         }
     }
-}
 
-android {
-    namespace = "com.escodro.permission"
+    androidLibrary {
+        namespace = "com.escodro.permission"
+    }
 }

@@ -1,3 +1,4 @@
+import com.android.build.api.dsl.androidLibrary
 import extension.setFrameworkBaseName
 
 plugins {
@@ -19,8 +20,8 @@ kotlin {
             implementation(libs.compose.navigation)
         }
     }
-}
 
-android {
-    namespace = "com.escodro.appstate"
+    androidLibrary {
+        namespace = "com.escodro.appstate"
+    }
 }

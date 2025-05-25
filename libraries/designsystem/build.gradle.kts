@@ -1,3 +1,4 @@
+import com.android.build.api.dsl.androidLibrary
 import extension.setFrameworkBaseName
 
 plugins {
@@ -18,8 +19,8 @@ kotlin {
             implementation(compose.materialIconsExtended)
         }
     }
-}
 
-android {
-    namespace = "com.escodro.designsystem"
+    androidLibrary {
+        namespace = "com.escodro.designsystem"
+    }
 }

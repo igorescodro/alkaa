@@ -4,7 +4,7 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 
 plugins {
     kotlin("multiplatform")
-    id("com.android.library")
+    id("com.android.kotlin.multiplatform.library")
     id("com.escodro.kotlin-quality")
 }
 
@@ -20,14 +20,12 @@ kotlin {
         }
     }
 
+    androidLibrary {
+        compileSdk = Integer.parseInt(libs.sdkCompile)
+        minSdk = Integer.parseInt(libs.sdkMin)
+    }
+
     compilerOptions {
         freeCompilerArgs.add("-Xexpect-actual-classes")
-    }
-}
-
-android {
-    compileSdk = Integer.parseInt(libs.sdkCompile)
-    defaultConfig {
-        minSdk = Integer.parseInt(libs.sdkMin)
     }
 }

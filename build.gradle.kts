@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.dependencyanalysis)
+    alias(libs.plugins.android.kmp.plugin) apply false
     alias(libs.plugins.compose) apply false
     alias(libs.plugins.compose.compiler) apply false
 }

@@ -42,7 +42,7 @@ compose_navigation = "2.8.0-alpha13"
 compose_adaptive = "1.1.1"
 
 # Koin
-koin = "4.0.4"
+koin = "4.1.0"
 
 # SQLDelight
 sqldelight = "2.1.0"

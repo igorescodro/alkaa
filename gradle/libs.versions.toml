@@ -30,7 +30,7 @@ corektx = "1.16.0"
 play_delivery = "2.1.0"
 datastore = "1.1.7"
 glance = "1.1.1"
-workmanager = "2.10.1"
+workmanager = "2.10.2"
 annotation = "1.9.1"
 lifecycle_viewmodel = "2.9.0"
 

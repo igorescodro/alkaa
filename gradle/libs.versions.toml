@@ -35,7 +35,7 @@ annotation = "1.9.1"
 lifecycle_viewmodel = "2.9.1"
 
 # Compose
-compose_bom = "2025.06.01"
+compose_bom = "2025.07.00"
 compose_activity = "1.10.1"
 compose_compiler = "1.8.2"
 compose_navigation = "2.8.0-alpha13"
@@ -60,12 +60,12 @@ test_junit4_android = "1.8.3"
 test_manifest = "1.8.3"
 
 # Quality
-ktlint = "1.6.0"
+ktlint = "1.7.0"
 detekt = "1.23.8"
 composerules = "0.4.22"
 
 # License
-aboutlibraries = "12.2.3"
+aboutlibraries = "12.2.4"
 
 [libraries]
 # Project

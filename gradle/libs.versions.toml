@@ -8,9 +8,6 @@ android_sdk_compile = "35"
 android_sdk_target = "35"
 android_sdk_min = "24"
 
-# Plugins
-dependencyanalysis = "2.19.0"
-
 # General dependencies
 logging = "3.0.5"
 logcat = "0.2.3"
@@ -150,7 +147,6 @@ compose = ["compose.ui", "compose.icons", "compose.material3"]
 
 [plugins]
 kotlin_serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-dependencyanalysis = { id = "com.autonomousapps.dependency-analysis", version.ref = "dependencyanalysis" }
 sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
 compose = { id = "org.jetbrains.compose", version.ref = "compose_compiler" }
 

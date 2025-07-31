@@ -10,7 +10,7 @@ android_sdk_min = "24"
 
 # General dependencies
 logging = "3.0.5"
-logcat = "0.3"
+logcat = "0.4"
 stately = "2.1.0"
 
 # KotlinX

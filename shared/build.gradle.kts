@@ -78,8 +78,8 @@ kotlin {
         }
 
         desktopTest.dependencies {
-            implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutines.swing)
+            implementation(compose.desktop.currentOs)
         }
     }
 

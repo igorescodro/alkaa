@@ -20,11 +20,11 @@ kotlin {
 
             implementation(compose.runtime)
             implementation(compose.components.resources)
-            implementation(libs.kotlinx.coroutines.swing)
         }
 
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
+            implementation(libs.kotlinx.coroutines.swing)
         }
     }
 }

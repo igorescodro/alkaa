@@ -45,7 +45,7 @@ koin = "4.0.4"
 sqldelight = "2.1.0"
 
 # Moko
-moko_permissions = "0.19.1"
+moko_permissions = "0.20.0"
 
 # Multiplatform Utils
 multiplatform_paths = "0.2.2"

@@ -21,7 +21,7 @@ jobs:
         uses: actions/checkout@v5
 
       - name: Setup Java
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           java-version: '17'
           distribution: 'adopt'
@@ -42,7 +42,7 @@ jobs:
         uses: actions/checkout@v5
 
       - name: Setup Java
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           java-version: '17'
           distribution: 'adopt'
@@ -58,7 +58,7 @@ jobs:
         uses: actions/checkout@v5
 
       - name: Setup Java
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           java-version: '19'
           distribution: 'temurin'

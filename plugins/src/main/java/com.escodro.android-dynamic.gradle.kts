@@ -35,3 +35,21 @@ android {
         minSdk = Integer.parseInt(libs.sdkMin)
     }
 }
+
+// Workaround for Gradle 9 validation: ensure Android unit test lint tasks depend on Compose
+// resources accessor generation for Android Unit Test variants. This avoids implicit
+// dependencies when lint analyzes sources that reference generated accessors.
+// See: https://docs.gradle.org/9.0.0/userguide/validation_problems.html#implicit_dependency
+val resourceAccessors = tasks.matching { it.name.startsWith("generateResourceAccessorsForAndroidUnitTest") }
+
+// Lint analysis tasks for unit tests (e.g., lintAnalyzeDebugUnitTest)
+tasks.matching { it.name.startsWith("lintAnalyze") && it.name.endsWith("UnitTest") }
+    .configureEach {
+        dependsOn(resourceAccessors)
+    }
+
+// Lint model generation tasks for unit tests (e.g., generateDebugUnitTestLintModel)
+tasks.matching { it.name.startsWith("generate") && it.name.endsWith("UnitTestLintModel") }
+    .configureEach {
+        dependsOn(resourceAccessors)
+    }

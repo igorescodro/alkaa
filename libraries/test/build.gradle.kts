@@ -22,11 +22,6 @@ kotlin {
         desktopMain.dependencies {
             implementation(kotlin("test-junit"))
         }
-
-    }
-
-    tasks.withType<Test> {
-        useJUnitPlatform()
     }
 }
 

@@ -34,7 +34,7 @@ android {
         )
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        setProperty("archivesBaseName", "${parent?.name}-$versionName")
+        base.archivesName.set("${parent?.name}-$versionName")
     }
 
     val properties = readProperties(file("../config/signing/signing.properties"))

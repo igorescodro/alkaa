@@ -1,10 +1,11 @@
 import extension.androidConfig
 import extension.composeBom
-import extension.logcat
 import extension.composeBundle
 import extension.composeConfig
 import extension.kotlinxCollectionsImmutable
+import extension.logcat
 import extension.proguardConfig
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     id("com.android.library")
@@ -19,9 +20,11 @@ android {
     proguardConfig()
     composeConfig()
 
-    kotlinOptions {
-        jvmTarget = "11"
-        freeCompilerArgs = listOf("-Xstring-concat=inline")
+    kotlin {
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_11)
+            freeCompilerArgs.addAll("-Xstring-concat=inline")
+        }
     }
 }
 

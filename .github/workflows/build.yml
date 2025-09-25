@@ -35,7 +35,7 @@ jobs:
           ALKAA_STORE_PATH: ${{ vars.ALKAA_STORE_PATH }}
 
   build-ios:
-    runs-on: macos-14
+    runs-on: macos-15
 
     steps:
       - name: Checkout
@@ -51,7 +51,7 @@ jobs:
         run: xcodebuild -workspace ios-app/alkaa.xcodeproj/project.xcworkspace -configuration Debug -scheme alkaa -sdk iphonesimulator
 
   build-desktop:
-    runs-on: macos-14
+    runs-on: macos-15
 
     steps:
       - name: Checkout

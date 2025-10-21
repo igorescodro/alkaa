@@ -6,7 +6,9 @@ import kotlinx.datetime.toInstant
 import java.text.DateFormat
 import java.util.Calendar
 import java.util.Locale
+import kotlin.time.ExperimentalTime
 
+@OptIn(ExperimentalTime::class)
 actual fun LocalDateTime.format(): String {
     val dateFormat = DateFormat.getDateTimeInstance(
         DateFormat.LONG,

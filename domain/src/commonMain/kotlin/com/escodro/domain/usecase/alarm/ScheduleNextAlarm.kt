@@ -11,16 +11,18 @@ import com.escodro.domain.model.Task
 import com.escodro.domain.provider.DateTimeProvider
 import com.escodro.domain.repository.TaskRepository
 import kotlinx.datetime.DateTimePeriod
-import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.plus
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
 import mu.KotlinLogging
+import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 
 /**
  * Schedules the next alarm entry or the missing ones in a repeating alarm.
  */
+@OptIn(ExperimentalTime::class)
 class ScheduleNextAlarm(
     private val taskRepository: TaskRepository,
     private val alarmInteractor: AlarmInteractor,

@@ -1,11 +1,13 @@
 package com.escodro.domain.provider
 
-import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDateTime
+import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 
 /**
  * Provide the date and time to be used on the task use cases, respecting the Inversion of Control.
  */
+@OptIn(ExperimentalTime::class)
 interface DateTimeProvider {
 
     /**

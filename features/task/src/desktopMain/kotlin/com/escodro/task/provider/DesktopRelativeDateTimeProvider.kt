@@ -9,12 +9,14 @@ import com.escodro.resources.relative_date_time_one_hour
 import com.escodro.resources.relative_date_time_one_minute
 import com.escodro.resources.relative_date_time_yesterday
 import kotlinx.coroutines.runBlocking
-import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
 import org.jetbrains.compose.resources.getString
+import kotlin.time.Clock
+import kotlin.time.ExperimentalTime
 
+@OptIn(ExperimentalTime::class)
 internal class DesktopRelativeDateTimeProvider : RelativeDateTimeProvider {
 
     override fun toRelativeDateTimeString(dateTime: LocalDateTime): String {

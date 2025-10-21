@@ -5,14 +5,16 @@ import com.escodro.domain.repository.TaskWithCategoryRepository
 import com.escodro.domain.usecase.tracker.LoadCompletedTasksByPeriod
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
+import kotlin.time.Clock
 import kotlin.time.Duration.Companion.days
+import kotlin.time.ExperimentalTime
 
 /**
  * Use case to get completed tasks in Tracker format for the last month from the database.
  */
+@OptIn(ExperimentalTime::class)
 internal class LoadCompletedTasksByPeriodImpl(
     private val repository: TaskWithCategoryRepository,
 ) : LoadCompletedTasksByPeriod {

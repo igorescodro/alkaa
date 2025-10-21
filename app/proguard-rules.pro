@@ -31,3 +31,5 @@
 
 -keep class androidx.window.** { *; }
     -dontwarn androidx.window.**
+
+-dontwarn androidx.test.platform.app.InstrumentationRegistry

@@ -82,18 +82,18 @@ kotlin {
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutines.swing)
         }
+
+        androidInstrumentedTest.dependencies {
+            implementation(libs.test.junit4.android)
+            implementation(libs.test.uiautomator)
+            implementation(libs.test.manifest)
+        }
     }
 
     androidTarget {
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
         instrumentedTestVariant {
             sourceSetTree.set(KotlinSourceSetTree.test)
-
-            dependencies {
-                implementation(libs.test.junit4.android)
-                implementation(libs.test.uiautomator)
-                debugImplementation(libs.test.manifest)
-            }
         }
     }
 }

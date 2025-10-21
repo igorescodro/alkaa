@@ -34,6 +34,7 @@ kotlin {
             implementation(libs.koin.compose)
             implementation(libs.kotlinx.collections.immutable)
             implementation(libs.androidx.lifecycle.viewmodel)
+            implementation(libs.androidx.lifecycle.runtime)
         }
     }
 }

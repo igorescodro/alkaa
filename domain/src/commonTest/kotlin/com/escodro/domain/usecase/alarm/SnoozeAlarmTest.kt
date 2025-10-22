@@ -15,6 +15,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import kotlin.time.Duration.Companion.minutes
+import kotlin.time.ExperimentalTime
 
 internal class SnoozeAlarmTest {
 
@@ -44,6 +45,7 @@ internal class SnoozeAlarmTest {
         taskRepository.insertTask(baseTask)
     }
 
+    @OptIn(ExperimentalTime::class)
     @Test
     fun test_if_task_is_snoozed() = runTest {
         val snoozeTime = 15

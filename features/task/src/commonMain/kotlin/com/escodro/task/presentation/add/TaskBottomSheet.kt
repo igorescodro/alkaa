@@ -38,13 +38,14 @@ import com.escodro.task.presentation.detail.alarm.AlarmSelection
 import com.escodro.task.presentation.detail.main.CategoryId
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
+import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -141,10 +142,12 @@ internal fun AddTaskBottomSheetContent(
     }
 }
 
+@OptIn(ExperimentalTime::class)
 private fun getLocalDateTimeFromEpoch(epoch: Long?): LocalDateTime? = epoch?.let {
     Instant.fromEpochMilliseconds(it).toLocalDateTime(TimeZone.currentSystemDefault())
 }
 
+@OptIn(ExperimentalTime::class)
 private fun getEpochFromLocalDateTime(dateTime: LocalDateTime?): Long? = dateTime?.let {
     dateTime.toInstant(TimeZone.currentSystemDefault()).toEpochMilliseconds()
 }

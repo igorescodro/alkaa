@@ -6,7 +6,9 @@ import com.escodro.domain.usecase.alarm.ScheduleAlarm
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
+import kotlin.time.ExperimentalTime
 
+@OptIn(ExperimentalTime::class)
 internal class ScheduleAlarmImpl(
     private val taskRepository: TaskRepository,
     private val alarmInteractor: AlarmInteractor,

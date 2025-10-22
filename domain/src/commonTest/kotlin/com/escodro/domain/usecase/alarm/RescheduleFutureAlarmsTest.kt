@@ -16,7 +16,9 @@ import kotlin.test.Test
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 import kotlin.time.Duration.Companion.days
+import kotlin.time.ExperimentalTime
 
+@OptIn(ExperimentalTime::class)
 internal class RescheduleFutureAlarmsTest {
 
     private val taskRepository = TaskRepositoryFake()

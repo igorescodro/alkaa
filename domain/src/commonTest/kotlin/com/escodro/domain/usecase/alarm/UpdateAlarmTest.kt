@@ -7,13 +7,15 @@ import com.escodro.domain.usecase.fake.CancelAlarmFake
 import com.escodro.domain.usecase.fake.ScheduleAlarmFake
 import com.escodro.domain.usecase.fake.UpdateTaskAsRepeatingFake
 import kotlinx.coroutines.test.runTest
-import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
+import kotlin.time.Clock
+import kotlin.time.ExperimentalTime
 
+@OptIn(ExperimentalTime::class)
 internal class UpdateAlarmTest {
 
     private val scheduleAlarm = ScheduleAlarmFake()

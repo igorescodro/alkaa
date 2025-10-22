@@ -7,10 +7,12 @@ import com.escodro.domain.usecase.taskwithcategory.LoadUncompletedTasks
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
-import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
+import kotlin.time.Clock
+import kotlin.time.ExperimentalTime
 
+@OptIn(ExperimentalTime::class)
 internal class LoadUncompletedTasksFake : LoadUncompletedTasks {
 
     private var list: List<TaskWithCategory> = listOf()

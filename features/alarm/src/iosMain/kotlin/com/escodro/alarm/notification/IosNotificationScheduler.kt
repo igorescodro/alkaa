@@ -23,7 +23,9 @@ import platform.UserNotifications.UNNotificationActionOptionNone
 import platform.UserNotifications.UNNotificationCategory
 import platform.UserNotifications.UNNotificationRequest
 import platform.UserNotifications.UNUserNotificationCenter
+import kotlin.time.ExperimentalTime
 
+@OptIn(ExperimentalTime::class)
 internal class IosNotificationScheduler : NotificationScheduler {
 
     private val notificationCenter = UNUserNotificationCenter.currentNotificationCenter()

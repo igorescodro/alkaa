@@ -11,12 +11,14 @@ import com.escodro.task.presentation.fake.UpdateAlarmFake
 import com.escodro.test.rule.CoroutinesTestDispatcher
 import com.escodro.test.rule.CoroutinesTestDispatcherImpl
 import kotlinx.coroutines.test.runTest
-import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import org.junit.Assert
 import org.junit.Test
+import kotlin.time.Clock
+import kotlin.time.ExperimentalTime
 
+@OptIn(ExperimentalTime::class)
 internal class TaskAlarmViewModelTest : CoroutinesTestDispatcher by CoroutinesTestDispatcherImpl() {
 
     private val updateAlarm = UpdateAlarmFake()

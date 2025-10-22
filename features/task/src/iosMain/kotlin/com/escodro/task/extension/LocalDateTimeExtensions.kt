@@ -7,7 +7,9 @@ import kotlinx.datetime.toNSDate
 import platform.Foundation.NSDateFormatter
 import platform.Foundation.NSDateFormatterLongStyle
 import platform.Foundation.NSDateFormatterShortStyle
+import kotlin.time.ExperimentalTime
 
+@OptIn(ExperimentalTime::class)
 actual fun LocalDateTime.format(): String {
     val dateFormatter = NSDateFormatter()
     dateFormatter.dateStyle = NSDateFormatterLongStyle

@@ -21,7 +21,9 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import kotlin.test.assertTrue
 import kotlin.time.Duration.Companion.hours
+import kotlin.time.ExperimentalTime
 
+@OptIn(ExperimentalTime::class)
 internal class ScheduleNextAlarmTest {
 
     private val taskRepository = TaskRepositoryFake()

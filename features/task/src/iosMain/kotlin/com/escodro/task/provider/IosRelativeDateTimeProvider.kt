@@ -7,7 +7,9 @@ import kotlinx.datetime.toNSDate
 import platform.Foundation.NSDate
 import platform.Foundation.NSRelativeDateTimeFormatter
 import platform.Foundation.now
+import kotlin.time.ExperimentalTime
 
+@OptIn(ExperimentalTime::class)
 internal class IosRelativeDateTimeProvider : RelativeDateTimeProvider {
 
     override fun toRelativeDateTimeString(dateTime: LocalDateTime): String {

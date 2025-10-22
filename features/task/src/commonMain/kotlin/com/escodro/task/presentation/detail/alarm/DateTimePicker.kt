@@ -17,15 +17,15 @@ import androidx.compose.runtime.setValue
 import com.escodro.resources.Res
 import com.escodro.resources.dialog_picker_confirm
 import com.escodro.resources.dialog_picker_next
-import kotlinx.datetime.Clock
-import kotlinx.datetime.DateTimeUnit
-import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
-import kotlinx.datetime.plus
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
 import org.jetbrains.compose.resources.stringResource
+import kotlin.time.Clock
+import kotlin.time.Duration.Companion.days
+import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 
 /**
  * Composable to show a date and time picker.
@@ -35,7 +35,7 @@ import org.jetbrains.compose.resources.stringResource
  * @param onCloseDialog callback called when the dialog is closed
  * @param onDateChange callback called when the date is changed
  */
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalTime::class)
 @Composable
 fun DateTimerPicker(
     initialDateTime: LocalDateTime?,
@@ -43,13 +43,10 @@ fun DateTimerPicker(
     onCloseDialog: () -> Unit,
     onDateChange: (LocalDateTime) -> Unit,
 ) {
-    val now = Clock.System.now()
-    val displayTime = initialDateTime ?: now
-        .plus(
-            value = 1,
-            unit = DateTimeUnit.HOUR,
-            timeZone = TimeZone.currentSystemDefault(),
-        ).toLocalDateTime(TimeZone.currentSystemDefault())
+    val now: Instant = Clock.System.now()
+    val displayTime: LocalDateTime = initialDateTime ?: now
+        .plus(duration = 1.days)
+        .toLocalDateTime(TimeZone.currentSystemDefault())
 
     val initialSelectedDate = initialDateTime?.toInstant(TimeZone.currentSystemDefault()) ?: now
     val datePickerState = rememberDatePickerState(
@@ -72,8 +69,8 @@ fun DateTimerPicker(
 
         val localDateTime = LocalDateTime(
             year = date.year,
-            monthNumber = date.monthNumber,
-            dayOfMonth = date.dayOfMonth,
+            month = date.month,
+            day = date.day,
             hour = timePickerState.hour,
             minute = timePickerState.minute,
         )

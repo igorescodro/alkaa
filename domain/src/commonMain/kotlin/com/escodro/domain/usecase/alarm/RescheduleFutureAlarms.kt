@@ -4,15 +4,17 @@ import com.escodro.domain.interactor.AlarmInteractor
 import com.escodro.domain.model.Task
 import com.escodro.domain.provider.DateTimeProvider
 import com.escodro.domain.repository.TaskRepository
-import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
 import mu.KotlinLogging
+import kotlin.time.Clock
+import kotlin.time.ExperimentalTime
 
 /**
  * Use case to reschedule tasks scheduled in the future or missing repeating.
  */
+@OptIn(ExperimentalTime::class)
 class RescheduleFutureAlarms(
     private val taskRepository: TaskRepository,
     private val alarmInteractor: AlarmInteractor,

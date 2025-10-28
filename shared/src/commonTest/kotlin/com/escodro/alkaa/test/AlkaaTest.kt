@@ -18,7 +18,6 @@ import com.escodro.alkaa.fake.TaskNotificationFake
 import com.escodro.shared.AlkaaMultiplatformApp
 import com.escodro.shared.di.appModules
 import com.escodro.task.presentation.detail.alarm.interactor.OpenAlarmScheduler
-import org.koin.compose.KoinContext
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
 import org.koin.core.module.Module
@@ -56,9 +55,7 @@ fun uiTest(block: ComposeUiTest.() -> Unit) = runComposeUiTest {
             LocalLifecycleOwner provides LocalLifecycleOwnerFake(),
         ) {
             val navHostController = rememberNavController()
-            KoinContext {
-                AlkaaMultiplatformApp(appState = AppStateFake(navHostController = navHostController))
-            }
+            AlkaaMultiplatformApp(appState = AppStateFake(navHostController = navHostController))
         }
     }
     block()

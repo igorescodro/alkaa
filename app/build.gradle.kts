@@ -13,25 +13,11 @@ plugins {
 android {
     defaultConfig {
         applicationId = "com.escodro.alkaa"
-        versionCode = Integer.parseInt(
-            libs.versions.version.code
-                .get(),
-        )
-        versionName = libs.versions.version.name
-            .get()
-
-        compileSdk = Integer.parseInt(
-            libs.versions.android.sdk.compile
-                .get(),
-        )
-        minSdk = Integer.parseInt(
-            libs.versions.android.sdk.min
-                .get(),
-        )
-        targetSdk = Integer.parseInt(
-            libs.versions.android.sdk.target
-                .get(),
-        )
+        versionCode = Integer.parseInt(libs.versions.version.code.get())
+        versionName = libs.versions.version.name.get()
+        compileSdk = Integer.parseInt(libs.versions.android.sdk.compile.get())
+        minSdk = Integer.parseInt(libs.versions.android.sdk.min.get())
+        targetSdk = Integer.parseInt(libs.versions.android.sdk.target.get())
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         base.archivesName.set("${parent?.name}-$versionName")
@@ -62,10 +48,7 @@ android {
         checkDependencies = true
 
         lintConfig = file("$rootDir/config/filters/lint.xml")
-        htmlOutput = layout.buildDirectory
-            .file("reports/lint.html")
-            .get()
-            .asFile
+        htmlOutput = layout.buildDirectory.file("reports/lint.html").get().asFile
 
         project.tasks.check.dependsOn("lint")
     }

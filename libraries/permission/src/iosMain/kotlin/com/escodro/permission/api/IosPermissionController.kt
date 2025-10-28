@@ -20,6 +20,5 @@ internal class IosPermissionController : PermissionController {
 
     private fun mapPermission(permission: Permission): LibPermission = when (permission) {
         Permission.NOTIFICATION -> LibPermission.REMOTE_NOTIFICATION
-        else -> throw IllegalArgumentException("Permission not supported")
     }
 }

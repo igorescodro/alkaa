@@ -45,7 +45,7 @@ import com.escodro.categoryapi.presentation.CategoryListViewModel
 import com.escodro.categoryapi.presentation.CategoryState
 import com.escodro.designsystem.components.AddFloatingButton
 import com.escodro.designsystem.components.AlkaaLoadingContent
-import com.escodro.designsystem.components.DefaultIconTextContent
+import com.escodro.designsystem.components.content.DefaultIconTextContent
 import com.escodro.resources.Res
 import com.escodro.resources.category_cd_add_category
 import com.escodro.resources.category_icon_cd

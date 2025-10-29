@@ -26,7 +26,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.escodro.designsystem.components.AlkaaLoadingContent
 import com.escodro.designsystem.components.AlkaaToolbar
-import com.escodro.designsystem.components.DefaultIconTextContent
+import com.escodro.designsystem.components.content.DefaultIconTextContent
 import com.escodro.resources.Res
 import com.escodro.resources.tracker_cd_empty
 import com.escodro.resources.tracker_cd_error

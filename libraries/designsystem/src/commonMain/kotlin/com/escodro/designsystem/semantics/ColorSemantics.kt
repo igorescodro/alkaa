@@ -1,4 +1,4 @@
-package com.escodro.category.presentation.semantics
+package com.escodro.designsystem.semantics
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.SemanticsPropertyKey
@@ -9,4 +9,4 @@ import androidx.compose.ui.semantics.SemanticsPropertyReceiver
  */
 val ColorKey = SemanticsPropertyKey<Color>("Color")
 
-internal var SemanticsPropertyReceiver.color by ColorKey
+var SemanticsPropertyReceiver.color by ColorKey

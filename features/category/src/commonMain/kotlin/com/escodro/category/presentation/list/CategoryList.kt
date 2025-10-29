@@ -39,13 +39,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.escodro.category.presentation.semantics.color
 import com.escodro.categoryapi.model.Category
 import com.escodro.categoryapi.presentation.CategoryListViewModel
 import com.escodro.categoryapi.presentation.CategoryState
 import com.escodro.designsystem.components.button.AddFloatingButton
 import com.escodro.designsystem.components.content.AlkaaLoadingContent
 import com.escodro.designsystem.components.content.DefaultIconTextContent
+import com.escodro.designsystem.semantics.color
 import com.escodro.resources.Res
 import com.escodro.resources.category_cd_add_category
 import com.escodro.resources.category_icon_cd

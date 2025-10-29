@@ -1,4 +1,4 @@
-package com.escodro.designsystem
+package com.escodro.designsystem.theme
 
 import androidx.compose.ui.graphics.Color
 

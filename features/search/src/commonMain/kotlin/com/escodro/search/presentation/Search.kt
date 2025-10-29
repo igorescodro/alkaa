@@ -46,8 +46,8 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
-import com.escodro.designsystem.components.AlkaaLoadingContent
-import com.escodro.designsystem.components.DefaultIconTextContent
+import com.escodro.designsystem.components.content.AlkaaLoadingContent
+import com.escodro.designsystem.components.content.DefaultIconTextContent
 import com.escodro.resources.Res
 import com.escodro.resources.search_cd_empty_list
 import com.escodro.resources.search_cd_icon

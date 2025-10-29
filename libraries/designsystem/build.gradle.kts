@@ -16,8 +16,14 @@ kotlin {
             implementation(compose.material)
             implementation(compose.material3)
             implementation(compose.materialIconsExtended)
+            implementation(compose.components.uiToolingPreview)
+            implementation(libs.kotlinx.collections.immutable)
         }
     }
+}
+
+dependencies {
+    debugImplementation(compose.uiTooling)
 }
 
 android {

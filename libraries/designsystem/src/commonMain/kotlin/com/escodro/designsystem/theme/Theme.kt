@@ -1,6 +1,6 @@
 @file:Suppress("Filename")
 
-package com.escodro.designsystem
+package com.escodro.designsystem.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
@@ -86,6 +86,24 @@ fun AlkaaTheme(
         dynamicColor && !isDarkTheme -> themeProvider.dynamicLightColorScheme
         isDarkTheme -> AlkaaDarkColorScheme
         else -> AlkaaLightColorScheme
+    }
+
+    MaterialTheme(
+        colorScheme = colorScheme,
+        typography = AlkaaTypography,
+        content = content,
+    )
+}
+
+@Composable
+fun AlkaaThemePreview(
+    isDarkTheme: Boolean = false,
+    content: @Composable () -> Unit,
+) {
+    val colorScheme = if (isDarkTheme) {
+        AlkaaDarkColorScheme
+    } else {
+        AlkaaLightColorScheme
     }
 
     MaterialTheme(

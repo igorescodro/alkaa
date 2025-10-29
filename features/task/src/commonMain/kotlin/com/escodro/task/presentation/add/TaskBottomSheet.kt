@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.dp
 import com.escodro.alarmapi.AlarmPermission
 import com.escodro.categoryapi.presentation.CategoryListViewModel
 import com.escodro.categoryapi.presentation.CategoryState
-import com.escodro.designsystem.components.AlkaaInputTextField
+import com.escodro.designsystem.components.textfield.AlkaaInputTextField
 import com.escodro.resources.Res
 import com.escodro.resources.task_add_label
 import com.escodro.resources.task_add_save

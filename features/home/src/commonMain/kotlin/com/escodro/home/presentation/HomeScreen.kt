@@ -14,10 +14,7 @@ import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsPadding
-import androidx.compose.material3.CenterAlignedTopAppBar
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffold
@@ -29,13 +26,13 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.escodro.appstate.AppState
 import com.escodro.designsystem.animation.TopBarEnterTransition
 import com.escodro.designsystem.animation.TopBarExitTransition
+import com.escodro.designsystem.components.topbar.MainTopBar
 import com.escodro.navigation.compose.Navigation
 import com.escodro.navigationapi.controller.NavEventController
 import com.escodro.navigationapi.destination.HomeDestination
@@ -113,7 +110,7 @@ private fun AlkaaHomeScaffold(
                     enter = TopBarEnterTransition,
                     exit = TopBarExitTransition,
                 ) {
-                    AlkaaTopBar(currentSection = currentSection)
+                    MainTopBar(title = stringResource(currentSection.title))
                 }
             },
             contentWindowInsets = WindowInsets(0, 0, 0, 0),
@@ -137,20 +134,6 @@ private fun AlkaaHomeScaffold(
             },
         )
     }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-private fun AlkaaTopBar(currentSection: TopLevel) {
-    CenterAlignedTopAppBar(
-        title = {
-            Text(
-                style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Light),
-                text = stringResource(currentSection.title),
-                color = MaterialTheme.colorScheme.tertiary,
-            )
-        },
-    )
 }
 
 private fun NavigationSuiteScope.alkaaBottomNav(

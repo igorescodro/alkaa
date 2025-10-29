@@ -30,7 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.escodro.designsystem.components.AlkaaToolbar
+import com.escodro.designsystem.components.topbar.AlkaaToolbar
 import com.escodro.resources.Res
 import com.escodro.resources.about_button_project
 import com.escodro.resources.about_cd_github

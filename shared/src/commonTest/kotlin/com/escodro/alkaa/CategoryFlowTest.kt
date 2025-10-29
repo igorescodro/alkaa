@@ -17,7 +17,7 @@ import androidx.compose.ui.test.waitUntilDoesNotExist
 import com.escodro.alkaa.test.afterTest
 import com.escodro.alkaa.test.beforeTest
 import com.escodro.alkaa.test.uiTest
-import com.escodro.category.presentation.semantics.ColorKey
+import com.escodro.designsystem.semantics.ColorKey
 import com.escodro.local.dao.CategoryDao
 import kotlinx.coroutines.test.runTest
 import org.koin.test.KoinTest

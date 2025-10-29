@@ -4,7 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import com.escodro.designsystem.AlkaaTheme
+import com.escodro.designsystem.theme.AlkaaTheme
 import com.escodro.tracker.presentation.TrackerScreen
 import com.google.android.play.core.splitcompat.SplitCompat
 

@@ -1,4 +1,4 @@
-package com.escodro.designsystem.components
+package com.escodro.designsystem.components.dialog
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.rememberScrollState
@@ -9,7 +9,8 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.escodro.designsystem.AlkaaTheme
+import com.escodro.designsystem.theme.AlkaaThemePreview
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 /**
  * Default dialog with confirm and dismiss button.
@@ -70,10 +71,10 @@ data class DialogArguments(
 )
 
 @Suppress("UndocumentedPublicFunction")
-// @Preview TODO re-enable when Preview is available in KMM modules
+@Preview
 @Composable
-fun DialogPreview() {
-    AlkaaTheme {
+private fun DialogPreview() {
+    AlkaaThemePreview {
         val arguments = DialogArguments(
             title = "Something regrettable",
             text = "Are you sure that do you want to do something regrettable?",

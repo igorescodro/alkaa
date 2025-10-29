@@ -113,10 +113,13 @@ internal fun AlarmSelectionContent(
             imageVector = Icons.Outlined.Alarm,
             contentDescription = stringResource(Res.string.task_detail_cd_icon_alarm),
         ) {
-            AlarmInfo(alarmSelectionState.date) {
-                alarmSelectionState.date = null
-                onAlarmUpdate(null)
-            }
+            AlarmInfo(
+                date = alarmSelectionState.date,
+                onRemoveDate = {
+                    alarmSelectionState.date = null
+                    onAlarmUpdate(null)
+                },
+            )
         }
         AlarmIntervalSelection(
             date = alarmSelectionState.date,

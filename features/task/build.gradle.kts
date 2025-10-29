@@ -27,6 +27,7 @@ kotlin {
             implementation(compose.material3)
             implementation(compose.materialIconsExtended)
             implementation(compose.components.resources)
+            implementation(compose.components.uiToolingPreview)
 
             implementation(libs.kotlinx.datetime)
             implementation(libs.kotlinx.collections.immutable)
@@ -41,6 +42,11 @@ kotlin {
         }
     }
 }
+
+dependencies {
+    debugImplementation(compose.uiTooling)
+}
+
 android {
     namespace = "com.escodro.task"
 }

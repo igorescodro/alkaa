@@ -1,9 +1,6 @@
 package com.escodro.preference.presentation
 
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -22,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.escodro.designsystem.components.item.PreferenceItem
 import com.escodro.preference.model.AppThemeOptions
 import com.escodro.preference.provider.AppInfoProvider
 import com.escodro.resources.Res
@@ -35,33 +33,6 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.filter
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
-
-@Composable
-internal fun PreferenceItem(
-    title: String,
-    description: String? = null,
-    onItemClick: () -> Unit = { },
-) {
-    Column(
-        modifier = Modifier
-            .clickable { onItemClick() }
-            .padding(start = 32.dp, top = 8.dp, end = 16.dp, bottom = 8.dp)
-            .fillMaxWidth()
-            .height(48.dp),
-        verticalArrangement = Arrangement.Center,
-    ) {
-        Text(
-            text = title,
-            style = MaterialTheme.typography.bodyMedium,
-        )
-        if (description != null) {
-            Text(
-                text = description,
-                style = MaterialTheme.typography.bodySmall,
-            )
-        }
-    }
-}
 
 @Composable
 internal fun PreferenceTitle(title: String) {

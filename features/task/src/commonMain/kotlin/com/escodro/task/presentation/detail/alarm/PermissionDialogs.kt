@@ -2,8 +2,8 @@ package com.escodro.task.presentation.detail.alarm
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
-import com.escodro.designsystem.components.AlkaaDialog
-import com.escodro.designsystem.components.DialogArguments
+import com.escodro.designsystem.components.dialog.AlkaaDialog
+import com.escodro.designsystem.components.dialog.DialogArguments
 import com.escodro.permission.api.Permission
 import com.escodro.resources.Res
 import com.escodro.resources.task_alarm_permission_dialog_cancel

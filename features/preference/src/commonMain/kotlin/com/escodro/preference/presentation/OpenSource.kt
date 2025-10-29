@@ -25,9 +25,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.escodro.designsystem.components.AlkaaDialog
-import com.escodro.designsystem.components.AlkaaToolbar
-import com.escodro.designsystem.components.DialogArguments
+import com.escodro.designsystem.components.dialog.AlkaaDialog
+import com.escodro.designsystem.components.dialog.DialogArguments
+import com.escodro.designsystem.components.topbar.AlkaaToolbar
 import com.escodro.resources.Res
 import com.escodro.resources.default_ok
 import com.mikepenz.aboutlibraries.Libs

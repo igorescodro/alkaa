@@ -22,8 +22,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.escodro.designsystem.components.AlkaaDialog
-import com.escodro.designsystem.components.DialogArguments
+import com.escodro.designsystem.components.dialog.AlkaaDialog
+import com.escodro.designsystem.components.dialog.DialogArguments
 import com.escodro.splitinstall.SplitInstallState.Downloading
 import com.escodro.splitinstall.SplitInstallState.FeatureReady
 import com.escodro.splitinstall.SplitInstallState.RequestDownload

@@ -20,7 +20,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.escodro.categoryapi.model.Category
 import com.escodro.categoryapi.presentation.CategoryState
-import com.escodro.designsystem.components.AlkaaLoadingContent
+import com.escodro.designsystem.components.content.AlkaaLoadingContent
 import com.escodro.resources.Res
 import com.escodro.resources.task_detail_category_empty_list
 import com.escodro.task.presentation.detail.main.CategoryId

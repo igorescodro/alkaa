@@ -1,7 +1,5 @@
 package com.escodro.designsystem.components
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -16,14 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
-
-/**
- * Basic loading screen to be used when the screen is loading, making the transition smoother.
- */
-@Composable
-fun AlkaaLoadingContent(modifier: Modifier = Modifier) {
-    Box(modifier = modifier.fillMaxSize(), content = {})
-}
 
 /**
  * Floating Action button do add new elements.

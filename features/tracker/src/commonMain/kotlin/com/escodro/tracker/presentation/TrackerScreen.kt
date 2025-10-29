@@ -22,6 +22,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.escodro.designsystem.components.content.AlkaaLoadingContent
@@ -40,8 +41,10 @@ import com.escodro.tracker.model.Tracker
 import com.escodro.tracker.presentation.components.TaskGraph
 import com.escodro.tracker.presentation.components.TaskTrackerList
 import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toImmutableList
 import org.jetbrains.compose.resources.pluralStringResource
 import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.koinInject
 
 @Composable
@@ -155,4 +158,20 @@ private fun TaskTrackerInfoCard(
             }
         }
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun TrackerLoadedContentPreview() {
+    val sampleData = Tracker.Info(
+        categoryInfoList = List(5) { index ->
+            Tracker.CategoryInfo(
+                name = "Category $index",
+                color = Color.Red.value.toInt(),
+                taskCount = (index + 1) * 2,
+                percentage = ((index + 1) * 10).toFloat(),
+            )
+        }.toImmutableList(),
+    )
+    TrackerLoadedContent(trackerInfo = sampleData)
 }

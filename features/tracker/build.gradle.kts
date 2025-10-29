@@ -19,6 +19,7 @@ kotlin {
             implementation(compose.material3)
             implementation(compose.materialIconsExtended)
             implementation(compose.components.resources)
+            implementation(compose.components.uiToolingPreview)
 
             implementation(libs.kotlinx.collections.immutable)
             implementation(libs.koin.compose)
@@ -36,6 +37,10 @@ kotlin {
             implementation(libs.compose.activity)
         }
     }
+}
+
+dependencies {
+    debugImplementation(compose.uiTooling)
 }
 
 android {

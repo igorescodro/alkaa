@@ -5,27 +5,12 @@ import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-
-@Composable
-internal fun LeadingIcon(
-    imageVector: ImageVector,
-    contentDescription: String,
-    modifier: Modifier = Modifier,
-) {
-    Icon(
-        imageVector = imageVector,
-        contentDescription = contentDescription,
-        tint = MaterialTheme.colorScheme.primary.copy(alpha = TrailingLeadingAlpha),
-        modifier = modifier,
-    )
-}
+import com.escodro.designsystem.components.icon.LeadingIcon
 
 @Composable
 internal fun TaskDetailSectionContent(
@@ -49,5 +34,3 @@ internal fun TaskDetailSectionContent(
         }
     }
 }
-
-private const val TrailingLeadingAlpha = 0.50f

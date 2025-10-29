@@ -31,6 +31,7 @@ import com.escodro.categoryapi.presentation.CategoryListViewModel
 import com.escodro.categoryapi.presentation.CategoryState
 import com.escodro.designsystem.components.content.AlkaaLoadingContent
 import com.escodro.designsystem.components.content.DefaultIconTextContent
+import com.escodro.designsystem.components.icon.LeadingIcon
 import com.escodro.designsystem.components.topbar.AlkaaToolbar
 import com.escodro.parcelable.CommonParcelable
 import com.escodro.parcelable.CommonParcelize
@@ -41,7 +42,6 @@ import com.escodro.resources.task_detail_cd_icon_description
 import com.escodro.resources.task_detail_header_error
 import com.escodro.task.model.Task
 import com.escodro.task.presentation.category.CategorySelection
-import com.escodro.task.presentation.detail.LeadingIcon
 import com.escodro.task.presentation.detail.TaskDetailActions
 import com.escodro.task.presentation.detail.TaskDetailSectionContent
 import com.escodro.task.presentation.detail.alarm.AlarmSelection

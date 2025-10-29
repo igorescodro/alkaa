@@ -49,8 +49,8 @@ import androidx.compose.ui.unit.dp
 import com.escodro.category.presentation.semantics.color
 import com.escodro.categoryapi.model.Category
 import com.escodro.designsystem.components.AlkaaDialog
-import com.escodro.designsystem.components.AlkaaInputTextField
 import com.escodro.designsystem.components.DialogArguments
+import com.escodro.designsystem.components.textfield.AlkaaInputTextField
 import com.escodro.resources.Res
 import com.escodro.resources.category_add_label
 import com.escodro.resources.category_cd_remove_category

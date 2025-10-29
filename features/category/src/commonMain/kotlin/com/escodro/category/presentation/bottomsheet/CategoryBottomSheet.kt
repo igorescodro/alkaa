@@ -48,8 +48,8 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.escodro.category.presentation.semantics.color
 import com.escodro.categoryapi.model.Category
-import com.escodro.designsystem.components.AlkaaDialog
-import com.escodro.designsystem.components.DialogArguments
+import com.escodro.designsystem.components.dialog.AlkaaDialog
+import com.escodro.designsystem.components.dialog.DialogArguments
 import com.escodro.designsystem.components.textfield.AlkaaInputTextField
 import com.escodro.resources.Res
 import com.escodro.resources.category_add_label

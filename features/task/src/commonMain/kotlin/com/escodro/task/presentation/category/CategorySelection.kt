@@ -1,15 +1,18 @@
 package com.escodro.task.presentation.category
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,6 +26,7 @@ import com.escodro.resources.Res
 import com.escodro.resources.task_detail_category_empty_list
 import com.escodro.task.presentation.detail.main.CategoryId
 import kotlinx.collections.immutable.ImmutableList
+import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -31,6 +35,7 @@ internal fun CategorySelection(
     currentCategory: Long?,
     onCategoryChange: (CategoryId) -> Unit,
     modifier: Modifier = Modifier,
+    contentPadding: PaddingValues = PaddingValues(),
 ) {
     Box(
         modifier = modifier.height(56.dp),
@@ -41,6 +46,7 @@ internal fun CategorySelection(
             is CategoryState.Loaded -> LoadedCategoryList(
                 categoryList = state.categoryList,
                 currentCategory = currentCategory,
+                contentPadding = contentPadding,
                 onCategoryChange = onCategoryChange,
             )
 
@@ -53,13 +59,35 @@ internal fun CategorySelection(
 private fun LoadedCategoryList(
     categoryList: ImmutableList<Category>,
     currentCategory: Long?,
+    contentPadding: PaddingValues,
     onCategoryChange: (CategoryId) -> Unit,
 ) {
+    val state = rememberLazyListState()
+    val coroutineScope = rememberCoroutineScope()
     val currentItem = categoryList.find { category -> category.id == currentCategory }
     var selectedState by remember { mutableStateOf(currentItem?.id) }
-    LazyRow {
+
+    LazyRow(
+        state = state,
+        contentPadding = contentPadding,
+    ) {
+        item {
+            val selectedItem =
+                categoryList.find { category -> category.id == selectedState } ?: return@item
+            CategoryItemChip(
+                id = selectedItem.id,
+                name = selectedItem.name,
+                color = Color(selectedItem.color),
+                isSelected = true,
+                onSelectChange = { id ->
+                    coroutineScope.launch { state.animateScrollToItem(0) }
+                    selectedState = id
+                    onCategoryChange(CategoryId(id))
+                },
+            )
+        }
         items(
-            items = categoryList,
+            items = categoryList.filter { category -> category.id != selectedState },
             itemContent = { category ->
                 CategoryItemChip(
                     id = category.id,
@@ -67,6 +95,7 @@ private fun LoadedCategoryList(
                     color = Color(category.color),
                     isSelected = selectedState == category.id,
                     onSelectChange = { id ->
+                        coroutineScope.launch { state.animateScrollToItem(0) }
                         selectedState = id
                         onCategoryChange(CategoryId(id))
                     },

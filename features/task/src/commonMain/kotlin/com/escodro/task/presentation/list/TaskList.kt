@@ -277,7 +277,7 @@ private fun TaskFilter(
         state = categoryState,
         currentCategory = currentCategory?.value,
         onCategoryChange = onCategoryChange,
-        modifier = Modifier.padding(start = 16.dp),
+        contentPadding = PaddingValues(horizontal = 16.dp),
     )
 }
 

@@ -94,3 +94,21 @@ fun AlkaaTheme(
         content = content,
     )
 }
+
+@Composable
+fun AlkaaThemePreview(
+    isDarkTheme: Boolean = false,
+    content: @Composable () -> Unit,
+) {
+    val colorScheme = if (isDarkTheme) {
+        AlkaaDarkColorScheme
+    } else {
+        AlkaaLightColorScheme
+    }
+
+    MaterialTheme(
+        colorScheme = colorScheme,
+        typography = AlkaaTypography,
+        content = content,
+    )
+}

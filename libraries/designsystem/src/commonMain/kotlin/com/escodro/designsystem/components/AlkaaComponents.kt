@@ -16,31 +16,6 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 
 /**
- * Floating Action button do add new elements.
- *
- * @param contentDescription string resource to describe the add button
- * @param modifier Compose modifier
- * @param onClick function to be called on the click
- */
-@Composable
-fun AddFloatingButton(
-    contentDescription: String,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-) {
-    FloatingActionButton(
-        containerColor = MaterialTheme.colorScheme.primary,
-        modifier = modifier,
-        onClick = onClick,
-    ) {
-        Icon(
-            imageVector = Icons.Outlined.Add,
-            contentDescription = contentDescription,
-        )
-    }
-}
-
-/**
  * TextField input for Alkaa forms.
  *
  * @param label text field label

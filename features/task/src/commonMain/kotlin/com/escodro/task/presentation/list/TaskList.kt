@@ -38,7 +38,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.escodro.categoryapi.presentation.CategoryListViewModel
 import com.escodro.categoryapi.presentation.CategoryState
-import com.escodro.designsystem.components.AddFloatingButton
+import com.escodro.designsystem.components.button.AddFloatingButton
 import com.escodro.designsystem.components.content.AlkaaLoadingContent
 import com.escodro.designsystem.components.content.DefaultIconTextContent
 import com.escodro.resources.Res

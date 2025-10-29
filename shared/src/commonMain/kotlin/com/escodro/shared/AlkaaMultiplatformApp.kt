@@ -8,7 +8,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import com.escodro.appstate.AppState
 import com.escodro.appstate.rememberAlkaaAppState
-import com.escodro.designsystem.AlkaaTheme
+import com.escodro.designsystem.theme.AlkaaTheme
 import com.escodro.home.presentation.Home
 import com.escodro.shared.model.AppThemeOptions
 import org.koin.compose.koinInject

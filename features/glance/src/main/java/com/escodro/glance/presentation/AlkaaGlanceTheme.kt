@@ -8,8 +8,8 @@ import androidx.compose.runtime.Composable
 import androidx.glance.GlanceTheme
 import androidx.glance.LocalContext
 import androidx.glance.material3.ColorProviders
-import com.escodro.designsystem.AlkaaDarkColorScheme
-import com.escodro.designsystem.AlkaaLightColorScheme
+import com.escodro.designsystem.theme.AlkaaDarkColorScheme
+import com.escodro.designsystem.theme.AlkaaLightColorScheme
 
 /**
  * Alkaa Glance Theme.

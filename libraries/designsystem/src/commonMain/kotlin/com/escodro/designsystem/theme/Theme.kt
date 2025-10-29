@@ -1,6 +1,6 @@
 @file:Suppress("Filename")
 
-package com.escodro.designsystem
+package com.escodro.designsystem.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme

@@ -17,12 +17,15 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import com.escodro.designsystem.theme.AlkaaThemePreview
 import com.escodro.resources.Res
 import com.escodro.resources.task_detail_alarm_no_alarm
 import com.escodro.resources.task_detail_cd_icon_remove_alarm
@@ -32,13 +35,15 @@ import com.escodro.task.model.AlarmInterval
 import com.escodro.task.presentation.detail.TaskDetailSectionContent
 import kotlinx.datetime.LocalDateTime
 import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 internal fun AlarmInfo(
     date: LocalDateTime?,
     onRemoveDate: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
-    Column {
+    Column(modifier = modifier) {
         if (date == null) {
             NoAlarmSet()
         } else {
@@ -155,4 +160,42 @@ private fun AlarmListItem(
                 setDialogValue(false)
             },
     )
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun AlarmInfoNoAlarmPreview() {
+    AlkaaThemePreview {
+        AlarmInfo(
+            date = null,
+            onRemoveDate = { },
+            modifier = Modifier.fillMaxWidth().padding(16.dp),
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun AlarmInfoWithAlarmPreview() {
+    AlkaaThemePreview {
+        AlarmInfo(
+            date = LocalDateTime(2024, 12, 25, 9, 0),
+            onRemoveDate = { },
+            modifier = Modifier.fillMaxWidth().padding(16.dp),
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun AlarmIntervalSelectionPreview() {
+    var interval by remember { mutableStateOf(AlarmInterval.DAILY) }
+
+    AlkaaThemePreview {
+        AlarmIntervalSelection(
+            date = LocalDateTime(2024, 12, 25, 9, 0),
+            alarmInterval = interval,
+            onIntervalSelect = { interval = it },
+        )
+    }
 }

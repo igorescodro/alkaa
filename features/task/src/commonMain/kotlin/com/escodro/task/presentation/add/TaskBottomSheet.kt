@@ -3,6 +3,7 @@ package com.escodro.task.presentation.add
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -109,6 +110,7 @@ internal fun AddTaskBottomSheetContent(
             state = categoryState,
             currentCategory = currentCategory?.value,
             onCategoryChange = { categoryId -> currentCategory = categoryId },
+            contentPadding = PaddingValues(horizontal = 8.dp),
         )
 
         AlarmSelection(

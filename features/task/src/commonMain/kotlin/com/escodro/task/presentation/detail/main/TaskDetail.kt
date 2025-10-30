@@ -2,6 +2,7 @@ package com.escodro.task.presentation.detail.main
 
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -26,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.unit.dp
 import com.escodro.alarmapi.AlarmPermission
 import com.escodro.categoryapi.presentation.CategoryListViewModel
 import com.escodro.categoryapi.presentation.CategoryState
@@ -140,6 +142,7 @@ private fun TaskDetailContent(
                     state = categoryViewState,
                     currentCategory = task.categoryId,
                     onCategoryChange = actions.onCategoryChange,
+                    contentPadding = PaddingValues(horizontal = 8.dp),
                 )
             }
             TaskDescriptionTextField(

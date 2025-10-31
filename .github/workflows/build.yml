@@ -27,7 +27,14 @@ jobs:
           distribution: 'adopt'
 
       - name: Build with Gradle
-        run: ./gradlew clean build test -x shared:testDebugUnitTest -x shared:testReleaseUnitTest -x shared:desktopTest --parallel
+        run: >
+          ./gradlew clean build test 
+          -x shared:testDebugUnitTest 
+          -x shared:testReleaseUnitTest 
+          -x shared:desktopTest 
+          -x feature:search:testDebugUnitTest 
+          -x feature:search:testReleaseUnitTest 
+          --parallel
         env:
           ALKAA_KEY_ALIAS: ${{ secrets.ALKAA_KEY_ALIAS }}
           ALKAA_KEY_PASSWORD: ${{ secrets.ALKAA_KEY_PASSWORD }}

@@ -33,7 +33,7 @@ lifecycle_viewmodel = "2.9.6"
 lifecycle_runtime = "2.9.4"
 
 # Compose
-compose_bom = "2025.11.00"
+compose_bom = "2025.11.01"
 compose_activity = "1.11.0"
 compose_compiler = "1.9.3"
 compose_navigation = "2.9.1"

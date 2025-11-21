@@ -189,7 +189,9 @@ internal fun SearchScaffold(
             Crossfade(viewState) { state ->
                 when (state) {
                     SearchViewState.Loading -> AlkaaLoadingContent()
+
                     SearchViewState.Empty -> SearchEmptyContent()
+
                     is SearchViewState.Loaded -> SearchListContent(
                         taskList = state.taskList,
                         onItemClick = onItemClick,

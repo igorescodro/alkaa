@@ -112,14 +112,21 @@ internal fun TaskDetailRouter(
             modifier = Modifier.padding(paddingValues),
         ) { state ->
             when (state) {
-                TaskDetailState.Loading -> AlkaaLoadingContent()
-                TaskDetailState.Error -> TaskDetailError()
-                is TaskDetailState.Loaded ->
+                TaskDetailState.Loading -> {
+                    AlkaaLoadingContent()
+                }
+
+                TaskDetailState.Error -> {
+                    TaskDetailError()
+                }
+
+                is TaskDetailState.Loaded -> {
                     TaskDetailContent(
                         task = state.task,
                         categoryViewState = categoryViewState,
                         actions = actions,
                     )
+                }
             }
         }
     }

@@ -116,7 +116,9 @@ private fun CategoryListScaffold(
             Crossfade(viewState) { state ->
                 when (state) {
                     CategoryState.Loading -> AlkaaLoadingContent(modifier = Modifier.padding(padding))
+
                     CategoryState.Empty -> CategoryListEmpty(modifier = Modifier.padding(padding))
+
                     is CategoryState.Loaded -> CategoryListContent(
                         categoryList = state.categoryList,
                         onItemClick = onItemClick,

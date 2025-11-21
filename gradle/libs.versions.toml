@@ -60,7 +60,7 @@ test_manifest = "1.9.5"
 # Quality
 ktlint = "1.8.0"
 detekt = "1.23.8"
-composerules = "0.4.27"
+composerules = "0.4.28"
 
 # License
 aboutlibraries = "13.1.0"
@@ -95,7 +95,7 @@ androidx_glance_material3 = { module = "androidx.glance:glance-material3", versi
 androidx_workmanager = { module = "androidx.work:work-runtime-ktx", version.ref = "workmanager" }
 androidx_lifecycle_viewmodel = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel", version.ref = "lifecycle_viewmodel" }
 androidx_annotation = { module = "androidx.annotation:annotation", version.ref = "annotation" }
-androidx_lifecycle_runtime = {module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycle_runtime"}
+androidx_lifecycle_runtime = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycle_runtime" }
 
 compose_bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose_bom" }
 compose_ui = { module = "androidx.compose.ui:ui" }

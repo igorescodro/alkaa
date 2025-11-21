@@ -218,8 +218,13 @@ internal fun TaskListScaffold(
                 duration = SnackbarDuration.Short,
             )
             when (snackbarResult) {
-                SnackbarResult.Dismissed -> {} // Do nothing
-                SnackbarResult.ActionPerformed -> onTaskCheckedChange(taskWithCategory)
+                SnackbarResult.Dismissed -> {
+                    // Do nothing
+                }
+
+                SnackbarResult.ActionPerformed -> {
+                    onTaskCheckedChange(taskWithCategory)
+                }
             }
         }
     }
@@ -247,8 +252,14 @@ internal fun TaskListScaffold(
             modifier = Modifier.padding(paddingValues),
         ) { state ->
             when (state) {
-                TaskListViewState.Loading -> AlkaaLoadingContent()
-                is TaskListViewState.Error -> TaskListError()
+                TaskListViewState.Loading -> {
+                    AlkaaLoadingContent()
+                }
+
+                is TaskListViewState.Error -> {
+                    TaskListError()
+                }
+
                 is TaskListViewState.Loaded -> {
                     TaskListContent(
                         taskList = state.items,
@@ -261,7 +272,9 @@ internal fun TaskListScaffold(
                     )
                 }
 
-                TaskListViewState.Empty -> TaskListEmpty()
+                TaskListViewState.Empty -> {
+                    TaskListEmpty()
+                }
             }
         }
     }

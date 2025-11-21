@@ -69,6 +69,7 @@ fun LoadFeature(
         RequestDownload -> {
             RequestDownload(onDismiss = onDismiss, setState = { state = it })
         }
+
         Downloading -> {
             DownloadFeature(
                 featureName = featureName,
@@ -77,6 +78,7 @@ fun LoadFeature(
                 setState = { state = it },
             )
         }
+
         FeatureReady -> {
             onDismiss()
             onFeatureReady()
@@ -136,11 +138,13 @@ private fun DownloadFeature(
                 SplitInstallSessionStatus.PENDING -> {
                     isDialogOpen = true
                 }
+
                 SplitInstallSessionStatus.INSTALLED -> {
                     isDialogOpen = false
                     setState(FeatureReady)
                     onDismiss()
                 }
+
                 else -> {
                     logcat { "${it.status()}" }
                 }

@@ -40,11 +40,15 @@ internal class TaskNotificationReceiver : BroadcastReceiver(), KoinComponent {
     private suspend fun handleIntent(intent: Intent?) =
         when (intent?.action) {
             ALARM_ACTION -> getTaskId(intent)?.let { showAlarmUseCase(it) }
+
             COMPLETE_ACTION -> getTaskId(intent)?.let { completeTaskUseCase(it) }
+
             SNOOZE_ACTION -> getTaskId(intent)?.let { snoozeAlarmUseCase(it) }
+
             Intent.ACTION_BOOT_COMPLETED,
             AlarmManager.ACTION_SCHEDULE_EXACT_ALARM_PERMISSION_STATE_CHANGED,
             -> rescheduleUseCase()
+
             else -> logcat(LogPriority.ERROR) { "Action not supported" }
         }
 

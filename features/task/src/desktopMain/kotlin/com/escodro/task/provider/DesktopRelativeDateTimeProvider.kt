@@ -26,28 +26,37 @@ internal class DesktopRelativeDateTimeProvider : RelativeDateTimeProvider {
 
         return runBlocking {
             when {
-                duration.inWholeMinutes < 1 ->
+                duration.inWholeMinutes < 1 -> {
                     getString(Res.string.relative_date_time_just_now)
+                }
 
-                duration.inWholeMinutes == 1L ->
+                duration.inWholeMinutes == 1L -> {
                     getString(Res.string.relative_date_time_one_minute)
+                }
 
-                duration.inWholeMinutes < 60 ->
+                duration.inWholeMinutes < 60 -> {
                     getString(Res.string.relative_date_time_minutes, duration.inWholeMinutes)
+                }
 
-                duration.inWholeHours == 1L ->
+                duration.inWholeHours == 1L -> {
                     getString(Res.string.relative_date_time_one_hour)
+                }
 
-                duration.inWholeHours < 24 ->
+                duration.inWholeHours < 24 -> {
                     getString(Res.string.relative_date_time_hours, duration.inWholeHours)
+                }
 
-                duration.inWholeDays == 1L ->
+                duration.inWholeDays == 1L -> {
                     getString(Res.string.relative_date_time_yesterday)
+                }
 
-                duration.inWholeDays < 7 ->
+                duration.inWholeDays < 7 -> {
                     getString(Res.string.relative_date_time_days, duration.inWholeDays)
+                }
 
-                else -> dateTime.toString()
+                else -> {
+                    dateTime.toString()
+                }
             }
         }
     }

@@ -48,6 +48,7 @@ internal fun CategorySelection(
     ) {
         when (state) {
             CategoryState.Loading -> AlkaaLoadingContent()
+
             is CategoryState.Loaded -> LoadedCategoryList(
                 categoryList = state.categoryList,
                 currentCategory = currentCategory,

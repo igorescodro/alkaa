@@ -8,7 +8,7 @@ plugins {
     id("com.escodro.kotlin-quality")
 }
 
-val libs: VersionCatalog = extensions.getByType<VersionCatalogsExtension>().named("libs")
+private val _libs: VersionCatalog = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
 @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
 kotlin {
@@ -26,8 +26,8 @@ kotlin {
 }
 
 android {
-    compileSdk = Integer.parseInt(libs.sdkCompile)
+    compileSdk = Integer.parseInt(_libs.sdkCompile)
     defaultConfig {
-        minSdk = Integer.parseInt(libs.sdkMin)
+        minSdk = Integer.parseInt(_libs.sdkMin)
     }
 }

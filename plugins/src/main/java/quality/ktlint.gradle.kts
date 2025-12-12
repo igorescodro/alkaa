@@ -4,11 +4,11 @@ import extension.composeRulesKtlint
 import extension.ktlint
 
 val ktlint: Configuration by configurations.creating
-val libs: VersionCatalog = extensions.getByType<VersionCatalogsExtension>().named("libs")
+private val _libs: VersionCatalog = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
 dependencies {
-    ktlint(libs.ktlint)
-    ktlint.dependencies.add(libs.composeRulesKtlint.get())
+    ktlint(_libs.ktlint)
+    ktlint.dependencies.add(_libs.composeRulesKtlint.get())
 }
 
 tasks {

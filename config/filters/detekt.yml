@@ -1,7 +1,3 @@
-complexity:
-  TooManyFunctions:
-    thresholdInClasses: 20
-
 comments:
   excludes: [ '**/test/**','**/androidTest/**','**/android-test/**','**/*.Test.kt','**/*.Spec.kt','**/*.Spek.kt' ]
   CommentOverPrivateFunction:
@@ -10,6 +6,8 @@ comments:
     active: false
   UndocumentedPublicProperty:
     excludes: ['**/designsystem/**']
+  AbsentOrWrongFileLicense:
+    active: false
 
 style:
   DataClassShouldBeImmutable:
@@ -28,7 +26,8 @@ naming:
   TopLevelPropertyNaming:
     constantPattern: '[A-Z][A-Za-z0-9]*'
     excludes: [ '**/theme/**', '**/test/**','**/androidTest/**','**/android-test/**' ]
-  FunctionMaxLength:
+  FunctionNameMaxLength:
     excludes: [ '**/test/**','**/androidTest/**','**/android-test/**' ]
   FunctionNaming:
     ignoreAnnotated: [ 'Composable' ]
+    excludes: [ '**/test/**','**/androidTest/**','**/android-test/**' ]

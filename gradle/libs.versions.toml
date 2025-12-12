@@ -59,7 +59,7 @@ test_manifest = "1.10.0"
 
 # Quality
 ktlint = "1.8.0"
-detekt = "1.23.8"
+detekt = "2.0.0-alpha.1"
 composerules = "0.5.2"
 
 # License
@@ -136,7 +136,7 @@ test-manifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref =
 
 # Quality
 ktlint = { module = "com.pinterest.ktlint:ktlint-cli", version.ref = "ktlint" }
-detekt = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt" }
+detekt = { module = "dev.detekt:detekt-gradle-plugin", version.ref = "detekt" }
 composerules-detekt = { module = "io.nlopez.compose.rules:detekt", version.ref = "composerules" }
 composerules-ktlint = { module = "io.nlopez.compose.rules:ktlint", version.ref = "composerules" }
 

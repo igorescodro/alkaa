@@ -8,10 +8,10 @@ plugins {
     id("com.escodro.kotlin-quality")
 }
 
-val libs: VersionCatalog = extensions.getByType<VersionCatalogsExtension>().named("libs")
+private val _libs: VersionCatalog = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
 android {
-    androidConfig(libs)
+    androidConfig(_libs)
     proguardConfig()
     kotlin {
         jvmToolchain(JavaLanguageVersion.of(17).asInt())
@@ -19,5 +19,5 @@ android {
 }
 
 dependencies {
-    implementation(libs.logcat)
+    implementation(_libs.logcat)
 }

@@ -13,10 +13,10 @@ plugins {
     id("com.escodro.kotlin-quality")
 }
 
-val libs: VersionCatalog = extensions.getByType<VersionCatalogsExtension>().named("libs")
+private val _libs: VersionCatalog = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
 android {
-    androidConfig(libs)
+    androidConfig(_libs)
     proguardConfig()
     composeConfig()
 
@@ -29,8 +29,8 @@ android {
 }
 
 dependencies {
-    implementation(libs.logcat)
-    implementation(libs.composeBundle)
-    implementation(platform(libs.composeBom))
-    implementation(libs.kotlinxCollectionsImmutable)
+    implementation(_libs.logcat)
+    implementation(_libs.composeBundle)
+    implementation(platform(_libs.composeBom))
+    implementation(_libs.kotlinxCollectionsImmutable)
 }

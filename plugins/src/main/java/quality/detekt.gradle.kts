@@ -1,16 +1,16 @@
 package quality
 
+import dev.detekt.gradle.Detekt
 import extension.composeRulesDetekt
-import io.gitlab.arturbosch.detekt.Detekt
-import io.gitlab.arturbosch.detekt.DetektPlugin
-import io.gitlab.arturbosch.detekt.extensions.DetektExtension
+import dev.detekt.gradle.extensions.DetektExtension
+import dev.detekt.gradle.plugin.DetektPlugin
 
-val libs: VersionCatalog = extensions.getByType<VersionCatalogsExtension>().named("libs")
+private val _libs: VersionCatalog = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
 apply<DetektPlugin>()
 
 dependencies {
-    "detektPlugins"(libs.composeRulesDetekt)
+    "detektPlugins"(_libs.composeRulesDetekt)
 }
 
 configure<DetektExtension> {

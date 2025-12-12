@@ -54,7 +54,7 @@ jobs:
           script: ./gradlew :shared:connectedAndroidTest
 
       - name: Save Test Results
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         if: ${{ always() }}
         with:
           name: test-results
@@ -85,7 +85,7 @@ jobs:
         run: ./gradlew :shared:iosSimulatorArm64Test
 
       - name: Save Test Results
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         if: ${{ always() }}
         with:
           name: test-results
@@ -116,7 +116,7 @@ jobs:
         run: ./gradlew :shared:desktopTest
 
       - name: Save Test Results
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         if: ${{ always() }}
         with:
           name: test-results

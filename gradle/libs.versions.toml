@@ -60,7 +60,7 @@ test_manifest = "1.10.0"
 # Quality
 ktlint = "1.8.0"
 detekt = "1.23.8"
-composerules = "0.5.1"
+composerules = "0.5.2"
 
 # License
 aboutlibraries = "13.1.0"

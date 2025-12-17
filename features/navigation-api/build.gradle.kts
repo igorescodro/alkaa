@@ -14,8 +14,8 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            api(libs.compose.navigation)
-            api(libs.compose.adaptive.navigation)
+            api(libs.compose.navigation.ui)
+            api(libs.compose.navigation.adaptive)
 
             implementation(projects.resources)
             implementation(projects.libraries.parcelable)
@@ -23,6 +23,7 @@ kotlin {
             implementation(compose.components.resources)
             implementation(libs.kotlinx.serialization)
 
+            implementation(compose.material3)
             implementation(compose.components.resources)
             implementation(compose.materialIconsExtended)
 

@@ -34,7 +34,7 @@ lifecycle_runtime = "2.10.0"
 
 # Compose
 compose_bom = "2025.12.01"
-compose_activity = "1.12.1"
+compose_activity = "1.12.2"
 compose_compiler = "1.9.3"
 compose_navigation = "2.9.1"
 compose_adaptive = "1.2.0"

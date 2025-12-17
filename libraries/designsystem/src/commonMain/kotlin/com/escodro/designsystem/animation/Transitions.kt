@@ -1,5 +1,6 @@
 package com.escodro.designsystem.animation
 
+import androidx.compose.animation.ContentTransform
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.core.LinearEasing
@@ -10,26 +11,26 @@ import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.slideOutVertically
+import androidx.compose.animation.togetherWith
 
 /**
  * Transition used to slide in horizontally the content. The content will slide from the left to the
  * right and fade in.
  */
-val SlideInHorizontallyTransition: EnterTransition = slideInHorizontally(
+val SlideInHorizontallyTransition: ContentTransform = slideInHorizontally(
     initialOffsetX = { it },
     animationSpec = tween(
         durationMillis = 300,
         easing = LinearEasing,
     ),
-) +
-    fadeIn()
+) + fadeIn() togetherWith ExitTransition.None
 
 /**
  * Transition used to slide out horizontally the content. The content will slide from the right to
  * the left and fade out.
  */
-val SlideOutHorizontallyTransition: ExitTransition = fadeOut() +
-    slideOutHorizontally(
+val SlideOutHorizontallyTransition: ContentTransform =
+    EnterTransition.None togetherWith fadeOut() + slideOutHorizontally(
         targetOffsetX = { it },
         animationSpec = tween(
             durationMillis = 300,

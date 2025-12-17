@@ -1,11 +1,12 @@
 package com.escodro.preference.navigation
 
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
-import androidx.navigation.NavGraphBuilder
-import androidx.navigation.compose.composable
+import androidx.navigation3.runtime.EntryProviderScope
+import androidx.navigation3.ui.NavDisplay
 import com.escodro.designsystem.animation.SlideInHorizontallyTransition
 import com.escodro.designsystem.animation.SlideOutHorizontallyTransition
 import com.escodro.navigationapi.controller.NavEventController
+import com.escodro.navigationapi.destination.Destination
 import com.escodro.navigationapi.destination.HomeDestination
 import com.escodro.navigationapi.destination.PreferenceDestination
 import com.escodro.navigationapi.event.Event
@@ -20,43 +21,46 @@ import com.escodro.preference.provider.TrackerProvider
 internal class PreferenceNavGraph(
     private val trackerProvider: TrackerProvider,
 ) : NavGraph {
-    override val navGraph: NavGraphBuilder.(NavEventController) -> Unit = { navEventController ->
-        composable<HomeDestination.Preferences> {
-            PreferenceSection(
-                isSinglePane = currentWindowAdaptiveInfo().windowSizeClass.isSinglePane(),
-                onAboutClick = { navEventController.sendEvent(PreferenceEvent.OnAboutClick) },
-                onOpenSourceClick = { navEventController.sendEvent(PreferenceEvent.OnLicensesClick) },
-                onTrackerClick = { navEventController.sendEvent(PreferenceEvent.OnTrackerClick) },
-            )
-        }
+    override val navGraph:
+        EntryProviderScope<Destination>.(NavEventController) -> Unit = { navEventController ->
+            entry<HomeDestination.Preferences> {
+                PreferenceSection(
+                    isSinglePane = currentWindowAdaptiveInfo().windowSizeClass.isSinglePane(),
+                    onAboutClick = { navEventController.sendEvent(PreferenceEvent.OnAboutClick) },
+                    onOpenSourceClick = { navEventController.sendEvent(PreferenceEvent.OnLicensesClick) },
+                    onTrackerClick = { navEventController.sendEvent(PreferenceEvent.OnTrackerClick) },
+                )
+            }
+            entry<PreferenceDestination.About>(
+                metadata = NavDisplay.transitionSpec { SlideInHorizontallyTransition } +
+                    NavDisplay.popTransitionSpec { SlideOutHorizontallyTransition } +
+                    NavDisplay.predictivePopTransitionSpec { SlideOutHorizontallyTransition },
+            ) {
+                AboutScreen(
+                    isSinglePane = true,
+                    onUpPress = { navEventController.sendEvent(Event.OnBack) },
+                )
+            }
 
-        composable<PreferenceDestination.About>(
-            enterTransition = { SlideInHorizontallyTransition },
-            exitTransition = { SlideOutHorizontallyTransition },
-        ) {
-            AboutScreen(
-                isSinglePane = true,
-                onUpPress = { navEventController.sendEvent(Event.OnBack) },
-            )
-        }
+            entry<PreferenceDestination.Licenses>(
+                metadata = NavDisplay.transitionSpec { SlideInHorizontallyTransition } +
+                    NavDisplay.popTransitionSpec { SlideOutHorizontallyTransition } +
+                    NavDisplay.predictivePopTransitionSpec { SlideOutHorizontallyTransition },
+            ) {
+                OpenSource(
+                    isSinglePane = true,
+                    onUpPress = { navEventController.sendEvent(Event.OnBack) },
+                )
+            }
 
-        composable<PreferenceDestination.Licenses>(
-            enterTransition = { SlideInHorizontallyTransition },
-            exitTransition = { SlideOutHorizontallyTransition },
-        ) {
-            OpenSource(
-                isSinglePane = true,
-                onUpPress = { navEventController.sendEvent(Event.OnBack) },
-            )
+            entry<PreferenceDestination.Tracker>(
+                metadata = NavDisplay.transitionSpec { SlideInHorizontallyTransition } +
+                    NavDisplay.popTransitionSpec { SlideOutHorizontallyTransition } +
+                    NavDisplay.predictivePopTransitionSpec { SlideOutHorizontallyTransition },
+            ) {
+                trackerProvider.Content(
+                    onUpPress = { navEventController.sendEvent(Event.OnBack) },
+                )
+            }
         }
-
-        composable<PreferenceDestination.Tracker>(
-            enterTransition = { SlideInHorizontallyTransition },
-            exitTransition = { SlideOutHorizontallyTransition },
-        ) {
-            trackerProvider.Content(
-                onUpPress = { navEventController.sendEvent(Event.OnBack) },
-            )
-        }
-    }
 }

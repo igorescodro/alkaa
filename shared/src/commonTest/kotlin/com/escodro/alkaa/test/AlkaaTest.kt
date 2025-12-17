@@ -8,13 +8,12 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
 import androidx.lifecycle.compose.LocalLifecycleOwner
-import androidx.navigation.compose.rememberNavController
 import com.escodro.alarm.notification.NotificationScheduler
 import com.escodro.alarm.notification.TaskNotification
-import com.escodro.alkaa.fake.AppStateFake
 import com.escodro.alkaa.fake.NotificationSchedulerFake
 import com.escodro.alkaa.fake.OpenAlarmSchedulerFake
 import com.escodro.alkaa.fake.TaskNotificationFake
+import com.escodro.appstate.rememberAlkaaAppState
 import com.escodro.shared.AlkaaMultiplatformApp
 import com.escodro.shared.di.appModules
 import com.escodro.task.presentation.detail.alarm.interactor.OpenAlarmScheduler
@@ -52,8 +51,7 @@ fun uiTest(block: ComposeUiTest.() -> Unit) = runComposeUiTest {
         CompositionLocalProvider(
             LocalLifecycleOwner provides LocalLifecycleOwnerFake(),
         ) {
-            val navHostController = rememberNavController()
-            AlkaaMultiplatformApp(appState = AppStateFake(navHostController = navHostController))
+            AlkaaMultiplatformApp(appState = rememberAlkaaAppState())
         }
     }
     block()

@@ -6,7 +6,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import com.escodro.appstate.AppState
+import com.escodro.appstate.AlkaaAppState
 import com.escodro.appstate.rememberAlkaaAppState
 import com.escodro.designsystem.theme.AlkaaTheme
 import com.escodro.home.presentation.Home
@@ -16,7 +16,7 @@ import org.koin.compose.koinInject
 @Composable
 fun AlkaaMultiplatformApp(
     modifier: Modifier = Modifier,
-    appState: AppState = rememberAlkaaAppState(),
+    appState: AlkaaAppState = rememberAlkaaAppState(),
 ) {
     AlkaaTheme(isDarkTheme = rememberIsDarkTheme()) {
         Home(

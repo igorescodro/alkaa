@@ -27,6 +27,16 @@ pluginManager.withPlugin("org.jetbrains.kotlin.multiplatform") {
             tasks.withType<Detekt>().configureEach {
                 setSource(kotlin.sourceSets.flatMap { it.kotlin.sourceDirectories })
                 exclude("**/resources/**,**/build/**")
+                
+                // Ensure detekt runs after resource accessor generation tasks
+                mustRunAfter(
+                    tasks.matching { task ->
+                        task.name.startsWith("generateResourceAccessorsFor") ||
+                        task.name.startsWith("generateActualResourceCollectorsFor") ||
+                        task.name.startsWith("generateExpectResourceCollectorsFor") ||
+                        task.name.startsWith("generateComposeResClass")
+                    }
+                )
             }
         }
     }

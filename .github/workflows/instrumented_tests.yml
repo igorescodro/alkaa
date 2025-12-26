@@ -18,12 +18,6 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 80
 
-    strategy:
-      matrix:
-        api-level: [ 30 ]
-        arch: [ x86_64 ]
-      fail-fast: false
-
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -34,30 +28,14 @@ jobs:
           java-version: '17'
           distribution: 'zulu'
 
-      - name: Enable KVM group perms
-        run: |
-          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
-          sudo udevadm control --reload-rules
-          sudo udevadm trigger --name-match=kvm
-
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
-
       - name: Run instrumented tests
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: ${{ matrix.api-level }}
-          arch: x86_64
-          disable-animations: true
-          disk-size: 6000M
-          heap-size: 600M
-          script: ./gradlew :shared:connectedAndroidTest
+        run: ./gradlew :shared:testAndroidHost
 
       - name: Save Test Results
         uses: actions/upload-artifact@v6
         if: ${{ always() }}
         with:
-          name: test-results
+          name: test-results-android
           path: |
             /Users/runner/work/alkaa/alkaa/app/build/reports/androidTests/
             ./logcat.txt
@@ -88,7 +66,7 @@ jobs:
         uses: actions/upload-artifact@v6
         if: ${{ always() }}
         with:
-          name: test-results
+          name: test-results-ios
           path: |
             /Users/runner/work/alkaa/alkaa/app/build/reports/tests/
             ./logcat.txt
@@ -119,7 +97,7 @@ jobs:
         uses: actions/upload-artifact@v6
         if: ${{ always() }}
         with:
-          name: test-results
+          name: test-results-desktop
           path: |
             /Users/runner/work/alkaa/alkaa/app/build/reports/tests/
             ./logcat.txt

@@ -1,4 +1,3 @@
-import com.android.build.api.dsl.ManagedVirtualDevice
 import com.android.build.gradle.internal.tasks.factory.dependsOn
 import java.util.Properties
 

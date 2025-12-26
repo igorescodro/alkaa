@@ -1,3 +1,4 @@
+import com.android.build.api.dsl.androidLibrary
 import extension.setFrameworkBaseName
 
 plugins {
@@ -33,8 +34,8 @@ kotlin {
             implementation(libs.kotlinx.datetime)
         }
     }
-}
 
-android {
-    namespace = "com.escodro.search"
+    androidLibrary {
+        namespace = "com.escodro.search"
+    }
 }

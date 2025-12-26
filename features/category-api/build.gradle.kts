@@ -1,3 +1,4 @@
+import com.android.build.api.dsl.androidLibrary
 import extension.setFrameworkBaseName
 
 plugins {
@@ -16,8 +17,8 @@ kotlin {
             implementation(libs.kotlinx.collections.immutable)
         }
     }
-}
 
-android {
-    namespace = "com.escodro.categoryapi"
+    androidLibrary {
+        namespace = "com.escodro.categoryapi"
+    }
 }

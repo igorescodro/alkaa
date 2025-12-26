@@ -1,3 +1,4 @@
+import com.android.build.api.dsl.androidLibrary
 import extension.setFrameworkBaseName
 
 plugins {
@@ -41,12 +42,12 @@ kotlin {
             implementation(libs.kotlinx.datetime)
         }
     }
+
+    androidLibrary {
+        namespace = "com.escodro.task"
+    }
 }
 
 dependencies {
-    debugImplementation(compose.uiTooling)
-}
-
-android {
-    namespace = "com.escodro.task"
+    "androidRuntimeClasspath"(compose.uiTooling)
 }

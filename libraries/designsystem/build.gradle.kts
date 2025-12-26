@@ -1,3 +1,4 @@
+import com.android.build.api.dsl.androidLibrary
 import extension.setFrameworkBaseName
 
 plugins {
@@ -20,12 +21,12 @@ kotlin {
             implementation(libs.kotlinx.collections.immutable)
         }
     }
+
+    androidLibrary {
+        namespace = "com.escodro.designsystem"
+    }
 }
 
 dependencies {
-    debugImplementation(compose.uiTooling)
-}
-
-android {
-    namespace = "com.escodro.designsystem"
+    "androidRuntimeClasspath"(compose.uiTooling)
 }

@@ -1,3 +1,4 @@
+import com.android.build.api.dsl.androidLibrary
 import extension.setFrameworkBaseName
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
@@ -27,6 +28,10 @@ kotlin {
             implementation(libs.kotlinx.coroutines.swing)
         }
     }
+
+    androidLibrary {
+        namespace = "desktop"
+    }
 }
 
 compose.desktop {
@@ -54,8 +59,4 @@ compose.desktop {
             "-DpackageVersion=${libs.versions.version.name.get()}"
         )
     }
-}
-
-android {
-    namespace = "desktop"
 }

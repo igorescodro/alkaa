@@ -1,3 +1,4 @@
+import com.android.build.api.dsl.androidLibrary
 import extension.setFrameworkBaseName
 
 plugins {
@@ -15,8 +16,8 @@ kotlin {
             implementation(compose.runtime)
         }
     }
-}
 
-android {
-    namespace = "com.escodro.taskapi"
+    androidLibrary {
+        namespace = "com.escodro.taskapi"
+    }
 }

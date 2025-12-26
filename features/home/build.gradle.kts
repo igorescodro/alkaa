@@ -1,3 +1,4 @@
+import com.android.build.api.dsl.androidLibrary
 import extension.setFrameworkBaseName
 
 plugins {
@@ -37,8 +38,8 @@ kotlin {
             implementation(libs.androidx.lifecycle.runtime)
         }
     }
-}
 
-android {
-    namespace = "com.escodro.home"
+    androidLibrary {
+        namespace = "com.escodro.home"
+    }
 }

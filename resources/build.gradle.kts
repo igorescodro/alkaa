@@ -1,3 +1,4 @@
+import com.android.build.api.dsl.androidLibrary
 import extension.setFrameworkBaseName
 
 plugins {
@@ -17,14 +18,14 @@ kotlin {
             implementation(libs.koin.core)
         }
     }
+
+    androidLibrary {
+        namespace = "com.escodro.resources"
+    }
 }
 
-android {
-    namespace = "com.escodro.resources"
-}
-
-compose.resources {
-    publicResClass = true
-    packageOfResClass = "com.escodro.resources"
-    generateResClass = always
-}
+    compose.resources {
+        publicResClass = true
+        packageOfResClass = "com.escodro.resources"
+        generateResClass = always
+    }

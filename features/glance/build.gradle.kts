@@ -1,25 +1,33 @@
 plugins {
-    id("com.escodro.android-compose")
+    id("com.escodro.multiplatform")
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.compose)
     alias(libs.plugins.compose.compiler)
 }
 
-dependencies {
-    implementation(projects.domain)
-    implementation(projects.features.navigationApi)
+kotlin {
+    androidLibrary {
+        namespace = "com.escodro.glance"
+    }
 
-    implementation(libs.koin.core)
-    implementation(libs.androidx.glance)
+    sourceSets {
+        commonMain.dependencies {
+            implementation(compose.material3)
+        }
+        androidMain.dependencies {
+            implementation(projects.domain)
+            implementation(projects.features.navigationApi)
 
-    // dependency for glance theming
-    implementation(libs.androidx.glance.material3)
-    // using the design system for light and dark theme
-    implementation(projects.libraries.designsystem)
+            implementation(libs.koin.core)
+            implementation(libs.androidx.glance)
+            implementation(libs.kotlinx.collections.immutable)
 
-    // Unwanted dependencies to keep all the Glance-related logic on this module
-    implementation(libs.androidx.workmanager)
-    implementation(libs.kotlinx.serialization)
-}
-android {
-    namespace = "com.escodro.glance"
+            implementation(libs.androidx.glance.material3)
+            implementation(projects.libraries.designsystem)
+
+            // Unwanted dependencies to keep all the Glance-related logic on this module
+            implementation(libs.androidx.workmanager)
+            implementation(libs.kotlinx.serialization)
+        }
+    }
 }

@@ -2,11 +2,18 @@ name: Release Alkaa
 on:
   workflow_dispatch:
     inputs:
-      tagname:
-        description: 'Version name'
+      version_increment:
+        description: 'Version increment'
         required: true
-        default: 'v1.0.0'
-        type: string
+        default: 'patch'
+        type: choice
+        options:
+          - major
+          - minor
+          - patch
+
+permissions:
+  contents: write
 
 env:
   ALKAA_KEY_ALIAS: ${{ secrets.ALKAA_KEY_ALIAS }}
@@ -15,8 +22,71 @@ env:
   ALKAA_STORE_PATH: ${{ vars.ALKAA_STORE_PATH }}
 
 jobs:
+  calculate-version:
+    runs-on: ubuntu-latest
+    outputs:
+      new_version_name: ${{ steps.bump_version.outputs.new_version_name }}
+      new_version_code: ${{ steps.bump_version.outputs.new_version_code }}
+      new_sha: ${{ steps.commit.outputs.new_sha }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Bump version
+        id: bump_version
+        run: |
+          VERSION_NAME=$(grep "version_name =" gradle/libs.versions.toml | cut -d '"' -f 2)
+          IFS='.' read -r major minor patch <<< "$VERSION_NAME"
+
+          case "${{ github.event.inputs.version_increment }}" in
+            major)
+              major=$((major + 1))
+              minor=0
+              patch=0
+              ;;
+            minor)
+              minor=$((minor + 1))
+              patch=0
+              ;;
+            patch)
+              patch=$((patch + 1))
+              ;;
+          esac
+
+          NEW_VERSION_NAME="$major.$minor.$patch"
+          NEW_VERSION_CODE=$((major * 10000 + minor * 100 + patch))
+
+          echo "new_version_name=$NEW_VERSION_NAME" >> $GITHUB_OUTPUT
+          echo "new_version_code=$NEW_VERSION_CODE" >> $GITHUB_OUTPUT
+
+      - name: Update files
+        run: |
+          NEW_VERSION_NAME=${{ steps.bump_version.outputs.new_version_name }}
+          NEW_VERSION_CODE=${{ steps.bump_version.outputs.new_version_code }}
+
+          # Update gradle/libs.versions.toml
+          sed -i "s/version_code = \".*\"/version_code = \"$NEW_VERSION_CODE\"/" gradle/libs.versions.toml
+          sed -i "s/version_name = \".*\"/version_name = \"$NEW_VERSION_NAME\"/" gradle/libs.versions.toml
+
+          # Update project.pbxproj
+          sed -i "s/CURRENT_PROJECT_VERSION = .*;/CURRENT_PROJECT_VERSION = $NEW_VERSION_CODE;/" ios-app/alkaa.xcodeproj/project.pbxproj
+          sed -i "s/MARKETING_VERSION = .*;/MARKETING_VERSION = $NEW_VERSION_NAME;/" ios-app/alkaa.xcodeproj/project.pbxproj
+
+      - name: Commit and push
+        id: commit
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add gradle/libs.versions.toml ios-app/alkaa.xcodeproj/project.pbxproj
+          git commit -m "Bump version to ${{ steps.bump_version.outputs.new_version_name }}"
+          git pull --rebase origin main
+          git push
+          echo "new_sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+
   create-tag:
     runs-on: ubuntu-latest
+    needs: calculate-version
 
     steps:
       - name: Create tag
@@ -26,17 +96,20 @@ jobs:
             github.rest.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              ref: 'refs/tags/${{ github.event.inputs.tagname }}',
-              sha: context.sha
+              ref: 'refs/tags/v${{ needs.calculate-version.outputs.new_version_name }}',
+              sha: '${{ needs.calculate-version.outputs.new_sha }}'
             })
 
   github-release:
     name: "Release on GitHub"
     runs-on: "ubuntu-latest"
+    needs: [calculate-version, create-tag]
 
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+        with:
+          ref: ${{ needs.calculate-version.outputs.new_sha }}
 
       - name: Setup Java
         uses: actions/setup-java@v5
@@ -51,7 +124,7 @@ jobs:
         uses: marvinpinto/action-automatic-releases@latest
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "${{ github.event.inputs.tagname }}"
+          automatic_release_tag: "v${{ needs.calculate-version.outputs.new_version_name }}"
           prerelease: false
           files: |
             ./app/build/outputs/apk/debug/*.apk
@@ -60,10 +133,13 @@ jobs:
   google-play-release:
     name: "Release on Google Play"
     runs-on: "ubuntu-latest"
+    needs: [calculate-version, create-tag]
 
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+        with:
+          ref: ${{ needs.calculate-version.outputs.new_sha }}
 
       - name: Setup Java
         uses: actions/setup-java@v5

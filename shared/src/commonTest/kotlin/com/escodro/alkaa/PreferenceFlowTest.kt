@@ -6,6 +6,7 @@ import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import com.escodro.alkaa.test.AlkaaBaseTest
 import com.escodro.alkaa.test.afterTest
 import com.escodro.alkaa.test.beforeTest
 import com.escodro.alkaa.test.uiTest
@@ -15,7 +16,7 @@ import kotlin.test.BeforeTest
 import kotlin.test.Test
 
 @OptIn(ExperimentalTestApi::class)
-internal class PreferenceFlowTest : KoinTest {
+internal class PreferenceFlowTest : AlkaaBaseTest(), KoinTest {
 
     @BeforeTest
     fun setup() {

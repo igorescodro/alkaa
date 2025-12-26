@@ -56,6 +56,8 @@ test_junit = "4.13.2"
 test_uiautomator = "2.3.0"
 test_junit4_android = "1.10.0"
 test_manifest = "1.10.0"
+test_work = "2.11.0"
+test_robolectric = "4.16"
 
 # Quality
 ktlint = "1.8.0"
@@ -133,6 +135,9 @@ test_uiautomator = { module = "androidx.test.uiautomator:uiautomator", version.r
 
 test-junit4-android = { module = "androidx.compose.ui:ui-test-junit4-android", version.ref = "test_junit4_android" }
 test-manifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "test_manifest" }
+test-work = { module = "androidx.work:work-testing", version.ref = "test_work" }
+
+test-robolectric = { module = "org.robolectric:robolectric", version.ref = "test_robolectric" }
 
 # Quality
 ktlint = { module = "com.pinterest.ktlint:ktlint-cli", version.ref = "ktlint" }

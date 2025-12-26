@@ -28,7 +28,6 @@ import org.koin.test.mock.declare
  * Setup the Koin dependency injection and disable animations before the test.
  */
 fun KoinTest.beforeTest() {
-    PlatformAnimation().disable()
     startKoin { modules(platformModule + appModules) }
     declare<NotificationScheduler> { NotificationSchedulerFake() }
     declare<TaskNotification> { TaskNotificationFake() }
@@ -39,7 +38,6 @@ fun KoinTest.beforeTest() {
  * Stop the Koin dependency injection and enable animations after the test.
  */
 fun afterTest() {
-    PlatformAnimation().enable()
     stopKoin()
 }
 
@@ -71,20 +69,10 @@ private class LocalLifecycleOwnerFake : LifecycleOwner {
 }
 
 /**
- * Platform specific animation control for the test.
+ * Base class to be used in the tests, allowing to provide platform-specific configuration,
+ * such as Robolectric in Android.
  */
-expect class PlatformAnimation() {
-
-    /**
-     * Disable the animations.
-     */
-    fun disable()
-
-    /**
-     * Enable the animations.
-     */
-    fun enable()
-}
+expect abstract class AlkaaBaseTest()
 
 /**
  * Koin module to provide the platform dependencies.

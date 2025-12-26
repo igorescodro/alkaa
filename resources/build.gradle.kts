@@ -24,8 +24,8 @@ kotlin {
     }
 }
 
-    compose.resources {
-        publicResClass = true
-        packageOfResClass = "com.escodro.resources"
-        generateResClass = always
-    }
+compose.resources {
+    publicResClass = true
+    packageOfResClass = "com.escodro.resources"
+    generateResClass = always
+}

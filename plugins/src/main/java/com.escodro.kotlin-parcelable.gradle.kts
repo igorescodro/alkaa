@@ -1,10 +1,11 @@
 plugins {
     id("com.escodro.multiplatform")
-    id("kotlin-parcelize")
+    id("com.android.kotlin.multiplatform.library")
+    kotlin("plugin.parcelize")
 }
 
 kotlin {
-    androidTarget {
+    androidLibrary {
         compilerOptions {
             freeCompilerArgs.addAll(
                 "-P",

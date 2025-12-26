@@ -1,3 +1,4 @@
+import com.android.build.api.dsl.androidLibrary
 import extension.setFrameworkBaseName
 
 plugins {
@@ -32,12 +33,12 @@ kotlin {
             implementation(libs.androidx.core)
         }
 
-        androidUnitTest.dependencies {
+        androidHostTest.dependencies {
             implementation(libs.test.junit)
         }
     }
-}
 
-android {
-    namespace = "com.escodro.alarm"
+    androidLibrary {
+        namespace = "com.escodro.alarm"
+    }
 }

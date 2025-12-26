@@ -1,3 +1,4 @@
+import com.android.build.api.dsl.androidLibrary
 import extension.setFrameworkBaseName
 
 plugins {
@@ -23,8 +24,7 @@ kotlin {
             implementation(kotlin("test-junit"))
         }
     }
-}
-
-android {
-    namespace = "com.escodro.test"
+    androidLibrary {
+        namespace = "com.escodro.test"
+    }
 }

@@ -1,6 +1,4 @@
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
-import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 plugins {
@@ -83,26 +81,17 @@ kotlin {
             implementation(libs.kotlinx.coroutines.swing)
         }
 
-        androidInstrumentedTest.dependencies {
+        androidHostTest.dependencies {
             implementation(libs.test.junit4.android)
             implementation(libs.test.uiautomator)
             implementation(libs.test.manifest)
+            implementation(libs.test.robolectric)
+            implementation(libs.test.work)
         }
     }
 
-    androidTarget {
-        @OptIn(ExperimentalKotlinGradlePluginApi::class)
-        instrumentedTestVariant {
-            sourceSetTree.set(KotlinSourceSetTree.test)
-        }
-    }
-}
-
-android {
-    namespace = "com.escodro.shared"
-
-    defaultConfig {
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    androidLibrary {
+        namespace = "com.escodro.shared"
     }
 }
 

@@ -1,3 +1,4 @@
+import com.android.build.api.dsl.androidLibrary
 import extension.setFrameworkBaseName
 
 plugins {
@@ -20,8 +21,8 @@ kotlin {
             implementation(libs.kotlinx.coroutines.test)
         }
     }
-}
 
-android {
-    namespace = "com.escodro.domain"
+    androidLibrary {
+        namespace = "com.escodro.domain"
+    }
 }

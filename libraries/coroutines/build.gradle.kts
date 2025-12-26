@@ -1,3 +1,4 @@
+import com.android.build.api.dsl.androidLibrary
 import extension.setFrameworkBaseName
 
 plugins {
@@ -13,8 +14,8 @@ kotlin {
             implementation(libs.koin.core)
         }
     }
-}
 
-android {
-    namespace = "com.escodro.coroutines"
+    androidLibrary {
+        namespace = "com.escodro.coroutines"
+    }
 }

@@ -117,6 +117,7 @@ jobs:
           tag_name: v${{ needs.calculate-version.outputs.new_version_name }}
           target_commitish: ${{ needs.calculate-version.outputs.new_sha }}
           prerelease: false
+          generate_release_notes: true
           files: |
             ./app/build/outputs/apk/debug/*.apk
             ./app/build/outputs/apk/release/*.apk

@@ -27,7 +27,7 @@ jobs:
           distribution: 'adopt'
 
       - name: Build with Gradle
-        run: ./gradlew clean ktlint detekt lint assembleRelease test --parallel
+        run: ./gradlew clean ktlint detektAll lint assembleRelease test --parallel
         env:
           ALKAA_KEY_ALIAS: ${{ secrets.ALKAA_KEY_ALIAS }}
           ALKAA_KEY_PASSWORD: ${{ secrets.ALKAA_KEY_PASSWORD }}

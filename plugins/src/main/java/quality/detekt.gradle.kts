@@ -1,10 +1,9 @@
 package quality
 
 import dev.detekt.gradle.Detekt
-import extension.composeRulesDetekt
 import dev.detekt.gradle.extensions.DetektExtension
 import dev.detekt.gradle.plugin.DetektPlugin
-import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
+import extension.composeRulesDetekt
 
 private val _libs: VersionCatalog = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
@@ -15,34 +14,36 @@ dependencies {
 }
 
 configure<DetektExtension> {
+    enableCompilerPlugin = true
     config.setFrom("$rootDir/config/filters/detekt.yml")
+    parallel = true
     allRules = true
+    buildUponDefaultConfig = true
+    debug = false
 }
 
 // Configure source files for Kotlin Multiplatform projects
-pluginManager.withPlugin("org.jetbrains.kotlin.multiplatform") {
-    afterEvaluate {
-        val kotlin = extensions.findByType<KotlinMultiplatformExtension>()
-        if (kotlin != null) {
-            tasks.withType<Detekt>().configureEach {
-                setSource(kotlin.sourceSets.flatMap { it.kotlin.sourceDirectories })
-                exclude("**/resources/**,**/build/**")
-                
-                // Ensure detekt runs after resource accessor generation tasks
-                mustRunAfter(
-                    tasks.matching { task ->
-                        task.name.startsWith("generateResourceAccessorsFor") ||
-                        task.name.startsWith("generateActualResourceCollectorsFor") ||
-                        task.name.startsWith("generateExpectResourceCollectorsFor") ||
-                        task.name.startsWith("generateComposeResClass")
-                    }
-                )
-            }
-        }
+tasks.withType<Detekt>().configureEach {
+    exclude("**/resources/**", "**/build/**")
+
+    // Workaround to exclude build and resources folders in KMP projects
+    val projectDirFile = layout.projectDirectory.asFile
+    exclude {
+        it.file.relativeTo(projectDirFile).startsWith("build") ||
+                it.file.relativeTo(projectDirFile).startsWith("resources")
     }
+
+    // Ensure detekt runs after resource accessor generation tasks
+    mustRunAfter(
+        tasks.matching { task ->
+            task.name.startsWith("generateResourceAccessorsFor") ||
+                    task.name.startsWith("generateActualResourceCollectorsFor") ||
+                    task.name.startsWith("generateExpectResourceCollectorsFor") ||
+                    task.name.startsWith("generateComposeResClass")
+        }
+    )
 }
 
-// Fallback for non-multiplatform projects
-tasks.withType<Detekt>().configureEach {
-    exclude("**/resources/**,**/build/**")
+tasks.register("detektAll") {
+    dependsOn(tasks.withType<Detekt>())
 }

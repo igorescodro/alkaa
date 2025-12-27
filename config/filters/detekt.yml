@@ -8,7 +8,10 @@ comments:
     active: false
   AbsentOrWrongFileLicense:
     active: false
-
+  UndocumentedPublicFunction:
+    active: false
+  UndocumentedPublicClass:
+    active: false
 
 style:
   MagicNumber:

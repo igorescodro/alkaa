@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="split_confirmation_install_title">Transferir nova funcionalidade</string>
-    <string name="split_confirmation_install_accept">Download</string>
-    <string name="split_confirmation_install_deny">Não, obrigado</string>
-    <string name="split_confirmation_install_description">Esta funcionalidade precisa ser transferida do Google Play antes de você poder usá-la. Transferir através de uma rede móvel ou enquanto faz roaming de dados pode causar cobranças adicionais.</string>
-    <string name="split_downloading_description">Isso pode demorar alguns minutos</string>
-    <string name="split_downloading_title">Transferindo funcionalidade</string>
-</resources>

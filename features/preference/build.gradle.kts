@@ -31,7 +31,6 @@ kotlin {
 
         androidMain.dependencies {
             implementation(libs.androidx.corektx)
-            implementation(projects.libraries.splitInstall)
         }
     }
 

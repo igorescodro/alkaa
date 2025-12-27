@@ -163,7 +163,6 @@ private fun AdaptivePreferenceScaffold(
                         onUpPress = { coroutineScope.launch { navigator.navigateBack() } },
                     )
                 }
-
                 PreferenceItem.ABOUT -> {
                     AboutScreen(
                         isSinglePane = false,

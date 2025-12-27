@@ -79,7 +79,6 @@ dependencies {
     implementation(libs.logcat)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.appcompat)
-    implementation(libs.compose.activity)
     implementation(libs.koin.core)
 }
 

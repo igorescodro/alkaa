@@ -17,7 +17,7 @@ kotlin {
             implementation(projects.features.navigationApi)
 
             implementation(compose.runtime)
-            implementation(libs.compose.navigation)
+            implementation(libs.compose.navigation.ui)
         }
     }
 

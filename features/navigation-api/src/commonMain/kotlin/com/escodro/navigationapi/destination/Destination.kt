@@ -18,7 +18,7 @@ sealed interface Destination {
 /**
  * All top-level destinations.
  */
-val TopLevelDestinations: List<TopLevel> = listOf(
+val TopLevelDestinations: Set<TopLevel> = setOf(
     HomeDestination.TaskList,
     HomeDestination.Search,
     HomeDestination.CategoryList,
@@ -26,10 +26,9 @@ val TopLevelDestinations: List<TopLevel> = listOf(
 )
 
 /**
- * All destinations that should show the top app bar. This is a list because there are no function
- * to get all the sealed classes by a type in Kotlin Multiplatform.
+ * All destinations that should show the top app bar.
  */
-val TopAppBarVisibleDestinations: List<TopAppBarVisible> = listOf(
+val TopAppBarVisibleDestinations: Set<TopAppBarVisible> = setOf(
     HomeDestination.TaskList,
     HomeDestination.Search,
     HomeDestination.CategoryList,

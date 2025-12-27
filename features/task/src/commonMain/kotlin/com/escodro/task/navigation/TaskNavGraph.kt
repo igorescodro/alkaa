@@ -1,11 +1,9 @@
 package com.escodro.task.navigation
 
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
-import androidx.navigation.NavGraphBuilder
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.dialog
-import androidx.navigation.navDeepLink
-import androidx.navigation.toRoute
+import androidx.navigation3.runtime.EntryProviderScope
+import androidx.navigation3.scene.DialogSceneStrategy
+import androidx.navigation3.ui.NavDisplay
 import com.escodro.designsystem.animation.SlideInHorizontallyTransition
 import com.escodro.designsystem.animation.SlideOutHorizontallyTransition
 import com.escodro.navigationapi.controller.NavEventController
@@ -22,36 +20,32 @@ import com.escodro.task.presentation.list.TaskListSection
 
 internal class TaskNavGraph : NavGraph {
 
-    override val navGraph: NavGraphBuilder.(NavEventController) -> Unit = { navEventController ->
-        composable<HomeDestination.TaskList> {
-            TaskListSection(
-                isSinglePane = currentWindowAdaptiveInfo().windowSizeClass.isSinglePane(),
-                onItemClick = { taskId -> navEventController.sendEvent(TaskEvent.OnTaskClick(taskId)) },
-                onFabClick = { navEventController.sendEvent(TaskEvent.OnNewTaskClick) },
-            )
-        }
+    override val navGraph: EntryProviderScope<Destination>.(NavEventController) -> Unit =
+        { navEventController ->
+            entry<HomeDestination.TaskList> {
+                TaskListSection(
+                    isSinglePane = currentWindowAdaptiveInfo().windowSizeClass.isSinglePane(),
+                    onItemClick = { taskId -> navEventController.sendEvent(TaskEvent.OnTaskClick(taskId)) },
+                    onFabClick = { navEventController.sendEvent(TaskEvent.OnNewTaskClick) },
+                )
+            }
 
-        composable<TasksDestination.TaskDetail>(
-            enterTransition = { SlideInHorizontallyTransition },
-            exitTransition = { SlideOutHorizontallyTransition },
-            deepLinks = listOf(
-                navDeepLink<TasksDestination.TaskDetail>(
-                    basePath = "${Destination.URI}/task/{taskId}",
-                ),
-            ),
-        ) { navEntry ->
-            val route: TasksDestination.TaskDetail = navEntry.toRoute()
-            TaskDetailScreen(
-                isSinglePane = true,
-                taskId = route.taskId,
-                onUpPress = { navEventController.sendEvent(Event.OnBack) },
-            )
-        }
+            entry<TasksDestination.TaskDetail>(
+                metadata = NavDisplay.transitionSpec { SlideInHorizontallyTransition } +
+                    NavDisplay.popTransitionSpec { SlideOutHorizontallyTransition } +
+                    NavDisplay.predictivePopTransitionSpec { SlideOutHorizontallyTransition },
+            ) { entry ->
+                TaskDetailScreen(
+                    isSinglePane = true,
+                    taskId = entry.taskId,
+                    onUpPress = { navEventController.sendEvent(Event.OnBack) },
+                )
+            }
 
-        dialog<TasksDestination.AddTaskBottomSheet> {
-            AddTaskBottomSheet(
-                onHideBottomSheet = { navEventController.sendEvent(Event.OnBack) },
-            )
+            entry<TasksDestination.AddTaskBottomSheet>(metadata = DialogSceneStrategy.dialog()) {
+                AddTaskBottomSheet(
+                    onHideBottomSheet = { navEventController.sendEvent(Event.OnBack) },
+                )
+            }
         }
-    }
 }

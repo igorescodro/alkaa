@@ -28,7 +28,7 @@ kotlin {
 
             implementation(libs.koin.compose)
 
-            api(libs.compose.navigation)
+            api(libs.compose.navigation.ui)
 
             implementation(libs.kotlinx.serialization)
         }

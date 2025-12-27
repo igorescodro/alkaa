@@ -28,14 +28,12 @@ import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.escodro.appstate.AppState
+import com.escodro.appstate.AlkaaAppState
 import com.escodro.designsystem.animation.TopBarEnterTransition
 import com.escodro.designsystem.animation.TopBarExitTransition
 import com.escodro.designsystem.components.topbar.MainTopBar
 import com.escodro.navigation.compose.Navigation
 import com.escodro.navigationapi.controller.NavEventController
-import com.escodro.navigationapi.destination.HomeDestination
 import com.escodro.navigationapi.destination.TopLevelDestinations
 import com.escodro.navigationapi.event.HomeEvent
 import com.escodro.navigationapi.marker.TopLevel
@@ -49,7 +47,7 @@ import org.koin.compose.koinInject
  */
 @Composable
 fun Home(
-    appState: AppState,
+    appState: AlkaaAppState,
     modifier: Modifier = Modifier,
 ) {
     HomeLoader(
@@ -60,12 +58,10 @@ fun Home(
 
 @Composable
 private fun HomeLoader(
-    appState: AppState,
+    appState: AlkaaAppState,
     modifier: Modifier = Modifier,
     navEventController: NavEventController = koinInject(),
 ) {
-    val currentSection by appState.currentTopDestination
-        .collectAsStateWithLifecycle(HomeDestination.TaskList)
     val navItems by rememberSaveable { mutableStateOf(TopLevelDestinations) }
     val setCurrentSection = { section: TopLevel ->
         navEventController.sendEvent(HomeEvent.OnTabClick(section))
@@ -74,7 +70,7 @@ private fun HomeLoader(
     AlkaaHomeScaffold(
         appState = appState,
         navItems = navItems.toImmutableList(),
-        currentSection = currentSection,
+        currentSection = appState.navBackStack.topLevelKey as TopLevel,
         setCurrentSection = setCurrentSection,
         modifier = modifier,
     )
@@ -82,13 +78,13 @@ private fun HomeLoader(
 
 @Composable
 private fun AlkaaHomeScaffold(
-    appState: AppState,
+    appState: AlkaaAppState,
     navItems: ImmutableList<TopLevel>,
     currentSection: TopLevel,
     setCurrentSection: (TopLevel) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val showTopBar by appState.shouldShowTopAppBar.collectAsStateWithLifecycle(true)
+    val showTopBar = appState.navBackStack.shouldShowTopAppBar
     val topBarOffset: Dp by animateDpAsState(
         targetValue = if (showTopBar) 0.dp else 64.dp,
         animationSpec = tween(easing = LinearEasing),
@@ -117,8 +113,7 @@ private fun AlkaaHomeScaffold(
             content = { paddingValues ->
                 val topPadding = paddingValues.calculateTopPadding() - topBarOffset
                 Navigation(
-                    startDestination = HomeDestination.TaskList,
-                    navHostController = appState.navHostController,
+                    navBackStack = appState.navBackStack,
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(

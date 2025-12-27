@@ -1,9 +1,10 @@
 package com.escodro.navigationapi.provider
 
-import androidx.navigation.NavGraphBuilder
+import androidx.navigation3.runtime.EntryProviderScope
 import com.escodro.navigationapi.controller.NavEventController
+import com.escodro.navigationapi.destination.Destination
 
 interface NavGraph {
 
-    val navGraph: NavGraphBuilder.(NavEventController) -> Unit
+    val navGraph: EntryProviderScope<Destination>.(NavEventController) -> Unit
 }

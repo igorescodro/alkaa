@@ -45,8 +45,6 @@ One of the main goals of Alkaa is too use all the latest libraries and tools ava
 - UI Tests with [Compose Multiplatform UI Testing](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-test.html)
 - Following the [Material You](https://m3.material.io/) guidelines and dynamic color (Android only)
 - Asynchronous processing using [Coroutines](https://kotlin.github.io/kotlinx.coroutines/)
-- [Dynamic delivery](https://developer.android.com/guide/playcore/feature-delivery) for the _Task
-  Tracker_ feature
 - Widgets using [Jetpack Glance](https://developer.android.com/jetpack/androidx/releases/glance)
 - Dependency injection with [Koin](https://insert-koin.io)
 - Database using [SQLDelight](https://github.com/cashapp/sqldelight)

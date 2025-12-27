@@ -6,6 +6,6 @@ import androidx.datastore.preferences.core.Preferences
 internal class DesktopDataStore {
 
     fun getDataStore(): DataStore<Preferences> = getDataStore(
-        producePath = { dataStoreFileName },
+        producePath = { DataStoreFileName },
     )
 }

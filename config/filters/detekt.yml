@@ -1,33 +1,31 @@
 comments:
-  excludes: [ '**/test/**','**/androidTest/**','**/android-test/**','**/*.Test.kt','**/*.Spec.kt','**/*.Spek.kt' ]
+  excludes: [ '**/test/**', '**/androidTest/**', '**/android-test/**', '**/*.Test.kt', '**/*.Spec.kt', '**/*.Spek.kt' ]
   CommentOverPrivateFunction:
     active: false
   CommentOverPrivateProperty:
     active: false
   UndocumentedPublicProperty:
-    excludes: ['**/designsystem/**']
+    active: false
   AbsentOrWrongFileLicense:
     active: false
 
+
 style:
-  DataClassShouldBeImmutable:
-    active: false
   MagicNumber:
-    ignorePropertyDeclaration: true
-    excludes: [ '**/designsystem/**', '**/test/**','**/androidTest/**','**/android-test/**' ]
+    active: false
 
 potential-bugs:
   UnsafeCallOnNullableType:
-    excludes: [ '**/test/**','**/androidTest/**','**/android-test/**','**/*.Test.kt','**/*.Spec.kt','**/*.Spek.kt' ]
+    excludes: [ '**/test/**','**/androidTest/**','**/android-test/**','**/*.Test.kt','**/*.Spec.kt', '**/*.Spek.kt' ]
   UnsafeCast:
-    excludes: [ '**/test/**','**/androidTest/**','**/android-test/**','**/*.Test.kt','**/*.Spec.kt','**/*.Spek.kt' ]
+    excludes: [ '**/test/**','**/androidTest/**','**/android-test/**','**/*.Test.kt','**/*.Spec.kt', '**/*.Spek.kt' ]
 
 naming:
   TopLevelPropertyNaming:
     constantPattern: '[A-Z][A-Za-z0-9]*'
-    excludes: [ '**/theme/**', '**/test/**','**/androidTest/**','**/android-test/**' ]
+    excludes: [ '**/test/**','**/androidTest/**','**/android-test/**', '**/androidUnitTest/**' , '**/commonTest/**', '**/generated/**' ]
   FunctionNameMaxLength:
-    excludes: [ '**/test/**','**/androidTest/**','**/android-test/**' ]
+    excludes: [ '**/test/**','**/androidTest/**','**/android-test/**', '**/androidUnitTest/**' , '**/commonTest/**', '**/generated/**' ]
   FunctionNaming:
     ignoreAnnotated: [ 'Composable' ]
-    excludes: [ '**/test/**','**/androidTest/**','**/android-test/**' ]
+    excludes: [ '**/test/**','**/androidTest/**','**/android-test/**', '**/androidUnitTest/**', '**/commonTest/**', '**/generated/**' ]

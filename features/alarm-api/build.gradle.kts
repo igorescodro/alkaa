@@ -1,4 +1,3 @@
-import com.android.build.api.dsl.androidLibrary
 import extension.setFrameworkBaseName
 
 plugins {

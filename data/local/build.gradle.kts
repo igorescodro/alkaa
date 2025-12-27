@@ -1,4 +1,3 @@
-import com.android.build.api.dsl.androidLibrary
 import extension.setFrameworkBaseName
 
 plugins {
@@ -19,8 +18,8 @@ kotlin {
             implementation(projects.data.repository)
             implementation(projects.resources)
 
-            implementation(compose.runtime)
-            implementation(compose.components.resources)
+            implementation(libs.compose.runtime)
+            implementation(libs.compose.components.resources)
 
             implementation(libs.koin.core)
             implementation(libs.kotlinx.datetime)

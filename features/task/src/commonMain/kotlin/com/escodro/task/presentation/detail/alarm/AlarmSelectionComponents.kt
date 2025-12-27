@@ -23,6 +23,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.escodro.designsystem.theme.AlkaaThemePreview
@@ -35,7 +36,6 @@ import com.escodro.task.model.AlarmInterval
 import com.escodro.task.presentation.detail.TaskDetailSectionContent
 import kotlinx.datetime.LocalDateTime
 import org.jetbrains.compose.resources.stringResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 internal fun AlarmInfo(

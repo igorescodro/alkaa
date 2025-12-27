@@ -22,12 +22,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.shadow.Shadow
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import com.escodro.designsystem.theme.AlkaaThemePreview
-import org.jetbrains.compose.ui.tooling.preview.Preview
-import org.jetbrains.compose.ui.tooling.preview.PreviewParameter
-import org.jetbrains.compose.ui.tooling.preview.PreviewParameterProvider
 
 /**
  * Composable function that represents a filter chip for a category item.

@@ -1,4 +1,3 @@
-import com.android.build.api.dsl.androidLibrary
 import extension.setFrameworkBaseName
 
 plugins {
@@ -25,12 +24,12 @@ kotlin {
             implementation(projects.libraries.parcelable)
             implementation(projects.libraries.designsystem)
 
-            implementation(compose.runtime)
-            implementation(compose.materialIconsExtended)
-            implementation(compose.material)
-            implementation(compose.material3)
-            implementation(compose.components.resources)
-            implementation(compose.material3AdaptiveNavigationSuite)
+            implementation(libs.compose.runtime)
+            implementation(libs.compose.materialIconsExtended)
+            implementation(libs.compose.material)
+            implementation(libs.compose.material3)
+            implementation(libs.compose.components.resources)
+            implementation(libs.compose.material3AdaptiveNavigationSuite)
 
             implementation(libs.koin.compose)
             implementation(libs.kotlinx.collections.immutable)

@@ -6,8 +6,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.tooling.preview.Preview
 import com.escodro.designsystem.theme.AlkaaThemePreview
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 private const val TrailingLeadingAlpha = 0.50f
 

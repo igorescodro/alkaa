@@ -12,7 +12,7 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation(compose.material3)
+            implementation(libs.compose.material3)
         }
         androidMain.dependencies {
             implementation(projects.domain)

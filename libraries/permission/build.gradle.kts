@@ -1,4 +1,3 @@
-import com.android.build.api.dsl.androidLibrary
 import extension.setFrameworkBaseName
 
 plugins {
@@ -13,7 +12,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(libs.koin.core)
-            implementation(compose.runtime)
+            implementation(libs.compose.runtime)
         }
         androidMain.dependencies {
             implementation(libs.moko.permissions.compose)

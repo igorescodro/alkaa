@@ -11,13 +11,12 @@ kotlin {
     setFrameworkBaseName("preference")
 
     sourceSets {
-        val desktopMain by getting
-
         commonMain.dependencies {
             implementation(projects.domain)
             implementation(projects.libraries.coroutines)
             implementation(projects.libraries.designsystem)
             implementation(projects.resources)
+            implementation(projects.features.tracker)
             implementation(projects.features.navigationApi)
 
             implementation(compose.runtime)
@@ -33,14 +32,6 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.androidx.corektx)
             implementation(projects.libraries.splitInstall)
-        }
-
-        iosMain.dependencies {
-            implementation(projects.features.tracker)
-        }
-
-        desktopMain.dependencies {
-            implementation(projects.features.tracker)
         }
     }
 

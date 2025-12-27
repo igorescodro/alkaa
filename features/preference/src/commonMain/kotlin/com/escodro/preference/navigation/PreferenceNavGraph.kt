@@ -16,11 +16,9 @@ import com.escodro.navigationapi.provider.NavGraph
 import com.escodro.preference.presentation.AboutScreen
 import com.escodro.preference.presentation.OpenSource
 import com.escodro.preference.presentation.PreferenceSection
-import com.escodro.preference.provider.TrackerProvider
+import com.escodro.tracker.presentation.TrackerScreen
 
-internal class PreferenceNavGraph(
-    private val trackerProvider: TrackerProvider,
-) : NavGraph {
+internal class PreferenceNavGraph : NavGraph {
     override val navGraph:
         EntryProviderScope<Destination>.(NavEventController) -> Unit = { navEventController ->
             entry<HomeDestination.Preferences> {
@@ -58,7 +56,7 @@ internal class PreferenceNavGraph(
                     NavDisplay.popTransitionSpec { SlideOutHorizontallyTransition } +
                     NavDisplay.predictivePopTransitionSpec { SlideOutHorizontallyTransition },
             ) {
-                trackerProvider.Content(
+                TrackerScreen(
                     onUpPress = { navEventController.sendEvent(Event.OnBack) },
                 )
             }

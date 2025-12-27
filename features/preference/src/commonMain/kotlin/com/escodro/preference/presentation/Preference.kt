@@ -23,10 +23,10 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.escodro.preference.model.AppThemeOptions
-import com.escodro.preference.provider.TrackerProvider
 import com.escodro.resources.Res
 import com.escodro.resources.preference_title_features
 import com.escodro.resources.preference_title_settings
+import com.escodro.tracker.presentation.TrackerScreen
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
@@ -61,7 +61,6 @@ private fun PreferenceLoader(
     onOpenSourceClick: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: PreferenceViewModel = koinInject(),
-    trackerProvider: TrackerProvider = koinInject(),
 ) {
     val theme by remember(viewModel) {
         viewModel.loadCurrentTheme()
@@ -80,7 +79,6 @@ private fun PreferenceLoader(
         AdaptivePreferenceScaffold(
             theme = theme,
             onThemeUpdate = viewModel::updateTheme,
-            trackerProvider = trackerProvider,
             modifier = modifier,
         )
     }
@@ -117,7 +115,6 @@ internal fun PreferenceContent(
 private fun AdaptivePreferenceScaffold(
     theme: AppThemeOptions,
     onThemeUpdate: (AppThemeOptions) -> Unit,
-    trackerProvider: TrackerProvider,
     modifier: Modifier = Modifier,
 ) {
     val navigator: ThreePaneScaffoldNavigator<PreferenceItem> =
@@ -162,7 +159,7 @@ private fun AdaptivePreferenceScaffold(
             val detail = navigator.currentDestination?.contentKey
             when (detail) {
                 PreferenceItem.TRACKER -> {
-                    trackerProvider.Content(
+                    TrackerScreen(
                         onUpPress = { coroutineScope.launch { navigator.navigateBack() } },
                     )
                 }

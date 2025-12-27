@@ -1,13 +1,17 @@
 import extension.setFrameworkBaseName
 
 plugins {
-    id("com.escodro.android-dynamic")
+    id("com.escodro.multiplatform")
     alias(libs.plugins.compose)
     alias(libs.plugins.compose.compiler)
 }
 
 kotlin {
     setFrameworkBaseName("tracker")
+
+    androidLibrary {
+        namespace = "com.escodro.tracker"
+    }
 
     sourceSets {
         commonMain.dependencies {
@@ -32,17 +36,9 @@ kotlin {
             implementation(projects.libraries.test)
             implementation(libs.kotlinx.datetime)
         }
-
-        androidMain.dependencies {
-            implementation(libs.compose.activity)
-        }
     }
 }
 
 dependencies {
-    debugImplementation(compose.uiTooling)
-}
-
-android {
-    namespace = "com.escodro.tracker"
+    "androidRuntimeClasspath"(compose.uiTooling)
 }

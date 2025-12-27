@@ -2,7 +2,9 @@ package com.escodro.navigation.compose
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.navigation3.scene.DialogSceneStrategy
 import androidx.navigation3.ui.NavDisplay
 import com.escodro.navigation.provider.NavGraphProvider
 import com.escodro.navigationapi.controller.NavBackStack
@@ -35,6 +37,8 @@ private fun NavigationLoader(
     // Required by Moko Permissions to bind in the lifecycle
     BindPermissionEffect(permissionController)
 
+    val dialogStrategy = remember { DialogSceneStrategy<Destination>() }
+
     LaunchedEffect(Unit) {
         navEventController.destinationState.collect { destination ->
             when (destination) {
@@ -60,6 +64,7 @@ private fun NavigationLoader(
     NavDisplay(
         backStack = navBackStack.backStack,
         onBack = { navBackStack.removeLast() },
+        sceneStrategy = dialogStrategy,
         entryProvider = navGraphProvider.navigationGraph,
         modifier = modifier,
     )

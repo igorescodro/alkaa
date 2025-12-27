@@ -1,4 +1,3 @@
-import com.android.build.api.dsl.androidLibrary
 import extension.setFrameworkBaseName
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
@@ -19,8 +18,8 @@ kotlin {
             implementation(projects.resources)
             implementation(projects.libraries.appstate)
 
-            implementation(compose.runtime)
-            implementation(compose.components.resources)
+            implementation(libs.compose.runtime)
+            implementation(libs.compose.components.resources)
         }
 
         desktopMain.dependencies {

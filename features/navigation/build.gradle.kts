@@ -1,4 +1,3 @@
-import com.android.build.api.dsl.androidLibrary
 import extension.setFrameworkBaseName
 
 plugins {
@@ -21,10 +20,10 @@ kotlin {
             implementation(projects.libraries.permission)
             implementation(projects.resources)
 
-            implementation(compose.runtime)
-            implementation(compose.material)
-            implementation(compose.components.resources)
-            implementation(compose.materialIconsExtended)
+            implementation(libs.compose.runtime)
+            implementation(libs.compose.material)
+            implementation(libs.compose.components.resources)
+            implementation(libs.compose.materialIconsExtended)
 
             implementation(libs.koin.compose)
 

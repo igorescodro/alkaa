@@ -1,4 +1,3 @@
-import com.android.build.api.dsl.androidLibrary
 import extension.setFrameworkBaseName
 
 plugins {
@@ -16,7 +15,7 @@ kotlin {
             implementation(projects.libraries.parcelable)
             implementation(projects.features.navigationApi)
 
-            implementation(compose.runtime)
+            implementation(libs.compose.runtime)
             implementation(libs.compose.navigation.ui)
         }
     }

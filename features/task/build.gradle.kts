@@ -1,4 +1,3 @@
-import com.android.build.api.dsl.androidLibrary
 import extension.setFrameworkBaseName
 
 plugins {
@@ -24,11 +23,11 @@ kotlin {
             implementation(projects.libraries.parcelable)
             implementation(projects.libraries.permission)
 
-            implementation(compose.runtime)
-            implementation(compose.material3)
-            implementation(compose.materialIconsExtended)
-            implementation(compose.components.resources)
-            implementation(compose.components.uiToolingPreview)
+            implementation(libs.compose.runtime)
+            implementation(libs.compose.material3)
+            implementation(libs.compose.materialIconsExtended)
+            implementation(libs.compose.components.resources)
+            implementation(libs.compose.uiToolingPreview)
 
             implementation(libs.kotlinx.datetime)
             implementation(libs.kotlinx.collections.immutable)
@@ -49,5 +48,5 @@ kotlin {
 }
 
 dependencies {
-    "androidRuntimeClasspath"(compose.uiTooling)
+    "androidRuntimeClasspath"(libs.compose.uiTooling)
 }

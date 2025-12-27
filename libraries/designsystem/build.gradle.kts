@@ -1,4 +1,3 @@
-import com.android.build.api.dsl.androidLibrary
 import extension.setFrameworkBaseName
 
 plugins {
@@ -13,11 +12,11 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(libs.koin.compose)
-            implementation(compose.runtime)
-            implementation(compose.material)
-            implementation(compose.material3)
-            implementation(compose.materialIconsExtended)
-            implementation(compose.components.uiToolingPreview)
+            implementation(libs.compose.runtime)
+            implementation(libs.compose.material)
+            implementation(libs.compose.material3)
+            implementation(libs.compose.materialIconsExtended)
+            implementation(libs.compose.uiToolingPreview)
             implementation(libs.kotlinx.collections.immutable)
         }
     }
@@ -28,5 +27,5 @@ kotlin {
 }
 
 dependencies {
-    "androidRuntimeClasspath"(compose.uiTooling)
+    "androidRuntimeClasspath"(libs.compose.uiTooling)
 }

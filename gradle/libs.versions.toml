@@ -32,6 +32,15 @@ lifecycle_runtime = "2.10.0"
 
 # Compose
 compose_compiler = "1.10.0-rc02"
+compose_runtime = "1.10.0-rc02"
+compose_material = "1.10.0-rc02"
+compose_material3 = "1.10.0-alpha05"
+compose_components_resources = "1.10.0-rc02"
+compose_materialIconsExtended = "1.7.3"
+compose_uiTooling = "1.10.0-rc02"
+compose_uiToolingPreview = "1.10.0-rc02"
+compose_uiTest = "1.10.0-rc02"
+compose_material3AdaptiveNavigationSuite = "1.10.0-alpha05"
 compose_navigation = "1.0.0-alpha06"
 compose_adaptive = "1.3.0-alpha03"
 
@@ -93,6 +102,16 @@ androidx_workmanager = { module = "androidx.work:work-runtime-ktx", version.ref 
 androidx_lifecycle_viewmodel = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel", version.ref = "lifecycle_viewmodel" }
 androidx_lifecycle_runtime = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycle_runtime" }
 
+#Compose
+compose_runtime = { module = "org.jetbrains.compose.runtime:runtime", version.ref = "compose_runtime" }
+compose_material = { module = "org.jetbrains.compose.material:material", version.ref = "compose_material" }
+compose_material3 = { module = "org.jetbrains.compose.material3:material3", version.ref = "compose_material3" }
+compose_components_resources = { module = "org.jetbrains.compose.components:components-resources", version.ref = "compose_components_resources" }
+compose_materialIconsExtended = { module = "org.jetbrains.compose.material:material-icons-extended", version.ref = "compose_materialIconsExtended" }
+compose_uiTooling = { module = "org.jetbrains.compose.ui:ui-tooling", version.ref = "compose_uiTooling" }
+compose_uiToolingPreview = { module = "org.jetbrains.compose.ui:ui-tooling-preview", version.ref = "compose_uiToolingPreview" }
+compose_uiTest = { module = "org.jetbrains.compose.ui:ui-test", version.ref = "compose_uiTest" }
+compose_material3AdaptiveNavigationSuite = { module = "org.jetbrains.compose.material3:material3-adaptive-navigation-suite", version.ref = "compose_material3AdaptiveNavigationSuite" }
 compose_navigation_ui = { module = "org.jetbrains.androidx.navigation3:navigation3-ui", version.ref = "compose_navigation" }
 compose_navigation_adaptive = { module = "org.jetbrains.compose.material3.adaptive:adaptive-navigation3", version.ref = "compose_adaptive" }
 

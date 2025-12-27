@@ -1,4 +1,3 @@
-import com.android.build.api.dsl.androidLibrary
 import extension.setFrameworkBaseName
 
 plugins {
@@ -19,10 +18,10 @@ kotlin {
             implementation(projects.features.tracker)
             implementation(projects.features.navigationApi)
 
-            implementation(compose.runtime)
-            implementation(compose.material3)
-            implementation(compose.materialIconsExtended)
-            implementation(compose.components.resources)
+            implementation(libs.compose.runtime)
+            implementation(libs.compose.material3)
+            implementation(libs.compose.materialIconsExtended)
+            implementation(libs.compose.components.resources)
 
             implementation(libs.koin.compose)
             implementation(libs.androidx.lifecycle.viewmodel)

@@ -53,10 +53,10 @@ kotlin {
 
             implementation(projects.domain)
 
-            implementation(compose.runtime)
-            implementation(compose.material)
-            implementation(compose.material3)
-            implementation(compose.components.resources)
+            implementation(libs.compose.runtime)
+            implementation(libs.compose.material)
+            implementation(libs.compose.material3)
+            implementation(libs.compose.components.resources)
 
             implementation(libs.koin.compose)
             implementation(libs.androidx.lifecycle.viewmodel)
@@ -71,8 +71,7 @@ kotlin {
             implementation(kotlin("test"))
             implementation(projects.features.task)
 
-            @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
-            implementation(compose.uiTest)
+            implementation(libs.compose.uiTest)
             implementation(libs.koin.test)
             implementation(libs.kotlinx.datetime)
         }

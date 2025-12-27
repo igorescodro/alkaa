@@ -52,8 +52,6 @@ android {
         project.tasks.check.dependsOn("lint")
     }
 
-    setDynamicFeatures(setOf(":features:tracker"))
-
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
@@ -81,8 +79,6 @@ dependencies {
     implementation(libs.logcat)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.appcompat)
-    implementation(libs.compose.activity)
-    implementation(libs.androidx.playcore)
     implementation(libs.koin.core)
 }
 

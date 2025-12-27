@@ -3,7 +3,6 @@ package com.escodro.alkaa
 import android.app.Application
 import android.content.Context
 import com.escodro.shared.di.initKoin
-import com.google.android.play.core.splitcompat.SplitCompat
 import logcat.AndroidLogcatLogger
 import logcat.LogPriority.VERBOSE
 import org.koin.dsl.module
@@ -23,10 +22,5 @@ class AlkaaApp : Application() {
                 single<Context> { this@AlkaaApp }
             },
         )
-    }
-
-    override fun attachBaseContext(base: Context?) {
-        super.attachBaseContext(base)
-        SplitCompat.install(this)
     }
 }

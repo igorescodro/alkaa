@@ -36,7 +36,6 @@ import com.escodro.resources.tracker_header_empty
 import com.escodro.resources.tracker_header_error
 import com.escodro.resources.tracker_message_description
 import com.escodro.resources.tracker_message_title
-import com.escodro.tracker.di.injectDynamicFeature
 import com.escodro.tracker.model.Tracker
 import com.escodro.tracker.presentation.components.TaskGraph
 import com.escodro.tracker.presentation.components.TaskTrackerList
@@ -49,7 +48,6 @@ import org.koin.compose.koinInject
 
 @Composable
 fun TrackerScreen(onUpPress: () -> Unit) {
-    injectDynamicFeature()
     TrackerLoader(onUpPress = onUpPress)
 }
 

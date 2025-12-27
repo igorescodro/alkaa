@@ -13,6 +13,7 @@ import com.escodro.preference.di.preferenceModule
 import com.escodro.repository.di.repositoryModule
 import com.escodro.search.di.searchModule
 import com.escodro.task.di.taskModule
+import com.escodro.tracker.di.trackerModule
 import org.koin.core.context.startKoin
 import org.koin.core.module.Module
 import org.koin.dsl.module
@@ -48,4 +49,5 @@ internal val appModules = listOf(
     designSystemModule,
     navigationModule,
     permissionModule,
+    trackerModule,
 )

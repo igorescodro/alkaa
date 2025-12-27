@@ -47,6 +47,7 @@ kotlin {
             implementation(projects.features.category)
             implementation(projects.features.search)
             implementation(projects.features.preference)
+            implementation(projects.features.tracker)
 
             implementation(projects.resources)
 

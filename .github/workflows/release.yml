@@ -112,14 +112,16 @@ jobs:
         run: ./gradlew assemble
 
       - name: GitHub Release
-        uses: marvinpinto/action-automatic-releases@latest
+        uses: softprops/action-gh-release@v2
         with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "v${{ needs.calculate-version.outputs.new_version_name }}"
+          tag_name: v${{ needs.calculate-version.outputs.new_version_name }}
+          target_commitish: ${{ needs.calculate-version.outputs.new_sha }}
           prerelease: false
           files: |
             ./app/build/outputs/apk/debug/*.apk
             ./app/build/outputs/apk/release/*.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   google-play-release:
     name: "Release on Google Play"

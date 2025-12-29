@@ -12,14 +12,17 @@ internal class TaskRepositoryImpl(
     override suspend fun insertTask(task: Task): Long =
         taskDataSource.insertTask(taskMapper.toRepo(task))
 
-    override suspend fun updateTask(task: Task) =
+    override suspend fun updateTask(task: Task) {
         taskDataSource.updateTask(taskMapper.toRepo(task))
+    }
 
-    override suspend fun deleteTask(task: Task) =
+    override suspend fun deleteTask(task: Task) {
         taskDataSource.deleteTask(taskMapper.toRepo(task))
+    }
 
-    override suspend fun cleanTable() =
+    override suspend fun cleanTable() {
         taskDataSource.cleanTable()
+    }
 
     override suspend fun findAllTasksWithDueDate(): List<Task> =
         taskDataSource.findAllTasksWithDueDate().map { taskMapper.toDomain(it) }

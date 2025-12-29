@@ -18,7 +18,7 @@ internal class TaskMapper(private val alarmIntervalMapper: AlarmIntervalMapper) 
     fun toDomain(repoTask: RepoTask): DomainTask =
         DomainTask(
             id = repoTask.id,
-            completed = repoTask.completed,
+            completed = repoTask.isCompleted,
             title = repoTask.title,
             description = repoTask.description,
             categoryId = repoTask.categoryId,
@@ -49,7 +49,7 @@ internal class TaskMapper(private val alarmIntervalMapper: AlarmIntervalMapper) 
     fun toRepo(domainTask: DomainTask): RepoTask =
         RepoTask(
             id = domainTask.id,
-            completed = domainTask.completed,
+            isCompleted = domainTask.completed,
             title = domainTask.title,
             description = domainTask.description,
             categoryId = domainTask.categoryId,

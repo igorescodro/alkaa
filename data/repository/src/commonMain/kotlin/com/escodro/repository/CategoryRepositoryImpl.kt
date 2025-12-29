@@ -12,17 +12,21 @@ internal class CategoryRepositoryImpl(
     private val categoryMapper: CategoryMapper,
 ) : CategoryRepository {
 
-    override suspend fun insertCategory(category: Category) =
+    override suspend fun insertCategory(category: Category) {
         categoryDataSource.insertCategory(categoryMapper.toRepo(category))
+    }
 
-    override suspend fun updateCategory(category: Category) =
+    override suspend fun updateCategory(category: Category) {
         categoryDataSource.updateCategory(categoryMapper.toRepo(category))
+    }
 
-    override suspend fun deleteCategory(category: Category) =
+    override suspend fun deleteCategory(category: Category) {
         categoryDataSource.deleteCategory(categoryMapper.toRepo(category))
+    }
 
-    override suspend fun cleanTable() =
+    override suspend fun cleanTable() {
         categoryDataSource.cleanTable()
+    }
 
     override fun findAllCategories(): Flow<List<Category>> =
         categoryDataSource.findAllCategories().map { categoryMapper.toDomain(it) }

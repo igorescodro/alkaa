@@ -14,7 +14,7 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.test.performTextReplacement
 import androidx.compose.ui.test.waitUntilDoesNotExist
-import com.escodro.alkaa.test.AlkaaBaseTest
+import com.escodro.alkaa.test.AlkaaTest
 import com.escodro.alkaa.test.afterTest
 import com.escodro.alkaa.test.beforeTest
 import com.escodro.alkaa.test.uiTest
@@ -27,7 +27,7 @@ import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 
-internal class CategoryFlowTest : AlkaaBaseTest(), KoinTest {
+internal class CategoryFlowTest : AlkaaTest(), KoinTest {
 
     private val categoryDao: CategoryDao by inject()
 

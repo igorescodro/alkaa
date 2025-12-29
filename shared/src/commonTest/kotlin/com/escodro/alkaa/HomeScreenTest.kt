@@ -8,7 +8,7 @@ import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performKeyInput
-import com.escodro.alkaa.test.AlkaaBaseTest
+import com.escodro.alkaa.test.AlkaaTest
 import com.escodro.alkaa.test.afterTest
 import com.escodro.alkaa.test.beforeTest
 import com.escodro.alkaa.test.uiTest
@@ -22,7 +22,7 @@ import kotlin.test.BeforeTest
 import kotlin.test.Test
 
 @OptIn(ExperimentalTestApi::class)
-internal class HomeScreenTest : AlkaaBaseTest(), KoinTest {
+internal class HomeScreenTest : AlkaaTest(), KoinTest {
 
     @BeforeTest
     fun setup() {

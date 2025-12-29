@@ -15,7 +15,7 @@ import androidx.compose.ui.test.performTextReplacement
 import androidx.compose.ui.test.waitUntilAtLeastOneExists
 import androidx.compose.ui.test.waitUntilExactlyOneExists
 import com.escodro.alkaa.fake.CoroutinesDebouncerFake
-import com.escodro.alkaa.test.AlkaaBaseTest
+import com.escodro.alkaa.test.AlkaaTest
 import com.escodro.alkaa.test.afterTest
 import com.escodro.alkaa.test.beforeTest
 import com.escodro.alkaa.test.uiTest
@@ -35,7 +35,7 @@ import kotlin.test.BeforeTest
 import kotlin.test.Test
 
 @OptIn(ExperimentalTestApi::class)
-internal class TaskFlowTest : AlkaaBaseTest(), KoinTest {
+internal class TaskFlowTest : AlkaaTest(), KoinTest {
 
     private val taskDao: TaskDao by inject()
 
@@ -210,9 +210,11 @@ internal class TaskFlowTest : AlkaaBaseTest(), KoinTest {
     /**
      * Force the navigation back to the previous screen based on the content description.
      */
+    @Suppress("ForbiddenMethodCall")
     private fun ComposeUiTest.navigateBack() = try {
         onNodeWithContentDescription("Back", substring = true).performClick()
     } catch (e: AssertionError) {
         onNodeWithContentDescription("Close", substring = true).performClick()
+        println(e.message)
     }
 }

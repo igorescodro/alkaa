@@ -21,7 +21,9 @@ import org.koin.dsl.module
 /**
  * Initializes the Koin modules.
  */
-fun initKoin() = initKoin(module { })
+fun initKoin() {
+    initKoin(module { })
+}
 
 /**
  * Initializes the Koin modules.

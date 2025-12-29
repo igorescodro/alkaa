@@ -2,15 +2,17 @@ package com.escodro.local.dao.impl
 
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
+import com.escodro.coroutines.CoroutineDispatcherProvider
 import com.escodro.local.Task
 import com.escodro.local.TaskQueries
 import com.escodro.local.dao.TaskDao
 import com.escodro.local.provider.DatabaseProvider
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.first
 
-internal class TaskDaoImpl(private val databaseProvider: DatabaseProvider) : TaskDao {
+internal class TaskDaoImpl(
+    private val databaseProvider: DatabaseProvider,
+    private val dispatcherProvider: CoroutineDispatcherProvider,
+) : TaskDao {
 
     private val taskQueries: TaskQueries
         get() = databaseProvider.getInstance().taskQueries
@@ -63,7 +65,7 @@ internal class TaskDaoImpl(private val databaseProvider: DatabaseProvider) : Tas
         taskQueries
             .selectAllTasksWithDueDate(mapper = ::Task)
             .asFlow()
-            .mapToList(Dispatchers.IO)
+            .mapToList(dispatcherProvider.io)
             .first()
 
     override suspend fun getTaskById(taskId: Long): Task? =

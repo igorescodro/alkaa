@@ -15,17 +15,21 @@ internal class CategoryLocalDataSource(
     private val categoryMapper: CategoryMapper,
 ) : CategoryDataSource {
 
-    override suspend fun insertCategory(category: Category) =
+    override suspend fun insertCategory(category: Category) {
         categoryDao.insertCategory(categoryMapper.fromRepo(category))
+    }
 
-    override suspend fun updateCategory(category: Category) =
+    override suspend fun updateCategory(category: Category) {
         categoryDao.updateCategory(categoryMapper.fromRepo(category))
+    }
 
-    override suspend fun deleteCategory(category: Category) =
+    override suspend fun deleteCategory(category: Category) {
         categoryDao.deleteCategory(categoryMapper.fromRepo(category))
+    }
 
-    override suspend fun cleanTable() =
+    override suspend fun cleanTable() {
         categoryDao.cleanTable()
+    }
 
     override fun findAllCategories(): Flow<List<Category>> =
         categoryDao.findAllCategories().map { categoryMapper.toRepo(it) }

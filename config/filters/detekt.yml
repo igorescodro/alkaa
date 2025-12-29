@@ -32,3 +32,7 @@ naming:
   FunctionNaming:
     ignoreAnnotated: [ 'Composable' ]
     excludes: [ '**/test/**','**/androidTest/**','**/android-test/**', '**/androidUnitTest/**', '**/commonTest/**', '**/generated/**' ]
+
+exceptions:
+  NotImplementedDeclaration:
+    excludes: [ '**/*Fake.kt' ]

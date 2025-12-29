@@ -30,6 +30,7 @@ internal class DatabaseProvider(
     fun getInstance(): AlkaaDatabase =
         database ?: createDatabase().also { database = it }
 
+    @Suppress("MissingUseCall")
     private fun createDatabase(): AlkaaDatabase {
         val driver = driverFactory.createDriver(databaseName = DATABASE_NAME)
         val database = AlkaaDatabase(
@@ -64,10 +65,10 @@ internal class DatabaseProvider(
             .selectAll()
             .executeAsList()
             .isEmpty() &&
-            taskQueries
-                .selectAllTasksWithDueDate()
-                .executeAsList()
-                .isEmpty()
+                taskQueries
+                    .selectAllTasksWithDueDate()
+                    .executeAsList()
+                    .isEmpty()
     }
 
     private suspend fun getPrepopulateData(): List<Category> =

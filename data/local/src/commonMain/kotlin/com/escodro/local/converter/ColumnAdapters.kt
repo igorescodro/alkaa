@@ -26,6 +26,7 @@ val dateTimeAdapter = object : ColumnAdapter<LocalDateTime, Long> {
 /**
  * Converts between [AlarmInterval] and [Long] to be stored in the database.
  */
+@Suppress("UnsafeCallOnNullableType")
 val alarmIntervalAdapter = object : ColumnAdapter<AlarmInterval, Long> {
     override fun decode(databaseValue: Long): AlarmInterval =
         AlarmInterval.entries.find { it.id == databaseValue.toInt() }!!

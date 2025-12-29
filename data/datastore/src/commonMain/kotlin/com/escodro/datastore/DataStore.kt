@@ -8,7 +8,7 @@ import kotlinx.coroutines.internal.SynchronizedObject
 import kotlinx.coroutines.internal.synchronized
 import okio.Path.Companion.toPath
 
-private lateinit var dataStore: DataStore<Preferences>
+private var dataStore: DataStore<Preferences>? = null
 
 @OptIn(InternalCoroutinesApi::class)
 private val lock = SynchronizedObject()
@@ -23,13 +23,11 @@ private val lock = SynchronizedObject()
 @OptIn(InternalCoroutinesApi::class)
 fun getDataStore(producePath: () -> String): DataStore<Preferences> =
     synchronized(lock) {
-        if (::dataStore.isInitialized) {
-            dataStore
-        } else {
-            PreferenceDataStoreFactory
+        val instance: DataStore<Preferences>? = dataStore
+        instance
+            ?: PreferenceDataStoreFactory
                 .createWithPath(produceFile = { producePath().toPath() })
                 .also { dataStore = it }
-        }
     }
 
 internal const val DataStoreFileName = "alkaa_settings.preferences_pb"

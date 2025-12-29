@@ -31,7 +31,7 @@ internal class TrackerMapper {
         val taskCount = map.value.size
         return Tracker.CategoryInfo(
             name = first.category?.name,
-            color = first.category?.color?.toArgbColor(),
+            color = first.category?.run { color.toArgbColor() },
             taskCount = taskCount,
             percentage = taskCount.toFloat() / totalCount,
         )

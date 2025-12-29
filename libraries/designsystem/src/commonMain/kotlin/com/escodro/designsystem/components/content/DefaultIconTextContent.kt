@@ -54,7 +54,7 @@ fun DefaultIconTextContent(
         Spacer(modifier = Modifier.height(24.dp))
         Text(
             text = header,
-            style = MaterialTheme.typography.bodyLarge,
+            style = MaterialTheme.typography.titleLarge,
             textAlign = TextAlign.Center,
             color = MaterialTheme.colorScheme.outline,
         )

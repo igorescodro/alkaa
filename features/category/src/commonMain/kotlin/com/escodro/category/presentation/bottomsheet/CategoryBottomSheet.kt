@@ -277,6 +277,7 @@ private fun CategorySaveButton(currentColor: Color, onClick: () -> Unit) {
     ) {
         Text(
             text = stringResource(Res.string.category_sheet_save),
+            style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.background,
         )
     }

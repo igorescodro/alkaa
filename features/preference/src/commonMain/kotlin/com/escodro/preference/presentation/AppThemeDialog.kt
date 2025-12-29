@@ -58,7 +58,7 @@ internal fun AppThemeDialog(
                             )
                             Text(
                                 text = stringResource(item.titleRes),
-                                style = MaterialTheme.typography.bodySmall,
+                                style = MaterialTheme.typography.bodyMedium,
                                 modifier = Modifier.padding(start = 16.dp),
                             )
                         }

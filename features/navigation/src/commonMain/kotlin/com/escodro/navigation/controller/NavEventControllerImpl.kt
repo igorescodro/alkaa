@@ -21,7 +21,8 @@ internal class NavEventControllerImpl(
         navigationEventState
             .map { event ->
                 event.nextDestination()
-            }.shareIn(
+            }
+            .shareIn(
                 scope = CoroutineScope(appCoroutineScope.context),
                 started = SharingStarted.WhileSubscribed(),
             )

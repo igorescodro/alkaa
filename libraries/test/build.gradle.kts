@@ -13,6 +13,7 @@ kotlin {
         commonMain.dependencies {
             implementation(kotlin("test"))
             api(libs.kotlinx.coroutines.test)
+            api(libs.compose.uiTest)
         }
 
         androidMain.dependencies {

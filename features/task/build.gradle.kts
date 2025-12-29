@@ -11,6 +11,8 @@ kotlin {
     setFrameworkBaseName("task")
 
     sourceSets {
+        val desktopTest by getting
+
         commonMain.dependencies {
             api(projects.features.categoryApi)
             implementation(projects.features.alarmApi)
@@ -40,6 +42,12 @@ kotlin {
             implementation(kotlin("test"))
             implementation(projects.libraries.test)
             implementation(libs.kotlinx.datetime)
+            implementation(libs.compose.uiTest)
+        }
+
+        desktopTest.dependencies {
+            implementation(compose.desktop.currentOs)
+            implementation(libs.kotlinx.coroutines.swing)
         }
     }
 

@@ -22,6 +22,14 @@ kotlin {
         desktopMain.dependencies {
             implementation(kotlin("test-junit"))
         }
+
+        androidMain.dependencies {
+            implementation(libs.test.junit4.android)
+            implementation(libs.test.uiautomator)
+            implementation(libs.test.manifest)
+            implementation(libs.test.robolectric)
+            implementation(libs.test.work)
+        }
     }
     androidLibrary {
         namespace = "com.escodro.test"

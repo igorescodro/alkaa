@@ -1,6 +1,4 @@
-@file:Suppress("ktlint:standard:filename")
-
-package com.escodro.alkaa.test
+package com.escodro.test
 
 import android.content.ContentProvider
 import android.content.Context
@@ -8,8 +6,6 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.work.testing.WorkManagerTestInitHelper
 import org.junit.runner.RunWith
-import org.koin.core.module.Module
-import org.koin.dsl.module
 import org.robolectric.Robolectric
 import org.robolectric.annotation.Config
 
@@ -42,8 +38,3 @@ actual abstract class AlkaaTest actual constructor() {
         }
     }
 }
-
-actual val platformModule: Module
-    get() = module {
-        single<Context> { ApplicationProvider.getApplicationContext<Context>() }
-    }

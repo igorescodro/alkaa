@@ -70,6 +70,7 @@ kotlin {
         commonTest.dependencies {
             implementation(kotlin("test"))
             implementation(projects.features.task)
+            implementation(projects.libraries.test)
 
             implementation(libs.compose.uiTest)
             implementation(libs.koin.test)
@@ -83,10 +84,7 @@ kotlin {
 
         androidHostTest.dependencies {
             implementation(libs.test.junit4.android)
-            implementation(libs.test.uiautomator)
             implementation(libs.test.manifest)
-            implementation(libs.test.robolectric)
-            implementation(libs.test.work)
         }
     }
 

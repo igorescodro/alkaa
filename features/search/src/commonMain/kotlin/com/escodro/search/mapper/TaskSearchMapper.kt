@@ -15,7 +15,7 @@ internal class TaskSearchMapper {
     private fun toTaskSearch(taskWithCategory: TaskWithCategory): TaskSearchItem =
         TaskSearchItem(
             id = taskWithCategory.task.id,
-            completed = taskWithCategory.task.isCompleted,
+            isCompleted = taskWithCategory.task.isCompleted,
             title = taskWithCategory.task.title,
             categoryColor = getColor(taskWithCategory.category?.color),
             isRepeating = taskWithCategory.task.isRepeating,

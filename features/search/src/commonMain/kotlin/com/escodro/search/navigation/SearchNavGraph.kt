@@ -17,7 +17,9 @@ internal class SearchNavGraph : NavGraph {
             entry<HomeDestination.Search> {
                 SearchSection(
                     isSinglePane = currentWindowAdaptiveInfo().windowSizeClass.isSinglePane(),
-                    onItemClick = { navEventController.sendEvent(TaskEvent.OnTaskClick(id = it)) },
+                    onItemClick = { taskId ->
+                        navEventController.sendEvent(TaskEvent.OnTaskClick(id = taskId))
+                    },
                 )
             }
         }

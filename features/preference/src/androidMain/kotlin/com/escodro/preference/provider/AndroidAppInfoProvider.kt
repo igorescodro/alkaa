@@ -7,13 +7,14 @@ import android.os.Build
 
 internal class AndroidAppInfoProvider(private val context: Context) : AppInfoProvider {
 
+    @Suppress("NestedScopeFunctions")
     override fun getAppVersion(): String = with(context) {
         var packageInfo: PackageInfo?
-        packageName.let {
+        packageName.let { packageName ->
             packageInfo = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                packageManager.getPackageInfo(it, PackageManager.PackageInfoFlags.of(0))
+                packageManager.getPackageInfo(packageName, PackageManager.PackageInfoFlags.of(0))
             } else {
-                packageManager.getPackageInfo(it, 0)
+                packageManager.getPackageInfo(packageName, 0)
             }
         }
         return packageInfo?.versionName ?: INVALID_VERSION

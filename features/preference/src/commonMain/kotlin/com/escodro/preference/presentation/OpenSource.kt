@@ -61,7 +61,7 @@ fun OpenSource(
 @Composable
 private fun OpenSourceContent(modifier: Modifier = Modifier) {
     var licenses by remember { mutableStateOf("") }
-    var showDialog by remember { mutableStateOf(false) }
+    var isDialogOpen by remember { mutableStateOf(false) }
     var selectedLibrary by remember { mutableStateOf<Library?>(null) }
 
     LaunchedEffect(Unit) {
@@ -77,7 +77,7 @@ private fun OpenSourceContent(modifier: Modifier = Modifier) {
                     library = library,
                     onClick = {
                         selectedLibrary = library
-                        showDialog = true
+                        isDialogOpen = true
                     },
                 )
                 HorizontalDivider(
@@ -89,13 +89,13 @@ private fun OpenSourceContent(modifier: Modifier = Modifier) {
         if (selectedLibrary != null && selectedLibrary.isLicenseAvailable()) {
             AlkaaDialog(
                 arguments = DialogArguments(
-                    title = selectedLibrary?.name ?: "",
-                    text = selectedLibrary?.licenses?.firstOrNull()?.licenseContent ?: "",
+                    title = selectedLibrary?.name.orEmpty(),
+                    text = selectedLibrary?.licenses?.firstOrNull()?.licenseContent.orEmpty(),
                     confirmText = stringResource(Res.string.default_ok),
-                    onConfirmAction = { showDialog = false },
+                    onConfirmAction = { isDialogOpen = false },
                 ),
-                isDialogOpen = showDialog,
-                onDismissRequest = { showDialog = false },
+                isDialogOpen = isDialogOpen,
+                onDismissRequest = { isDialogOpen = false },
                 modifier = Modifier
                     .fillMaxWidth()
                     .fillMaxHeight(0.8f)
@@ -138,7 +138,7 @@ private fun OpenSourceItem(library: Library, onClick: () -> Unit) {
         SuggestionChip(
             label = {
                 Text(
-                    text = library.licenses.firstOrNull()?.name ?: "",
+                    text = library.licenses.firstOrNull()?.name.orEmpty(),
                     style = MaterialTheme.typography.bodyMedium,
                 )
             },

@@ -90,7 +90,7 @@ fun AlkaaTheme(
 
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = AlkaaTypography,
+        typography = alkaaTypography(),
         content = content,
     )
 }
@@ -108,7 +108,7 @@ fun AlkaaThemePreview(
 
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = AlkaaTypography,
+        typography = alkaaTypography(),
         content = content,
     )
 }

@@ -13,6 +13,22 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  quality-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Java
+        uses: actions/setup-java@v5
+        with:
+          java-version: '17'
+          distribution: 'adopt'
+
+      - name: Run code quality checks
+        run: ./gradlew clean ktlint detektAll --parallel
+
   build-android:
     runs-on: ubuntu-latest
 
@@ -27,7 +43,7 @@ jobs:
           distribution: 'adopt'
 
       - name: Build with Gradle
-        run: ./gradlew clean ktlint detektAll lint assembleRelease test --parallel
+        run: ./gradlew clean lint assembleRelease test --parallel
         env:
           ALKAA_KEY_ALIAS: ${{ secrets.ALKAA_KEY_ALIAS }}
           ALKAA_KEY_PASSWORD: ${{ secrets.ALKAA_KEY_PASSWORD }}

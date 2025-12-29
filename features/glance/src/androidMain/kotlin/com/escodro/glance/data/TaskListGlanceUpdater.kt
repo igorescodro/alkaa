@@ -19,6 +19,7 @@ internal class TaskListGlanceUpdater(
     fun loadTaskList(categoryId: Long? = null): Flow<List<Task>> =
         loadAllTasksUseCase(categoryId = categoryId).map { taskMapper.toView(it) }
 
-    suspend fun updateTaskAsCompleted(taskId: Long) =
+    suspend fun updateTaskAsCompleted(taskId: Long) {
         updateTaskStatus(taskId)
+    }
 }

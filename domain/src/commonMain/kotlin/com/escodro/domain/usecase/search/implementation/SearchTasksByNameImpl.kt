@@ -16,6 +16,6 @@ internal class SearchTasksByNameImpl(
      *
      * @return the list of tasks that match the given query
      */
-    override suspend operator fun invoke(query: String): Flow<List<TaskWithCategory>> =
+    override operator fun invoke(query: String): Flow<List<TaskWithCategory>> =
         searchRepository.findTaskByName(query)
 }

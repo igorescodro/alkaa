@@ -128,7 +128,7 @@ private fun CategoryEditSheetLoader(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-@Suppress("MagicNumber")
+@Suppress("MagicNumber", "LongParameterList")
 private fun CategoryBottomSheet(
     category: Category,
     colorList: ImmutableList<Color>,
@@ -159,6 +159,7 @@ private fun CategoryBottomSheet(
     }
 }
 
+@Suppress("LongMethod", "LongParameterList")
 @Composable
 private fun CategoryBottomSheetContent(
     category: Category,
@@ -176,7 +177,7 @@ private fun CategoryBottomSheetContent(
         verticalArrangement = Arrangement.SpaceAround,
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            var openDialog by rememberSaveable { mutableStateOf(false) }
+            var isDialogOpen by rememberSaveable { mutableStateOf(false) }
             val focusRequester = remember { FocusRequester() }
 
             LaunchedEffect(Unit) {
@@ -186,8 +187,8 @@ private fun CategoryBottomSheetContent(
 
             RemoveCategoryDialog(
                 categoryName = category.name,
-                isDialogOpen = openDialog,
-                onCloseDialog = { openDialog = false },
+                isDialogOpen = isDialogOpen,
+                onCloseDialog = { isDialogOpen = false },
                 onActionConfirm = {
                     onCategoryRemove(category)
                     onHideBottomSheet()
@@ -204,9 +205,9 @@ private fun CategoryBottomSheetContent(
                     .weight(5F)
                     .focusRequester(focusRequester),
             )
-            if (category.isEditing()) {
+            if (category.isEditing) {
                 IconButton(
-                    onClick = { openDialog = true },
+                    onClick = { isDialogOpen = true },
                     colors = IconButtonDefaults.iconButtonColors(
                         contentColor = MaterialTheme.colorScheme.onSurface,
                     ),

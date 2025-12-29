@@ -16,7 +16,7 @@ import com.escodro.navigationapi.destination.TopAppBarVisibleDestinations
  */
 class NavBackStack<T : Destination>(startDestination: T) {
 
-    private var topLevelStacks: LinkedHashMap<T, SnapshotStateList<T>> = linkedMapOf(
+    private val topLevelStacks: LinkedHashMap<T, SnapshotStateList<T>> = linkedMapOf(
         startDestination to mutableStateListOf(startDestination),
     )
 
@@ -25,7 +25,7 @@ class NavBackStack<T : Destination>(startDestination: T) {
 
     val backStack: SnapshotStateList<T> = mutableStateListOf(startDestination)
 
-    var shouldShowTopAppBar: Boolean by mutableStateOf(true)
+    var isTopBarVisible: Boolean by mutableStateOf(true)
         private set
 
     private fun updateBackStack() =
@@ -34,6 +34,7 @@ class NavBackStack<T : Destination>(startDestination: T) {
             addAll(topLevelStacks.flatMap { it.value })
         }
 
+    @Suppress("NestedScopeFunctions")
     fun addTopLevel(destination: T) {
         // If the top level doesn't exist, add it
         if (topLevelStacks[destination] == null) {
@@ -47,7 +48,7 @@ class NavBackStack<T : Destination>(startDestination: T) {
             }
         }
         topLevelKey = destination
-        shouldShowTopAppBar = true
+        isTopBarVisible = true
         updateBackStack()
     }
 
@@ -79,7 +80,7 @@ class NavBackStack<T : Destination>(startDestination: T) {
     }
 
     private fun updateTopAppBarVisibility(destination: T) {
-        shouldShowTopAppBar =
+        isTopBarVisible =
             TopAppBarVisibleDestinations.any { dest -> dest::class == destination::class }
     }
 }

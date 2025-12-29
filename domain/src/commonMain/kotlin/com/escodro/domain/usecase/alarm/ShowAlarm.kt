@@ -23,7 +23,7 @@ class ShowAlarm(
     suspend operator fun invoke(taskId: Long) {
         val task = taskRepository.findTaskById(taskId) ?: return
 
-        if (task.completed) {
+        if (task.isCompleted) {
             logger.debug { "Task '${task.title}' is already completed. Will not notify" }
             return
         } else {

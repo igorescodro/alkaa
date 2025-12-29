@@ -18,7 +18,7 @@ internal class TaskMapper(private val alarmIntervalMapper: AlarmIntervalMapper) 
     fun toLocal(repoTask: RepoTask): LocalTask =
         LocalTask(
             task_id = repoTask.id,
-            task_is_completed = repoTask.completed,
+            task_is_completed = repoTask.isCompleted,
             task_title = repoTask.title,
             task_description = repoTask.description,
             task_category_id = repoTask.categoryId,
@@ -39,7 +39,7 @@ internal class TaskMapper(private val alarmIntervalMapper: AlarmIntervalMapper) 
     fun toRepo(localTask: LocalTask): RepoTask =
         RepoTask(
             id = localTask.task_id,
-            completed = localTask.task_is_completed,
+            isCompleted = localTask.task_is_completed,
             title = localTask.task_title,
             description = localTask.task_description,
             categoryId = localTask.task_category_id,

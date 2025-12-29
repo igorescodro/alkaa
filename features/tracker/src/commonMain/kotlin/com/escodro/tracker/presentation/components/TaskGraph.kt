@@ -68,7 +68,7 @@ private fun shift(transition: Transition<AnimatedCircleProgress>) =
             tween(
                 delayMillis = 500,
                 durationMillis = 900,
-                easing = CubicBezierEasing(0f, 0.75f, 0.35f, 0.85f),
+                easing = CubicBezierEasing(a = 0f, b = 0.75f, c = 0.35f, d = 0.85f),
             )
         },
         label = LabelShiftAnimation,

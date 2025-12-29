@@ -22,6 +22,7 @@ fun openSansFamily(): FontFamily = FontFamily(
     Font(resource = Res.font.OpenSans_Light, weight = FontWeight.Light),
 )
 
+@Suppress("LongMethod")
 @Composable
 fun alkaaTypography(): Typography {
     val fontFamily: FontFamily = openSansFamily()

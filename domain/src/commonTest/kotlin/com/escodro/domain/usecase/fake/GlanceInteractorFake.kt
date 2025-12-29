@@ -4,13 +4,13 @@ import com.escodro.domain.interactor.GlanceInteractor
 
 internal class GlanceInteractorFake : GlanceInteractor {
 
-    var wasNotified: Boolean = false
+    var isNotified: Boolean = false
 
     override suspend fun onTaskListUpdated() {
-        wasNotified = true
+        isNotified = true
     }
 
     fun clean() {
-        wasNotified = false
+        isNotified = false
     }
 }

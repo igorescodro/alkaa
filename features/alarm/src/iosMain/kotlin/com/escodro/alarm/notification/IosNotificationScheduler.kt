@@ -94,7 +94,9 @@ internal class IosNotificationScheduler : NotificationScheduler {
         val time = task.dueDate
             ?.toInstant(
                 TimeZone.currentSystemDefault(),
-            )?.toEpochMilliseconds() ?: return
+            )
+            ?.toEpochMilliseconds()
+            ?: return
 
         scheduleTaskNotification(task, time)
     }

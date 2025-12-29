@@ -34,15 +34,17 @@ internal class TaskDetailViewModel(
         }
     }
 
-    fun updateTitle(taskId: TaskId, title: String) =
+    fun updateTitle(taskId: TaskId, title: String) {
         coroutineDebouncer(coroutineScope = viewModelScope) {
             updateTaskTitle(taskId.value, title)
         }
+    }
 
-    fun updateDescription(taskId: TaskId, description: String) =
+    fun updateDescription(taskId: TaskId, description: String) {
         coroutineDebouncer(coroutineScope = viewModelScope) {
             updateTaskDescription(taskId.value, description)
         }
+    }
 
     fun updateCategory(taskId: TaskId, categoryId: CategoryId) =
         applicationScope.launch {

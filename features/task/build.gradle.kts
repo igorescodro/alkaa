@@ -33,6 +33,7 @@ kotlin {
             implementation(libs.kotlinx.collections.immutable)
             implementation(libs.koin.compose)
             implementation(libs.androidx.lifecycle.viewmodel)
+            implementation(libs.logging)
         }
 
         commonTest.dependencies {

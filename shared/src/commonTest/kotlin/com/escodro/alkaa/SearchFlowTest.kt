@@ -11,7 +11,7 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.test.waitUntilDoesNotExist
 import com.escodro.alkaa.fake.FAKE_TASKS
-import com.escodro.alkaa.test.AlkaaBaseTest
+import com.escodro.alkaa.test.AlkaaTest
 import com.escodro.alkaa.test.afterTest
 import com.escodro.alkaa.test.beforeTest
 import com.escodro.alkaa.test.uiTest
@@ -24,7 +24,7 @@ import kotlin.test.BeforeTest
 import kotlin.test.Test
 
 @OptIn(ExperimentalTestApi::class)
-internal class SearchFlowTest : AlkaaBaseTest(), KoinTest {
+internal class SearchFlowTest : AlkaaTest(), KoinTest {
 
     private val taskDao: TaskDao by inject()
 

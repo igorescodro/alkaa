@@ -35,6 +35,7 @@ import kotlin.time.Instant
  * @param onCloseDialog callback called when the dialog is closed
  * @param onDateChange callback called when the date is changed
  */
+@Suppress("LongMethod")
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalTime::class)
 @Composable
 fun DateTimerPicker(

@@ -31,14 +31,8 @@ import com.escodro.designsystem.theme.AlkaaThemePreview
 
 /**
  * Composable function that represents a filter chip for a category item.
- *
- * @param id The unique identifier of the category item.
- * @param name The display name of the category item.
- * @param color The background color of the chip when selected.
- * @param isSelected A boolean indicating whether the chip is selected. Defaults to false.
- * @param onSelectChange A lambda function to handle the selection change, passing the ID
- *                       of the selected category or null if unselected.
  */
+@Suppress("LongParameterList")
 @Composable
 fun CategoryItemChip(
     id: Long,
@@ -85,8 +79,8 @@ fun CategoryItemChip(
             }
         },
         onClick = {
-            val id = if (isSelected) null else id
-            onSelectChange(id)
+            val validId = if (isSelected) null else id
+            onSelectChange(validId)
         },
         modifier = modifier
             .innerBorder()
@@ -103,7 +97,8 @@ fun CategoryItemChip(
                     offset = DpOffset(0.dp, 0.dp),
                     alpha = 0.5f,
                 ),
-            ).height(40.dp),
+            )
+            .height(40.dp),
     )
 }
 
@@ -112,18 +107,18 @@ private fun Modifier.innerBorder(
     color: Color = MaterialTheme.colorScheme.surface,
     strokeWidth: Float = 1f,
 ): Modifier = this.drawWithContent {
-    val strokeWidth = strokeWidth.dp.toPx()
-    val padding = 1.dp.toPx()
+    val strokeWidthPx: Float = strokeWidth.dp.toPx()
+    val padding: Float = 1.dp.toPx()
 
     drawContent()
     drawRoundRect(
         color = color.copy(alpha = 0.5f),
-        style = Stroke(width = strokeWidth),
+        style = Stroke(width = strokeWidthPx),
         cornerRadius = CornerRadius(x = size.height / 2, y = size.height / 2),
         topLeft = Offset(padding, padding),
         size = Size(
-            width = size.width - (padding * 2),
-            height = size.height - (padding * 2),
+            width = size.width - padding * 2,
+            height = size.height - padding * 2,
         ),
     )
 }

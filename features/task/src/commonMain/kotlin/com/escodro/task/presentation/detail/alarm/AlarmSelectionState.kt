@@ -36,22 +36,22 @@ class AlarmSelectionState(
     /**
      * The Exact Alarm permission dialog visibility state.
      */
-    var showExactAlarmDialog by mutableStateOf(false)
+    var isExactAlarmDialogOpen by mutableStateOf(false)
 
     /**
      * The Notification permission dialog visibility state.
      */
-    var showNotificationDialog by mutableStateOf(false)
+    var isNotificationDialogOpen by mutableStateOf(false)
 
     /**
      * The Notification Rationale dialog visibility state.
      */
-    var showRationaleDialog by mutableStateOf(false)
+    var isRationaleDialogOpen by mutableStateOf(false)
 
     /**
      * The Date and Time Picker dialog visibility state.
      */
-    var showDateTimePickerDialog by mutableStateOf(false)
+    var isDateTimePickerDialogOpen by mutableStateOf(false)
 }
 
 @Composable

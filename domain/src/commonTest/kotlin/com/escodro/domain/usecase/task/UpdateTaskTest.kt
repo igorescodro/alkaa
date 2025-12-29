@@ -35,13 +35,18 @@ internal class UpdateTaskTest {
     private val alarmInteractor = AlarmInteractorFake()
 
     private val updateTitleUseCase =
-        UpdateTaskTitleImpl(loadTaskUseCase, updateTaskUseCase, alarmInteractor, glanceInteractor)
+        UpdateTaskTitleImpl(
+            loadTask = loadTaskUseCase,
+            updateTask = updateTaskUseCase,
+            alarmInteractor = alarmInteractor,
+            glanceInteractor = glanceInteractor,
+        )
 
     private val updateDescriptionUseCase =
-        UpdateTaskDescriptionImpl(loadTaskUseCase, updateTaskUseCase)
+        UpdateTaskDescriptionImpl(loadTask = loadTaskUseCase, updateTask = updateTaskUseCase)
 
     private val updateTaskCategoryUseCase =
-        UpdateTaskCategoryImpl(loadTaskUseCase, updateTaskUseCase)
+        UpdateTaskCategoryImpl(loadTask = loadTaskUseCase, updateTask = updateTaskUseCase)
 
     @BeforeTest
     fun setup() {
@@ -58,7 +63,7 @@ internal class UpdateTaskTest {
         updateTaskUseCase(updatedTask)
 
         val loadedTask = loadTaskUseCase(task.id)
-        assertEquals(updatedTask, loadedTask)
+        assertEquals(expected = updatedTask, actual = loadedTask)
     }
 
     @Test
@@ -70,19 +75,19 @@ internal class UpdateTaskTest {
         updateTitleUseCase(task.id, newTitle)
 
         val loadedTask = loadTaskUseCase(task.id)
-        assertEquals(newTitle, loadedTask!!.title)
+        assertEquals(expected = newTitle, actual = loadedTask!!.title)
     }
 
     @Test
     fun test_when_task_title_is_updated_than_the_notification_was_updated() = runTest {
-        val dueDate = LocalDateTime(2021, 10, 10, 10, 10)
+        val dueDate = LocalDateTime(year = 2021, month = 10, day = 10, hour = 10, minute = 10)
         val task = Task(id = 15, title = "flora card", dueDate = dueDate)
         addTaskUseCase(task)
 
         val newTitle = "float card"
         updateTitleUseCase(task.id, newTitle)
 
-        assertEquals(alarmInteractor.updatedTask, task.copy(title = newTitle))
+        assertEquals(expected = alarmInteractor.updatedTask, actual = task.copy(title = newTitle))
     }
 
     @Test
@@ -94,7 +99,7 @@ internal class UpdateTaskTest {
             val newTitle = "miss mouse"
             updateTitleUseCase(task.id, newTitle)
 
-            assertEquals(alarmInteractor.updatedTask, null)
+            assertEquals(expected = alarmInteractor.updatedTask, actual = null)
         }
 
     @Test
@@ -106,7 +111,7 @@ internal class UpdateTaskTest {
         updateDescriptionUseCase(task.id, newDescription)
 
         val loadedTask = loadTaskUseCase(task.id)
-        assertEquals(newDescription, loadedTask!!.description)
+        assertEquals(expected = newDescription, actual = loadedTask!!.description)
     }
 
     @Test
@@ -115,10 +120,10 @@ internal class UpdateTaskTest {
         addTaskUseCase(task)
 
         val newCategory = 10L
-        updateTaskCategoryUseCase(task.id, newCategory)
+        updateTaskCategoryUseCase(taskId = task.id, categoryId = newCategory)
 
         val loadedTask = loadTaskUseCase(task.id)
-        assertEquals(newCategory, loadedTask!!.categoryId)
+        assertEquals(expected = newCategory, actual = loadedTask!!.categoryId)
     }
 
     @Test
@@ -126,6 +131,6 @@ internal class UpdateTaskTest {
         val task = Task(id = 15, title = "this title", description = "this desc")
         addTaskUseCase(task)
 
-        assertTrue(glanceInteractor.wasNotified)
+        assertTrue(glanceInteractor.isNotified)
     }
 }

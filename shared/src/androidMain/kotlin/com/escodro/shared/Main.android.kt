@@ -12,6 +12,8 @@ import androidx.compose.ui.Modifier
 @Composable
 fun MainView(
     modifier: Modifier = Modifier,
-) = AlkaaMultiplatformApp(
-    modifier = modifier.imePadding(),
-)
+) {
+    AlkaaMultiplatformApp(
+        modifier = modifier.imePadding(),
+    )
+}

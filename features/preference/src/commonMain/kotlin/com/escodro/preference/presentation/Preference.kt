@@ -33,8 +33,6 @@ import org.koin.compose.koinInject
 
 /**
  * Alkaa Preference Section.
- *
- * @param modifier Compose modifier
  */
 @Composable
 fun PreferenceSection(
@@ -53,6 +51,7 @@ fun PreferenceSection(
     )
 }
 
+@Suppress("LongParameterList")
 @Composable
 private fun PreferenceLoader(
     isSinglePane: Boolean,
@@ -111,6 +110,7 @@ internal fun PreferenceContent(
 }
 
 @OptIn(ExperimentalMaterial3AdaptiveApi::class)
+@Suppress("LongMethod")
 @Composable
 private fun AdaptivePreferenceScaffold(
     theme: AppThemeOptions,
@@ -178,7 +178,7 @@ private fun AdaptivePreferenceScaffold(
                     )
                 }
 
-                else -> {
+                null -> {
                     // Render nothing
                 }
             }

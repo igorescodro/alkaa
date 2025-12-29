@@ -28,7 +28,7 @@ class RescheduleFutureAlarms(
      * Reschedule scheduled and misses repeating tasks.
      */
     suspend operator fun invoke() {
-        val uncompletedAlarms = taskRepository.findAllTasksWithDueDate().filterNot { it.completed }
+        val uncompletedAlarms = taskRepository.findAllTasksWithDueDate().filterNot { it.isCompleted }
         val futureAlarms = uncompletedAlarms.filter { isInFuture(it.dueDate) }
         val missedRepeating = uncompletedAlarms.filter { isMissedRepeating(it) }
 
@@ -50,12 +50,16 @@ class RescheduleFutureAlarms(
 
     private fun rescheduleFutureTask(task: Task) {
         val futureTime = task.dueDate
-            ?.toInstant(TimeZone.currentSystemDefault())
-            ?.toEpochMilliseconds() ?: return
+            ?.run {
+                toInstant(TimeZone.currentSystemDefault())
+                    .toEpochMilliseconds()
+            }
+            ?: return
         alarmInteractor.schedule(task, futureTime)
         logger.debug { "Task '${task.title} rescheduled to '${task.dueDate}" }
     }
 
+    @Suppress("NullableToStringCall")
     private suspend fun rescheduleRepeatingTask(task: Task) {
         scheduleNextAlarm(task)
         logger.debug { "Repeating task '${task.title} rescheduled to '${task.dueDate}" }

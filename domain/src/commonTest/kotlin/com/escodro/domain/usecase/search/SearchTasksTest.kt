@@ -22,10 +22,10 @@ internal class SearchTasksTest {
 
     @BeforeTest
     fun setup() = runTest {
-        val task1 = Task(1, title = "Buy milk", completed = false)
-        val task2 = Task(2, title = "Schedule meeting", completed = true)
-        val task3 = Task(3, title = "Angela's birthday", completed = true)
-        val task4 = Task(4, title = "Michael's birthday", completed = false)
+        val task1 = Task(1, title = "Buy milk", isCompleted = false)
+        val task2 = Task(2, title = "Schedule meeting", isCompleted = true)
+        val task3 = Task(3, title = "Angela's birthday", isCompleted = true)
+        val task4 = Task(4, title = "Michael's birthday", isCompleted = false)
         val taskList = listOf(task1, task2, task3, task4)
         taskList.forEach { task -> taskRepository.insertTask(task) }
     }
@@ -35,8 +35,8 @@ internal class SearchTasksTest {
         val query = "birthday"
         val taskList = searchTaskUseCase(query).first()
 
-        assertEquals(2, taskList.size)
-        assertNotEquals(taskList[0], taskList[1])
+        assertEquals(expected = 2, actual = taskList.size)
+        assertNotEquals(illegal = taskList[0], actual = taskList[1])
         taskList.forEach { taskWithCategory ->
             assertTrue(taskWithCategory.task.title.contains(query))
         }
@@ -45,12 +45,12 @@ internal class SearchTasksTest {
     @Test
     fun test_if_return_list_is_empty_when_query_is_not_found() = runTest {
         val taskList = searchTaskUseCase("pineapple")
-        assertEquals(0, taskList.first().size)
+        assertEquals(expected = 0, actual = taskList.first().size)
     }
 
     @Test
     fun test_if_all_tasks_are_returned_when_empty_query_is_passed() = runTest {
         val taskList = searchTaskUseCase("")
-        assertEquals(4, taskList.first().size)
+        assertEquals(expected = 4, actual = taskList.first().size)
     }
 }

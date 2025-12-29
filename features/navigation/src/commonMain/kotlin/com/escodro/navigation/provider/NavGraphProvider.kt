@@ -6,7 +6,7 @@ import com.escodro.navigationapi.controller.NavEventController
 import com.escodro.navigationapi.destination.Destination
 import com.escodro.navigationapi.provider.NavGraph
 
-internal class NavGraphProvider(
+internal data class NavGraphProvider(
     private val navEventController: NavEventController,
     private val navGraphs: List<NavGraph>,
 ) {

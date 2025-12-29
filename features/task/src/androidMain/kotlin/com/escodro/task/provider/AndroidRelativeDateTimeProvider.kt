@@ -21,6 +21,7 @@ internal class AndroidRelativeDateTimeProvider(
                 DateUtils.MINUTE_IN_MILLIS,
                 DateUtils.WEEK_IN_MILLIS,
                 0,
-            ).toString()
+            )
+            .toString()
     }
 }

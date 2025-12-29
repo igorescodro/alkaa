@@ -12,8 +12,9 @@ internal class PreferencesRepositoryImpl(
     private val mapper: AppThemeOptionsMapper,
 ) : PreferencesRepository {
 
-    override suspend fun updateAppTheme(theme: AppThemeOptions) =
+    override suspend fun updateAppTheme(theme: AppThemeOptions) {
         dataSource.updateAppTheme(mapper.toRepo(theme))
+    }
 
     override fun loadAppTheme(): Flow<AppThemeOptions> =
         dataSource.loadAppTheme().map { mapper.toDomain(it) }

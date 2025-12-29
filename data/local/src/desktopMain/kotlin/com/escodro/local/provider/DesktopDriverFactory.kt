@@ -10,8 +10,10 @@ internal class DesktopDriverFactory : DriverFactory {
     override fun createDriver(databaseName: String): SqlDriver {
         val appCacheDirectory = appCacheDirectory(appId = PACKAGE_NAME, createDir = true)
         val jdbcUrl = "jdbc:sqlite:$appCacheDirectory$databaseName"
-        return JdbcSqliteDriver(jdbcUrl).apply {
-            AlkaaDatabase.Schema.create(this)
+        return JdbcSqliteDriver(jdbcUrl).use { driver ->
+            driver.apply {
+                AlkaaDatabase.Schema.create(this)
+            }
         }
     }
 

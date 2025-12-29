@@ -14,5 +14,5 @@ interface SearchTasksByName {
      *
      * @return the list of tasks that match the given query
      */
-    suspend operator fun invoke(query: String): Flow<List<TaskWithCategory>>
+    operator fun invoke(query: String): Flow<List<TaskWithCategory>>
 }

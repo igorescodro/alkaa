@@ -29,13 +29,10 @@ class NotificationActionDelegate(
         val taskId: Long = content.userInfo[IosNotificationScheduler.USER_INFO_TASK_ID] as? Long
             ?: return
 
-        when (response.actionIdentifier) {
-            IosNotificationScheduler.ACTION_IDENTIFIER_DONE -> completeTask(
-                taskId = taskId,
-                onCompletion = onCompletion,
-            )
-
-            else -> NSLog("NotificationActionDelegate - Action not supported")
+        if (response.actionIdentifier == IosNotificationScheduler.ACTION_IDENTIFIER_DONE) {
+            completeTask(taskId = taskId, onCompletion = onCompletion)
+        } else {
+            NSLog("NotificationActionDelegate - Action not supported")
         }
     }
 

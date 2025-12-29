@@ -4,22 +4,19 @@ package com.escodro.alkaa.test
 
 import android.content.ContentProvider
 import android.content.Context
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.work.testing.WorkManagerTestInitHelper
-import org.jetbrains.compose.resources.PreviewContextConfigurationEffect
 import org.junit.runner.RunWith
 import org.koin.core.module.Module
 import org.koin.dsl.module
 import org.robolectric.Robolectric
 import org.robolectric.annotation.Config
 
+@Suppress("AbstractClassCanBeConcreteClass")
 @RunWith(AndroidJUnit4::class)
 @Config(sdk = [34])
-actual abstract class AlkaaBaseTest actual constructor() {
+actual abstract class AlkaaTest actual constructor() {
     init {
         setupAndroidContextProvider()
         setupWorkManager()

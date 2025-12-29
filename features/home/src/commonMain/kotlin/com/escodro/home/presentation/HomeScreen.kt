@@ -27,10 +27,8 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.escodro.appstate.AlkaaAppState
 import com.escodro.designsystem.animation.TopBarEnterTransition
 import com.escodro.designsystem.animation.TopBarExitTransition
@@ -87,9 +85,9 @@ private fun AlkaaHomeScaffold(
     setCurrentSection: (TopLevel) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val showTopBar = appState.navBackStack.shouldShowTopAppBar
+    val isTopAppBarVisible = appState.navBackStack.isTopBarVisible
     val topBarOffset: Dp by animateDpAsState(
-        targetValue = if (showTopBar) 0.dp else 64.dp,
+        targetValue = if (isTopAppBarVisible) 0.dp else 64.dp,
         animationSpec = tween(easing = LinearEasing),
     )
     NavigationSuiteScaffold(
@@ -105,14 +103,14 @@ private fun AlkaaHomeScaffold(
         Scaffold(
             topBar = {
                 AnimatedVisibility(
-                    visible = showTopBar,
+                    visible = isTopAppBarVisible,
                     enter = TopBarEnterTransition,
                     exit = TopBarExitTransition,
                 ) {
                     MainTopBar(title = stringResource(currentSection.title))
                 }
             },
-            contentWindowInsets = WindowInsets(0, 0, 0, 0),
+            contentWindowInsets = WindowInsets(left = 0, top = 0, right = 0, bottom = 0),
             content = { paddingValues ->
                 val topPadding = paddingValues.calculateTopPadding() - topBarOffset
                 Navigation(
@@ -124,7 +122,8 @@ private fun AlkaaHomeScaffold(
                             top = if (topPadding > 0.dp) topPadding else 0.dp,
                             end = paddingValues.calculateEndPadding(LocalLayoutDirection.current),
                             bottom = paddingValues.calculateBottomPadding(),
-                        ).consumeWindowInsets(paddingValues)
+                        )
+                        .consumeWindowInsets(paddingValues)
                         .windowInsetsPadding(
                             WindowInsets.safeDrawing.only(WindowInsetsSides.Horizontal),
                         ),
@@ -140,10 +139,10 @@ private fun NavigationSuiteScope.alkaaBottomNav(
     setCurrentSection: (TopLevel) -> Unit,
 ) {
     items.forEach { section ->
-        val selected = section == currentSection
+        val isSelected = section == currentSection
         val title = section.title
         item(
-            selected = selected,
+            selected = isSelected,
             onClick = { setCurrentSection(section) },
             icon = {
                 Icon(

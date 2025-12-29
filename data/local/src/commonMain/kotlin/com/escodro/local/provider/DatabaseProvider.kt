@@ -30,6 +30,7 @@ internal class DatabaseProvider(
     fun getInstance(): AlkaaDatabase =
         database ?: createDatabase().also { database = it }
 
+    @Suppress("MissingUseCall")
     private fun createDatabase(): AlkaaDatabase {
         val driver = driverFactory.createDriver(databaseName = DATABASE_NAME)
         val database = AlkaaDatabase(

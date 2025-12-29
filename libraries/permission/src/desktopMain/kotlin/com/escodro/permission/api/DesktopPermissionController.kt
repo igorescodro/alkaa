@@ -1,5 +1,6 @@
 package com.escodro.permission.api
 
+@Suppress("ForbiddenComment")
 internal class DesktopPermissionController : PermissionController {
 
     override val controller: Any = Any()
@@ -8,6 +9,7 @@ internal class DesktopPermissionController : PermissionController {
         // TODO: Implement requestPermission
     }
 
+    @Suppress("ExpressionBodySyntax")
     override suspend fun isPermissionGranted(permission: Permission): Boolean {
         // TODO: Implement isPermissionGranted
         return false

@@ -17,10 +17,8 @@ object AndroidDeepLink {
 
     /**
      * Returns the [Intent] to the task detail screen.
-     *
-     * @param taskId the task id to be shown
      */
-    fun taskDetail(taskId: Long): Intent = homeIntent().apply {
+    fun taskDetail(): Intent = homeIntent().apply {
         // TODO Add the task detail when CMP supports deep links
     }
 }

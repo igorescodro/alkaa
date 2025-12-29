@@ -2,14 +2,13 @@ package com.escodro.local.dao.impl
 
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
+import com.escodro.coroutines.CoroutineDispatcherProvider
 import com.escodro.local.SelectAllTasksWithCategory
 import com.escodro.local.TaskWithCategoryQueries
 import com.escodro.local.dao.TaskWithCategoryDao
 import com.escodro.local.mapper.SelectMapper
 import com.escodro.local.model.TaskWithCategory
 import com.escodro.local.provider.DatabaseProvider
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
@@ -20,6 +19,7 @@ import kotlinx.coroutines.flow.map
  */
 internal class TaskWithCategoryDaoImpl(
     private val databaseProvider: DatabaseProvider,
+    private val dispatcherProvider: CoroutineDispatcherProvider,
     private val selectMapper: SelectMapper,
 ) : TaskWithCategoryDao {
 
@@ -30,7 +30,7 @@ internal class TaskWithCategoryDaoImpl(
         taskWithCategoryQueries
             .selectAllTasksWithCategory(mapper = ::SelectAllTasksWithCategory)
             .asFlow()
-            .mapToList(Dispatchers.IO)
+            .mapToList(dispatcherProvider.io)
             .map(selectMapper::toTaskWithCategory)
 
     override fun findAllTasksWithCategoryId(categoryId: Long): Flow<List<TaskWithCategory>> =
@@ -38,14 +38,15 @@ internal class TaskWithCategoryDaoImpl(
             .selectAllTasksWithCategoryId(
                 task_category_id = categoryId,
                 mapper = ::SelectAllTasksWithCategory,
-            ).asFlow()
-            .mapToList(Dispatchers.IO)
+            )
+            .asFlow()
+            .mapToList(dispatcherProvider.io)
             .map(selectMapper::toTaskWithCategory)
 
     override fun findTaskByName(query: String): Flow<List<TaskWithCategory>> =
         taskWithCategoryQueries
             .selectTaskByName(query = query, mapper = ::SelectAllTasksWithCategory)
             .asFlow()
-            .mapToList(Dispatchers.IO)
+            .mapToList(dispatcherProvider.io)
             .map(selectMapper::toTaskWithCategory)
 }

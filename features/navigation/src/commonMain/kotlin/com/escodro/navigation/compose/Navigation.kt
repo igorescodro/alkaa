@@ -26,6 +26,7 @@ fun Navigation(
     )
 }
 
+@Suppress("ElseCaseInsteadOfExhaustiveWhen")
 @Composable
 private fun NavigationLoader(
     navBackStack: NavBackStack<Destination>,

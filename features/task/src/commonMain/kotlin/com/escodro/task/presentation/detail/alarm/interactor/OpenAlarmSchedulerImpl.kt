@@ -16,10 +16,10 @@ internal class OpenAlarmSchedulerImpl : OpenAlarmScheduler {
                 .isPermissionGranted(Permission.NOTIFICATION)
 
             if (hasExactAlarmPermission() && isNotificationPermissionGranted) {
-                alarmSelectionState.showDateTimePickerDialog = true
+                alarmSelectionState.isDateTimePickerDialogOpen = true
             } else {
-                alarmSelectionState.showExactAlarmDialog = !hasExactAlarmPermission()
-                alarmSelectionState.showNotificationDialog = !isNotificationPermissionGranted
+                alarmSelectionState.isExactAlarmDialogOpen = !hasExactAlarmPermission()
+                alarmSelectionState.isNotificationDialogOpen = !isNotificationPermissionGranted
             }
         }
     }

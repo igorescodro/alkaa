@@ -61,6 +61,7 @@ internal fun CategorySelection(
     }
 }
 
+@Suppress("LabeledExpression")
 @Composable
 private fun LoadedCategoryList(
     categoryList: ImmutableList<Category>,

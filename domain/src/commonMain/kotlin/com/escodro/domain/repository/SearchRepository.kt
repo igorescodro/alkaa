@@ -15,5 +15,5 @@ interface SearchRepository {
      *
      * @return the list of tasks that match the given query
      */
-    suspend fun findTaskByName(query: String): Flow<List<TaskWithCategory>>
+    fun findTaskByName(query: String): Flow<List<TaskWithCategory>>
 }

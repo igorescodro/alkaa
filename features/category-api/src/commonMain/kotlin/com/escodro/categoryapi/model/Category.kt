@@ -9,14 +9,12 @@ import com.escodro.parcelable.CommonParcelize
  * @property id category id
  * @property name category name
  * @property color category color
+ * @property isEditing flag to indicate if the category is being edited
  */
 @CommonParcelize
 data class Category(
     val id: Long = 0,
     val name: String,
     val color: Int,
-) : CommonParcelable {
-
-    fun isEditing(): Boolean =
-        id > 0L
-}
+    val isEditing: Boolean = id > 0L,
+) : CommonParcelable

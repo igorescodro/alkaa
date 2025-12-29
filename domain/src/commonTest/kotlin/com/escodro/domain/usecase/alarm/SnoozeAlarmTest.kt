@@ -59,7 +59,7 @@ internal class SnoozeAlarmTest {
 
         val result = alarmInteractor.getAlarmTime(baseTask.id)
         val assert = calendarAssert.toInstant(TimeZone.currentSystemDefault()).toEpochMilliseconds()
-        assertEquals(assert, result)
+        assertEquals(expected = assert, actual = result)
     }
 
     @Test

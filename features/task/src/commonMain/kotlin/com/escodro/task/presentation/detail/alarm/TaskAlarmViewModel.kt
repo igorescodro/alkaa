@@ -9,6 +9,7 @@ import com.escodro.task.model.AlarmInterval
 import com.escodro.task.presentation.detail.main.TaskId
 import kotlinx.datetime.LocalDateTime
 
+@Suppress("LabeledExpression")
 internal class TaskAlarmViewModel(
     private val updateAlarm: UpdateAlarm,
     private val loadTask: LoadTask,

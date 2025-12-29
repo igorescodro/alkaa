@@ -7,7 +7,7 @@ tasks.getByName("check") {
     setDependsOn(
         listOf(
             tasks.getByName("ktlint"),
-            tasks.getByName("detekt"),
+            tasks.getByName("detektAll"),
         ),
     )
 }

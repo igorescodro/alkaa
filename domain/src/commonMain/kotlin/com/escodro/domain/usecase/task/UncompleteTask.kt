@@ -21,5 +21,5 @@ class UncompleteTask(private val taskRepository: TaskRepository) {
     }
 
     private fun updateTaskAsUncompleted(task: Task) =
-        task.copy(completed = false, completedDate = null)
+        task.copy(isCompleted = false, completedDate = null)
 }

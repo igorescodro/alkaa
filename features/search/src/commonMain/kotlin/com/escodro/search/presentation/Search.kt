@@ -63,8 +63,6 @@ import org.koin.compose.koinInject
 
 /**
  * Alkaa Search Section.
- *
- * @param modifier the decorator
  */
 @Composable
 fun SearchSection(
@@ -137,9 +135,9 @@ private fun AdaptiveSearchScaffold(
                 SearchScaffold(
                     viewState = viewState,
                     modifier = modifier,
-                    onItemClick = {
+                    onItemClick = { contentKey ->
                         coroutineScope.launch {
-                            navigator.navigateTo(ListDetailPaneScaffoldRole.Detail, it)
+                            navigator.navigateTo(ListDetailPaneScaffoldRole.Detail, contentKey)
                         }
                     },
                     query = query,
@@ -257,7 +255,7 @@ private fun SearchItem(task: TaskSearchItem, onItemClick: (Long) -> Unit) {
         val textDecoration: TextDecoration
         val circleColor: Color
 
-        if (task.completed) {
+        if (task.isCompleted) {
             textDecoration = TextDecoration.LineThrough
             circleColor = MaterialTheme.colorScheme.outline
         } else {

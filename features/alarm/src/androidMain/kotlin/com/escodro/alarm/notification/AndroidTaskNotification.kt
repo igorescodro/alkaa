@@ -136,8 +136,6 @@ internal class AndroidTaskNotification(
 
     companion object {
 
-        private const val REQUEST_CODE_OPEN_TASK = 1_121_111
-
         private const val REQUEST_CODE_ACTION_COMPLETE = 1_234
 
         private const val REQUEST_CODE_ACTION_SNOOZE = 4_321

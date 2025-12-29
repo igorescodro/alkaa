@@ -11,6 +11,6 @@ class OpenAlarmSchedulerFake : OpenAlarmScheduler {
         alarmSelectionState: AlarmSelectionState,
         hasExactAlarmPermission: () -> Boolean,
     ) {
-        alarmSelectionState.showDateTimePickerDialog = true
+        alarmSelectionState.isDateTimePickerDialogOpen = true
     }
 }

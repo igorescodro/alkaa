@@ -2,21 +2,23 @@ package com.escodro.local.dao.impl
 
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
+import com.escodro.coroutines.CoroutineDispatcherProvider
 import com.escodro.local.Category
 import com.escodro.local.CategoryQueries
 import com.escodro.local.dao.CategoryDao
 import com.escodro.local.provider.DatabaseProvider
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.Flow
 
-internal class CategoryDaoImpl(private val databaseProvider: DatabaseProvider) : CategoryDao {
+internal class CategoryDaoImpl(
+    private val databaseProvider: DatabaseProvider,
+    private val dispatcherProvider: CoroutineDispatcherProvider,
+) : CategoryDao {
 
     private val categoryQueries: CategoryQueries
         get() = databaseProvider.getInstance().categoryQueries
 
     override fun findAllCategories(): Flow<List<Category>> =
-        categoryQueries.selectAll().asFlow().mapToList(Dispatchers.IO)
+        categoryQueries.selectAll().asFlow().mapToList(dispatcherProvider.io)
 
     override suspend fun insertCategory(category: Category) {
         categoryQueries.insert(

@@ -5,7 +5,6 @@ import com.escodro.categoryapi.presentation.CategoryListViewModel
 import com.escodro.categoryapi.presentation.CategoryState
 import com.escodro.domain.usecase.category.LoadAllCategories
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
 
 internal class CategoryListViewModelImpl(

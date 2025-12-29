@@ -38,8 +38,8 @@ internal class AddTaskTest {
 
         val result = getTaskUseCase(task.id)
 
-        require(result != null)
-        assertEquals(task, result)
+        requireNotNull(result)
+        assertEquals(expected = task, actual = result)
     }
 
     @Test
@@ -57,6 +57,6 @@ internal class AddTaskTest {
         val task = Task(id = 15, title = "this title", description = "this desc")
         addTaskUseCase(task)
 
-        assertTrue(glanceInteractor.wasNotified)
+        assertTrue(glanceInteractor.isNotified)
     }
 }

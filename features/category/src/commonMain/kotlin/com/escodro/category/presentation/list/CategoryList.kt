@@ -59,8 +59,6 @@ import kotlin.math.roundToInt
 
 /**
  * Alkaa Category List Section.
- *
- * @param modifier the decorator
  */
 @Composable
 fun CategoryListSection(
@@ -138,7 +136,7 @@ private fun CategoryListContent(
     modifier: Modifier = Modifier,
 ) {
     BoxWithConstraints(modifier = modifier.padding(start = 8.dp, end = 8.dp)) {
-        val cellCount: Int = max(2F, maxWidth.value / 250).roundToInt()
+        val cellCount: Int = max(a = 2F, b = maxWidth.value / 250).roundToInt()
         LazyVerticalGrid(columns = GridCells.Fixed(cellCount)) {
             items(
                 items = categoryList,

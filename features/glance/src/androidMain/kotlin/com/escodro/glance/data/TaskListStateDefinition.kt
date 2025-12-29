@@ -59,7 +59,8 @@ internal object TaskListStateDefinition : GlanceStateDefinition<List<Task>> {
         override suspend fun readFrom(input: InputStream): List<Task> =
             Json.decodeFromStream(input)
 
-        override suspend fun writeTo(t: List<Task>, output: OutputStream) =
+        override suspend fun writeTo(t: List<Task>, output: OutputStream) {
             Json.encodeToStream(t, output)
+        }
     }
 }

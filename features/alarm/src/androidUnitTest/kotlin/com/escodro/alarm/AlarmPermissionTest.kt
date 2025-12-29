@@ -36,7 +36,7 @@ internal class AlarmPermissionTest {
 
         val result = alarmPermission.hasExactAlarmPermission()
 
-        Assert.assertTrue(result)
+        assertTrue(result)
     }
 
     @Test
@@ -46,7 +46,7 @@ internal class AlarmPermissionTest {
 
         val result = alarmPermission.hasExactAlarmPermission()
 
-        Assert.assertFalse(result)
+        assertFalse(result)
     }
 
     @Test
@@ -56,6 +56,6 @@ internal class AlarmPermissionTest {
 
         val result = alarmPermission.hasExactAlarmPermission()
 
-        Assert.assertTrue(result)
+        assertTrue(result)
     }
 }

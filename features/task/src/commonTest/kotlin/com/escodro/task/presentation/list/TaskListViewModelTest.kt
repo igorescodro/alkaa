@@ -1,0 +1,106 @@
+package com.escodro.task.presentation.list
+
+import com.escodro.coroutines.AppCoroutineScope
+import com.escodro.task.mapper.AlarmIntervalMapper
+import com.escodro.task.mapper.CategoryMapper
+import com.escodro.task.mapper.TaskMapper
+import com.escodro.task.mapper.TaskWithCategoryMapper
+import com.escodro.task.presentation.fake.FAKE_VIEW_TASK_WITH_CATEGORY
+import com.escodro.task.presentation.fake.LoadUncompletedTasksFake
+import com.escodro.task.presentation.fake.UpdateTaskStatusFake
+import com.escodro.test.rule.CoroutinesTestDispatcher
+import com.escodro.test.rule.CoroutinesTestDispatcherImpl
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.test.runTest
+import kotlin.test.BeforeTest
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertTrue
+
+internal class TaskListViewModelTest : CoroutinesTestDispatcher by CoroutinesTestDispatcherImpl() {
+
+    private val loadUncompletedTasks = LoadUncompletedTasksFake()
+
+    private val updateTaskStatus = UpdateTaskStatusFake()
+
+    private val mapper = TaskWithCategoryMapper(TaskMapper(AlarmIntervalMapper()), CategoryMapper())
+
+    private val viewModel = TaskListViewModel(
+        loadAllTasksUseCase = loadUncompletedTasks,
+        updateTaskStatusUseCase = updateTaskStatus,
+        applicationScope = AppCoroutineScope(context = testDispatcher()),
+        taskWithCategoryMapper = mapper,
+    )
+
+    @BeforeTest
+    fun setup() {
+        loadUncompletedTasks.clean()
+    }
+
+    @Test
+    fun `test if when there are uncompleted items they are returned`() = runTest {
+        // Given the use case returns the list with uncompleted tasks
+        val numberOfEntries = 14
+        loadUncompletedTasks.returnValues(numberOfEntries)
+        val flow = viewModel.loadTaskList()
+
+        // When the latest event is collected
+        val state = flow.first()
+
+        // Then that state contains the list with uncompleted tasks
+        require(state is TaskListViewState.Loaded)
+        assertEquals(expected = numberOfEntries, actual = state.items.size)
+    }
+
+    @Test
+    fun `test if when there are no uncompleted items a empty list is returned`() = runTest {
+        // Given the use case returns an empty list
+        loadUncompletedTasks.clean()
+        val flow = viewModel.loadTaskList()
+
+        // When the latest event is collected
+        val state = flow.first()
+
+        // Then that state contains the empty list
+        assertTrue(state is TaskListViewState.Empty)
+    }
+
+    @Test
+    fun `test if when load tasks fails the error state is returned`() = runTest {
+        // Given the use case returns error
+        loadUncompletedTasks.isErrorThrown = true
+        val flow = viewModel.loadTaskList()
+
+        // When the latest event is collected
+        val state = flow.first()
+
+        // Then that state contains the empty list
+        assertTrue(state is TaskListViewState.Error)
+    }
+
+    @Test
+    fun `test if task is updated`() {
+        // Given a task
+        val fakeTask = FAKE_VIEW_TASK_WITH_CATEGORY
+
+        // When it calls to update the task
+        viewModel.updateTaskStatus(fakeTask)
+
+        // Then the task is updated
+        assertTrue(updateTaskStatus.isTaskUpdated(fakeTask.task.id))
+    }
+
+    @Test
+    fun `test if tasks are filtered by category when parameter is passed`() = runTest {
+        // Given the use case returns the list with uncompleted tasks
+        loadUncompletedTasks.returnDefaultValues()
+        val flow = viewModel.loadTaskList(categoryId = 1)
+
+        // When the latest event is collected
+        val state = flow.first()
+
+        // Then that state contains the list with uncompleted tasks
+        require(state is TaskListViewState.Loaded)
+        assertEquals(expected = 2, actual = state.items.size)
+    }
+}

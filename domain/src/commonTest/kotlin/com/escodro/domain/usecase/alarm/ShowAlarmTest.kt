@@ -97,7 +97,7 @@ internal class ShowAlarmTest {
             id = 4,
             title = "it is already completed",
             isRepeating = true,
-            isCompleted = true
+            isCompleted = true,
         )
         addTaskUseCase(task)
 

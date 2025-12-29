@@ -39,7 +39,7 @@ internal class UpdateTaskTest {
             loadTask = loadTaskUseCase,
             updateTask = updateTaskUseCase,
             alarmInteractor = alarmInteractor,
-            glanceInteractor = glanceInteractor
+            glanceInteractor = glanceInteractor,
         )
 
     private val updateDescriptionUseCase =

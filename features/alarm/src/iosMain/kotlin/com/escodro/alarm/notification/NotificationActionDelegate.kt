@@ -30,7 +30,7 @@ class NotificationActionDelegate(
             ?: return
 
         if (response.actionIdentifier == IosNotificationScheduler.ACTION_IDENTIFIER_DONE) {
-            completeTask(taskId = taskId, onCompletion = onCompletion,)
+            completeTask(taskId = taskId, onCompletion = onCompletion)
         } else {
             NSLog("NotificationActionDelegate - Action not supported")
         }

@@ -191,7 +191,7 @@ private fun AdaptiveTaskListScaffold(
     )
 }
 
-@Suppress("LongMethod","LongParameterList")
+@Suppress("LongMethod", "LongParameterList")
 @Composable
 internal fun TaskListScaffold(
     taskViewState: TaskListViewState,

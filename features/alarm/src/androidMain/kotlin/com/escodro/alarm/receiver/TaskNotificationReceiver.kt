@@ -48,7 +48,7 @@ internal class TaskNotificationReceiver : BroadcastReceiver(), KoinComponent {
 
             Intent.ACTION_BOOT_COMPLETED,
             AlarmManager.ACTION_SCHEDULE_EXACT_ALARM_PERMISSION_STATE_CHANGED,
-                -> rescheduleUseCase()
+            -> rescheduleUseCase()
 
             else -> logcat(LogPriority.ERROR) { "Action not supported" }
         }

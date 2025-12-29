@@ -7,3 +7,4 @@ ktlint_standard_no-empty-first-line-in-class-body = disabled
 ktlint_standard_function-signature = disabled
 ktlint_standard_multiline-expression-wrapping = disabled
 ktlint_standard_class-signature = disabled
+ktlint_standard_chain-method-continuation = disabled

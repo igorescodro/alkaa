@@ -65,10 +65,10 @@ internal class DatabaseProvider(
             .selectAll()
             .executeAsList()
             .isEmpty() &&
-                taskQueries
-                    .selectAllTasksWithDueDate()
-                    .executeAsList()
-                    .isEmpty()
+            taskQueries
+                .selectAllTasksWithDueDate()
+                .executeAsList()
+                .isEmpty()
     }
 
     private suspend fun getPrepopulateData(): List<Category> =

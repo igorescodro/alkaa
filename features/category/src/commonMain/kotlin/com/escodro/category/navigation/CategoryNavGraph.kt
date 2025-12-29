@@ -22,8 +22,7 @@ internal class CategoryNavGraph : NavGraph {
                         navEventController.sendEvent(CategoryEvent.OnNewCategoryClick)
                     },
                     onItemClick = { categoryId ->
-                        navEventController.sendEvent(
-                            CategoryEvent.OnCategoryClick(categoryId))
+                        navEventController.sendEvent(CategoryEvent.OnCategoryClick(categoryId))
                     },
                 )
             }

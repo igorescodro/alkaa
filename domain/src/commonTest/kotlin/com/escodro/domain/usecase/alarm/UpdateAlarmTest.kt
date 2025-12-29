@@ -59,7 +59,7 @@ internal class UpdateAlarmTest {
         assertTrue(updateTaskAsRepeating.isAlarmUpdated(taskId))
         assertEquals(
             expected = alarmInterval,
-            actual = updateTaskAsRepeating.getUpdatedAlarm(taskId)
+            actual = updateTaskAsRepeating.getUpdatedAlarm(taskId),
         )
     }
 
@@ -95,7 +95,7 @@ internal class UpdateAlarmTest {
         assertTrue(updateTaskAsRepeating.isAlarmUpdated(taskId))
         assertEquals(
             expected = alarmInterval,
-            actual = updateTaskAsRepeating.getUpdatedAlarm(taskId)
+            actual = updateTaskAsRepeating.getUpdatedAlarm(taskId),
         )
     }
 }

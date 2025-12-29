@@ -45,14 +45,14 @@ internal class LoadCompletedTasksByPeriodTest {
             id = 1,
             isCompleted = false,
             title = "A",
-            categoryId = 1
+            categoryId = 1,
         )
         val t2 = Task(
             id = 2,
             isCompleted = true,
             title = "2",
             categoryId = 2,
-            completedDate = calendarIn
+            completedDate = calendarIn,
         )
         val t3 =
             Task(
@@ -60,13 +60,13 @@ internal class LoadCompletedTasksByPeriodTest {
                 isCompleted = true,
                 title = "C",
                 categoryId = 2,
-                completedDate = calendarIn
+                completedDate = calendarIn,
             )
         val t4 = Task(
             id = 4,
             isCompleted = false,
             title = "4",
-            categoryId = 3
+            categoryId = 3,
         )
         val t5 =
             Task(
@@ -74,7 +74,7 @@ internal class LoadCompletedTasksByPeriodTest {
                 isCompleted = true,
                 title = "E",
                 categoryId = 3,
-                completedDate = calendarIn
+                completedDate = calendarIn,
             )
         val t6 =
             Task(
@@ -82,7 +82,7 @@ internal class LoadCompletedTasksByPeriodTest {
                 isCompleted = true,
                 title = "6",
                 categoryId = 3,
-                completedDate = calendarOut
+                completedDate = calendarOut,
             )
         val taskList = listOf(t1, t2, t3, t4, t5, t6)
         taskList.forEach { task -> taskRepository.insertTask(task) }
@@ -112,7 +112,7 @@ internal class LoadCompletedTasksByPeriodTest {
             id = 1,
             isCompleted = false,
             title = "T",
-            categoryId = 1
+            categoryId = 1,
         )
         val t2 =
             Task(
@@ -120,7 +120,7 @@ internal class LoadCompletedTasksByPeriodTest {
                 isCompleted = false,
                 title = "u",
                 categoryId = 1,
-                completedDate = calendarIn
+                completedDate = calendarIn,
             )
         val t3 =
             Task(
@@ -128,7 +128,7 @@ internal class LoadCompletedTasksByPeriodTest {
                 isCompleted = false,
                 title = "n",
                 categoryId = 1,
-                completedDate = calendarIn
+                completedDate = calendarIn,
             )
         val t4 =
             Task(
@@ -136,7 +136,7 @@ internal class LoadCompletedTasksByPeriodTest {
                 isCompleted = true,
                 title = "a",
                 categoryId = 2,
-                completedDate = calendarIn
+                completedDate = calendarIn,
             )
         val taskList = listOf(t1, t2, t3, t4)
         taskList.forEach { task -> taskRepository.insertTask(task) }

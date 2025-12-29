@@ -186,9 +186,9 @@ private fun TaskTitleTextField(text: String, onTitleChange: (String) -> Unit) {
     TextField(
         modifier = Modifier.fillMaxWidth(),
         value = textState.value,
-        onValueChange = {
-            onTitleChange(it.text)
-            textState.value = it
+        onValueChange = { textValue ->
+            onTitleChange(textValue.text)
+            textState.value = textValue
         },
         maxLines = 1,
         textStyle = MaterialTheme.typography.headlineMedium,
@@ -204,7 +204,7 @@ private fun TaskTitleTextField(text: String, onTitleChange: (String) -> Unit) {
 
 @Composable
 private fun TaskDescriptionTextField(text: String?, onDescriptionChange: (String) -> Unit) {
-    val textState = remember { mutableStateOf(TextFieldValue(text ?: "")) }
+    val textState = remember { mutableStateOf(TextFieldValue(text.orEmpty())) }
 
     TextField(
         modifier = Modifier.fillMaxWidth(),
@@ -215,9 +215,9 @@ private fun TaskDescriptionTextField(text: String?, onDescriptionChange: (String
             )
         },
         value = textState.value,
-        onValueChange = {
-            onDescriptionChange(it.text)
-            textState.value = it
+        onValueChange = { textValue ->
+            onDescriptionChange(textValue.text)
+            textState.value = textValue
         },
         textStyle = MaterialTheme.typography.bodyLarge,
         maxLines = 8,

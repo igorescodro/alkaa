@@ -68,6 +68,7 @@ internal fun AddTaskBottomSheet(
     }
 }
 
+@Suppress("LongMethod")
 @Composable
 internal fun AddTaskBottomSheetContent(
     addTaskViewModel: AddTaskViewModel = koinInject(),

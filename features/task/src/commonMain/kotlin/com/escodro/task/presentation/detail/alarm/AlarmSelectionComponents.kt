@@ -90,7 +90,7 @@ internal fun AlarmIntervalSelection(
 private fun AlarmSet(date: LocalDateTime?, onRemoveClick: () -> Unit) {
     Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
         Text(
-            text = date?.format() ?: "",
+            text = date?.format().orEmpty(),
             color = MaterialTheme.colorScheme.outline,
         )
         IconButton(onClick = onRemoveClick) {
@@ -162,6 +162,7 @@ private fun AlarmListItem(
     )
 }
 
+@Suppress("UnusedPrivateFunction")
 @Preview(showBackground = true)
 @Composable
 private fun AlarmInfoNoAlarmPreview() {
@@ -174,18 +175,20 @@ private fun AlarmInfoNoAlarmPreview() {
     }
 }
 
+@Suppress("UnusedPrivateFunction")
 @Preview(showBackground = true)
 @Composable
 private fun AlarmInfoWithAlarmPreview() {
     AlkaaThemePreview {
         AlarmInfo(
-            date = LocalDateTime(2024, 12, 25, 9, 0),
+            date = LocalDateTime(year = 2024, month = 12, day = 25, hour = 9, minute = 0),
             onRemoveDate = { },
             modifier = Modifier.fillMaxWidth().padding(16.dp),
         )
     }
 }
 
+@Suppress("UnusedPrivateFunction")
 @Preview(showBackground = true)
 @Composable
 private fun AlarmIntervalSelectionPreview() {
@@ -193,7 +196,7 @@ private fun AlarmIntervalSelectionPreview() {
 
     AlkaaThemePreview {
         AlarmIntervalSelection(
-            date = LocalDateTime(2024, 12, 25, 9, 0),
+            date = LocalDateTime(year = 2024, month = 12, day = 25, hour = 9, minute = 0),
             alarmInterval = interval,
             onIntervalSelect = { interval = it },
         )

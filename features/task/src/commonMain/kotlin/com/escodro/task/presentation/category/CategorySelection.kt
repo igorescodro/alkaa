@@ -61,6 +61,7 @@ internal fun CategorySelection(
     }
 }
 
+@Suppress("LabeledExpression")
 @Composable
 private fun LoadedCategoryList(
     categoryList: ImmutableList<Category>,
@@ -121,6 +122,7 @@ private fun EmptyCategoryList() {
     )
 }
 
+@Suppress("UnusedPrivateFunction")
 @Preview(showBackground = true)
 @Composable
 private fun CategorySelectionPreview() {

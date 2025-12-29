@@ -18,7 +18,7 @@ internal class TaskMapper(private val alarmIntervalMapper: AlarmIntervalMapper) 
     fun toView(domainTask: DomainTask): ViewTask =
         ViewTask(
             id = domainTask.id,
-            completed = domainTask.isCompleted,
+            isCompleted = domainTask.isCompleted,
             title = domainTask.title,
             description = domainTask.description,
             dueDate = domainTask.dueDate,

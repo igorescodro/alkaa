@@ -21,14 +21,6 @@ import org.koin.compose.koinInject
 
 /**
  * Render the Alarm Section, including the alarm set and the alarm interval.
- *
- * @param calendar the alarm set, `null` if no alarm
- * @param interval the alarm repeat interval, `null` if no repeat interval
- * @param onAlarmUpdate lambda called when the alarm updates
- * @param onIntervalSelect lambda called when the interval updates
- * @param hasExactAlarmPermission lambda to check if Exact Alarm permission is granted
- * @param openExactAlarmPermissionScreen lambda to open the Exact Alarm permission screen
- * @param openAppSettingsScreen lambda to open the Permissions screen
  */
 @Suppress("LongParameterList", "NewApi")
 @Composable
@@ -52,8 +44,8 @@ internal fun AlarmSelection(
     // Date Time Picker dialog
     DateTimerPicker(
         initialDateTime = alarmSelectionState.date,
-        isDialogOpen = alarmSelectionState.showDateTimePickerDialog,
-        onCloseDialog = { alarmSelectionState.showDateTimePickerDialog = false },
+        isDialogOpen = alarmSelectionState.isDateTimePickerDialogOpen,
+        onCloseDialog = { alarmSelectionState.isDateTimePickerDialogOpen = false },
         onDateChange = { dateTime ->
             onAlarmUpdate(dateTime)
             alarmSelectionState.date = dateTime
@@ -62,22 +54,22 @@ internal fun AlarmSelection(
 
     // Exact Alarm permission dialog
     AlarmPermissionDialog(
-        isDialogOpen = alarmSelectionState.showExactAlarmDialog,
-        onCloseDialog = { alarmSelectionState.showExactAlarmDialog = false },
+        isDialogOpen = alarmSelectionState.isExactAlarmDialogOpen,
+        onCloseDialog = { alarmSelectionState.isExactAlarmDialogOpen = false },
         openExactAlarmPermissionScreen = openExactAlarmPermissionScreen,
     )
 
     // Notification permission dialog
     NotificationPermissionDialog(
         alarmSelectionState = alarmSelectionState,
-        isDialogOpen = alarmSelectionState.showNotificationDialog,
-        onCloseDialog = { alarmSelectionState.showNotificationDialog = false },
+        isDialogOpen = alarmSelectionState.isNotificationDialogOpen,
+        onCloseDialog = { alarmSelectionState.isNotificationDialogOpen = false },
     )
 
     // Rationale permission dialog
     RationalePermissionDialog(
-        isDialogOpen = alarmSelectionState.showRationaleDialog,
-        onCloseDialog = { alarmSelectionState.showRationaleDialog = false },
+        isDialogOpen = alarmSelectionState.isRationaleDialogOpen,
+        onCloseDialog = { alarmSelectionState.isRationaleDialogOpen = false },
         openAppSettingsScreen = openAppSettingsScreen,
     )
 

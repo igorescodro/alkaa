@@ -58,7 +58,7 @@ internal fun TaskItem(
                 modifier = Modifier
                     .fillMaxHeight()
                     .semantics { checkboxName = task.task.title },
-                selected = task.task.completed,
+                selected = task.task.isCompleted,
                 onClick = { onCheckedChange(task) },
             )
             Spacer(Modifier.width(8.dp))
@@ -69,7 +69,9 @@ internal fun TaskItem(
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 1,
                 )
-                RelativeDateText(calendar = task.task.dueDate)
+                task.task.dueDate?.let { calendar ->
+                    RelativeDateText(calendar = calendar)
+                }
             }
         }
     }
@@ -94,13 +96,9 @@ internal fun CardRibbon(colorInt: Int?, modifier: Modifier = Modifier) {
 
 @Composable
 internal fun RelativeDateText(
-    calendar: LocalDateTime?,
+    calendar: LocalDateTime,
     relativeDateTimeProvider: RelativeDateTimeProvider = koinInject(),
 ) {
-    if (calendar == null) {
-        return
-    }
-
     Text(
         text = relativeDateTimeProvider.toRelativeDateTimeString(calendar),
         style = MaterialTheme.typography.bodyMedium,

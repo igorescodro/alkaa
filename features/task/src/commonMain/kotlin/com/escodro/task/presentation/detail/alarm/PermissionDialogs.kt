@@ -18,8 +18,12 @@ import com.escodro.resources.task_notification_rationale_dialog_cancel
 import com.escodro.resources.task_notification_rationale_dialog_confirm
 import com.escodro.resources.task_notification_rationale_dialog_text
 import com.escodro.resources.task_notification_rationale_dialog_title
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.launch
+import mu.KotlinLogging
 import org.jetbrains.compose.resources.stringResource
+
+private val logger = KotlinLogging.logger {}
 
 @Composable
 internal fun AlarmPermissionDialog(
@@ -44,6 +48,7 @@ internal fun AlarmPermissionDialog(
     )
 }
 
+@Suppress("TooGenericExceptionCaught")
 @Composable
 internal fun NotificationPermissionDialog(
     alarmSelectionState: AlarmSelectionState,
@@ -61,8 +66,11 @@ internal fun NotificationPermissionDialog(
                 try {
                     alarmSelectionState.permissionsController
                         .requestPermission(Permission.NOTIFICATION)
+                } catch (e: CancellationException) {
+                    throw e
                 } catch (e: Exception) {
-                    alarmSelectionState.showRationaleDialog = true
+                    alarmSelectionState.isRationaleDialogOpen = true
+                    logger.error(e) { "Error while requesting Notification permission." }
                 }
 
                 onCloseDialog()

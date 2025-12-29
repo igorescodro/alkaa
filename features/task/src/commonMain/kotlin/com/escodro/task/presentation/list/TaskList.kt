@@ -63,9 +63,6 @@ import org.koin.compose.koinInject
 
 /**
  * Alkaa Task Section.
- *
- * @param onFabClick the action to be executed when the add button is clicked
- * @param modifier the decorator
  */
 @Composable
 fun TaskListSection(
@@ -82,6 +79,7 @@ fun TaskListSection(
     )
 }
 
+@Suppress("LongParameterList")
 @Composable
 internal fun TaskListLoader(
     isSinglePane: Boolean,
@@ -128,6 +126,7 @@ internal fun TaskListLoader(
     }
 }
 
+@Suppress("LongParameterList")
 @OptIn(ExperimentalMaterial3AdaptiveApi::class)
 @Composable
 private fun AdaptiveTaskListScaffold(
@@ -161,9 +160,9 @@ private fun AdaptiveTaskListScaffold(
                     onCategoryChange = onCategoryChange,
                     modifier = modifier,
                     refreshKey = refreshKey,
-                    onItemClick = {
+                    onItemClick = { taskId ->
                         coroutineScope.launch {
-                            navigator.navigateTo(ListDetailPaneScaffoldRole.Detail, TaskId(it))
+                            navigator.navigateTo(ListDetailPaneScaffoldRole.Detail, TaskId(taskId))
                         }
                     },
                 )
@@ -192,6 +191,7 @@ private fun AdaptiveTaskListScaffold(
     )
 }
 
+@Suppress("LongMethod","LongParameterList")
 @Composable
 internal fun TaskListScaffold(
     taskViewState: TaskListViewState,

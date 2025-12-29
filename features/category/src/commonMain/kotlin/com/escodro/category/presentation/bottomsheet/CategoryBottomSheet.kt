@@ -205,7 +205,7 @@ private fun CategoryBottomSheetContent(
                     .weight(5F)
                     .focusRequester(focusRequester),
             )
-            if (category.isEditing()) {
+            if (category.isEditing) {
                 IconButton(
                     onClick = { isDialogOpen = true },
                     colors = IconButtonDefaults.iconButtonColors(

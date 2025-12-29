@@ -38,8 +38,8 @@ class ScheduleNextAlarm(
      */
     suspend operator fun invoke(task: Task) {
         require(task.isRepeating) { "Task is not repeating" }
-        require(task.dueDate != null) { "Task has no due date" }
-        require(task.alarmInterval != null) { "Task has no alarm interval" }
+        requireNotNull(task.dueDate) { "Task has no due date" }
+        requireNotNull(task.alarmInterval) { "Task has no alarm interval" }
 
         val currentTime = dateTimeProvider.getCurrentInstant()
         var taskTime = task.dueDate.toInstant(TimeZone.currentSystemDefault())

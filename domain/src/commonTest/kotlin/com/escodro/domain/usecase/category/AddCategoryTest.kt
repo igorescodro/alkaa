@@ -33,7 +33,7 @@ internal class AddCategoryTest {
         addCategoryUseCase(category)
 
         val result = loadCategoryUseCase(category.id)
-        assertEquals(category, result)
+        assertEquals(expected = category, actual = result)
     }
 
     @Test
@@ -56,6 +56,6 @@ internal class AddCategoryTest {
 
         val resultList = loadAllCategoriesUseCase().first()
 
-        assertEquals(assertList, resultList)
+        assertEquals(expected = assertList, actual = resultList)
     }
 }

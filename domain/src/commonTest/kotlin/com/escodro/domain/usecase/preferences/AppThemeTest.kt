@@ -21,7 +21,7 @@ internal class AppThemeTest {
 
         val result = loadAppTheme().first()
 
-        assertEquals(AppThemeOptions.DARK, result)
+        assertEquals(expected = AppThemeOptions.DARK, actual = result)
     }
 
     @Test
@@ -34,6 +34,6 @@ internal class AppThemeTest {
 
         val result = loadAppTheme().first()
 
-        assertEquals(AppThemeOptions.DARK, result)
+        assertEquals(expected = AppThemeOptions.DARK, actual = result)
     }
 }

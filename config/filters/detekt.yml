@@ -17,11 +17,19 @@ style:
   MagicNumber:
     active: false
 
+complexity:
+  LongMethod:
+    excludes: [ '**/test/**','**/androidTest/**','**/android-test/**', '**/androidUnitTest/**' , '**/commonTest/**', '**/generated/**' ]
+
 potential-bugs:
   UnsafeCallOnNullableType:
-    excludes: [ '**/test/**','**/androidTest/**','**/android-test/**','**/*.Test.kt','**/*.Spec.kt', '**/*.Spek.kt' ]
+    excludes: [ '**/test/**','**/androidTest/**','**/android-test/**', '**/androidUnitTest/**' , '**/commonTest/**', '**/generated/**' ]
   UnsafeCast:
-    excludes: [ '**/test/**','**/androidTest/**','**/android-test/**','**/*.Test.kt','**/*.Spec.kt', '**/*.Spek.kt' ]
+    excludes: [ '**/test/**','**/androidTest/**','**/android-test/**', '**/androidUnitTest/**' , '**/commonTest/**', '**/generated/**' ]
+  NullableToStringCall:
+    active: false
+  ImplicitUnitReturnType:
+    excludes: [ '**/test/**','**/androidTest/**','**/android-test/**', '**/androidUnitTest/**' , '**/commonTest/**', '**/generated/**' ]
 
 naming:
   TopLevelPropertyNaming:

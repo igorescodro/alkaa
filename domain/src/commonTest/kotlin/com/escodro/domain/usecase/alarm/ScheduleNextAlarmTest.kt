@@ -107,14 +107,14 @@ internal class ScheduleNextAlarmTest {
         scheduleNextAlarmUseCase(task)
         val result = getTaskUseCase(task.id)
 
-        require(result != null)
+        requireNotNull(result)
 
         val assertCalendar = calendar
             .toInstant(TimeZone.currentSystemDefault())
             .plus(1.hours)
             .toLocalDateTime(TimeZone.currentSystemDefault())
 
-        assertEquals(assertCalendar, result.dueDate)
+        assertEquals(expected = assertCalendar, actual = result.dueDate)
     }
 
     @Test
@@ -129,14 +129,14 @@ internal class ScheduleNextAlarmTest {
         scheduleNextAlarmUseCase(task)
         val result = getTaskUseCase(task.id)
 
-        require(result != null)
+        requireNotNull(result)
 
         val assertCalendar = calendar
             .toInstant(TimeZone.currentSystemDefault())
             .plus(DateTimePeriod(days = 1), TimeZone.currentSystemDefault())
             .toLocalDateTime(TimeZone.currentSystemDefault())
 
-        assertEquals(assertCalendar, result.dueDate)
+        assertEquals(expected = assertCalendar, actual = result.dueDate)
     }
 
     @Test
@@ -151,14 +151,14 @@ internal class ScheduleNextAlarmTest {
         scheduleNextAlarmUseCase(task)
         val result = getTaskUseCase(task.id)
 
-        require(result != null)
+        requireNotNull(result)
 
         val assertCalendar = calendar
             .toInstant(TimeZone.currentSystemDefault())
             .plus(DateTimePeriod(days = 7), TimeZone.currentSystemDefault())
             .toLocalDateTime(TimeZone.currentSystemDefault())
 
-        assertEquals(assertCalendar, result.dueDate)
+        assertEquals(expected = assertCalendar, actual = result.dueDate)
     }
 
     @Test
@@ -173,14 +173,14 @@ internal class ScheduleNextAlarmTest {
         scheduleNextAlarmUseCase(task)
         val result = getTaskUseCase(task.id)
 
-        require(result != null)
+        requireNotNull(result)
 
         val assertCalendar = calendar
             .toInstant(TimeZone.currentSystemDefault())
             .plus(DateTimePeriod(months = 1), TimeZone.currentSystemDefault())
             .toLocalDateTime(TimeZone.currentSystemDefault())
 
-        assertEquals(assertCalendar, result.dueDate)
+        assertEquals(expected = assertCalendar, actual = result.dueDate)
     }
 
     @Test
@@ -195,14 +195,14 @@ internal class ScheduleNextAlarmTest {
         scheduleNextAlarmUseCase(task)
         val result = getTaskUseCase(task.id)
 
-        require(result != null)
+        requireNotNull(result)
 
         val assertCalendar = calendar
             .toInstant(TimeZone.currentSystemDefault())
             .plus(DateTimePeriod(years = 1), TimeZone.currentSystemDefault())
             .toLocalDateTime(TimeZone.currentSystemDefault())
 
-        assertEquals(assertCalendar, result.dueDate)
+        assertEquals(expected = assertCalendar, actual = result.dueDate)
     }
 
     @Test
@@ -228,7 +228,7 @@ internal class ScheduleNextAlarmTest {
 
         val task = baseTask.copy(
             dueDate = pastCalendar,
-            completed = true,
+            isCompleted = true,
             isRepeating = true,
             alarmInterval = AlarmInterval.HOURLY,
         )
@@ -237,13 +237,13 @@ internal class ScheduleNextAlarmTest {
         scheduleNextAlarmUseCase(task)
         val result = getTaskUseCase(task.id)
 
-        require(result != null)
+        requireNotNull(result)
 
         val assertCalendar = pastCalendar
             .toInstant(TimeZone.currentSystemDefault())
             .plus(5.hours)
             .toLocalDateTime(TimeZone.currentSystemDefault())
 
-        assertEquals(assertCalendar, result.dueDate)
+        assertEquals(expected = assertCalendar, actual = result.dueDate)
     }
 }

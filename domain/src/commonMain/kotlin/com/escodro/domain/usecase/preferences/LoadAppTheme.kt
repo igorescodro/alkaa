@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 /**
  * Loads the current app theme.
  *
- * @property preferencesRepository the preferences repository
+ * @param preferencesRepository the preferences repository
  */
 class LoadAppTheme(private val preferencesRepository: PreferencesRepository) {
 

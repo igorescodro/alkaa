@@ -34,6 +34,6 @@ internal class UpdateCategoryTest {
         updateCategoryUseCase(updatedCategory)
 
         val result = loadCategoryUseCase(category.id)
-        assertEquals(updatedCategory, result)
+        assertEquals(expected = updatedCategory, actual = result)
     }
 }

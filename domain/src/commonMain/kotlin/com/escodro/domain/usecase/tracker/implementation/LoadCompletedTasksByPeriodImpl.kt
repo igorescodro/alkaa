@@ -27,7 +27,7 @@ internal class LoadCompletedTasksByPeriodImpl(
             .findAllTasksWithCategory()
             .map { list ->
                 list
-                    .filter { item -> item.task.completed }
+                    .filter { item -> item.task.isCompleted }
                     .filter(::filterByLastMonth)
             }
 

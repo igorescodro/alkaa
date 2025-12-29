@@ -15,8 +15,8 @@ internal class CategoryRepositoryFake : CategoryRepository {
         } else if (category.id == 0L) {
             categoryMap.entries
                 .maxByOrNull { it.key }
-                ?.key
-                ?.plus(1) ?: 1
+                ?.run { key.plus(1) }
+                ?: 1
         } else {
             category.id
         }

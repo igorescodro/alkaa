@@ -34,19 +34,19 @@ internal class CompleteTaskTest {
     private val addTaskUseCase = AddTaskImpl(taskRepository, updateAlarm, glanceInteractor)
 
     private val completeTaskUseCase = CompleteTask(
-        taskRepository,
-        alarmInteractor,
-        notificationInteractor,
-        calendarProvider,
+        taskRepository = taskRepository,
+        alarmInteractor = alarmInteractor,
+        notificationInteractor = notificationInteractor,
+        dateTimeProvider = calendarProvider,
     )
 
     private val uncompleteTaskUseCase = UncompleteTask(taskRepository)
 
     private val updateTaskStatusUseCase = UpdateTaskStatusImpl(
-        taskRepository,
-        glanceInteractor,
-        completeTaskUseCase,
-        uncompleteTaskUseCase,
+        taskRepository = taskRepository,
+        glanceInteractor = glanceInteractor,
+        completeTask = completeTaskUseCase,
+        uncompleteTask = uncompleteTaskUseCase,
     )
 
     private val getTaskUseCase = LoadTaskImpl(taskRepository)
@@ -61,44 +61,44 @@ internal class CompleteTaskTest {
 
     @Test
     fun test_if_a_task_is_updated_as_completed() = runTest {
-        val task = Task(id = 18, title = "buy soy milk", completed = false)
+        val task = Task(id = 18, title = "buy soy milk", isCompleted = false)
         addTaskUseCase(task)
         completeTaskUseCase(task)
 
         val result = getTaskUseCase(task.id)
 
         assertNotNull(result)
-        assertTrue(result.completed)
+        assertTrue(result.isCompleted)
     }
 
     @Test
     fun test_if_a_task_is_updated_as_completed_by_id() = runTest {
-        val task = Task(id = 17, title = "change smartphone", completed = false)
+        val task = Task(id = 17, title = "change smartphone", isCompleted = false)
         addTaskUseCase(task)
         completeTaskUseCase(task.id)
 
         val result = getTaskUseCase(task.id)
 
-        require(result != null)
-        assertTrue(result.completed)
+        requireNotNull(result)
+        assertTrue(result.isCompleted)
     }
 
     @Test
     fun test_if_a_task_is_updated_as_uncompleted() = runTest {
-        val task = Task(id = 18, title = "buy soy milk", completed = false)
+        val task = Task(id = 18, title = "buy soy milk", isCompleted = false)
         addTaskUseCase(task)
         uncompleteTaskUseCase(task)
 
         val result = getTaskUseCase(task.id)
 
-        require(result != null)
-        assertFalse(result.completed)
+        requireNotNull(result)
+        assertFalse(result.isCompleted)
     }
 
     @Test
     fun test_if_the_completed_status_is_inverted() = runTest {
-        val task1 = Task(id = 99, title = "watch tech talk", completed = true)
-        val task2 = Task(id = 88, title = "write paper", completed = false)
+        val task1 = Task(id = 99, title = "watch tech talk", isCompleted = true)
+        val task2 = Task(id = 88, title = "write paper", isCompleted = false)
 
         addTaskUseCase(task1)
         addTaskUseCase(task2)
@@ -109,15 +109,15 @@ internal class CompleteTaskTest {
         val loadedTask1 = getTaskUseCase(task1.id)
         val loadedTask2 = getTaskUseCase(task2.id)
 
-        require(loadedTask1 != null)
-        require(loadedTask2 != null)
-        assertFalse(loadedTask1.completed)
-        assertTrue(loadedTask2.completed)
+        requireNotNull(loadedTask1)
+        requireNotNull(loadedTask2)
+        assertFalse(loadedTask1.isCompleted)
+        assertTrue(loadedTask2.isCompleted)
     }
 
     @Test
     fun test_if_the_alarm_is_canceled_when_the_task_is_completed() = runTest {
-        val task = Task(id = 19, title = "sato's meeting", completed = false)
+        val task = Task(id = 19, title = "sato's meeting", isCompleted = false)
         addTaskUseCase(task)
         completeTaskUseCase(task)
 
@@ -126,7 +126,7 @@ internal class CompleteTaskTest {
 
     @Test
     fun test_if_the_notification_is_dismissed_when_the_task_is_completed() = runTest {
-        val task = Task(id = 20, title = "scrum master dog", completed = false)
+        val task = Task(id = 20, title = "scrum master dog", isCompleted = false)
         addTaskUseCase(task)
         completeTaskUseCase(task)
 
@@ -138,6 +138,6 @@ internal class CompleteTaskTest {
         val task = Task(id = 15, title = "this title", description = "this desc")
         addTaskUseCase(task)
 
-        assertTrue(glanceInteractor.wasNotified)
+        assertTrue(glanceInteractor.isNotified)
     }
 }

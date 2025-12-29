@@ -11,8 +11,8 @@ internal class TaskRepositoryFake : TaskRepository {
         val id = if (task.id == 0L) {
             taskMap.entries
                 .maxByOrNull { it.key }
-                ?.key
-                ?.plus(1) ?: 1
+                ?.run { key.plus(1) }
+                ?: 1
         } else {
             task.id
         }

@@ -43,5 +43,5 @@ class CompleteTask(
     }
 
     private fun updateTaskAsCompleted(task: Task) =
-        task.copy(completed = true, completedDate = dateTimeProvider.getCurrentLocalDateTime())
+        task.copy(isCompleted = true, completedDate = dateTimeProvider.getCurrentLocalDateTime())
 }

@@ -42,7 +42,7 @@ internal class UpdateAlarmTest {
 
         // Then the alarm is set
         assertTrue(scheduleAlarm.isAlarmScheduled(taskId))
-        assertEquals(alarm, scheduleAlarm.getScheduledAlarm(taskId))
+        assertEquals(expected = alarm, actual = scheduleAlarm.getScheduledAlarm(taskId))
     }
 
     @Test
@@ -57,7 +57,10 @@ internal class UpdateAlarmTest {
 
         // Then the alarm interval is set
         assertTrue(updateTaskAsRepeating.isAlarmUpdated(taskId))
-        assertEquals(alarmInterval, updateTaskAsRepeating.getUpdatedAlarm(taskId))
+        assertEquals(
+            expected = alarmInterval,
+            actual = updateTaskAsRepeating.getUpdatedAlarm(taskId)
+        )
     }
 
     @Test
@@ -70,7 +73,7 @@ internal class UpdateAlarmTest {
         updateAlarm(task)
 
         // Then the alarm is removed
-        assertTrue(cancelAlarm.isAlarmCancelled(taskId))
+        assertTrue(actual = cancelAlarm.isAlarmCancelled(taskId))
     }
 
     @Test
@@ -88,8 +91,11 @@ internal class UpdateAlarmTest {
 
         // Then the alarm and interval are set
         assertTrue(scheduleAlarm.isAlarmScheduled(taskId))
-        assertEquals(alarm, scheduleAlarm.getScheduledAlarm(taskId))
+        assertEquals(expected = alarm, actual = scheduleAlarm.getScheduledAlarm(taskId))
         assertTrue(updateTaskAsRepeating.isAlarmUpdated(taskId))
-        assertEquals(alarmInterval, updateTaskAsRepeating.getUpdatedAlarm(taskId))
+        assertEquals(
+            expected = alarmInterval,
+            actual = updateTaskAsRepeating.getUpdatedAlarm(taskId)
+        )
     }
 }

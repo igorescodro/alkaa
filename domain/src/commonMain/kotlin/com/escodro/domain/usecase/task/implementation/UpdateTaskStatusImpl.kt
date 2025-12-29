@@ -15,7 +15,7 @@ internal class UpdateTaskStatusImpl(
 
     override suspend operator fun invoke(taskId: Long) {
         val task = taskRepository.findTaskById(taskId) ?: return
-        when (task.completed.not()) {
+        when (task.isCompleted.not()) {
             true -> completeTask(task)
             false -> uncompleteTask(task)
         }

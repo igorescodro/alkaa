@@ -16,7 +16,7 @@ internal class NotificationInteractorFake : NotificationInteractor {
     }
 
     fun isNotificationShown(notificationId: Long): Boolean =
-        notificationMap[notificationId] ?: false
+        notificationMap[notificationId] == true
 
     fun clear() {
         notificationMap.clear()

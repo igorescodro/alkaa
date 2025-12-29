@@ -62,6 +62,6 @@ internal class DeleteTaskTest {
         val task = Task(id = 15, title = "this title", description = "this desc")
         addTaskUseCase(task)
 
-        assertTrue(glanceInteractor.wasNotified)
+        assertTrue(glanceInteractor.isNotified)
     }
 }

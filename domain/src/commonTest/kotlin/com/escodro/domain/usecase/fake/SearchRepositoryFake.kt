@@ -13,7 +13,7 @@ internal class SearchRepositoryFake(
     private val taskWithCategoryRepository =
         TaskWithCategoryRepositoryFake(taskRepository, categoryRepository)
 
-    override suspend fun findTaskByName(query: String): Flow<List<TaskWithCategory>> =
+    override fun findTaskByName(query: String): Flow<List<TaskWithCategory>> =
         taskWithCategoryRepository
             .findAllTasksWithCategory()
             .map { list: List<TaskWithCategory> ->

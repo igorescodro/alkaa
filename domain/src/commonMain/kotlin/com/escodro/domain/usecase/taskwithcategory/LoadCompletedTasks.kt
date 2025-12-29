@@ -18,5 +18,5 @@ class LoadCompletedTasks(private val repository: TaskWithCategoryRepository) {
     operator fun invoke(): Flow<List<TaskWithCategory>> =
         repository
             .findAllTasksWithCategory()
-            .map { list -> list.filter { item -> item.task.completed } }
+            .map { list -> list.filter { item -> item.task.isCompleted } }
 }

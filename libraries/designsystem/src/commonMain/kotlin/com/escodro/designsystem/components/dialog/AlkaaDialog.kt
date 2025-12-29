@@ -46,9 +46,9 @@ fun AlkaaDialog(
                 }
             },
             dismissButton = {
-                arguments.dismissText?.let {
+                arguments.dismissText?.let { text ->
                     OutlinedButton(onClick = onDismissRequest) {
-                        Text(text = arguments.dismissText)
+                        Text(text = text)
                     }
                 }
             },

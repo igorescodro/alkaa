@@ -14,10 +14,6 @@ import com.escodro.designsystem.theme.AlkaaThemePreview
 
 /**
  * Floating Action button do add new elements.
- *
- * @param contentDescription string resource to describe the add button
- * @param modifier Compose modifier
- * @param onClick function to be called on the click
  */
 @Composable
 fun AddFloatingButton(

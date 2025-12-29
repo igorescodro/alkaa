@@ -67,10 +67,6 @@ val AlkaaDarkColorScheme = darkColorScheme(
 
 /**
  * Alkaa main theme.
- *
- * @param isDarkTheme indicates if the application is in dark theme mode.
- * @param isDynamicColor determine if the Android 12+ dynamic color is enabled
- * @param content composable function
  */
 
 @Composable
@@ -80,10 +76,10 @@ fun AlkaaTheme(
     themeProvider: ThemeProvider = koinInject(),
     content: @Composable () -> Unit,
 ) {
-    val dynamicColor = isDynamicColor && themeProvider.isDynamicColorSupported
+    val isDynamicColorEnabled = isDynamicColor && themeProvider.isDynamicColorSupported
     val colorScheme = when {
-        dynamicColor && isDarkTheme -> themeProvider.dynamicDarkColorScheme
-        dynamicColor && !isDarkTheme -> themeProvider.dynamicLightColorScheme
+        isDynamicColorEnabled && isDarkTheme -> themeProvider.dynamicDarkColorScheme
+        isDynamicColorEnabled && !isDarkTheme -> themeProvider.dynamicLightColorScheme
         isDarkTheme -> AlkaaDarkColorScheme
         else -> AlkaaLightColorScheme
     }

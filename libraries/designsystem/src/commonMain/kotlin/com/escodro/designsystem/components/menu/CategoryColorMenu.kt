@@ -45,8 +45,8 @@ fun CategoryColorMenu(
         items(
             items = colorList,
             itemContent = { color ->
-                val optionSelected = color == value
-                CategoryColorItem(color, optionSelected, onClick = { onColorChange(color) })
+                val isOptionSelected = color == value
+                CategoryColorItem(color, isOptionSelected, onClick = { onColorChange(color) })
             },
         )
     }

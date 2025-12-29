@@ -16,6 +16,8 @@ comments:
 style:
   MagicNumber:
     active: false
+  UnusedPrivateFunction:
+    ignoreAnnotated: [ 'Composable' ]
 
 complexity:
   LongMethod:

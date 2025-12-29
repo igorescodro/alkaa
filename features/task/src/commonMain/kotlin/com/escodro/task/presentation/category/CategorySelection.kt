@@ -122,7 +122,6 @@ private fun EmptyCategoryList() {
     )
 }
 
-@Suppress("UnusedPrivateFunction")
 @Preview(showBackground = true)
 @Composable
 private fun CategorySelectionPreview() {

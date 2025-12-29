@@ -162,7 +162,6 @@ private fun AlarmListItem(
     )
 }
 
-@Suppress("UnusedPrivateFunction")
 @Preview(showBackground = true)
 @Composable
 private fun AlarmInfoNoAlarmPreview() {
@@ -175,7 +174,6 @@ private fun AlarmInfoNoAlarmPreview() {
     }
 }
 
-@Suppress("UnusedPrivateFunction")
 @Preview(showBackground = true)
 @Composable
 private fun AlarmInfoWithAlarmPreview() {
@@ -188,7 +186,6 @@ private fun AlarmInfoWithAlarmPreview() {
     }
 }
 
-@Suppress("UnusedPrivateFunction")
 @Preview(showBackground = true)
 @Composable
 private fun AlarmIntervalSelectionPreview() {

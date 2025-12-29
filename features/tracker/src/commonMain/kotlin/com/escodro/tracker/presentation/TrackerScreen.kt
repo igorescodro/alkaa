@@ -158,7 +158,6 @@ private fun TaskTrackerInfoCard(
     }
 }
 
-@Suppress("UnusedPrivateFunction")
 @Preview(showBackground = true)
 @Composable
 private fun TrackerLoadedContentPreview() {

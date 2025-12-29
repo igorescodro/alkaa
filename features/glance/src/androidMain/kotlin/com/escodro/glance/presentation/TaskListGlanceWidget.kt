@@ -155,7 +155,7 @@ internal class TaskListGlanceWidget : GlanceAppWidget() {
             modifier = modifier
                 .padding(vertical = 2.dp)
                 .fillMaxWidth()
-                .clickable(actionStartActivity(AndroidDeepLink.taskDetail(task.id))),
+                .clickable(actionStartActivity(AndroidDeepLink.taskDetail())),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             CheckBox(

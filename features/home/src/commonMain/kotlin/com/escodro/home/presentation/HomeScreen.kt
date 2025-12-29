@@ -27,10 +27,8 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.escodro.appstate.AlkaaAppState
 import com.escodro.designsystem.animation.TopBarEnterTransition
 import com.escodro.designsystem.animation.TopBarExitTransition
@@ -87,7 +85,7 @@ private fun AlkaaHomeScaffold(
     setCurrentSection: (TopLevel) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val isTopAppBarVisible = appState.navBackStack.shouldShowTopAppBar
+    val isTopAppBarVisible = appState.navBackStack.isTopBarVisible
     val topBarOffset: Dp by animateDpAsState(
         targetValue = if (isTopAppBarVisible) 0.dp else 64.dp,
         animationSpec = tween(easing = LinearEasing),

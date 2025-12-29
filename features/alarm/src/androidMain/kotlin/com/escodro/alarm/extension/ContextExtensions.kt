@@ -23,6 +23,7 @@ import java.util.Calendar
  * @param operation action to perform when the alarm goes off
  * @param type type to define how the alarm will behave
  */
+@Suppress("ReturnCount")
 fun Context.setExactAlarm(
     triggerAtMillis: Long,
     operation: PendingIntent?,
@@ -40,10 +41,11 @@ fun Context.setExactAlarm(
     }
 
     val manager = getAlarmManager()
-    manager?.let {
-        AlarmManagerCompat
-            .setExactAndAllowWhileIdle(it, type, triggerAtMillis, operation)
+    if (manager == null) {
+        logcat(LogPriority.ERROR) { "AlarmManager is null" }
+        return
     }
+    AlarmManagerCompat.setExactAndAllowWhileIdle(manager, type, triggerAtMillis, operation)
 }
 
 /**
@@ -57,6 +59,6 @@ fun Context.cancelAlarm(operation: PendingIntent?) {
         return
     }
 
-    val manager = getAlarmManager()
-    manager?.let { manager.cancel(operation) }
+    val manager = getAlarmManager() ?: return
+    manager.cancel(operation)
 }

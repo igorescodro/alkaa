@@ -37,7 +37,8 @@ internal class TaskNotificationReceiver : BroadcastReceiver(), KoinComponent {
         }
     }
 
-    private suspend fun handleIntent(intent: Intent?) =
+    @Suppress("CanBeNonNullable")
+    private suspend fun handleIntent(intent: Intent?) {
         when (intent?.action) {
             ALARM_ACTION -> getTaskId(intent)?.let { showAlarmUseCase(it) }
 
@@ -47,10 +48,11 @@ internal class TaskNotificationReceiver : BroadcastReceiver(), KoinComponent {
 
             Intent.ACTION_BOOT_COMPLETED,
             AlarmManager.ACTION_SCHEDULE_EXACT_ALARM_PERMISSION_STATE_CHANGED,
-            -> rescheduleUseCase()
+                -> rescheduleUseCase()
 
             else -> logcat(LogPriority.ERROR) { "Action not supported" }
         }
+    }
 
     private fun getTaskId(intent: Intent?) = intent?.getLongExtra(EXTRA_TASK, 0)
 

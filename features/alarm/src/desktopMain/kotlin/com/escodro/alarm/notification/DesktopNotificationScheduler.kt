@@ -2,6 +2,7 @@ package com.escodro.alarm.notification
 
 import com.escodro.alarm.model.Task
 
+@Suppress("ForbiddenComment")
 internal class DesktopNotificationScheduler : NotificationScheduler {
 
     override fun scheduleTaskNotification(task: Task, timeInMillis: Long) {

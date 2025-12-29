@@ -40,3 +40,8 @@ kotlin {
         freeCompilerArgs.add("-Xexpect-actual-classes")
     }
 }
+
+tasks.withType<Test> {
+    // Prevent the task from failing when no tests are found for Android targets
+    failOnNoDiscoveredTests = false
+}

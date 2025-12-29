@@ -48,6 +48,7 @@ internal class LoadCompletedTasksByPeriodFake : LoadCompletedTasksByPeriod {
         isErrorThrown = false
     }
 
+    @Suppress("TooGenericExceptionThrown")
     override fun invoke(): Flow<List<TaskWithCategory>> =
         if (isErrorThrown) {
             flowOf(returnList).map { throw Exception() }

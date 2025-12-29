@@ -1,4 +1,4 @@
-name: UI Tests
+name: Tests
 
 on:
   push:
@@ -29,7 +29,7 @@ jobs:
           distribution: 'zulu'
 
       - name: Run instrumented tests
-        run: ./gradlew :shared:testAndroidHost
+        run: ./gradlew clean testAndroidHost
 
       - name: Save Test Results
         uses: actions/upload-artifact@v6
@@ -37,7 +37,7 @@ jobs:
         with:
           name: test-results-android
           path: |
-            /Users/runner/work/alkaa/alkaa/app/build/reports/tests/
+            ${{ github.workspace }}/app/build/reports/tests/
             ./logcat.txt
           retention-days: 7
 
@@ -60,7 +60,7 @@ jobs:
           distribution: 'zulu'
 
       - name: Run instrumented tests
-        run: ./gradlew :shared:iosSimulatorArm64Test
+        run: ./gradlew clean iosSimulatorArm64Test
 
       - name: Save Test Results
         uses: actions/upload-artifact@v6
@@ -68,8 +68,7 @@ jobs:
         with:
           name: test-results-ios
           path: |
-            /Users/runner/work/alkaa/alkaa/app/build/reports/tests/
-            ./logcat.txt
+            ${{ github.workspace }}/app/build/reports/tests/
           retention-days: 7
 
   desktop-test:
@@ -91,7 +90,7 @@ jobs:
           distribution: 'zulu'
 
       - name: Run instrumented tests
-        run: ./gradlew :shared:desktopTest
+        run: ./gradlew clean desktopTest
 
       - name: Save Test Results
         uses: actions/upload-artifact@v6
@@ -99,6 +98,5 @@ jobs:
         with:
           name: test-results-desktop
           path: |
-            /Users/runner/work/alkaa/alkaa/app/build/reports/tests/
-            ./logcat.txt
+            ${{ github.workspace }}/app/build/reports/tests/
           retention-days: 7

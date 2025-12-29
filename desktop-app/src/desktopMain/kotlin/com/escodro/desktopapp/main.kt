@@ -10,13 +10,15 @@ import com.escodro.shared.AlkaaMultiplatformApp
 import com.escodro.shared.di.initKoin
 import org.jetbrains.compose.resources.stringResource
 
-fun main() = application {
-    initKoin()
+fun main() {
+    application {
+        initKoin()
 
-    Window(
-        onCloseRequest = ::exitApplication,
-        title = stringResource(Res.string.content_app_name),
-    ) {
-        AlkaaMultiplatformApp()
+        Window(
+            onCloseRequest = ::exitApplication,
+            title = stringResource(Res.string.content_app_name),
+        ) {
+            AlkaaMultiplatformApp()
+        }
     }
 }

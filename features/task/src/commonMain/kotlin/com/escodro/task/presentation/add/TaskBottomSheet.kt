@@ -139,7 +139,10 @@ internal fun AddTaskBottomSheetContent(
                 onHideBottomSheet()
             },
         ) {
-            Text(stringResource(Res.string.task_add_save))
+            Text(
+                text = stringResource(Res.string.task_add_save),
+                style = MaterialTheme.typography.bodyLarge,
+            )
         }
     }
 }

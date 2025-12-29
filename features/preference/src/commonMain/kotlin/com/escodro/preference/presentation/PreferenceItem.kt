@@ -45,7 +45,7 @@ internal fun PreferenceTitle(title: String) {
     ) {
         Text(
             text = title.uppercase(),
-            style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold),
+            style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
             color = MaterialTheme.colorScheme.primary,
         )
     }

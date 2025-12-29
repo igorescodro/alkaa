@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffold
@@ -26,8 +27,10 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.escodro.appstate.AlkaaAppState
 import com.escodro.designsystem.animation.TopBarEnterTransition
 import com.escodro.designsystem.animation.TopBarExitTransition
@@ -148,7 +151,12 @@ private fun NavigationSuiteScope.alkaaBottomNav(
                     contentDescription = stringResource(title),
                 )
             },
-            label = { Text(stringResource(title)) },
+            label = {
+                Text(
+                    text = stringResource(title),
+                    style = MaterialTheme.typography.bodyMedium,
+                )
+            },
             modifier = Modifier.testTag(title.toString()),
         )
     }

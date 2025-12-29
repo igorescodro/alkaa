@@ -119,7 +119,10 @@ private fun ContentCallToAction() {
                 contentDescription = stringResource(Res.string.about_cd_github),
             )
             Spacer(modifier = Modifier.width(12.dp))
-            Text(text = stringResource(Res.string.about_button_project))
+            Text(
+                text = stringResource(Res.string.about_button_project),
+                style = MaterialTheme.typography.bodyLarge,
+            )
         }
     }
 }

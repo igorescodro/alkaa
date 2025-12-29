@@ -103,7 +103,7 @@ internal fun RelativeDateText(
 
     Text(
         text = relativeDateTimeProvider.toRelativeDateTimeString(calendar),
-        style = MaterialTheme.typography.bodySmall,
+        style = MaterialTheme.typography.bodyMedium,
         overflow = TextOverflow.Ellipsis,
         maxLines = 1,
     )

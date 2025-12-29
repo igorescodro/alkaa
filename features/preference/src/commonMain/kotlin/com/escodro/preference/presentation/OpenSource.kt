@@ -132,14 +132,14 @@ private fun OpenSourceItem(library: Library, onClick: () -> Unit) {
         }
         Text(
             text = library.author,
-            style = MaterialTheme.typography.bodySmall,
+            style = MaterialTheme.typography.bodyMedium,
             modifier = Modifier.padding(top = 4.dp),
         )
         SuggestionChip(
             label = {
                 Text(
                     text = library.licenses.firstOrNull()?.name ?: "",
-                    style = MaterialTheme.typography.bodySmall,
+                    style = MaterialTheme.typography.bodyMedium,
                 )
             },
             shape = MaterialTheme.shapes.extraLarge,

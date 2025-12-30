@@ -37,7 +37,7 @@ jobs:
         with:
           name: test-results-android
           path: |
-            ${{ github.workspace }}/app/build/reports/tests/
+            **/build/reports/tests/
             ./logcat.txt
           retention-days: 7
 
@@ -68,7 +68,7 @@ jobs:
         with:
           name: test-results-ios
           path: |
-            ${{ github.workspace }}/app/build/reports/tests/
+            **/build/reports/tests/
           retention-days: 7
 
   desktop-test:
@@ -98,5 +98,5 @@ jobs:
         with:
           name: test-results-desktop
           path: |
-            ${{ github.workspace }}/app/build/reports/tests/
+            **/build/reports/tests/
           retention-days: 7

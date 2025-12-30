@@ -43,7 +43,7 @@ jobs:
 
   ios-test:
     name: "iOS"
-    runs-on: macos-15
+    runs-on: macos-latest
     timeout-minutes: 80
 
     steps:

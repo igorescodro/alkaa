@@ -70,7 +70,7 @@ jobs:
         run: xcodebuild -workspace ios-app/alkaa.xcodeproj/project.xcworkspace -configuration Debug -scheme alkaa -sdk iphonesimulator COMPILER_INDEX_STORE_ENABLE=NO
 
   build-desktop:
-    runs-on: macos-15
+    runs-on: macos-latest
 
     steps:
       - name: Checkout

@@ -24,10 +24,11 @@ jobs:
         uses: actions/setup-java@v5
         with:
           java-version: '17'
-          distribution: 'adopt'
+          distribution: 'zulu'
+          cache: 'gradle'
 
       - name: Run code quality checks
-        run: ./gradlew clean ktlint detektAll --parallel
+        run: ./gradlew ktlint detektAll --parallel
 
   build-android:
     runs-on: ubuntu-latest
@@ -40,10 +41,11 @@ jobs:
         uses: actions/setup-java@v5
         with:
           java-version: '17'
-          distribution: 'adopt'
+          distribution: 'zulu'
+          cache: 'gradle'
 
       - name: Build with Gradle
-        run: ./gradlew clean lint assembleRelease test --parallel
+        run: ./gradlew lint assembleRelease test --parallel
         env:
           ALKAA_KEY_ALIAS: ${{ secrets.ALKAA_KEY_ALIAS }}
           ALKAA_KEY_PASSWORD: ${{ secrets.ALKAA_KEY_PASSWORD }}
@@ -61,7 +63,8 @@ jobs:
         uses: actions/setup-java@v5
         with:
           java-version: '17'
-          distribution: 'adopt'
+          distribution: 'zulu'
+          cache: 'gradle'
 
       - name: Build with Xcode
         run: xcodebuild -workspace ios-app/alkaa.xcodeproj/project.xcworkspace -configuration Debug -scheme alkaa -sdk iphonesimulator
@@ -76,8 +79,9 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v5
         with:
-          java-version: '19'
-          distribution: 'temurin'
+          java-version: '17'
+          distribution: 'zulu'
+          cache: 'gradle'
 
       - name: Build with Gradle
         run: ./gradlew desktop-app:createDistributable

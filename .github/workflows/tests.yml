@@ -27,9 +27,10 @@ jobs:
         with:
           java-version: '17'
           distribution: 'zulu'
+          cache: 'gradle'
 
       - name: Run tests
-        run: ./gradlew clean testAndroidHost
+        run: ./gradlew testAndroidHost
 
       - name: Save Test Results
         uses: actions/upload-artifact@v6
@@ -38,7 +39,6 @@ jobs:
           name: test-results-android
           path: |
             **/build/reports/tests/
-            ./logcat.txt
           retention-days: 7
 
   ios-test:
@@ -58,9 +58,10 @@ jobs:
         with:
           java-version: '17'
           distribution: 'zulu'
+          cache: 'gradle'
 
       - name: Run tests
-        run: ./gradlew clean iosSimulatorArm64Test
+        run: ./gradlew iosSimulatorArm64Test
 
       - name: Save Test Results
         uses: actions/upload-artifact@v6
@@ -88,9 +89,10 @@ jobs:
         with:
           java-version: '17'
           distribution: 'zulu'
+          cache: 'gradle'
 
       - name: Run tests
-        run: ./gradlew clean desktopTest
+        run: ./gradlew desktopTest
 
       - name: Save Test Results
         uses: actions/upload-artifact@v6

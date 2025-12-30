@@ -106,7 +106,8 @@ jobs:
         uses: actions/setup-java@v5
         with:
           java-version: '17'
-          distribution: 'adopt'
+          distribution: 'zulu'
+          cache: 'gradle'
 
       - name: Build with Gradle
         run: ./gradlew assemble
@@ -139,7 +140,8 @@ jobs:
         uses: actions/setup-java@v5
         with:
           java-version: '17'
-          distribution: 'adopt'
+          distribution: 'zulu'
+          cache: 'gradle'
 
       - name: Build with Gradle
         run: ./gradlew bundleRelease

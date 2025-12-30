@@ -28,7 +28,7 @@ jobs:
           java-version: '17'
           distribution: 'zulu'
 
-      - name: Run instrumented tests
+      - name: Run tests
         run: ./gradlew clean testAndroidHost
 
       - name: Save Test Results
@@ -59,7 +59,7 @@ jobs:
           java-version: '17'
           distribution: 'zulu'
 
-      - name: Run instrumented tests
+      - name: Run tests
         run: ./gradlew clean iosSimulatorArm64Test
 
       - name: Save Test Results
@@ -89,7 +89,7 @@ jobs:
           java-version: '17'
           distribution: 'zulu'
 
-      - name: Run instrumented tests
+      - name: Run tests
         run: ./gradlew clean desktopTest
 
       - name: Save Test Results

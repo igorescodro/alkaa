@@ -59,21 +59,18 @@ fun uiTest(block: ComposeUiTest.() -> Unit) = runComposeUiTest {
 }
 
 /**
- * Run a flaky test in the UI context, retrying it a number of times if it fails.
+ * Run a flaky test in the UI context, retrying it up to a maximum number of attempts if it fails.
  *
- * @param times the number of times the test should be retried
+ * @param times the maximum number of times the test should be executed (initial attempt plus retries)
  * @param block the test to be executed
  */
 @OptIn(ExperimentalTestApi::class)
 fun flakyUiTest(
     times: Int = 5,
     block: ComposeUiTest.() -> Unit,
-) = uiTest {
-    retry(times) {
-        block()
-    }
+) = retry(times) {
+    uiTest(block)
 }
-
 /**
  * Fake implementation of [LifecycleOwner] to be used in the tests, specially in iOS ones.
  */

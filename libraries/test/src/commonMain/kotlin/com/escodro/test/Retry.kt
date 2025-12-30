@@ -1,9 +1,9 @@
 package com.escodro.test
 
 /**
- * Executes the [block] and retries it [times] if it fails.
+ * Executes the [block] up to [times] times until it succeeds.
  *
- * @param times the number of times the block should be retried
+ * @param times the maximum number of times the block should be executed
  * @param block the block to be executed
  */
 @Suppress("ForbiddenMethodCall")

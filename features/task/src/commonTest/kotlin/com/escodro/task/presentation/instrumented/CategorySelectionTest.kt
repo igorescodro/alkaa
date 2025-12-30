@@ -1,4 +1,4 @@
-package com.escodro.task.presentation
+package com.escodro.task.presentation.instrumented
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.test.ComposeUiTest

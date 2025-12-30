@@ -1,4 +1,4 @@
-package com.escodro.task.presentation
+package com.escodro.task.presentation.instrumented
 
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.test.ComposeUiTest

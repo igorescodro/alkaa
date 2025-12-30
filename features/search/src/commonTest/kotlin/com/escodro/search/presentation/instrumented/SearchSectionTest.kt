@@ -1,4 +1,4 @@
-package com.escodro.search.presentation
+package com.escodro.search.presentation.instrumented
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.test.ComposeUiTest
@@ -10,6 +10,8 @@ import com.escodro.resources.Res
 import com.escodro.resources.search_cd_empty_list
 import com.escodro.resources.search_header_empty
 import com.escodro.search.model.TaskSearchItem
+import com.escodro.search.presentation.SearchScaffold
+import com.escodro.search.presentation.SearchViewState
 import com.escodro.test.AlkaaTest
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.runBlocking

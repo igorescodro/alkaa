@@ -9,9 +9,6 @@ internal val VersionCatalog.ktlint: Provider<MinimalExternalModuleDependency>
     get() = getLibrary("ktlint")
 
 internal val VersionCatalog.composeRulesDetekt: Provider<MinimalExternalModuleDependency>
-    get() = getLibrary("composerules.detekt")
-
-internal val VersionCatalog.composeRulesKtlint: Provider<MinimalExternalModuleDependency>
-    get() = getLibrary("composerules.ktlint")
+    get() = getLibrary("composerules-detekt")
 
 private fun VersionCatalog.getLibrary(library: String) = findLibrary(library).get()

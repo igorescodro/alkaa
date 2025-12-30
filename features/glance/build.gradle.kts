@@ -1,5 +1,5 @@
 plugins {
-    id("com.escodro.multiplatform")
+    alias(libs.plugins.escodro.multiplatform)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.compose)
     alias(libs.plugins.compose.compiler)

@@ -2,7 +2,7 @@ import extension.setFrameworkBaseName
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
 plugins {
-    id("com.escodro.multiplatform")
+    alias(libs.plugins.escodro.multiplatform)
     alias(libs.plugins.compose)
     alias(libs.plugins.compose.compiler)
 }

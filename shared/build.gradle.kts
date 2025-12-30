@@ -2,8 +2,8 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 plugins {
-    id("com.escodro.multiplatform")
-    id("com.escodro.kotlin-parcelable")
+    alias(libs.plugins.escodro.multiplatform)
+    alias(libs.plugins.escodro.kotlin.parcelable)
     alias(libs.plugins.compose)
     alias(libs.plugins.compose.compiler)
 }

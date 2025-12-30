@@ -1,8 +1,8 @@
 import extension.setFrameworkBaseName
 
 plugins {
-    id("com.escodro.multiplatform")
-    id("com.escodro.kotlin-parcelable")
+    alias(libs.plugins.escodro.multiplatform)
+    alias(libs.plugins.escodro.kotlin.parcelable)
 }
 
 kotlin {

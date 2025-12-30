@@ -4,7 +4,7 @@ import java.util.Properties
 plugins {
     id("com.android.application")
     id("kotlin-android")
-    id("com.escodro.kotlin-quality")
+    alias(libs.plugins.escodro.kotlin.quality)
     id("com.mikepenz.aboutlibraries.plugin")
     alias(libs.plugins.compose.compiler)
 }

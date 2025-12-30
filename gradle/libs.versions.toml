@@ -154,9 +154,12 @@ aboutlibraries_plugin = { module = "com.mikepenz.aboutlibraries.plugin:aboutlibr
 aboutlibraries_ui = { module = "com.mikepenz:aboutlibraries-compose", version.ref = "aboutlibraries" }
 
 [plugins]
-android_kmp_plugin = { id ="com.android.kotlin.multiplatform.library", version.ref ="android_gradle_plugin" }
+android_kmp_plugin = { id = "com.android.kotlin.multiplatform.library", version.ref = "android_gradle_plugin" }
 kotlin_serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
 compose = { id = "org.jetbrains.compose", version.ref = "compose_compiler" }
-
 compose_compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+
+escodro_multiplatform = { id = "com.escodro.multiplatform" }
+escodro_kotlin_parcelable = { id = "com.escodro.kotlin-parcelable" }
+escodro_kotlin_quality = { id = "com.escodro.kotlin-quality" }

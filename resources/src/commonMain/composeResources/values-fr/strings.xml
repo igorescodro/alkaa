@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+
+    <!-- Home -->
+    <string name="home_title_tasks">Tâches</string>
+    <string name="home_title_search">Rechercher</string>
+    <string name="home_title_categories">Catégories</string>
+    <string name="home_title_settings">Plus</string>
+
+    <!-- Tasks -->
+    <string name="task_cd_add_task">Ajouter une tâche</string>
+    <string name="task_list_header_empty">Wow ! Toutes les tâches sont terminées !</string>
+    <string name="task_list_cd_empty_list">Tout est clair</string>
+    <string name="task_list_header_error">Oups… C'est embarrassant…</string>
+    <string name="task_list_cd_error">Quelque chose s'est mal passé</string>
+    <string name="task_detail_header_error">Cette tâche n'est plus disponible</string>
+    <string name="task_detail_cd_error">Tâche non trouvée</string>
+
+    <string name="task_detail_cd_icon_category">Catégories</string>
+    <string name="task_detail_cd_icon_description">Description</string>
+    <string name="task_detail_cd_icon_alarm">Alarme</string>
+    <string name="task_detail_cd_icon_remove_alarm">Supprimer l'alarme</string>
+    <string name="task_detail_cd_icon_repeat_alarm">Alarme répétitive</string>
+
+    <string name="task_detail_category_empty_list">Aucune catégorie</string>
+
+    <string name="task_detail_alarm_no_alarm">Pas d'alarme</string>
+
+    <string name="task_detail_pane_title">Sélectionnez une tâche pour voir les détails</string>
+
+    <string name="task_alarm_repeating_never">Jamais</string>
+    <string name="task_alarm_repeating_hourly">Toutes les heures</string>
+    <string name="task_alarm_repeating_daily">Chaque jour</string>
+    <string name="task_alarm_repeating_weekly">Chaque semaine</string>
+    <string name="task_alarm_repeating_monthly">Chaque mois</string>
+    <string name="task_alarm_repeating_yearly">Chaque année</string>
+
+    <string name="task_add_save">Ajouter</string>
+    <string name="task_add_label">Tâche</string>
+
+    <string name="task_snackbar_message_complete">Tâche terminée</string>
+    <string name="task_snackbar_button_undo">Annuler</string>
+
+    <string name="task_alarm_permission_dialog_title">Alarmes et rappels</string>
+    <string name="task_alarm_permission_dialog_text">Pour que les alarmes fonctionnent, Alkaa a besoin de la permission de définir des alarmes et des rappels. Si cette permission n'est pas accordée, les alarmes existantes ne fonctionneront pas non plus.</string>
+    <string name="task_alarm_permission_dialog_confirm">Accorder la permission</string>
+    <string name="task_alarm_permission_dialog_cancel">Pas maintenant</string>
+
+    <string name="task_notification_permission_dialog_title">Notifications</string>
+    <string name="task_notification_permission_dialog_text">Pour afficher les notifications des alarmes, Alkaa a besoin de votre permission. Si cette permission n'est pas accordée, les alarmes existantes ne fonctionneront pas non plus.</string>
+    <string name="task_notification_permission_dialog_confirm">Accorder la permission</string>
+    <string name="task_notification_permission_dialog_cancel">Pas maintenant</string>
+
+    <string name="task_notification_rationale_dialog_title">Notifications</string>
+    <string name="task_notification_rationale_dialog_text">Il n'est pas possible de régler des alarmes sans la permission de notification. Si vous souhaitez utiliser cette fonctionnalité, veuillez vous rendre dans les paramètres de l'application et l'accorder manuellement.</string>
+    <string name="task_notification_rationale_dialog_confirm">M'y emmener</string>
+    <string name="task_notification_rationale_dialog_cancel">Ignorer</string>
+
+    <!-- Category -->
+    <string name="category_list_header_empty">Aucune catégorie</string>
+    <string name="category_list_cd_empty_list">Aucune catégorie disponible</string>
+    <string name="category_icon_cd">Catégorie</string>
+    <string name="category_sheet_save">Enregistrer</string>
+    <string name="category_cd_add_category">Ajouter une catégorie</string>
+    <string name="category_add_label">Catégorie</string>
+
+    <string name="category_dialog_remove_title">Supprimer la catégorie</string>
+    <string name="category_dialog_remove_text">Êtes-vous sûr de vouloir supprimer cette catégorie ?\nLa suppression de "%1$s" supprimera également toutes les tâches de cette catégorie.</string>
+    <string name="category_dialog_remove_confirm">Supprimer</string>
+    <string name="category_dialog_remove_cancel">Annuler</string>
+    <string name="category_cd_remove_category">Supprimer</string>
+
+    <!-- Search -->
+    <string name="search_cd_icon">Rechercher</string>
+    <string name="search_cd_empty_list">Aucune tâche</string>
+    <string name="search_header_empty">Aucune tâche trouvée</string>
+
+    <!-- Preferences -->
+    <string name="preference_title_about">À propos</string>
+    <string name="preference_title_version">Version</string>
+    <string name="preference_title_tracker">Suivi des tâches</string>
+
+    <string name="about_title">Alkaa</string>
+    <string name="about_description">Alkaa (signifie "commencer" ou "débuter" en finnois) est une liste de tâches simple pour vous faciliter la vie.\n\nTout a commencé lorsque j'ai créé un projet pour apprendre et me tenir au courant des derniers composants et bibliothèques Android. Il est désormais disponible sur plusieurs plateformes grâce à Kotlin et Compose Multiplatform ! Si vous êtes un développeur ou un passionné, n'hésitez pas à accéder, copier et mettre à jour le code source ouvert.\n\nMerci beaucoup d'utiliser mon application !</string>
+    <string name="about_button_project">Visiter le projet sur GitHub</string>
+    <string name="about_cd_github">GitHub</string>
+    <string name="preference_title_app_theme">Thème de l'application</string>
+    <string name="preference_light_theme">Thème clair</string>
+    <string name="preference_dark_theme">Thème sombre</string>
+    <string name="preference_system_default_theme">Par défaut du système</string>
+    <string name="preference_title_features">Fonctionnalités</string>
+    <string name="preference_title_settings">Paramètres</string>
+    <string name="preference_title_open_source">Licences open source</string>
+
+    <!-- Database -->
+    <string name="category_default_personal">Personnel</string>
+    <string name="category_default_work">Travail</string>
+    <string name="category_default_shopping">Liste de courses</string>
+
+    <!-- Tracker -->
+    <string name="tracker_name_no_category">Sans catégorie</string>
+    <string name="tracker_cp_item_icon">Élément terminé</string>
+
+    <string name="tracker_message_description">Au cours des 30 derniers jours</string>
+    <string name="tracker_cp_info_icon">Tâches terminées</string>
+
+    <string name="tracker_cd_empty">Aucune tâche terminée</string>
+    <string name="tracker_header_empty">Vous n'avez pas de tâches terminées au cours des 30 derniers jours</string>
+    <string name="tracker_header_error">Oups… C'est embarrassant…</string>
+    <string name="tracker_cd_error">Quelque chose s'est mal passé</string>
+
+    <!-- Alarm -->
+    <string name="content_app_name">Alkaa</string>
+
+    <string name="channel_task_name">Alarmes de tâches</string>
+    <string name="channel_task_description">Notifications pour les rappels</string>
+
+    <string name="notification_action_completed">Fait</string>
+    <string name="notification_action_snooze">Dans 15 min</string>
+
+    <string name="dialog_picker_next">Suivant</string>
+    <string name="dialog_picker_confirm">Confirmer</string>
+
+    <string name="default_ok">OK</string>
+
+    <!-- Relative Date -->
+    <string name="relative_date_time_just_now">à l'instant</string>
+    <string name="relative_date_time_one_minute">il y a 1 minute</string>
+    <string name="relative_date_time_minutes">il y a %d minutes</string>
+    <string name="relative_date_time_one_hour">il y a 1 heure</string>
+    <string name="relative_date_time_hours">il y a %d heures</string>
+    <string name="relative_date_time_yesterday">hier</string>
+    <string name="relative_date_time_days">il y a %d jours</string>
+
+</resources>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+
+    <!-- Tracker -->
+    <plurals name="tracker_message_title">
+        <item quantity="one">%1$d tarea completada</item>
+        <item quantity="other">%1$d tareas completadas</item>
+    </plurals>
+
+</resources>

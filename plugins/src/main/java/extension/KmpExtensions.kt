@@ -14,6 +14,7 @@ fun KotlinMultiplatformExtension.setFrameworkBaseName(name: String) {
     ).forEach {
         it.binaries.framework {
             baseName = name
+            isStatic = true
         }
     }
     jvm("desktop")

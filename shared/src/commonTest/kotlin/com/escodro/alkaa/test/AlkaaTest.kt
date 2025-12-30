@@ -71,6 +71,7 @@ fun flakyUiTest(
 ) = retry(times) {
     uiTest(block)
 }
+
 /**
  * Fake implementation of [LifecycleOwner] to be used in the tests, specially in iOS ones.
  */

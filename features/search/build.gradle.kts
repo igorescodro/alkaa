@@ -10,6 +10,8 @@ kotlin {
     setFrameworkBaseName("search")
 
     sourceSets {
+        val desktopTest by getting
+
         commonMain.dependencies {
             implementation(projects.domain)
             implementation(projects.libraries.designsystem)
@@ -31,6 +33,12 @@ kotlin {
             implementation(kotlin("test"))
             implementation(projects.libraries.test)
             implementation(libs.kotlinx.datetime)
+            implementation(libs.compose.uiTest)
+        }
+
+        desktopTest.dependencies {
+            implementation(compose.desktop.currentOs)
+            implementation(libs.kotlinx.coroutines.swing)
         }
     }
 

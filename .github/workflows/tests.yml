@@ -28,7 +28,7 @@ jobs:
           java-version: '17'
           distribution: 'zulu'
 
-      - name: Run instrumented tests
+      - name: Run tests
         run: ./gradlew clean testAndroidHost
 
       - name: Save Test Results
@@ -37,7 +37,7 @@ jobs:
         with:
           name: test-results-android
           path: |
-            ${{ github.workspace }}/app/build/reports/tests/
+            **/build/reports/tests/
             ./logcat.txt
           retention-days: 7
 
@@ -59,7 +59,7 @@ jobs:
           java-version: '17'
           distribution: 'zulu'
 
-      - name: Run instrumented tests
+      - name: Run tests
         run: ./gradlew clean iosSimulatorArm64Test
 
       - name: Save Test Results
@@ -68,7 +68,7 @@ jobs:
         with:
           name: test-results-ios
           path: |
-            ${{ github.workspace }}/app/build/reports/tests/
+            **/build/reports/tests/
           retention-days: 7
 
   desktop-test:
@@ -89,7 +89,7 @@ jobs:
           java-version: '17'
           distribution: 'zulu'
 
-      - name: Run instrumented tests
+      - name: Run tests
         run: ./gradlew clean desktopTest
 
       - name: Save Test Results
@@ -98,5 +98,5 @@ jobs:
         with:
           name: test-results-desktop
           path: |
-            ${{ github.workspace }}/app/build/reports/tests/
+            **/build/reports/tests/
           retention-days: 7

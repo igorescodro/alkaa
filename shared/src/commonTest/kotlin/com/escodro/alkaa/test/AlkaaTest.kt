@@ -67,13 +67,6 @@ private class LocalLifecycleOwnerFake : LifecycleOwner {
 }
 
 /**
- * Base class to be used in the tests, allowing to provide platform-specific configuration,
- * such as Robolectric in Android.
- */
-@Suppress("AbstractClassCanBeInterface")
-expect abstract class AlkaaTest()
-
-/**
  * Koin module to provide the platform dependencies.
  */
 expect val platformModule: Module

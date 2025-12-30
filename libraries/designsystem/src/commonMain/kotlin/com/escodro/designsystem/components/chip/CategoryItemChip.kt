@@ -21,6 +21,7 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.shadow.Shadow
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
@@ -32,7 +33,7 @@ import com.escodro.designsystem.theme.AlkaaThemePreview
 /**
  * Composable function that represents a filter chip for a category item.
  */
-@Suppress("LongParameterList")
+@Suppress("LongParameterList", "LongMethod")
 @Composable
 fun CategoryItemChip(
     id: Long,
@@ -83,6 +84,7 @@ fun CategoryItemChip(
             onSelectChange(validId)
         },
         modifier = modifier
+            .testTag(name)
             .innerBorder()
             .dropShadow(
                 shape = MaterialTheme.shapes.extraLarge,

@@ -8,12 +8,12 @@ import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performKeyInput
-import com.escodro.alkaa.test.AlkaaTest
 import com.escodro.alkaa.test.afterTest
 import com.escodro.alkaa.test.beforeTest
 import com.escodro.alkaa.test.uiTest
 import com.escodro.navigationapi.destination.HomeDestination
 import com.escodro.navigationapi.destination.TopLevelDestinations
+import com.escodro.test.AlkaaTest
 import kotlinx.coroutines.runBlocking
 import org.jetbrains.compose.resources.getString
 import org.koin.test.KoinTest

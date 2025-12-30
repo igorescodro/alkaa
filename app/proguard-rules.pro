@@ -33,3 +33,5 @@
     -dontwarn androidx.window.**
 
 -dontwarn androidx.test.platform.app.InstrumentationRegistry
+
+-dontwarn com.google.auto.service.AutoService

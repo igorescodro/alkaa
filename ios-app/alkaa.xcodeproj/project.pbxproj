@@ -137,6 +137,7 @@
 				en,
 				Base,
 				fr,
+				es,
 			);
 			mainGroup = D8AA51F82A8FABB600A0D1F2;
 			productRefGroup = D8AA52022A8FABB700A0D1F2 /* Products */;

@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alkaa - Multiplatform To-do App</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap"
+          rel="stylesheet">
+    <script src="https://unpkg.com/lucide@0.263.1"></script>
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #06b6d4;
+            --text-main: #111827;
+            --text-muted: #4b5563;
+            --bg-body: #ffffff;
+            --bg-alt: #f8fafc;
+            --border: #e2e8f0;
+            --card-bg: #ffffff;
+            --nav-bg: rgba(255, 255, 255, 0.8);
+            --badge-filter: none;
+        }
+
+        [data-theme="dark"] {
+            --text-main: #f9fafb;
+            --text-muted: #9ca3af;
+            --bg-body: #0f172a;
+            --bg-alt: #1e293b;
+            --border: #334155;
+            --card-bg: #1e293b;
+            --nav-bg: rgba(15, 23, 42, 0.8);
+            --badge-filter: brightness(0.9) contrast(1.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            color: var(--text-main);
+            background-color: var(--bg-body);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Skip to main content link */
+        .skip-to-main {
+            position: absolute;
+            left: -9999px;
+            z-index: 999;
+            padding: 1em;
+            background-color: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 0.25rem;
+        }
+
+        .skip-to-main:focus {
+            left: 50%;
+            top: 1rem;
+            transform: translateX(-50%);
+        }
+
+        /* Top Bar */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: var(--nav-bg);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--border);
+            height: 64px;
+            display: flex;
+            align-items: center;
+        }
+
+        .top-bar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .top-bar-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .version-tag {
+            background: var(--bg-alt);
+            color: var(--primary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border: 1px solid var(--border);
+        }
+
+        .top-bar-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .top-bar-link {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.2s;
+        }
+
+        .top-bar-link:hover {
+            color: var(--primary);
+        }
+
+        .external-icon {
+            width: 14px;
+            height: 14px;
+            opacity: 0.6;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text-main);
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s;
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--bg-alt);
+        }
+
+        [data-theme="dark"] .sun-icon { display: block; }
+        [data-theme="dark"] .moon-icon { display: none; }
+        [data-theme="light"] .sun-icon { display: none; }
+        [data-theme="light"] .moon-icon { display: block; }
+
+        /* Hero Section */
+        .hero {
+            padding: 8rem 0 4rem;
+            text-align: center;
+            background: linear-gradient(to bottom, rgba(99, 102, 241, 0.15), transparent),
+                        radial-gradient(circle at top right, var(--bg-alt), transparent 40%),
+                        radial-gradient(circle at bottom left, var(--bg-alt), transparent 40%);
+        }
+
+        .hero img.logo {
+            width: 96px;
+            height: 96px;
+            margin-bottom: 2rem;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
+            border-radius: 20%;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            letter-spacing: -0.025em;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+        }
+
+        .download-badges {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .download-badges a {
+            transition: transform 0.2s;
+        }
+
+        .download-badges a:hover {
+            transform: translateY(-2px);
+        }
+
+        .download-badges img {
+            height: 48px;
+        }
+
+        .download-badges .google-play img {
+            height: 72px;
+            filter: var(--badge-filter);
+        }
+
+        /* Section Styling */
+        section {
+            padding: 5rem 0;
+            background-color: var(--bg-body);
+        }
+
+        section:nth-child(even) {
+            background-color: var(--bg-alt);
+        }
+
+        h2 {
+            font-size: 2.25rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            text-align: center;
+            letter-spacing: -0.025em;
+        }
+
+        .content-grid {
+            display: grid;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        /* Screenshots */
+        .screenshots-wrapper {
+            position: relative;
+            margin: 0 -1.5rem;
+        }
+
+        .screenshots {
+            display: flex;
+            overflow-x: auto;
+            gap: 1.5rem;
+            padding: 1rem 1.5rem 2rem;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .screenshots::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .screenshots::-webkit-scrollbar-track {
+            background: var(--bg-alt);
+        }
+
+        .screenshots::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 4px;
+        }
+
+        .screenshots img {
+            max-height: 500px;
+            border-radius: 24px;
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+            scroll-snap-align: center;
+            background: var(--bg-body);
+        }
+
+        /* Tech Stack & Architecture */
+        .card {
+            background: var(--card-bg);
+            padding: 3rem;
+            border-radius: 24px;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+        }
+
+        .tech-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            list-style: none;
+        }
+
+        .tech-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.25rem;
+            background: var(--card-bg);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            transition: all 0.2s;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .tech-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+            border-color: var(--primary);
+        }
+
+        .tech-icon {
+            color: var(--primary);
+            flex-shrink: 0;
+        }
+
+        .tech-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tech-name {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .tech-category {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .architecture-img {
+            width: 100%;
+            border-radius: 16px;
+            margin-top: 2rem;
+        }
+
+        /* Footer */
+        footer {
+            padding: 4rem 0;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            background-color: var(--bg-body);
+        }
+
+        footer a {
+            color: var(--text-main);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: var(--primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .hero { padding: 4rem 0 2rem; }
+            section { padding: 3rem 0; }
+            .card { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body data-theme="light">
+
+<a href="#main-content" class="skip-to-main">Skip to main content</a>
+
+<nav class="top-bar">
+    <div class="container">
+        <div class="top-bar-left">
+            <span class="version-tag">VERSION_PLACEHOLDER</span>
+        </div>
+        <div class="top-bar-right">
+            <a href="https://github.com/igorescodro/alkaa" class="top-bar-link">
+                <i data-lucide="github"></i>
+                <span>GitHub</span>
+                <i data-lucide="external-link" class="external-icon"></i>
+            </a>
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                <i data-lucide="sun" class="sun-icon"></i>
+                <i data-lucide="moon" class="moon-icon"></i>
+            </button>
+        </div>
+    </div>
+</nav>
+
+<header class="hero">
+    <div class="container">
+        <img src="logo.png" alt="Alkaa Logo" class="logo">
+        <h1>Alkaa</h1>
+        <p>A modern multiplatform to-do application built with Kotlin and Compose Multiplatform.</p>
+        <div class="download-badges">
+            <a href="https://play.google.com/store/apps/details?id=com.escodro.alkaa"
+               class="google-play">
+                <img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png"
+                     alt="Get it on Google Play">
+            </a>
+            <a href="https://apps.apple.com/ca/app/alkaa/id6476208968">
+                <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
+                     alt="Download on the App Store">
+            </a>
+        </div>
+    </div>
+</header>
+
+<main id="main-content">
+    <section id="about">
+        <div class="container">
+            <div class="card">
+                <h2>About Alkaa</h2>
+                <p style="font-size: 1.125rem; text-align: center; max-width: 800px; margin: 0 auto;">
+                    Alkaa is a to-do application designed to showcase the latest components,
+                    architecture, and tools for multiplatform development.
+                    Built entirely with <strong>Kotlin and Compose Multiplatform</strong>, it offers
+                    a seamless experience across Android, iOS, and Desktop.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="screenshots">
+        <div class="container">
+            <h2>Experience Alkaa</h2>
+            <div class="screenshots-wrapper">
+                <div class="screenshots">
+                    <img src="https://play-lh.googleusercontent.com/W76J3O4OvtqiBvGePEL2Czt_Jl52SIcm38SK2m7Jzbq83RdzvDStd1Qn5NoAp3ffEibn=w5120-h2880-rw"
+                         alt="Android Screenshot 1">
+                    <img src="https://play-lh.googleusercontent.com/CRRgxRGMLXykBlehra9LNOmCedbAhRjAEbU5QFx0hTXpE6m4P6YXoRv78rd5T22-LEA=w5120-h2880-rw"
+                         alt="Android Screenshot 2">
+                    <img src="https://is1-ssl.mzstatic.com/image/thumb/PurpleSource126/v4/e6/6e/e4/e66ee445-cbaa-17c3-6f63-fef2b62ca0e0/87c54b1b-49d4-4555-8071-60a39f15dbb0_01.png/460x0w.webp"
+                         alt="iOS Screenshot 1">
+                    <img src="https://is1-ssl.mzstatic.com/image/thumb/PurpleSource126/v4/a2/82/5f/a2825f13-1da8-aedc-f708-517c2cc2913b/3733dbf1-1844-408f-a947-9250267c608b_02.png/460x0w.png"
+                         alt="iOS Screenshot 2">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="tech-stack">
+        <div class="container">
+            <h2>Modern Tech Stack</h2>
+            <div class="tech-list">
+                <a href="https://kotlinlang.org" class="tech-item">
+                    <i data-lucide="code" class="tech-icon"></i>
+                    <div class="tech-info">
+                        <span class="tech-category">Language</span>
+                        <span class="tech-name">Kotlin</span>
+                    </div>
+                </a>
+                <a href="https://www.jetbrains.com/lp/compose-multiplatform/" class="tech-item">
+                    <i data-lucide="layout" class="tech-icon"></i>
+                    <div class="tech-info">
+                        <span class="tech-category">UI Framework</span>
+                        <span class="tech-name">Compose Multiplatform</span>
+                    </div>
+                </a>
+                <a href="https://insert-koin.io" class="tech-item">
+                    <i data-lucide="package" class="tech-icon"></i>
+                    <div class="tech-info">
+                        <span class="tech-category">Dependency Injection</span>
+                        <span class="tech-name">Koin</span>
+                    </div>
+                </a>
+                <a href="https://github.com/cashapp/sqldelight" class="tech-item">
+                    <i data-lucide="database" class="tech-icon"></i>
+                    <div class="tech-info">
+                        <span class="tech-category">Database</span>
+                        <span class="tech-name">SQLDelight</span>
+                    </div>
+                </a>
+                <a href="https://developer.android.com/topic/libraries/architecture/datastore"
+                   class="tech-item">
+                    <i data-lucide="save" class="tech-icon"></i>
+                    <div class="tech-info">
+                        <span class="tech-category">Storage</span>
+                        <span class="tech-name">DataStore</span>
+                    </div>
+                </a>
+                <a href="https://developer.android.com/jetpack/compose/navigation"
+                   class="tech-item">
+                    <i data-lucide="navigation" class="tech-icon"></i>
+                    <div class="tech-info">
+                        <span class="tech-category">Navigation</span>
+                        <span class="tech-name">Navigation3</span>
+                    </div>
+                </a>
+                <a href="https://kotlin.github.io/kotlinx.coroutines/" class="tech-item">
+                    <i data-lucide="cpu" class="tech-icon"></i>
+                    <div class="tech-info">
+                        <span class="tech-category">Concurrency</span>
+                        <span class="tech-name">Coroutines</span>
+                    </div>
+                </a>
+                <a href="https://m3.material.io/" class="tech-item">
+                    <i data-lucide="palette" class="tech-icon"></i>
+                    <div class="tech-info">
+                        <span class="tech-category">Design System</span>
+                        <span class="tech-name">Material You</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="architecture">
+        <div class="container">
+            <div class="card">
+                <h2>Solid Architecture</h2>
+                <p style="text-align: center; margin-bottom: 2rem;">
+                    Alkaa is built on <strong>Hexagonal Architecture</strong> principles,
+                    emphasizing modularization, separation of concerns, and testability.
+                </p>
+                <img src="https://raw.githubusercontent.com/igorescodro/alkaa/main/assets/alkaa-arch-3-0.png"
+                     alt="Alkaa Architecture" class="architecture-img">
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="container">
+        <p>&copy; 2018 Igor Escodro. Licensed under the Apache License, Version 2.0.</p>
+        <p style="margin-top: 1rem;"><a href="https://github.com/igorescodro/alkaa">View on
+            GitHub</a></p>
+    </div>
+</footer>
+
+<script>
+    lucide.createIcons();
+
+    // Theme Toggle Logic
+    const themeToggle = document.getElementById('theme-toggle');
+    const body = document.body;
+    const savedTheme = localStorage.getItem('theme') || 'light';
+
+    body.setAttribute('data-theme', savedTheme);
+
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = body.getAttribute('data-theme');
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+
+        body.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+    });
+</script>
+</body>
+</html>

@@ -17,6 +17,7 @@ import com.escodro.appstate.rememberAlkaaAppState
 import com.escodro.shared.AlkaaMultiplatformApp
 import com.escodro.shared.di.appModules
 import com.escodro.task.presentation.detail.alarm.interactor.OpenAlarmScheduler
+import com.escodro.test.retry
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
 import org.koin.core.module.Module
@@ -55,6 +56,22 @@ fun uiTest(block: ComposeUiTest.() -> Unit) = runComposeUiTest {
         }
     }
     block()
+}
+
+/**
+ * Run a flaky test in the UI context, retrying it a number of times if it fails.
+ *
+ * @param times the number of times the test should be retried
+ * @param block the test to be executed
+ */
+@OptIn(ExperimentalTestApi::class)
+fun flakyUiTest(
+    times: Int = 5,
+    block: ComposeUiTest.() -> Unit,
+) = uiTest {
+    retry(times) {
+        block()
+    }
 }
 
 /**

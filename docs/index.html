@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap"
           rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/lucide@0.263.1"></script>
     <style>
         :root {
             --primary: #6366f1;
@@ -55,6 +55,24 @@
             max-width: 1100px;
             margin: 0 auto;
             padding: 0 1.5rem;
+        }
+
+        /* Skip to main content link */
+        .skip-to-main {
+            position: absolute;
+            left: -9999px;
+            z-index: 999;
+            padding: 1em;
+            background-color: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 0.25rem;
+        }
+
+        .skip-to-main:focus {
+            left: 50%;
+            top: 1rem;
+            transform: translateX(-50%);
         }
 
         /* Top Bar */
@@ -357,6 +375,8 @@
 </head>
 <body data-theme="light">
 
+<a href="#main-content" class="skip-to-main">Skip to main content</a>
+
 <nav class="top-bar">
     <div class="container">
         <div class="top-bar-left">
@@ -395,7 +415,7 @@
     </div>
 </header>
 
-<main>
+<main id="main-content">
     <section id="about">
         <div class="container">
             <div class="card">

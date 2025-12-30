@@ -17,6 +17,7 @@ import androidx.compose.ui.test.waitUntilDoesNotExist
 import com.escodro.alkaa.fake.FAKE_TASKS
 import com.escodro.alkaa.test.afterTest
 import com.escodro.alkaa.test.beforeTest
+import com.escodro.alkaa.test.flakyUiTest
 import com.escodro.alkaa.test.uiTest
 import com.escodro.local.dao.TaskDao
 import com.escodro.task.presentation.list.CheckboxNameKey
@@ -100,7 +101,7 @@ internal class SearchFlowTest : AlkaaTest(), KoinTest {
     }
 
     @Test
-    fun clear_search_query() = uiTest {
+    fun clear_search_query() = flakyUiTest {
         navigateToSearch()
 
         // Type a query

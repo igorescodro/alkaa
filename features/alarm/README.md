@@ -1,3 +1,3 @@
 # Alarm
 
-Module representing the Alarm Notification feature. This feature handles the Task to be notified in the given time.
+Module responsible for the Alarm and Notification functionality, ensuring that task reminders are triggered at the scheduled time.

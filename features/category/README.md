@@ -1,3 +1,3 @@
 # Category
 
-Module representing the Task Category feature. This feature helps to separate the Tasks by default or used defined categories.
+Module responsible for the Task Category feature, allowing users to create, update, and delete categories to organize their tasks.

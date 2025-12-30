@@ -1,3 +1,3 @@
 # Tracker
 
-Module representing the Tracker feature. This feature shows a chart informing the user about the task completed during a period of time.
+Module responsible for the Task Tracker feature, providing visual feedback and statistics (like charts) about completed tasks over time.

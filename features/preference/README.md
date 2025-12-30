@@ -1,3 +1,3 @@
 # Preference
 
-Module representing the Preference feature. This feature provide the user the app information and settings.
+Module responsible for the App Preferences feature, providing settings, information, and customization options to the user.

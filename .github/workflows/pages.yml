@@ -22,11 +22,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Extract version
         id: get_version
         run: |
           VERSION=$(grep 'version_name =' gradle/libs.versions.toml | cut -d '"' -f 2)
+          if [ -z "$VERSION" ]; then
+            echo "Error: Failed to extract version from gradle/libs.versions.toml"
+            exit 1
+          fi
           echo "version=$VERSION" >> $GITHUB_OUTPUT
       - name: Update version in HTML
         run: |

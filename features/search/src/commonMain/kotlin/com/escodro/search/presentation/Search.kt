@@ -43,6 +43,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
@@ -217,6 +218,7 @@ private fun SearchTextField(text: String, onTextChange: (String) -> Unit) {
         },
         modifier = Modifier
             .fillMaxWidth()
+            .testTag("search_bar")
             .padding(12.dp),
     )
 }

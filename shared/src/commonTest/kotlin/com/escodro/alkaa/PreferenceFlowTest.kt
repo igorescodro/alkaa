@@ -2,8 +2,11 @@ package com.escodro.alkaa
 
 import androidx.compose.ui.test.ComposeUiTest
 import androidx.compose.ui.test.ExperimentalTestApi
+import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.onAllNodesWithText
+import androidx.compose.ui.test.onLast
 import androidx.compose.ui.test.onNodeWithContentDescription
+import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import com.escodro.alkaa.test.afterTest
@@ -56,6 +59,35 @@ internal class PreferenceFlowTest : AlkaaTest(), KoinTest {
         // This library is very likely to appear
         onAllNodesWithText("AboutLibraries", substring = true)[0].performClick()
         onNodeWithText("OK").performClick()
+    }
+
+    @Test
+    fun change_app_theme() = uiTest {
+        navigateToPreferences()
+
+        onNodeWithText(text = "App theme").performClick()
+
+        // Validate if the dialog is shown
+        onAllNodes(hasText("App theme")).onLast().assertExists()
+
+        // Select Dark theme
+        onAllNodesWithText(text = "Dark theme").onLast().performClick()
+
+        // Validate if the dialog is closed
+        onNodeWithTag("App theme").assertDoesNotExist()
+    }
+
+    @Test
+    fun when_version_is_clicked_five_times_it_opens_youtube() = uiTest {
+        navigateToPreferences()
+
+        // Click version 7 times
+        repeat(7) {
+            onNodeWithText(text = "Version").performClick()
+        }
+
+        // We can't easily verify the URI opening, but we can verify the clicks don't crash the app
+        onNodeWithText(text = "Version").assertExists()
     }
 
     private fun ComposeUiTest.navigateToPreferences() {

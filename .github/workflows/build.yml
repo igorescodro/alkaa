@@ -53,7 +53,7 @@ jobs:
           ALKAA_STORE_PATH: ${{ vars.ALKAA_STORE_PATH }}
 
   build-ios:
-    runs-on: macos-15
+    runs-on: macos-latest
 
     steps:
       - name: Checkout
@@ -67,10 +67,10 @@ jobs:
           cache: 'gradle'
 
       - name: Build with Xcode
-        run: xcodebuild -workspace ios-app/alkaa.xcodeproj/project.xcworkspace -configuration Debug -scheme alkaa -sdk iphonesimulator
+        run: xcodebuild -workspace ios-app/alkaa.xcodeproj/project.xcworkspace -configuration Debug -scheme alkaa -sdk iphonesimulator COMPILER_INDEX_STORE_ENABLE=NO
 
   build-desktop:
-    runs-on: macos-15
+    runs-on: macos-latest
 
     steps:
       - name: Checkout

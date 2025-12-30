@@ -5,6 +5,7 @@ import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.hasSetTextAction
 import androidx.compose.ui.test.hasText
+import androidx.compose.ui.test.onAllNodesWithContentDescription
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onLast
 import androidx.compose.ui.test.onNodeWithContentDescription
@@ -137,6 +138,7 @@ internal class SearchFlowTest : AlkaaTest(), KoinTest {
     }
 
     private fun ComposeUiTest.navigateToSearch() {
-        onNodeWithContentDescription(label = "Search", useUnmergedTree = true).performClick()
+        onAllNodesWithContentDescription(label = "Search", useUnmergedTree = true).onLast()
+            .performClick()
     }
 }

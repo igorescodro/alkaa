@@ -9,7 +9,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap"
           rel="stylesheet">
-    <script src="https://unpkg.com/lucide@0.263.1"></script>
     <style>
         :root {
             --primary: #6366f1;
@@ -537,8 +536,12 @@
     </div>
 </footer>
 
+<script src="https://unpkg.com/lucide@latest"></script>
 <script>
-    lucide.createIcons();
+    // Initialize Lucide icons
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+    }
 
     // Theme Toggle Logic
     const themeToggle = document.getElementById('theme-toggle');

@@ -114,7 +114,7 @@ internal class SearchFlowTest : AlkaaTest(), KoinTest {
         // Validate all tasks are visible again
         waitUntilAtLeastOneExists(
             matcher = hasText(FAKE_TASKS.first().task_title),
-            timeoutMillis = 5_000L
+            timeoutMillis = 5_000L,
         )
         FAKE_TASKS.forEach { task ->
             onNodeWithText(text = task.task_title, useUnmergedTree = true).assertExists()

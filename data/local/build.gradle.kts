@@ -1,7 +1,7 @@
 import extension.setFrameworkBaseName
 
 plugins {
-    id("com.escodro.multiplatform")
+    alias(libs.plugins.escodro.multiplatform)
     alias(libs.plugins.sqldelight)
     alias(libs.plugins.compose)
     alias(libs.plugins.compose.compiler)

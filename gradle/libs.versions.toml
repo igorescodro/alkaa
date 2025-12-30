@@ -1,11 +1,16 @@
 [versions]
 # Project
+#noinspection UnusedVersionCatalogEntry
 version_code = "30305"
+#noinspection UnusedVersionCatalogEntry
 version_name = "3.3.5"
 android_gradle_plugin = "8.13.2"
 kotlin = "2.3.0"
+#noinspection UnusedVersionCatalogEntry
 android_sdk_compile = "36"
+#noinspection UnusedVersionCatalogEntry
 android_sdk_target = "35"
+#noinspection UnusedVersionCatalogEntry
 android_sdk_min = "24"
 
 # General dependencies
@@ -144,19 +149,23 @@ test-work = { module = "androidx.work:work-testing", version.ref = "test_work" }
 test-robolectric = { module = "org.robolectric:robolectric", version.ref = "test_robolectric" }
 
 # Quality
+#noinspection UnusedVersionCatalogEntry
 ktlint = { module = "com.pinterest.ktlint:ktlint-cli", version.ref = "ktlint" }
 detekt = { module = "dev.detekt:detekt-gradle-plugin", version.ref = "detekt" }
+#noinspection UnusedVersionCatalogEntry
 composerules-detekt = { module = "io.nlopez.compose.rules:detekt", version.ref = "composerules" }
-composerules-ktlint = { module = "io.nlopez.compose.rules:ktlint", version.ref = "composerules" }
 
 # License
 aboutlibraries_plugin = { module = "com.mikepenz.aboutlibraries.plugin:aboutlibraries-plugin", version.ref = "aboutlibraries" }
 aboutlibraries_ui = { module = "com.mikepenz:aboutlibraries-compose", version.ref = "aboutlibraries" }
 
 [plugins]
-android_kmp_plugin = { id ="com.android.kotlin.multiplatform.library", version.ref ="android_gradle_plugin" }
+android_kmp_plugin = { id = "com.android.kotlin.multiplatform.library", version.ref = "android_gradle_plugin" }
 kotlin_serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
 compose = { id = "org.jetbrains.compose", version.ref = "compose_compiler" }
-
 compose_compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+
+escodro_multiplatform = { id = "com.escodro.multiplatform" }
+escodro_kotlin_parcelable = { id = "com.escodro.kotlin-parcelable" }
+escodro_kotlin_quality = { id = "com.escodro.kotlin-quality" }

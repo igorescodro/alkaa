@@ -1,6 +1,5 @@
 package quality
 
-import extension.composeRulesKtlint
 import extension.ktlint
 
 val ktlint: Configuration by configurations.creating
@@ -8,7 +7,6 @@ private val _libs: VersionCatalog = extensions.getByType<VersionCatalogsExtensio
 
 dependencies {
     ktlint(_libs.ktlint)
-    ktlint.dependencies.add(_libs.composeRulesKtlint.get())
 }
 
 tasks {
@@ -23,7 +21,7 @@ tasks {
             "src/**/*.kt",
             "--reporter=plain",
             "--reporter=checkstyle," +
-                "output=$buildDir/reports/ktlint.xml",
+                    "output=$buildDir/reports/ktlint.xml",
         )
     }
 

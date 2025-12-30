@@ -1,19 +1,18 @@
-![build](https://github.com/igorescodro/alkaa/actions/workflows/build.yml/badge.svg)
-[![UI Tests](https://github.com/igorescodro/alkaa/actions/workflows/instrumented_tests.yml/badge.svg)](https://github.com/igorescodro/alkaa/actions/workflows/instrumented_tests.yml)
-[![codebeat badge](https://codebeat.co/badges/5dce2515-5fa7-4885-bfab-2a2905d84ee5)](https://codebeat.co/projects/github-com-igorescodro-alkaa-main)
+![Build](https://github.com/igorescodro/alkaa/actions/workflows/build.yml/badge.svg)
+![Tests](https://github.com/igorescodro/alkaa/actions/workflows/tests.yml/badge.svg)
+![Release](https://github.com/igorescodro/alkaa/actions/workflows/release.yml/badge.svg)
 [![CodeFactor](https://www.codefactor.io/repository/github/igorescodro/alkaa/badge/main)](https://www.codefactor.io/repository/github/igorescodro/alkaa/overview/main)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/d88ab7250f1a4e9fb0a96dec11a0c2cd)](https://www.codacy.com/manual/igorescodro/alkaa?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=igorescodro/alkaa&amp;utm_campaign=Badge_Grade)
 <a href="https://ktlint.github.io/"><img src="https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg" alt="ktlint"></a>
 
-<img src="app/src/main/ic_launcher-web.png" width="200">
+<img src="desktop-app/src/desktopMain/resources/ic_launcher.png" width="256" alt="Alkaa logo">
 
-# Alkaa 3.0 - Multiplatform
+# Alkaa - Multiplatform
 
-Alkaa (_begin_, _start_ in Finnish) is a to-do application project to study the latest components,
-architecture and tools for Android development. The project evolved a lot since the beginning is
-available on Google Play and App Store! ❤️
+Alkaa (_begin_, _start_ in Finnish) is a to-do application to study the latest components,
+architecture, and tools for multiplatform development. The project is
+available on Google Play, App Store, and for Desktop! ❤️
 
-The current version of Alkaa was completely migrate to **Kotlin and Compose Multiplatform**!
+The current version of Alkaa was completely migrated to **Kotlin and Compose Multiplatform**!
 
 ## Android
 | <img src="https://play-lh.googleusercontent.com/W76J3O4OvtqiBvGePEL2Czt_Jl52SIcm38SK2m7Jzbq83RdzvDStd1Qn5NoAp3ffEibn=w5120-h2880-rw">  | <img src="https://play-lh.googleusercontent.com/CRRgxRGMLXykBlehra9LNOmCedbAhRjAEbU5QFx0hTXpE6m4P6YXoRv78rd5T22-LEA=w5120-h2880-rw"> | <img src="https://play-lh.googleusercontent.com/XYlsapSwCTNFPNZmFRI9-e5Joc9h5ZprpU8X_eA8Gpcwm2E2ZLOWc7kNi028UoZR0N8=w5120-h2880-rw">  | <img src="https://play-lh.googleusercontent.com/XBjXPeuFkG_lhrbH392LD_wACYpPx69aRP4W2h2oxlvmDYwXDK2ZSEQXGl6pyo-jTfaX=w5120-h2880-rw"> |
@@ -36,7 +35,7 @@ The current version of Alkaa was completely migrate to **Kotlin and Compose Mult
 
 ## 📚 Tech stack
 
-One of the main goals of Alkaa is too use all the latest libraries and tools available.
+One of the main goals of Alkaa is to use all the latest libraries and tools available.
 
 ### 🧑🏻‍💻 Multiplatform development
 
@@ -44,10 +43,14 @@ One of the main goals of Alkaa is too use all the latest libraries and tools ava
 - UI developed in [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/)
 - UI Tests with [Compose Multiplatform UI Testing](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-test.html)
 - Following the [Material You](https://m3.material.io/) guidelines and dynamic color (Android only)
+- Adaptive layouts with [Compose Adaptive](https://developer.android.com/develop/ui/compose/layouts/adaptive)
+- Navigation using [Navigation3](https://developer.android.com/jetpack/compose/navigation)
 - Asynchronous processing using [Coroutines](https://kotlin.github.io/kotlinx.coroutines/)
 - Widgets using [Jetpack Glance](https://developer.android.com/jetpack/androidx/releases/glance)
 - Dependency injection with [Koin](https://insert-koin.io)
 - Database using [SQLDelight](https://github.com/cashapp/sqldelight)
+- Local storage with [DataStore](https://developer.android.com/topic/libraries/architecture/datastore)
+- License management with [AboutLibraries](https://github.com/mikepenz/AboutLibraries)
 
 For more dependencies used in project, please access the
 [Dependency File](https://github.com/igorescodro/alkaa/blob/main/gradle/libs.versions.toml)
@@ -57,37 +60,35 @@ the latest [V1](https://github.com/igorescodro/alkaa/tree/v1.7.0) or [V2](https:
 
 ### 🧪 Quality
 
-- [klint](https://github.com/shyiko/ktlint)
+- [ktlint](https://github.com/pinterest/ktlint)
 - [detekt](https://github.com/arturbosch/detekt)
 - [compose-rules](https://github.com/twitter/compose-rules)
 - [lint](https://developer.android.com/studio/write/lint)
-- [codebeat](https://codebeat.co)
 - [CodeFactor](https://www.codefactor.io/)
-- [Codacy](http://codacy.com)
 
 ## 🏛 Architecture
 
-Alkaa architecture is strongly based on
-the [Hexagonal Architecture](https://alistair.cockburn.us/hexagonal-architecture/) by Alistair
-Cockburn. The application also relies heavily in modularization for better separation of concerns
-and encapsulation.
+Alkaa architecture is strongly based on the [Hexagonal Architecture](https://alistair.cockburn.us/hexagonal-architecture/)
+by Alistair Cockburn. The application also relies heavily on modularization for better separation of
+concerns and encapsulation.
 
-Let's take a look in each major module of the application:
+Let's take a look at each major module of the application:
 
-* **app** and **ios-app** - The platform-specific app module. It contains all the initialization logic for each platform.
-* **features** - The module/folder containing all the features (visual or not) from the application
-* **domain** - The modules containing the most important part of the application: the business
-  logic. This module depends only on itself and all interaction it does is via _dependency
-  inversion_.
-* **data** - The module containing the data (local, remote, light etc) from the app.
-* **libraries** - The module with useful small libraries for the project, such as design system,
-* navigation, test etc.
+* **app**, **ios-app**, and **desktop-app** - The platform-specific app modules. They contain the
+  initialization logic for each platform.
+* **shared** - The module containing the code shared between all platforms.
+* **features** - The modules containing the features (visual or not) of the application.
+* **domain** - The modules containing the business logic. These modules depend only on themselves,
+  and all interaction is done via _dependency inversion_.
+* **data** - The modules containing the data logic (local, repository, etc.).
+* **libraries** - The modules with useful small libraries for the project, such as design system,
+  navigation, testing, etc.
 
-This type of architecture protects the most important modules in the app. To achieve this, all the
-dependency points to the center, and the modules are organized in a way that
-_the more the module is in the center, more important it is_.
+This type of architecture protects the most important modules in the app. To achieve this, all
+dependencies point to the center. The modules are organized so that _the more a module is in the
+center, the more important it is_.
 
-To better represents the idea behind the modules, here is a architecture image representing the flow
+To better represent the idea behind the modules, here is an architecture image representing the flow
 of dependency:
 
 ![Alkaa Architecture](assets/alkaa-arch-3-0.png)

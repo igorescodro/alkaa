@@ -18,18 +18,15 @@ kotlin {
 
         androidMain.dependencies {
             implementation(kotlin("test-junit"))
-        }
-
-        desktopMain.dependencies {
-            implementation(kotlin("test-junit"))
-        }
-
-        androidMain.dependencies {
             implementation(libs.test.junit4.android)
             implementation(libs.test.uiautomator)
             implementation(libs.test.manifest)
             implementation(libs.test.robolectric)
             implementation(libs.test.work)
+        }
+
+        desktopMain.dependencies {
+            implementation(kotlin("test-junit"))
         }
     }
     androidLibrary {

@@ -45,7 +45,7 @@ internal class TaskItemTest : AlkaaTest() {
 
     @Test
     fun test_dueDateIsShown() = runComposeUiTest {
-        // Given a task wit due date to 1993-04-15
+        // Given a task with due date to 1993-04-15
         val taskName = "Watch movies"
         val dueDate = LocalDateTime(year = 1993, month = 4, day = 15, hour = 12, minute = 0)
         val task = Task(title = taskName, dueDate = dueDate)

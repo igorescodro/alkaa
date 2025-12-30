@@ -1,4 +1,4 @@
 package com.escodro.test
 
-@Suppress(names = ["AbstractClassCanBeInterface"])
+@Suppress("AbstractClassCanBeInterface")
 actual abstract class AlkaaTest actual constructor()

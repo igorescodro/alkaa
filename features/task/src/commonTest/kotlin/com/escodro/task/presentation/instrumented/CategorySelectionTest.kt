@@ -33,7 +33,7 @@ internal class CategorySelectionTest : AlkaaTest() {
         val category3 = Category(id = 3, name = "Grocery", color = Color.LightGray.hashCode())
         val categoryList = listOf(category1, category2, category3)
 
-        // When the view is loaded in a category is clicked
+        // When the view is loaded and a category is clicked
         loadCategorySelection(categoryList, null)
         onNodeWithText(text = category1.name).performClick()
 

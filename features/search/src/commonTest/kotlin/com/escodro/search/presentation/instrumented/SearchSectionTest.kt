@@ -37,7 +37,7 @@ internal class SearchSectionTest : AlkaaTest() {
     }
 
     @Test
-    fun when_view_has_items_than_items_are_shown() = runComposeUiTest {
+    fun when_view_has_items_then_items_are_shown() = runComposeUiTest {
         // Given a success state
         val item1 = TaskSearchItem(
             id = 1,
@@ -59,7 +59,7 @@ internal class SearchSectionTest : AlkaaTest() {
         // When the view is loaded
         loadTaskList(state)
 
-        // Assert that the item are shown on the list
+        // Assert that the items are shown on the list
         onNodeWithText(text = item1.title, useUnmergedTree = true).assertExists()
         onNodeWithText(text = item2.title, useUnmergedTree = true).assertExists()
     }

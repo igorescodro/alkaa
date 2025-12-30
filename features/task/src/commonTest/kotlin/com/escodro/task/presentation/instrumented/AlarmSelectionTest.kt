@@ -88,7 +88,7 @@ internal class AlarmSelectionTest : AlkaaTest() {
     }
 
     @Test
-    fun test_alarmAlreadySetLoadsShowsCorrectly() = runComposeUiTest {
+    fun test_alarmAlreadySetLoadsCorrectly() = runComposeUiTest {
         // Load the alarm section with preset values (2021-04-15 - 17:00:00)
         val localDateTime = LocalDateTime(year = 2021, month = 4, day = 15, hour = 17, minute = 0)
         val alarmInterval = AlarmInterval.MONTHLY

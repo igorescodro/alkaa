@@ -5,7 +5,6 @@ import com.escodro.local.mapper.AlarmIntervalMapper
 import com.escodro.local.mapper.CategoryMapper
 import com.escodro.local.mapper.TaskMapper
 import com.escodro.local.mapper.TaskWithCategoryMapper
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -24,12 +23,13 @@ internal class SearchLocalDataSourceTest {
         taskWithCategoryDao.clear()
     }
 
+    @Suppress("IgnoredReturnValue")
     @Test
     fun test_if_the_query_is_enclosed_with_percent_char() {
         runTest {
             val query = "name"
 
-            dataSource.findTaskByName(query).first()
+            dataSource.findTaskByName(query)
 
             assertEquals(expected = "%$query%", actual = taskWithCategoryDao.searchQuery)
         }

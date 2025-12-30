@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="glance_list_description">Affiche vos dernières tâches</string>
+    <string name="glance_list_loading">Chargement</string>
+    <string name="glance_list_preview_item_1">Acheter du lait</string>
+    <string name="glance_list_preview_item_2">Regarder Ponyo</string>
+    <string name="glance_list_preview_item_3">Écouter Local Natives</string>
+    <string name="glance_heading">Vos tâches</string>
+    <string name="glance_no_tasks">Aucune tâche</string>
+    <string name="glance_app_icon_content_description">Icône de l\'application</string>
+    <string name="glance_no_tasks_content_description">Liste de tâches vide</string>
+</resources>

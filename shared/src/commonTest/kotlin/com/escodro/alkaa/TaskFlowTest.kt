@@ -2,6 +2,7 @@ package com.escodro.alkaa
 
 import androidx.compose.ui.test.ComposeUiTest
 import androidx.compose.ui.test.ExperimentalTestApi
+import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.assertAny
 import androidx.compose.ui.test.assertIsSelected
 import androidx.compose.ui.test.hasSetTextAction
@@ -13,6 +14,7 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.test.performTextReplacement
 import androidx.compose.ui.test.waitUntilAtLeastOneExists
+import androidx.compose.ui.test.waitUntilDoesNotExist
 import androidx.compose.ui.test.waitUntilExactlyOneExists
 import com.escodro.alkaa.fake.CoroutinesDebouncerFake
 import com.escodro.alkaa.test.afterTest
@@ -23,6 +25,7 @@ import com.escodro.local.Category
 import com.escodro.local.dao.CategoryDao
 import com.escodro.local.dao.TaskDao
 import com.escodro.task.model.AlarmInterval
+import com.escodro.task.presentation.list.CheckboxNameKey
 import com.escodro.test.AlkaaTest
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
@@ -194,6 +197,55 @@ internal class TaskFlowTest : AlkaaTest(), KoinTest {
         waitUntilAtLeastOneExists(hasText(taskName))
         onNodeWithText("No alarm", useUnmergedTree = true).assertDoesNotExist()
         onNodeWithText("Every day", useUnmergedTree = true).assertExists()
+    }
+
+    @Test
+    fun complete_task_from_list() = uiTest {
+        val taskName = "Buy milk"
+        onNodeWithContentDescription("Add task").performClick()
+        waitUntilExactlyOneExists(hasSetTextAction())
+        onNode(hasSetTextAction()).performTextInput(taskName)
+        onNodeWithText("Add").performClick()
+
+        // Click on the checkbox to complete the task
+        onNode(SemanticsMatcher.expectValue(CheckboxNameKey, taskName)).performClick()
+
+        // Validate if the task is no longer in the list
+        waitUntilDoesNotExist(hasText(taskName))
+    }
+
+    @Test
+    fun remove_alarm_from_task() = uiTest {
+        val taskName = "Appreciate the coffee"
+        addAndOpenTask(taskName)
+        onNodeWithText("No alarm").performClick()
+
+        onNodeWithText("Next").performClick()
+        onNodeWithText("Confirm").performClick()
+
+        // Remove the alarm
+        onNodeWithContentDescription("Remove alarm").performClick()
+        navigateBack()
+
+        // Reopen the task and validate if the alarm is off
+        waitUntilAtLeastOneExists(hasText(taskName))
+        onNodeWithText(text = taskName, useUnmergedTree = true).performClick()
+        onNodeWithText("No alarm").assertExists()
+    }
+
+    @Test
+    fun when_task_has_no_title_it_is_not_created() = uiTest {
+        onNodeWithContentDescription("Add task").performClick()
+        waitUntilExactlyOneExists(hasSetTextAction())
+
+        // Click Add without typing anything
+        onNodeWithText("Add").performClick()
+
+        // Bottom sheet should be closed
+        onNodeWithText("Add").assertDoesNotExist()
+
+        // No task should be in the list
+        onNodeWithText("Wow! All tasks are completed!").assertExists()
     }
 
     private fun ComposeUiTest.addAndOpenTask(taskName: String) {

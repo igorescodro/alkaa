@@ -8,6 +8,8 @@ import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.hasSetTextAction
 import androidx.compose.ui.test.hasText
+import androidx.compose.ui.test.onAllNodesWithText
+import androidx.compose.ui.test.onLast
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
@@ -103,11 +105,28 @@ internal class CategoryFlowTest : AlkaaTest(), KoinTest {
         onCategoryColorItem(color).assertExists()
     }
 
+    @Test
+    fun add_category_with_custom_color() = uiTest {
+        navigateToCategory()
+
+        val name = "Health"
+        val color = Color(0xFF9CCC65) // GREEN from CategoryColors
+
+        onNodeWithContentDescription("Add category", useUnmergedTree = true).performClick()
+        onNode(hasSetTextAction()).performTextInput(name)
+        onCategoryColorItem(color).performClick()
+        onNodeWithText("Save").performClick()
+
+        // Validate if it is visible in the list and has the correct color
+        onNodeWithText(text = name, useUnmergedTree = true).assertExists()
+        onCategoryColorItem(color).assertExists()
+    }
+
     private fun ComposeUiTest.addCategory(name: String) {
         onNodeWithContentDescription("Add category", useUnmergedTree = true).performClick()
         onNode(hasSetTextAction()).performTextInput(name)
         onNodeWithText("Save").performClick()
-        onNodeWithText(text = name, useUnmergedTree = true).assertExists()
+        onAllNodesWithText(text = name, useUnmergedTree = true).onLast().assertExists()
     }
 
     private fun ComposeUiTest.navigateToCategory() {

@@ -8,6 +8,12 @@ on:
       - 'docs/**'
       - '.github/workflows/pages.yml'
       - 'gradle/libs.versions.toml'
+  workflow_run:
+    workflows: ["Release Alkaa"]
+    types:
+      - completed
+    branches:
+      - main
 
 permissions:
   contents: read
@@ -16,6 +22,9 @@ permissions:
 
 jobs:
   deploy:
+    if: |
+      github.event_name == 'push' || 
+      (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success')
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

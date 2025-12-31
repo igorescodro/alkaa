@@ -16,6 +16,7 @@ fun KotlinMultiplatformExtension.setFrameworkBaseName(name: String) {
         it.binaries.framework {
             baseName = name
             isStatic = true
+            binaryOption("bundleId", "com.escodro.alkaa.$name")
         }
     }
     jvm("desktop")

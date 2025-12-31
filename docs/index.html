@@ -9,8 +9,20 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap"
           rel="stylesheet">
+    <script>
+        (function() {
+            try {
+                const savedTheme = localStorage.getItem('theme');
+                const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                document.documentElement.setAttribute('data-theme', savedTheme || systemTheme);
+            } catch (e) {
+                console.error("Theme initialization failed", e);
+            }
+        })();
+    </script>
     <style>
-        :root {
+        :root,
+        [data-theme="light"] {
             --primary: #6366f1;
             --primary-dark: #4f46e5;
             --secondary: #06b6d4;
@@ -383,8 +395,7 @@
         }
     </style>
 </head>
-<body data-theme="light">
-
+<body>
 <a href="#main-content" class="skip-to-main">Skip to main content</a>
 
 <nav class="top-bar">
@@ -558,18 +569,35 @@
 
     // Theme Toggle Logic
     const themeToggle = document.getElementById('theme-toggle');
-    const body = document.body;
-    const savedTheme = localStorage.getItem('theme') || 'light';
+    const root = document.documentElement;
 
-    body.setAttribute('data-theme', savedTheme);
+    function applyTheme(theme) {
+        root.setAttribute('data-theme', theme);
+    }
 
     themeToggle.addEventListener('click', () => {
-        const currentTheme = body.getAttribute('data-theme');
+        const currentTheme = root.getAttribute('data-theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
         const newTheme = currentTheme === 'light' ? 'dark' : 'light';
 
-        body.setAttribute('data-theme', newTheme);
+        applyTheme(newTheme);
         localStorage.setItem('theme', newTheme);
     });
+
+    // Listen for system theme changes
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    
+    // Compatible listener for older/newer browsers
+    function handleSystemThemeChange(e) {
+        if (!localStorage.getItem('theme')) {
+            applyTheme(e.matches ? 'dark' : 'light');
+        }
+    }
+
+    if (mediaQuery.addEventListener) {
+        mediaQuery.addEventListener('change', handleSystemThemeChange);
+    } else {
+        mediaQuery.addListener(handleSystemThemeChange);
+    }
 </script>
 </body>
 </html>

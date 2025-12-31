@@ -7,7 +7,7 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
  *
  * @param name the base name to be set
  */
-fun KotlinMultiplatformExtension.setFrameworkBaseName(name: String) {
+fun KotlinMultiplatformExtension.configureTargets(name: String) {
     listOf(
         iosX64(),
         iosArm64(),

@@ -1,11 +1,11 @@
-import extension.setFrameworkBaseName
+import extension.configureTargets
 
 plugins {
     alias(libs.plugins.escodro.multiplatform)
 }
 
 kotlin {
-    setFrameworkBaseName("datastore")
+    configureTargets("datastore")
 
     sourceSets {
         commonMain.dependencies {

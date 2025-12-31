@@ -1,4 +1,4 @@
-import extension.setFrameworkBaseName
+import extension.configureTargets
 
 plugins {
     alias(libs.plugins.escodro.multiplatform)
@@ -7,7 +7,7 @@ plugins {
 }
 
 kotlin {
-    setFrameworkBaseName("search")
+    configureTargets("search")
 
     sourceSets {
         commonMain.dependencies {

@@ -1,4 +1,4 @@
-import extension.setFrameworkBaseName
+import extension.configureTargets
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
@@ -10,7 +10,7 @@ plugins {
 }
 
 kotlin {
-    setFrameworkBaseName("shared")
+    configureTargets("shared")
 
     sourceSets {
         val desktopTest by getting

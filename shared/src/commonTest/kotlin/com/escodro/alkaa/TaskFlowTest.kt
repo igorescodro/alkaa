@@ -101,6 +101,7 @@ internal class TaskFlowTest : AlkaaTest(), KoinTest {
         navigateBack()
 
         // Validate if the new name is shown
+        waitUntilAtLeastOneExists(hasText(newName))
         onNodeWithText(text = newName, useUnmergedTree = true).assertExists()
     }
 

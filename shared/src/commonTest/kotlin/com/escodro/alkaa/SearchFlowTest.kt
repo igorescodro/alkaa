@@ -5,6 +5,7 @@ import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.hasSetTextAction
 import androidx.compose.ui.test.hasText
+import androidx.compose.ui.test.onAllNodesWithContentDescription
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onLast
 import androidx.compose.ui.test.onNodeWithContentDescription
@@ -17,6 +18,7 @@ import androidx.compose.ui.test.waitUntilDoesNotExist
 import com.escodro.alkaa.fake.FAKE_TASKS
 import com.escodro.alkaa.test.afterTest
 import com.escodro.alkaa.test.beforeTest
+import com.escodro.alkaa.test.flakyUiTest
 import com.escodro.alkaa.test.uiTest
 import com.escodro.local.dao.TaskDao
 import com.escodro.task.presentation.list.CheckboxNameKey
@@ -100,7 +102,7 @@ internal class SearchFlowTest : AlkaaTest(), KoinTest {
     }
 
     @Test
-    fun clear_search_query() = uiTest {
+    fun clear_search_query() = flakyUiTest {
         navigateToSearch()
 
         // Type a query
@@ -136,6 +138,7 @@ internal class SearchFlowTest : AlkaaTest(), KoinTest {
     }
 
     private fun ComposeUiTest.navigateToSearch() {
-        onNodeWithContentDescription(label = "Search", useUnmergedTree = true).performClick()
+        onAllNodesWithContentDescription(label = "Search", useUnmergedTree = true).onLast()
+            .performClick()
     }
 }

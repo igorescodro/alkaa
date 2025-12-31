@@ -52,16 +52,3 @@ val FAKE_TASKS = listOf(
         task_alarm_interval = null,
     ),
 )
-
-val FAKE_TASK = Task(
-    task_id = 1000,
-    task_is_completed = false,
-    task_title = "Mami don't know",
-    task_description = null,
-    task_category_id = null,
-    task_due_date = null,
-    task_creation_date = null,
-    task_completed_date = null,
-    task_is_repeating = false,
-    task_alarm_interval = null,
-)

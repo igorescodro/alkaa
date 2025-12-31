@@ -1,4 +1,4 @@
-import extension.setFrameworkBaseName
+import extension.configureTargets
 
 plugins {
     alias(libs.plugins.escodro.multiplatform)
@@ -9,7 +9,7 @@ plugins {
 }
 
 kotlin {
-    setFrameworkBaseName("navigation-api")
+    configureTargets("navigation-api")
 
     sourceSets {
         commonMain.dependencies {

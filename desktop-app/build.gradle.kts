@@ -1,4 +1,4 @@
-import extension.setFrameworkBaseName
+import extension.configureTargets
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
 plugins {
@@ -8,7 +8,7 @@ plugins {
 }
 
 kotlin {
-    setFrameworkBaseName("desktop-app")
+    configureTargets("desktop-app")
 
     sourceSets {
         val desktopMain by getting

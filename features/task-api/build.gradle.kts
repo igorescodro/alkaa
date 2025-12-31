@@ -1,4 +1,4 @@
-import extension.setFrameworkBaseName
+import extension.configureTargets
 
 plugins {
     alias(libs.plugins.escodro.multiplatform)
@@ -8,7 +8,7 @@ plugins {
 }
 
 kotlin {
-    setFrameworkBaseName("taskapi")
+    configureTargets("taskapi")
 
     sourceSets {
         commonMain.dependencies {

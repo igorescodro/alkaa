@@ -7,7 +7,7 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
  *
  * @param name the base name to be set
  */
-fun KotlinMultiplatformExtension.setFrameworkBaseName(name: String) {
+fun KotlinMultiplatformExtension.configureTargets(name: String) {
     listOf(
         iosX64(),
         iosArm64(),
@@ -16,6 +16,7 @@ fun KotlinMultiplatformExtension.setFrameworkBaseName(name: String) {
         it.binaries.framework {
             baseName = name
             isStatic = true
+            binaryOption("bundleId", "com.escodro.alkaa.$name")
         }
     }
     jvm("desktop")

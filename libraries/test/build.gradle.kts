@@ -1,11 +1,11 @@
-import extension.setFrameworkBaseName
+import extension.configureTargets
 
 plugins {
     alias(libs.plugins.escodro.multiplatform)
 }
 
 kotlin {
-    setFrameworkBaseName("test")
+    configureTargets("test")
 
     sourceSets {
         val desktopMain by getting

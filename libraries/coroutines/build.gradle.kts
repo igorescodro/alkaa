@@ -1,11 +1,11 @@
-import extension.setFrameworkBaseName
+import extension.configureTargets
 
 plugins {
     alias(libs.plugins.escodro.multiplatform)
 }
 
 kotlin {
-    setFrameworkBaseName("coroutines")
+    configureTargets("coroutines")
 
     sourceSets {
         commonMain.dependencies {

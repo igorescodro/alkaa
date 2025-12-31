@@ -1,4 +1,4 @@
-import extension.setFrameworkBaseName
+import extension.configureTargets
 
 plugins {
     alias(libs.plugins.escodro.multiplatform)
@@ -6,7 +6,7 @@ plugins {
 }
 
 kotlin {
-    setFrameworkBaseName("parcelable")
+    configureTargets("parcelable")
 
     androidLibrary {
         namespace = "com.escodro.parcelable"

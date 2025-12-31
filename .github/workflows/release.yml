@@ -112,7 +112,7 @@ jobs:
           cache: 'gradle'
 
       - name: Build with Gradle
-        run: ./gradlew assemble
+        run: ./gradlew :app:assemble
 
       - name: GitHub Release
         uses: softprops/action-gh-release@v2
@@ -146,7 +146,7 @@ jobs:
           cache: 'gradle'
 
       - name: Build with Gradle
-        run: ./gradlew bundleRelease
+        run: ./gradlew :app:bundleRelease
 
       - name: Google Play Release
         uses: r0adkll/upload-google-play@v1

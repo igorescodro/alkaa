@@ -1,9 +1,9 @@
 [versions]
 # Project
 #noinspection UnusedVersionCatalogEntry
-version_code = "30400"
+version_code = "30401"
 #noinspection UnusedVersionCatalogEntry
-version_name = "3.4.0"
+version_name = "3.4.1"
 android_gradle_plugin = "8.13.2"
 kotlin = "2.3.0"
 #noinspection UnusedVersionCatalogEntry

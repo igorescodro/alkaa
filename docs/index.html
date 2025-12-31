@@ -102,6 +102,12 @@
             gap: 1rem;
         }
 
+        .version-link {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
         .version-tag {
             background: var(--bg-alt);
             color: var(--primary);
@@ -110,6 +116,11 @@
             font-size: 0.75rem;
             font-weight: 700;
             border: 1px solid var(--border);
+        }
+
+        .version-tag:hover {
+            border-color: var(--primary);
+            background-color: var(--bg-body);
         }
 
         .top-bar-right {
@@ -379,7 +390,9 @@
 <nav class="top-bar">
     <div class="container">
         <div class="top-bar-left">
-            <span class="version-tag">VERSION_PLACEHOLDER</span>
+            <a href="https://github.com/igorescodro/alkaa/releases/tag/VERSION_PLACEHOLDER" class="version-link">
+                <span class="version-tag">VERSION_PLACEHOLDER</span>
+            </a>
         </div>
         <div class="top-bar-right">
             <a href="https://github.com/igorescodro/alkaa" class="top-bar-link">

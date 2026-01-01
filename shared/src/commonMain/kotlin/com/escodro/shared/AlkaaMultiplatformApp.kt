@@ -1,15 +1,23 @@
 package com.escodro.shared
 
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.TextRange
+import androidx.compose.ui.text.input.TextFieldValue
 import com.escodro.appstate.AlkaaAppState
 import com.escodro.appstate.rememberAlkaaAppState
+import com.escodro.designsystem.components.AlkaaHeader
 import com.escodro.designsystem.theme.AlkaaTheme
-import com.escodro.home.presentation.Home
 import com.escodro.shared.model.AppThemeOptions
 import org.koin.compose.koinInject
 
@@ -19,10 +27,30 @@ fun AlkaaMultiplatformApp(
     appState: AlkaaAppState = rememberAlkaaAppState(),
 ) {
     AlkaaTheme(isDarkTheme = rememberIsDarkTheme()) {
-        Home(
-            appState = appState,
-            modifier = modifier,
-        )
+        var textFieldValue: TextFieldValue by remember { mutableStateOf(TextFieldValue("Custom text")) }
+        val interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
+        val isFocused: Boolean by interactionSource.collectIsFocusedAsState()
+        var isChecked by remember { mutableStateOf(false) }
+
+        LaunchedEffect(isFocused) {
+            val endRange = if (isFocused) textFieldValue.text.length else 0
+            textFieldValue = textFieldValue.copy(
+                selection = TextRange(
+                    start = 0,
+                    end = endRange
+                )
+            )
+        }
+        Scaffold(
+            topBar = {
+                AlkaaHeader(
+                    text = textFieldValue,
+                    onTextChange = { newText -> textFieldValue = newText },
+                    interactionSource = interactionSource,
+                    isChecked = isChecked,
+                    onCheckedChange = { newValue -> isChecked = newValue },
+                )
+            }) {}
     }
 }
 

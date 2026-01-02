@@ -1,6 +1,8 @@
 package com.escodro.parcelable
 
-actual interface CommonParcelable
+actual interface CommonSerializable
+
+actual interface CommonParcelable : CommonSerializable
 
 @Retention(AnnotationRetention.SOURCE)
 @Target(AnnotationTarget.PROPERTY)

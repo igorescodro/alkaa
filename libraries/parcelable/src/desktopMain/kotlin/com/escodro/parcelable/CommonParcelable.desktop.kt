@@ -1,6 +1,10 @@
 package com.escodro.parcelable
 
-actual interface CommonParcelable
+import java.io.Serializable
+
+actual typealias CommonSerializable = Serializable
+
+actual interface CommonParcelable : CommonSerializable
 
 @Retention(AnnotationRetention.SOURCE)
 @Target(AnnotationTarget.PROPERTY)

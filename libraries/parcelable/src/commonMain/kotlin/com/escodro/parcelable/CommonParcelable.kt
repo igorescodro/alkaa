@@ -8,12 +8,20 @@ package com.escodro.parcelable
 annotation class CommonParcelize
 
 /**
- * Interface to be implemented by the classes that are going to be parcelable in KMP.
- *
- * See: https://youtrack.jetbrains.com/issue/KT-58892/K2-Parcelize-doesnt-work-in-common-code-when-expect-annotation-is-actualized-with-typealias-to-Parcelize
- * See: https://issuetracker.google.com/issues/315775835#comment16
+ * Interface to be implemented by the classes that are going to be serializable in KMP.
+ * On JVM platforms, this will be mapped to java.io.Serializable.
  */
-expect interface CommonParcelable
+expect interface CommonSerializable
+
+/**
+ * Interface to be implemented by the classes that are going to be parcelable and serializable
+ * in KMP.
+ *
+ * This interface inherits from [CommonSerializable] to ensure that any parcelable class
+ * can also be handled by state-saving mechanisms that rely on Java Serialization (e.g.
+ * when stored in a collection in Compose's rememberSaveable).
+ */
+expect interface CommonParcelable : CommonSerializable
 
 /**
  * Annotation to be used in the common code to ignore a property from the Parcelable generation.

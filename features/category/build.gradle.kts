@@ -18,7 +18,6 @@ kotlin {
             implementation(projects.features.navigationApi)
             implementation(projects.libraries.designsystem)
             implementation(projects.libraries.coroutines)
-            implementation(projects.libraries.test)
             implementation(projects.libraries.parcelable)
 
             implementation(libs.compose.runtime)
@@ -33,6 +32,7 @@ kotlin {
 
         commonTest.dependencies {
             implementation(kotlin("test"))
+            implementation(projects.libraries.test)
         }
     }
 

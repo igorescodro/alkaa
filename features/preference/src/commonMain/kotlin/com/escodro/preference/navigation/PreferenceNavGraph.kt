@@ -3,6 +3,8 @@ package com.escodro.preference.navigation
 import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.navigation3.runtime.EntryProviderScope
 import androidx.navigation3.ui.NavDisplay
+import com.escodro.designsystem.animation.FadeInTransition
+import com.escodro.designsystem.animation.FadeOutTransition
 import com.escodro.designsystem.animation.SlideInHorizontallyTransition
 import com.escodro.designsystem.animation.SlideOutHorizontallyTransition
 import com.escodro.navigationapi.controller.NavEventController
@@ -21,7 +23,11 @@ import com.escodro.tracker.presentation.TrackerScreen
 internal class PreferenceNavGraph : NavGraph {
     override val navGraph:
         EntryProviderScope<Destination>.(NavEventController) -> Unit = { navEventController ->
-            entry<HomeDestination.Preferences> {
+            entry<HomeDestination.Preferences>(
+                metadata = NavDisplay.transitionSpec { FadeInTransition } +
+                    NavDisplay.popTransitionSpec { FadeOutTransition } +
+                    NavDisplay.predictivePopTransitionSpec { FadeOutTransition },
+            ) {
                 PreferenceSection(
                     isSinglePane = currentWindowAdaptiveInfo().windowSizeClass.isSinglePane(),
                     onAboutClick = { navEventController.sendEvent(PreferenceEvent.OnAboutClick) },

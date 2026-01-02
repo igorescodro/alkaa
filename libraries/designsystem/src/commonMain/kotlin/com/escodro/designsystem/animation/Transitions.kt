@@ -23,14 +23,24 @@ val SlideInHorizontallyTransition: ContentTransform = slideInHorizontally(
         durationMillis = 300,
         easing = LinearEasing,
     ),
-) + fadeIn() togetherWith ExitTransition.None
+) + fadeIn() togetherWith fadeOut(
+    animationSpec = tween(
+        durationMillis = 300,
+        easing = LinearEasing,
+    ),
+)
 
 /**
  * Transition used to slide out horizontally the content. The content will slide from the right to
  * the left and fade out.
  */
 val SlideOutHorizontallyTransition: ContentTransform =
-    EnterTransition.None togetherWith fadeOut() + slideOutHorizontally(
+    fadeIn(
+        animationSpec = tween(
+            durationMillis = 300,
+            easing = LinearEasing,
+        ),
+    ) togetherWith fadeOut() + slideOutHorizontally(
         targetOffsetX = { it },
         animationSpec = tween(
             durationMillis = 300,
@@ -52,6 +62,37 @@ val TopBarEnterTransition: EnterTransition = fadeIn(
         animationSpec = tween(
             delayMillis = 300,
             durationMillis = 600,
+        ),
+    )
+
+/**
+ * Transition used to fade in the content.
+ */
+val FadeInTransition: ContentTransform = fadeIn(
+    animationSpec = tween(
+        durationMillis = 200,
+        easing = LinearEasing,
+    ),
+) togetherWith fadeOut(
+    animationSpec = tween(
+        durationMillis = 200,
+        easing = LinearEasing,
+    ),
+)
+
+/**
+ * Transition used to fade out the content.
+ */
+val FadeOutTransition: ContentTransform =
+    fadeIn(
+        animationSpec = tween(
+            durationMillis = 200,
+            easing = LinearEasing,
+        ),
+    ) togetherWith fadeOut(
+        animationSpec = tween(
+            durationMillis = 200,
+            easing = LinearEasing,
         ),
     )
 

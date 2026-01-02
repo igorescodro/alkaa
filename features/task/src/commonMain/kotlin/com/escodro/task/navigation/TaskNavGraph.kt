@@ -4,6 +4,8 @@ import androidx.compose.material3.adaptive.currentWindowAdaptiveInfo
 import androidx.navigation3.runtime.EntryProviderScope
 import androidx.navigation3.scene.DialogSceneStrategy
 import androidx.navigation3.ui.NavDisplay
+import com.escodro.designsystem.animation.FadeInTransition
+import com.escodro.designsystem.animation.FadeOutTransition
 import com.escodro.designsystem.animation.SlideInHorizontallyTransition
 import com.escodro.designsystem.animation.SlideOutHorizontallyTransition
 import com.escodro.navigationapi.controller.NavEventController
@@ -22,7 +24,11 @@ internal class TaskNavGraph : NavGraph {
 
     override val navGraph: EntryProviderScope<Destination>.(NavEventController) -> Unit =
         { navEventController ->
-            entry<HomeDestination.TaskList> {
+            entry<HomeDestination.TaskList>(
+                metadata = NavDisplay.transitionSpec { FadeInTransition } +
+                    NavDisplay.popTransitionSpec { FadeOutTransition } +
+                    NavDisplay.predictivePopTransitionSpec { FadeOutTransition },
+            ) {
                 TaskListSection(
                     isSinglePane = currentWindowAdaptiveInfo().windowSizeClass.isSinglePane(),
                     onItemClick = { taskId -> navEventController.sendEvent(TaskEvent.OnTaskClick(taskId)) },

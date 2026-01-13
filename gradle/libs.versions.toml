@@ -38,7 +38,7 @@ lifecycle_runtime = "2.10.0"
 # Compose
 compose_compiler = "1.10.0"
 compose_runtime = "1.10.0-rc02"
-compose_material = "1.10.0-rc02"
+compose_material = "1.10.0"
 compose_material3 = "1.10.0-alpha05"
 compose_components_resources = "1.10.0-rc02"
 compose_materialIconsExtended = "1.7.3"

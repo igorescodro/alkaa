@@ -1,0 +1,30 @@
+import kotlin.Boolean;
+
+CREATE TABLE IF NOT EXISTS ChecklistItem (
+    item_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    item_task_id INTEGER NOT NULL,
+    item_title TEXT NOT NULL,
+    item_is_completed INTEGER AS Boolean NOT NULL DEFAULT 0,
+    FOREIGN KEY(item_task_id) REFERENCES Task(task_id) ON UPDATE NO ACTION ON DELETE CASCADE
+);
+
+CREATE INDEX IF NOT EXISTS index_ChecklistItem_item_task_id ON ChecklistItem (item_task_id);
+
+insertItem:
+INSERT INTO ChecklistItem(item_task_id, item_title, item_is_completed)
+VALUES (?, ?, ?);
+
+updateItem:
+UPDATE ChecklistItem
+SET item_title = ?,
+    item_is_completed = ?
+WHERE item_id = ?;
+
+deleteItem:
+DELETE FROM ChecklistItem
+WHERE item_id = ?;
+
+selectByTaskId:
+SELECT *
+FROM ChecklistItem
+WHERE item_task_id = ?;

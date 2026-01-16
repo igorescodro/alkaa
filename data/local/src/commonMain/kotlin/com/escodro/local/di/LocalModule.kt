@@ -10,6 +10,11 @@ import com.escodro.local.datasource.CategoryLocalDataSource
 import com.escodro.local.datasource.SearchLocalDataSource
 import com.escodro.local.datasource.TaskLocalDataSource
 import com.escodro.local.datasource.TaskWithCategoryLocalDataSource
+import com.escodro.local.dao.ChecklistDao
+import com.escodro.local.dao.impl.ChecklistDaoImpl
+import com.escodro.local.datasource.ChecklistLocalDataSource
+import com.escodro.local.mapper.ChecklistItemMapper
+import com.escodro.repository.datasource.ChecklistDataSource
 import com.escodro.local.mapper.AlarmIntervalMapper
 import com.escodro.local.mapper.CategoryMapper
 import com.escodro.local.mapper.SelectMapper
@@ -36,6 +41,7 @@ val localModule = module {
     singleOf(::CategoryLocalDataSource) bind CategoryDataSource::class
     singleOf(::TaskWithCategoryLocalDataSource) bind TaskWithCategoryDataSource::class
     singleOf(::SearchLocalDataSource) bind SearchDataSource::class
+    singleOf(::ChecklistLocalDataSource) bind ChecklistDataSource::class
 
     // Mappers
     factoryOf(::AlarmIntervalMapper)
@@ -43,10 +49,12 @@ val localModule = module {
     factoryOf(::CategoryMapper)
     factoryOf(::TaskWithCategoryMapper)
     factoryOf(::SelectMapper)
+    factoryOf(::ChecklistItemMapper)
 
     // DAOs
     singleOf(::CategoryDaoImpl) bind CategoryDao::class
     singleOf(::TaskDaoImpl) bind TaskDao::class
+    singleOf(::ChecklistDaoImpl) bind ChecklistDao::class
     singleOf(::TaskWithCategoryDaoImpl) bind TaskWithCategoryDao::class
 
     // Providers

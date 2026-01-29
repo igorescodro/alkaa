@@ -71,7 +71,7 @@ test_robolectric = "4.16.1"
 
 # Quality
 ktlint = "1.8.0"
-detekt = "2.0.0-alpha.1"
+detekt = "2.0.0-alpha.2"
 composerules = "0.5.5"
 
 # License

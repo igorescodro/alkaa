@@ -21,8 +21,7 @@ internal class IosDataStore {
     @OptIn(ExperimentalForeignApi::class)
     fun getDataStore(): DataStore<Preferences> = getDataStore(
         producePath = {
-            val fileManager = NSFileManager.defaultManager
-            val documentDirectory: NSURL? = fileManager.URLForDirectory(
+            val documentDirectory: NSURL? = NSFileManager.defaultManager.URLForDirectory(
                 directory = NSDocumentDirectory,
                 inDomain = NSUserDomainMask,
                 appropriateForURL = null,

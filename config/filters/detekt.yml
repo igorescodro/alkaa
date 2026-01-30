@@ -18,6 +18,8 @@ style:
     active: false
   UnusedPrivateFunction:
     ignoreAnnotated: [ 'Composable' ]
+  UnnecessaryFullyQualifiedName:
+    active: false
 
 complexity:
   LongMethod:

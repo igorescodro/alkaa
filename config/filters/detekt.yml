@@ -1,8 +1,8 @@
 comments:
   excludes: [ '**/test/**', '**/androidTest/**', '**/android-test/**', '**/*.Test.kt', '**/*.Spec.kt', '**/*.Spek.kt' ]
-  CommentOverPrivateFunction:
+  DocumentationOverPrivateFunction:
     active: false
-  CommentOverPrivateProperty:
+  DocumentationOverPrivateProperty:
     active: false
   UndocumentedPublicProperty:
     active: false
@@ -18,6 +18,8 @@ style:
     active: false
   UnusedPrivateFunction:
     ignoreAnnotated: [ 'Composable' ]
+  UnnecessaryFullyQualifiedName:
+    active: false
 
 complexity:
   LongMethod:

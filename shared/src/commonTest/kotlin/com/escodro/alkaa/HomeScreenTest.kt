@@ -19,6 +19,7 @@ import androidx.compose.ui.test.waitUntilExactlyOneExists
 import com.escodro.alkaa.test.afterTest
 import com.escodro.alkaa.test.beforeTest
 import com.escodro.alkaa.test.uiTest
+import com.escodro.local.Task
 import com.escodro.local.dao.TaskDao
 import com.escodro.navigationapi.destination.HomeDestination
 import com.escodro.navigationapi.destination.TopLevelDestinations
@@ -113,7 +114,7 @@ internal class HomeScreenTest : AlkaaTest(), KoinTest {
             val taskName = "Search navigation task"
             runTest {
                 taskDao.insertTask(
-                    com.escodro.local.Task(
+                    Task(
                         task_id = 12_345,
                         task_is_completed = false,
                         task_title = taskName,

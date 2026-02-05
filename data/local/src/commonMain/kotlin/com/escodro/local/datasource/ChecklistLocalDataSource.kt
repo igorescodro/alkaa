@@ -23,9 +23,8 @@ internal class ChecklistLocalDataSource(
         checklistDao.deleteChecklistItem(checklistMapper.toLocal(item))
     }
 
-    override fun getChecklistItems(taskId: Long): Flow<List<ChecklistItem>> {
-        return checklistDao.getChecklistItems(taskId).map { list ->
+    override fun getChecklistItems(taskId: Long): Flow<List<ChecklistItem>> =
+        checklistDao.getChecklistItems(taskId).map { list ->
             list.map { checklistMapper.toRepo(it) }
         }
-    }
 }

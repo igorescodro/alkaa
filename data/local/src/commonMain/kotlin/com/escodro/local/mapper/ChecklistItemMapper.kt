@@ -1,7 +1,7 @@
 package com.escodro.local.mapper
 
-import com.escodro.repository.model.ChecklistItem as RepoChecklistItem
 import com.escodro.local.ChecklistItem as LocalChecklistItem
+import com.escodro.repository.model.ChecklistItem as RepoChecklistItem
 
 internal class ChecklistItemMapper {
 

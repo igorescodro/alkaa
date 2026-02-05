@@ -37,9 +37,8 @@ internal class ChecklistDaoImpl(
         checklistItemQueries.deleteItem(item.item_id)
     }
 
-    override fun getChecklistItems(taskId: Long): Flow<List<ChecklistItem>> {
-        return checklistItemQueries.selectByTaskId(taskId)
+    override fun getChecklistItems(taskId: Long): Flow<List<ChecklistItem>> =
+        checklistItemQueries.selectByTaskId(taskId)
             .asFlow()
             .mapToList(dispatcherProvider.io)
-    }
 }

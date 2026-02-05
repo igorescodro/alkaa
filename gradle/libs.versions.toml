@@ -5,7 +5,7 @@ version_code = "30402"
 #noinspection UnusedVersionCatalogEntry
 version_name = "3.4.2"
 android_gradle_plugin = "9.0.0"
-kotlin = "2.3.0"
+kotlin = "2.3.10"
 #noinspection UnusedVersionCatalogEntry
 android_sdk_compile = "36"
 #noinspection UnusedVersionCatalogEntry

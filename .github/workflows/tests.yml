@@ -33,7 +33,7 @@ jobs:
         run: ./gradlew testAndroidHost
 
       - name: Save Test Results
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         if: ${{ always() }}
         with:
           name: test-results-android
@@ -61,7 +61,7 @@ jobs:
         run: ./gradlew iosSimulatorArm64Test
 
       - name: Save Test Results
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         if: ${{ always() }}
         with:
           name: test-results-ios
@@ -89,7 +89,7 @@ jobs:
         run: ./gradlew desktopTest
 
       - name: Save Test Results
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         if: ${{ always() }}
         with:
           name: test-results-desktop

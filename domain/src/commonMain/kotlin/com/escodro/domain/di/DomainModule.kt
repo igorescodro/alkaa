@@ -32,6 +32,7 @@ import com.escodro.domain.usecase.task.AddTask
 import com.escodro.domain.usecase.task.CompleteTask
 import com.escodro.domain.usecase.task.DeleteTask
 import com.escodro.domain.usecase.task.LoadTask
+import com.escodro.domain.usecase.task.LoadTaskFlow
 import com.escodro.domain.usecase.task.UncompleteTask
 import com.escodro.domain.usecase.task.UpdateTask
 import com.escodro.domain.usecase.task.UpdateTaskCategory
@@ -39,6 +40,7 @@ import com.escodro.domain.usecase.task.UpdateTaskDescription
 import com.escodro.domain.usecase.task.UpdateTaskStatus
 import com.escodro.domain.usecase.task.UpdateTaskTitle
 import com.escodro.domain.usecase.task.implementation.AddTaskImpl
+import com.escodro.domain.usecase.task.implementation.LoadTaskFlowImpl
 import com.escodro.domain.usecase.task.implementation.LoadTaskImpl
 import com.escodro.domain.usecase.task.implementation.UpdateTaskCategoryImpl
 import com.escodro.domain.usecase.task.implementation.UpdateTaskDescriptionImpl
@@ -79,6 +81,7 @@ val domainModule = module {
     }
     factory { DeleteTask(taskRepository = get(), alarmInteractor = getOrNull()) }
     factoryOf(::LoadTaskImpl) bind LoadTask::class
+    factoryOf(::LoadTaskFlowImpl) bind LoadTaskFlow::class
     factory<UpdateTask> { UpdateTaskImpl(taskRepository = get(), glanceInteractor = getOrNull()) }
     factory<UpdateTaskTitle> {
         UpdateTaskTitleImpl(

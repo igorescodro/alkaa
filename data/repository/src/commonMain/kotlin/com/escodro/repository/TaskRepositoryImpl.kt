@@ -4,6 +4,8 @@ import com.escodro.domain.model.Task
 import com.escodro.domain.repository.TaskRepository
 import com.escodro.repository.datasource.TaskDataSource
 import com.escodro.repository.mapper.TaskMapper
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 internal class TaskRepositoryImpl(
     private val taskDataSource: TaskDataSource,
@@ -29,4 +31,9 @@ internal class TaskRepositoryImpl(
 
     override suspend fun findTaskById(taskId: Long): Task? =
         taskDataSource.findTaskById(taskId)?.let { taskMapper.toDomain(it) }
+
+    override fun findTaskByIdFlow(taskId: Long): Flow<Task?> =
+        taskDataSource.findTaskByIdFlow(taskId).map { task ->
+            task?.let { taskMapper.toDomain(it) }
+        }
 }

@@ -1,6 +1,7 @@
 package com.escodro.repository.datasource
 
 import com.escodro.repository.model.Task
+import kotlinx.coroutines.flow.Flow
 
 /**
  * Interface to represent the implementation of Task data source.
@@ -48,4 +49,13 @@ interface TaskDataSource {
      * @return selected task
      */
     suspend fun findTaskById(taskId: Long): Task?
+
+    /**
+     * Get task by id as flow.
+     *
+     * @param taskId task id
+     *
+     * @return selected task
+     */
+    fun findTaskByIdFlow(taskId: Long): Flow<Task?>
 }

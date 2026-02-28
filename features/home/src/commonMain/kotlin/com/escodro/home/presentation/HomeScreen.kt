@@ -6,6 +6,7 @@ import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.consumeWindowInsets
@@ -13,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -86,8 +88,9 @@ private fun AlkaaHomeScaffold(
     modifier: Modifier = Modifier,
 ) {
     val isTopAppBarVisible = appState.navBackStack.isTopBarVisible
+    val statusBarHeight = WindowInsets.statusBars.asPaddingValues().calculateTopPadding()
     val topBarOffset: Dp by animateDpAsState(
-        targetValue = if (isTopAppBarVisible) 0.dp else 64.dp,
+        targetValue = if (isTopAppBarVisible) 0.dp else statusBarHeight * 4,
         animationSpec = tween(easing = LinearEasing),
     )
     NavigationSuiteScaffold(

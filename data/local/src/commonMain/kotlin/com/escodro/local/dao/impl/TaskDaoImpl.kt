@@ -2,11 +2,13 @@ package com.escodro.local.dao.impl
 
 import app.cash.sqldelight.coroutines.asFlow
 import app.cash.sqldelight.coroutines.mapToList
+import app.cash.sqldelight.coroutines.mapToOneOrNull
 import com.escodro.coroutines.CoroutineDispatcherProvider
 import com.escodro.local.Task
 import com.escodro.local.TaskQueries
 import com.escodro.local.dao.TaskDao
 import com.escodro.local.provider.DatabaseProvider
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 
 internal class TaskDaoImpl(
@@ -70,4 +72,7 @@ internal class TaskDaoImpl(
 
     override suspend fun getTaskById(taskId: Long): Task? =
         taskQueries.selectTaskById(taskId).executeAsOneOrNull()
+
+    override fun getTaskByIdFlow(taskId: Long): Flow<Task?> =
+        taskQueries.selectTaskById(taskId).asFlow().mapToOneOrNull(dispatcherProvider.io)
 }

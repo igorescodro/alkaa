@@ -50,4 +50,13 @@ interface TaskDao {
      * @return selected task
      */
     suspend fun getTaskById(taskId: Long): Task?
+
+    /**
+     * Get task by id as flow.
+     *
+     * @param taskId task id
+     *
+     * @return selected task
+     */
+    fun getTaskByIdFlow(taskId: Long): kotlinx.coroutines.flow.Flow<Task?>
 }

@@ -13,6 +13,7 @@ internal data class TaskDetailActions(
     val onCategoryChange: (CategoryId) -> Unit = {},
     val onAlarmChange: (LocalDateTime?) -> Unit = {},
     val onIntervalChange: (AlarmInterval) -> Unit = {},
+    val onTaskUpdate: () -> Unit = {},
     val hasExactAlarmPermission: () -> Boolean = { false },
     val openExactAlarmPermissionScreen: () -> Unit = {},
     val openAppSettingsScreen: () -> Unit = {},

@@ -1,9 +1,14 @@
 package com.escodro.task.presentation.detail.main
 
-import androidx.compose.animation.Crossfade
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
@@ -27,14 +32,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.escodro.alarmapi.AlarmPermission
 import com.escodro.categoryapi.presentation.CategoryListViewModel
 import com.escodro.categoryapi.presentation.CategoryState
+import com.escodro.designsystem.components.AlkaaHeader
 import com.escodro.designsystem.components.content.AlkaaLoadingContent
 import com.escodro.designsystem.components.content.DefaultIconTextContent
 import com.escodro.designsystem.components.icon.LeadingIcon
-import com.escodro.designsystem.components.topbar.AlkaaToolbar
 import com.escodro.parcelable.CommonParcelable
 import com.escodro.parcelable.CommonParcelize
 import com.escodro.resources.Res
@@ -65,14 +71,14 @@ internal fun TaskDetailScreen(
 ) {
     val id = TaskId(taskId)
     val detailViewState by
-        remember(detailViewModel, taskId) {
-            detailViewModel.loadTaskInfo(taskId = id)
-        }.collectAsState(initial = TaskDetailState.Loading)
+    remember(detailViewModel, taskId) {
+        detailViewModel.loadTaskInfo(taskId = id)
+    }.collectAsState(initial = TaskDetailState.Loading)
 
     val categoryViewState by
-        remember(categoryViewModel, taskId) {
-            categoryViewModel.loadCategories()
-        }.collectAsState(initial = CategoryState.Loading)
+    remember(categoryViewModel, taskId) {
+        categoryViewModel.loadCategories()
+    }.collectAsState(initial = CategoryState.Loading)
 
     val taskDetailActions = TaskDetailActions(
         onTitleChange = { title -> detailViewModel.updateTitle(id, title) },
@@ -80,6 +86,7 @@ internal fun TaskDetailScreen(
         onCategoryChange = { categoryId -> detailViewModel.updateCategory(id, categoryId) },
         onAlarmChange = { calendar -> alarmViewModel.updateAlarm(id, calendar) },
         onIntervalChange = { interval -> alarmViewModel.setRepeating(id, interval) },
+        onTaskUpdate = { detailViewModel.updateTaskStatus(id) },
         hasExactAlarmPermission = { alarmPermission.hasExactAlarmPermission() },
         openExactAlarmPermissionScreen = { alarmPermission.openExactAlarmPermissionScreen() },
         openAppSettingsScreen = { alarmPermission.openAppSettings() },
@@ -101,31 +108,32 @@ internal fun TaskDetailRouter(
     categoryViewState: CategoryState,
     actions: TaskDetailActions,
 ) {
-    Scaffold(topBar = {
-        AlkaaToolbar(
-            isSinglePane = isSinglePane,
-            onUpPress = actions.onUpPress,
-        )
-    }) { paddingValues ->
-        Crossfade(
-            targetState = detailViewState,
-            modifier = Modifier.padding(paddingValues),
-        ) { state ->
-            when (state) {
-                TaskDetailState.Loading -> {
-                    AlkaaLoadingContent()
-                }
+    BoxWithConstraints {
+        Scaffold(
+            contentWindowInsets = WindowInsets(0, 0, 0, 0),
+        ) { paddingValues ->
+            val maxHeight = this.maxHeight
+            Box(
+                modifier = Modifier.padding(paddingValues),
+            ) {
+                when (detailViewState) {
+                    TaskDetailState.Loading -> {
+                        AlkaaLoadingContent()
+                    }
 
-                TaskDetailState.Error -> {
-                    TaskDetailError()
-                }
+                    TaskDetailState.Error -> {
+                        TaskDetailError()
+                    }
 
-                is TaskDetailState.Loaded -> {
-                    TaskDetailContent(
-                        task = state.task,
-                        categoryViewState = categoryViewState,
-                        actions = actions,
-                    )
+                    is TaskDetailState.Loaded -> {
+                        TaskDetailContent(
+                            isSinglePane = isSinglePane,
+                            task = detailViewState.task,
+                            categoryViewState = categoryViewState,
+                            actions = actions,
+                            maxHeight = maxHeight,
+                        )
+                    }
                 }
             }
         }
@@ -134,37 +142,58 @@ internal fun TaskDetailRouter(
 
 @Composable
 private fun TaskDetailContent(
+    isSinglePane: Boolean,
     task: Task,
     categoryViewState: CategoryState,
     actions: TaskDetailActions,
+    maxHeight: Dp,
 ) {
     Surface(color = MaterialTheme.colorScheme.background) {
-        Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
-            TaskTitleTextField(text = task.title, onTitleChange = actions.onTitleChange)
-            TaskDetailSectionContent(
-                imageVector = Icons.Outlined.Bookmark,
-                contentDescription = stringResource(Res.string.task_detail_cd_icon_category),
+        Column(modifier = Modifier.fillMaxHeight()) {
+            val titleState = remember { mutableStateOf(TextFieldValue(task.title)) }
+            AlkaaHeader(
+                text = titleState.value,
+                onTextChange = { title ->
+                    titleState.value = title
+                    actions.onTitleChange(title.text)
+                },
+                isChecked = task.isCompleted,
+                onCheckedChange = { actions.onTaskUpdate() },
+                isSinglePane = isSinglePane,
+                onUpPress = actions.onUpPress,
+                modifier = Modifier.height(maxHeight * 0.25f),
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Column(
+                modifier = Modifier
+                    .height(maxHeight * 0.75f)
+                    .verticalScroll(rememberScrollState()),
             ) {
-                CategorySelection(
-                    state = categoryViewState,
-                    currentCategory = task.categoryId,
-                    onCategoryChange = actions.onCategoryChange,
-                    contentPadding = PaddingValues(horizontal = 8.dp),
+                TaskDetailSectionContent(
+                    imageVector = Icons.Outlined.Bookmark,
+                    contentDescription = stringResource(Res.string.task_detail_cd_icon_category),
+                ) {
+                    CategorySelection(
+                        state = categoryViewState,
+                        currentCategory = task.categoryId,
+                        onCategoryChange = actions.onCategoryChange,
+                        contentPadding = PaddingValues(horizontal = 8.dp),
+                    )
+                }
+                TaskDescriptionTextField(
+                    text = task.description,
+                    onDescriptionChange = actions.onDescriptionChange,
+                )
+                AlarmSelection(
+                    calendar = task.dueDate,
+                    interval = task.alarmInterval,
+                    onAlarmUpdate = actions.onAlarmChange,
+                    onIntervalSelect = actions.onIntervalChange,
+                    hasExactAlarmPermission = actions.hasExactAlarmPermission,
+                    openExactAlarmPermissionScreen = actions.openExactAlarmPermissionScreen,
+                    openAppSettingsScreen = actions.openAppSettingsScreen,
                 )
             }
-            TaskDescriptionTextField(
-                text = task.description,
-                onDescriptionChange = actions.onDescriptionChange,
-            )
-            AlarmSelection(
-                calendar = task.dueDate,
-                interval = task.alarmInterval,
-                onAlarmUpdate = actions.onAlarmChange,
-                onIntervalSelect = actions.onIntervalChange,
-                hasExactAlarmPermission = actions.hasExactAlarmPermission,
-                openExactAlarmPermissionScreen = actions.openExactAlarmPermissionScreen,
-                openAppSettingsScreen = actions.openAppSettingsScreen,
-            )
         }
     }
 }

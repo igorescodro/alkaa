@@ -7,7 +7,7 @@ import androidx.compose.ui.test.assertIsNotSelected
 import androidx.compose.ui.test.assertIsSelected
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
-import androidx.compose.ui.test.runComposeUiTest
+import androidx.compose.ui.test.v2.runComposeUiTest
 import com.escodro.categoryapi.model.Category
 import com.escodro.categoryapi.presentation.CategoryState
 import com.escodro.designsystem.theme.AlkaaThemePreview

@@ -25,6 +25,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import com.escodro.alarmapi.AlarmPermission
 import com.escodro.categoryapi.presentation.CategoryListViewModel
@@ -104,7 +105,8 @@ internal fun AddTaskBottomSheetContent(
             onTextChange = { text -> taskInputText = text },
             modifier = Modifier
                 .fillMaxWidth()
-                .focusRequester(focusRequester),
+                .focusRequester(focusRequester)
+                .testTag("add_task_title"),
         )
 
         CategorySelection(
@@ -128,7 +130,8 @@ internal fun AddTaskBottomSheetContent(
             modifier = Modifier
                 .padding(top = 8.dp, bottom = 16.dp)
                 .fillMaxWidth()
-                .height(48.dp),
+                .height(48.dp)
+                .testTag("add_task_button"),
             onClick = {
                 addTaskViewModel.addTask(
                     title = taskInputText,

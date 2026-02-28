@@ -42,3 +42,6 @@ freeline_project_description.json
 
 # Kotlin
 .kotlin
+
+# AI generated files
+/.output.txt

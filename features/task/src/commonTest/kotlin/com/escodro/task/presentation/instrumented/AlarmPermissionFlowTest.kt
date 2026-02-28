@@ -4,7 +4,7 @@ import androidx.compose.ui.test.ComposeUiTest
 import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
-import androidx.compose.ui.test.runComposeUiTest
+import androidx.compose.ui.test.v2.runComposeUiTest
 import com.escodro.designsystem.theme.AlkaaThemePreview
 import com.escodro.resources.Res
 import com.escodro.resources.task_detail_alarm_no_alarm

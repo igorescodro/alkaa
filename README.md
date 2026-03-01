@@ -42,7 +42,8 @@ One of the main goals of Alkaa is to use all the latest libraries and tools avai
 - Application entirely written in [Kotlin](https://kotlinlang.org)
 - UI developed in [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/)
 - UI Tests with [Compose Multiplatform UI Testing](https://www.jetbrains.com/help/kotlin-multiplatform-dev/compose-test.html)
-- Following the [Material You](https://m3.material.io/) guidelines and dynamic color (Android only)
+- Following the [Material You](https://m3.material.io/) guidelines and dynamic color (Android only).
+  Check out our [Design System](https://htmlpreview.github.io/?https://github.com/igorescodro/alkaa/blob/main/assets/designsystem/alkaa-ds.html) for more details.
 - Adaptive layouts with [Compose Adaptive](https://developer.android.com/develop/ui/compose/layouts/adaptive)
 - Navigation using [Navigation3](https://developer.android.com/jetpack/compose/navigation)
 - Asynchronous processing using [Coroutines](https://kotlin.github.io/kotlinx.coroutines/)

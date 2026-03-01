@@ -5,6 +5,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import com.escodro.designsystem.theme.AlkaaThemePreview
 
@@ -14,25 +15,46 @@ import com.escodro.designsystem.theme.AlkaaThemePreview
  * @param text the text to be shown
  * @param modifier the modifier to be applied to the text
  * @param color the color to be applied to the text
+ * @param overflow how visual overflow should be handled
+ * @param softWrap whether the text should break at soft line breaks
+ * @param maxLines an optional maximum number of lines for the text to span, wrapping if necessary
+ * @param minLines the minimum height in terms of number of lines
  */
+@Suppress("LongParameterList")
 @Composable
 fun HeadlineMediumText(
     text: String,
     modifier: Modifier = Modifier,
-    color: Color = Color.Unspecified,
+    color: Color = MaterialTheme.colorScheme.onSurface,
+    overflow: TextOverflow = TextOverflow.Clip,
+    softWrap: Boolean = true,
+    maxLines: Int = Int.MAX_VALUE,
+    minLines: Int = 1,
 ) {
     Text(
         text = text,
         modifier = modifier,
         color = color,
         style = MaterialTheme.typography.headlineMedium,
+        overflow = overflow,
+        softWrap = softWrap,
+        maxLines = maxLines,
+        minLines = minLines,
     )
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
-private fun HeadlineMediumTextPreview() {
-    AlkaaThemePreview {
+private fun HeadlineMediumTextLightPreview() {
+    AlkaaThemePreview(isDarkTheme = false) {
+        HeadlineMediumText(text = "Headline Medium")
+    }
+}
+
+@Preview(showBackground = true, backgroundColor = 0xFF0F1B2D)
+@Composable
+private fun HeadlineMediumTextDarkPreview() {
+    AlkaaThemePreview(isDarkTheme = true) {
         HeadlineMediumText(text = "Headline Medium")
     }
 }

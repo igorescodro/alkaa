@@ -2,6 +2,7 @@ package com.escodro.designsystem.components.v2.icon
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -11,6 +12,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.escodro.designsystem.components.v2.text.BodyMediumText
+import com.escodro.designsystem.components.v2.text.HeadlineSmallText
 import com.escodro.designsystem.components.v2.text.TitleLargeText
 import com.escodro.designsystem.theme.AlkaaThemePreview
 
@@ -33,9 +36,13 @@ fun EmojiIcon(
             .background(tint),
         contentAlignment = Alignment.Center,
     ) {
-        TitleLargeText(
-            text = emoji,
-        )
+        BoxWithConstraints {
+            when {
+                maxWidth < 32.dp -> BodyMediumText(text = emoji)
+                maxWidth < 48.dp -> TitleLargeText(text = emoji)
+                else -> HeadlineSmallText(text = emoji)
+            }
+        }
     }
 }
 
@@ -46,7 +53,31 @@ private fun EmojiIconLightPreview() {
         EmojiIcon(
             emoji = "🚀",
             tint = Color.Black,
-            modifier = Modifier.size(38.dp),
+            modifier = Modifier.size(48.dp),
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun EmojiIconMediumPreview() {
+    AlkaaThemePreview {
+        EmojiIcon(
+            emoji = "🚀",
+            tint = Color.Black,
+            modifier = Modifier.size(40.dp),
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun EmojiIconSmallPreview() {
+    AlkaaThemePreview {
+        EmojiIcon(
+            emoji = "🚀",
+            tint = Color.Black,
+            modifier = Modifier.size(24.dp),
         )
     }
 }

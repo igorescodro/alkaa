@@ -7,6 +7,12 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import com.escodro.designsystem.config.DesignSystemConfig
+import com.escodro.resources.Lato_Bold
+import com.escodro.resources.Lato_Light
+import com.escodro.resources.Lato_Regular
+import com.escodro.resources.Nunito_Bold
+import com.escodro.resources.Nunito_Medium
 import com.escodro.resources.OpenSans_Bold
 import com.escodro.resources.OpenSans_Light
 import com.escodro.resources.OpenSans_Medium
@@ -22,116 +28,144 @@ fun openSansFamily(): FontFamily = FontFamily(
     Font(resource = Res.font.OpenSans_Light, weight = FontWeight.Light),
 )
 
+@Composable
+fun latoFamily(): FontFamily = FontFamily(
+    Font(resource = Res.font.Lato_Regular, weight = FontWeight.Normal),
+    Font(resource = Res.font.Lato_Bold, weight = FontWeight.Bold),
+    Font(resource = Res.font.Lato_Light, weight = FontWeight.Light),
+)
+
+@Composable
+fun nunitoFamily(): FontFamily = FontFamily(
+    Font(resource = Res.font.Nunito_Bold, weight = FontWeight.Bold),
+    Font(resource = Res.font.Nunito_Medium, weight = FontWeight.Medium),
+)
+
 @Suppress("LongMethod")
 @Composable
 fun alkaaTypography(): Typography {
-    val fontFamily: FontFamily = openSansFamily()
-    return remember(fontFamily) {
+    val openSansFamily: FontFamily = openSansFamily()
+    val nunitoFamily: FontFamily = nunitoFamily()
+    val latoFamily: FontFamily = latoFamily()
+
+    val titleFontFamily = if (DesignSystemConfig.IsNewDesignEnabled) {
+        nunitoFamily
+    } else {
+        openSansFamily
+    }
+
+    val defaultFontFamily = if (DesignSystemConfig.IsNewDesignEnabled) {
+        nunitoFamily
+    } else {
+        latoFamily
+    }
+
+    return remember(key1 = titleFontFamily, key2 = defaultFontFamily) {
         Typography(
             displayLarge = TextStyle(
-                fontFamily = fontFamily,
-                fontWeight = FontWeight.W400,
-                fontSize = 57.sp,
-                lineHeight = 64.sp,
-                letterSpacing = (-0.25).sp,
+                fontFamily = titleFontFamily,
+                fontWeight = FontWeight.W800,
+                fontSize = 48.sp,
+                lineHeight = 56.sp,
+                letterSpacing = (-0.5).sp,
             ),
             displayMedium = TextStyle(
-                fontFamily = fontFamily,
-                fontWeight = FontWeight.W400,
-                fontSize = 45.sp,
-                lineHeight = 52.sp,
-                letterSpacing = 0.sp,
+                fontFamily = titleFontFamily,
+                fontWeight = FontWeight.W800,
+                fontSize = 38.sp,
+                lineHeight = 46.sp,
+                letterSpacing = (-0.25).sp,
             ),
             displaySmall = TextStyle(
-                fontFamily = fontFamily,
-                fontWeight = FontWeight.W400,
-                fontSize = 36.sp,
-                lineHeight = 44.sp,
-                letterSpacing = 0.sp,
-            ),
-            headlineLarge = TextStyle(
-                fontFamily = fontFamily,
-                fontWeight = FontWeight.W400,
+                fontFamily = titleFontFamily,
+                fontWeight = FontWeight.W800,
                 fontSize = 32.sp,
                 lineHeight = 40.sp,
-                letterSpacing = 0.sp,
+                letterSpacing = (-0.25).sp,
             ),
-            headlineMedium = TextStyle(
-                fontFamily = fontFamily,
-                fontWeight = FontWeight.W400,
-                fontSize = 28.sp,
-                lineHeight = 36.sp,
-                letterSpacing = 0.sp,
-            ),
-            headlineSmall = TextStyle(
-                fontFamily = fontFamily,
-                fontWeight = FontWeight.W400,
-                fontSize = 24.sp,
+            headlineLarge = TextStyle(
+                fontFamily = titleFontFamily,
+                fontWeight = FontWeight.W800,
+                fontSize = 26.sp,
                 lineHeight = 32.sp,
                 letterSpacing = 0.sp,
             ),
-            titleLarge = TextStyle(
-                fontFamily = fontFamily,
-                fontWeight = FontWeight.W400,
+            headlineMedium = TextStyle(
+                fontFamily = titleFontFamily,
+                fontWeight = FontWeight.W800,
                 fontSize = 22.sp,
                 lineHeight = 28.sp,
                 letterSpacing = 0.sp,
             ),
-            titleMedium = TextStyle(
-                fontFamily = fontFamily,
-                fontWeight = FontWeight.Medium,
-                fontSize = 16.sp,
+            headlineSmall = TextStyle(
+                fontFamily = titleFontFamily,
+                fontWeight = FontWeight.W700,
+                fontSize = 20.sp,
+                lineHeight = 26.sp,
+                letterSpacing = 0.sp,
+            ),
+            titleLarge = TextStyle(
+                fontFamily = titleFontFamily,
+                fontWeight = FontWeight.W700,
+                fontSize = 17.sp,
                 lineHeight = 24.sp,
-                letterSpacing = 0.1.sp,
+                letterSpacing = 0.sp,
+            ),
+            titleMedium = TextStyle(
+                fontFamily = titleFontFamily,
+                fontWeight = FontWeight.W700,
+                fontSize = 15.sp,
+                lineHeight = 22.sp,
+                letterSpacing = 0.sp,
             ),
             titleSmall = TextStyle(
-                fontFamily = fontFamily,
-                fontWeight = FontWeight.Medium,
-                fontSize = 14.sp,
-                lineHeight = 20.sp,
-                letterSpacing = 0.1.sp,
-            ),
-            labelLarge = TextStyle(
-                fontFamily = fontFamily,
-                fontWeight = FontWeight.Medium,
-                fontSize = 14.sp,
-                lineHeight = 20.sp,
-                letterSpacing = 0.1.sp,
+                fontFamily = titleFontFamily,
+                fontWeight = FontWeight.W700,
+                fontSize = 13.sp,
+                lineHeight = 18.sp,
+                letterSpacing = 0.sp,
             ),
             bodyLarge = TextStyle(
-                fontFamily = fontFamily,
+                fontFamily = defaultFontFamily,
                 fontWeight = FontWeight.W400,
-                fontSize = 16.sp,
+                fontSize = 15.sp,
                 lineHeight = 24.sp,
-                letterSpacing = 0.5.sp,
+                letterSpacing = 0.15.sp,
             ),
             bodyMedium = TextStyle(
-                fontFamily = fontFamily,
+                fontFamily = defaultFontFamily,
                 fontWeight = FontWeight.W400,
                 fontSize = 14.sp,
-                lineHeight = 20.sp,
-                letterSpacing = 0.25.sp,
+                lineHeight = 22.sp,
+                letterSpacing = 0.15.sp,
             ),
             bodySmall = TextStyle(
-                fontFamily = fontFamily,
+                fontFamily = defaultFontFamily,
                 fontWeight = FontWeight.W400,
                 fontSize = 12.sp,
-                lineHeight = 16.sp,
-                letterSpacing = 0.4.sp,
+                lineHeight = 18.sp,
+                letterSpacing = 0.2.sp,
+            ),
+            labelLarge = TextStyle(
+                fontFamily = defaultFontFamily,
+                fontWeight = FontWeight.W700,
+                fontSize = 13.sp,
+                lineHeight = 18.sp,
+                letterSpacing = 0.1.sp,
             ),
             labelMedium = TextStyle(
-                fontFamily = fontFamily,
-                fontWeight = FontWeight.Medium,
-                fontSize = 12.sp,
+                fontFamily = defaultFontFamily,
+                fontWeight = FontWeight.W700,
+                fontSize = 11.sp,
                 lineHeight = 16.sp,
                 letterSpacing = 0.5.sp,
             ),
             labelSmall = TextStyle(
-                fontFamily = fontFamily,
-                fontWeight = FontWeight.Medium,
-                fontSize = 11.sp,
-                lineHeight = 16.sp,
-                letterSpacing = 0.5.sp,
+                fontFamily = defaultFontFamily,
+                fontWeight = FontWeight.W600,
+                fontSize = 10.sp,
+                lineHeight = 14.sp,
+                letterSpacing = 1.5.sp,
             ),
         )
     }

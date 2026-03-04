@@ -1,4 +1,4 @@
-package com.escodro.designsystem.components.v2.dialog
+package com.escodro.designsystem.components.kuvio.dialog
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -39,8 +39,8 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.escodro.designsystem.components.v2.text.BodyMediumText
-import com.escodro.designsystem.components.v2.text.HeadlineSmallText
+import com.escodro.designsystem.components.kuvio.text.KuvioBodyMediumText
+import com.escodro.designsystem.components.kuvio.text.KuvioHeadlineSmallText
 import com.escodro.designsystem.theme.AlkaaThemePreview
 
 /**
@@ -50,7 +50,7 @@ import com.escodro.designsystem.theme.AlkaaThemePreview
  * - **Image-header variant** — when [imageHeader] is supplied, a 180dp illustration area is
  *   rendered at the top of the dialog and title/body text is centred.
  * - **Icon variant** — when only [icon] is supplied (no [imageHeader]), the icon is rendered
- *   above centred title/body text. Use [DialogIconContainer] to apply the correct circular
+ *   above centred title/body text. Use [KuvioDialogIconContainer] to apply the correct circular
  *   colored background defined by the design system.
  * - **Informational variant** — when neither [icon] nor [imageHeader] is provided, title and
  *   body text are left-aligned and a divider separates the body from the action row.
@@ -60,7 +60,7 @@ import com.escodro.designsystem.theme.AlkaaThemePreview
  * @param onDismiss called when the dialog is dismissed (e.g. back-press or scrim tap)
  * @param confirmButton primary action button composable (e.g. [Button] or [FilledTonalButton])
  * @param modifier optional modifier for the dialog container
- * @param icon optional icon composable rendered above the title; use [DialogIconContainer] to
+ * @param icon optional icon composable rendered above the title; use [KuvioDialogIconContainer] to
  *   apply the design-system circular tinted background; ignored when [imageHeader] is set
  * @param imageHeader optional composable rendered inside the 180dp header area; receives
  *   [BoxScope] so callers can freely position illustration elements; takes precedence over [icon]
@@ -68,7 +68,7 @@ import com.escodro.designsystem.theme.AlkaaThemePreview
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AlkaaDialog(
+fun KuvioDialog(
     title: String,
     body: String,
     onDismiss: () -> Unit,
@@ -99,7 +99,7 @@ fun AlkaaDialog(
                         content = imageHeader,
                     )
                 }
-                AlkaaDialogTextContent(
+                KuvioDialogTextContent(
                     title = title,
                     body = body,
                     isCentered = isCentered,
@@ -110,7 +110,7 @@ fun AlkaaDialog(
                     Spacer(modifier = Modifier.height(20.dp))
                     HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
                 }
-                AlkaaDialogActions(
+                KuvioDialogActions(
                     confirmButton = confirmButton,
                     dismissButton = dismissButton,
                 )
@@ -120,7 +120,7 @@ fun AlkaaDialog(
 }
 
 /**
- * Circular icon container for use as the [AlkaaDialog.icon] slot.
+ * Circular icon container for use as the [KuvioDialog.icon] slot.
  *
  * Renders a 40dp circle filled with [color] at 12 % opacity, matching the icon-container
  * specification from the Alkaa Design System.
@@ -130,7 +130,7 @@ fun AlkaaDialog(
  * @param content the icon composable rendered at the centre of the circle
  */
 @Composable
-fun DialogIconContainer(
+fun KuvioDialogIconContainer(
     color: Color,
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit,
@@ -146,7 +146,7 @@ fun DialogIconContainer(
 }
 
 @Composable
-private fun AlkaaDialogTextContent(
+private fun KuvioDialogTextContent(
     title: String,
     body: String,
     isCentered: Boolean,
@@ -161,9 +161,9 @@ private fun AlkaaDialogTextContent(
             icon?.invoke()
             Spacer(modifier = Modifier.height(16.dp))
         }
-        HeadlineSmallText(text = title, modifier = Modifier.fillMaxWidth())
+        KuvioHeadlineSmallText(text = title, modifier = Modifier.fillMaxWidth())
         Spacer(modifier = Modifier.height(12.dp))
-        BodyMediumText(
+        KuvioBodyMediumText(
             text = body,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.fillMaxWidth(),
@@ -172,7 +172,7 @@ private fun AlkaaDialogTextContent(
 }
 
 @Composable
-private fun AlkaaDialogActions(
+private fun KuvioDialogActions(
     confirmButton: @Composable () -> Unit,
     dismissButton: (@Composable () -> Unit)?,
 ) {
@@ -190,14 +190,14 @@ private fun AlkaaDialogActions(
 
 @Preview(showBackground = true, backgroundColor = 0xFFF0F4FA)
 @Composable
-private fun AlkaaDialogConfirmationLightPreview() {
+private fun KuvioDialogConfirmationLightPreview() {
     AlkaaThemePreview {
-        AlkaaDialog(
+        KuvioDialog(
             title = PreviewTitleConfirmation,
             body = PreviewBodyConfirmation,
             onDismiss = {},
             icon = {
-                DialogIconContainer(color = MaterialTheme.colorScheme.primary) {
+                KuvioDialogIconContainer(color = MaterialTheme.colorScheme.primary) {
                     Icon(
                         imageVector = Icons.Rounded.Check,
                         contentDescription = null,
@@ -208,11 +208,11 @@ private fun AlkaaDialogConfirmationLightPreview() {
             },
             confirmButton = {
                 Button(onClick = {}) {
-                    BodyMediumText(text = PreviewActionMarkComplete, color = MaterialTheme.colorScheme.onPrimary)
+                    KuvioBodyMediumText(text = PreviewActionMarkComplete, color = MaterialTheme.colorScheme.onPrimary)
                 }
             },
             dismissButton = {
-                TextButton(onClick = {}) { BodyMediumText(text = PreviewActionCancel) }
+                TextButton(onClick = {}) { KuvioBodyMediumText(text = PreviewActionCancel) }
             },
         )
     }
@@ -220,14 +220,14 @@ private fun AlkaaDialogConfirmationLightPreview() {
 
 @Preview(showBackground = true, backgroundColor = 0xFF0F1B2D)
 @Composable
-private fun AlkaaDialogConfirmationDarkPreview() {
+private fun KuvioDialogConfirmationDarkPreview() {
     AlkaaThemePreview(isDarkTheme = true) {
-        AlkaaDialog(
+        KuvioDialog(
             title = PreviewTitleConfirmation,
             body = PreviewBodyConfirmation,
             onDismiss = {},
             icon = {
-                DialogIconContainer(color = MaterialTheme.colorScheme.primary) {
+                KuvioDialogIconContainer(color = MaterialTheme.colorScheme.primary) {
                     Icon(
                         imageVector = Icons.Rounded.Check,
                         contentDescription = null,
@@ -238,11 +238,11 @@ private fun AlkaaDialogConfirmationDarkPreview() {
             },
             confirmButton = {
                 Button(onClick = {}) {
-                    BodyMediumText(text = PreviewActionMarkComplete, color = MaterialTheme.colorScheme.onPrimary)
+                    KuvioBodyMediumText(text = PreviewActionMarkComplete, color = MaterialTheme.colorScheme.onPrimary)
                 }
             },
             dismissButton = {
-                TextButton(onClick = {}) { BodyMediumText(text = PreviewActionCancel) }
+                TextButton(onClick = {}) { KuvioBodyMediumText(text = PreviewActionCancel) }
             },
         )
     }
@@ -250,14 +250,14 @@ private fun AlkaaDialogConfirmationDarkPreview() {
 
 @Preview(showBackground = true, backgroundColor = 0xFFF0F4FA)
 @Composable
-private fun AlkaaDialogDestructiveLightPreview() {
+private fun KuvioDialogDestructiveLightPreview() {
     AlkaaThemePreview {
-        AlkaaDialog(
+        KuvioDialog(
             title = PreviewTitleDestructive,
             body = PreviewBodyDestructive,
             onDismiss = {},
             icon = {
-                DialogIconContainer(color = MaterialTheme.colorScheme.error) {
+                KuvioDialogIconContainer(color = MaterialTheme.colorScheme.error) {
                     Icon(
                         imageVector = Icons.Outlined.Delete,
                         contentDescription = null,
@@ -274,11 +274,11 @@ private fun AlkaaDialogDestructiveLightPreview() {
                         contentColor = MaterialTheme.colorScheme.onError,
                     ),
                 ) {
-                    BodyMediumText(text = PreviewActionDelete, color = MaterialTheme.colorScheme.onError)
+                    KuvioBodyMediumText(text = PreviewActionDelete, color = MaterialTheme.colorScheme.onError)
                 }
             },
             dismissButton = {
-                TextButton(onClick = {}) { BodyMediumText(text = PreviewActionCancel) }
+                TextButton(onClick = {}) { KuvioBodyMediumText(text = PreviewActionCancel) }
             },
         )
     }
@@ -286,14 +286,14 @@ private fun AlkaaDialogDestructiveLightPreview() {
 
 @Preview(showBackground = true, backgroundColor = 0xFF0F1B2D)
 @Composable
-private fun AlkaaDialogDestructiveDarkPreview() {
+private fun KuvioDialogDestructiveDarkPreview() {
     AlkaaThemePreview(isDarkTheme = true) {
-        AlkaaDialog(
+        KuvioDialog(
             title = PreviewTitleDestructive,
             body = PreviewBodyDestructive,
             onDismiss = {},
             icon = {
-                DialogIconContainer(color = MaterialTheme.colorScheme.error) {
+                KuvioDialogIconContainer(color = MaterialTheme.colorScheme.error) {
                     Icon(
                         imageVector = Icons.Outlined.Delete,
                         contentDescription = null,
@@ -310,11 +310,11 @@ private fun AlkaaDialogDestructiveDarkPreview() {
                         contentColor = MaterialTheme.colorScheme.onError,
                     ),
                 ) {
-                    BodyMediumText(text = PreviewActionDelete, color = MaterialTheme.colorScheme.onError)
+                    KuvioBodyMediumText(text = PreviewActionDelete, color = MaterialTheme.colorScheme.onError)
                 }
             },
             dismissButton = {
-                TextButton(onClick = {}) { BodyMediumText(text = PreviewActionCancel) }
+                TextButton(onClick = {}) { KuvioBodyMediumText(text = PreviewActionCancel) }
             },
         )
     }
@@ -322,17 +322,17 @@ private fun AlkaaDialogDestructiveDarkPreview() {
 
 @Preview(showBackground = true, backgroundColor = 0xFFF0F4FA)
 @Composable
-private fun AlkaaDialogInformationalLightPreview() {
+private fun KuvioDialogInformationalLightPreview() {
     AlkaaThemePreview {
-        AlkaaDialog(
+        KuvioDialog(
             title = PreviewTitleInformational,
             body = PreviewBodyInformational,
             onDismiss = {},
             confirmButton = {
-                FilledTonalButton(onClick = {}) { BodyMediumText(text = PreviewActionGotIt) }
+                FilledTonalButton(onClick = {}) { KuvioBodyMediumText(text = PreviewActionGotIt) }
             },
             dismissButton = {
-                TextButton(onClick = {}) { BodyMediumText(text = PreviewActionLearnMore) }
+                TextButton(onClick = {}) { KuvioBodyMediumText(text = PreviewActionLearnMore) }
             },
         )
     }
@@ -340,17 +340,17 @@ private fun AlkaaDialogInformationalLightPreview() {
 
 @Preview(showBackground = true, backgroundColor = 0xFF0F1B2D)
 @Composable
-private fun AlkaaDialogInformationalDarkPreview() {
+private fun KuvioDialogInformationalDarkPreview() {
     AlkaaThemePreview(isDarkTheme = true) {
-        AlkaaDialog(
+        KuvioDialog(
             title = PreviewTitleInformational,
             body = PreviewBodyInformational,
             onDismiss = {},
             confirmButton = {
-                FilledTonalButton(onClick = {}) { BodyMediumText(text = PreviewActionGotIt) }
+                FilledTonalButton(onClick = {}) { KuvioBodyMediumText(text = PreviewActionGotIt) }
             },
             dismissButton = {
-                TextButton(onClick = {}) { BodyMediumText(text = PreviewActionLearnMore) }
+                TextButton(onClick = {}) { KuvioBodyMediumText(text = PreviewActionLearnMore) }
             },
         )
     }
@@ -358,9 +358,9 @@ private fun AlkaaDialogInformationalDarkPreview() {
 
 @Preview(showBackground = true, backgroundColor = 0xFFF0F4FA)
 @Composable
-private fun AlkaaDialogFeatureIntroLightPreview() {
+private fun KuvioDialogFeatureIntroLightPreview() {
     AlkaaThemePreview {
-        AlkaaDialog(
+        KuvioDialog(
             title = PreviewTitleFeatureIntro,
             body = PreviewBodyFeatureIntro,
             onDismiss = {},
@@ -390,11 +390,11 @@ private fun AlkaaDialogFeatureIntroLightPreview() {
             },
             confirmButton = {
                 Button(onClick = {}) {
-                    BodyMediumText(text = PreviewActionEnable, color = MaterialTheme.colorScheme.onPrimary)
+                    KuvioBodyMediumText(text = PreviewActionEnable, color = MaterialTheme.colorScheme.onPrimary)
                 }
             },
             dismissButton = {
-                TextButton(onClick = {}) { BodyMediumText(text = PreviewActionNotNow) }
+                TextButton(onClick = {}) { KuvioBodyMediumText(text = PreviewActionNotNow) }
             },
         )
     }
@@ -402,9 +402,9 @@ private fun AlkaaDialogFeatureIntroLightPreview() {
 
 @Preview(showBackground = true, backgroundColor = 0xFF0F1B2D)
 @Composable
-private fun AlkaaDialogFeatureIntroDarkPreview() {
+private fun KuvioDialogFeatureIntroDarkPreview() {
     AlkaaThemePreview(isDarkTheme = true) {
-        AlkaaDialog(
+        KuvioDialog(
             title = PreviewTitleFeatureIntro,
             body = PreviewBodyFeatureIntro,
             onDismiss = {},
@@ -434,11 +434,11 @@ private fun AlkaaDialogFeatureIntroDarkPreview() {
             },
             confirmButton = {
                 Button(onClick = {}) {
-                    BodyMediumText(text = PreviewActionEnable, color = MaterialTheme.colorScheme.onPrimary)
+                    KuvioBodyMediumText(text = PreviewActionEnable, color = MaterialTheme.colorScheme.onPrimary)
                 }
             },
             dismissButton = {
-                TextButton(onClick = {}) { BodyMediumText(text = PreviewActionNotNow) }
+                TextButton(onClick = {}) { KuvioBodyMediumText(text = PreviewActionNotNow) }
             },
         )
     }
@@ -446,9 +446,9 @@ private fun AlkaaDialogFeatureIntroDarkPreview() {
 
 @Preview(showBackground = true, backgroundColor = 0xFFF0F4FA)
 @Composable
-private fun AlkaaDialogEmptyStateLightPreview() {
+private fun KuvioDialogEmptyStateLightPreview() {
     AlkaaThemePreview {
-        AlkaaDialog(
+        KuvioDialog(
             title = PreviewTitleEmptyState,
             body = PreviewBodyEmptyState,
             onDismiss = {},
@@ -477,10 +477,10 @@ private fun AlkaaDialogEmptyStateLightPreview() {
                 }
             },
             confirmButton = {
-                FilledTonalButton(onClick = {}) { BodyMediumText(text = PreviewActionAddTask) }
+                FilledTonalButton(onClick = {}) { KuvioBodyMediumText(text = PreviewActionAddTask) }
             },
             dismissButton = {
-                TextButton(onClick = {}) { BodyMediumText(text = PreviewActionViewScheduled) }
+                TextButton(onClick = {}) { KuvioBodyMediumText(text = PreviewActionViewScheduled) }
             },
         )
     }
@@ -488,9 +488,9 @@ private fun AlkaaDialogEmptyStateLightPreview() {
 
 @Preview(showBackground = true, backgroundColor = 0xFF0F1B2D)
 @Composable
-private fun AlkaaDialogEmptyStateDarkPreview() {
+private fun KuvioDialogEmptyStateDarkPreview() {
     AlkaaThemePreview(isDarkTheme = true) {
-        AlkaaDialog(
+        KuvioDialog(
             title = PreviewTitleEmptyState,
             body = PreviewBodyEmptyState,
             onDismiss = {},
@@ -519,10 +519,10 @@ private fun AlkaaDialogEmptyStateDarkPreview() {
                 }
             },
             confirmButton = {
-                FilledTonalButton(onClick = {}) { BodyMediumText(text = PreviewActionAddTask) }
+                FilledTonalButton(onClick = {}) { KuvioBodyMediumText(text = PreviewActionAddTask) }
             },
             dismissButton = {
-                TextButton(onClick = {}) { BodyMediumText(text = PreviewActionViewScheduled) }
+                TextButton(onClick = {}) { KuvioBodyMediumText(text = PreviewActionViewScheduled) }
             },
         )
     }
@@ -530,9 +530,9 @@ private fun AlkaaDialogEmptyStateDarkPreview() {
 
 @Preview(showBackground = true, backgroundColor = 0xFFF0F4FA)
 @Composable
-private fun AlkaaDialogPermissionLightPreview() {
+private fun KuvioDialogPermissionLightPreview() {
     AlkaaThemePreview {
-        AlkaaDialog(
+        KuvioDialog(
             title = PreviewTitlePermission,
             body = PreviewBodyPermission,
             onDismiss = {},
@@ -562,11 +562,11 @@ private fun AlkaaDialogPermissionLightPreview() {
             },
             confirmButton = {
                 Button(onClick = {}) {
-                    BodyMediumText(text = PreviewActionAllow, color = MaterialTheme.colorScheme.onPrimary)
+                    KuvioBodyMediumText(text = PreviewActionAllow, color = MaterialTheme.colorScheme.onPrimary)
                 }
             },
             dismissButton = {
-                TextButton(onClick = {}) { BodyMediumText(text = PreviewActionSkip) }
+                TextButton(onClick = {}) { KuvioBodyMediumText(text = PreviewActionSkip) }
             },
         )
     }
@@ -574,9 +574,9 @@ private fun AlkaaDialogPermissionLightPreview() {
 
 @Preview(showBackground = true, backgroundColor = 0xFF0F1B2D)
 @Composable
-private fun AlkaaDialogPermissionDarkPreview() {
+private fun KuvioDialogPermissionDarkPreview() {
     AlkaaThemePreview(isDarkTheme = true) {
-        AlkaaDialog(
+        KuvioDialog(
             title = PreviewTitlePermission,
             body = PreviewBodyPermission,
             onDismiss = {},
@@ -606,11 +606,11 @@ private fun AlkaaDialogPermissionDarkPreview() {
             },
             confirmButton = {
                 Button(onClick = {}) {
-                    HeadlineSmallText(text = PreviewActionAllow, color = MaterialTheme.colorScheme.onPrimary)
+                    KuvioHeadlineSmallText(text = PreviewActionAllow, color = MaterialTheme.colorScheme.onPrimary)
                 }
             },
             dismissButton = {
-                TextButton(onClick = {}) { BodyMediumText(text = PreviewActionSkip) }
+                TextButton(onClick = {}) { KuvioBodyMediumText(text = PreviewActionSkip) }
             },
         )
     }

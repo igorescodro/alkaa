@@ -1,4 +1,4 @@
-package com.escodro.designsystem.components.v2.text
+package com.escodro.designsystem.components.kuvio.text
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -10,7 +10,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.escodro.designsystem.theme.AlkaaThemePreview
 
 /**
- * Headline large text component.
+ * Headline small text component.
  *
  * @param text the text to be shown
  * @param modifier the modifier to be applied to the text
@@ -22,7 +22,7 @@ import com.escodro.designsystem.theme.AlkaaThemePreview
  */
 @Suppress("LongParameterList")
 @Composable
-fun HeadlineLargeText(
+fun KuvioHeadlineSmallText(
     text: String,
     modifier: Modifier = Modifier,
     color: Color = MaterialTheme.colorScheme.onSurface,
@@ -35,7 +35,7 @@ fun HeadlineLargeText(
         text = text,
         modifier = modifier,
         color = color,
-        style = MaterialTheme.typography.headlineLarge,
+        style = MaterialTheme.typography.headlineSmall,
         overflow = overflow,
         softWrap = softWrap,
         maxLines = maxLines,
@@ -45,16 +45,16 @@ fun HeadlineLargeText(
 
 @Preview(showBackground = true)
 @Composable
-private fun HeadlineLargeTextLightPreview() {
+private fun KuvioHeadlineSmallTextLightPreview() {
     AlkaaThemePreview(isDarkTheme = false) {
-        HeadlineLargeText(text = "Headline Large")
+        KuvioHeadlineSmallText(text = "Headline Small")
     }
 }
 
 @Preview(showBackground = true, backgroundColor = 0xFF0F1B2D)
 @Composable
-private fun HeadlineLargeTextDarkPreview() {
+private fun KuvioHeadlineSmallTextDarkPreview() {
     AlkaaThemePreview(isDarkTheme = true) {
-        HeadlineLargeText(text = "Headline Large")
+        KuvioHeadlineSmallText(text = "Headline Small")
     }
 }

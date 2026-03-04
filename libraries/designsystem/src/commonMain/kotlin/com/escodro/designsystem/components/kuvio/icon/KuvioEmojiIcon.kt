@@ -1,4 +1,4 @@
-package com.escodro.designsystem.components.v2.icon
+package com.escodro.designsystem.components.kuvio.icon
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -12,9 +12,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.escodro.designsystem.components.v2.text.BodyMediumText
-import com.escodro.designsystem.components.v2.text.HeadlineSmallText
-import com.escodro.designsystem.components.v2.text.TitleLargeText
+import com.escodro.designsystem.components.kuvio.text.KuvioBodyMediumText
+import com.escodro.designsystem.components.kuvio.text.KuvioHeadlineSmallText
+import com.escodro.designsystem.components.kuvio.text.KuvioTitleLargeText
 import com.escodro.designsystem.theme.AlkaaThemePreview
 
 /**
@@ -25,7 +25,7 @@ import com.escodro.designsystem.theme.AlkaaThemePreview
  * @param modifier the modifier to be applied to the icon
  */
 @Composable
-fun EmojiIcon(
+fun KuvioEmojiIcon(
     emoji: String,
     tint: Color,
     modifier: Modifier = Modifier,
@@ -38,9 +38,9 @@ fun EmojiIcon(
     ) {
         BoxWithConstraints {
             when {
-                maxWidth < 32.dp -> BodyMediumText(text = emoji)
-                maxWidth < 48.dp -> TitleLargeText(text = emoji)
-                else -> HeadlineSmallText(text = emoji)
+                maxWidth < 32.dp -> KuvioBodyMediumText(text = emoji)
+                maxWidth < 48.dp -> KuvioTitleLargeText(text = emoji)
+                else -> KuvioHeadlineSmallText(text = emoji)
             }
         }
     }
@@ -48,9 +48,9 @@ fun EmojiIcon(
 
 @Preview(showBackground = true)
 @Composable
-private fun EmojiIconLightPreview() {
+private fun KuvioEmojiIconLightPreview() {
     AlkaaThemePreview {
-        EmojiIcon(
+        KuvioEmojiIcon(
             emoji = "🚀",
             tint = Color.Black,
             modifier = Modifier.size(48.dp),
@@ -60,9 +60,9 @@ private fun EmojiIconLightPreview() {
 
 @Preview(showBackground = true)
 @Composable
-private fun EmojiIconMediumPreview() {
+private fun KuvioEmojiIconMediumPreview() {
     AlkaaThemePreview {
-        EmojiIcon(
+        KuvioEmojiIcon(
             emoji = "🚀",
             tint = Color.Black,
             modifier = Modifier.size(40.dp),
@@ -72,9 +72,9 @@ private fun EmojiIconMediumPreview() {
 
 @Preview(showBackground = true)
 @Composable
-private fun EmojiIconSmallPreview() {
+private fun KuvioEmojiIconSmallPreview() {
     AlkaaThemePreview {
-        EmojiIcon(
+        KuvioEmojiIcon(
             emoji = "🚀",
             tint = Color.Black,
             modifier = Modifier.size(24.dp),
@@ -84,9 +84,9 @@ private fun EmojiIconSmallPreview() {
 
 @Preview(showBackground = true, backgroundColor = 0xFF0F1B2D)
 @Composable
-private fun EmojiIconDarkPreview() {
+private fun KuvioEmojiIconDarkPreview() {
     AlkaaThemePreview(isDarkTheme = true) {
-        EmojiIcon(
+        KuvioEmojiIcon(
             emoji = "🌿",
             tint = Color.Green,
             modifier = Modifier.size(38.dp),

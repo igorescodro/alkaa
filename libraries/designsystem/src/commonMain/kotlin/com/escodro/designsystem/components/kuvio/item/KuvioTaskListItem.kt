@@ -1,4 +1,4 @@
-package com.escodro.designsystem.components.v2.item
+package com.escodro.designsystem.components.kuvio.item
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -21,10 +21,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.escodro.designsystem.components.v2.badge.BadgeCounter
-import com.escodro.designsystem.components.v2.icon.EmojiIcon
-import com.escodro.designsystem.components.v2.text.BodySmallText
-import com.escodro.designsystem.components.v2.text.TitleMediumText
+import com.escodro.designsystem.components.kuvio.badge.KuvioBadgeCounter
+import com.escodro.designsystem.components.kuvio.icon.KuvioEmojiIcon
+import com.escodro.designsystem.components.kuvio.text.KuvioBodySmallText
+import com.escodro.designsystem.components.kuvio.text.KuvioTitleMediumText
 import com.escodro.designsystem.theme.AlkaaThemePreview
 
 /**
@@ -32,22 +32,22 @@ import com.escodro.designsystem.theme.AlkaaThemePreview
  * followed by a column with the title and subtitle, and an optional badge on the end.
  *
  * The component is rendered as a [Surface] with a medium shape. It includes:
- * - A background color that adapts based on selection ([TaskListItemData.isSelected]).
+ * - A background color that adapts based on selection ([KuvioTaskListItemData.isSelected]).
  * - A [Row] with horizontal padding of 12.dp and vertical padding of 11.dp.
- * - An [EmojiIcon] at the start with a size of 38.dp.
- * - A [Column] containing [TitleMediumText] and [BodySmallText] for title and subtitle.
- * - An optional [BadgeCounter] at the end, displayed only if [TaskListItemData.pendingCount] > 0.
+ * - An [KuvioEmojiIcon] at the start with a size of 38.dp.
+ * - A [Column] containing [KuvioTitleMediumText] and [KuvioBodySmallText] for title and subtitle.
+ * - An optional [KuvioBadgeCounter] at the end, displayed only if [KuvioTaskListItemData.pendingCount] > 0.
  *
  * The row adapts its background for selected/unselected states and hides the
- * badge automatically when [TaskListItemData.pendingCount] is zero.
+ * badge automatically when [KuvioTaskListItemData.pendingCount] is zero.
  *
  * @param data the display data for the item
  * @param onClick callback to be invoked when the item is clicked
  * @param modifier the modifier to be applied to the layout
  */
 @Composable
-fun TaskListItem(
-    data: TaskListItemData,
+fun KuvioTaskListItem(
+    data: KuvioTaskListItemData,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -76,7 +76,7 @@ fun TaskListItem(
                 .padding(horizontal = 12.dp, vertical = 11.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            EmojiIcon(
+            KuvioEmojiIcon(
                 emoji = data.emoji,
                 tint = data.iconTint,
                 modifier = Modifier.size(38.dp),
@@ -88,12 +88,12 @@ fun TaskListItem(
                 modifier = Modifier.weight(1f),
                 verticalArrangement = Arrangement.spacedBy(2.dp),
             ) {
-                TitleMediumText(
+                KuvioTitleMediumText(
                     text = data.name,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                 )
-                BodySmallText(
+                KuvioBodySmallText(
                     text = data.subtitle,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     maxLines = 1,
@@ -103,7 +103,7 @@ fun TaskListItem(
 
             if (data.pendingCount > 0) {
                 Spacer(modifier = Modifier.width(8.dp))
-                BadgeCounter(
+                KuvioBadgeCounter(
                     count = data.pendingCount,
                     isSelected = data.isSelected,
                 )
@@ -124,7 +124,7 @@ fun TaskListItem(
  * @property isSelected    When `true` the row receives the active highlight treatment.
  */
 @Immutable
-data class TaskListItemData(
+data class KuvioTaskListItemData(
     val emoji: String,
     val iconTint: Color,
     val name: String,
@@ -135,10 +135,10 @@ data class TaskListItemData(
 
 @Preview(showBackground = true, backgroundColor = 0xFFF0F4FA)
 @Composable
-private fun TaskListItemSelectedLightPreview() {
+private fun KuvioTaskListItemSelectedLightPreview() {
     AlkaaThemePreview {
-        TaskListItem(
-            data = TaskListItemData(
+        KuvioTaskListItem(
+            data = KuvioTaskListItemData(
                 emoji = "📋",
                 iconTint = Color(0xFF1A6FD4).copy(alpha = 0.10f),
                 name = "Inbox",
@@ -154,10 +154,10 @@ private fun TaskListItemSelectedLightPreview() {
 
 @Preview(showBackground = true, backgroundColor = 0xFFF0F4FA)
 @Composable
-private fun TaskListItemUnselectedLightPreview() {
+private fun KuvioTaskListItemUnselectedLightPreview() {
     AlkaaThemePreview {
-        TaskListItem(
-            data = TaskListItemData(
+        KuvioTaskListItem(
+            data = KuvioTaskListItemData(
                 emoji = "🚀",
                 iconTint = Color(0xFFE07030).copy(alpha = 0.10f),
                 name = "Work",
@@ -173,10 +173,10 @@ private fun TaskListItemUnselectedLightPreview() {
 
 @Preview(showBackground = true, backgroundColor = 0xFFF0F4FA)
 @Composable
-private fun TaskListItemNoBadgeLightPreview() {
+private fun KuvioTaskListItemNoBadgeLightPreview() {
     AlkaaThemePreview {
-        TaskListItem(
-            data = TaskListItemData(
+        KuvioTaskListItem(
+            data = KuvioTaskListItemData(
                 emoji = "✈️",
                 iconTint = Color(0xFF1099B0).copy(alpha = 0.10f),
                 name = "Travel",
@@ -192,10 +192,10 @@ private fun TaskListItemNoBadgeLightPreview() {
 
 @Preview(showBackground = true, backgroundColor = 0xFF0F1B2D)
 @Composable
-private fun TaskListItemSelectedDarkPreview() {
+private fun KuvioTaskListItemSelectedDarkPreview() {
     AlkaaThemePreview(isDarkTheme = true) {
-        TaskListItem(
-            data = TaskListItemData(
+        KuvioTaskListItem(
+            data = KuvioTaskListItemData(
                 emoji = "📋",
                 iconTint = Color(0xFF2B8CF4).copy(alpha = 0.15f),
                 name = "Inbox",
@@ -211,10 +211,10 @@ private fun TaskListItemSelectedDarkPreview() {
 
 @Preview(showBackground = true, backgroundColor = 0xFF0F1B2D)
 @Composable
-private fun TaskListItemUnselectedDarkPreview() {
+private fun KuvioTaskListItemUnselectedDarkPreview() {
     AlkaaThemePreview(isDarkTheme = true) {
-        TaskListItem(
-            data = TaskListItemData(
+        KuvioTaskListItem(
+            data = KuvioTaskListItemData(
                 emoji = "🌿",
                 iconTint = Color(0xFF34C98C).copy(alpha = 0.15f),
                 name = "Personal",

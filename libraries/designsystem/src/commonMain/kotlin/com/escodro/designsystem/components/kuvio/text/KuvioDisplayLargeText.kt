@@ -1,4 +1,4 @@
-package com.escodro.designsystem.components.v2.text
+package com.escodro.designsystem.components.kuvio.text
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -10,7 +10,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.escodro.designsystem.theme.AlkaaThemePreview
 
 /**
- * Title small text component.
+ * Display large text component.
  *
  * @param text the text to be shown
  * @param modifier the modifier to be applied to the text
@@ -22,7 +22,7 @@ import com.escodro.designsystem.theme.AlkaaThemePreview
  */
 @Suppress("LongParameterList")
 @Composable
-fun TitleSmallText(
+fun KuvioDisplayLargeText(
     text: String,
     modifier: Modifier = Modifier,
     color: Color = MaterialTheme.colorScheme.onSurface,
@@ -35,7 +35,7 @@ fun TitleSmallText(
         text = text,
         modifier = modifier,
         color = color,
-        style = MaterialTheme.typography.titleSmall,
+        style = MaterialTheme.typography.displayLarge,
         overflow = overflow,
         softWrap = softWrap,
         maxLines = maxLines,
@@ -45,16 +45,16 @@ fun TitleSmallText(
 
 @Preview(showBackground = true)
 @Composable
-private fun TitleSmallTextLightPreview() {
+private fun KuvioDisplayLargeTextLightPreview() {
     AlkaaThemePreview(isDarkTheme = false) {
-        TitleSmallText(text = "Title Small")
+        KuvioDisplayLargeText(text = "Display Large")
     }
 }
 
 @Preview(showBackground = true, backgroundColor = 0xFF0F1B2D)
 @Composable
-private fun TitleSmallTextDarkPreview() {
+private fun KuvioDisplayLargeTextDarkPreview() {
     AlkaaThemePreview(isDarkTheme = true) {
-        TitleSmallText(text = "Title Small")
+        KuvioDisplayLargeText(text = "Display Large")
     }
 }

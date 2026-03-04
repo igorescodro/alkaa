@@ -1,4 +1,4 @@
-package com.escodro.designsystem.components.v2.card
+package com.escodro.designsystem.components.kuvio.card
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -16,9 +16,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.escodro.designsystem.components.v2.icon.EmojiIcon
-import com.escodro.designsystem.components.v2.text.HeadlineLargeText
-import com.escodro.designsystem.components.v2.text.LabelMediumText
+import com.escodro.designsystem.components.kuvio.icon.KuvioEmojiIcon
+import com.escodro.designsystem.components.kuvio.text.KuvioHeadlineLargeText
+import com.escodro.designsystem.components.kuvio.text.KuvioLabelMediumText
 import com.escodro.designsystem.theme.AlkaaThemePreview
 
 /**
@@ -33,7 +33,7 @@ import com.escodro.designsystem.theme.AlkaaThemePreview
  */
 @Suppress("LongParameterList")
 @Composable
-fun CounterCard(
+fun KuvioCounterCard(
     emoji: String,
     count: Int,
     label: String,
@@ -52,15 +52,15 @@ fun CounterCard(
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
-            EmojiIcon(
+            KuvioEmojiIcon(
                 emoji = emoji,
                 tint = tint,
                 modifier = Modifier.size(28.dp),
             )
-            HeadlineLargeText(
+            KuvioHeadlineLargeText(
                 text = count.toString(),
             )
-            LabelMediumText(
+            KuvioLabelMediumText(
                 text = label,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
@@ -70,9 +70,9 @@ fun CounterCard(
 
 @Preview(showBackground = true)
 @Composable
-private fun CounterCardLightPreview() {
+private fun KuvioCounterCardLightPreview() {
     AlkaaThemePreview {
-        CounterCard(
+        KuvioCounterCard(
             emoji = "📅",
             count = 5,
             label = "Today",
@@ -84,9 +84,9 @@ private fun CounterCardLightPreview() {
 
 @Preview(showBackground = true, backgroundColor = 0xFF0F1B2D)
 @Composable
-private fun CounterCardDarkPreview() {
+private fun KuvioCounterCardDarkPreview() {
     AlkaaThemePreview(isDarkTheme = true) {
-        CounterCard(
+        KuvioCounterCard(
             emoji = "🗓",
             count = 12,
             label = "Scheduled",

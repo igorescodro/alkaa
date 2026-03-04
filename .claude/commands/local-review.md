@@ -2,7 +2,7 @@
 allowed-tools: Read, Glob, Grep, Bash, Write
 ---
 
-You are performing a production-readiness code review on the current branch compared to `main`.
+Perform a production-readiness code review on the current branch compared to `main`.
 
 ## Steps
 

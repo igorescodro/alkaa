@@ -55,7 +55,7 @@ Use this exact format for the review file:
 
 ## Findings
 
-### 1. :red_circle: <Short title>
+### 1. 🔴 <Short title>
 
 **File:** `<path>:<line>`
 
@@ -65,7 +65,7 @@ Use this exact format for the review file:
 // Suggested fix (if applicable)
 ```
 
-### 2. :orange_circle: <Short title>
+### 2. 🟠 <Short title>
 
 **File:** `<path>:<line>`
 
@@ -81,8 +81,8 @@ Use this exact format for the review file:
 
 ### Severity Levels
 
-- :red_circle: **Critical** — Bugs, crashes, security vulnerabilities, data loss risks
-- :orange_circle: **Warning** — Memory leaks, performance issues, architectural concerns
-- :yellow_circle: **Info** — Best practice violations worth noting (use sparingly)
+- 🔴 **Critical** — Bugs, crashes, security vulnerabilities, data loss risks
+- 🟠 **Warning** — Memory leaks, performance issues, architectural concerns
+- 🟡 **Info** — Best practice violations worth noting (use sparingly)
 
 After saving, print the path to the review file.

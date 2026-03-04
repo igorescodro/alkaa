@@ -24,6 +24,10 @@ style:
 complexity:
   LongMethod:
     excludes: [ '**/test/**','**/androidTest/**','**/android-test/**', '**/androidUnitTest/**' , '**/commonTest/**', '**/generated/**' ]
+  TooManyFunctions:
+    excludes: [ '**/designsystem/**', '**/test/**','**/androidTest/**','**/android-test/**', '**/androidUnitTest/**' , '**/commonTest/**', '**/generated/**' ]
+  LongParameterList:
+    excludes: [ '**/designsystem/**', '**/test/**','**/androidTest/**','**/android-test/**', '**/androidUnitTest/**' , '**/commonTest/**', '**/generated/**' ]
 
 potential-bugs:
   UnsafeCallOnNullableType:

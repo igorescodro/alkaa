@@ -1,4 +1,4 @@
-package com.escodro.designsystem.components.v2.badge
+package com.escodro.designsystem.components.kuvio.badge
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.escodro.designsystem.components.v2.text.LabelMediumText
+import com.escodro.designsystem.components.kuvio.text.KuvioLabelMediumText
 import com.escodro.designsystem.theme.AlkaaThemePreview
 
 /**
@@ -21,7 +21,7 @@ import com.escodro.designsystem.theme.AlkaaThemePreview
  * @param modifier the modifier to be applied to the badge
  */
 @Composable
-fun BadgeCounter(
+fun KuvioBadgeCounter(
     count: Int,
     isSelected: Boolean,
     modifier: Modifier = Modifier,
@@ -45,7 +45,7 @@ fun BadgeCounter(
             .padding(horizontal = 8.dp, vertical = 4.dp),
         contentAlignment = Alignment.Center,
     ) {
-        LabelMediumText(
+        KuvioLabelMediumText(
             text = count.toString(),
             color = badgeContentColor,
         )
@@ -54,32 +54,32 @@ fun BadgeCounter(
 
 @Preview(showBackground = true)
 @Composable
-private fun BadgeCounterLightPreview() {
+private fun KuvioBadgeCounterLightPreview() {
     AlkaaThemePreview {
-        BadgeCounter(count = 3, isSelected = false)
+        KuvioBadgeCounter(count = 3, isSelected = false)
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-private fun BadgeCounterSelectedLightPreview() {
+private fun KuvioBadgeCounterSelectedLightPreview() {
     AlkaaThemePreview {
-        BadgeCounter(count = 99, isSelected = true)
+        KuvioBadgeCounter(count = 99, isSelected = true)
     }
 }
 
 @Preview(showBackground = true, backgroundColor = 0xFF0F1B2D)
 @Composable
-private fun BadgeCounterDarkPreview() {
+private fun KuvioBadgeCounterDarkPreview() {
     AlkaaThemePreview(isDarkTheme = true) {
-        BadgeCounter(count = 128, isSelected = false)
+        KuvioBadgeCounter(count = 128, isSelected = false)
     }
 }
 
 @Preview(showBackground = true, backgroundColor = 0xFF0F1B2D)
 @Composable
-private fun BadgeCounterSelectedDarkPreview() {
+private fun KuvioBadgeCounterSelectedDarkPreview() {
     AlkaaThemePreview(isDarkTheme = true) {
-        BadgeCounter(count = 1, isSelected = true)
+        KuvioBadgeCounter(count = 1, isSelected = true)
     }
 }

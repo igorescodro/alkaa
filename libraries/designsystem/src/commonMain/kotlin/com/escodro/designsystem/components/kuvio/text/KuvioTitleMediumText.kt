@@ -1,4 +1,4 @@
-package com.escodro.designsystem.components.v2.text
+package com.escodro.designsystem.components.kuvio.text
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -10,7 +10,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.escodro.designsystem.theme.AlkaaThemePreview
 
 /**
- * Label large text component.
+ * Title medium text component.
  *
  * @param text the text to be shown
  * @param modifier the modifier to be applied to the text
@@ -22,7 +22,7 @@ import com.escodro.designsystem.theme.AlkaaThemePreview
  */
 @Suppress("LongParameterList")
 @Composable
-fun LabelLargeText(
+fun KuvioTitleMediumText(
     text: String,
     modifier: Modifier = Modifier,
     color: Color = MaterialTheme.colorScheme.onSurface,
@@ -35,7 +35,7 @@ fun LabelLargeText(
         text = text,
         modifier = modifier,
         color = color,
-        style = MaterialTheme.typography.labelLarge,
+        style = MaterialTheme.typography.titleMedium,
         overflow = overflow,
         softWrap = softWrap,
         maxLines = maxLines,
@@ -45,16 +45,16 @@ fun LabelLargeText(
 
 @Preview(showBackground = true)
 @Composable
-private fun LabelLargeTextLightPreview() {
+private fun KuvioTitleMediumTextLightPreview() {
     AlkaaThemePreview(isDarkTheme = false) {
-        LabelLargeText(text = "Label Large")
+        KuvioTitleMediumText(text = "Title Medium")
     }
 }
 
 @Preview(showBackground = true, backgroundColor = 0xFF0F1B2D)
 @Composable
-private fun LabelLargeTextDarkPreview() {
+private fun KuvioTitleMediumTextDarkPreview() {
     AlkaaThemePreview(isDarkTheme = true) {
-        LabelLargeText(text = "Label Large")
+        KuvioTitleMediumText(text = "Title Medium")
     }
 }

@@ -40,6 +40,7 @@ naming:
     constantPattern: '[A-Z][A-Za-z0-9]*'
     excludes: [ '**/test/**','**/androidTest/**','**/android-test/**', '**/androidUnitTest/**' , '**/commonTest/**', '**/generated/**' ]
   FunctionNameMaxLength:
+    ignoreAnnotated: [ 'Preview' ]
     excludes: [ '**/test/**','**/androidTest/**','**/android-test/**', '**/androidUnitTest/**' , '**/commonTest/**', '**/generated/**' ]
   FunctionNaming:
     ignoreAnnotated: [ 'Composable' ]

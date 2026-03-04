@@ -9,8 +9,8 @@ You are performing a production-readiness code review on the current branch comp
 1. **Get the branch name and diff:**
    ```bash
    git rev-parse --abbrev-ref HEAD
-   git diff main...HEAD --name-only
-   git diff main...HEAD
+   git diff HEAD origin/main --name-only
+   git diff HEAD origin/main
    ```
 
 2. **Read all changed files** in full to understand the complete context around the changes.

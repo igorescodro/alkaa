@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Alignment
@@ -28,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import com.escodro.designsystem.components.kuvio.chip.KuvioTaskChip
 import com.escodro.designsystem.components.kuvio.chip.KuvioTaskChipType
 import com.escodro.designsystem.components.kuvio.icon.KuvioCompleteIcon
+import com.escodro.designsystem.components.kuvio.text.KuvioTitleMediumText
 import com.escodro.resources.Res
 import com.escodro.resources.kuvio_task_item_check_cd
 import com.escodro.resources.kuvio_task_item_uncheck_cd
@@ -184,9 +184,8 @@ fun KuvioTaskItem(
                 modifier = Modifier.weight(1f),
                 verticalArrangement = Arrangement.spacedBy(6.dp),
             ) {
-                Text(
+                KuvioTitleMediumText(
                     text = data.title,
-                    style = MaterialTheme.typography.titleMedium,
                     color = visuals.titleColor,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,

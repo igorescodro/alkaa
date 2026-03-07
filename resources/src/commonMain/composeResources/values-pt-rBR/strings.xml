@@ -126,6 +126,8 @@
     <string name="kuvio_calendar_icon_cd">Definir data de entrega</string>
     <string name="kuvio_list_icon_cd">Escolher lista</string>
     <string name="kuvio_notifications_icon_cd">Definir lembrete</string>
+    <string name="kuvio_task_item_check_cd">Concluir tarefa</string>
+    <string name="kuvio_task_item_uncheck_cd">Marcar tarefa como incompleta</string>
 
     <!-- Relative Date -->
     <string name="relative_date_time_just_now">agora</string>

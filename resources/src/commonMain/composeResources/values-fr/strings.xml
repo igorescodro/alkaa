@@ -129,6 +129,8 @@
     <string name="kuvio_calendar_icon_cd">D\u00e9finir la date d\u2019\u00e9ch\u00e9ance</string>
     <string name="kuvio_list_icon_cd">Choisir une liste</string>
     <string name="kuvio_notifications_icon_cd">D\u00e9finir un rappel</string>
+    <string name="kuvio_task_item_check_cd">Terminer la t\u00e2che</string>
+    <string name="kuvio_task_item_uncheck_cd">Marquer la t\u00e2che comme incompl\u00e8te</string>
 
     <!-- Relative Date -->
     <string name="relative_date_time_just_now">à l'instant</string>

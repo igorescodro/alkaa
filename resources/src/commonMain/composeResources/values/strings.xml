@@ -129,6 +129,8 @@
     <string name="kuvio_calendar_icon_cd">Set due date</string>
     <string name="kuvio_list_icon_cd">Pick list</string>
     <string name="kuvio_notifications_icon_cd">Set reminder</string>
+    <string name="kuvio_task_item_check_cd">Complete task</string>
+    <string name="kuvio_task_item_uncheck_cd">Mark task as incomplete</string>
 
     <!-- Kuvio Icon Catalog -->
     <string name="kuvio_icon_add_task_content_description">Add task</string>

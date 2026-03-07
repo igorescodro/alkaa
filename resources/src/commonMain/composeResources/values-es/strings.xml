@@ -129,6 +129,8 @@
     <string name="kuvio_calendar_icon_cd">Establecer fecha de vencimiento</string>
     <string name="kuvio_list_icon_cd">Elegir lista</string>
     <string name="kuvio_notifications_icon_cd">Establecer recordatorio</string>
+    <string name="kuvio_task_item_check_cd">Completar tarea</string>
+    <string name="kuvio_task_item_uncheck_cd">Marcar tarea como incompleta</string>
 
     <!-- Relative Date -->
     <string name="relative_date_time_just_now">ahora mismo</string>

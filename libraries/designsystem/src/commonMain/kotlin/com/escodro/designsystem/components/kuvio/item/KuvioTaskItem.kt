@@ -206,6 +206,44 @@ fun KuvioTaskItem(
     }
 }
 
+// ── Preview constants ─────────────────────────────────────────────────────────
+
+@Suppress("TopLevelPropertyNaming")
+private const val PREVIEW_TITLE_PRESENTATION = "Prepare Q3 presentation slides"
+
+@Suppress("TopLevelPropertyNaming")
+private const val PREVIEW_TITLE_DESIGN = "Review design system proposals"
+
+@Suppress("TopLevelPropertyNaming")
+private const val PREVIEW_TITLE_INVOICE = "Send invoice to client"
+
+@Suppress("TopLevelPropertyNaming")
+private const val PREVIEW_TITLE_TAX = "Submit tax documents"
+
+@Suppress("TopLevelPropertyNaming")
+private const val PREVIEW_TITLE_MEDITATE = "Meditate for 20 minutes"
+
+@Suppress("TopLevelPropertyNaming")
+private const val PREVIEW_DATE_TODAY = "Today, 3 PM"
+
+@Suppress("TopLevelPropertyNaming")
+private const val PREVIEW_DATE_SOON = "Thu, 10 AM"
+
+@Suppress("TopLevelPropertyNaming")
+private const val PREVIEW_DATE_YESTERDAY = "Yesterday"
+
+@Suppress("TopLevelPropertyNaming")
+private const val PREVIEW_LIST_WORK = "Work"
+
+@Suppress("TopLevelPropertyNaming")
+private const val PREVIEW_LIST_IB = "IB"
+
+@Suppress("TopLevelPropertyNaming")
+private const val PREVIEW_TAG_WELLNESS = "#wellness"
+
+@Suppress("TopLevelPropertyNaming")
+private const val PREVIEW_REPEAT_DAILY = "Daily"
+
 // ── Light previews ─────────────────────────────────────────────────────────
 
 @Preview(showBackground = true, backgroundColor = 0xFFF0F4FA)
@@ -214,10 +252,10 @@ private fun KuvioTaskItemPendingLightPreview() {
     AlkaaThemePreview {
         KuvioTaskItem(
             data = KuvioTaskItemData(
-                title = "Prepare Q3 presentation slides",
+                title = PREVIEW_TITLE_PRESENTATION,
                 chips = listOf(
-                    KuvioTaskChipType.DateToday("Today, 3 PM"),
-                    KuvioTaskChipType.List("Work"),
+                    KuvioTaskChipType.DateToday(PREVIEW_DATE_TODAY),
+                    KuvioTaskChipType.List(PREVIEW_LIST_WORK),
                 ),
                 state = KuvioTaskItemState.PENDING,
             ),
@@ -234,10 +272,10 @@ private fun KuvioTaskItemUpcomingLightPreview() {
     AlkaaThemePreview {
         KuvioTaskItem(
             data = KuvioTaskItemData(
-                title = "Review design system proposals",
+                title = PREVIEW_TITLE_DESIGN,
                 chips = listOf(
-                    KuvioTaskChipType.DateSoon("Thu, 10 AM"),
-                    KuvioTaskChipType.List("IB"),
+                    KuvioTaskChipType.DateSoon(PREVIEW_DATE_SOON),
+                    KuvioTaskChipType.List(PREVIEW_LIST_IB),
                 ),
                 state = KuvioTaskItemState.PENDING,
                 categoryColor = Color(0xFFE07030),
@@ -255,8 +293,8 @@ private fun KuvioTaskItemCompletedLightPreview() {
     AlkaaThemePreview {
         KuvioTaskItem(
             data = KuvioTaskItemData(
-                title = "Send invoice to client",
-                chips = listOf(KuvioTaskChipType.DateLater("Yesterday")),
+                title = PREVIEW_TITLE_INVOICE,
+                chips = listOf(KuvioTaskChipType.DateLater(PREVIEW_DATE_YESTERDAY)),
                 state = KuvioTaskItemState.COMPLETED,
                 categoryColor = Color(0xFF1A6FD4),
             ),
@@ -273,8 +311,8 @@ private fun KuvioTaskItemOverdueLightPreview() {
     AlkaaThemePreview {
         KuvioTaskItem(
             data = KuvioTaskItemData(
-                title = "Submit tax documents",
-                chips = listOf(KuvioTaskChipType.DateToday("Yesterday")),
+                title = PREVIEW_TITLE_TAX,
+                chips = listOf(KuvioTaskChipType.DateToday(PREVIEW_DATE_YESTERDAY)),
                 state = KuvioTaskItemState.OVERDUE,
             ),
             onItemClick = {},
@@ -290,10 +328,10 @@ private fun KuvioTaskItemWithTagLightPreview() {
     AlkaaThemePreview {
         KuvioTaskItem(
             data = KuvioTaskItemData(
-                title = "Meditate for 20 minutes",
+                title = PREVIEW_TITLE_MEDITATE,
                 chips = listOf(
-                    KuvioTaskChipType.Repeat("Daily"),
-                    KuvioTaskChipType.Tag("#wellness"),
+                    KuvioTaskChipType.Repeat(PREVIEW_REPEAT_DAILY),
+                    KuvioTaskChipType.Tag(PREVIEW_TAG_WELLNESS),
                 ),
                 state = KuvioTaskItemState.PENDING,
                 categoryColor = Color(0xFF34C98C),
@@ -313,10 +351,10 @@ private fun KuvioTaskItemPendingDarkPreview() {
     AlkaaThemePreview(isDarkTheme = true) {
         KuvioTaskItem(
             data = KuvioTaskItemData(
-                title = "Prepare Q3 presentation slides",
+                title = PREVIEW_TITLE_PRESENTATION,
                 chips = listOf(
-                    KuvioTaskChipType.DateToday("Today, 3 PM"),
-                    KuvioTaskChipType.List("Work"),
+                    KuvioTaskChipType.DateToday(PREVIEW_DATE_TODAY),
+                    KuvioTaskChipType.List(PREVIEW_LIST_WORK),
                 ),
                 state = KuvioTaskItemState.PENDING,
             ),
@@ -333,10 +371,10 @@ private fun KuvioTaskItemUpcomingDarkPreview() {
     AlkaaThemePreview(isDarkTheme = true) {
         KuvioTaskItem(
             data = KuvioTaskItemData(
-                title = "Review design system proposals",
+                title = PREVIEW_TITLE_DESIGN,
                 chips = listOf(
-                    KuvioTaskChipType.DateSoon("Thu, 10 AM"),
-                    KuvioTaskChipType.List("IB"),
+                    KuvioTaskChipType.DateSoon(PREVIEW_DATE_SOON),
+                    KuvioTaskChipType.List(PREVIEW_LIST_IB),
                 ),
                 state = KuvioTaskItemState.PENDING,
                 categoryColor = Color(0xFFE07030),
@@ -354,8 +392,8 @@ private fun KuvioTaskItemCompletedDarkPreview() {
     AlkaaThemePreview(isDarkTheme = true) {
         KuvioTaskItem(
             data = KuvioTaskItemData(
-                title = "Send invoice to client",
-                chips = listOf(KuvioTaskChipType.DateLater("Yesterday")),
+                title = PREVIEW_TITLE_INVOICE,
+                chips = listOf(KuvioTaskChipType.DateLater(PREVIEW_DATE_YESTERDAY)),
                 state = KuvioTaskItemState.COMPLETED,
                 categoryColor = Color(0xFF5BADFF),
             ),
@@ -372,8 +410,8 @@ private fun KuvioTaskItemOverdueDarkPreview() {
     AlkaaThemePreview(isDarkTheme = true) {
         KuvioTaskItem(
             data = KuvioTaskItemData(
-                title = "Submit tax documents",
-                chips = listOf(KuvioTaskChipType.DateToday("Yesterday")),
+                title = PREVIEW_TITLE_TAX,
+                chips = listOf(KuvioTaskChipType.DateToday(PREVIEW_DATE_YESTERDAY)),
                 state = KuvioTaskItemState.OVERDUE,
             ),
             onItemClick = {},
@@ -389,10 +427,10 @@ private fun KuvioTaskItemWithTagDarkPreview() {
     AlkaaThemePreview(isDarkTheme = true) {
         KuvioTaskItem(
             data = KuvioTaskItemData(
-                title = "Meditate for 20 minutes",
+                title = PREVIEW_TITLE_MEDITATE,
                 chips = listOf(
-                    KuvioTaskChipType.Repeat("Daily"),
-                    KuvioTaskChipType.Tag("#wellness"),
+                    KuvioTaskChipType.Repeat(PREVIEW_REPEAT_DAILY),
+                    KuvioTaskChipType.Tag(PREVIEW_TAG_WELLNESS),
                 ),
                 state = KuvioTaskItemState.PENDING,
                 categoryColor = Color(0xFF34C98C),

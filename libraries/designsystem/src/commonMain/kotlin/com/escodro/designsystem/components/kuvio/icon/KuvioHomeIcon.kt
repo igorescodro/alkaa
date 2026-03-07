@@ -1,0 +1,49 @@
+package com.escodro.designsystem.components.kuvio.icon
+
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.escodro.designsystem.theme.AlkaaThemePreview
+
+/**
+ * Home icon component.
+ *
+ * @param modifier the modifier to be applied to the icon
+ * @param tint the color to be applied to the icon
+ */
+@Composable
+fun KuvioHomeIcon(
+    modifier: Modifier = Modifier,
+    tint: Color = MaterialTheme.colorScheme.onSurface,
+) {
+    Icon(
+        imageVector = Icons.Default.Home,
+        contentDescription = "Home",
+        tint = tint,
+        modifier = modifier,
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun KuvioHomeIconLightPreview() {
+    AlkaaThemePreview {
+        KuvioHomeIcon(modifier = Modifier.size(48.dp))
+    }
+}
+
+@Preview(showBackground = true, backgroundColor = 0xFF0F1B2D)
+@Composable
+private fun KuvioHomeIconDarkPreview() {
+    AlkaaThemePreview(isDarkTheme = true) {
+        KuvioHomeIcon(modifier = Modifier.size(48.dp))
+    }
+}

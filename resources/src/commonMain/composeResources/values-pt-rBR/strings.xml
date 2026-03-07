@@ -120,6 +120,13 @@
 
     <string name="default_ok">OK</string>
 
+    <!-- Kuvio Design System -->
+    <string name="kuvio_add_task_bar_placeholder">Adicionar uma tarefa\u2026</string>
+    <string name="kuvio_add_button_cd">Adicionar tarefa</string>
+    <string name="kuvio_calendar_icon_cd">Definir data de entrega</string>
+    <string name="kuvio_list_icon_cd">Escolher lista</string>
+    <string name="kuvio_notifications_icon_cd">Definir lembrete</string>
+
     <!-- Relative Date -->
     <string name="relative_date_time_just_now">agora</string>
     <string name="relative_date_time_one_minute">há 1 minuto</string>

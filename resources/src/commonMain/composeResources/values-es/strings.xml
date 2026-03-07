@@ -123,6 +123,13 @@
 
     <string name="default_ok">Aceptar</string>
 
+    <!-- Kuvio Design System -->
+    <string name="kuvio_add_task_bar_placeholder">A\u00f1adir una tarea\u2026</string>
+    <string name="kuvio_add_button_cd">A\u00f1adir tarea</string>
+    <string name="kuvio_calendar_icon_cd">Establecer fecha de vencimiento</string>
+    <string name="kuvio_list_icon_cd">Elegir lista</string>
+    <string name="kuvio_notifications_icon_cd">Establecer recordatorio</string>
+
     <!-- Relative Date -->
     <string name="relative_date_time_just_now">ahora mismo</string>
     <string name="relative_date_time_one_minute">hace 1 minuto</string>

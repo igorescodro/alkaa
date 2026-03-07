@@ -118,16 +118,11 @@ private fun TaskRadioButton(
         modifier = modifier
             .size(28.dp)
             .clip(CircleShape)
-            .then(
-                if (isChecked) {
-                    Modifier.background(resolvedColor)
-                } else {
-                    Modifier.border(
-                        width = 1.5.dp,
-                        color = MaterialTheme.colorScheme.outline,
-                        shape = CircleShape,
-                    )
-                },
+            .background(animatedBackgroundColor.value, CircleShape)
+            .border(
+                width = 1.5.dp,
+                color = MaterialTheme.colorScheme.outline,
+                shape = CircleShape,
             )
             .clickable(onClick = onClick),
     ) {

@@ -1,9 +1,11 @@
 package com.escodro.designsystem.components.kuvio.item
 
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextDecoration
 import com.escodro.designsystem.components.kuvio.chip.KuvioTaskChipType
 
 enum class KuvioTaskItemState { PENDING, COMPLETED, OVERDUE }
@@ -23,6 +25,31 @@ data class KuvioTaskItemData(
     val state: KuvioTaskItemState = KuvioTaskItemState.PENDING,
     val categoryColor: Color? = null,
 )
+
+private data class TaskItemVisuals(
+    val cardBackground: Color,
+    val titleColor: Color,
+    val titleDecoration: TextDecoration,
+)
+
+@Composable
+private fun resolveCardVisuals(state: KuvioTaskItemState): TaskItemVisuals = when (state) {
+    KuvioTaskItemState.PENDING -> TaskItemVisuals(
+        cardBackground = MaterialTheme.colorScheme.surface,
+        titleColor = MaterialTheme.colorScheme.onSurface,
+        titleDecoration = TextDecoration.None,
+    )
+    KuvioTaskItemState.COMPLETED -> TaskItemVisuals(
+        cardBackground = MaterialTheme.colorScheme.surface,
+        titleColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f),
+        titleDecoration = TextDecoration.LineThrough,
+    )
+    KuvioTaskItemState.OVERDUE -> TaskItemVisuals(
+        cardBackground = MaterialTheme.colorScheme.error.copy(alpha = 0.08f),
+        titleColor = MaterialTheme.colorScheme.onSurface,
+        titleDecoration = TextDecoration.None,
+    )
+}
 
 /**
  * A single task item row displaying title, metadata chips, completion state, and category indicator.

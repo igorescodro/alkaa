@@ -1,12 +1,22 @@
 package com.escodro.designsystem.components.kuvio.item
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.unit.dp
 import com.escodro.designsystem.components.kuvio.chip.KuvioTaskChipType
+import com.escodro.designsystem.components.kuvio.icon.KuvioCompleteIcon
 
 enum class KuvioTaskItemState { PENDING, COMPLETED, OVERDUE }
 
@@ -51,6 +61,56 @@ private fun resolveCardVisuals(state: KuvioTaskItemState): TaskItemVisuals = whe
         titleColor = MaterialTheme.colorScheme.onSurface,
         titleDecoration = TextDecoration.None,
     )
+}
+
+/**
+ * Custom radio button styled as a circle.
+ *
+ * Renders as an outline circle when unchecked, and a filled circle with a checkmark when checked.
+ * Uses the category color for the filled state, or falls back to primary color.
+ *
+ * @param state the current task state (determines if checked)
+ * @param categoryColor optional color for the filled circle; falls back to primary color if null
+ * @param contentDescription accessibility description that switches based on checked state
+ * @param onClick callback to invoke when the radio button is clicked
+ * @param modifier the modifier to be applied to the radio button
+ */
+@Composable
+private fun TaskRadioButton(
+    state: KuvioTaskItemState,
+    categoryColor: Color?,
+    contentDescription: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    val resolvedColor = categoryColor ?: MaterialTheme.colorScheme.primary
+    val isChecked = state == KuvioTaskItemState.COMPLETED
+
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = modifier
+            .size(28.dp)
+            .clip(CircleShape)
+            .then(
+                if (isChecked) {
+                    Modifier.background(resolvedColor)
+                } else {
+                    Modifier.border(
+                        width = 1.5.dp,
+                        color = MaterialTheme.colorScheme.outline,
+                        shape = CircleShape,
+                    )
+                },
+            )
+            .clickable(onClick = onClick),
+    ) {
+        if (isChecked) {
+            KuvioCompleteIcon(
+                tint = Color.White,
+                modifier = Modifier.size(14.dp),
+            )
+        }
+    }
 }
 
 /**

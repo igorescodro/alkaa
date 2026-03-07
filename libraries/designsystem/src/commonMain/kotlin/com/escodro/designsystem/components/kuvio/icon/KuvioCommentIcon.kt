@@ -2,7 +2,7 @@ package com.escodro.designsystem.components.kuvio.icon
 
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Comment
+import androidx.compose.material.icons.automirrored.filled.Comment
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -24,7 +24,7 @@ fun KuvioCommentIcon(
     tint: Color = MaterialTheme.colorScheme.onSurface,
 ) {
     Icon(
-        imageVector = Icons.Default.Comment,
+        imageVector = Icons.AutoMirrored.Filled.Comment,
         contentDescription = "Comment",
         tint = tint,
         modifier = modifier,

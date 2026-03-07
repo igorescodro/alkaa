@@ -108,6 +108,10 @@ private fun TaskRadioButton(
 ) {
     val resolvedColor = categoryColor ?: MaterialTheme.colorScheme.primary
     val isChecked = state == KuvioTaskItemState.COMPLETED
+    val animatedBackgroundColor = animateColorAsState(
+        targetValue = if (isChecked) resolvedColor else Color.Transparent,
+        animationSpec = tween(durationMillis = 200, easing = EaseInOutQuad),
+    )
 
     Box(
         contentAlignment = Alignment.Center,

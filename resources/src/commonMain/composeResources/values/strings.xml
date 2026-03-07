@@ -130,6 +130,32 @@
     <string name="kuvio_list_icon_cd">Pick list</string>
     <string name="kuvio_notifications_icon_cd">Set reminder</string>
 
+    <!-- Kuvio Icon Catalog -->
+    <string name="kuvio_icon_add_task_content_description">Add task</string>
+    <string name="kuvio_icon_alert_content_description">Alert</string>
+    <string name="kuvio_icon_back_content_description">Back</string>
+    <string name="kuvio_icon_calendar_content_description">Calendar</string>
+    <string name="kuvio_icon_clock_content_description">Clock</string>
+    <string name="kuvio_icon_close_content_description">Close</string>
+    <string name="kuvio_icon_comment_content_description">Comment</string>
+    <string name="kuvio_icon_complete_content_description">Complete</string>
+    <string name="kuvio_icon_delete_content_description">Delete</string>
+    <string name="kuvio_icon_edit_content_description">Edit</string>
+    <string name="kuvio_icon_favourite_content_description">Favourite</string>
+    <string name="kuvio_icon_forward_content_description">Forward</string>
+    <string name="kuvio_icon_home_content_description">Home</string>
+    <string name="kuvio_icon_location_content_description">Location</string>
+    <string name="kuvio_icon_more_content_description">More</string>
+    <string name="kuvio_icon_notes_content_description">Notes</string>
+    <string name="kuvio_icon_priority_content_description">Priority</string>
+    <string name="kuvio_icon_profile_content_description">Profile</string>
+    <string name="kuvio_icon_reminders_content_description">Reminders</string>
+    <string name="kuvio_icon_repeat_content_description">Repeat</string>
+    <string name="kuvio_icon_search_content_description">Search</string>
+    <string name="kuvio_icon_share_content_description">Share</string>
+    <string name="kuvio_icon_star_content_description">Star</string>
+    <string name="kuvio_icon_user_content_description">User</string>
+
     <!-- Relative Date -->
     <string name="relative_date_time_just_now">just now</string>
     <string name="relative_date_time_one_minute">1 minute ago</string>

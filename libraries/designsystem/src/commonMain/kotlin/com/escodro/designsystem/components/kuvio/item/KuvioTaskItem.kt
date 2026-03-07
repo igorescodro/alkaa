@@ -208,41 +208,29 @@ fun KuvioTaskItem(
 
 // ── Preview constants ─────────────────────────────────────────────────────────
 
-@Suppress("TopLevelPropertyNaming")
-private const val PREVIEW_TITLE_PRESENTATION = "Prepare Q3 presentation slides"
+private const val PreviewTitlePresentation = "Prepare Q3 presentation slides"
 
-@Suppress("TopLevelPropertyNaming")
-private const val PREVIEW_TITLE_DESIGN = "Review design system proposals"
+private const val PreviewTitleDesign = "Review design system proposals"
 
-@Suppress("TopLevelPropertyNaming")
-private const val PREVIEW_TITLE_INVOICE = "Send invoice to client"
+private const val PreviewTitleInvoice = "Send invoice to client"
 
-@Suppress("TopLevelPropertyNaming")
-private const val PREVIEW_TITLE_TAX = "Submit tax documents"
+private const val PreviewTitleTax = "Submit tax documents"
 
-@Suppress("TopLevelPropertyNaming")
-private const val PREVIEW_TITLE_MEDITATE = "Meditate for 20 minutes"
+private const val PreviewTitleMeditate = "Meditate for 20 minutes"
 
-@Suppress("TopLevelPropertyNaming")
-private const val PREVIEW_DATE_TODAY = "Today, 3 PM"
+private const val PreviewDateToday = "Today, 3 PM"
 
-@Suppress("TopLevelPropertyNaming")
-private const val PREVIEW_DATE_SOON = "Thu, 10 AM"
+private const val PreviewDateSoon = "Thu, 10 AM"
 
-@Suppress("TopLevelPropertyNaming")
-private const val PREVIEW_DATE_YESTERDAY = "Yesterday"
+private const val PreviewDateYesterday = "Yesterday"
 
-@Suppress("TopLevelPropertyNaming")
-private const val PREVIEW_LIST_WORK = "Work"
+private const val PreviewListWork = "Work"
 
-@Suppress("TopLevelPropertyNaming")
-private const val PREVIEW_LIST_IB = "IB"
+private const val PreviewListIb = "IB"
 
-@Suppress("TopLevelPropertyNaming")
-private const val PREVIEW_TAG_WELLNESS = "#wellness"
+private const val PreviewTagWellness = "#wellness"
 
-@Suppress("TopLevelPropertyNaming")
-private const val PREVIEW_REPEAT_DAILY = "Daily"
+private const val PreviewRepeatDaily = "Daily"
 
 // ── Light previews ─────────────────────────────────────────────────────────
 
@@ -252,10 +240,10 @@ private fun KuvioTaskItemPendingLightPreview() {
     AlkaaThemePreview {
         KuvioTaskItem(
             data = KuvioTaskItemData(
-                title = PREVIEW_TITLE_PRESENTATION,
+                title = PreviewTitlePresentation,
                 chips = listOf(
-                    KuvioTaskChipType.DateToday(PREVIEW_DATE_TODAY),
-                    KuvioTaskChipType.List(PREVIEW_LIST_WORK),
+                    KuvioTaskChipType.DateToday(PreviewDateToday),
+                    KuvioTaskChipType.List(PreviewListWork),
                 ),
                 state = KuvioTaskItemState.PENDING,
             ),
@@ -272,10 +260,10 @@ private fun KuvioTaskItemUpcomingLightPreview() {
     AlkaaThemePreview {
         KuvioTaskItem(
             data = KuvioTaskItemData(
-                title = PREVIEW_TITLE_DESIGN,
+                title = PreviewTitleDesign,
                 chips = listOf(
-                    KuvioTaskChipType.DateSoon(PREVIEW_DATE_SOON),
-                    KuvioTaskChipType.List(PREVIEW_LIST_IB),
+                    KuvioTaskChipType.DateSoon(PreviewDateSoon),
+                    KuvioTaskChipType.List(PreviewListIb),
                 ),
                 state = KuvioTaskItemState.PENDING,
                 categoryColor = Color(0xFFE07030),
@@ -293,8 +281,8 @@ private fun KuvioTaskItemCompletedLightPreview() {
     AlkaaThemePreview {
         KuvioTaskItem(
             data = KuvioTaskItemData(
-                title = PREVIEW_TITLE_INVOICE,
-                chips = listOf(KuvioTaskChipType.DateLater(PREVIEW_DATE_YESTERDAY)),
+                title = PreviewTitleInvoice,
+                chips = listOf(KuvioTaskChipType.DateLater(PreviewDateYesterday)),
                 state = KuvioTaskItemState.COMPLETED,
                 categoryColor = Color(0xFF1A6FD4),
             ),
@@ -311,8 +299,8 @@ private fun KuvioTaskItemOverdueLightPreview() {
     AlkaaThemePreview {
         KuvioTaskItem(
             data = KuvioTaskItemData(
-                title = PREVIEW_TITLE_TAX,
-                chips = listOf(KuvioTaskChipType.DateToday(PREVIEW_DATE_YESTERDAY)),
+                title = PreviewTitleTax,
+                chips = listOf(KuvioTaskChipType.DateToday(PreviewDateYesterday)),
                 state = KuvioTaskItemState.OVERDUE,
             ),
             onItemClick = {},
@@ -328,10 +316,10 @@ private fun KuvioTaskItemWithTagLightPreview() {
     AlkaaThemePreview {
         KuvioTaskItem(
             data = KuvioTaskItemData(
-                title = PREVIEW_TITLE_MEDITATE,
+                title = PreviewTitleMeditate,
                 chips = listOf(
-                    KuvioTaskChipType.Repeat(PREVIEW_REPEAT_DAILY),
-                    KuvioTaskChipType.Tag(PREVIEW_TAG_WELLNESS),
+                    KuvioTaskChipType.Repeat(PreviewRepeatDaily),
+                    KuvioTaskChipType.Tag(PreviewTagWellness),
                 ),
                 state = KuvioTaskItemState.PENDING,
                 categoryColor = Color(0xFF34C98C),
@@ -351,10 +339,10 @@ private fun KuvioTaskItemPendingDarkPreview() {
     AlkaaThemePreview(isDarkTheme = true) {
         KuvioTaskItem(
             data = KuvioTaskItemData(
-                title = PREVIEW_TITLE_PRESENTATION,
+                title = PreviewTitlePresentation,
                 chips = listOf(
-                    KuvioTaskChipType.DateToday(PREVIEW_DATE_TODAY),
-                    KuvioTaskChipType.List(PREVIEW_LIST_WORK),
+                    KuvioTaskChipType.DateToday(PreviewDateToday),
+                    KuvioTaskChipType.List(PreviewListWork),
                 ),
                 state = KuvioTaskItemState.PENDING,
             ),
@@ -371,10 +359,10 @@ private fun KuvioTaskItemUpcomingDarkPreview() {
     AlkaaThemePreview(isDarkTheme = true) {
         KuvioTaskItem(
             data = KuvioTaskItemData(
-                title = PREVIEW_TITLE_DESIGN,
+                title = PreviewTitleDesign,
                 chips = listOf(
-                    KuvioTaskChipType.DateSoon(PREVIEW_DATE_SOON),
-                    KuvioTaskChipType.List(PREVIEW_LIST_IB),
+                    KuvioTaskChipType.DateSoon(PreviewDateSoon),
+                    KuvioTaskChipType.List(PreviewListIb),
                 ),
                 state = KuvioTaskItemState.PENDING,
                 categoryColor = Color(0xFFE07030),
@@ -392,8 +380,8 @@ private fun KuvioTaskItemCompletedDarkPreview() {
     AlkaaThemePreview(isDarkTheme = true) {
         KuvioTaskItem(
             data = KuvioTaskItemData(
-                title = PREVIEW_TITLE_INVOICE,
-                chips = listOf(KuvioTaskChipType.DateLater(PREVIEW_DATE_YESTERDAY)),
+                title = PreviewTitleInvoice,
+                chips = listOf(KuvioTaskChipType.DateLater(PreviewDateYesterday)),
                 state = KuvioTaskItemState.COMPLETED,
                 categoryColor = Color(0xFF5BADFF),
             ),
@@ -410,8 +398,8 @@ private fun KuvioTaskItemOverdueDarkPreview() {
     AlkaaThemePreview(isDarkTheme = true) {
         KuvioTaskItem(
             data = KuvioTaskItemData(
-                title = PREVIEW_TITLE_TAX,
-                chips = listOf(KuvioTaskChipType.DateToday(PREVIEW_DATE_YESTERDAY)),
+                title = PreviewTitleTax,
+                chips = listOf(KuvioTaskChipType.DateToday(PreviewDateYesterday)),
                 state = KuvioTaskItemState.OVERDUE,
             ),
             onItemClick = {},
@@ -427,10 +415,10 @@ private fun KuvioTaskItemWithTagDarkPreview() {
     AlkaaThemePreview(isDarkTheme = true) {
         KuvioTaskItem(
             data = KuvioTaskItemData(
-                title = PREVIEW_TITLE_MEDITATE,
+                title = PreviewTitleMeditate,
                 chips = listOf(
-                    KuvioTaskChipType.Repeat(PREVIEW_REPEAT_DAILY),
-                    KuvioTaskChipType.Tag(PREVIEW_TAG_WELLNESS),
+                    KuvioTaskChipType.Repeat(PreviewRepeatDaily),
+                    KuvioTaskChipType.Tag(PreviewTagWellness),
                 ),
                 state = KuvioTaskItemState.PENDING,
                 categoryColor = Color(0xFF34C98C),

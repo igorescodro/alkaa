@@ -126,7 +126,11 @@ private fun TaskRadioButton(
             )
             .clickable(onClick = onClick),
     ) {
-        if (isChecked) {
+        AnimatedVisibility(
+            visible = isChecked,
+            enter = fadeIn(animationSpec = tween(200, easing = EaseInOutQuad)),
+            exit = fadeOut(animationSpec = tween(200, easing = EaseInOutQuad)),
+        ) {
             KuvioCompleteIcon(
                 tint = Color.White,
                 modifier = Modifier.size(14.dp),

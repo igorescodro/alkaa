@@ -74,7 +74,7 @@ private fun resolveCardVisuals(state: KuvioTaskItemState): TaskItemVisuals = whe
     )
 
     KuvioTaskItemState.OVERDUE -> TaskItemVisuals(
-        cardBackground = MaterialTheme.colorScheme.error.copy(alpha = 0.08f),
+        cardBackground = MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.5f),
         titleColor = MaterialTheme.colorScheme.onSurface,
         titleDecoration = TextDecoration.None,
     )

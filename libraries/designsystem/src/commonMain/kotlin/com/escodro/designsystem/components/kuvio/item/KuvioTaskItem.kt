@@ -39,11 +39,13 @@ private fun resolveCardVisuals(state: KuvioTaskItemState): TaskItemVisuals = whe
         titleColor = MaterialTheme.colorScheme.onSurface,
         titleDecoration = TextDecoration.None,
     )
+
     KuvioTaskItemState.COMPLETED -> TaskItemVisuals(
         cardBackground = MaterialTheme.colorScheme.surface,
         titleColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f),
         titleDecoration = TextDecoration.LineThrough,
     )
+
     KuvioTaskItemState.OVERDUE -> TaskItemVisuals(
         cardBackground = MaterialTheme.colorScheme.error.copy(alpha = 0.08f),
         titleColor = MaterialTheme.colorScheme.onSurface,
@@ -72,5 +74,5 @@ fun KuvioTaskItem(
     onCheckClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    // TODO: implement
+    // implementation in progress
 }

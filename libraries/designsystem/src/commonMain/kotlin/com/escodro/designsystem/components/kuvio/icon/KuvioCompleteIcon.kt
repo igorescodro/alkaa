@@ -17,15 +17,17 @@ import com.escodro.designsystem.theme.AlkaaThemePreview
  *
  * @param modifier the modifier to be applied to the icon
  * @param tint the color to be applied to the icon
+ * @param contentDescription accessibility description for the icon
  */
 @Composable
 fun KuvioCompleteIcon(
     modifier: Modifier = Modifier,
     tint: Color = MaterialTheme.colorScheme.onSurface,
+    contentDescription: String = "Complete",
 ) {
     Icon(
         imageVector = Icons.Default.Check,
-        contentDescription = "Complete",
+        contentDescription = contentDescription,
         tint = tint,
         modifier = modifier,
     )

@@ -19,4 +19,15 @@ class LoadCompletedTasks(private val repository: TaskWithCategoryRepository) {
         repository
             .findAllTasksWithCategory()
             .map { list -> list.filter { item -> item.task.isCompleted } }
+
+    /**
+     * Gets completed tasks for a specific category.
+     *
+     * @param categoryId category filter
+     * @return observable to be subscribe
+     */
+    operator fun invoke(categoryId: Long): Flow<List<TaskWithCategory>> =
+        repository
+            .findAllTasksWithCategoryId(categoryId)
+            .map { list -> list.filter { item -> item.task.isCompleted } }
 }

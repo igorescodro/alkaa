@@ -78,4 +78,15 @@ internal class LoadTasksTest {
             assertFalse(taskWithCategory.task.isCompleted)
         }
     }
+
+    @Test
+    fun test_if_completed_tasks_are_filtered_by_category() = runTest {
+        val completedTasksByCategory = loadCompletedTasksUseCase(categoryId = 1L).first()
+
+        assertEquals(expected = 1, actual = completedTasksByCategory.size)
+        completedTasksByCategory.forEach { taskWithCategory ->
+            assertTrue(taskWithCategory.task.isCompleted)
+            assertEquals(expected = 1L, actual = taskWithCategory.category?.id)
+        }
+    }
 }

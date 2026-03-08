@@ -4,6 +4,8 @@ import com.escodro.coroutines.AppCoroutineScope
 import com.escodro.domain.model.Category
 import com.escodro.domain.model.Task
 import com.escodro.domain.model.TaskWithCategory
+import com.escodro.domain.provider.DateTimeProvider
+import com.escodro.task.mapper.TaskItemMapper
 import com.escodro.task.presentation.fake.AddTaskFake
 import com.escodro.task.presentation.fake.LoadCategoryFake
 import com.escodro.task.presentation.fake.LoadTasksByCategoryFake
@@ -32,13 +34,14 @@ internal class TaskListV2ViewModelTest :
 
     // Fixed "today" for deterministic tests: 2024-06-15
     private val fakeToday = LocalDate(2024, 6, 15)
-    private val fakeDateTimeProvider = object : com.escodro.domain.provider.DateTimeProvider {
+    private val fakeDateTimeProvider = object : DateTimeProvider {
         override fun getCurrentInstant() = kotlin.time.Instant.fromEpochMilliseconds(0)
         override fun getCurrentLocalDateTime() = LocalDateTime(2024, 6, 15, 12, 0)
     }
 
     private val categoryId = 1L
     private val fakeCategory = Category(id = categoryId, name = "Work", color = "#FFFFFF")
+    private val taskItemMapper = TaskItemMapper()
 
     private val viewModel by lazy {
         TaskListV2ViewModel(
@@ -48,6 +51,7 @@ internal class TaskListV2ViewModelTest :
             addTask = addTaskFake,
             dateTimeProvider = fakeDateTimeProvider,
             applicationScope = AppCoroutineScope(context = testDispatcher()),
+            taskItemMapper = taskItemMapper,
         )
     }
 

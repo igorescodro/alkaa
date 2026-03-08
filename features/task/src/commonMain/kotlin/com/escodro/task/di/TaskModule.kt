@@ -3,6 +3,7 @@ package com.escodro.task.di
 import com.escodro.navigationapi.provider.NavGraph
 import com.escodro.task.mapper.AlarmIntervalMapper
 import com.escodro.task.mapper.CategoryMapper
+import com.escodro.task.mapper.TaskItemMapper
 import com.escodro.task.mapper.TaskMapper
 import com.escodro.task.mapper.TaskWithCategoryMapper
 import com.escodro.task.navigation.TaskNavGraph
@@ -42,6 +43,7 @@ val taskModule = module {
     factoryOf(::TaskMapper)
     factoryOf(::TaskWithCategoryMapper)
     factoryOf(::CategoryMapper)
+    factoryOf(::TaskItemMapper)
 
     // Navigation
     factoryOf(::TaskNavGraph) bind NavGraph::class

@@ -9,13 +9,16 @@ import com.escodro.domain.usecase.category.LoadCategory
 import com.escodro.domain.usecase.task.AddTask
 import com.escodro.domain.usecase.task.UpdateTaskStatus
 import com.escodro.domain.usecase.taskwithcategory.LoadTasksByCategory
+import com.escodro.task.mapper.TaskItemMapper
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.datetime.LocalDate
 
@@ -26,6 +29,7 @@ internal class TaskListV2ViewModel(
     private val addTask: AddTask,
     private val dateTimeProvider: DateTimeProvider,
     private val applicationScope: AppCoroutineScope,
+    private val taskItemMapper: TaskItemMapper,
 ) : ViewModel() {
 
     private val addTaskText = MutableStateFlow("")
@@ -100,7 +104,7 @@ internal class TaskListV2ViewModel(
         val noDate = mutableListOf<TaskItem>()
 
         for (twc in tasks) {
-            val item = twc.toTaskItem()
+            val item = taskItemMapper.toTaskItem(twc)
             val dueDate = twc.task.dueDate
             when {
                 twc.task.isCompleted -> completed.add(item)
@@ -122,13 +126,6 @@ internal class TaskListV2ViewModel(
             .map { (type, items) -> TaskSection(type = type, tasks = items.toImmutableList()) }
             .toImmutableList()
     }
-
-    private fun TaskWithCategory.toTaskItem() = TaskItem(
-        id = task.id,
-        title = task.title,
-        isCompleted = task.isCompleted,
-        dueDate = task.dueDate,
-    )
 }
 
 private const val CategoryPlaceholderEmoji = "📋"

@@ -26,7 +26,7 @@ kotlinx_datetime = "0.7.1"
 
 # AndroidX
 activity = "1.12.4"
-core = "1.17.0"
+core = "1.18.0"
 appcompat = "1.7.1"
 corektx = "1.17.0"
 datastore = "1.2.1"

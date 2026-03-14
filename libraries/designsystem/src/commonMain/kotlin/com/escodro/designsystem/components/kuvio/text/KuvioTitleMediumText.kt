@@ -5,6 +5,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import com.escodro.designsystem.theme.AlkaaThemePreview
@@ -30,6 +31,7 @@ fun KuvioTitleMediumText(
     softWrap: Boolean = true,
     maxLines: Int = Int.MAX_VALUE,
     minLines: Int = 1,
+    textDecoration: TextDecoration? = null,
 ) {
     Text(
         text = text,
@@ -40,6 +42,7 @@ fun KuvioTitleMediumText(
         softWrap = softWrap,
         maxLines = maxLines,
         minLines = minLines,
+        textDecoration = textDecoration,
     )
 }
 

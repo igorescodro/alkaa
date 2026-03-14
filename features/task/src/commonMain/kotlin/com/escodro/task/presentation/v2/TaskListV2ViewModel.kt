@@ -1,7 +1,9 @@
 package com.escodro.task.presentation.v2
 
+import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import com.escodro.coroutines.AppCoroutineScope
+import com.escodro.designsystem.extensions.toArgbColor
 import com.escodro.domain.model.Task
 import com.escodro.domain.model.TaskWithCategory
 import com.escodro.domain.provider.DateTimeProvider
@@ -43,6 +45,7 @@ internal class TaskListV2ViewModel(
             ) { tasks, text ->
                 buildLoadedState(
                     categoryName = category.name,
+                    categoryColor = category.color,
                     tasks = tasks,
                     addTaskText = text,
                 )
@@ -73,6 +76,7 @@ internal class TaskListV2ViewModel(
 
     private fun buildLoadedState(
         categoryName: String,
+        categoryColor: String,
         tasks: List<TaskWithCategory>,
         addTaskText: String,
     ): TaskListV2ViewState.Loaded {
@@ -81,6 +85,7 @@ internal class TaskListV2ViewModel(
         return TaskListV2ViewState.Loaded(
             categoryName = categoryName,
             categoryEmoji = CategoryPlaceholderEmoji,
+            categoryColor = Color(categoryColor.toArgbColor()),
             totalCount = tasks.size,
             completedCount = tasks.count { it.task.isCompleted },
             sections = sections,

@@ -1,5 +1,6 @@
 package com.escodro.task.presentation.v2
 
+import androidx.compose.ui.graphics.Color
 import com.escodro.designsystem.components.kuvio.item.KuvioTaskItemData
 import kotlinx.collections.immutable.ImmutableList
 
@@ -12,6 +13,7 @@ internal sealed class TaskListV2ViewState {
     data class Loaded(
         val categoryName: String,
         val categoryEmoji: String,
+        val categoryColor: Color,
         val totalCount: Int,
         val completedCount: Int,
         val sections: ImmutableList<TaskSection>,

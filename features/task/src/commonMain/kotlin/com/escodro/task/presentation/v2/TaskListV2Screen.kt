@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -20,9 +21,7 @@ import androidx.compose.material.icons.outlined.MoreVert
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -30,15 +29,20 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.escodro.designsystem.components.content.AlkaaLoadingContent
 import com.escodro.designsystem.components.content.DefaultIconTextContent
 import com.escodro.designsystem.components.kuvio.bar.KuvioAddTaskBar
 import com.escodro.designsystem.components.kuvio.chip.KuvioTaskChipType
+import com.escodro.designsystem.components.kuvio.icon.KuvioEmojiIcon
 import com.escodro.designsystem.components.kuvio.item.KuvioTaskItem
 import com.escodro.designsystem.components.kuvio.item.KuvioTaskItemData
 import com.escodro.designsystem.components.kuvio.item.KuvioTaskItemState
+import com.escodro.designsystem.components.kuvio.text.KuvioBodyMediumText
+import com.escodro.designsystem.components.kuvio.text.KuvioLabelMediumText
+import com.escodro.designsystem.components.kuvio.text.KuvioTitleLargeText
 import com.escodro.designsystem.theme.AlkaaThemePreview
 import com.escodro.resources.Res
 import com.escodro.resources.task_list_v2_cd_back
@@ -131,6 +135,7 @@ internal fun TaskListV2Scaffold(
                     iconContentDescription = stringResource(Res.string.task_list_v2_cd_error),
                     header = stringResource(Res.string.task_list_v2_header_error),
                 )
+
                 is TaskListV2ViewState.Loaded -> {
                     if (currentState.sections.isEmpty()) {
                         DefaultIconTextContent(
@@ -165,6 +170,7 @@ private fun TaskListV2Content(
             CategoryHeader(
                 emoji = state.categoryEmoji,
                 name = state.categoryName,
+                color = state.categoryColor,
                 subtitle = stringResource(
                     Res.string.task_list_v2_subtitle,
                     state.totalCount,
@@ -198,6 +204,7 @@ private fun CategoryHeader(
     name: String,
     subtitle: String,
     modifier: Modifier = Modifier,
+    color: Color,
 ) {
     Row(
         modifier = modifier
@@ -205,11 +212,11 @@ private fun CategoryHeader(
             .padding(horizontal = 16.dp, vertical = 12.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Text(text = emoji, style = MaterialTheme.typography.headlineLarge)
+        KuvioEmojiIcon(emoji = emoji, tint = color, modifier = Modifier.size(40.dp))
         Spacer(modifier = Modifier.padding(horizontal = 12.dp))
         Column(modifier = Modifier.weight(1f)) {
-            Text(text = name, style = MaterialTheme.typography.titleLarge)
-            Text(text = subtitle, style = MaterialTheme.typography.bodyMedium)
+            KuvioTitleLargeText(text = name)
+            KuvioBodyMediumText(text = subtitle)
         }
         IconButton(onClick = {}) {
             Icon(
@@ -229,9 +236,8 @@ private fun SectionHeader(type: TaskSectionType, modifier: Modifier = Modifier) 
         TaskSectionType.COMPLETED -> stringResource(Res.string.task_list_v2_section_completed)
         TaskSectionType.NO_DATE -> stringResource(Res.string.task_list_v2_section_no_date)
     }
-    Text(
-        text = label,
-        style = MaterialTheme.typography.labelLarge,
+    KuvioLabelMediumText(
+        text = label.uppercase(),
         modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 8.dp),
@@ -261,6 +267,7 @@ private fun TaskListV2ScreenLightPreview() {
             state = TaskListV2ViewState.Loaded(
                 categoryEmoji = PreviewCategoryEmoji,
                 categoryName = PreviewCategoryName,
+                categoryColor = Color(0xFF1A2D5E),
                 totalCount = 5,
                 completedCount = 1,
                 sections = PreviewSections,
@@ -283,6 +290,7 @@ private fun TaskListV2ScreenDarkPreview() {
             state = TaskListV2ViewState.Loaded(
                 categoryEmoji = PreviewCategoryEmoji,
                 categoryName = PreviewCategoryName,
+                categoryColor = Color(0xFF1A2D5E),
                 totalCount = 5,
                 completedCount = 1,
                 sections = PreviewSections,

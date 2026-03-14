@@ -30,7 +30,7 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.escodro.designsystem.components.kuvio.button.KuvioAddButton
+import com.escodro.designsystem.components.kuvio.icon.button.KuvioAddButton
 import com.escodro.designsystem.components.kuvio.icon.button.KuvioCalendarIcon
 import com.escodro.designsystem.components.kuvio.text.KuvioBodyMediumText
 import com.escodro.designsystem.theme.AlkaaThemePreview

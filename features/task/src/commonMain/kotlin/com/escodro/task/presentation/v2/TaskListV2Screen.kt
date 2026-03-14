@@ -25,19 +25,22 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.escodro.designsystem.components.content.AlkaaLoadingContent
 import com.escodro.designsystem.components.content.DefaultIconTextContent
 import com.escodro.designsystem.components.kuvio.bar.KuvioAddTaskBar
+import com.escodro.designsystem.components.kuvio.chip.KuvioTaskChipType
+import com.escodro.designsystem.components.kuvio.item.KuvioTaskItem
+import com.escodro.designsystem.components.kuvio.item.KuvioTaskItemData
+import com.escodro.designsystem.components.kuvio.item.KuvioTaskItemState
 import com.escodro.designsystem.theme.AlkaaThemePreview
 import com.escodro.resources.Res
-import kotlinx.collections.immutable.persistentListOf
 import com.escodro.resources.task_list_v2_cd_back
 import com.escodro.resources.task_list_v2_cd_empty
 import com.escodro.resources.task_list_v2_cd_error
@@ -50,7 +53,7 @@ import com.escodro.resources.task_list_v2_section_overdue
 import com.escodro.resources.task_list_v2_section_today
 import com.escodro.resources.task_list_v2_section_upcoming
 import com.escodro.resources.task_list_v2_subtitle
-import com.escodro.task.presentation.list.TaskItem
+import kotlinx.collections.immutable.persistentListOf
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -242,18 +245,11 @@ private fun TaskListV2Item(
     onTaskCheckedChange: (Long) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    TaskItem(
-        task = com.escodro.task.model.TaskWithCategory(
-            task = com.escodro.task.model.Task(
-                id = task.id,
-                title = task.title,
-                isCompleted = task.isCompleted,
-                dueDate = task.dueDate,
-            ),
-        ),
-        onItemClick = onTaskClick,
-        onCheckedChange = { twc -> onTaskCheckedChange(twc.task.id) },
-        modifier = modifier,
+    KuvioTaskItem(
+        data = task.kuvioData,
+        onItemClick = { onTaskClick(task.id) },
+        onCheckClick = { onTaskCheckedChange(task.id) },
+        modifier = modifier.padding(vertical = 2.dp),
     )
 }
 
@@ -265,8 +261,8 @@ private fun TaskListV2ScreenLightPreview() {
             state = TaskListV2ViewState.Loaded(
                 categoryEmoji = PreviewCategoryEmoji,
                 categoryName = PreviewCategoryName,
-                totalCount = 8,
-                completedCount = 3,
+                totalCount = 5,
+                completedCount = 1,
                 sections = PreviewSections,
                 addTaskText = "",
             ),
@@ -287,8 +283,8 @@ private fun TaskListV2ScreenDarkPreview() {
             state = TaskListV2ViewState.Loaded(
                 categoryEmoji = PreviewCategoryEmoji,
                 categoryName = PreviewCategoryName,
-                totalCount = 8,
-                completedCount = 3,
+                totalCount = 5,
+                completedCount = 1,
                 sections = PreviewSections,
                 addTaskText = "",
             ),
@@ -308,26 +304,61 @@ private val PreviewSections = persistentListOf(
     TaskSection(
         type = TaskSectionType.OVERDUE,
         tasks = persistentListOf(
-            TaskItem(id = 1, title = "Buy groceries", isCompleted = false, dueDate = null),
+            TaskItem(
+                id = 1,
+                kuvioData = KuvioTaskItemData(
+                    title = "Buy groceries",
+                    state = KuvioTaskItemState.OVERDUE,
+                    chips = listOf(KuvioTaskChipType.DateToday("Yesterday")),
+                ),
+            ),
         ),
     ),
     TaskSection(
         type = TaskSectionType.TODAY,
         tasks = persistentListOf(
-            TaskItem(id = 2, title = "Finish report", isCompleted = false, dueDate = null),
-            TaskItem(id = 3, title = "Call dentist", isCompleted = true, dueDate = null),
+            TaskItem(
+                id = 2,
+                kuvioData = KuvioTaskItemData(
+                    title = "Finish report",
+                    state = KuvioTaskItemState.PENDING,
+                    chips = listOf(KuvioTaskChipType.DateToday("Today, 3 PM")),
+                ),
+            ),
+            TaskItem(
+                id = 3,
+                kuvioData = KuvioTaskItemData(
+                    title = "Call dentist",
+                    state = KuvioTaskItemState.PENDING,
+                    chips = listOf(KuvioTaskChipType.DateToday("Today, 9 AM")),
+                ),
+            ),
         ),
     ),
     TaskSection(
         type = TaskSectionType.UPCOMING,
         tasks = persistentListOf(
-            TaskItem(id = 4, title = "Project deadline", isCompleted = false, dueDate = null),
+            TaskItem(
+                id = 4,
+                kuvioData = KuvioTaskItemData(
+                    title = "Project deadline",
+                    state = KuvioTaskItemState.PENDING,
+                    chips = listOf(KuvioTaskChipType.DateSoon("Thu, 10 AM")),
+                ),
+            ),
         ),
     ),
     TaskSection(
         type = TaskSectionType.COMPLETED,
         tasks = persistentListOf(
-            TaskItem(id = 5, title = "Send email", isCompleted = true, dueDate = null),
+            TaskItem(
+                id = 5,
+                kuvioData = KuvioTaskItemData(
+                    title = "Send email",
+                    state = KuvioTaskItemState.COMPLETED,
+                    chips = listOf(KuvioTaskChipType.DateLater("Mar 10")),
+                ),
+            ),
         ),
     ),
 )

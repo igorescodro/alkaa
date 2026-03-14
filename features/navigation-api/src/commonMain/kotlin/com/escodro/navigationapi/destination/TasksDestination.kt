@@ -10,4 +10,7 @@ object TasksDestination {
 
     @Serializable
     data object AddTaskBottomSheet : Destination, TopAppBarVisible
+
+    @Serializable
+    data class TaskListV2(val categoryId: Long) : Destination
 }

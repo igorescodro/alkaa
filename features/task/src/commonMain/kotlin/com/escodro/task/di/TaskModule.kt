@@ -3,6 +3,7 @@ package com.escodro.task.di
 import com.escodro.navigationapi.provider.NavGraph
 import com.escodro.task.mapper.AlarmIntervalMapper
 import com.escodro.task.mapper.CategoryMapper
+import com.escodro.task.mapper.TaskItemMapper
 import com.escodro.task.mapper.TaskMapper
 import com.escodro.task.mapper.TaskWithCategoryMapper
 import com.escodro.task.navigation.TaskNavGraph
@@ -13,6 +14,7 @@ import com.escodro.task.presentation.detail.alarm.interactor.OpenAlarmSchedulerI
 import com.escodro.task.presentation.detail.main.TaskDetailScreenImpl
 import com.escodro.task.presentation.detail.main.TaskDetailViewModel
 import com.escodro.task.presentation.list.TaskListViewModel
+import com.escodro.task.presentation.v2.TaskListV2ViewModel
 import com.escodro.taskapi.TaskDetailScreen
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.factoryOf
@@ -30,6 +32,7 @@ val taskModule = module {
     viewModelOf(::TaskDetailViewModel)
     viewModelOf(::TaskAlarmViewModel)
     viewModelOf(::AddTaskViewModel)
+    viewModelOf(::TaskListV2ViewModel)
 
     factoryOf(::OpenAlarmSchedulerImpl) bind OpenAlarmScheduler::class
 
@@ -40,6 +43,7 @@ val taskModule = module {
     factoryOf(::TaskMapper)
     factoryOf(::TaskWithCategoryMapper)
     factoryOf(::CategoryMapper)
+    factoryOf(::TaskItemMapper)
 
     // Navigation
     factoryOf(::TaskNavGraph) bind NavGraph::class

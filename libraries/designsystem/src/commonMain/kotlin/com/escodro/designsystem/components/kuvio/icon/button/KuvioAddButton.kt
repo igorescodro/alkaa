@@ -1,4 +1,4 @@
-package com.escodro.designsystem.components.kuvio.button
+package com.escodro.designsystem.components.kuvio.icon.button
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box

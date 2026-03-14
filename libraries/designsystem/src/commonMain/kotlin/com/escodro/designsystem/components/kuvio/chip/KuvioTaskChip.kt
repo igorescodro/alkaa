@@ -73,19 +73,19 @@ fun KuvioTaskChip(type: KuvioTaskChipType, modifier: Modifier = Modifier) {
             .height(22.dp)
             .clip(MaterialTheme.shapes.extraLarge)
             .background(visuals.backgroundColor)
-            .padding(horizontal = 10.dp, vertical = 3.dp),
+            .padding(horizontal = 8.dp, vertical = 4.dp),
         contentAlignment = Alignment.Center,
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(5.dp),
+            horizontalArrangement = Arrangement.spacedBy(4.dp),
         ) {
             if (visuals.icon != null) {
                 Icon(
                     imageVector = visuals.icon,
                     contentDescription = null,
                     tint = visuals.contentColor,
-                    modifier = Modifier.size(11.dp),
+                    modifier = Modifier.size(12.dp),
                 )
             }
             KuvioLabelMediumText(text = type.label, color = visuals.contentColor)

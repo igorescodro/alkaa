@@ -1,6 +1,6 @@
 package com.escodro.designsystem.components.kuvio.button
 
-import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -41,13 +41,17 @@ fun KuvioAddButton(
             modifier = Modifier
                 .fillMaxSize()
                 .clip(CircleShape)
-                .background(MaterialTheme.colorScheme.primary),
+                .border(
+                    width = 2.dp,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    shape = CircleShape,
+                ),
             contentAlignment = Alignment.Center,
         ) {
             Icon(
                 imageVector = Icons.Default.Add,
                 contentDescription = stringResource(Res.string.kuvio_add_button_cd),
-                tint = MaterialTheme.colorScheme.onPrimary,
+                tint = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.padding(all = 4.dp).fillMaxSize(),
             )
         }

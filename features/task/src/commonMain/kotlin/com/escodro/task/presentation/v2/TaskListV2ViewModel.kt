@@ -1,7 +1,9 @@
 package com.escodro.task.presentation.v2
 
+import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import com.escodro.coroutines.AppCoroutineScope
+import com.escodro.designsystem.extensions.toArgbColor
 import com.escodro.domain.model.Task
 import com.escodro.domain.model.TaskWithCategory
 import com.escodro.domain.provider.DateTimeProvider
@@ -43,6 +45,7 @@ internal class TaskListV2ViewModel(
             ) { tasks, text ->
                 buildLoadedState(
                     categoryName = category.name,
+                    categoryColor = category.color,
                     tasks = tasks,
                     addTaskText = text,
                 )
@@ -73,6 +76,7 @@ internal class TaskListV2ViewModel(
 
     private fun buildLoadedState(
         categoryName: String,
+        categoryColor: String,
         tasks: List<TaskWithCategory>,
         addTaskText: String,
     ): TaskListV2ViewState.Loaded {
@@ -81,6 +85,7 @@ internal class TaskListV2ViewModel(
         return TaskListV2ViewState.Loaded(
             categoryName = categoryName,
             categoryEmoji = CategoryPlaceholderEmoji,
+            categoryColor = Color(categoryColor.toArgbColor()),
             totalCount = tasks.size,
             completedCount = tasks.count { it.task.isCompleted },
             sections = sections,
@@ -99,14 +104,21 @@ internal class TaskListV2ViewModel(
         val noDate = mutableListOf<TaskItem>()
 
         for (taskWithCategory in tasks) {
-            val item = taskItemMapper.toTaskItem(taskWithCategory)
             val dueDate = taskWithCategory.task.dueDate
-            when {
-                taskWithCategory.task.isCompleted -> completed.add(item)
-                dueDate == null -> noDate.add(item)
-                dueDate.date < today -> overdue.add(item)
-                dueDate.date == today -> todayList.add(item)
-                else -> upcoming.add(item)
+            val sectionType = when {
+                taskWithCategory.task.isCompleted -> TaskSectionType.COMPLETED
+                dueDate == null -> TaskSectionType.NO_DATE
+                dueDate.date < today -> TaskSectionType.OVERDUE
+                dueDate.date == today -> TaskSectionType.TODAY
+                else -> TaskSectionType.UPCOMING
+            }
+            val item = taskItemMapper.toTaskItem(taskWithCategory, sectionType)
+            when (sectionType) {
+                TaskSectionType.OVERDUE -> overdue.add(item)
+                TaskSectionType.TODAY -> todayList.add(item)
+                TaskSectionType.UPCOMING -> upcoming.add(item)
+                TaskSectionType.COMPLETED -> completed.add(item)
+                TaskSectionType.NO_DATE -> noDate.add(item)
             }
         }
 

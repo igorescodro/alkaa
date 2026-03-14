@@ -8,6 +8,7 @@ import com.escodro.designsystem.animation.FadeInTransition
 import com.escodro.designsystem.animation.FadeOutTransition
 import com.escodro.designsystem.animation.SlideInHorizontallyTransition
 import com.escodro.designsystem.animation.SlideOutHorizontallyTransition
+import com.escodro.designsystem.config.DesignSystemConfig
 import com.escodro.navigationapi.controller.NavEventController
 import com.escodro.navigationapi.destination.Destination
 import com.escodro.navigationapi.destination.HomeDestination
@@ -19,6 +20,7 @@ import com.escodro.navigationapi.provider.NavGraph
 import com.escodro.task.presentation.add.AddTaskBottomSheet
 import com.escodro.task.presentation.detail.main.TaskDetailScreen
 import com.escodro.task.presentation.list.TaskListSection
+import com.escodro.task.presentation.v2.TaskListV2Section
 
 internal class TaskNavGraph : NavGraph {
 
@@ -52,6 +54,20 @@ internal class TaskNavGraph : NavGraph {
                 AddTaskBottomSheet(
                     onHideBottomSheet = { navEventController.sendEvent(Event.OnBack) },
                 )
+            }
+
+            if (DesignSystemConfig.IsNewDesignEnabled) {
+                entry<TasksDestination.TaskListV2>(
+                    metadata = NavDisplay.transitionSpec { SlideInHorizontallyTransition } +
+                        NavDisplay.popTransitionSpec { SlideOutHorizontallyTransition } +
+                        NavDisplay.predictivePopTransitionSpec { SlideOutHorizontallyTransition },
+                ) { entry ->
+                    TaskListV2Section(
+                        categoryId = entry.categoryId,
+                        onBack = { navEventController.sendEvent(Event.OnBack) },
+                        onTaskClick = { taskId -> navEventController.sendEvent(TaskEvent.OnTaskClick(taskId)) },
+                    )
+                }
             }
         }
 }

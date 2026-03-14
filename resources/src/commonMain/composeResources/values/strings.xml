@@ -16,6 +16,20 @@
     <string name="task_detail_header_error">This task is no longer available</string>
     <string name="task_detail_cd_error">Task not found</string>
 
+    <!-- Task List V2 -->
+    <string name="task_list_v2_cd_back">Back</string>
+    <string name="task_list_v2_cd_more_options">More options</string>
+    <string name="task_list_v2_subtitle">%1$d tasks · %2$d completed</string>
+    <string name="task_list_v2_header_empty">No tasks yet. Add your first one below!</string>
+    <string name="task_list_v2_cd_empty">No tasks in this list</string>
+    <string name="task_list_v2_header_error">Could not load this list</string>
+    <string name="task_list_v2_cd_error">Error loading tasks</string>
+    <string name="task_list_v2_section_overdue">Overdue</string>
+    <string name="task_list_v2_section_today">Due today</string>
+    <string name="task_list_v2_section_upcoming">Upcoming</string>
+    <string name="task_list_v2_section_completed">Completed</string>
+    <string name="task_list_v2_section_no_date">No date</string>
+
     <string name="task_detail_cd_icon_category">Categories</string>
     <string name="task_detail_cd_icon_description">Description</string>
     <string name="task_detail_cd_icon_alarm">Alarm</string>

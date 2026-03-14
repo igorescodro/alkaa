@@ -37,9 +37,13 @@ internal class TaskListV2ViewModelTest :
             LocalDateTime(year = 2024, month = Month.JUNE, day = 15, hour = 12, minute = 0)
     }
 
+    private val fakeRelativeDateTimeProvider = object : com.escodro.task.provider.RelativeDateTimeProvider {
+        override fun toRelativeDateTimeString(dateTime: LocalDateTime): String = dateTime.toString()
+    }
+
     private val categoryId = 1L
     private val fakeCategory = Category(id = categoryId, name = "Work", color = "#FFFFFF")
-    private val taskItemMapper = TaskItemMapper()
+    private val taskItemMapper = TaskItemMapper(relativeDateTimeProvider = fakeRelativeDateTimeProvider)
 
     private val viewModel by lazy {
         TaskListV2ViewModel(

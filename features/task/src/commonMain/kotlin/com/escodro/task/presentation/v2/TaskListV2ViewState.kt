@@ -1,7 +1,8 @@
 package com.escodro.task.presentation.v2
 
+import androidx.compose.ui.graphics.Color
+import com.escodro.designsystem.components.kuvio.item.KuvioTaskItemData
 import kotlinx.collections.immutable.ImmutableList
-import kotlinx.datetime.LocalDateTime
 
 internal sealed class TaskListV2ViewState {
 
@@ -12,6 +13,7 @@ internal sealed class TaskListV2ViewState {
     data class Loaded(
         val categoryName: String,
         val categoryEmoji: String,
+        val categoryColor: Color,
         val totalCount: Int,
         val completedCount: Int,
         val sections: ImmutableList<TaskSection>,
@@ -28,7 +30,5 @@ internal enum class TaskSectionType { OVERDUE, TODAY, UPCOMING, COMPLETED, NO_DA
 
 internal data class TaskItem(
     val id: Long,
-    val title: String,
-    val isCompleted: Boolean,
-    val dueDate: LocalDateTime?,
+    val kuvioData: KuvioTaskItemData,
 )

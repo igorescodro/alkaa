@@ -30,10 +30,8 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.escodro.designsystem.components.kuvio.button.KuvioAddButton
+import com.escodro.designsystem.components.kuvio.icon.button.KuvioAddButton
 import com.escodro.designsystem.components.kuvio.icon.button.KuvioCalendarIcon
-import com.escodro.designsystem.components.kuvio.icon.button.KuvioListIcon
-import com.escodro.designsystem.components.kuvio.icon.button.KuvioNotificationsIcon
 import com.escodro.designsystem.components.kuvio.text.KuvioBodyMediumText
 import com.escodro.designsystem.theme.AlkaaThemePreview
 import com.escodro.resources.Res
@@ -43,30 +41,26 @@ import org.jetbrains.compose.resources.stringResource
 /**
  * A persistent input bar anchored at the bottom of every task list screen.
  *
- * In the **resting** state the bar shows a circular "add" button and a placeholder string.
+ * In the **resting** state the bar shows only the text field with a placeholder string.
  * When the embedded text field gains focus (the **focused/typing** state) the border switches
- * to [MaterialTheme.colorScheme.primary] and three action icons animate in on the trailing edge.
+ * to [MaterialTheme.colorScheme.primary] and two action icons animate in on the trailing edge:
+ * a calendar icon ([KuvioCalendarIcon]) and an add button ([KuvioAddButton]).
  *
  * @param value current text entered by the user.
  * @param onValueChange callback invoked on every keystroke.
- * @param onAddClick callback invoked when the leading circular "+" button is tapped.
+ * @param onAddClick callback invoked when the trailing circular "+" button is tapped.
+ *   Only visible when the bar is in the focused/typing state.
+ * @param onDateClick callback invoked when the trailing calendar icon is tapped.
+ *   Only visible when the bar is in the focused/typing state.
  * @param modifier modifier applied to the outermost [Surface].
- * @param onDateClick optional callback for the date-picker action icon.
- *   When `null` the date icon is not rendered.
- * @param onReminderClick optional callback for the reminder action icon.
- *   When `null` the reminder icon is not rendered.
- * @param onListPickerClick optional callback for the list-picker action icon.
- *   When `null` the list icon is not rendered.
  */
 @Composable
 fun KuvioAddTaskBar(
     value: String,
     onValueChange: (String) -> Unit,
     onAddClick: () -> Unit,
+    onDateClick: (() -> Unit),
     modifier: Modifier = Modifier,
-    onDateClick: (() -> Unit)? = null,
-    onReminderClick: (() -> Unit)? = null,
-    onListPickerClick: (() -> Unit)? = null,
 ) {
     val taskBarShape = RoundedCornerShape(14.dp)
     var isFocused by remember { mutableStateOf(false) }
@@ -92,10 +86,6 @@ fun KuvioAddTaskBar(
                 .padding(horizontal = 16.dp, vertical = 12.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            KuvioAddButton(
-                onClick = onAddClick,
-                modifier = Modifier.size(32.dp),
-            )
             Spacer(modifier = Modifier.width(12.dp))
             AddTaskTextField(
                 value = value,
@@ -107,8 +97,7 @@ fun KuvioAddTaskBar(
             AddTaskActions(
                 visible = isFocused,
                 onDateClick = onDateClick,
-                onReminderClick = onReminderClick,
-                onListPickerClick = onListPickerClick,
+                onAddClick = onAddClick,
             )
         }
     }
@@ -148,9 +137,8 @@ private fun AddTaskTextField(
 @Composable
 private fun AddTaskActions(
     visible: Boolean,
-    onDateClick: (() -> Unit)?,
-    onReminderClick: (() -> Unit)?,
-    onListPickerClick: (() -> Unit)?,
+    onDateClick: (() -> Unit),
+    onAddClick: (() -> Unit),
 ) {
     AnimatedVisibility(
         visible = visible,
@@ -161,55 +149,28 @@ private fun AddTaskActions(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            if (onDateClick != null) {
-                KuvioCalendarIcon(
-                    onClick = onDateClick,
-                    modifier = Modifier.size(24.dp),
-                )
-            }
-            if (onReminderClick != null) {
-                KuvioNotificationsIcon(
-                    onClick = onReminderClick,
-                    modifier = Modifier.size(24.dp),
-                )
-            }
-            if (onListPickerClick != null) {
-                KuvioListIcon(
-                    onClick = onListPickerClick,
-                    modifier = Modifier.size(24.dp),
-                )
-            }
+            KuvioCalendarIcon(
+                onClick = onDateClick,
+                modifier = Modifier.size(24.dp),
+            )
+            KuvioAddButton(
+                onClick = onAddClick,
+                modifier = Modifier.size(24.dp),
+            )
         }
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-private fun KuvioAddTaskBarRestingLightPreview() {
+private fun KuvioAddTaskBarLightPreview() {
+    var text by remember { mutableStateOf("") }
     AlkaaThemePreview {
         KuvioAddTaskBar(
-            value = "",
-            onValueChange = {},
+            value = text,
+            onValueChange = { text = it },
             onAddClick = {},
             onDateClick = {},
-            onReminderClick = {},
-            onListPickerClick = {},
-            modifier = Modifier.padding(16.dp),
-        )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun KuvioAddTaskBarTypingLightPreview() {
-    AlkaaThemePreview {
-        KuvioAddTaskBar(
-            value = AddTaskPreviewText,
-            onValueChange = {},
-            onAddClick = {},
-            onDateClick = {},
-            onReminderClick = {},
-            onListPickerClick = {},
             modifier = Modifier.padding(16.dp),
         )
     }
@@ -217,34 +178,15 @@ private fun KuvioAddTaskBarTypingLightPreview() {
 
 @Preview(showBackground = true, backgroundColor = 0xFF0F1B2D)
 @Composable
-private fun KuvioAddTaskBarRestingDarkPreview() {
+private fun KuvioAddTaskBarDarkPreview() {
+    var text by remember { mutableStateOf("") }
     AlkaaThemePreview(isDarkTheme = true) {
         KuvioAddTaskBar(
-            value = "",
-            onValueChange = {},
+            value = text,
+            onValueChange = { text = it },
             onAddClick = {},
             onDateClick = {},
-            onReminderClick = {},
-            onListPickerClick = {},
             modifier = Modifier.padding(16.dp),
         )
     }
 }
-
-@Preview(showBackground = true, backgroundColor = 0xFF0F1B2D)
-@Composable
-private fun KuvioAddTaskBarTypingDarkPreview() {
-    AlkaaThemePreview(isDarkTheme = true) {
-        KuvioAddTaskBar(
-            value = AddTaskPreviewText,
-            onValueChange = {},
-            onAddClick = {},
-            onDateClick = {},
-            onReminderClick = {},
-            onListPickerClick = {},
-            modifier = Modifier.padding(16.dp),
-        )
-    }
-}
-
-private const val AddTaskPreviewText = "Review design system\u2026"

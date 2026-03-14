@@ -1,7 +1,5 @@
 package com.escodro.task.presentation.fake
 
-import com.escodro.domain.model.Category
-import com.escodro.domain.model.Task
 import com.escodro.domain.model.TaskWithCategory
 import com.escodro.domain.usecase.taskwithcategory.LoadTasksByCategory
 import kotlinx.coroutines.flow.Flow
@@ -24,7 +22,7 @@ internal class LoadTasksByCategoryFake : LoadTasksByCategory {
 
     override fun invoke(categoryId: Long): Flow<List<TaskWithCategory>> =
         tasks.map { list ->
-            if (isErrorThrown) throw IllegalStateException("Fake error")
+            if (isErrorThrown) error("Fake error")
             list
         }
 }

@@ -25,6 +25,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -34,7 +35,9 @@ import androidx.compose.ui.unit.dp
 import com.escodro.designsystem.components.content.AlkaaLoadingContent
 import com.escodro.designsystem.components.content.DefaultIconTextContent
 import com.escodro.designsystem.components.kuvio.bar.KuvioAddTaskBar
+import com.escodro.designsystem.theme.AlkaaThemePreview
 import com.escodro.resources.Res
+import kotlinx.collections.immutable.persistentListOf
 import com.escodro.resources.task_list_v2_cd_back
 import com.escodro.resources.task_list_v2_cd_empty
 import com.escodro.resources.task_list_v2_cd_error
@@ -253,3 +256,78 @@ private fun TaskListV2Item(
         modifier = modifier,
     )
 }
+
+@Preview(showBackground = true)
+@Composable
+private fun TaskListV2ScreenLightPreview() {
+    AlkaaThemePreview {
+        TaskListV2Scaffold(
+            state = TaskListV2ViewState.Loaded(
+                categoryEmoji = PreviewCategoryEmoji,
+                categoryName = PreviewCategoryName,
+                totalCount = 8,
+                completedCount = 3,
+                sections = PreviewSections,
+                addTaskText = "",
+            ),
+            onBack = {},
+            onTaskClick = {},
+            onAddTaskTextChange = {},
+            onAddTaskSubmit = {},
+            onTaskCheckedChange = {},
+        )
+    }
+}
+
+@Preview(showBackground = true, backgroundColor = 0xFF0F1B2D)
+@Composable
+private fun TaskListV2ScreenDarkPreview() {
+    AlkaaThemePreview(isDarkTheme = true) {
+        TaskListV2Scaffold(
+            state = TaskListV2ViewState.Loaded(
+                categoryEmoji = PreviewCategoryEmoji,
+                categoryName = PreviewCategoryName,
+                totalCount = 8,
+                completedCount = 3,
+                sections = PreviewSections,
+                addTaskText = "",
+            ),
+            onBack = {},
+            onTaskClick = {},
+            onAddTaskTextChange = {},
+            onAddTaskSubmit = {},
+            onTaskCheckedChange = {},
+        )
+    }
+}
+
+private const val PreviewCategoryEmoji = "📚"
+private const val PreviewCategoryName = "Reading"
+
+private val PreviewSections = persistentListOf(
+    TaskSection(
+        type = TaskSectionType.OVERDUE,
+        tasks = persistentListOf(
+            TaskItem(id = 1, title = "Buy groceries", isCompleted = false, dueDate = null),
+        ),
+    ),
+    TaskSection(
+        type = TaskSectionType.TODAY,
+        tasks = persistentListOf(
+            TaskItem(id = 2, title = "Finish report", isCompleted = false, dueDate = null),
+            TaskItem(id = 3, title = "Call dentist", isCompleted = true, dueDate = null),
+        ),
+    ),
+    TaskSection(
+        type = TaskSectionType.UPCOMING,
+        tasks = persistentListOf(
+            TaskItem(id = 4, title = "Project deadline", isCompleted = false, dueDate = null),
+        ),
+    ),
+    TaskSection(
+        type = TaskSectionType.COMPLETED,
+        tasks = persistentListOf(
+            TaskItem(id = 5, title = "Send email", isCompleted = true, dueDate = null),
+        ),
+    ),
+)

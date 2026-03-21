@@ -67,6 +67,12 @@ internal fun TaskLoader(onNavigateBack: () -> Unit) {
 | Single preview without dark/light variants | Always provide both light and dark `@Preview` |
 | Odd or non-multiple-of-4 padding values | Use multiples of 4 (4, 8, 12, 16, 24 dp) |
 
+## Related Skills
+
+- **Missing Kuvio component** → use `write-design-system-component` skill before implementing the composable
+- **User-facing strings** (labels, button text, content descriptions) → use `localization` skill
+- **Testing composable behavior** → use `write-ui-tests` skill
+
 ## Red Flags
 
 Stop if you notice:
@@ -75,3 +81,4 @@ Stop if you notice:
 - No `Modifier` parameter on a rendering composable
 - A single preview without dark/light variants
 - Odd padding or padding not a multiple of 4
+- A needed Kuvio component doesn't exist → implement it with `write-design-system-component` first

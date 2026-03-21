@@ -80,6 +80,9 @@ Also register in `TopLevelDestinations` and `TopAppBarVisibleDestinations` in `D
 
 ### 3. Add a NavGraph Entry
 
+> If the screen composable doesn't exist yet, use the `write-composable` skill to create it first.
+> If the `TopLevel` destination title is a new string, use the `localization` skill to add it.
+
 In the feature's `*NavGraph.kt`, add an `entry<>` block for each new destination:
 
 ```kotlin

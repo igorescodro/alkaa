@@ -116,7 +116,9 @@ Place under: `libraries/designsystem/src/commonMain/kotlin/com/escodro/designsys
 
 ### Step 5: Externalize Strings
 
-User-visible strings go in `resources/` module (NOT hardcoded):
+> **Use the `localization` skill** to add all user-visible strings (labels, placeholders, content descriptions). It covers naming conventions, all four language files, and plurals.
+
+String key pattern: `kuvio_<component>_<purpose>`
 
 ```kotlin
 // ❌ Wrong
@@ -128,8 +130,6 @@ Text("Add task here")
 // Then use via stringResource()
 Text(stringResource(Res.string.kuvio_add_task_bar_placeholder))
 ```
-
-String key pattern: `kuvio_<component>_<purpose>` (follow `localization` skill conventions)
 
 **Exception:** Preview constants may be hardcoded as `private const val` at file bottom.
 

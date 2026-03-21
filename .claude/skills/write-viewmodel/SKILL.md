@@ -98,6 +98,8 @@ Mappers are constructor-injected alongside use cases.
 
 ## Unit Tests
 
+> For full unit test guidance and fake patterns, use the `write-unit-tests` skill.
+
 Use the delegation + fake pattern:
 
 ```kotlin

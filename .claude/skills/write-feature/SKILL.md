@@ -191,9 +191,9 @@ internal class CategoryViewMapper {
 ### 4c. Remaining Presentation
 
 - **ViewModel** → use `write-viewmodel` skill
-- **Composable + Screens** → use `alkaa-composable` skill
-- **Navigation** → use `alkaa-navigation` skill
-- **Strings** → use `alkaa-strings` skill
+- **Composable + Screens** → use `write-composable` skill
+- **Navigation** → use `navigation` skill
+- **Strings** → use `localization` skill
 
 ---
 

@@ -1,5 +1,5 @@
 ---
-name: kuvio
+name: write-design-system-component
 description: Use when implementing a new Kuvio component for the Alkaa Design System after design spec and structure decisions are finalized
 ---
 
@@ -129,7 +129,7 @@ Text("Add task here")
 Text(stringResource(Res.string.kuvio_add_task_bar_placeholder))
 ```
 
-String key pattern: `kuvio_<component>_<purpose>`
+String key pattern: `kuvio_<component>_<purpose>` (follow `localization` skill conventions)
 
 **Exception:** Preview constants may be hardcoded as `private const val` at file bottom.
 

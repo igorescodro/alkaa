@@ -1,5 +1,5 @@
 ---
-name: alkaa-composable
+name: write-composable
 description: Use when creating a new Composable or modifying an existing one in the Alkaa project — screen structure, state handling, adaptive layouts, Kuvio usage, or previews.
 ---
 

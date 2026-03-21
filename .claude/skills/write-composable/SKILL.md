@@ -3,7 +3,11 @@ name: write-composable
 description: Use when creating a new Composable or modifying an existing one in the Alkaa project — screen structure, state handling, adaptive layouts, Kuvio usage, or previews.
 ---
 
-# Alkaa Composable Conventions
+# Write Composable
+
+## Overview
+
+Composables in Alkaa follow a strict three-layer Screen → Loader → Content pattern. All UI uses Kuvio components exclusively, state flows from ViewModel through the Loader, and every composable requires both dark and light previews.
 
 ## Screen Structure
 
@@ -52,18 +56,22 @@ internal fun TaskLoader(onNavigateBack: () -> Unit) {
 | **Adaptive** | Screens must work on landscape, tablets, and desktop using Material Adaptive components |
 | **Previews** | All composables need both dark and light previews. Use a single interactive preview with state over multiple static ones. |
 
-## What NOT to Do
+## Common Mistakes
 
-- **Inject** classes (ViewModel, use cases, repositories) in composable bodies or outside of `Loader` parameters
-- **Use** `Text(style = ...)` — use the appropriate `Kuvio*Text` variant instead
-- **Map or transform** data in composables — push logic to ViewModel
-- **Implement** complex logic inside composables
+| Mistake | Fix |
+|---------|-----|
+| Injecting ViewModel or dependencies outside a `Loader` | Move all `koinViewModel()` / `koinInject()` calls to `<Feature>Loader` |
+| Using raw `Text(style = ...)` | Use the appropriate `Kuvio*Text` variant instead |
+| Mapping or transforming data inside a composable | Push logic to the ViewModel; composables only render |
+| Missing `Modifier` parameter on a rendering composable | Add `modifier: Modifier = Modifier` to every rendering function |
+| Single preview without dark/light variants | Always provide both light and dark `@Preview` |
+| Odd or non-multiple-of-4 padding values | Use multiples of 4 (4, 8, 12, 16, 24 dp) |
 
 ## Red Flags
 
 Stop if you notice:
-- A composable calling `koinInject()` or `get()` outside of a `Loader`
-- `Text(text = ..., style = ...)` anywhere in the codebase being modified
+- `koinInject()` or `get()` called outside of a `Loader`
+- `Text(text = ..., style = ...)` anywhere in the code
 - No `Modifier` parameter on a rendering composable
 - A single preview without dark/light variants
-- Hardcoded padding values that are odd or aren't multiples of 4
+- Odd padding or padding not a multiple of 4

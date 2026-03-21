@@ -9,8 +9,6 @@ description: Use when writing or modifying UI/Compose instrumented tests in the 
 
 UI tests in Alkaa test **Compose and UI behavior** in isolation — they are not integration tests. Composables should be as stateless as possible to make testing straightforward: pass all state and callbacks as parameters, then assert on the semantic tree.
 
----
-
 ## File Location
 
 Tests live in `commonTest` inside an `instrumented` package within each feature module:
@@ -18,8 +16,6 @@ Tests live in `commonTest` inside an `instrumented` package within each feature 
 ```
 features/<feature>/src/commonTest/kotlin/com/escodro/<feature>/presentation/instrumented/
 ```
-
----
 
 ## Test Class Setup
 
@@ -39,8 +35,6 @@ internal class TaskListTest : AlkaaTest() {
 - `internal` visibility
 - Each test body: `= runComposeUiTest { }`
 
----
-
 ## Naming
 
 Use snake_case with two accepted forms:
@@ -57,8 +51,6 @@ fun when_view_has_items_then_items_are_shown()
 ```
 
 **No camelCase, no backtick names** in UI tests.
-
----
 
 ## Given / When / Then
 
@@ -78,8 +70,6 @@ fun test_errorViewIsShown() = runComposeUiTest {
     onNodeWithText(text = header).assertExists()
 }
 ```
-
----
 
 ## Loading Composables
 
@@ -117,8 +107,6 @@ private fun ComposeUiTest.loadTaskDetail(state: TaskDetailState) = setContent {
 - Pass all callbacks as `{}`
 - Only use `KoinApplication` when the composable requires injected dependencies
 
----
-
 ## Fakes Over Mocks
 
 Prefer fakes. Only use mocks for types you cannot create an interface for (Android/Framework types like `Context`).
@@ -153,8 +141,6 @@ fun tearDown() {
 }
 ```
 
----
-
 ## Semantic Assertions
 
 Query the UI by text, content description, or test tag — never by component IDs:
@@ -184,8 +170,6 @@ onAllNodesWithText(intervalString)[0].performClick()
 
 Use `useUnmergedTree = true` when nodes are nested inside merged semantics.
 
----
-
 ## Resource Strings
 
 Resolve Compose Multiplatform string resources at test time via `runBlocking`:
@@ -197,8 +181,6 @@ onNodeWithText(text = header).assertExists()
 
 Never hardcode UI strings in tests.
 
----
-
 ## Platform Annotations
 
 Skip tests that are not applicable on a specific platform:
@@ -208,8 +190,6 @@ Skip tests that are not applicable on a specific platform:
 @IgnoreOnDesktop
 fun test_permissionDialogIsShown() = runComposeUiTest { /* ... */ }
 ```
-
----
 
 ## One Scenario Per Test
 
@@ -224,8 +204,6 @@ fun test_listViewIsShown()
 // ❌ Bad — multiple assertions covering different states
 fun test_allViewStates()
 ```
-
----
 
 ## Common Mistakes
 

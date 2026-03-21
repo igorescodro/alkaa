@@ -9,8 +9,6 @@ description: Use when writing or modifying unit tests in the Alkaa project — t
 
 Unit tests in Alkaa are multiplatform-first, fake-based, and structured around a single scenario per test. Tests live in `commonTest` and run fastest via `./gradlew desktopTest`.
 
----
-
 ## Test Structure: Given / When / Then
 
 Every test must use comments to separate the three blocks:
@@ -31,8 +29,6 @@ fun `test if when there are uncompleted items they are returned`() = runTest {
 }
 ```
 
----
-
 ## Naming
 
 - Use backtick-quoted, plain-language names that describe the **expected behavior**, not the method
@@ -51,8 +47,6 @@ fun `update task test`()
 fun test1()
 ```
 
----
-
 ## One Scenario Per Test
 
 Each test covers exactly one behavior. Split side effects, error paths, and edge cases into separate tests.
@@ -65,8 +59,6 @@ fun `test if the alarm is canceled when the task is completed`()
 // ❌ Bad — testing two things at once
 fun `test if task is completed and alarm is canceled`()
 ```
-
----
 
 ## Fakes vs Mocks
 
@@ -122,8 +114,6 @@ val FAKE_VIEW_CATEGORY = ViewCategory(name = "Books", color = 0xFFFFFF)
 val FAKE_VIEW_TASK_WITH_CATEGORY = ViewTaskWithCategory(task = FAKE_VIEW_TASK, category = FAKE_VIEW_CATEGORY)
 ```
 
----
-
 ## Coroutines: CoroutinesTestDispatcher
 
 Any test class using coroutines (ViewModel tests, use case tests with `runTest`) **must** delegate `CoroutinesTestDispatcher`:
@@ -148,8 +138,6 @@ internal class TaskListViewModelTest : CoroutinesTestDispatcher by CoroutinesTes
 - The delegation handles `Dispatchers.setMain` / `Dispatchers.resetMain` automatically via `@BeforeTest`/`@AfterTest`
 - Pass `testDispatcher()` to `AppCoroutineScope` in ViewModel constructors
 - Use `= runTest { }` for all suspend test bodies
-
----
 
 ## ViewModel Tests
 
@@ -193,8 +181,6 @@ Key points:
 - Use `flow.first()` to collect the current state
 - Use `require(state is X)` for type narrowing before accessing state properties
 
----
-
 ## Use Case / Repository Tests
 
 ```kotlin
@@ -225,8 +211,6 @@ internal class AddTaskTest {
     }
 }
 ```
-
----
 
 ## Common Mistakes
 

@@ -9,8 +9,6 @@ description: Use when writing or modifying end-to-end tests in the Alkaa project
 
 E2E tests in Alkaa exercise full application flows through a real Koin DI graph and a live `AlkaaMultiplatformApp` Compose tree. They live in the `shared` module's `commonTest` source set and are **not** isolated unit or component tests — they simulate real user interaction from navigation to data persistence.
 
----
-
 ## File Location
 
 All E2E tests live in:
@@ -20,8 +18,6 @@ shared/src/commonTest/kotlin/com/escodro/alkaa/
 ```
 
 Each file covers one feature domain (e.g. `TaskFlowTest`, `CategoryFlowTest`, `SearchFlowTest`).
-
----
 
 ## Test Class Setup
 
@@ -53,8 +49,6 @@ internal class MyFeatureFlowTest : AlkaaTest(), KoinTest {
 - `@AfterTest` must always call `afterTest()`
 - DAOs injected with `by inject()` — only available after `beforeTest()` starts Koin
 
----
-
 ## Test Entry Point
 
 ```kotlin
@@ -66,8 +60,6 @@ fun add_and_complete_task() = uiTest {
 
 - All tests use `= uiTest { }` — sets up the full `AlkaaMultiplatformApp` in a `ComposeUiTest`
 - Use `= flakyUiTest { }` **only** for known timing-sensitive tests (e.g. debounce behavior)
-
----
 
 ## Naming
 
@@ -85,8 +77,6 @@ fun rename_category()
 ```
 
 No camelCase, no backtick names.
-
----
 
 ## Given / When / Then
 
@@ -108,8 +98,6 @@ fun edit_task_name() = uiTest {
 }
 ```
 
----
-
 ## Pre-Seeding Test Data
 
 Insert data directly via DAOs in `@BeforeTest` using `runTest`:
@@ -124,8 +112,6 @@ runTest {
 
 For reusable data sets, define them as `val FAKE_*` constants in a `fake/` companion file.
 
----
-
 ## Navigation Helpers
 
 Extract navigation steps into private `ComposeUiTest` extension functions:
@@ -137,8 +123,6 @@ private fun ComposeUiTest.navigateToCategory() {
 ```
 
 Navigate via content descriptions — do not rely on raw text for navigation targets.
-
----
 
 ## Assertions
 
@@ -165,8 +149,6 @@ onNode(SemanticsMatcher.expectValue(ColorKey, color)).assertExists()
 
 Use `useUnmergedTree = true` when nodes are inside merged semantics.
 
----
-
 ## Resource Strings
 
 Never hardcode UI strings. Resolve them at test time:
@@ -175,8 +157,6 @@ Never hardcode UI strings. Resolve them at test time:
 val emptyMessage = runBlocking { getString(Res.string.tracker_header_empty) }
 onNodeWithText(text = emptyMessage).assertExists()
 ```
-
----
 
 ## Fake Dependencies
 
@@ -188,8 +168,6 @@ declare<CoroutineDebouncer> { CoroutinesDebouncerFake() }
 ```
 
 Do not use mocks — create lightweight fake implementations.
-
----
 
 ## Common Mistakes
 

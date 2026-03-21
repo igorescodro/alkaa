@@ -3,7 +3,7 @@ name: localization
 description: Use when adding, editing, or reviewing user-facing strings in the Alkaa project — UI labels, button text, content descriptions, empty states, error messages, plurals, or any text visible to the user.
 ---
 
-# Alkaa Strings
+# Localization
 
 ## Overview
 

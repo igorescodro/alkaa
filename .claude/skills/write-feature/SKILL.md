@@ -11,8 +11,6 @@ A complete Alkaa feature spans five layers: domain models → repository interfa
 
 **Before starting:** Use `superpowers:brainstorming` to align on scope and API design. Use `superpowers:writing-plans` if the feature is large.
 
----
-
 ## Phase 1: Domain Layer
 
 ### 1a. Domain Model
@@ -74,8 +72,6 @@ internal class LoadAllCategoriesImpl(
 - Never inject another use case or ViewModel
 - If logic is simple, a pass-through is correct and expected
 
----
-
 ## Phase 2: Data Layer
 
 ### 2a. Repository Mapper
@@ -118,8 +114,6 @@ internal class CategoryRepositoryImpl(
 
 Reference files:
 - `data/repository/src/commonMain/kotlin/com/escodro/repository/CategoryRepositoryImpl.kt`
-
----
 
 ## Phase 3: Koin DI
 
@@ -167,8 +161,6 @@ Reference files:
 - Feature module: `features/task/src/commonMain/kotlin/com/escodro/task/di/TaskModule.kt`
 - KoinHelper: `shared/src/commonMain/kotlin/com/escodro/shared/di/KoinHelper.kt`
 
----
-
 ## Phase 4: Presentation Layer
 
 ### 4a. View Model (UI data class)
@@ -195,16 +187,12 @@ internal class CategoryViewMapper {
 - **Navigation** → use `navigation` skill
 - **Strings** → use `localization` skill
 
----
-
 ## Phase 5: Tests
 
 - Use case unit tests → use `write-unit-tests` skill
 - ViewModel unit tests → use `write-unit-tests` skill
 - UI / composable tests → use `write-ui-tests` skill
 - End-to-end flow tests → use `write-e2e-tests` skill
-
----
 
 ## Feature API Module Design
 
@@ -223,17 +211,15 @@ A `<name>-api` module is **only needed when another feature will depend on this 
 - NavGraph implementation
 - Koin module
 
----
+## Common Mistakes
 
-## Red Flags
-
-| Thought | Reality |
-|---------|---------|
-| "I'll use `suspend fun` for a stream" | Never. Use `Flow<T>` for streams, `suspend fun` only for one-shot mutations. |
-| "I'll wrap the return in `Result<T>`" | No. Exceptions propagate through Flow. The ViewModel catches with `.catch {}`. |
-| "This use case can do two things" | No. One use case = one action. Create separate use cases. |
-| "I'll skip the mapper and return the entity" | Never. Local ↔ repo ↔ domain separation is required. |
-| "I'll inject the repository into the ViewModel" | No. ViewModels inject use cases only. |
-| "My feature can depend directly on another feature module" | No. Create a `<name>-api` module for the shared interface, depend only on that. |
-| "I'll register in KoinHelper after it's working" | Register immediately. Missing registration causes silent runtime crashes. |
-| "The view model class is the same as the domain model" | No. Keep them separate so UI concerns don't bleed into domain. |
+| Mistake | Fix |
+|---------|-----|
+| Using `suspend fun` for a stream | Use `Flow<T>` for streams; `suspend fun` is only for one-shot mutations |
+| Wrapping return values in `Result<T>` | Don't. Exceptions propagate through Flow — the ViewModel catches with `.catch {}` |
+| One use case doing two things | One use case = one action. Create separate use cases. |
+| Skipping the mapper and returning the entity | Never. Local ↔ repo ↔ domain separation is required. |
+| Injecting a repository into the ViewModel | ViewModels inject use cases only — never repositories directly |
+| Feature depending directly on another feature module | Create a `<name>-api` module for the shared interface and depend only on that |
+| Registering in KoinHelper after the feature is working | Register immediately — missing registration causes silent runtime crashes |
+| Reusing the domain model class as the view model | Keep them separate so UI concerns don't bleed into domain |

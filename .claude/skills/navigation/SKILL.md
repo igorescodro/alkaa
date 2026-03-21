@@ -131,18 +131,16 @@ fun TaskListSection(
 )
 ```
 
-## Red Flags — Stop and Fix
+## Common Mistakes
 
-These patterns violate the navigation contract:
-
-| Pattern | Problem | Fix |
-|---------|---------|-----|
-| `navEventController.sendEvent()` in a ViewModel | NavEventController must not be injected outside NavGraph | Pass navigation callbacks via constructor or use a state flow hoisted to NavGraph |
-| `navEventController.sendEvent()` inside a `@Composable` directly | Navigation is not hoisted | Move the send to the NavGraph `entry<>` block via a lambda callback |
-| Event named `NavigateToDetail`, `GoToSettings` | Name describes route, not action | Rename: `OnDetailClick`, `OnSettingsClick` |
-| Destination without `@Serializable` | Navigation3 requires serialization | Add `@Serializable` annotation |
-| Full-screen destination implementing `TopAppBarVisible` without `TopLevel` | App bar shown for full-screen screens is handled differently | Remove `TopAppBarVisible` or add `TopLevel` if it's a root tab |
-| New feature with no `NavGraph` impl | Feature won't be reachable | Create `*NavGraph.kt` and bind in Koin module |
+| Mistake | Fix |
+|---------|-----|
+| `navEventController.sendEvent()` in a ViewModel | `NavEventController` must not leave the NavGraph — pass navigation as lambda callbacks instead |
+| `navEventController.sendEvent()` directly inside a `@Composable` | Move the send to the NavGraph `entry<>` block via a lambda callback |
+| Event named `NavigateToDetail` or `GoToSettings` | Name after the action, not the destination: `OnDetailClick`, `OnSettingsClick` |
+| Destination without `@Serializable` | Add `@Serializable` annotation — Navigation3 requires it |
+| Full-screen destination implementing `TopAppBarVisible` without `TopLevel` | Remove `TopAppBarVisible`; use it only for dialogs, sheets, and non-full-screen destinations |
+| New feature with no `NavGraph` implementation | Create `*NavGraph.kt` and bind in the Koin module |
 
 ## Checklist
 

@@ -201,16 +201,16 @@ List files created/modified and describe:
 
 ## Common Mistakes
 
-| Mistake | Why Wrong | Fix |
-|---------|-----------|-----|
-| Hardcoding colors | Breaks dark mode, hard to theme | Use `MaterialTheme.colorScheme.*` |
-| Raw `Text()` instead of Kuvio text | Inconsistent typography | Use `KuvioBodyMediumText()` etc. |
-| Strings in code | Not localizable, violates pattern | Move to `resources/` strings.xml |
-| Function > 60 lines | Hard to test, understand, reuse | Extract private sub-composables |
-| Deep nesting (4+ levels) | Readability suffers | Extract logical chunks to private composables |
-| Configuration objects | Hard to extend, test, compose | Use composable slots instead |
-| Skipping previews | Can't verify visually | Add light/dark pair for each variant |
-| `Canvas` for shapes | Unmaintainable, hard to theme | Use `Box`, `clip`, `background` modifiers |
+| Mistake | Fix |
+|---------|-----|
+| Hardcoding colors | Breaks dark mode — use `MaterialTheme.colorScheme.*` instead |
+| Raw `Text()` instead of Kuvio text | Inconsistent typography — use `KuvioBodyMediumText()` etc. |
+| Strings in code | Not localizable — move to `resources/` strings.xml |
+| Function > 60 lines | Hard to read and reuse — extract private sub-composables |
+| Deep nesting (4+ levels) | Readability suffers — extract logical chunks to private composables |
+| Configuration objects | Hard to extend — use composable `(@Composable () -> Unit)?` slots instead |
+| Skipping previews | Can't verify visually — add light/dark pair for each variant |
+| `Canvas` for shapes | Hard to theme — use `Box`, `clip`, `background` modifiers instead |
 
 ## Red Flags - STOP and Review
 

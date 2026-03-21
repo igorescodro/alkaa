@@ -1,5 +1,5 @@
 ---
-name: alkaa-navigation
+name: navigation
 description: Use when adding a new screen or modifying navigation in the Alkaa project — triggers on tasks like "add a new screen", "navigate to X", "add destination", "wire up navigation", or "create a navigation event". Also triggers when connecting UI actions to routes in NavGraph.
 ---
 

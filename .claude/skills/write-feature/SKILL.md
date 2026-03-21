@@ -74,6 +74,8 @@ internal class LoadAllCategoriesImpl(
 
 ## Phase 2: Data Layer
 
+> If the feature requires a **new database table**, invoke the `write-local-datasource` skill before continuing. It covers the full local stack: `.sq` schema, DAO, local mapper, LocalDataSource, and DI in `LocalModule`.
+
 ### 2a. Repository Mapper
 
 Location: `data/repository/src/commonMain/kotlin/com/escodro/repository/mapper/`
@@ -147,7 +149,7 @@ val categoryModule = module {
 Add to `data/repository/src/commonMain/kotlin/com/escodro/repository/di/RepositoryModule.kt`:
 
 ```kotlin
-factoryOf(::CategoryRepositoryImpl) bind CategoryRepository::class
+singleOf(::CategoryRepositoryImpl) bind CategoryRepository::class
 ```
 
 ### 3c. Register in KoinHelper

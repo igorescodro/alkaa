@@ -188,6 +188,7 @@ internal class CategoryViewMapper {
 - **Composable + Screens** → use `write-composable` skill
 - **Navigation** → use `navigation` skill
 - **Strings** → use `localization` skill
+- **New Kuvio component needed** → use `write-design-system-component` skill (when the feature requires a UI component not yet in the design system)
 
 ## Phase 5: Tests
 

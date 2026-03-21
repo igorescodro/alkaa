@@ -269,6 +269,10 @@ Reference files:
 - `data/local/src/commonMain/kotlin/com/escodro/local/datasource/CategoryLocalDataSource.kt`
 - `data/local/src/commonMain/kotlin/com/escodro/local/di/LocalModule.kt`
 
+## Testing
+
+After completing the local data layer, use the `write-unit-tests` skill to test the data sources and use cases that depend on them. Use the `write-e2e-tests` skill if the feature needs full-flow coverage — E2E tests use DAOs directly (via `by inject()`) to seed and clean data.
+
 ## Common Mistakes
 
 | Mistake | Fix |

@@ -55,6 +55,7 @@ internal class LoadAllCategoriesImpl(
 
 **Rules:**
 - `internal` visibility — never `public`
-- One injected dependency per use case (typically the repository)
-- Never inject another use case or ViewModel
+- Inject repositories, interactors and other use cases, as needed
 - If logic is simple, a pass-through is correct and expected
+- When a use case triggers actions in another feature (e.g., cancel an alarm, dismiss a
+  notification), use an **Interactor** — see `references/INTERACTOR.md`

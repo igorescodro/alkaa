@@ -25,12 +25,13 @@ A complete Alkaa feature spans five layers: domain models → repository interfa
 | Rule | Details |
 |------|---------|
 | **Use cases are internal** | `internal` visibility — never `public` |
-| **One use case = one action** | Never inject another use case or ViewModel |
+| **One use case = one action** | Never inject another ViewModel or feature module directly |
 | **Flow vs. suspend** | `Flow<T>` for streams; `suspend fun` for one-shot mutations. No `Result<T>` wrapping |
 | **Mappers required** | Never return the entity directly — local ↔ repo ↔ domain separation is required |
 | **ViewModels inject use cases** | Never inject repositories into ViewModels |
 | **Register in KoinHelper immediately** | Missing registration causes silent runtime crashes |
 | **API module only when shared** | Only create `<name>-api` when another feature depends on this one → see `references/FEATURE_API_MODULE.md` |
+| **Interactors for cross-feature side effects** | When a use case must trigger an action in another feature, define an Interactor interface in `domain/interactor/` — never import the feature directly → see `references/INTERACTOR.md` |
 
 ## Phase 4: Presentation
 
@@ -58,3 +59,4 @@ A complete Alkaa feature spans five layers: domain models → repository interfa
 | Feature depending directly on another feature | Create a `<name>-api` module |
 | Registering in KoinHelper after the feature works | Register immediately — silent runtime crashes |
 | Reusing the domain model as the view model | Keep them separate — UI concerns must not bleed into domain |
+| Importing a feature module directly into a use case | Define an Interactor interface in `domain/interactor/` instead → see `references/INTERACTOR.md` |

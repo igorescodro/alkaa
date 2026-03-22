@@ -39,63 +39,29 @@ provides implementations bound via Koin. Other features depend only on API modul
 
 ## Module Structure
 
-- `app/`, `desktop-app/`, `ios-app/` — Platform entry points
-- `shared/` — Multiplatform app root, Koin initialization
-- `features/` — Feature modules (task, category, alarm, search, preference, tracker, home,
-  navigation, glance)
-- `domain/` — Use cases, domain models, repository interfaces
-- `data/repository/` — Repository implementations with mappers
-- `data/local/` — SQLDelight database
-- `data/datastore/` — Preferences via DataStore
-- `libraries/` — Shared utilities (designsystem, coroutines, navigation, test, parcelable,
-  permission, appstate)
-- `plugins/` — Gradle convention plugins
-- `resources/` — Compose Multiplatform resources
+- `app/`, `desktop-app/`, `ios-app/` — Platform entry points; wire the multiplatform app into each target
+- `shared/` — Multiplatform app root; Koin initialization via `KoinHelper.kt`, hosts `AlkaaMultiplatformApp`
+- `features/` — All feature modules; each feature has an API module (shared interfaces) and an impl module (Koin-bound implementations). Features: task, category, alarm, search, preference, tracker, home, navigation, glance
+- `domain/` — Use cases, domain models, and repository interfaces; no framework dependencies
+- `data/repository/` — Repository implementations with mappers bridging domain and local models
+- `data/local/` — SQLDelight database schema, DAOs, and local data sources
+- `data/datastore/` — User preferences stored via DataStore (`alkaa_settings.preferences_pb`)
+- `libraries/` — Shared utilities used across features: designsystem (Kuvio), coroutines, navigation, test, parcelable, permission, appstate
+- `plugins/` — Gradle convention plugins (`com.escodro.multiplatform`, `com.escodro.kotlin-quality`, `com.escodro.kotlin-parcelable`) that standardize build configuration across modules
+- `resources/` — Compose Multiplatform shared resources (strings, drawables) for all platforms
 
-## Key Patterns
+## KMP Conventions
 
-**DI (Koin)**: One module per feature/layer, all composed in `shared/.../KoinHelper.kt`. Use
-`factoryOf(::Impl) bind Interface::class` for bindings. Platform-specific modules via
-`expect val platformTaskModule: Module`.
+**Dependencies — Version Catalog**: All dependencies are declared in `gradle/libs.versions.toml` and
+referenced as `alias(libs.plugins.*)` or `implementation(libs.*)` in build files. Never use raw
+coordinate strings.
 
-**Use cases**: Interface + `*Impl` class in domain. Interfaces use `operator fun invoke()` for
-callable syntax.
+**Build config — Convention Plugins**: Apply the appropriate plugin instead of writing raw build
+boilerplate. Common plugins:
+- `alias(libs.plugins.escodro.multiplatform)` — standard KMP module setup
+- `alias(libs.plugins.escodro.kotlin.parcelable)` — adds `@CommonParcelize` support
+- `alias(libs.plugins.compose)` + `alias(libs.plugins.compose.compiler)` — Compose Multiplatform
 
-**Mappers**: Separate model types per layer (domain, repository, view). Mapper classes convert
-between them.
-
-**Navigation**: Navigation3 with `NavGraph` interface per feature. Each feature provides an
-`entry<Destination>` block. Destinations are in `navigation-api`.
-
-**SQLDelight**: Schema in `.sq` files under `data/local/src/commonMain/sqldelight/`.
-Platform-specific drivers (Android/Native/JVM).
-
-**DataStore**: Preferences stored in `alkaa_settings.preferences_pb`. Platform-specific path via
-expect/actual.
-
-## Testing
-
-- **Framework**: `kotlin("test")` with `runTest` from kotlinx-coroutines-test
-- **Dispatcher**: Delegate `CoroutinesTestDispatcher by CoroutinesTestDispatcherImpl()` — handles
-  `@BeforeTest`/`@AfterTest` setup
-- **Test doubles**: Fake pattern (not mocks). Fakes implement domain interfaces with controllable
-  state (e.g. `LoadAllCategoriesFake`)
-- **Compose UI**: `libs.compose.uiTest` for UI testing
-- **Base class**: `AlkaaTest` expect/actual for platform setup (Robolectric on Android)
-- **Fastest feedback loop**: `./gradlew desktopTest` runs JVM tests without emulator
-
-## Code Quality
-
-**.editorconfig** rules for ktlint:
-
-- `ktlint_function_naming_ignore_when_annotated_with = Composable` — allows PascalCase `@Composable`
-  functions
-- Several standard rules disabled: `property-naming`, `function-signature`,
-  `multiline-expression-wrapping`, `class-signature`, `chain-method-continuation`
-
-**detekt.yml** (`config/filters/detekt.yml`):
-
-- `FunctionNaming` ignores `@Composable`
-- `MagicNumber` disabled
-- `LongMethod` excluded in tests
-- Comments rules excluded in test directories
+**Platform-specific code — `expect`/`actual`**: Use `expect` declarations in `commonMain` and `actual`
+implementations in platform source sets (`androidMain`, `iosMain`, `jvmMain`). Never use
+platform-specific APIs directly in `commonMain`.

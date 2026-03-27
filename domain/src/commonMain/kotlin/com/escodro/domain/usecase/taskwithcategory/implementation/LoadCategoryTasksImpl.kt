@@ -7,8 +7,6 @@ import com.escodro.domain.repository.TaskWithCategoryRepository
 import com.escodro.domain.usecase.taskwithcategory.LoadCategoryTasks
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDateTime
 
 internal class LoadCategoryTasksImpl(
     private val repository: TaskWithCategoryRepository,
@@ -18,8 +16,7 @@ internal class LoadCategoryTasksImpl(
     override fun invoke(categoryId: Long): Flow<List<TaskGroup>> =
         repository.findAllTasksWithCategoryId(categoryId).map { list ->
             val tasks = list.map { it.task }
-            val today = dateTimeProvider.getCurrentInstant()
-                .toLocalDateTime(TimeZone.UTC).date
+            val today = dateTimeProvider.getCurrentLocalDateTime().date
             buildGroups(tasks, today)
         }
 

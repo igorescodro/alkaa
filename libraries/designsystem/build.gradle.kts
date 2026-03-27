@@ -20,6 +20,7 @@ kotlin {
             implementation(libs.compose.material3)
             implementation(libs.compose.materialIconsExtended)
             implementation(libs.compose.uiToolingPreview)
+            implementation(libs.kotlinx.datetime)
             implementation(libs.kotlinx.collections.immutable)
         }
     }

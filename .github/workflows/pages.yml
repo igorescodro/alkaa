@@ -46,7 +46,7 @@ jobs:
           VERSION=${{ steps.get_version.outputs.version }}
           sed -i "s/VERSION_PLACEHOLDER/v$VERSION/g" docs/index.html
       - name: Setup Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:

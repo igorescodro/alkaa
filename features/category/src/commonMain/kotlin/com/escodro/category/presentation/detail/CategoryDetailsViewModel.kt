@@ -43,7 +43,7 @@ internal class CategoryDetailsViewModel(
 
     fun updateTaskStatus(taskId: Long) {
         applicationScope.launch {
-            updateTaskStatus(taskId)
+            updateTaskStatus.invoke(taskId)
         }
     }
 }

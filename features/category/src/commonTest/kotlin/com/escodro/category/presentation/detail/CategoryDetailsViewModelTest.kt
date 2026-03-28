@@ -69,7 +69,7 @@ internal class CategoryDetailsViewModelTest :
             listOf(
                 TaskGroup.NoDueDate(tasks = listOf(pendingTask)),
                 TaskGroup.Completed(tasks = listOf(completedTask)),
-            )
+            ),
         )
 
         // When
@@ -137,7 +137,7 @@ internal class CategoryDetailsViewModelTest :
 
         // When — simulate DB re-emission after task status update
         loadCategoryTasksFake.emit(
-            listOf(TaskGroup.Completed(tasks = listOf(task.copy(isCompleted = true))))
+            listOf(TaskGroup.Completed(tasks = listOf(task.copy(isCompleted = true)))),
         )
 
         // Then — new collection reflects the updated completion state

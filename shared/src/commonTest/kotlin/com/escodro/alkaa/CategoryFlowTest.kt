@@ -42,7 +42,7 @@ internal class CategoryFlowTest : AlkaaTest(), KoinTest {
 
     @BeforeTest
     fun setup() {
-        DesignSystemConfig.IsNewDesignEnabled = false
+        DesignSystemConfig.isNewDesignEnabled = false
         beforeTest()
         runTest {
             // Clean all existing categories
@@ -52,7 +52,7 @@ internal class CategoryFlowTest : AlkaaTest(), KoinTest {
 
     @AfterTest
     fun tearDown() {
-        DesignSystemConfig.IsNewDesignEnabled = false
+        DesignSystemConfig.isNewDesignEnabled = false
         afterTest()
     }
 
@@ -134,7 +134,7 @@ internal class CategoryFlowTest : AlkaaTest(), KoinTest {
     @Test
     fun when_category_is_clicked_and_flag_enabled_then_details_screen_is_shown() = uiTest {
         // Given
-        DesignSystemConfig.IsNewDesignEnabled = true
+        DesignSystemConfig.isNewDesignEnabled = true
         navigateToCategory()
         addCategory("Fitness")
 
@@ -163,7 +163,7 @@ internal class CategoryFlowTest : AlkaaTest(), KoinTest {
     @Test
     fun when_task_is_added_in_category_details_then_it_appears_in_the_list() = uiTest {
         // Given
-        DesignSystemConfig.IsNewDesignEnabled = true
+        DesignSystemConfig.isNewDesignEnabled = true
         navigateToCategory()
         addCategory("Finance")
         onNodeWithText("Finance").performClick()

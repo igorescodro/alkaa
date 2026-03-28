@@ -12,5 +12,5 @@ object DesignSystemConfig {
     /**
      * Flag to enable the new design system.
      */
-    var IsNewDesignEnabled: Boolean = false
+    var isNewDesignEnabled: Boolean = false
 }

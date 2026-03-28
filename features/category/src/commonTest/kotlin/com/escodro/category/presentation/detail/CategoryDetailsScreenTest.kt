@@ -13,6 +13,7 @@ import com.escodro.resources.Res
 import com.escodro.resources.category_details_empty_title
 import com.escodro.resources.category_details_section_no_due_date
 import com.escodro.test.AlkaaTest
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.runBlocking
 import org.jetbrains.compose.resources.getString
 import kotlin.test.Test
@@ -34,7 +35,7 @@ internal class CategoryDetailsScreenTest : AlkaaTest() {
                 CategoryDetailsContent(
                     category = testCategory,
                     categoryColor = testColor,
-                    groups = emptyList(),
+                    groups = persistentListOf(),
                     totalTasks = 0,
                     completedTasks = 0,
                     onAddTask = { _, _ -> },
@@ -54,7 +55,7 @@ internal class CategoryDetailsScreenTest : AlkaaTest() {
     fun test_taskGroupsAreShown() = runComposeUiTest {
         // Given
         val task = Task(id = 1L, title = "Buy milk")
-        val groups = listOf(TaskGroup.NoDueDate(tasks = listOf(task)))
+        val groups = persistentListOf(TaskGroup.NoDueDate(tasks = listOf(task)))
 
         // When
         setContent {
@@ -82,7 +83,7 @@ internal class CategoryDetailsScreenTest : AlkaaTest() {
     fun test_correctSectionHeadersAreDisplayed() = runComposeUiTest {
         // Given
         val task = Task(id = 1L, title = "Task 1")
-        val groups = listOf(TaskGroup.NoDueDate(tasks = listOf(task)))
+        val groups = persistentListOf(TaskGroup.NoDueDate(tasks = listOf(task)))
         val sectionHeader = runBlocking {
             getString(Res.string.category_details_section_no_due_date)
         }

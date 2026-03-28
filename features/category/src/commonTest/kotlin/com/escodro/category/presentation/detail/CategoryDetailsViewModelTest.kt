@@ -77,8 +77,8 @@ internal class CategoryDetailsViewModelTest :
         require(state is CategoryDetailsState.Success)
 
         // Then
-        assertEquals(2, state.totalTasks)
-        assertEquals(1, state.completedTasks)
+        assertEquals(expected = 2, actual = state.totalTasks)
+        assertEquals(expected = 1, actual = state.completedTasks)
     }
 
     @Test
@@ -90,8 +90,8 @@ internal class CategoryDetailsViewModelTest :
         viewModel.addTask(title = "New task", dueDate = null, categoryId = categoryId)
 
         // Then
-        assertEquals(1, addTaskFake.addedTasks.size)
-        assertEquals(categoryId, addTaskFake.addedTasks.first().categoryId)
+        assertEquals(expected = 1, actual = addTaskFake.addedTasks.size)
+        assertEquals(expected = categoryId, actual = addTaskFake.addedTasks.first().categoryId)
     }
 
     @Test
@@ -133,7 +133,7 @@ internal class CategoryDetailsViewModelTest :
         loadCategoryTasksFake.emit(listOf(TaskGroup.NoDueDate(tasks = listOf(task))))
         val firstState = viewModel.loadContent(categoryId = 1L).first()
         require(firstState is CategoryDetailsState.Success)
-        assertEquals(0, firstState.completedTasks)
+        assertEquals(expected = 0, actual = firstState.completedTasks)
 
         // When — simulate DB re-emission after task status update
         loadCategoryTasksFake.emit(
@@ -143,6 +143,6 @@ internal class CategoryDetailsViewModelTest :
         // Then — new collection reflects the updated completion state
         val newState = viewModel.loadContent(categoryId = 1L).first()
         require(newState is CategoryDetailsState.Success)
-        assertEquals(1, newState.completedTasks)
+        assertEquals(expected = 1, actual = newState.completedTasks)
     }
 }

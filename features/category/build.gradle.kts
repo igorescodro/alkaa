@@ -27,6 +27,7 @@ kotlin {
 
             implementation(libs.koin.compose)
             implementation(libs.kotlinx.collections.immutable)
+            implementation(libs.kotlinx.datetime)
             implementation(libs.androidx.lifecycle.viewmodel)
         }
 

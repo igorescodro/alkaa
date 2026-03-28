@@ -11,6 +11,8 @@ kotlin {
     configureTargets("category")
 
     sourceSets {
+        val desktopTest by getting
+
         commonMain.dependencies {
             implementation(projects.features.categoryApi)
             implementation(projects.domain)
@@ -27,12 +29,19 @@ kotlin {
 
             implementation(libs.koin.compose)
             implementation(libs.kotlinx.collections.immutable)
+            implementation(libs.kotlinx.datetime)
             implementation(libs.androidx.lifecycle.viewmodel)
         }
 
         commonTest.dependencies {
             implementation(kotlin("test"))
             implementation(projects.libraries.test)
+            implementation(libs.compose.uiTest)
+        }
+
+        desktopTest.dependencies {
+            implementation(compose.desktop.currentOs)
+            implementation(libs.kotlinx.coroutines.swing)
         }
     }
 

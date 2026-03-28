@@ -12,5 +12,5 @@ object DesignSystemConfig {
     /**
      * Flag to enable the new design system.
      */
-    const val IsNewDesignEnabled = false
+    var isNewDesignEnabled: Boolean = false
 }

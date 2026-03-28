@@ -6,6 +6,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.test.ComposeUiTest
 import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.SemanticsMatcher
+import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.hasSetTextAction
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.onAllNodesWithText
@@ -19,10 +20,16 @@ import androidx.compose.ui.test.waitUntilDoesNotExist
 import com.escodro.alkaa.test.afterTest
 import com.escodro.alkaa.test.beforeTest
 import com.escodro.alkaa.test.uiTest
+import com.escodro.designsystem.config.DesignSystemConfig
 import com.escodro.designsystem.semantics.ColorKey
 import com.escodro.local.dao.CategoryDao
+import com.escodro.resources.Res
+import com.escodro.resources.kuvio_add_button_cd
+import com.escodro.resources.kuvio_add_task_bar_placeholder
 import com.escodro.test.AlkaaTest
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
+import org.jetbrains.compose.resources.getString
 import org.koin.test.KoinTest
 import org.koin.test.inject
 import kotlin.test.AfterTest
@@ -35,6 +42,7 @@ internal class CategoryFlowTest : AlkaaTest(), KoinTest {
 
     @BeforeTest
     fun setup() {
+        DesignSystemConfig.isNewDesignEnabled = false
         beforeTest()
         runTest {
             // Clean all existing categories
@@ -44,6 +52,7 @@ internal class CategoryFlowTest : AlkaaTest(), KoinTest {
 
     @AfterTest
     fun tearDown() {
+        DesignSystemConfig.isNewDesignEnabled = false
         afterTest()
     }
 
@@ -120,6 +129,55 @@ internal class CategoryFlowTest : AlkaaTest(), KoinTest {
         // Validate if it is visible in the list and has the correct color
         onNodeWithText(text = name, useUnmergedTree = true).assertExists()
         onCategoryColorItem(color).assertExists()
+    }
+
+    @Test
+    fun when_category_is_clicked_and_flag_enabled_then_details_screen_is_shown() = uiTest {
+        // Given
+        DesignSystemConfig.isNewDesignEnabled = true
+        navigateToCategory()
+        addCategory("Fitness")
+
+        // When
+        onNodeWithText("Fitness").performClick()
+
+        // Then — details screen header with category name is displayed
+        onNodeWithText("Fitness").assertIsDisplayed()
+        // Bottom sheet "Save" button is absent
+        onNodeWithText("Save").assertDoesNotExist()
+    }
+
+    @Test
+    fun when_category_is_clicked_and_flag_disabled_then_bottom_sheet_is_shown() = uiTest {
+        // Given — flag is false (reset in @BeforeTest)
+        navigateToCategory()
+        addCategory("Hobbies")
+
+        // When
+        onNodeWithText("Hobbies").performClick()
+
+        // Then — bottom sheet is present (Save button visible)
+        onNodeWithText("Save").assertIsDisplayed()
+    }
+
+    @Test
+    fun when_task_is_added_in_category_details_then_it_appears_in_the_list() = uiTest {
+        // Given
+        DesignSystemConfig.isNewDesignEnabled = true
+        navigateToCategory()
+        addCategory("Finance")
+        onNodeWithText("Finance").performClick()
+
+        // When — type in the AddTaskBar and submit
+        val addBarPlaceholder = runBlocking { getString(Res.string.kuvio_add_task_bar_placeholder) }
+        onNodeWithText(addBarPlaceholder).performClick()
+        onNodeWithText(addBarPlaceholder).performTextInput("Buy groceries")
+        onNodeWithContentDescription(
+            runBlocking { getString(Res.string.kuvio_add_button_cd) },
+        ).performClick()
+
+        // Then
+        onNodeWithText("Buy groceries").assertIsDisplayed()
     }
 
     private fun ComposeUiTest.addCategory(name: String) {

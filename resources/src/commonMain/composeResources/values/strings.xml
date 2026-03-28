@@ -69,6 +69,15 @@
     <string name="category_dialog_remove_confirm">Remove</string>
     <string name="category_dialog_remove_cancel">Cancel</string>
     <string name="category_cd_remove_category">Remove</string>
+    <string name="category_header_progress">%1$d tasks · %2$d completed</string>
+    <string name="category_details_empty_title">No tasks yet</string>
+    <string name="category_details_empty_description">Add a task using the bar below</string>
+    <string name="category_details_options_content_description">Category options</string>
+    <string name="category_details_section_overdue">Overdue</string>
+    <string name="category_details_section_due_today">Due Today</string>
+    <string name="category_details_section_upcoming">Upcoming</string>
+    <string name="category_details_section_no_due_date">No Due Date</string>
+    <string name="category_details_section_completed">Completed</string>
 
     <!-- Search -->
     <string name="search_cd_icon">Search</string>

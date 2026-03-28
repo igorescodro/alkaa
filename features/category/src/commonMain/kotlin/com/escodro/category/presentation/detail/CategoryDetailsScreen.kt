@@ -33,6 +33,7 @@ import com.escodro.designsystem.components.kuvio.text.KuvioTitleMediumText
 import com.escodro.designsystem.components.picker.DateTimerPicker
 import com.escodro.domain.model.TaskGroup
 import com.escodro.resources.Res
+import kotlinx.collections.immutable.ImmutableList
 import com.escodro.resources.category_details_empty_description
 import com.escodro.resources.category_details_empty_title
 import com.escodro.resources.category_details_section_completed
@@ -82,6 +83,7 @@ fun CategoryDetailsSection(
 }
 
 @Composable
+@Suppress("LongParameterList", "UnusedParameter")
 internal fun CategoryDetailsScreen(
     state: CategoryDetailsState,
     isSinglePane: Boolean,
@@ -137,7 +139,7 @@ internal fun CategoryDetailsScreen(
 internal fun CategoryDetailsContent(
     category: Category,
     categoryColor: Color,
-    groups: List<TaskGroup>,
+    groups: ImmutableList<TaskGroup>,
     totalTasks: Int,
     completedTasks: Int,
     onAddTask: (String, LocalDateTime?) -> Unit,
@@ -161,84 +163,15 @@ internal fun CategoryDetailsContent(
         )
 
         if (groups.isEmpty()) {
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = Modifier
-                    .weight(1f)
-                    .fillMaxWidth(),
-            ) {
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
-                ) {
-                    KuvioTitleMediumText(
-                        text = stringResource(Res.string.category_details_empty_title),
-                    )
-                    KuvioBodyMediumText(
-                        text = stringResource(Res.string.category_details_empty_description),
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
-                }
-            }
+            CategoryDetailsEmptyState(modifier = Modifier.weight(1f).fillMaxWidth())
         } else {
-            LazyColumn(
+            CategoryDetailsTaskList(
+                groups = groups,
+                categoryColor = categoryColor,
+                onUpdateTaskStatus = onUpdateTaskStatus,
+                onTaskClick = onTaskClick,
                 modifier = Modifier.weight(1f),
-                contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp),
-            ) {
-                groups.forEach { group ->
-                    val taskState = when (group) {
-                        is TaskGroup.Overdue -> KuvioTaskItemState.OVERDUE
-                        is TaskGroup.Completed -> KuvioTaskItemState.COMPLETED
-                        else -> KuvioTaskItemState.PENDING
-                    }
-
-                    if (group.tasks.isNotEmpty()) {
-                        item(key = "header_${group::class.simpleName}") {
-                            val sectionTitle = when (group) {
-                                is TaskGroup.Overdue -> {
-                                    stringResource(Res.string.category_details_section_overdue)
-                                }
-
-                                is TaskGroup.DueToday -> {
-                                    stringResource(Res.string.category_details_section_due_today)
-                                }
-
-                                is TaskGroup.Upcoming -> {
-                                    stringResource(Res.string.category_details_section_upcoming)
-                                }
-
-                                is TaskGroup.NoDueDate -> {
-                                    stringResource(Res.string.category_details_section_no_due_date)
-                                }
-
-                                is TaskGroup.Completed -> {
-                                    stringResource(Res.string.category_details_section_completed)
-                                }
-                            }
-                            KuvioTitleMediumText(
-                                text = sectionTitle,
-                                modifier = Modifier.padding(top = 8.dp, bottom = 4.dp),
-                            )
-                        }
-
-                        items(
-                            items = group.tasks,
-                            key = { task -> task.id },
-                        ) { task ->
-                            KuvioTaskItem(
-                                data = KuvioTaskItemData(
-                                    title = task.title,
-                                    state = taskState,
-                                    categoryColor = categoryColor,
-                                ),
-                                onItemClick = { onTaskClick(task.id) },
-                                onCheckClick = { onUpdateTaskStatus(task.id) },
-                            )
-                        }
-                    }
-                }
-            }
+            )
         }
 
         KuvioAddTaskBar(
@@ -263,4 +196,74 @@ internal fun CategoryDetailsContent(
             isDatePickerOpen = false
         },
     )
+}
+
+@Composable
+private fun CategoryDetailsEmptyState(modifier: Modifier = Modifier) {
+    Box(contentAlignment = Alignment.Center, modifier = modifier) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            KuvioTitleMediumText(text = stringResource(Res.string.category_details_empty_title))
+            KuvioBodyMediumText(
+                text = stringResource(Res.string.category_details_empty_description),
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+        }
+    }
+}
+
+@Composable
+private fun CategoryDetailsTaskList(
+    groups: ImmutableList<TaskGroup>,
+    categoryColor: Color,
+    onUpdateTaskStatus: (Long) -> Unit,
+    onTaskClick: (Long) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    LazyColumn(
+        modifier = modifier,
+        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
+        groups.forEach { group ->
+            val taskState = when (group) {
+                is TaskGroup.Overdue -> KuvioTaskItemState.OVERDUE
+                is TaskGroup.Completed -> KuvioTaskItemState.COMPLETED
+                is TaskGroup.DueToday,
+                is TaskGroup.Upcoming,
+                is TaskGroup.NoDueDate,
+                -> KuvioTaskItemState.PENDING
+            }
+
+            if (group.tasks.isNotEmpty()) {
+                item(key = "header_${group::class.simpleName}") {
+                    val sectionTitle = when (group) {
+                        is TaskGroup.Overdue -> stringResource(Res.string.category_details_section_overdue)
+                        is TaskGroup.DueToday -> stringResource(Res.string.category_details_section_due_today)
+                        is TaskGroup.Upcoming -> stringResource(Res.string.category_details_section_upcoming)
+                        is TaskGroup.NoDueDate -> stringResource(Res.string.category_details_section_no_due_date)
+                        is TaskGroup.Completed -> stringResource(Res.string.category_details_section_completed)
+                    }
+                    KuvioTitleMediumText(
+                        text = sectionTitle,
+                        modifier = Modifier.padding(top = 8.dp, bottom = 4.dp),
+                    )
+                }
+
+                items(items = group.tasks, key = { task -> task.id }) { task ->
+                    KuvioTaskItem(
+                        data = KuvioTaskItemData(
+                            title = task.title,
+                            state = taskState,
+                            categoryColor = categoryColor,
+                        ),
+                        onItemClick = { onTaskClick(task.id) },
+                        onCheckClick = { onUpdateTaskStatus(task.id) },
+                    )
+                }
+            }
+        }
+    }
 }

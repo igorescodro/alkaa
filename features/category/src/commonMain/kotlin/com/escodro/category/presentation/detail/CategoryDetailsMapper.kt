@@ -4,6 +4,7 @@ import androidx.compose.ui.graphics.Color
 import com.escodro.category.mapper.CategoryMapper
 import com.escodro.domain.model.Task
 import com.escodro.domain.model.TaskGroup
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.datetime.LocalDateTime
 import com.escodro.domain.model.Category as DomainCategory
 
@@ -20,7 +21,7 @@ internal class CategoryDetailsMapper(
         return CategoryDetailsState.Success(
             category = viewCategory,
             categoryColor = Color(viewCategory.color),
-            groups = groups,
+            groups = groups.toImmutableList(),
             totalTasks = allTasks.size,
             completedTasks = groups.filterIsInstance<TaskGroup.Completed>()
                 .sumOf { it.tasks.size },

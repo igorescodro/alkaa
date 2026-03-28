@@ -13,6 +13,7 @@ import kotlinx.coroutines.test.runTest
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime
+import kotlinx.datetime.Month
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -37,7 +38,7 @@ internal class LoadCategoryTasksTest :
     @Test
     fun `test if overdue tasks are grouped in the overdue section`() = runTest {
         // Given
-        val task = buildTask(id = 1L, dueDate = LocalDate(1993, 4, 14))
+        val task = buildTask(id = 1L, dueDate = LocalDate(year = 1993, month = Month.APRIL, day = 14))
         repository.insertTaskWithCategory(buildTaskWithCategory(task))
 
         // When
@@ -45,13 +46,13 @@ internal class LoadCategoryTasksTest :
 
         // Then
         assertTrue(groups.any { it is TaskGroup.Overdue })
-        assertEquals(1, groups.filterIsInstance<TaskGroup.Overdue>().first().tasks.size)
+        assertEquals(expected = 1, actual = groups.filterIsInstance<TaskGroup.Overdue>().first().tasks.size)
     }
 
     @Test
     fun `test if tasks due today are grouped in the due today section`() = runTest {
         // Given
-        val task = buildTask(id = 1L, dueDate = LocalDate(1993, 4, 15))
+        val task = buildTask(id = 1L, dueDate = LocalDate(year = 1993, month = Month.APRIL, day = 15))
         repository.insertTaskWithCategory(buildTaskWithCategory(task))
 
         // When
@@ -64,7 +65,7 @@ internal class LoadCategoryTasksTest :
     @Test
     fun `test if upcoming tasks are grouped in the upcoming section`() = runTest {
         // Given
-        val task = buildTask(id = 1L, dueDate = LocalDate(1993, 4, 16))
+        val task = buildTask(id = 1L, dueDate = LocalDate(year = 1993, month = Month.APRIL, day = 16))
         repository.insertTaskWithCategory(buildTaskWithCategory(task))
 
         // When
@@ -103,7 +104,8 @@ internal class LoadCategoryTasksTest :
     @Test
     fun `test if completed tasks with past due date are grouped in completed not overdue`() = runTest {
         // Given — task is both overdue AND completed; should go to Completed
-        val task = buildTask(id = 1L, dueDate = LocalDate(1993, 4, 14), isCompleted = true)
+        val overdueDate = LocalDate(year = 1993, month = Month.APRIL, day = 14)
+        val task = buildTask(id = 1L, dueDate = overdueDate, isCompleted = true)
         repository.insertTaskWithCategory(buildTaskWithCategory(task))
 
         // When
@@ -117,14 +119,14 @@ internal class LoadCategoryTasksTest :
     @Test
     fun `test if empty sections are not included in the result`() = runTest {
         // Given — one overdue task only
-        val task = buildTask(id = 1L, dueDate = LocalDate(1993, 4, 14))
+        val task = buildTask(id = 1L, dueDate = LocalDate(year = 1993, month = Month.APRIL, day = 14))
         repository.insertTaskWithCategory(buildTaskWithCategory(task))
 
         // When
         val groups = useCase(categoryId = 1L).first()
 
         // Then — only Overdue is emitted; other sections absent
-        assertEquals(1, groups.size)
+        assertEquals(expected = 1, actual = groups.size)
         assertTrue(groups.first() is TaskGroup.Overdue)
     }
 
@@ -138,7 +140,7 @@ internal class LoadCategoryTasksTest :
         title = "Task $id",
         categoryId = 1L,
         isCompleted = isCompleted,
-        dueDate = dueDate?.let { LocalDateTime(it, LocalTime(9, 0)) },
+        dueDate = dueDate?.let { LocalDateTime(it, LocalTime(hour = 9, minute = 0)) },
     )
 
     private fun buildTaskWithCategory(task: Task) =

@@ -34,7 +34,7 @@ internal class CategoryNavGraph : NavGraph {
                         navEventController.sendEvent(CategoryEvent.OnNewCategoryClick)
                     },
                     onItemClick = { categoryId ->
-                        if (DesignSystemConfig.IsNewDesignEnabled && categoryId != null) {
+                        if (DesignSystemConfig.isNewDesignEnabled && categoryId != null) {
                             navEventController.sendEvent(
                                 CategoryEvent.OnCategoryDetailsClick(categoryId),
                             )

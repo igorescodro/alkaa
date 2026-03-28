@@ -136,13 +136,13 @@ internal class CategoryFlowTest : AlkaaTest(), KoinTest {
         // Given
         DesignSystemConfig.IsNewDesignEnabled = true
         navigateToCategory()
-        addCategory("Work")
+        addCategory("Fitness")
 
         // When
-        onNodeWithText("Work").performClick()
+        onNodeWithText("Fitness").performClick()
 
         // Then — details screen header with category name is displayed
-        onNodeWithText("Work").assertIsDisplayed()
+        onNodeWithText("Fitness").assertIsDisplayed()
         // Bottom sheet "Save" button is absent
         onNodeWithText("Save").assertDoesNotExist()
     }
@@ -151,10 +151,10 @@ internal class CategoryFlowTest : AlkaaTest(), KoinTest {
     fun when_category_is_clicked_and_flag_disabled_then_bottom_sheet_is_shown() = uiTest {
         // Given — flag is false (reset in @BeforeTest)
         navigateToCategory()
-        addCategory("Work")
+        addCategory("Hobbies")
 
         // When
-        onNodeWithText("Work").performClick()
+        onNodeWithText("Hobbies").performClick()
 
         // Then — bottom sheet is present (Save button visible)
         onNodeWithText("Save").assertIsDisplayed()
@@ -165,8 +165,8 @@ internal class CategoryFlowTest : AlkaaTest(), KoinTest {
         // Given
         DesignSystemConfig.IsNewDesignEnabled = true
         navigateToCategory()
-        addCategory("Work")
-        onNodeWithText("Work").performClick()
+        addCategory("Finance")
+        onNodeWithText("Finance").performClick()
 
         // When — type in the AddTaskBar and submit
         val addBarPlaceholder = runBlocking { getString(Res.string.kuvio_add_task_bar_placeholder) }

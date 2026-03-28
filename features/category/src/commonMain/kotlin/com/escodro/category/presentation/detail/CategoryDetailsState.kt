@@ -6,7 +6,9 @@ import com.escodro.domain.model.TaskGroup
 
 sealed class CategoryDetailsState {
     data object Loading : CategoryDetailsState()
+
     data class Error(val throwable: Throwable) : CategoryDetailsState()
+
     data class Success(
         val category: Category,
         val categoryColor: Color,

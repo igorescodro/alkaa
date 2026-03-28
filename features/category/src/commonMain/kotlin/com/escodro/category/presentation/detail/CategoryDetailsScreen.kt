@@ -196,16 +196,25 @@ internal fun CategoryDetailsContent(
                     if (group.tasks.isNotEmpty()) {
                         item(key = "header_${group::class.simpleName}") {
                             val sectionTitle = when (group) {
-                                is TaskGroup.Overdue ->
+                                is TaskGroup.Overdue -> {
                                     stringResource(Res.string.category_details_section_overdue)
-                                is TaskGroup.DueToday ->
+                                }
+
+                                is TaskGroup.DueToday -> {
                                     stringResource(Res.string.category_details_section_due_today)
-                                is TaskGroup.Upcoming ->
+                                }
+
+                                is TaskGroup.Upcoming -> {
                                     stringResource(Res.string.category_details_section_upcoming)
-                                is TaskGroup.NoDueDate ->
+                                }
+
+                                is TaskGroup.NoDueDate -> {
                                     stringResource(Res.string.category_details_section_no_due_date)
-                                is TaskGroup.Completed ->
+                                }
+
+                                is TaskGroup.Completed -> {
                                     stringResource(Res.string.category_details_section_completed)
+                                }
                             }
                             KuvioTitleMediumText(
                                 text = sectionTitle,

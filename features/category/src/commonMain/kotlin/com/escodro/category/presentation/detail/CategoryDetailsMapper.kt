@@ -19,12 +19,14 @@ internal class CategoryDetailsMapper(
         val viewCategory = categoryMapper.toView(domainCategory)
         val allTasks = groups.flatMap { it.tasks }
         return CategoryDetailsState.Success(
-            category = viewCategory,
-            categoryColor = Color(viewCategory.color),
-            groups = groups.toImmutableList(),
-            totalTasks = allTasks.size,
-            completedTasks = groups.filterIsInstance<TaskGroup.Completed>()
-                .sumOf { it.tasks.size },
+            data = CategoryDetailsData(
+                category = viewCategory,
+                categoryColor = Color(viewCategory.color),
+                groups = groups.toImmutableList(),
+                totalTasks = allTasks.size,
+                completedTasks = groups.filterIsInstance<TaskGroup.Completed>()
+                    .sumOf { it.tasks.size },
+            ),
         )
     }
 

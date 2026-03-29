@@ -42,7 +42,6 @@ internal class CategoryDetailsScreenTest : AlkaaTest() {
                     onUpdateTaskStatus = {},
                     onTaskClick = {},
                     onOptionsClick = {},
-                    onBackClick = {},
                 )
             }
         }
@@ -70,7 +69,6 @@ internal class CategoryDetailsScreenTest : AlkaaTest() {
                     onUpdateTaskStatus = {},
                     onTaskClick = {},
                     onOptionsClick = {},
-                    onBackClick = {},
                 )
             }
         }
@@ -101,7 +99,6 @@ internal class CategoryDetailsScreenTest : AlkaaTest() {
                     onUpdateTaskStatus = {},
                     onTaskClick = {},
                     onOptionsClick = {},
-                    onBackClick = {},
                 )
             }
         }

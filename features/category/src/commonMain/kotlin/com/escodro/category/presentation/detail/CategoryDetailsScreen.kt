@@ -1,3 +1,5 @@
+@file:Suppress("TooManyFunctions") // Preview need separate light/dark functions for now
+
 package com.escodro.category.presentation.detail
 
 import androidx.compose.foundation.layout.Arrangement
@@ -11,6 +13,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -21,6 +24,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.escodro.categoryapi.model.Category
 import com.escodro.designsystem.components.kuvio.bar.KuvioAddTaskBar
@@ -31,9 +35,11 @@ import com.escodro.designsystem.components.kuvio.item.KuvioTaskItemState
 import com.escodro.designsystem.components.kuvio.text.KuvioBodyMediumText
 import com.escodro.designsystem.components.kuvio.text.KuvioTitleMediumText
 import com.escodro.designsystem.components.picker.DateTimerPicker
+import com.escodro.designsystem.components.topbar.AlkaaToolbar
+import com.escodro.designsystem.theme.AlkaaThemePreview
+import com.escodro.domain.model.Task
 import com.escodro.domain.model.TaskGroup
 import com.escodro.resources.Res
-import kotlinx.collections.immutable.ImmutableList
 import com.escodro.resources.category_details_empty_description
 import com.escodro.resources.category_details_empty_title
 import com.escodro.resources.category_details_section_completed
@@ -41,6 +47,8 @@ import com.escodro.resources.category_details_section_due_today
 import com.escodro.resources.category_details_section_no_due_date
 import com.escodro.resources.category_details_section_overdue
 import com.escodro.resources.category_details_section_upcoming
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.datetime.LocalDateTime
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
@@ -48,8 +56,8 @@ import org.koin.compose.koinInject
 /**
  * Alkaa Category Details Section.
  *
- * Entry point for the Category Details screen. Loads state from [CategoryDetailsViewModel]
- * and delegates rendering to [CategoryDetailsScreen].
+ * Public entry point for the Category Details screen. Stateless — delegates immediately to
+ * [CategoryDetailsLoader].
  *
  * @param categoryId the ID of the category to display.
  * @param isSinglePane whether the layout is in single-pane mode (phones) or multi-pane (tablets).
@@ -65,7 +73,25 @@ fun CategoryDetailsSection(
     onTaskClick: (Long) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val viewModel: CategoryDetailsViewModel = koinInject()
+    CategoryDetailsLoader(
+        categoryId = categoryId,
+        isSinglePane = isSinglePane,
+        onBackClick = onBackClick,
+        onTaskClick = onTaskClick,
+        modifier = modifier,
+    )
+}
+
+@Composable
+@Suppress("LongParameterList")
+internal fun CategoryDetailsLoader(
+    categoryId: Long,
+    isSinglePane: Boolean,
+    onBackClick: () -> Unit,
+    onTaskClick: (Long) -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: CategoryDetailsViewModel = koinInject(),
+) {
     val state by remember(categoryId) {
         viewModel.loadContent(categoryId)
     }.collectAsState(initial = CategoryDetailsState.Loading)
@@ -83,7 +109,7 @@ fun CategoryDetailsSection(
 }
 
 @Composable
-@Suppress("LongParameterList", "UnusedParameter")
+@Suppress("LongParameterList")
 internal fun CategoryDetailsScreen(
     state: CategoryDetailsState,
     isSinglePane: Boolean,
@@ -94,48 +120,54 @@ internal fun CategoryDetailsScreen(
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    when (state) {
-        is CategoryDetailsState.Loading -> {
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = modifier.fillMaxSize(),
-            ) {
-                CircularProgressIndicator()
+    Scaffold(
+        topBar = {
+            AlkaaToolbar(isSinglePane = isSinglePane, onUpPress = onBackClick)
+        },
+        modifier = modifier,
+    ) { paddingValues ->
+        when (state) {
+            is CategoryDetailsState.Loading -> {
+                Box(
+                    contentAlignment = Alignment.Center,
+                    modifier = Modifier.padding(paddingValues).fillMaxSize(),
+                ) {
+                    CircularProgressIndicator()
+                }
             }
-        }
 
-        is CategoryDetailsState.Error -> {
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = modifier.fillMaxSize(),
-            ) {
-                KuvioBodyMediumText(
-                    text = state.throwable.message ?: "An error occurred",
-                    color = MaterialTheme.colorScheme.error,
+            is CategoryDetailsState.Error -> {
+                Box(
+                    contentAlignment = Alignment.Center,
+                    modifier = Modifier.padding(paddingValues).fillMaxSize(),
+                ) {
+                    KuvioBodyMediumText(
+                        text = state.throwable.message ?: "An error occurred",
+                        color = MaterialTheme.colorScheme.error,
+                    )
+                }
+            }
+
+            is CategoryDetailsState.Success -> {
+                CategoryDetailsContent(
+                    category = state.category,
+                    categoryColor = state.categoryColor,
+                    groups = state.groups,
+                    totalTasks = state.totalTasks,
+                    completedTasks = state.completedTasks,
+                    onAddTask = onAddTask,
+                    onUpdateTaskStatus = onUpdateTaskStatus,
+                    onTaskClick = onTaskClick,
+                    onOptionsClick = onOptionsClick,
+                    modifier = Modifier.padding(paddingValues),
                 )
             }
-        }
-
-        is CategoryDetailsState.Success -> {
-            CategoryDetailsContent(
-                category = state.category,
-                categoryColor = state.categoryColor,
-                groups = state.groups,
-                totalTasks = state.totalTasks,
-                completedTasks = state.completedTasks,
-                onAddTask = onAddTask,
-                onUpdateTaskStatus = onUpdateTaskStatus,
-                onTaskClick = onTaskClick,
-                onOptionsClick = onOptionsClick,
-                onBackClick = onBackClick,
-                modifier = modifier,
-            )
         }
     }
 }
 
 @Composable
-@Suppress("LongParameterList", "UnusedParameter")
+@Suppress("LongParameterList")
 internal fun CategoryDetailsContent(
     category: Category,
     categoryColor: Color,
@@ -146,7 +178,6 @@ internal fun CategoryDetailsContent(
     onUpdateTaskStatus: (Long) -> Unit,
     onTaskClick: (Long) -> Unit,
     onOptionsClick: () -> Unit,
-    onBackClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     var taskTitle by rememberSaveable { mutableStateOf("") }
@@ -229,12 +260,20 @@ private fun CategoryDetailsTaskList(
     ) {
         groups.forEach { group ->
             val taskState = when (group) {
-                is TaskGroup.Overdue -> KuvioTaskItemState.OVERDUE
-                is TaskGroup.Completed -> KuvioTaskItemState.COMPLETED
+                is TaskGroup.Overdue -> {
+                    KuvioTaskItemState.OVERDUE
+                }
+
+                is TaskGroup.Completed -> {
+                    KuvioTaskItemState.COMPLETED
+                }
+
                 is TaskGroup.DueToday,
                 is TaskGroup.Upcoming,
                 is TaskGroup.NoDueDate,
-                -> KuvioTaskItemState.PENDING
+                -> {
+                    KuvioTaskItemState.PENDING
+                }
             }
 
             if (group.tasks.isNotEmpty()) {
@@ -265,5 +304,101 @@ private fun CategoryDetailsTaskList(
                 }
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun CategoryDetailsContentEmptyLightPreview() {
+    AlkaaThemePreview {
+        CategoryDetailsContent(
+            category = Category(id = 1L, name = "Work", color = 0xFF6200EA.toInt()),
+            categoryColor = Color(0xFF6200EA),
+            groups = persistentListOf(),
+            totalTasks = 0,
+            completedTasks = 0,
+            onAddTask = { _, _ -> },
+            onUpdateTaskStatus = {},
+            onTaskClick = {},
+            onOptionsClick = {},
+        )
+    }
+}
+
+@Preview(showBackground = true, backgroundColor = 0xFF0F1B2D)
+@Composable
+private fun CategoryDetailsContentEmptyDarkPreview() {
+    AlkaaThemePreview(isDarkTheme = true) {
+        CategoryDetailsContent(
+            category = Category(id = 1L, name = "Work", color = 0xFF6200EA.toInt()),
+            categoryColor = Color(0xFF6200EA),
+            groups = persistentListOf(),
+            totalTasks = 0,
+            completedTasks = 0,
+            onAddTask = { _, _ -> },
+            onUpdateTaskStatus = {},
+            onTaskClick = {},
+            onOptionsClick = {},
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun CategoryDetailsContentWithTasksLightPreview() {
+    val tasks = listOf(
+        Task(id = 1L, title = "Design the mockups"),
+        Task(id = 2L, title = "Review pull request"),
+    )
+    AlkaaThemePreview {
+        CategoryDetailsContent(
+            category = Category(id = 1L, name = "Work", color = 0xFF6200EA.toInt()),
+            categoryColor = Color(0xFF6200EA),
+            groups = persistentListOf(TaskGroup.NoDueDate(tasks)),
+            totalTasks = 2,
+            completedTasks = 0,
+            onAddTask = { _, _ -> },
+            onUpdateTaskStatus = {},
+            onTaskClick = {},
+            onOptionsClick = {},
+        )
+    }
+}
+
+@Preview(showBackground = true, backgroundColor = 0xFF0F1B2D)
+@Composable
+private fun CategoryDetailsContentWithTasksDarkPreview() {
+    val tasks = listOf(
+        Task(id = 1L, title = "Design the mockups"),
+        Task(id = 2L, title = "Review pull request"),
+    )
+    AlkaaThemePreview(isDarkTheme = true) {
+        CategoryDetailsContent(
+            category = Category(id = 1L, name = "Work", color = 0xFF6200EA.toInt()),
+            categoryColor = Color(0xFF6200EA),
+            groups = persistentListOf(TaskGroup.NoDueDate(tasks)),
+            totalTasks = 2,
+            completedTasks = 0,
+            onAddTask = { _, _ -> },
+            onUpdateTaskStatus = {},
+            onTaskClick = {},
+            onOptionsClick = {},
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun CategoryDetailsEmptyStateLightPreview() {
+    AlkaaThemePreview {
+        CategoryDetailsEmptyState()
+    }
+}
+
+@Preview(showBackground = true, backgroundColor = 0xFF0F1B2D)
+@Composable
+private fun CategoryDetailsEmptyStateDarkPreview() {
+    AlkaaThemePreview(isDarkTheme = true) {
+        CategoryDetailsEmptyState()
     }
 }

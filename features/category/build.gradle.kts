@@ -25,6 +25,7 @@ kotlin {
             implementation(libs.compose.runtime)
             implementation(libs.compose.material3)
             implementation(libs.compose.materialIconsExtended)
+            implementation(libs.compose.uiToolingPreview)
             implementation(libs.compose.components.resources)
 
             implementation(libs.koin.compose)
@@ -48,4 +49,8 @@ kotlin {
     androidLibrary {
         namespace = "com.escodro.category"
     }
+}
+
+dependencies {
+    "androidRuntimeClasspath"(libs.compose.uiTooling)
 }

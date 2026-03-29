@@ -18,7 +18,6 @@ import com.escodro.test.AlkaaTest
 import com.escodro.test.annotation.IgnoreOnDesktop
 import com.escodro.test.extension.onChip
 import kotlinx.collections.immutable.toImmutableList
-import kotlinx.coroutines.runBlocking
 import org.jetbrains.compose.resources.getString
 import kotlin.test.Test
 
@@ -117,7 +116,7 @@ internal class CategorySelectionTest : AlkaaTest() {
         }
 
         // Then text informing there are no categories is shown
-        val emptyTextInfo = runBlocking { getString(Res.string.task_detail_category_empty_list) }
+        val emptyTextInfo = getString(Res.string.task_detail_category_empty_list)
         onNodeWithText(emptyTextInfo).assertExists()
     }
 

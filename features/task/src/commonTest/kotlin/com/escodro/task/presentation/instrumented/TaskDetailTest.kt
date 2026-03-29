@@ -20,7 +20,6 @@ import com.escodro.task.presentation.fake.OpenAlarmSchedulerFake
 import com.escodro.task.presentation.fake.PermissionControllerFake
 import com.escodro.test.AlkaaTest
 import kotlinx.collections.immutable.persistentListOf
-import kotlinx.coroutines.runBlocking
 import org.jetbrains.compose.resources.getString
 import org.koin.compose.KoinApplication
 import org.koin.core.context.stopKoin
@@ -51,8 +50,8 @@ internal class TaskDetailTest : AlkaaTest() {
         loadTaskDetail(state)
 
         // Assert that the error view is loaded
-        val header = runBlocking { getString(Res.string.task_detail_header_error) }
-        val contentDescription = runBlocking { getString(Res.string.task_detail_cd_error) }
+        val header = getString(Res.string.task_detail_header_error)
+        val contentDescription = getString(Res.string.task_detail_cd_error)
         onNodeWithText(text = header).assertExists()
         onNodeWithContentDescription(label = contentDescription).assertExists()
     }

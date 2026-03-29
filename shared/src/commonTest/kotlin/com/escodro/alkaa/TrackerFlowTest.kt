@@ -16,7 +16,6 @@ import com.escodro.resources.Res
 import com.escodro.resources.tracker_header_empty
 import com.escodro.task.presentation.list.CheckboxNameKey
 import com.escodro.test.AlkaaTest
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
 import org.jetbrains.compose.resources.getString
 import org.koin.test.KoinTest
@@ -47,9 +46,7 @@ internal class TrackerFlowTest : AlkaaTest(), KoinTest {
     fun open_clean_task_tracker_and_ensure_empty_message_is_shown() = uiTest {
         navigateToTracker()
 
-        val emptyMessage = runBlocking {
-            getString(Res.string.tracker_header_empty)
-        }
+        val emptyMessage = getString(Res.string.tracker_header_empty)
         onNodeWithText(text = emptyMessage).assertExists()
     }
 

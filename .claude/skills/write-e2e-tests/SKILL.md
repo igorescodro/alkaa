@@ -34,7 +34,7 @@ No camelCase, no backtick names.
 | **`cleanTable()` in `@BeforeTest`** | Call on every DAO used to avoid state leakage between tests |
 | **DAO-based seeding** | Insert test data directly via DAOs — not via use cases |
 | **Content descriptions for navigation** | Navigate via content descriptions, not raw text |
-| **Resource strings** | `runBlocking { getString(Res.string.xyz) }` — never hardcode |
+| **Resource strings** | `getString(Res.string.xyz)` inside `uiTest` or `runComposeUiTest` — never hardcode |
 | **Fakes over mocks** | Use `declare<T> { FakeImpl() }` for external dependencies |
 | **`@AfterTest` always** | Always call `afterTest()` to stop Koin after each test |
 
@@ -45,7 +45,7 @@ No camelCase, no backtick names.
 | Calling `by inject()` before `beforeTest()` | Always call `beforeTest()` first |
 | Skipping `cleanTable()` | Call on every DAO to avoid state leakage |
 | Using `flakyUiTest` by default | Reserve for tests with known timing sensitivity |
-| Hardcoding UI strings | Use `runBlocking { getString(...) }` |
+| Hardcoding UI strings | Use `getString(...)` inside `uiTest` or `runComposeUiTest` |
 | Testing multiple flows in one test | One scenario per test |
 | Missing `@AfterTest` / `afterTest()` | Always stop Koin after each test |
 | Navigation via raw text | Navigate via content descriptions |

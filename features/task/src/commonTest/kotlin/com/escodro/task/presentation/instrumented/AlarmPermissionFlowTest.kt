@@ -13,7 +13,6 @@ import com.escodro.task.presentation.detail.alarm.AlarmSelectionState
 import com.escodro.task.presentation.detail.alarm.interactor.OpenAlarmSchedulerImpl
 import com.escodro.task.presentation.fake.PermissionControllerFake
 import com.escodro.test.AlkaaTest
-import kotlinx.coroutines.runBlocking
 import org.jetbrains.compose.resources.getString
 import kotlin.test.AfterTest
 import kotlin.test.Test
@@ -45,7 +44,7 @@ internal class AlarmPermissionFlowTest : AlkaaTest() {
             hasAlarmPermission = true,
         )
 
-        val noAlarmString = runBlocking { getString(Res.string.task_detail_alarm_no_alarm) }
+        val noAlarmString = getString(Res.string.task_detail_alarm_no_alarm)
         onNodeWithText(noAlarmString).performClick()
 
         assertFalse(state.isNotificationDialogOpen)
@@ -62,7 +61,7 @@ internal class AlarmPermissionFlowTest : AlkaaTest() {
             hasAlarmPermission = true,
         )
 
-        val noAlarmString = runBlocking { getString(Res.string.task_detail_alarm_no_alarm) }
+        val noAlarmString = getString(Res.string.task_detail_alarm_no_alarm)
         onNodeWithText(noAlarmString).performClick()
 
         assertTrue(state.isNotificationDialogOpen)
@@ -77,7 +76,7 @@ internal class AlarmPermissionFlowTest : AlkaaTest() {
             hasAlarmPermission = false,
         )
 
-        val noAlarmString = runBlocking { getString(Res.string.task_detail_alarm_no_alarm) }
+        val noAlarmString = getString(Res.string.task_detail_alarm_no_alarm)
         onNodeWithText(noAlarmString).performClick()
 
         assertFalse(state.isNotificationDialogOpen)
@@ -94,7 +93,7 @@ internal class AlarmPermissionFlowTest : AlkaaTest() {
             hasAlarmPermission = false,
         )
 
-        val noAlarmString = runBlocking { getString(Res.string.task_detail_alarm_no_alarm) }
+        val noAlarmString = getString(Res.string.task_detail_alarm_no_alarm)
         onNodeWithText(noAlarmString).performClick()
 
         assertTrue(state.isNotificationDialogOpen)

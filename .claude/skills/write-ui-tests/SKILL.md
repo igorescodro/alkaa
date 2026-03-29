@@ -32,7 +32,7 @@ No camelCase, no backtick names.
 | Rule | Details |
 |------|---------|
 | **Always wrap** | Wrap composable in `AlkaaThemePreview` |
-| **Resource strings** | `runBlocking { getString(Res.string.xyz) }` — never hardcode |
+| **Resource strings** | `getString(Res.string.xyz)` inside `uiTest` or `runComposeUiTest` — never hardcode |
 | **One scenario per test** | Split different states into separate `@Test` functions |
 | **`useUnmergedTree = true`** | When nodes are inside merged semantics |
 | **`@IgnoreOnDesktop`** | For tests not applicable on desktop |
@@ -45,7 +45,7 @@ No camelCase, no backtick names.
 |---------|-----|
 | Testing a stateful composable directly | Extract a stateless Content composable and test that |
 | Using mocks for domain interfaces | Create a fake implementing the interface |
-| Hardcoding UI strings | Use `runBlocking { getString(...) }` |
+| Hardcoding UI strings | Use `getString(...)` inside `uiTest` or `runComposeUiTest` |
 | Testing multiple scenarios in one test | Split into separate `@Test` functions |
 | Missing `@AfterTest` cleanup | Add `tearDown()` calling `clean()` on every fake |
 | Forgetting `AlkaaThemePreview` wrapper | Always wrap composable |

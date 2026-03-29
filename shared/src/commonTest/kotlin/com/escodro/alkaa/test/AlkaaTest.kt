@@ -47,7 +47,7 @@ fun afterTest() {
  * @param block the test to be executed
  */
 @OptIn(ExperimentalTestApi::class)
-fun uiTest(block: ComposeUiTest.() -> Unit) = runComposeUiTest {
+fun uiTest(block: suspend ComposeUiTest.() -> Unit) = runComposeUiTest {
     setContent {
         CompositionLocalProvider(
             LocalLifecycleOwner provides LocalLifecycleOwnerFake(),
@@ -67,7 +67,7 @@ fun uiTest(block: ComposeUiTest.() -> Unit) = runComposeUiTest {
 @OptIn(ExperimentalTestApi::class)
 fun flakyUiTest(
     times: Int = 5,
-    block: ComposeUiTest.() -> Unit,
+    block: suspend ComposeUiTest.() -> Unit,
 ) = retry(times) {
     uiTest(block)
 }

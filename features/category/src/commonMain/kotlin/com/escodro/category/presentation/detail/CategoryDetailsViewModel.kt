@@ -1,7 +1,7 @@
 package com.escodro.category.presentation.detail
 
 import androidx.lifecycle.ViewModel
-import com.escodro.coroutines.AppCoroutineScope
+import androidx.lifecycle.viewModelScope
 import com.escodro.domain.usecase.category.LoadCategory
 import com.escodro.domain.usecase.task.AddTask
 import com.escodro.domain.usecase.task.UpdateTaskStatus
@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.launch
 import kotlinx.datetime.LocalDateTime
 
 internal class CategoryDetailsViewModel(
@@ -18,7 +19,6 @@ internal class CategoryDetailsViewModel(
     private val addTask: AddTask,
     private val updateTaskStatus: UpdateTaskStatus,
     private val mapper: CategoryDetailsMapper,
-    private val applicationScope: AppCoroutineScope,
 ) : ViewModel() {
 
     fun loadContent(categoryId: Long): Flow<CategoryDetailsState> = combine(
@@ -36,13 +36,13 @@ internal class CategoryDetailsViewModel(
 
     fun addTask(title: String, dueDate: LocalDateTime?, categoryId: Long) {
         if (title.isBlank()) return
-        applicationScope.launch {
+        viewModelScope.launch {
             addTask(mapper.toTask(title, dueDate, categoryId))
         }
     }
 
     fun updateTaskStatus(taskId: Long) {
-        applicationScope.launch {
+        viewModelScope.launch {
             updateTaskStatus.invoke(taskId)
         }
     }

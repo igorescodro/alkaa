@@ -7,7 +7,7 @@ description: Use when the user asks to commit changes, stage and commit, or says
 
 ## Overview
 
-Stages and commits all uncommitted changes with a structured message: a random emoji, a concise title, and a short summary. Optionally adds a `Co-Authored-By` line if the user mentions Claude helped.
+Stages and commits all uncommitted changes with a structured message: a random emoji, a concise title, and a short summary. Optionally adds a `Co-Authored-By` line if the user mentions agent helped.
 
 **Permissions required:** `git commit`, `git rebase`
 
@@ -26,7 +26,7 @@ With co-authorship:
 
 [summary — 1 to 5 lines depending on complexity]
 
-Co-Authored-By: Claude [model-name] [model-version] <noreply@anthropic.com>
+Co-Authored-By: [model-name] [model-version] <model-email>
 ```
 
 **Rules:**

@@ -5,7 +5,6 @@ import com.escodro.category.fake.LoadCategoryFake
 import com.escodro.category.fake.LoadCategoryTasksFake
 import com.escodro.category.fake.UpdateTaskStatusFake
 import com.escodro.category.mapper.CategoryMapper
-import com.escodro.coroutines.AppCoroutineScope
 import com.escodro.domain.model.Category
 import com.escodro.domain.model.Task
 import com.escodro.domain.model.TaskGroup
@@ -27,7 +26,6 @@ internal class CategoryDetailsViewModelTest :
     private val addTaskFake = AddTaskFake()
     private val updateTaskStatusFake = UpdateTaskStatusFake()
     private val mapper = CategoryDetailsMapper(CategoryMapper())
-    private val appScope = AppCoroutineScope(context = testDispatcher())
 
     private val viewModel = CategoryDetailsViewModel(
         loadCategory = loadCategoryFake,
@@ -35,7 +33,6 @@ internal class CategoryDetailsViewModelTest :
         addTask = addTaskFake,
         updateTaskStatus = updateTaskStatusFake,
         mapper = mapper,
-        applicationScope = appScope,
     )
 
     @BeforeTest
@@ -77,8 +74,8 @@ internal class CategoryDetailsViewModelTest :
         require(state is CategoryDetailsState.Success)
 
         // Then
-        assertEquals(expected = 2, actual = state.totalTasks)
-        assertEquals(expected = 1, actual = state.completedTasks)
+        assertEquals(expected = 2, actual = state.data.totalTasks)
+        assertEquals(expected = 1, actual = state.data.completedTasks)
     }
 
     @Test
@@ -133,7 +130,7 @@ internal class CategoryDetailsViewModelTest :
         loadCategoryTasksFake.emit(listOf(TaskGroup.NoDueDate(tasks = listOf(task))))
         val firstState = viewModel.loadContent(categoryId = 1L).first()
         require(firstState is CategoryDetailsState.Success)
-        assertEquals(expected = 0, actual = firstState.completedTasks)
+        assertEquals(expected = 0, actual = firstState.data.completedTasks)
 
         // When — simulate DB re-emission after task status update
         loadCategoryTasksFake.emit(
@@ -143,6 +140,6 @@ internal class CategoryDetailsViewModelTest :
         // Then — new collection reflects the updated completion state
         val newState = viewModel.loadContent(categoryId = 1L).first()
         require(newState is CategoryDetailsState.Success)
-        assertEquals(expected = 1, actual = newState.completedTasks)
+        assertEquals(expected = 1, actual = newState.data.completedTasks)
     }
 }

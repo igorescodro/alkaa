@@ -150,11 +150,11 @@ internal fun CategoryDetailsScreen(
 
             is CategoryDetailsState.Success -> {
                 CategoryDetailsContent(
-                    category = state.category,
-                    categoryColor = state.categoryColor,
-                    groups = state.groups,
-                    totalTasks = state.totalTasks,
-                    completedTasks = state.completedTasks,
+                    category = state.data.category,
+                    categoryColor = state.data.categoryColor,
+                    groups = state.data.groups,
+                    totalTasks = state.data.totalTasks,
+                    completedTasks = state.data.completedTasks,
                     onAddTask = onAddTask,
                     onUpdateTaskStatus = onUpdateTaskStatus,
                     onTaskClick = onTaskClick,

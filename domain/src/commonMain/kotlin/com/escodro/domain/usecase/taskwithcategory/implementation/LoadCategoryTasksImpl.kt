@@ -7,6 +7,7 @@ import com.escodro.domain.repository.TaskWithCategoryRepository
 import com.escodro.domain.usecase.taskwithcategory.LoadCategoryTasks
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.datetime.LocalDate
 
 internal class LoadCategoryTasksImpl(
     private val repository: TaskWithCategoryRepository,
@@ -20,7 +21,7 @@ internal class LoadCategoryTasksImpl(
             buildGroups(tasks, today)
         }
 
-    private fun buildGroups(tasks: List<Task>, today: kotlinx.datetime.LocalDate): List<TaskGroup> {
+    private fun buildGroups(tasks: List<Task>, today: LocalDate): List<TaskGroup> {
         val completed = tasks.filter { it.isCompleted }
         val active = tasks.filter { !it.isCompleted }
 

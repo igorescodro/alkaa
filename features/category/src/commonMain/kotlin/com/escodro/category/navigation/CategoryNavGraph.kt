@@ -61,7 +61,6 @@ internal class CategoryNavGraph : NavGraph {
             ) { entry ->
                 CategoryDetailsSection(
                     categoryId = entry.categoryId,
-                    isSinglePane = true,
                     onBackClick = { navEventController.sendEvent(Event.OnBack) },
                     onTaskClick = { taskId ->
                         navEventController.sendEvent(TaskEvent.OnTaskClick(id = taskId))

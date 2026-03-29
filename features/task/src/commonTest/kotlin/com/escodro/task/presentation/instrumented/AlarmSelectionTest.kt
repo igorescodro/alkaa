@@ -26,7 +26,10 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.datetime.LocalDateTime
 import org.jetbrains.compose.resources.getString
 import org.koin.compose.KoinApplication
+import org.koin.core.context.stopKoin
+import org.koin.dsl.koinConfiguration
 import org.koin.dsl.module
+import kotlin.test.AfterTest
 import kotlin.test.Test
 
 @OptIn(ExperimentalTestApi::class)
@@ -35,6 +38,11 @@ internal class AlarmSelectionTest : AlkaaTest() {
     private val testModule = module {
         single<PermissionController> { PermissionControllerFake() }
         single<OpenAlarmScheduler> { OpenAlarmSchedulerImpl() }
+    }
+
+    @AfterTest
+    fun tearDown() {
+        stopKoin()
     }
 
     @Test
@@ -123,7 +131,7 @@ internal class AlarmSelectionTest : AlkaaTest() {
         hasExactAlarmPermission: Boolean = true,
     ) {
         setContent {
-            KoinApplication(application = { modules(testModule) }) {
+            KoinApplication(configuration = koinConfiguration { modules(testModule) }) {
                 AlkaaThemePreview {
                     AlarmSelection(
                         calendar = null,
@@ -144,7 +152,7 @@ internal class AlarmSelectionTest : AlkaaTest() {
         alarmInterval: AlarmInterval,
     ) {
         setContent {
-            KoinApplication(application = { modules(testModule) }) {
+            KoinApplication(configuration = koinConfiguration { modules(testModule) }) {
                 AlkaaThemePreview {
                     AlarmSelection(
                         calendar = calendar,

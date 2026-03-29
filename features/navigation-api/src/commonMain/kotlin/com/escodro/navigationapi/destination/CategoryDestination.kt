@@ -7,4 +7,7 @@ object CategoryDestination {
 
     @Serializable
     data class CategoryBottomSheet(val categoryId: Long?) : Destination, TopAppBarVisible
+
+    @Serializable
+    data class CategoryDetails(val categoryId: Long) : Destination
 }

@@ -9,4 +9,8 @@ internal class LoadCategoryFake : LoadCategory {
 
     override suspend fun invoke(categoryId: Long): Category? =
         categoryToBeReturned
+
+    fun clear() {
+        categoryToBeReturned = null
+    }
 }

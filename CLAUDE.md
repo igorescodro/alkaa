@@ -6,20 +6,16 @@ This is a Kotlin Multiplatform (KMP) task management app targeting Android, iOS,
 
 ```bash
 # Build
-./gradlew assemble                    # Build all modules
-./gradlew :app:assemble               # Android APK only
-./gradlew :desktop-app:assemble       # Desktop only
+./gradlew :desktop-app:assemble       # Desktop (fastest)
 
 # Test
-./gradlew allTests                    # All platforms
-./gradlew desktopTest                 # Desktop (fastest for iteration)
-./gradlew connectedAndroidTest        # Android device/emulator
+./gradlew desktopTest                 # Desktop unit tests (fastest for iteration)
 
-# Code quality (all run via `check`)
-./gradlew ktlint                      # Lint check
+# Code quality
 ./gradlew ktlintFormat                # Auto-fix lint
-./gradlew detektAll                   # Static analysis
-./gradlew check                       # ktlint + detekt + lint
+./gradlew :desktop-app:ktlint         # Lint check
+./gradlew :desktop-app:detekt         # Static analysis
+./gradlew :desktop-app:check          # ktlint + detekt
 ```
 
 ## Architecture

@@ -23,7 +23,10 @@ import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.runBlocking
 import org.jetbrains.compose.resources.getString
 import org.koin.compose.KoinApplication
+import org.koin.core.context.stopKoin
+import org.koin.dsl.koinConfiguration
 import org.koin.dsl.module
+import kotlin.test.AfterTest
 import kotlin.test.Test
 
 @OptIn(ExperimentalTestApi::class)
@@ -32,6 +35,11 @@ internal class TaskDetailTest : AlkaaTest() {
     private val testModule = module {
         single<PermissionController> { PermissionControllerFake() }
         single<OpenAlarmScheduler> { OpenAlarmSchedulerFake() }
+    }
+
+    @AfterTest
+    fun tearDown() {
+        stopKoin()
     }
 
     @Test
@@ -69,7 +77,7 @@ internal class TaskDetailTest : AlkaaTest() {
     }
 
     private fun ComposeUiTest.loadTaskDetail(state: TaskDetailState) = setContent {
-        KoinApplication(application = { modules(testModule) }) {
+        KoinApplication(configuration = koinConfiguration { modules(testModule) }) {
             AlkaaThemePreview {
                 TaskDetailRouter(
                     isSinglePane = true,

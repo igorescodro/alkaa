@@ -8,25 +8,28 @@ import androidx.compose.ui.test.runComposeUiTest
 import com.escodro.designsystem.theme.AlkaaThemePreview
 import com.escodro.task.model.Task
 import com.escodro.task.model.TaskWithCategory
+import com.escodro.task.presentation.fake.RelativeDateTimeProviderFake
 import com.escodro.task.presentation.list.TaskItem
 import com.escodro.task.provider.RelativeDateTimeProvider
 import com.escodro.test.AlkaaTest
 import kotlinx.datetime.LocalDateTime
 import org.koin.compose.KoinApplication
-import org.koin.dsl.bind
+import org.koin.core.context.stopKoin
+import org.koin.dsl.koinConfiguration
 import org.koin.dsl.module
+import kotlin.test.AfterTest
 import kotlin.test.Test
 
 @OptIn(ExperimentalTestApi::class)
 internal class TaskItemTest : AlkaaTest() {
 
     private val testModule = module {
-        factory {
-            object : RelativeDateTimeProvider {
-                override fun toRelativeDateTimeString(dateTime: LocalDateTime): String =
-                    "${dateTime.hour}:${dateTime.minute}"
-            }
-        } bind RelativeDateTimeProvider::class
+        factory<RelativeDateTimeProvider> { RelativeDateTimeProviderFake() }
+    }
+
+    @AfterTest
+    fun tearDown() {
+        stopKoin()
     }
 
     @Test
@@ -65,7 +68,7 @@ internal class TaskItemTest : AlkaaTest() {
 
     private fun ComposeUiTest.loadItemView(item: TaskWithCategory, onItemClick: (Long) -> Unit) {
         setContent {
-            KoinApplication(application = { modules(testModule) }) {
+            KoinApplication(configuration = koinConfiguration { modules(testModule) }) {
                 AlkaaThemePreview {
                     TaskItem(
                         task = item,

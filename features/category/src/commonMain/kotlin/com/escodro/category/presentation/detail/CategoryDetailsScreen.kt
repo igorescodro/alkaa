@@ -60,7 +60,6 @@ import org.koin.compose.koinInject
  * [CategoryDetailsLoader].
  *
  * @param categoryId the ID of the category to display.
- * @param isSinglePane whether the layout is in single-pane mode (phones) or multi-pane (tablets).
  * @param onBackClick callback invoked when the user navigates back.
  * @param onTaskClick callback invoked when the user taps a task item.
  * @param modifier modifier applied to the outermost layout.
@@ -68,14 +67,12 @@ import org.koin.compose.koinInject
 @Composable
 fun CategoryDetailsSection(
     categoryId: Long,
-    isSinglePane: Boolean,
     onBackClick: () -> Unit,
     onTaskClick: (Long) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     CategoryDetailsLoader(
         categoryId = categoryId,
-        isSinglePane = isSinglePane,
         onBackClick = onBackClick,
         onTaskClick = onTaskClick,
         modifier = modifier,
@@ -83,10 +80,8 @@ fun CategoryDetailsSection(
 }
 
 @Composable
-@Suppress("LongParameterList")
 internal fun CategoryDetailsLoader(
     categoryId: Long,
-    isSinglePane: Boolean,
     onBackClick: () -> Unit,
     onTaskClick: (Long) -> Unit,
     modifier: Modifier = Modifier,
@@ -98,11 +93,10 @@ internal fun CategoryDetailsLoader(
 
     CategoryDetailsScreen(
         state = state,
-        isSinglePane = isSinglePane,
         onAddTask = { title, dueDate -> viewModel.addTask(title, dueDate, categoryId) },
         onUpdateTaskStatus = { taskId -> viewModel.updateTaskStatus(taskId) },
         onTaskClick = onTaskClick,
-        onOptionsClick = {},
+        onOptionsClick = {}, // TODO: implement category options menu
         onBackClick = onBackClick,
         modifier = modifier,
     )
@@ -112,7 +106,6 @@ internal fun CategoryDetailsLoader(
 @Suppress("LongParameterList")
 internal fun CategoryDetailsScreen(
     state: CategoryDetailsState,
-    isSinglePane: Boolean,
     onAddTask: (String, LocalDateTime?) -> Unit,
     onUpdateTaskStatus: (Long) -> Unit,
     onTaskClick: (Long) -> Unit,
@@ -122,7 +115,7 @@ internal fun CategoryDetailsScreen(
 ) {
     Scaffold(
         topBar = {
-            AlkaaToolbar(isSinglePane = isSinglePane, onUpPress = onBackClick)
+            AlkaaToolbar(isSinglePane = true, onUpPress = onBackClick)
         },
         modifier = modifier,
     ) { paddingValues ->
@@ -150,11 +143,7 @@ internal fun CategoryDetailsScreen(
 
             is CategoryDetailsState.Success -> {
                 CategoryDetailsContent(
-                    category = state.data.category,
-                    categoryColor = state.data.categoryColor,
-                    groups = state.data.groups,
-                    totalTasks = state.data.totalTasks,
-                    completedTasks = state.data.completedTasks,
+                    data = state.data,
                     onAddTask = onAddTask,
                     onUpdateTaskStatus = onUpdateTaskStatus,
                     onTaskClick = onTaskClick,
@@ -167,13 +156,8 @@ internal fun CategoryDetailsScreen(
 }
 
 @Composable
-@Suppress("LongParameterList")
 internal fun CategoryDetailsContent(
-    category: Category,
-    categoryColor: Color,
-    groups: ImmutableList<TaskGroup>,
-    totalTasks: Int,
-    completedTasks: Int,
+    data: CategoryDetailsData,
     onAddTask: (String, LocalDateTime?) -> Unit,
     onUpdateTaskStatus: (Long) -> Unit,
     onTaskClick: (Long) -> Unit,
@@ -186,19 +170,19 @@ internal fun CategoryDetailsContent(
 
     Column(modifier = modifier.fillMaxSize()) {
         KuvioCategoryHeader(
-            name = category.name,
-            color = categoryColor,
-            totalTasks = totalTasks,
-            completedTasks = completedTasks,
+            name = data.category.name,
+            color = data.categoryColor,
+            totalTasks = data.totalTasks,
+            completedTasks = data.completedTasks,
             onOptionsClick = onOptionsClick,
         )
 
-        if (groups.isEmpty()) {
+        if (data.groups.isEmpty()) {
             CategoryDetailsEmptyState(modifier = Modifier.weight(1f).fillMaxWidth())
         } else {
             CategoryDetailsTaskList(
-                groups = groups,
-                categoryColor = categoryColor,
+                groups = data.groups,
+                categoryColor = data.categoryColor,
                 onUpdateTaskStatus = onUpdateTaskStatus,
                 onTaskClick = onTaskClick,
                 modifier = Modifier.weight(1f),
@@ -312,11 +296,13 @@ private fun CategoryDetailsTaskList(
 private fun CategoryDetailsContentEmptyLightPreview() {
     AlkaaThemePreview {
         CategoryDetailsContent(
-            category = Category(id = 1L, name = "Work", color = 0xFF6200EA.toInt()),
-            categoryColor = Color(0xFF6200EA),
-            groups = persistentListOf(),
-            totalTasks = 0,
-            completedTasks = 0,
+            data = CategoryDetailsData(
+                category = Category(id = 1L, name = "Work", color = 0xFF6200EA.toInt()),
+                categoryColor = Color(0xFF6200EA),
+                groups = persistentListOf(),
+                totalTasks = 0,
+                completedTasks = 0,
+            ),
             onAddTask = { _, _ -> },
             onUpdateTaskStatus = {},
             onTaskClick = {},
@@ -330,11 +316,13 @@ private fun CategoryDetailsContentEmptyLightPreview() {
 private fun CategoryDetailsContentEmptyDarkPreview() {
     AlkaaThemePreview(isDarkTheme = true) {
         CategoryDetailsContent(
-            category = Category(id = 1L, name = "Work", color = 0xFF6200EA.toInt()),
-            categoryColor = Color(0xFF6200EA),
-            groups = persistentListOf(),
-            totalTasks = 0,
-            completedTasks = 0,
+            data = CategoryDetailsData(
+                category = Category(id = 1L, name = "Work", color = 0xFF6200EA.toInt()),
+                categoryColor = Color(0xFF6200EA),
+                groups = persistentListOf(),
+                totalTasks = 0,
+                completedTasks = 0,
+            ),
             onAddTask = { _, _ -> },
             onUpdateTaskStatus = {},
             onTaskClick = {},
@@ -352,11 +340,13 @@ private fun CategoryDetailsContentWithTasksLightPreview() {
     )
     AlkaaThemePreview {
         CategoryDetailsContent(
-            category = Category(id = 1L, name = "Work", color = 0xFF6200EA.toInt()),
-            categoryColor = Color(0xFF6200EA),
-            groups = persistentListOf(TaskGroup.NoDueDate(tasks)),
-            totalTasks = 2,
-            completedTasks = 0,
+            data = CategoryDetailsData(
+                category = Category(id = 1L, name = "Work", color = 0xFF6200EA.toInt()),
+                categoryColor = Color(0xFF6200EA),
+                groups = persistentListOf(TaskGroup.NoDueDate(tasks)),
+                totalTasks = 2,
+                completedTasks = 0,
+            ),
             onAddTask = { _, _ -> },
             onUpdateTaskStatus = {},
             onTaskClick = {},
@@ -374,11 +364,13 @@ private fun CategoryDetailsContentWithTasksDarkPreview() {
     )
     AlkaaThemePreview(isDarkTheme = true) {
         CategoryDetailsContent(
-            category = Category(id = 1L, name = "Work", color = 0xFF6200EA.toInt()),
-            categoryColor = Color(0xFF6200EA),
-            groups = persistentListOf(TaskGroup.NoDueDate(tasks)),
-            totalTasks = 2,
-            completedTasks = 0,
+            data = CategoryDetailsData(
+                category = Category(id = 1L, name = "Work", color = 0xFF6200EA.toInt()),
+                categoryColor = Color(0xFF6200EA),
+                groups = persistentListOf(TaskGroup.NoDueDate(tasks)),
+                totalTasks = 2,
+                completedTasks = 0,
+            ),
             onAddTask = { _, _ -> },
             onUpdateTaskStatus = {},
             onTaskClick = {},

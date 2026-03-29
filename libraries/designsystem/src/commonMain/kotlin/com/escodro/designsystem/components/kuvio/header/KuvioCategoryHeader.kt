@@ -58,9 +58,9 @@ fun KuvioCategoryHeader(
             .padding(horizontal = 16.dp, vertical = 12.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        CategoryIconBox(
-            color = color,
-            emoji = emoji,
+        KuvioEmojiIcon(
+            emoji = emoji ?: "\uD83D\uDCCB",
+            tint = color.copy(alpha = 0.15f),
             modifier = Modifier.size(48.dp),
         )
         Spacer(modifier = Modifier.width(12.dp))
@@ -81,28 +81,6 @@ fun KuvioCategoryHeader(
                 tint = MaterialTheme.colorScheme.onSurface,
             )
         }
-    }
-}
-
-@Composable
-private fun CategoryIconBox(
-    color: Color,
-    modifier: Modifier = Modifier,
-    emoji: String? = null,
-) {
-    val backgroundTint = color.copy(alpha = 0.15f)
-    if (emoji != null) {
-        KuvioEmojiIcon(
-            emoji = emoji,
-            tint = backgroundTint,
-            modifier = modifier,
-        )
-    } else {
-        KuvioEmojiIcon(
-            emoji = "\uD83D\uDCCB",
-            tint = backgroundTint,
-            modifier = modifier,
-        )
     }
 }
 

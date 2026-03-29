@@ -8,9 +8,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.MoreVert
-import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -20,11 +17,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.escodro.designsystem.components.kuvio.icon.KuvioEmojiIcon
+import com.escodro.designsystem.components.kuvio.icon.KuvioMoreIcon
 import com.escodro.designsystem.components.kuvio.text.KuvioBodyMediumText
 import com.escodro.designsystem.components.kuvio.text.KuvioTitleLargeText
 import com.escodro.designsystem.theme.AlkaaThemePreview
 import com.escodro.resources.Res
-import com.escodro.resources.category_details_options_content_description
 import com.escodro.resources.category_header_progress
 import org.jetbrains.compose.resources.stringResource
 
@@ -75,9 +72,7 @@ fun KuvioCategoryHeader(
             )
         }
         IconButton(onClick = onOptionsClick) {
-            Icon(
-                imageVector = Icons.Default.MoreVert,
-                contentDescription = stringResource(Res.string.category_details_options_content_description),
+            KuvioMoreIcon(
                 tint = MaterialTheme.colorScheme.onSurface,
             )
         }

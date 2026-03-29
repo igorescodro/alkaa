@@ -45,3 +45,4 @@ freeline_project_description.json
 
 # AI generated files
 /.output.txt
+*.DS_Store

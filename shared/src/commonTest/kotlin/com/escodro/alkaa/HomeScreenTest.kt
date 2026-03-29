@@ -24,7 +24,6 @@ import com.escodro.local.dao.TaskDao
 import com.escodro.navigationapi.destination.HomeDestination
 import com.escodro.navigationapi.destination.TopLevelDestinations
 import com.escodro.test.AlkaaTest
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
 import org.jetbrains.compose.resources.getString
 import org.koin.test.KoinTest
@@ -54,7 +53,7 @@ internal class HomeScreenTest : AlkaaTest(), KoinTest {
     @Test
     fun when_tab_changes_then_title_updates() = uiTest {
         TopLevelDestinations.forEach { section ->
-            val title = runBlocking { getString(section.title) }
+            val title = getString(section.title)
 
             // Click on each item and validate the title
             onNodeWithContentDescription(label = title, useUnmergedTree = true).performClick()
@@ -65,7 +64,7 @@ internal class HomeScreenTest : AlkaaTest(), KoinTest {
     @Test
     fun when_tab_changes_and_back_pressed_then_title_updates() = uiTest {
         // Click on Settings tab
-        val settingsTitle = runBlocking { getString(HomeDestination.Preferences.title) }
+        val settingsTitle = getString(HomeDestination.Preferences.title)
         onNodeWithContentDescription(label = settingsTitle, useUnmergedTree = true).performClick()
         onNodeWithTag(HomeDestination.Preferences.title.toString()).assertIsSelected()
 
@@ -76,7 +75,7 @@ internal class HomeScreenTest : AlkaaTest(), KoinTest {
         }
 
         // Click on Tasks tab
-        val tasksTitle = runBlocking { getString(HomeDestination.TaskList.title) }
+        val tasksTitle = getString(HomeDestination.TaskList.title)
         onNodeWithContentDescription(label = tasksTitle, useUnmergedTree = true).performClick()
         onNodeWithTag(HomeDestination.TaskList.title.toString()).assertIsSelected()
     }
@@ -84,7 +83,7 @@ internal class HomeScreenTest : AlkaaTest(), KoinTest {
     @Test
     fun when_in_detail_screen_and_tab_clicked_again_then_it_returns_to_home() = uiTest {
         // Add a task to be able to open it
-        val tasksTitle = runBlocking { getString(HomeDestination.TaskList.title) }
+        val tasksTitle = getString(HomeDestination.TaskList.title)
         val taskName = "Task for navigation"
         onNodeWithContentDescription("Add task").performClick()
         waitUntilExactlyOneExists(hasSetTextAction())
@@ -107,7 +106,7 @@ internal class HomeScreenTest : AlkaaTest(), KoinTest {
     fun when_in_search_detail_screen_and_tab_clicked_again_then_it_returns_to_search_home() =
         uiTest {
             // Navigate to Search tab
-            val searchTitle = runBlocking { getString(HomeDestination.Search.title) }
+            val searchTitle = getString(HomeDestination.Search.title)
             onNodeWithContentDescription(label = searchTitle, useUnmergedTree = true).performClick()
 
             // Add a task to be able to search and open it
@@ -145,7 +144,7 @@ internal class HomeScreenTest : AlkaaTest(), KoinTest {
     @Test
     fun when_in_more_detail_screen_and_tab_clicked_again_then_it_returns_to_more_home() = uiTest {
         // Navigate to More tab
-        val moreTitle = runBlocking { getString(HomeDestination.Preferences.title) }
+        val moreTitle = getString(HomeDestination.Preferences.title)
         onNodeWithContentDescription(label = moreTitle, useUnmergedTree = true).performClick()
 
         // Open About screen

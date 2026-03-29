@@ -27,7 +27,6 @@ import com.escodro.local.dao.TaskDao
 import com.escodro.task.model.AlarmInterval
 import com.escodro.task.presentation.list.CheckboxNameKey
 import com.escodro.test.AlkaaTest
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
 import org.jetbrains.compose.resources.getString
 import org.koin.core.component.inject
@@ -163,7 +162,7 @@ internal class TaskFlowTest : AlkaaTest(), KoinTest {
         onNodeWithText("Confirm").performClick()
 
         // Set repeating randomly
-        val alarmArray = AlarmInterval.entries.map { runBlocking { getString(it.title) } }
+        val alarmArray = AlarmInterval.entries.map { getString(it.title) }
         onNodeWithText(alarmArray[0]).performClick()
         onNodeWithText(alarmArray.last()).performClick()
 

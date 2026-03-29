@@ -120,11 +120,20 @@ Use `useUnmergedTree = true` when nodes are nested inside merged semantics.
 
 ## Resource Strings
 
-Resolve Compose Multiplatform string resources at test time via `runBlocking`:
+Resolve Compose Multiplatform string resources at test time directly inside `uiTest` or `runComposeUiTest` (as they are suspendable):
 
 ```kotlin
-val header = runBlocking { getString(Res.string.task_list_header_error) }
-onNodeWithText(text = header).assertExists()
+@Test
+fun test_something() = uiTest {
+    val header = getString(Res.string.task_list_header_error)
+    onNodeWithText(text = header).assertExists()
+}
+
+@Test
+fun test_standalone() = runComposeUiTest {
+    val header = getString(Res.string.task_list_header_error)
+    onNodeWithText(text = header).assertExists()
+}
 ```
 
 Never hardcode UI strings in tests.
@@ -145,7 +154,7 @@ Use comments to separate the three blocks:
 
 ```kotlin
 @Test
-fun test_errorViewIsShown() = runComposeUiTest {
+fun test_errorViewIsShown() = uiTest {
     // Given an error state
     val state = TaskListViewState.Error(IllegalStateException())
 
@@ -153,7 +162,7 @@ fun test_errorViewIsShown() = runComposeUiTest {
     loadTaskList(state)
 
     // Then the error view is shown
-    val header = runBlocking { getString(Res.string.task_list_header_error) }
+    val header = getString(Res.string.task_list_header_error)
     onNodeWithText(text = header).assertExists()
 }
 ```

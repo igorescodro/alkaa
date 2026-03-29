@@ -22,7 +22,6 @@ import com.escodro.task.presentation.detail.alarm.interactor.OpenAlarmSchedulerI
 import com.escodro.task.presentation.fake.PermissionControllerFake
 import com.escodro.test.AlkaaTest
 import com.escodro.test.annotation.IgnoreOnDesktop
-import kotlinx.coroutines.runBlocking
 import kotlinx.datetime.LocalDateTime
 import org.jetbrains.compose.resources.getString
 import org.koin.compose.KoinApplication
@@ -51,7 +50,7 @@ internal class AlarmSelectionTest : AlkaaTest() {
         loadAlarmSelection()
 
         // Click in the alarm item
-        val noAlarmString = runBlocking { getString(Res.string.task_detail_alarm_no_alarm) }
+        val noAlarmString = getString(Res.string.task_detail_alarm_no_alarm)
         onNodeWithText(noAlarmString).performClick()
 
         // Since we are using a fake that doesn't actually open a picker, we can't easily set the date
@@ -63,18 +62,19 @@ internal class AlarmSelectionTest : AlkaaTest() {
     @Test
     fun test_addAndRemoveAlarm() = runComposeUiTest {
         // Load the alarm section component (with a preset date to test removal)
-        val localDateTime = LocalDateTime(year = 2021, month = 4, day = 15, hour = 17, minute = 0)
+        val localDateTime =
+            LocalDateTime(year = 2021, month = 4, day = 15, hour = 17, minute = 0)
         loadAlarmSelection(localDateTime, AlarmInterval.NEVER)
 
         // Click to remove the alarm
-        val removeAlarmCd = runBlocking { getString(Res.string.task_detail_cd_icon_remove_alarm) }
+        val removeAlarmCd = getString(Res.string.task_detail_cd_icon_remove_alarm)
         onNodeWithContentDescription(removeAlarmCd, useUnmergedTree = true).performClick()
 
         // Assert that the alarm item is not set again
-        val noAlarmString = runBlocking { getString(Res.string.task_detail_alarm_no_alarm) }
+        val noAlarmString = getString(Res.string.task_detail_alarm_no_alarm)
         onNodeWithText(noAlarmString).assertIsDisplayed()
 
-        val repeatIconCd = runBlocking { getString(Res.string.task_detail_cd_icon_repeat_alarm) }
+        val repeatIconCd = getString(Res.string.task_detail_cd_icon_repeat_alarm)
         onNodeWithText(repeatIconCd).assertDoesNotExist()
     }
 
@@ -85,11 +85,10 @@ internal class AlarmSelectionTest : AlkaaTest() {
         loadAlarmSelection(localDateTime, AlarmInterval.NEVER)
 
         // Assert that when clicking in each option, it is shown as selected
-        val repeatIconCd = runBlocking { getString(Res.string.task_detail_cd_icon_repeat_alarm) }
-
+        val repeatIconCd = getString(Res.string.task_detail_cd_icon_repeat_alarm)
         AlarmInterval.entries.forEach { interval ->
             onNodeWithContentDescription(repeatIconCd, useUnmergedTree = true).performClick()
-            val intervalString = runBlocking { getString(interval.title) }
+            val intervalString = getString(interval.title)
             onAllNodesWithText(intervalString)[0].performClick()
             onAllNodesWithText(intervalString)[0].assertIsDisplayed()
         }
@@ -102,7 +101,7 @@ internal class AlarmSelectionTest : AlkaaTest() {
         val alarmInterval = AlarmInterval.MONTHLY
         loadAlarmSelection(localDateTime, alarmInterval)
 
-        val alarmString = runBlocking { getString(alarmInterval.title) }
+        val alarmString = getString(alarmInterval.title)
 
         // Assert that the date is shown in the view
         onNodeWithText(text = "15", substring = true).assertIsDisplayed()
@@ -119,11 +118,11 @@ internal class AlarmSelectionTest : AlkaaTest() {
         loadAlarmSelection(hasExactAlarmPermission = false)
 
         // Click in the alarm item
-        val noAlarmString = runBlocking { getString(Res.string.task_detail_alarm_no_alarm) }
+        val noAlarmString = getString(Res.string.task_detail_alarm_no_alarm)
         onNodeWithText(noAlarmString).performClick()
 
         // Assert that the alarm item is not set again
-        val dialogTitle = runBlocking { getString(Res.string.task_alarm_permission_dialog_title) }
+        val dialogTitle = getString(Res.string.task_alarm_permission_dialog_title)
         onNodeWithText(dialogTitle).assertIsDisplayed()
     }
 

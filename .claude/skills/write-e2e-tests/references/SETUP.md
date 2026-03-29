@@ -95,11 +95,14 @@ Use `useUnmergedTree = true` when nodes are inside merged semantics.
 
 ## Resource Strings
 
-Never hardcode UI strings. Resolve them at test time:
+Never hardcode UI strings. Resolve them at test time inside `uiTest` or `runComposeUiTest` (as they are suspendable):
 
 ```kotlin
-val emptyMessage = runBlocking { getString(Res.string.tracker_header_empty) }
-onNodeWithText(text = emptyMessage).assertExists()
+@Test
+fun test_something() = uiTest {
+    val emptyMessage = getString(Res.string.tracker_header_empty)
+    onNodeWithText(text = emptyMessage).assertExists()
+}
 ```
 
 ## Fake Dependencies

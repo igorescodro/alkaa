@@ -14,7 +14,6 @@ import com.escodro.search.presentation.SearchScaffold
 import com.escodro.search.presentation.SearchViewState
 import com.escodro.test.AlkaaTest
 import kotlinx.collections.immutable.persistentListOf
-import kotlinx.coroutines.runBlocking
 import org.jetbrains.compose.resources.getString
 import kotlin.test.Test
 
@@ -30,8 +29,8 @@ internal class SearchSectionTest : AlkaaTest() {
         loadTaskList(state)
 
         // Assert that the empty view is loaded
-        val header = runBlocking { getString(Res.string.search_header_empty) }
-        val contentDescription = runBlocking { getString(Res.string.search_cd_empty_list) }
+        val header = getString(Res.string.search_header_empty)
+        val contentDescription = getString(Res.string.search_cd_empty_list)
         onNodeWithText(text = header).assertExists()
         onNodeWithContentDescription(label = contentDescription).assertExists()
     }

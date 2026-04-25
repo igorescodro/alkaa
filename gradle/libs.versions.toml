@@ -72,7 +72,7 @@ test_robolectric = "4.16.1"
 # Quality
 ktlint = "1.8.0"
 detekt = "2.0.0-alpha.2"
-composerules = "0.5.7"
+composerules = "0.5.8"
 
 # License
 aboutlibraries = "13.2.1"

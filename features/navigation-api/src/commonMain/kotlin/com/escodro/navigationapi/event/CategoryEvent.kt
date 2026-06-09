@@ -14,4 +14,9 @@ object CategoryEvent {
         override fun nextDestination(): Destination =
             CategoryDestination.CategoryBottomSheet(categoryId = categoryId)
     }
+
+    data class OnCategoryDetailsClick(val categoryId: Long) : Event {
+        override fun nextDestination(): Destination =
+            CategoryDestination.CategoryDetails(categoryId)
+    }
 }

@@ -69,6 +69,15 @@
     <string name="category_dialog_remove_confirm">Eliminar</string>
     <string name="category_dialog_remove_cancel">Cancelar</string>
     <string name="category_cd_remove_category">Eliminar</string>
+    <string name="category_header_progress">%1$d tareas · %2$d completadas</string>
+    <string name="category_details_empty_title">Sin tareas</string>
+    <string name="category_details_empty_description">Agrega una tarea usando la barra de abajo</string>
+    <string name="category_details_options_content_description">Opciones de categoría</string>
+    <string name="category_details_section_overdue">Atrasadas</string>
+    <string name="category_details_section_due_today">Para hoy</string>
+    <string name="category_details_section_upcoming">Próximas</string>
+    <string name="category_details_section_no_due_date">Sin fecha</string>
+    <string name="category_details_section_completed">Completadas</string>
 
     <!-- Search -->
     <string name="search_cd_icon">Buscar</string>

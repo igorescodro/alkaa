@@ -48,13 +48,13 @@ fun alkaaTypography(): Typography {
     val nunitoFamily: FontFamily = nunitoFamily()
     val latoFamily: FontFamily = latoFamily()
 
-    val titleFontFamily = if (DesignSystemConfig.IsNewDesignEnabled) {
+    val titleFontFamily = if (DesignSystemConfig.isNewDesignEnabled) {
         nunitoFamily
     } else {
         openSansFamily
     }
 
-    val defaultFontFamily = if (DesignSystemConfig.IsNewDesignEnabled) {
+    val defaultFontFamily = if (DesignSystemConfig.isNewDesignEnabled) {
         nunitoFamily
     } else {
         latoFamily

@@ -4,6 +4,8 @@ import com.escodro.category.mapper.CategoryMapper
 import com.escodro.category.navigation.CategoryNavGraph
 import com.escodro.category.presentation.bottomsheet.CategoryAddViewModel
 import com.escodro.category.presentation.bottomsheet.CategoryEditViewModel
+import com.escodro.category.presentation.detail.CategoryDetailsMapper
+import com.escodro.category.presentation.detail.CategoryDetailsViewModel
 import com.escodro.category.presentation.list.CategoryListViewModelImpl
 import com.escodro.categoryapi.presentation.CategoryListViewModel
 import com.escodro.navigationapi.provider.NavGraph
@@ -19,9 +21,11 @@ val categoryModule = module {
     viewModelOf(::CategoryListViewModelImpl) bind CategoryListViewModel::class
     viewModelOf(::CategoryAddViewModel)
     viewModelOf(::CategoryEditViewModel)
+    viewModelOf(::CategoryDetailsViewModel)
 
     // Mapper
     factoryOf(::CategoryMapper)
+    factoryOf(::CategoryDetailsMapper)
 
     // Navigation
     factoryOf(::CategoryNavGraph) bind NavGraph::class

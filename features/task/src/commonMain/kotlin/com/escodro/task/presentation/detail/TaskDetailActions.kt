@@ -1,6 +1,7 @@
 package com.escodro.task.presentation.detail
 
 import com.escodro.task.model.AlarmInterval
+import com.escodro.task.model.ChecklistItem
 import com.escodro.task.presentation.detail.main.CategoryId
 import kotlinx.datetime.LocalDateTime
 
@@ -13,6 +14,9 @@ internal data class TaskDetailActions(
     val onCategoryChange: (CategoryId) -> Unit = {},
     val onAlarmChange: (LocalDateTime?) -> Unit = {},
     val onIntervalChange: (AlarmInterval) -> Unit = {},
+    val onChecklistAdd: (String) -> Unit = {},
+    val onChecklistUpdate: (ChecklistItem) -> Unit = {},
+    val onChecklistDelete: (ChecklistItem) -> Unit = {},
     val hasExactAlarmPermission: () -> Boolean = { false },
     val openExactAlarmPermissionScreen: () -> Unit = {},
     val openAppSettingsScreen: () -> Unit = {},

@@ -38,6 +38,10 @@ import com.escodro.domain.usecase.task.UpdateTaskCategory
 import com.escodro.domain.usecase.task.UpdateTaskDescription
 import com.escodro.domain.usecase.task.UpdateTaskStatus
 import com.escodro.domain.usecase.task.UpdateTaskTitle
+import com.escodro.domain.usecase.checklist.AddChecklistItem
+import com.escodro.domain.usecase.checklist.DeleteChecklistItem
+import com.escodro.domain.usecase.checklist.LoadChecklistItems
+import com.escodro.domain.usecase.checklist.UpdateChecklistItem
 import com.escodro.domain.usecase.task.implementation.AddTaskImpl
 import com.escodro.domain.usecase.task.implementation.LoadTaskImpl
 import com.escodro.domain.usecase.task.implementation.UpdateTaskCategoryImpl
@@ -121,6 +125,12 @@ val domainModule = module {
     // Preferences Use Cases
     factoryOf(::UpdateAppTheme)
     factoryOf(::LoadAppTheme)
+
+    // Checklist Use Cases
+    factoryOf(::AddChecklistItem)
+    factoryOf(::DeleteChecklistItem)
+    factoryOf(::LoadChecklistItems)
+    factoryOf(::UpdateChecklistItem)
 
     // Providers
     factoryOf(::DateTimeProviderImpl) bind DateTimeProvider::class

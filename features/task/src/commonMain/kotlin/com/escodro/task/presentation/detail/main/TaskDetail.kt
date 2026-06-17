@@ -42,11 +42,13 @@ import com.escodro.resources.task_detail_cd_error
 import com.escodro.resources.task_detail_cd_icon_category
 import com.escodro.resources.task_detail_cd_icon_description
 import com.escodro.resources.task_detail_header_error
+import com.escodro.task.model.ChecklistItem
 import com.escodro.task.model.Task
 import com.escodro.task.presentation.category.CategorySelection
 import com.escodro.task.presentation.detail.TaskDetailActions
 import com.escodro.task.presentation.detail.TaskDetailSectionContent
 import com.escodro.task.presentation.detail.alarm.AlarmSelection
+import com.escodro.task.presentation.detail.checklist.Checklist
 import com.escodro.task.presentation.detail.alarm.TaskAlarmViewModel
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
@@ -80,6 +82,9 @@ internal fun TaskDetailScreen(
         onCategoryChange = { categoryId -> detailViewModel.updateCategory(id, categoryId) },
         onAlarmChange = { calendar -> alarmViewModel.updateAlarm(id, calendar) },
         onIntervalChange = { interval -> alarmViewModel.setRepeating(id, interval) },
+        onChecklistAdd = { title -> detailViewModel.addChecklistItem(id, title) },
+        onChecklistUpdate = { item -> detailViewModel.updateChecklistItem(item) },
+        onChecklistDelete = { item -> detailViewModel.deleteChecklistItem(item) },
         hasExactAlarmPermission = { alarmPermission.hasExactAlarmPermission() },
         openExactAlarmPermissionScreen = { alarmPermission.openExactAlarmPermissionScreen() },
         openAppSettingsScreen = { alarmPermission.openAppSettings() },
@@ -123,6 +128,7 @@ internal fun TaskDetailRouter(
                 is TaskDetailState.Loaded -> {
                     TaskDetailContent(
                         task = state.task,
+                        checklistItems = state.checklistItems,
                         categoryViewState = categoryViewState,
                         actions = actions,
                     )
@@ -135,6 +141,7 @@ internal fun TaskDetailRouter(
 @Composable
 private fun TaskDetailContent(
     task: Task,
+    checklistItems: List<ChecklistItem>,
     categoryViewState: CategoryState,
     actions: TaskDetailActions,
 ) {
@@ -155,6 +162,12 @@ private fun TaskDetailContent(
             TaskDescriptionTextField(
                 text = task.description,
                 onDescriptionChange = actions.onDescriptionChange,
+            )
+            Checklist(
+                checklistItems = checklistItems,
+                onAdd = actions.onChecklistAdd,
+                onUpdate = actions.onChecklistUpdate,
+                onDelete = actions.onChecklistDelete,
             )
             AlarmSelection(
                 calendar = task.dueDate,

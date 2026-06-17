@@ -4,6 +4,8 @@ import com.escodro.domain.repository.CategoryRepository
 import com.escodro.domain.repository.SearchRepository
 import com.escodro.domain.repository.TaskRepository
 import com.escodro.domain.repository.TaskWithCategoryRepository
+import com.escodro.domain.repository.ChecklistRepository
+import com.escodro.repository.ChecklistRepositoryImpl
 import com.escodro.domain.usecase.preferences.PreferencesRepository
 import com.escodro.repository.CategoryRepositoryImpl
 import com.escodro.repository.PreferencesRepositoryImpl
@@ -13,6 +15,7 @@ import com.escodro.repository.TaskWithCategoryRepositoryImpl
 import com.escodro.repository.mapper.AlarmIntervalMapper
 import com.escodro.repository.mapper.AppThemeOptionsMapper
 import com.escodro.repository.mapper.CategoryMapper
+import com.escodro.repository.mapper.ChecklistItemMapper
 import com.escodro.repository.mapper.TaskMapper
 import com.escodro.repository.mapper.TaskWithCategoryMapper
 import org.koin.core.module.dsl.factoryOf
@@ -28,6 +31,7 @@ val repositoryModule = module {
     // Repositories
     singleOf(::TaskRepositoryImpl) bind TaskRepository::class
     singleOf(::CategoryRepositoryImpl) bind CategoryRepository::class
+    singleOf(::ChecklistRepositoryImpl) bind ChecklistRepository::class
     singleOf(::TaskWithCategoryRepositoryImpl) bind TaskWithCategoryRepository::class
     singleOf(::SearchRepositoryImpl) bind SearchRepository::class
     singleOf(::PreferencesRepositoryImpl) bind PreferencesRepository::class
@@ -35,6 +39,7 @@ val repositoryModule = module {
     // Mappers
     factoryOf(::AlarmIntervalMapper)
     factoryOf(::TaskMapper)
+    factoryOf(::ChecklistItemMapper)
     factoryOf(::CategoryMapper)
     factoryOf(::TaskWithCategoryMapper)
     factoryOf(::AppThemeOptionsMapper)

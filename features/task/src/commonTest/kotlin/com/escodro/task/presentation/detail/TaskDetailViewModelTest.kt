@@ -1,7 +1,14 @@
 package com.escodro.task.presentation.detail
 
 import com.escodro.coroutines.AppCoroutineScope
+import com.escodro.domain.model.ChecklistItem
+import com.escodro.domain.repository.ChecklistRepository
+import com.escodro.domain.usecase.checklist.AddChecklistItem
+import com.escodro.domain.usecase.checklist.DeleteChecklistItem
+import com.escodro.domain.usecase.checklist.LoadChecklistItems
+import com.escodro.domain.usecase.checklist.UpdateChecklistItem
 import com.escodro.task.mapper.AlarmIntervalMapper
+import com.escodro.task.mapper.ChecklistItemMapper
 import com.escodro.task.mapper.TaskMapper
 import com.escodro.task.presentation.detail.main.CategoryId
 import com.escodro.task.presentation.detail.main.TaskDetailState
@@ -15,7 +22,9 @@ import com.escodro.task.presentation.fake.UpdateTaskDescriptionFake
 import com.escodro.task.presentation.fake.UpdateTaskTitleFake
 import com.escodro.test.rule.CoroutinesTestDispatcher
 import com.escodro.test.rule.CoroutinesTestDispatcherImpl
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -35,12 +44,24 @@ internal class TaskDetailViewModelTest :
 
     private val taskMapper = TaskMapper(AlarmIntervalMapper())
 
+    private val fakeChecklistRepo = object : ChecklistRepository {
+        override suspend fun insertChecklistItem(item: ChecklistItem) = Unit
+        override suspend fun updateChecklistItem(item: ChecklistItem) = Unit
+        override suspend fun deleteChecklistItem(item: ChecklistItem) = Unit
+        override fun getChecklistItems(taskId: Long): Flow<List<ChecklistItem>> = flowOf(emptyList())
+    }
+
     private val viewModel = TaskDetailViewModel(
         loadTaskUseCase = loadTask,
         updateTaskTitle = updateTaskTitle,
         updateTaskDescription = updateDescription,
         updateTaskCategory = updateTaskCategory,
         taskMapper = taskMapper,
+        loadChecklistItemsUseCase = LoadChecklistItems(fakeChecklistRepo),
+        addChecklistItemUseCase = AddChecklistItem(fakeChecklistRepo),
+        updateChecklistItemUseCase = UpdateChecklistItem(fakeChecklistRepo),
+        deleteChecklistItemUseCase = DeleteChecklistItem(fakeChecklistRepo),
+        checklistItemMapper = ChecklistItemMapper(),
         coroutineDebouncer = CoroutinesDebouncerFake(),
         applicationScope = AppCoroutineScope(context = testDispatcher()),
     )
